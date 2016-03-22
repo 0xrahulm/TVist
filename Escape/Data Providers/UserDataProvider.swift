@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class UserDataProvider: CommonDataProvider {
     
@@ -17,6 +19,40 @@ class UserDataProvider: CommonDataProvider {
     
     func getSecurityToken(){
         
+        
+        Alamofire.request(.GET, "http://api.androidhive.info/contacts/", parameters: nil)
+            .responseJSON { response in
+                
+                switch response.result {
+                case .Success:
+                    
+                    if let data = response.result.value {
+                        if let arr = JSON(data)["contacts"].array{
+                            for data in arr{
+                                let name = data["name"].stringValue
+                                print("name : \(name)")
+                            }
+                        }
+                    }
+                    break;
+                    
+                case .Failure:
+                    print("failed \(response.result.error)")
+                    break;
+                }
+                
+        }
+        
     }
+    
+//    func ServiceCall(method :Alamofire.Method , subServiceType : NetworkConstants.SubServiceType , parameters : [String:AnyObject]){
+//        
+//        
+//    }
+//    func ServiceSuccessResponse(subServiceType : NetworkConstants.SubServiceType) -> Alamofire.responseJSON{
+//        
+//    }
+    
+    
 
 }
