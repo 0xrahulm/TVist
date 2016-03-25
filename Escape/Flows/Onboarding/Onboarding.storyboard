@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Custom Navigation View Controller-->
@@ -21,10 +22,10 @@
             </objects>
             <point key="canvasLocation" x="236" y="364"/>
         </scene>
-        <!--View Controller-->
+        <!--Login Page View Controller-->
         <scene sceneID="uCI-7j-MOU">
             <objects>
-                <viewController id="ySS-Lp-ggS" sceneMemberID="viewController">
+                <viewController id="ySS-Lp-ggS" customClass="LoginPageViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qaS-dv-PWE"/>
                         <viewControllerLayoutGuide type="bottom" id="npf-J3-rqY"/>
@@ -33,20 +34,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="yayyy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I3m-Sr-gXU">
-                                <rect key="frame" x="358" y="375" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ToU-B2-gHv" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="20" y="455" width="560" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="j2c-73-chQ"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="fbLoginTapped:" destination="ySS-Lp-ggS" eventType="touchUpInside" id="5QC-Ip-M8p"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="I3m-Sr-gXU" firstAttribute="centerX" secondItem="rpx-Jr-hWO" secondAttribute="centerX" id="N1G-Nc-81C"/>
-                            <constraint firstItem="I3m-Sr-gXU" firstAttribute="centerY" secondItem="rpx-Jr-hWO" secondAttribute="centerY" id="u8U-jg-dtL"/>
+                            <constraint firstItem="ToU-B2-gHv" firstAttribute="centerX" secondItem="rpx-Jr-hWO" secondAttribute="centerX" id="87H-gb-EYB"/>
+                            <constraint firstItem="ToU-B2-gHv" firstAttribute="leading" secondItem="rpx-Jr-hWO" secondAttribute="leading" constant="20" id="8cf-lZ-nmO"/>
+                            <constraint firstAttribute="trailing" secondItem="ToU-B2-gHv" secondAttribute="trailing" constant="20" id="QOG-QW-P7Z"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="ToU-B2-gHv" secondAttribute="bottom" constant="100" id="gDg-jl-GQb"/>
+                            <constraint firstItem="ToU-B2-gHv" firstAttribute="centerY" secondItem="rpx-Jr-hWO" secondAttribute="centerY" id="oW9-e8-0Se"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="oW9-e8-0Se"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="CQi-BJ-GY9"/>
+                    <connections>
+                        <outlet property="fbLoginButton" destination="ToU-B2-gHv" id="8dH-R1-cBO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0O7-jN-e9m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

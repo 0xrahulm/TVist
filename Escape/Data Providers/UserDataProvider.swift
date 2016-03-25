@@ -19,40 +19,57 @@ class UserDataProvider: CommonDataProvider {
     
     func getSecurityToken(){
         
+       //ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUsers, params: nil, delegate: self)
+      
+    }
+    func postFBtoken(token : String , expires_in : NSTimeInterval){
+    
         
-        Alamofire.request(.GET, "http://api.androidhive.info/contacts/", parameters: nil)
-            .responseJSON { response in
-                
-                switch response.result {
-                case .Success:
-                    
-                    if let data = response.result.value {
-                        if let arr = JSON(data)["contacts"].array{
-                            for data in arr{
-                                let name = data["name"].stringValue
-                                print("name : \(name)")
-                            }
-                        }
-                    }
-                    break;
-                    
-                case .Failure:
-                    print("failed \(response.result.error)")
-                    break;
-                }
-                
-        }
+        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .FBSignIn, params: ["facebook_token" : token , "expires_in" : expires_in], delegate: self)
         
     }
     
-//    func ServiceCall(method :Alamofire.Method , subServiceType : NetworkConstants.SubServiceType , parameters : [String:AnyObject]){
-//        
-//        
-//    }
-//    func ServiceSuccessResponse(subServiceType : NetworkConstants.SubServiceType) -> Alamofire.responseJSON{
-//        
-//    }
+    override func serviceSuccessfull(service: Service) {
+        
+        switch service.subServiveType {
+        case .testSubService :
+            print("Response \(service.outPutResponse)")
+
+            break
+            
+        case .FBSignIn:
+            print("FB response success")
+            if let data = service.outPutResponse as? [String:AnyObject]{
+                self.parseFBUserData(data)
+            }
+            break
+            
+        default:
+            break
+        }
     
+    }
+    override func serviceError(service: Service) {
+        switch service.subServiveType {
+        case .FBSignIn:
+            print("FB post error : \(service.errorCode)")
+            break
+            
+        default :
+            print("Service error code \(service.errorCode)")
+            break
+        }
+    }
     
 
 }
+extension UserDataProvider{
+    func parseFBUserData(dict : [String : AnyObject]){
+        ECUserDefaults.setLoggedIn(true)
+        
+    }
+}
+
+    
+
+

@@ -10,6 +10,7 @@ import UIKit
 
 enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"
+    case MainTab = "MainTab"
 }
 
 class ScreenManagerViewController: UIViewController {
@@ -34,7 +35,7 @@ class ScreenManagerViewController: UIViewController {
     
     private func initialViewBootUp(){
     
-        if (true){ // if not login, open onBoardingflow
+        if (!ECUserDefaults.isLoggedIn()){ // if not login, open onBoardingflow
             currentPresentedViewController  = initialViewControllerFor(.Onboarding)
             
             if let currentPresentedViewController = currentPresentedViewController {
@@ -45,6 +46,11 @@ class ScreenManagerViewController: UIViewController {
             }
             
         }else{
+            currentPresentedViewController = initialViewControllerFor(.MainTab)
+            if let currentPresentedViewController = currentPresentedViewController{
+                presentViewController(currentPresentedViewController, animated : false, completion:nil)
+                presentedViewControllers.append(currentPresentedViewController)
+            }
             
         }
         
@@ -59,9 +65,6 @@ class ScreenManagerViewController: UIViewController {
         return UIStoryboard(name: storyboard.rawValue, bundle: nil).instantiateViewControllerWithIdentifier(forIdentifier)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
 
   
 
