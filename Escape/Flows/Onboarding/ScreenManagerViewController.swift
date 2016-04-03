@@ -36,22 +36,27 @@ class ScreenManagerViewController: UIViewController {
     private func initialViewBootUp(){
     
         if (!ECUserDefaults.isLoggedIn()){ // if not login, open onBoardingflow
-            currentPresentedViewController  = initialViewControllerFor(.Onboarding)
             
-            if let currentPresentedViewController = currentPresentedViewController {
-                presentViewController(currentPresentedViewController, animated: false, completion: nil)
-                presentedViewControllers = []
-                presentedViewControllers.append(currentPresentedViewController)
-                
-            }
+                openViewControllerWith(.Onboarding)
+        
             
         }else{
-            currentPresentedViewController = initialViewControllerFor(.MainTab)
-            if let currentPresentedViewController = currentPresentedViewController{
-                presentViewController(currentPresentedViewController, animated : false, completion:nil)
-                presentedViewControllers.append(currentPresentedViewController)
-            }
+                openViewControllerWith(.MainTab)
             
+        }
+        
+    }
+    
+    private func openViewControllerWith(storyBoardIdentifier : StoryBoardIdentifier){
+        
+        currentPresentedViewController = initialViewControllerFor(storyBoardIdentifier)
+        if let currentPresentedViewController = currentPresentedViewController{
+            presentViewController(currentPresentedViewController, animated: false, completion: nil)
+            if storyBoardIdentifier == .Onboarding{
+                presentedViewControllers = []
+            }
+
+            presentedViewControllers.append(currentPresentedViewController)
         }
         
     }
@@ -68,4 +73,58 @@ class ScreenManagerViewController: UIViewController {
 
   
 
+}
+
+extension ScreenManagerViewController{
+    
+    func switchTabForAction(action : ScreenManagerAction){
+        
+        if let mainTAbVC = currentPresentedViewController as? MainTabBarViewController{
+            switch action {
+            case .HomeTab:
+                mainTAbVC.selectedIndex = 0
+                break
+            case .DiscoverTab:
+                mainTAbVC.selectedIndex = 1
+                break
+                
+            case .MyAccountTab:
+                mainTAbVC.selectedIndex = 2
+                break
+            default:
+                mainTAbVC.selectedIndex = 0
+                break
+            }
+        }
+        
+    }
+    
+    func performScreenManagerAction(action : ScreenManagerAction , params : [String:AnyObject]?){
+        
+        if currentPresentedViewController == nil{
+            // do pending action here
+            return
+        }
+        switch action{
+            
+        case .MainTab:
+            openMainTab()
+            break;
+            
+        default:
+            break
+        }
+    }
+    
+    func openMainTab(){
+        
+        currentPresentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    func performLogout(){
+        currentPresentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+        ECUserDefaults.setLoggedIn(false)
+        
+    }
+    
 }

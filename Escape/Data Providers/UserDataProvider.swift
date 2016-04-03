@@ -10,11 +10,17 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+protocol EmailLoginProtocol : class{
+    
+    func signInSuccessfull(data : [String:AnyObject])
+    func signInError(data : AnyObject?)
+}
+
 class UserDataProvider: CommonDataProvider {
     
     static let sharedDataProvider  = UserDataProvider()
     
-    var securityToken : String?
+    weak var emailLoginDelegate : EmailLoginProtocol?
     
     
     func getSecurityToken(){
@@ -29,19 +35,45 @@ class UserDataProvider: CommonDataProvider {
         
     }
     
+    func registerUserWithEmail(name : String , email : String , password : String){
+        
+        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSignUp, params: ["full_name":name , "email":email , "password":password], delegate: self)
+    }
+    
+    func signInWithEmail(email : String, password : String){
+        
+        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSigIn, params: ["email":email , "password":password], delegate: self)
+        
+    }
+    
+    
+// MARK: - Service Responses
+    
     override func serviceSuccessfull(service: Service) {
         
         switch service.subServiveType {
         case .testSubService :
-            print("Response \(service.outPutResponse)")
 
             break
             
         case .FBSignIn:
-            print("FB response success")
             if let data = service.outPutResponse as? [String:AnyObject]{
                 self.parseFBUserData(data)
             }
+            break
+            
+        case .EmailSignUp:
+            if let data = service.outPutResponse as? [String:AnyObject]{
+                self.parseEmailSignInUserData(data)
+            
+            }
+            break
+            
+        case .EmailSigIn:
+            if let data = service.outPutResponse as? [String:AnyObject]{
+                self.parseEmailSignInUserData(data)
+            }
+            
             break
             
         default:
@@ -52,7 +84,23 @@ class UserDataProvider: CommonDataProvider {
     override func serviceError(service: Service) {
         switch service.subServiveType {
         case .FBSignIn:
-            print("FB post error : \(service.errorCode)")
+            break
+            
+        case .EmailSignUp:
+            print("Email signup error: \(service.errorCode)")
+            
+            if self.emailLoginDelegate != nil {
+                self.emailLoginDelegate?.signInError(service.errorMessage)
+            }
+            
+            break
+            
+        case .EmailSigIn:
+            print("Email sign in error \(service.errorMessage)")
+            if self.emailLoginDelegate != nil {
+                self.emailLoginDelegate?.signInError(service.errorMessage)
+            }
+            
             break
             
         default :
@@ -63,11 +111,34 @@ class UserDataProvider: CommonDataProvider {
     
 
 }
+// MARK: - Parsing
+
 extension UserDataProvider{
     func parseFBUserData(dict : [String : AnyObject]){
+        
         ECUserDefaults.setLoggedIn(true)
+        ScreenVader.sharedVader.performScreenManagerAction(.MainTab, queryParams: nil)
+        
+        if let token = JSON(dict)["auth_token"].string{
+            DeviceID.saveXauth(token)
+            
+            
+        }
         
     }
+    
+    func parseEmailSignInUserData(dict : [String : AnyObject]){
+        
+        ECUserDefaults.setLoggedIn(true)
+        if let token = JSON(dict)["auth_token"].string{
+            DeviceID.saveXauth(token)
+            
+            if self.emailLoginDelegate != nil{
+                self.emailLoginDelegate?.signInSuccessfull(dict)
+            }
+        }
+    }
+    
 }
 
     

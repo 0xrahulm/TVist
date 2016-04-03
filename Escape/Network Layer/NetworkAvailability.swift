@@ -67,7 +67,7 @@ class NetworkAvailability: NSObject {
         } else {
             isNetworkAvailble = false
             NSObject.cancelPreviousPerformRequestsWithTarget(self)
-            self.performSelector(Selector("openNetworkNotAvailablePopUp"), withObject: nil, afterDelay: 2)
+            self.performSelector(#selector(NetworkAvailability.openNetworkNotAvailablePopUp), withObject: nil, afterDelay: 2)
         }
     }
     

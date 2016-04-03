@@ -14,6 +14,11 @@ class LoginPageViewController: UIViewController {
 
     @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
     
+    private let contentImages = ["page1",
+                                 "page1",
+                                 "page1"];
+  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,36 +38,24 @@ class LoginPageViewController: UIViewController {
     }
     
     @IBAction func fbLoginTapped(sender: AnyObject) {
-        
-        
-        
     
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
 }
 extension LoginPageViewController : FBSDKLoginButtonDelegate{
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!){
         if let token = FBSDKAccessToken.currentAccessToken().tokenString{
-             let expires_in = FBSDKAccessToken.currentAccessToken().expirationDate.timeIntervalSince1970
-                UserDataProvider.sharedDataProvider.postFBtoken(token , expires_in: expires_in)
-            print("fb token : \(token) ")
+            
+            let expires_in = FBSDKAccessToken.currentAccessToken().expirationDate.timeIntervalSince1970
+            
+            UserDataProvider.sharedDataProvider.postFBtoken(token , expires_in: expires_in)
             
         }else{
             // show some error popup
         }
-        
-        
-        
+    
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!){
@@ -71,3 +64,7 @@ extension LoginPageViewController : FBSDKLoginButtonDelegate{
     }
     
 }
+
+
+
+

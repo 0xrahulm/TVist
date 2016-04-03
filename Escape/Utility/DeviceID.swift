@@ -11,10 +11,17 @@ import Locksmith
 
 class DeviceID: NSObject {
     
-    func getDeviceID () -> String{
+     static let kEscapeXmodel = "Escape-X"
+     static let kEscapeXdevicekey = "X-Device-ID"
+    
+     static let kEscapeXauthModel = "Escape-X-Auth"
+     static let kEscapeXauthkeys = "X-Auth"
+    
+    
+    class func getDeviceID () -> String{
         
-        if let keyDict = Locksmith.loadDataForUserAccount("Escape-X"){
-            if let id = keyDict["X-Device-ID"]{
+        if let keyDict = Locksmith.loadDataForUserAccount(kEscapeXmodel){
+            if let id = keyDict[kEscapeXdevicekey]{
                 return id as! String
             }else{
                 return generateID()
@@ -26,18 +33,18 @@ class DeviceID: NSObject {
         
     }
     
-    func generateID() -> String{
+    class func generateID() -> String{
         
         let id = UIDevice.currentDevice().identifierForVendor!.UUIDString
-        try! Locksmith.saveData(["X-Device-ID":id], forUserAccount: "Escape-X")
+        try! Locksmith.saveData([kEscapeXdevicekey:id], forUserAccount: kEscapeXmodel)
         return id
 
         
     }
-    func getXauth()->String?{
+    class func getXauth()->String?{
         
         if ECUserDefaults.isLoggedIn(){
-            if let authDict = Locksmith.loadDataForUserAccount("Escape-X-Auth"){
+            if let authDict = Locksmith.loadDataForUserAccount(kEscapeXauthModel){
                 if let auth = authDict["X-Auth"] as? String{
                     return auth
                 }
@@ -46,6 +53,19 @@ class DeviceID: NSObject {
         }
         
         return nil
+        
+    }
+    class func saveXauth(token : String){
+        
+        if let authDict = Locksmith.loadDataForUserAccount(kEscapeXauthModel){
+            if let _ = authDict[kEscapeXauthkeys] as? String{
+                try! Locksmith.updateData([kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
+            }else{
+                try! Locksmith.saveData([kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
+            }
+        }else{
+            try! Locksmith.saveData([kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
+        }
         
     }
 

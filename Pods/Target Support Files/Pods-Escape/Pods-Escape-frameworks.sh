@@ -85,9 +85,11 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Escape/Alamofire.framework"
+  install_framework "Pods-Escape/Locksmith.framework"
   install_framework "Pods-Escape/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Escape/Alamofire.framework"
+  install_framework "Pods-Escape/Locksmith.framework"
   install_framework "Pods-Escape/SwiftyJSON.framework"
 fi

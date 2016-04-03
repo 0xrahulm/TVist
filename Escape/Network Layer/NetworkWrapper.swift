@@ -47,16 +47,26 @@ class NetworkWrapper: NSObject {
         
         switch response.result {
         case .Success:
-            service.outPutResponse = response.result.value
+            
             service.failedCount = 0
+            
             if service.responderDelegate != nil{
-                service.responderDelegate!.serviceFinishedSucessfully(service)
+                
+                if response.response?.statusCode >= 400 {
+                    service.errorMessage = response.result.value
+                    service.errorCode = response.response?.statusCode
+                    service.responderDelegate!.serivceFinishedWithError(service)
+                    
+                }else{
+                    service.outPutResponse = response.result.value
+                    service.responderDelegate!.serviceFinishedSucessfully(service)
+                }
             }
             
             break;
             
         case .Failure:
-            service.errorMessage = response.result.error
+            service.errorMessage = response.result.value
             service.errorCode = response.response?.statusCode
             if service.responderDelegate != nil{
                 service.responderDelegate!.serivceFinishedWithError(service)
@@ -76,18 +86,17 @@ class NetworkWrapper: NSObject {
     }
     func setHeaders(){
         
-        let id = DeviceID()
         
-        if let auth = id.getXauth(){
+        if let auth = DeviceID.getXauth(){
             headers["X-ESCAPE-AUTH"] = auth
         }
         
-        headers["X-DEVICE-ID"] = id.getDeviceID()
+        headers["X-DEVICE-ID"] = DeviceID.getDeviceID()
         headers["X-DEVICE-TYPE"] = UIDevice.currentDevice().modelName
         headers["X-OS-TYPE"] = "iOS"
         headers["Accept"] = "application/version.v1"
         
-        print("Device id :\(id.getDeviceID())")
+        print("Device id :\(DeviceID.getDeviceID())")
         
     }
     

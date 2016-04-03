@@ -49,7 +49,7 @@ extension CommonDataProvider : NetworkWrapperProtocol{
     
     func serivceFinishedWithError(service: Service) {
         if service.errorCode != nil{
-            if service.errorCode == 401 {  // logout
+            if service.errorCode == 409 {  // logout
                 
                 cancelAllRequest()
             }else{
