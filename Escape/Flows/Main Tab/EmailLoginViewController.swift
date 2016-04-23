@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class EmailLoginViewController: UIViewController {
 
@@ -25,8 +27,19 @@ class EmailLoginViewController: UIViewController {
         super.viewDidLoad()
         
         UserDataProvider.sharedDataProvider.emailLoginDelegate = self
+        UserDataProvider.sharedDataProvider.fbLoginDelegate = self
 
         
+    }
+    
+    func loadErrorPopUp(str : String){
+        let alert = UIAlertController(title: "Error", message: str, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+        
+        
+        alert.view.tintColor = UIColor.themeColorRed()
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,6 +65,8 @@ class EmailLoginViewController: UIViewController {
     
     @IBAction func signUpDone(sender: AnyObject) {
         
+        //openInteresetVC()
+        
         if fullNameSignUp.text == "" {
             
             loadErrorPopUp("Please enter your full name")
@@ -70,11 +85,11 @@ class EmailLoginViewController: UIViewController {
             if let email = emailSignUp.text {
                 if let password = passwordSignUp.text {
                     
-                    if !isValidEmail(email){
+                    if !OnBoardingUtility.isValidEmail(email){
                         loadErrorPopUp("Please Enter Valid Email address")
                         return
                     }
-                    if !isValidPassword(password){
+                    if !OnBoardingUtility.isValidPassword(password){
                         loadErrorPopUp("Password should be atleast 6 characters")
                         return
                     }
@@ -104,20 +119,54 @@ class EmailLoginViewController: UIViewController {
                 
             }
         }
+    }
+    
+    @IBAction func fbLoginTapped(sender: AnyObject) {
+        
+        let fbLoginManager : FBSDKLoginManager =  FBSDKLoginManager()
+        let fbPermission = ["user_likes" , "user_friends" , "public_profile"]
+        
+        fbLoginManager.logInWithReadPermissions(fbPermission, fromViewController: self) { (result, error) in
+            if error == nil{
+                
+                let fbLoginResult : FBSDKLoginManagerLoginResult = result
+                if fbLoginResult.grantedPermissions.contains("public_profile"){
+                    
+                    if let token = FBSDKAccessToken.currentAccessToken(){
+                        
+                        if let tokenString = token.tokenString{
+                            
+                            let expires_in = token.expirationDate.timeIntervalSince1970
+                            
+                            UserDataProvider.sharedDataProvider.postFBtoken(tokenString, expires_in: expires_in)
+                            
+                        }
+                        
+                    }
+                }
+                
+            }
+        }
         
         
         
     }
+    func openInteresetVC(){
+        //ScreenVader.sharedVader.performScreenManagerAction(.OnBoardingInterest, queryParams: nil)
+        
+        let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("InterestVC") as! OnBoardingInterestViewController
+        
+        vc.modalTransitionStyle = .CrossDissolve
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
     
-
 }
-extension EmailLoginViewController : EmailLoginProtocol{
+extension EmailLoginViewController : LoginProtocol{
     
     
     func signInError(data : AnyObject?){
        
-        ECUserDefaults.setLoggedIn(false)
-        
         if let data = data as? [String:AnyObject]{
             
             if let error = data["error"] as? String{
@@ -129,35 +178,15 @@ extension EmailLoginViewController : EmailLoginProtocol{
         }
         
     }
-    func signInSuccessfull(data : [String:AnyObject]){
-        
-        ScreenVader.sharedVader.performScreenManagerAction(.MainTab, queryParams: nil)
-        
-        
-    }
     
-}
-extension EmailLoginViewController{
-    
-    func isValidEmail(testStr:String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+    func signInSuccessfull(data : [String:AnyObject] , type : LoginTypeEnum){
         
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluateWithObject(testStr)
-    }
-    func isValidPassword(password : String) -> Bool{
-        if password.characters.count >= 6 {
-            return true
+        if type == .Email{
+            openInteresetVC()
+        }else if type == .Facebook{
+            ScreenVader.sharedVader.performScreenManagerAction(.MainTab, queryParams: nil)
         }
-        return false
+  
     }
-    func loadErrorPopUp(str : String){
-        let alert = UIAlertController(title: "Error", message: str, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        
-        
-        alert.view.tintColor = UIColor.themeColorRed()
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
+    
 }

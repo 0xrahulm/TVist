@@ -62,7 +62,7 @@ extension CommonDataProvider : NetworkWrapperProtocol{
             }
             
         }else{
-            service.failedCount++  //because of network fail
+            service.failedCount += 1  //because of network fail
         }
         
         

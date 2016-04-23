@@ -36,7 +36,7 @@ class NetworkWrapper: NSObject {
             
         }else{
             if service.responderDelegate != nil{
-                service.failedCount++
+                service.failedCount += 1
             }
             
         }
@@ -88,7 +88,8 @@ class NetworkWrapper: NSObject {
         
         
         if let auth = DeviceID.getXauth(){
-            headers["X-ESCAPE-AUTH"] = auth
+            headers["X-ESCAPE-AUTH-TOKEN"] = auth
+            print ("auth token : \(auth)")
         }
         
         headers["X-DEVICE-ID"] = DeviceID.getDeviceID()
@@ -101,18 +102,3 @@ class NetworkWrapper: NSObject {
     }
     
 }
-
-
-
-
-
-    
-    
-
-
-
-
-// request
-//response
-//threading
-//network avaliblity in seperate singleton

@@ -8,6 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		AED7BF8EC1D30A7602FD2614 /* Pods_Escape.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDAD66427A6544E6402FADF /* Pods_Escape.framework */; };
+		BC2A72DC1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */; };
+		BC2A72DD1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */; };
+		BC2A730A1CCBF84F007E5DFB /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73021CCBF84F007E5DFB /* EmailLoginViewController.swift */; };
+		BC2A730B1CCBF84F007E5DFB /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73021CCBF84F007E5DFB /* EmailLoginViewController.swift */; };
+		BC2A730C1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73031CCBF84F007E5DFB /* LoginPageViewController.swift */; };
+		BC2A730D1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73031CCBF84F007E5DFB /* LoginPageViewController.swift */; };
+		BC2A730E1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2A73041CCBF84F007E5DFB /* Onboarding.storyboard */; };
+		BC2A730F1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2A73041CCBF84F007E5DFB /* Onboarding.storyboard */; };
+		BC2A73101CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73051CCBF84F007E5DFB /* OnBoardingInterestViewController.swift */; };
+		BC2A73111CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73051CCBF84F007E5DFB /* OnBoardingInterestViewController.swift */; };
+		BC2A73121CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73061CCBF84F007E5DFB /* OnBoardingUtility.swift */; };
+		BC2A73131CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73061CCBF84F007E5DFB /* OnBoardingUtility.swift */; };
+		BC2A73141CCBF84F007E5DFB /* PageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73071CCBF84F007E5DFB /* PageContentViewController.swift */; };
+		BC2A73151CCBF84F007E5DFB /* PageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73071CCBF84F007E5DFB /* PageContentViewController.swift */; };
+		BC2A73161CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73081CCBF84F007E5DFB /* ScreenManagerViewController.swift */; };
+		BC2A73171CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73081CCBF84F007E5DFB /* ScreenManagerViewController.swift */; };
+		BC2A73181CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2A73091CCBF84F007E5DFB /* ScreenManger.storyboard */; };
+		BC2A73191CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2A73091CCBF84F007E5DFB /* ScreenManger.storyboard */; };
+		BC2A731B1CCBF8CC007E5DFB /* InterestItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A731A1CCBF8CC007E5DFB /* InterestItems.swift */; };
+		BC2A731C1CCBF8CC007E5DFB /* InterestItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A731A1CCBF8CC007E5DFB /* InterestItems.swift */; };
 		BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */; };
 		BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */; };
 		BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81871CA521D500FF8678 /* DeviceID.swift */; };
@@ -20,8 +40,6 @@
 		BC3A81931CA5397B00FF8678 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3A818E1CA5397B00FF8678 /* FBSDKLoginKit.framework */; };
 		BC3A81941CA5397B00FF8678 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3A818F1CA5397B00FF8678 /* FBSDKShareKit.framework */; };
 		BC3A81951CA5397B00FF8678 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC3A818F1CA5397B00FF8678 /* FBSDKShareKit.framework */; };
-		BC3A819D1CA53F7500FF8678 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A819C1CA53F7500FF8678 /* LoginPageViewController.swift */; };
-		BC3A819E1CA53F7500FF8678 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A819C1CA53F7500FF8678 /* LoginPageViewController.swift */; };
 		BC3A81A11CA5626000FF8678 /* MainTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC3A81A01CA5626000FF8678 /* MainTab.storyboard */; };
 		BC3A81A21CA5626000FF8678 /* MainTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC3A81A01CA5626000FF8678 /* MainTab.storyboard */; };
 		BC3A81A91CA5753000FF8678 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81A81CA5753000FF8678 /* MainTabBarViewController.swift */; };
@@ -34,22 +52,14 @@
 		BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED881C9FEEC8008143C2 /* Escape.xcdatamodeld */; };
 		BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED811C9FEEC7008143C2 /* AppDelegate.swift */; };
 		BC47ED9D1C9FF233008143C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC47ED8D1C9FEEC8008143C2 /* LaunchScreen.storyboard */; };
-		BC47EDB31CA0012B008143C2 /* ScreenManger.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC47EDB21CA0012B008143C2 /* ScreenManger.storyboard */; };
-		BC47EDB41CA0012B008143C2 /* ScreenManger.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC47EDB21CA0012B008143C2 /* ScreenManger.storyboard */; };
-		BC47EDB61CA0030A008143C2 /* ScreenManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDB51CA0030A008143C2 /* ScreenManagerViewController.swift */; };
-		BC47EDB71CA0030A008143C2 /* ScreenManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDB51CA0030A008143C2 /* ScreenManagerViewController.swift */; };
 		BC47EDB91CA00333008143C2 /* ScreenVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDB81CA00333008143C2 /* ScreenVader.swift */; };
 		BC47EDBA1CA00333008143C2 /* ScreenVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDB81CA00333008143C2 /* ScreenVader.swift */; };
-		BC47EDBC1CA005C6008143C2 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC47EDBB1CA005C6008143C2 /* Onboarding.storyboard */; };
-		BC47EDBD1CA005C6008143C2 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC47EDBB1CA005C6008143C2 /* Onboarding.storyboard */; };
 		BC47EDC11CA00F60008143C2 /* UserDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDC01CA00F60008143C2 /* UserDataProvider.swift */; };
 		BC47EDC21CA00F60008143C2 /* UserDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDC01CA00F60008143C2 /* UserDataProvider.swift */; };
 		BC47EDC41CA00F99008143C2 /* CommonDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDC31CA00F99008143C2 /* CommonDataProvider.swift */; };
 		BC47EDC51CA00F99008143C2 /* CommonDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDC31CA00F99008143C2 /* CommonDataProvider.swift */; };
 		BC47EDC81CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDC71CA013EC008143C2 /* CustomNavigationViewController.swift */; };
 		BC47EDC91CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDC71CA013EC008143C2 /* CustomNavigationViewController.swift */; };
-		BC85DBEF1CA69AA2002237A4 /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBEE1CA69AA2002237A4 /* EmailLoginViewController.swift */; };
-		BC85DBF01CA69AA2002237A4 /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBEE1CA69AA2002237A4 /* EmailLoginViewController.swift */; };
 		BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */; };
 		BC85DBF81CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */; };
 		BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF41CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m */; };
@@ -87,13 +97,22 @@
 /* Begin PBXFileReference section */
 		7DDAD66427A6544E6402FADF /* Pods_Escape.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escape.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8726EB99D692F7FE33628154 /* Pods-Escape.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape.release.xcconfig"; path = "Pods/Target Support Files/Pods-Escape/Pods-Escape.release.xcconfig"; sourceTree = "<group>"; };
+		BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utility.swift"; sourceTree = "<group>"; };
+		BC2A73021CCBF84F007E5DFB /* EmailLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
+		BC2A73031CCBF84F007E5DFB /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
+		BC2A73041CCBF84F007E5DFB /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
+		BC2A73051CCBF84F007E5DFB /* OnBoardingInterestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnBoardingInterestViewController.swift; sourceTree = "<group>"; };
+		BC2A73061CCBF84F007E5DFB /* OnBoardingUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnBoardingUtility.swift; sourceTree = "<group>"; };
+		BC2A73071CCBF84F007E5DFB /* PageContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContentViewController.swift; sourceTree = "<group>"; };
+		BC2A73081CCBF84F007E5DFB /* ScreenManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenManagerViewController.swift; sourceTree = "<group>"; };
+		BC2A73091CCBF84F007E5DFB /* ScreenManger.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ScreenManger.storyboard; sourceTree = "<group>"; };
+		BC2A731A1CCBF8CC007E5DFB /* InterestItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestItems.swift; sourceTree = "<group>"; };
 		BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Utility.swift"; sourceTree = "<group>"; };
 		BC3A81871CA521D500FF8678 /* DeviceID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceID.swift; sourceTree = "<group>"; };
 		BC3A818A1CA531FE00FF8678 /* ECUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECUserDefaults.swift; sourceTree = "<group>"; };
 		BC3A818D1CA5397B00FF8678 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		BC3A818E1CA5397B00FF8678 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		BC3A818F1CA5397B00FF8678 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
-		BC3A819C1CA53F7500FF8678 /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
 		BC3A81A01CA5626000FF8678 /* MainTab.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainTab.storyboard; sourceTree = "<group>"; };
 		BC3A81A81CA5753000FF8678 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		BC47ED7E1C9FEEC7008143C2 /* Escape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Escape.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,14 +123,10 @@
 		BC47ED901C9FEEC8008143C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC47EDA31C9FF233008143C2 /* Escape copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Escape copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC47EDA41C9FF233008143C2 /* Escape copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Escape copy-Info.plist"; path = "/Users/ankit/projects/EscapeApp/Escape/Escape copy-Info.plist"; sourceTree = "<absolute>"; };
-		BC47EDB21CA0012B008143C2 /* ScreenManger.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ScreenManger.storyboard; sourceTree = "<group>"; };
-		BC47EDB51CA0030A008143C2 /* ScreenManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenManagerViewController.swift; sourceTree = "<group>"; };
 		BC47EDB81CA00333008143C2 /* ScreenVader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenVader.swift; sourceTree = "<group>"; };
-		BC47EDBB1CA005C6008143C2 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		BC47EDC01CA00F60008143C2 /* UserDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataProvider.swift; sourceTree = "<group>"; };
 		BC47EDC31CA00F99008143C2 /* CommonDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonDataProvider.swift; sourceTree = "<group>"; };
 		BC47EDC71CA013EC008143C2 /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
-		BC85DBEE1CA69AA2002237A4 /* EmailLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		BC85DBF11CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		BC85DBF31CA69F0E002237A4 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
@@ -179,6 +194,30 @@
 				8726EB99D692F7FE33628154 /* Pods-Escape.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		BC2A73011CCBF7C0007E5DFB /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				BC2A731D1CCBF961007E5DFB /* Model */,
+				BC2A73021CCBF84F007E5DFB /* EmailLoginViewController.swift */,
+				BC2A73031CCBF84F007E5DFB /* LoginPageViewController.swift */,
+				BC2A73041CCBF84F007E5DFB /* Onboarding.storyboard */,
+				BC2A73051CCBF84F007E5DFB /* OnBoardingInterestViewController.swift */,
+				BC2A73061CCBF84F007E5DFB /* OnBoardingUtility.swift */,
+				BC2A73071CCBF84F007E5DFB /* PageContentViewController.swift */,
+				BC2A73081CCBF84F007E5DFB /* ScreenManagerViewController.swift */,
+				BC2A73091CCBF84F007E5DFB /* ScreenManger.storyboard */,
+			);
+			name = Onboarding;
+			sourceTree = "<group>";
+		};
+		BC2A731D1CCBF961007E5DFB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC2A731A1CCBF8CC007E5DFB /* InterestItems.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		BC3A819F1CA5622E00FF8678 /* Main Tab */ = {
@@ -254,33 +293,21 @@
 		BC47EDAA1C9FFE36008143C2 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				BC2A73011CCBF7C0007E5DFB /* Onboarding */,
 				BC3A819F1CA5622E00FF8678 /* Main Tab */,
 				BCB7B4A11CA16CA8002147FA /* My Account */,
 				BCB7B4A01CA16C85002147FA /* Discover */,
 				BCB7B49F1CA16C6A002147FA /* Home */,
-				BC47EDAB1C9FFE4E008143C2 /* Onboarding */,
 			);
 			name = Flows;
 			path = "Flows/Main Tab";
-			sourceTree = "<group>";
-		};
-		BC47EDAB1C9FFE4E008143C2 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				BC47EDB21CA0012B008143C2 /* ScreenManger.storyboard */,
-				BC47EDB51CA0030A008143C2 /* ScreenManagerViewController.swift */,
-				BC47EDBB1CA005C6008143C2 /* Onboarding.storyboard */,
-				BC3A819C1CA53F7500FF8678 /* LoginPageViewController.swift */,
-				BC85DBEE1CA69AA2002237A4 /* EmailLoginViewController.swift */,
-			);
-			name = Onboarding;
-			path = ../Onboarding;
 			sourceTree = "<group>";
 		};
 		BC47EDAD1C9FFFDC008143C2 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				BCB7B4B61CA17643002147FA /* SFUIAttributedText.swift */,
+				BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */,
 				BCCD70C41CA19278002A0C07 /* UIColor+Utility.swift */,
 				BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */,
 				BC3A81871CA521D500FF8678 /* DeviceID.swift */,
@@ -464,11 +491,11 @@
 				BC85DBFE1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				BCFE486B1CA3C1C00098160D /* Images.xcassets in Resources */,
 				BCB7B4B01CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
-				BC47EDB31CA0012B008143C2 /* ScreenManger.storyboard in Resources */,
 				BCB7B4B41CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B21CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
-				BC47EDBC1CA005C6008143C2 /* Onboarding.storyboard in Resources */,
 				BC47ED8F1C9FEEC8008143C2 /* LaunchScreen.storyboard in Resources */,
+				BC2A73181CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
+				BC2A730E1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A11CA5626000FF8678 /* MainTab.storyboard in Resources */,
 				BCB7B4AE1CA17378002147FA /* SF-UI-Display-Light.ttf in Resources */,
 			);
@@ -481,11 +508,11 @@
 				BC85DBFF1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				BCFE486C1CA3C1C00098160D /* Images.xcassets in Resources */,
 				BCB7B4B11CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
-				BC47EDB41CA0012B008143C2 /* ScreenManger.storyboard in Resources */,
 				BCB7B4B51CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B31CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
-				BC47EDBD1CA005C6008143C2 /* Onboarding.storyboard in Resources */,
 				BC47ED9D1C9FF233008143C2 /* LaunchScreen.storyboard in Resources */,
+				BC2A73191CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
+				BC2A730F1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A21CA5626000FF8678 /* MainTab.storyboard in Resources */,
 				BCB7B4AF1CA17378002147FA /* SF-UI-Display-Light.ttf in Resources */,
 			);
@@ -546,28 +573,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC2A73141CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
 				BCB7B4971CA0F077002147FA /* NetworkConstants.swift in Sources */,
-				BC85DBEF1CA69AA2002237A4 /* EmailLoginViewController.swift in Sources */,
 				BCCD71191CA26F08002A0C07 /* UIApperance+Swift.m in Sources */,
 				BC47ED841C9FEEC7008143C2 /* ViewController.swift in Sources */,
 				BCCD70C51CA19278002A0C07 /* UIColor+Utility.swift in Sources */,
 				BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				BC3A818B1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
+				BC2A72DC1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */,
 				BC3A81A91CA5753000FF8678 /* MainTabBarViewController.swift in Sources */,
 				BC47EDC81CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */,
 				BC47EDC11CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BCCD70C81CA19468002A0C07 /* Service.swift in Sources */,
 				BC47ED8A1C9FEEC8008143C2 /* Escape.xcdatamodeld in Sources */,
+				BC2A73101CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */,
 				BCFE486E1CA400C60098160D /* NetworkAvailability.swift in Sources */,
+				BC2A731B1CCBF8CC007E5DFB /* InterestItems.swift in Sources */,
+				BC2A730A1CCBF84F007E5DFB /* EmailLoginViewController.swift in Sources */,
 				BC85DBFB1CA69F0E002237A4 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				BCCD70CB1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
+				BC2A73161CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
 				BC47EDB91CA00333008143C2 /* ScreenVader.swift in Sources */,
 				BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */,
-				BC47EDB61CA0030A008143C2 /* ScreenManagerViewController.swift in Sources */,
-				BC3A819D1CA53F7500FF8678 /* LoginPageViewController.swift in Sources */,
+				BC2A73121CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
 				BC47EDC41CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */,
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
+				BC2A730C1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */,
 				BCB7B4B71CA17643002147FA /* SFUIAttributedText.swift in Sources */,
 				BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
 			);
@@ -577,28 +609,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC2A73151CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
 				BCB7B4981CA0F077002147FA /* NetworkConstants.swift in Sources */,
-				BC85DBF01CA69AA2002237A4 /* EmailLoginViewController.swift in Sources */,
 				BCCD711A1CA26F08002A0C07 /* UIApperance+Swift.m in Sources */,
 				BC47ED981C9FF233008143C2 /* ViewController.swift in Sources */,
 				BCCD70C61CA19278002A0C07 /* UIColor+Utility.swift in Sources */,
 				BC85DBF81CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				BC3A818C1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
+				BC2A72DD1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */,
 				BC3A81AA1CA5753000FF8678 /* MainTabBarViewController.swift in Sources */,
 				BC47EDC91CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */,
 				BC47EDC21CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BCCD70C91CA19468002A0C07 /* Service.swift in Sources */,
 				BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */,
+				BC2A73111CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */,
 				BCFE486F1CA400C60098160D /* NetworkAvailability.swift in Sources */,
+				BC2A731C1CCBF8CC007E5DFB /* InterestItems.swift in Sources */,
+				BC2A730B1CCBF84F007E5DFB /* EmailLoginViewController.swift in Sources */,
 				BC85DBFC1CA69F0E002237A4 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				BCCD70CC1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
+				BC2A73171CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
 				BC47EDBA1CA00333008143C2 /* ScreenVader.swift in Sources */,
 				BC3A81891CA521D500FF8678 /* DeviceID.swift in Sources */,
-				BC47EDB71CA0030A008143C2 /* ScreenManagerViewController.swift in Sources */,
-				BC3A819E1CA53F7500FF8678 /* LoginPageViewController.swift in Sources */,
+				BC2A73131CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
 				BC47EDC51CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */,
 				BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
+				BC2A730D1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */,
 				BCB7B4B81CA17643002147FA /* SFUIAttributedText.swift in Sources */,
 				BC85DBFA1CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
 			);

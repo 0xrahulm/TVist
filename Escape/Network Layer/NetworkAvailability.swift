@@ -47,7 +47,7 @@ class NetworkAvailability: NSObject {
     override init() {
         super.init()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("networkStatusChanged:"), name: ReachabilityStatusChangedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NetworkAvailability.networkStatusChanged(_:)), name: ReachabilityStatusChangedNotification, object: nil)
         monitorReachabilityChanges()
         
     }
@@ -62,7 +62,7 @@ class NetworkAvailability: NSObject {
             isNetworkAvailble = true
             
             NSObject.cancelPreviousPerformRequestsWithTarget(self)
-            self.performSelector(Selector("callPendingServices"), withObject: nil, afterDelay: 2)
+            self.performSelector(#selector(NetworkAvailability.callPendingServices), withObject: nil, afterDelay: 2)
             
         } else {
             isNetworkAvailble = false

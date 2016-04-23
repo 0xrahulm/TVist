@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Custom Navigation View Controller-->
@@ -35,16 +34,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ToU-B2-gHv" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="20" y="455" width="560" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="j2c-73-chQ"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="fbLoginTapped:" destination="ySS-Lp-ggS" eventType="touchUpInside" id="5QC-Ip-M8p"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSI-i7-QiN">
                                 <rect key="frame" x="20" y="515" width="560" height="45"/>
                                 <constraints>
@@ -53,42 +42,86 @@
                                 <state key="normal" title="Continue with Email">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <connections>
-                                    <segue destination="IgW-6w-mS0" kind="show" id="wKY-ua-vIM"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ToU-B2-gHv" firstAttribute="centerX" secondItem="rpx-Jr-hWO" secondAttribute="centerX" id="87H-gb-EYB"/>
-                            <constraint firstItem="ToU-B2-gHv" firstAttribute="leading" secondItem="rpx-Jr-hWO" secondAttribute="leading" constant="20" id="8cf-lZ-nmO"/>
-                            <constraint firstAttribute="trailing" secondItem="ToU-B2-gHv" secondAttribute="trailing" constant="20" id="QOG-QW-P7Z"/>
                             <constraint firstItem="FSI-i7-QiN" firstAttribute="leading" secondItem="rpx-Jr-hWO" secondAttribute="leading" constant="20" id="b3q-3M-hUF"/>
                             <constraint firstAttribute="trailing" secondItem="FSI-i7-QiN" secondAttribute="trailing" constant="20" id="dY5-9J-ulU"/>
                             <constraint firstItem="npf-J3-rqY" firstAttribute="top" secondItem="FSI-i7-QiN" secondAttribute="bottom" constant="40" id="fOd-xO-yXf"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="ToU-B2-gHv" secondAttribute="bottom" constant="100" id="gDg-jl-GQb"/>
-                            <constraint firstItem="ToU-B2-gHv" firstAttribute="centerY" secondItem="rpx-Jr-hWO" secondAttribute="centerY" id="oW9-e8-0Se"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="oW9-e8-0Se"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="CQi-BJ-GY9"/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <connections>
-                        <outlet property="fbLoginButton" destination="ToU-B2-gHv" id="8dH-R1-cBO"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0O7-jN-e9m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="202" y="304"/>
         </scene>
+        <!--Page View Controller-->
+        <scene sceneID="7JO-SW-qS5">
+            <objects>
+                <pageViewController storyboardIdentifier="PageViewVC" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="v6v-9X-LgO" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ayp-7R-uxX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="220" y="1014"/>
+        </scene>
+        <!--Page Content View Controller-->
+        <scene sceneID="cGa-jJ-GLk">
+            <objects>
+                <viewController storyboardIdentifier="PageContentVC" id="kcK-Gg-Aq9" customClass="PageContentViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oCo-jS-ZKL"/>
+                        <viewControllerLayoutGuide type="bottom" id="0jf-nM-zKr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8ac-U4-kEa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Vf-uv-hMO">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0Vf-uv-hMO" firstAttribute="leading" secondItem="8ac-U4-kEa" secondAttribute="leading" id="Fja-de-clf"/>
+                            <constraint firstItem="0Vf-uv-hMO" firstAttribute="top" secondItem="oCo-jS-ZKL" secondAttribute="bottom" constant="-20" id="Zqo-2H-lu9"/>
+                            <constraint firstItem="0jf-nM-zKr" firstAttribute="top" secondItem="0Vf-uv-hMO" secondAttribute="bottom" id="nZW-vO-n4m"/>
+                            <constraint firstAttribute="trailing" secondItem="0Vf-uv-hMO" secondAttribute="trailing" id="s2G-lm-HX2"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="image" destination="0Vf-uv-hMO" id="Z4R-oH-Bxs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bAq-h8-tpa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="856" y="1014"/>
+        </scene>
+        <!--On Boarding Interest View Controller-->
+        <scene sceneID="sl2-mk-x5J">
+            <objects>
+                <viewController storyboardIdentifier="InterestVC" id="VTK-T7-bo6" customClass="OnBoardingInterestViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lqG-S4-5hC"/>
+                        <viewControllerLayoutGuide type="bottom" id="oI7-ok-QXb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="x4I-EC-k9J">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ACz-Jt-wic"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TdK-r8-f98" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2519" y="1014"/>
+        </scene>
         <!--Email Login View Controller-->
         <scene sceneID="6XT-Ko-ATg">
             <objects>
-                <viewController id="IgW-6w-mS0" customClass="EmailLoginViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EmailLoginVC" id="IgW-6w-mS0" customClass="EmailLoginViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Keo-bx-4Lw"/>
                         <viewControllerLayoutGuide type="bottom" id="VLJ-os-3Mn"/>
@@ -108,10 +141,17 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBu-0A-jak">
                                                         <rect key="frame" x="0.0" y="10" width="600" height="45"/>
+                                                        <color key="backgroundColor" red="0.25882352939999997" green="0.4039215686" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="45" id="DLq-sj-zDl"/>
                                                         </constraints>
-                                                        <state key="normal" title="Continue with Facebook"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                        <state key="normal" title="Continue with Facebook">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="fbLoginTapped:" destination="IgW-6w-mS0" eventType="touchUpInside" id="P0c-3R-O2U"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Benefits of continuing with facebook" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XX1-mp-E9o">
                                                         <rect key="frame" x="196.5" y="65" width="207" height="14.5"/>

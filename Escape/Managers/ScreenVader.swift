@@ -9,11 +9,13 @@
 import UIKit
 
 enum ScreenManagerAction : String{
-    case MainTab = "MainTab"
     
+    case MainTab = "MainTab"
     case HomeTab = "Home"
     case DiscoverTab = "Discover"
     case MyAccountTab = "MyAccount"
+    case OnBoardingInterest = "OnBoardingInterest"
+    
     
 }
 

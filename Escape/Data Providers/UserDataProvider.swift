@@ -10,17 +10,27 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-protocol EmailLoginProtocol : class{
+enum LoginTypeEnum : String {
+    case Facebook = "fb"
+    case Email    = "email"
+}
+
+protocol LoginProtocol : class{
     
-    func signInSuccessfull(data : [String:AnyObject])
+    func signInSuccessfull(data : [String:AnyObject] , type : LoginTypeEnum)
     func signInError(data : AnyObject?)
+}
+
+protocol InterestProtocol : class{
+    //func interestList(list : [])
 }
 
 class UserDataProvider: CommonDataProvider {
     
     static let sharedDataProvider  = UserDataProvider()
     
-    weak var emailLoginDelegate : EmailLoginProtocol?
+    weak var emailLoginDelegate:   LoginProtocol?
+    weak var fbLoginDelegate:      LoginProtocol?
     
     
     func getSecurityToken(){
@@ -84,10 +94,19 @@ class UserDataProvider: CommonDataProvider {
     override func serviceError(service: Service) {
         switch service.subServiveType {
         case .FBSignIn:
+            
+             ECUserDefaults.setLoggedIn(false)
+            
+            if self.fbLoginDelegate != nil{
+                self.fbLoginDelegate?.signInError(service.errorMessage)
+            }
+            
             break
             
         case .EmailSignUp:
             print("Email signup error: \(service.errorCode)")
+            
+             ECUserDefaults.setLoggedIn(false)
             
             if self.emailLoginDelegate != nil {
                 self.emailLoginDelegate?.signInError(service.errorMessage)
@@ -97,6 +116,8 @@ class UserDataProvider: CommonDataProvider {
             
         case .EmailSigIn:
             print("Email sign in error \(service.errorMessage)")
+            
+             ECUserDefaults.setLoggedIn(false)
             if self.emailLoginDelegate != nil {
                 self.emailLoginDelegate?.signInError(service.errorMessage)
             }
@@ -122,6 +143,10 @@ extension UserDataProvider{
         if let token = JSON(dict)["auth_token"].string{
             DeviceID.saveXauth(token)
             
+            if self.fbLoginDelegate != nil{
+                self.fbLoginDelegate?.signInSuccessfull(dict, type: .Facebook)
+            }
+            
             
         }
         
@@ -130,11 +155,11 @@ extension UserDataProvider{
     func parseEmailSignInUserData(dict : [String : AnyObject]){
         
         ECUserDefaults.setLoggedIn(true)
+        
         if let token = JSON(dict)["auth_token"].string{
             DeviceID.saveXauth(token)
-            
             if self.emailLoginDelegate != nil{
-                self.emailLoginDelegate?.signInSuccessfull(dict)
+                self.emailLoginDelegate?.signInSuccessfull(dict , type: .Email)
             }
         }
     }
