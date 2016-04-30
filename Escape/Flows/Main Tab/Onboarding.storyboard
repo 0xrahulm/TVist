@@ -3,7 +3,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="SF-UI-Display-Regular.ttf">
+            <string>SFUIDisplay-Regular</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Custom Navigation View Controller-->
         <scene sceneID="eaf-cm-OMt">
@@ -99,10 +105,10 @@
             </objects>
             <point key="canvasLocation" x="856" y="1014"/>
         </scene>
-        <!--On Boarding Interest View Controller-->
+        <!--Select Interests-->
         <scene sceneID="sl2-mk-x5J">
             <objects>
-                <viewController storyboardIdentifier="InterestVC" id="VTK-T7-bo6" customClass="OnBoardingInterestViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InterestVC" title="Select Interests" id="VTK-T7-bo6" customClass="OnBoardingInterestViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lqG-S4-5hC"/>
                         <viewControllerLayoutGuide type="bottom" id="oI7-ok-QXb"/>
@@ -110,13 +116,61 @@
                     <view key="view" contentMode="scaleToFill" id="x4I-EC-k9J">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wr9-lr-oBX">
+                                <rect key="frame" x="0.0" y="30" width="600" height="515"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vcz-pz-Y0z">
+                                        <rect key="frame" x="0.0" y="-37" width="600" height="600"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="600" id="IHd-3g-mAN"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="vcz-pz-Y0z" secondAttribute="trailing" id="9Kq-l2-6Ru"/>
+                                    <constraint firstAttribute="bottom" secondItem="vcz-pz-Y0z" secondAttribute="bottom" id="TXW-76-lRb"/>
+                                    <constraint firstItem="vcz-pz-Y0z" firstAttribute="width" secondItem="Wr9-lr-oBX" secondAttribute="width" id="aDT-ml-CoK"/>
+                                    <constraint firstItem="vcz-pz-Y0z" firstAttribute="top" secondItem="Wr9-lr-oBX" secondAttribute="top" id="wCI-bQ-cPX"/>
+                                    <constraint firstItem="vcz-pz-Y0z" firstAttribute="leading" secondItem="Wr9-lr-oBX" secondAttribute="leading" id="xgl-pj-rPl"/>
+                                </constraints>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpP-kZ-DCb">
+                                <rect key="frame" x="0.0" y="545" width="600" height="55"/>
+                                <color key="backgroundColor" red="0.96078431372549022" green="0.38823529411764707" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="pjg-cz-UjU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="17"/>
+                                <state key="normal" title="Continue &gt;">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="continueTapped:" destination="VTK-T7-bo6" eventType="touchUpInside" id="hUq-eL-art"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Wr9-lr-oBX" firstAttribute="top" secondItem="x4I-EC-k9J" secondAttribute="topMargin" constant="30" id="BkR-x9-bib"/>
+                            <constraint firstAttribute="trailing" secondItem="dpP-kZ-DCb" secondAttribute="trailing" id="LdP-US-C0c"/>
+                            <constraint firstItem="dpP-kZ-DCb" firstAttribute="top" secondItem="Wr9-lr-oBX" secondAttribute="bottom" id="ZJy-LI-m6n"/>
+                            <constraint firstAttribute="trailing" secondItem="Wr9-lr-oBX" secondAttribute="trailing" id="a98-kN-zoq"/>
+                            <constraint firstItem="dpP-kZ-DCb" firstAttribute="leading" secondItem="x4I-EC-k9J" secondAttribute="leading" id="aeh-qm-MiP"/>
+                            <constraint firstItem="Wr9-lr-oBX" firstAttribute="leading" secondItem="x4I-EC-k9J" secondAttribute="leading" id="dAP-5i-dMK"/>
+                            <constraint firstItem="oI7-ok-QXb" firstAttribute="top" secondItem="dpP-kZ-DCb" secondAttribute="bottom" id="eWq-F6-4Be"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ACz-Jt-wic"/>
+                    <connections>
+                        <outlet property="scrollInsideView" destination="vcz-pz-Y0z" id="YJK-PS-69s"/>
+                        <outlet property="scrollView" destination="Wr9-lr-oBX" id="BHa-uX-DX4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TdK-r8-f98" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2519" y="1014"/>
+            <point key="canvasLocation" x="1507" y="1014"/>
         </scene>
         <!--Email Login View Controller-->
         <scene sceneID="6XT-Ko-ATg">
@@ -366,6 +420,7 @@
                         <outlet property="segmentController" destination="wNR-aB-YIM" id="5u7-nU-0IB"/>
                         <outlet property="signInView" destination="TtB-mf-MEy" id="1on-To-eeZ"/>
                         <outlet property="signUpView" destination="crf-8b-aPq" id="hDG-aI-xth"/>
+                        <segue destination="VTK-T7-bo6" kind="show" identifier="showInterestSegue" id="GZP-FQ-rDR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yoz-mf-QZi" userLabel="First Responder" sceneMemberID="firstResponder"/>

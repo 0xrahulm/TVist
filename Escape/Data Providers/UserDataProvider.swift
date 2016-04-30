@@ -22,7 +22,7 @@ protocol LoginProtocol : class{
 }
 
 protocol InterestProtocol : class{
-    //func interestList(list : [])
+    func interestList(list : [InterestItems])
 }
 
 class UserDataProvider: CommonDataProvider {
@@ -31,6 +31,7 @@ class UserDataProvider: CommonDataProvider {
     
     weak var emailLoginDelegate:   LoginProtocol?
     weak var fbLoginDelegate:      LoginProtocol?
+    weak var interestDelegate:     InterestProtocol?
     
     
     func getSecurityToken(){
@@ -40,7 +41,6 @@ class UserDataProvider: CommonDataProvider {
     }
     func postFBtoken(token : String , expires_in : NSTimeInterval){
     
-        
         ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .FBSignIn, params: ["facebook_token" : token , "expires_in" : expires_in], delegate: self)
         
     }
@@ -54,6 +54,19 @@ class UserDataProvider: CommonDataProvider {
         
         ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSigIn, params: ["email":email , "password":password], delegate: self)
         
+    }
+    
+    func fetchInterest(){
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .FetchInterests, params: nil, delegate: self)
+    }
+    
+    func postInterest(interests : [NSNumber]){
+        
+        var params : [String:AnyObject] = [:]
+        
+        params["interests"] = interests
+        
+        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .PostInterests, params: params, delegate: self)
     }
     
     
@@ -86,6 +99,12 @@ class UserDataProvider: CommonDataProvider {
             
             break
             
+        case .FetchInterests:
+            if let data = service.outPutResponse as? [AnyObject]{
+                self.parseIntereset(data)
+            }
+            break
+            
         default:
             break
         }
@@ -104,7 +123,6 @@ class UserDataProvider: CommonDataProvider {
             break
             
         case .EmailSignUp:
-            print("Email signup error: \(service.errorCode)")
             
              ECUserDefaults.setLoggedIn(false)
             
@@ -115,9 +133,9 @@ class UserDataProvider: CommonDataProvider {
             break
             
         case .EmailSigIn:
-            print("Email sign in error \(service.errorMessage)")
             
-             ECUserDefaults.setLoggedIn(false)
+            ECUserDefaults.setLoggedIn(false)
+            
             if self.emailLoginDelegate != nil {
                 self.emailLoginDelegate?.signInError(service.errorMessage)
             }
@@ -161,6 +179,34 @@ extension UserDataProvider{
             if self.emailLoginDelegate != nil{
                 self.emailLoginDelegate?.signInSuccessfull(dict , type: .Email)
             }
+        }
+    }
+    
+    func parseIntereset(data : [AnyObject]){
+        
+        var intersts : [InterestItems] = []
+        
+        if let data = data as? [[String:AnyObject]]{
+            for item in data{
+                if let id = item["id"] as? NSNumber{
+                    if let name = item["name"] as? String{
+                        if let weightage = item["weightage"] as? NSNumber{
+                            if let isSelected = item["is_default_selected"] as? Bool{
+                                
+                                intersts.append(InterestItems(id: id, name: name, weightage: Int(weightage), isSelected: isSelected))
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+        if intersts.count > 0 {
+            intersts = intersts.sort({ $0.weightage > $1.weightage })
+        }
+        
+        if interestDelegate != nil{
+            interestDelegate?.interestList(intersts)
         }
     }
     

@@ -28,8 +28,7 @@ class EmailLoginViewController: UIViewController {
         
         UserDataProvider.sharedDataProvider.emailLoginDelegate = self
         UserDataProvider.sharedDataProvider.fbLoginDelegate = self
-
-        
+            
     }
     
     func loadErrorPopUp(str : String){
@@ -64,8 +63,6 @@ class EmailLoginViewController: UIViewController {
     }
     
     @IBAction func signUpDone(sender: AnyObject) {
-        
-        //openInteresetVC()
         
         if fullNameSignUp.text == "" {
             
@@ -152,13 +149,9 @@ class EmailLoginViewController: UIViewController {
         
     }
     func openInteresetVC(){
-        //ScreenVader.sharedVader.performScreenManagerAction(.OnBoardingInterest, queryParams: nil)
-        
-        let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("InterestVC") as! OnBoardingInterestViewController
-        
-        vc.modalTransitionStyle = .CrossDissolve
-        self.presentViewController(vc, animated: true, completion: nil)
+       
+        performSegueWithIdentifier("showInterestSegue", sender: self)
+
     }
     
 }

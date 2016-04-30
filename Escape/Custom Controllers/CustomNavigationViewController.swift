@@ -12,6 +12,8 @@ class CustomNavigationViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setAppearnce()
 
         // Do any additional setup after loading the view.
     }
@@ -24,9 +26,23 @@ class CustomNavigationViewController: UINavigationController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
    
     func setAppearnce(){
-        //UINavigationBar.
+        
+        self.navigationBar.barTintColor = UIColor.themeColorBlue()
+        self.navigationBar.titleTextAttributes = SFUIAttributedText.mediumAttributesForSize(17.0, color: UIColor.whiteColor())
+    }
+    
+    override func dismissViewControllerAnimated(flag: Bool, completion: (() -> Void)?) {
+        super.dismissViewControllerAnimated(flag, completion: completion)
+        if isBeingDismissed() {
+            ScreenVader.sharedVader.removeDismissedViewController(self)
+    
+        }
     }
 
     

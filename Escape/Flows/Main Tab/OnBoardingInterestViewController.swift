@@ -9,27 +9,63 @@
 import UIKit
 
 class OnBoardingInterestViewController: UIViewController {
+    
+    var interests : [InterestItems] = []
+    var selectedInterests : [NSNumber] = []
+    var bubbleView : BubblePickerView!
 
+    @IBOutlet weak var scrollInsideView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        UserDataProvider.sharedDataProvider.interestDelegate = self
+        UserDataProvider.sharedDataProvider.fetchInterest()
+       
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func addInterestBubbles(list : [InterestItems]){
+        
+        bubbleView = BubblePickerView(frame: self.scrollInsideView.frame, preferenceItems: list)
+        bubbleView.bubblePickerDelegate = self
+        self.scrollInsideView.addSubview(bubbleView)
+        
     }
-    */
+   
+    @IBAction func continueTapped(sender: AnyObject) {
+        for items in interests{
+            if let isSelected = items.isSelected{
+                if isSelected{
+                    if let id = items.id{
+                        self.selectedInterests.append(id)
+                    }
+                }
+            }
+        }
+        
+        UserDataProvider.sharedDataProvider.postInterest(selectedInterests)
+        ScreenVader.sharedVader.performScreenManagerAction(.MainTab, queryParams: nil)
+    }
+    
+}
 
+extension OnBoardingInterestViewController : InterestProtocol{
+    
+    func interestList(list : [InterestItems]){
+        self.interests = list
+        self.addInterestBubbles(list)
+        
+    }
+}
+extension OnBoardingInterestViewController : BubblePickerProtocol{
+    func didTapOnItemAtIndex(sender: UIButton) {
+        
+        interests[sender.tag].isSelected = sender.selected
+        
+    }
 }

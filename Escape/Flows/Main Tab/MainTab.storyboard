@@ -67,7 +67,7 @@
         <scene sceneID="m7v-aK-KLw">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="czt-L7-Vdg" userLabel="Custom Home" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="home" selectedImage="home" id="Q4k-GU-8Fw"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home" selectedImage="homeFilled" id="Q4k-GU-8Fw"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WXU-uW-qkd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -87,7 +87,7 @@
         <scene sceneID="gkL-Pd-LBm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="C6K-Ir-12J" userLabel="Custom Discover" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Discover" image="Explore" selectedImage="Explore" id="00W-Zh-Y9l"/>
+                    <tabBarItem key="tabBarItem" title="Discover" image="Explore" selectedImage="ExploreFilled" id="00W-Zh-Y9l"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cbf-6D-n2h">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -102,30 +102,11 @@
             </objects>
             <point key="canvasLocation" x="321" y="168"/>
         </scene>
-        <!--My Account-->
-        <scene sceneID="utr-dM-iui">
-            <objects>
-                <viewController title="My Account" id="rdj-uN-2ri" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BGJ-jL-ZQc"/>
-                        <viewControllerLayoutGuide type="bottom" id="kuH-jX-peS"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="RUH-aS-avE">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="6UC-pz-7qF"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ziE-we-RoG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1148" y="1048"/>
-        </scene>
         <!--Custom My Account-->
         <scene sceneID="rnv-Pw-Gul">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pOW-D9-yF3" userLabel="Custom My Account" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Account" image="Profile" selectedImage="Profile" id="70c-in-0L3"/>
+                    <tabBarItem key="tabBarItem" title="My Account" image="Profile" selectedImage="ProfileFilled" id="70c-in-0L3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Smo-9d-bM9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -133,17 +114,30 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="rdj-uN-2ri" kind="relationship" relationship="rootViewController" id="Wv8-fx-tqd"/>
+                        <segue destination="GFe-p8-Lwk" kind="relationship" relationship="rootViewController" id="FY9-OS-LWs"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UZC-SO-q39" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="336" y="1048"/>
+            <point key="canvasLocation" x="312" y="1064"/>
+        </scene>
+        <!--MyAccount-->
+        <scene sceneID="DBW-IN-dOT">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MyAccount" id="GFe-p8-Lwk" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="x5v-gF-7Ah"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="trS-pb-HhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="961.5" y="1053"/>
         </scene>
     </scenes>
     <resources>
         <image name="Explore" width="28" height="27"/>
+        <image name="ExploreFilled" width="28" height="27"/>
         <image name="Profile" width="28" height="27"/>
+        <image name="ProfileFilled" width="28" height="27"/>
         <image name="home" width="28" height="24"/>
+        <image name="homeFilled" width="28" height="24"/>
     </resources>
 </document>

@@ -14,8 +14,6 @@ enum ScreenManagerAction : String{
     case HomeTab = "Home"
     case DiscoverTab = "Discover"
     case MyAccountTab = "MyAccount"
-    case OnBoardingInterest = "OnBoardingInterest"
-    
     
 }
 
@@ -47,8 +45,13 @@ class ScreenVader: NSObject {
         if screenManagerVC != nil {
             screenManagerVC!.performLogout()
         }
-
-        
+    }
+    
+    func removeDismissedViewController(dismissVC: UIViewController) {
+        if let screenManagerVC = screenManagerVC {
+            screenManagerVC.removePresentedViewController(dismissVC)
+            
+        }
     }
     
     

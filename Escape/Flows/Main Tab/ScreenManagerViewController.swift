@@ -16,13 +16,14 @@ enum StoryBoardIdentifier : String{
 class ScreenManagerViewController: UIViewController {
     
     var currentStoryBoard : UIStoryboard?
-    var currentPresentedViewController : UIViewController?
+    var currentPresentedViewController : UIViewController!
     var currentPushedViewController : UIViewController!
     var presentedViewControllers : [UIViewController] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        currentPresentedViewController = self
         ScreenVader.sharedVader.screenManagerVC = self
         UserDataProvider.sharedDataProvider.getSecurityToken()
         
@@ -41,8 +42,9 @@ class ScreenManagerViewController: UIViewController {
             presentRootViewControllerOf(.Onboarding , queryParams: nil)
             
         }else{
-            presentRootViewControllerOf(.MainTab , queryParams: nil)
             
+            presentRootViewControllerOf(.MainTab , queryParams: nil)
+          
         }
         
     }
@@ -84,39 +86,53 @@ class ScreenManagerViewController: UIViewController {
         
     }
     
+    private func pushViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:AnyObject]?){
+        
+        if let currentPresentedViewController = currentPresentedViewController as? CustomNavigationViewController{
+            
+            if let currentPushedVC = instantiateViewControllerWith(storyBoardIdentifier, forIdentifier: viewControllerIdentifier){
+                
+                if let queryParams = queryParams{
+                    currentPushedVC.setObjectsWithQueryParameters(queryParams)
+                }
+                currentPresentedViewController.pushViewController(currentPushedVC, animated: true)
+                
+            }
+        }
+    }
+    
     private func presentViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:AnyObject]?){
         
         
-        currentPresentedViewController = instantiateViewControllerWith(storyBoardIdentifier, forIdentifier: viewControllerIdentifier)
-        if let currentPresentedViewController = currentPresentedViewController{
+        if let presentingVC = instantiateViewControllerWith(storyBoardIdentifier, forIdentifier: viewControllerIdentifier){
+            
             if let queryParams = queryParams{
-                
-                currentPresentedViewController.setObjectsWithQueryParameters(queryParams)
-                
+                presentingVC.setObjectsWithQueryParameters(queryParams)
             }
-            presentViewController(currentPresentedViewController, animated: true, completion: nil)
+            currentPresentedViewController.presentViewController(presentingVC, animated: true, completion: nil)
+            currentPresentedViewController = presentingVC
+            presentedViewControllers.append(presentingVC)
             
-            if storyBoardIdentifier == .Onboarding{
-                presentedViewControllers = []
-            }
-            
-            presentedViewControllers.append(currentPresentedViewController)
         }
-        
     }
-    
     
     private func initialViewControllerFor(storyboardId: StoryBoardIdentifier) -> UIViewController? {
         return UIStoryboard(name: storyboardId.rawValue, bundle: nil).instantiateInitialViewController()
     }
     
-    private func instantiateViewControllerWith(storyboard: StoryBoardIdentifier, forIdentifier: String) -> UIViewController {
+    private func instantiateViewControllerWith(storyboard: StoryBoardIdentifier, forIdentifier: String) -> UIViewController? {
         return UIStoryboard(name: storyboard.rawValue, bundle: nil).instantiateViewControllerWithIdentifier(forIdentifier)
     }
     
-    
-    
-    
+    func removePresentedViewController(dismissVC : UIViewController){
+        
+        if currentPresentedViewController == dismissVC {
+            presentedViewControllers.removeAtIndex(0)
+            if presentedViewControllers.count > 0 {
+                currentPresentedViewController = presentedViewControllers[0]
+            }
+        }
+    }
 }
 
 extension ScreenManagerViewController{
@@ -155,10 +171,6 @@ extension ScreenManagerViewController{
             openMainTab()
             break;
             
-        case .OnBoardingInterest:
-            openOnBoardingInterest()
-            break;
-            
         default:
             break
         }
@@ -172,12 +184,6 @@ extension ScreenManagerViewController{
     func performLogout(){
         currentPresentedViewController?.dismissViewControllerAnimated(true, completion: nil)
         ECUserDefaults.setLoggedIn(false)
-        
-    }
-    
-    func openOnBoardingInterest(){
-        
-        presentViewControllerOf(.Onboarding, viewControllerIdentifier: "InterestVC", queryParams: nil)
         
     }
     

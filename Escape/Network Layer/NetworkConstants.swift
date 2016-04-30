@@ -20,6 +20,7 @@ enum SubServiceType : String {
     case EmailSignUp = "register_with_email"
     case EmailSigIn =  "login_with_email"
     case FetchInterests = "fetch_all_interests"
+    case PostInterests = "user_interests"
     
 }
 

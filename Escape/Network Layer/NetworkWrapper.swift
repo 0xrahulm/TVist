@@ -22,6 +22,7 @@ class NetworkWrapper: NSObject {
     func serverCall(service : Service){
         
         print("server call with API url :: \(service.finalURL)")
+        print("parameters \(service.parameters)")
         
         if (isNetworkAvailable()){
             
@@ -89,7 +90,8 @@ class NetworkWrapper: NSObject {
         
         if let auth = DeviceID.getXauth(){
             headers["X-ESCAPE-AUTH-TOKEN"] = auth
-            print ("auth token : \(auth)")
+            
+            print ("TOKEN : \(auth)")
         }
         
         headers["X-DEVICE-ID"] = DeviceID.getDeviceID()
