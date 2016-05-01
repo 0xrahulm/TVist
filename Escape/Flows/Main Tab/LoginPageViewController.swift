@@ -123,7 +123,7 @@ class LoginPageViewController: UIViewController {
         
         
         let fbLoginManager : FBSDKLoginManager =  FBSDKLoginManager()
-        let fbPermission = ["user_likes" , "user_friends" , "public_profile"]
+        let fbPermission = ["user_likes" , "user_friends" , "public_profile" , "email"]
         
         fbLoginManager.logInWithReadPermissions(fbPermission, fromViewController: self) { (result, error) in
             if error == nil{

@@ -127,7 +127,9 @@ class ScreenManagerViewController: UIViewController {
     func removePresentedViewController(dismissVC : UIViewController){
         
         if currentPresentedViewController == dismissVC {
+            
             presentedViewControllers.removeAtIndex(0)
+            
             if presentedViewControllers.count > 0 {
                 currentPresentedViewController = presentedViewControllers[0]
             }
