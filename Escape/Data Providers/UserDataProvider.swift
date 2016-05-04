@@ -156,7 +156,6 @@ extension UserDataProvider{
     func parseFBUserData(dict : [String : AnyObject]){
         
         ECUserDefaults.setLoggedIn(true)
-        ScreenVader.sharedVader.performScreenManagerAction(.MainTab, queryParams: nil)
         
         if let token = JSON(dict)["auth_token"].string{
             DeviceID.saveXauth(token)

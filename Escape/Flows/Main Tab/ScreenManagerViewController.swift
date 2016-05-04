@@ -24,6 +24,7 @@ class ScreenManagerViewController: UIViewController {
         super.viewDidLoad()
         
         currentPresentedViewController = self
+        presentedViewControllers.append(self)
         ScreenVader.sharedVader.screenManagerVC = self
         UserDataProvider.sharedDataProvider.getSecurityToken()
         
