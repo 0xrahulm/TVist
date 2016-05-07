@@ -74,10 +74,7 @@ class UserDataProvider: CommonDataProvider {
     
     override func serviceSuccessfull(service: Service) {
         
-        switch service.subServiveType {
-        case .testSubService :
-
-            break
+        switch service.subServiveType! {
             
         case .FBSignIn:
             if let data = service.outPutResponse as? [String:AnyObject]{
@@ -111,7 +108,7 @@ class UserDataProvider: CommonDataProvider {
     
     }
     override func serviceError(service: Service) {
-        switch service.subServiveType {
+        switch service.subServiveType! {
         case .FBSignIn:
             
              ECUserDefaults.setLoggedIn(false)

@@ -11,10 +11,11 @@ import Alamofire
 
 class Service: NSObject {
     
-    var serviceType : ServiceType
-    var subServiveType : SubServiceType
+    var serviceType : ServiceType?
+    var subServiveType : SubServiceType?
+    
     var parameters : [String:AnyObject]?
-    var method : Alamofire.Method
+    var method : Alamofire.Method = .GET
     
     var outPutResponse : AnyObject?
     var errorMessage : AnyObject?
@@ -41,7 +42,11 @@ class Service: NSObject {
         switch subServiveType{
         
         default:
-            self.finalURL = "\(serviceType.rawValue)\(subServiveType.rawValue)"
+            if let serviceType = serviceType{
+                if let subServiveType = subServiveType{
+                    self.finalURL = "\(serviceType.rawValue)\(subServiveType.rawValue)"
+                }
+            }
         }
     }
     

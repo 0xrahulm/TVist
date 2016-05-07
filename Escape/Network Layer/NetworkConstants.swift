@@ -8,19 +8,22 @@
 
 import UIKit
 
-enum ServiceType : String{
-    case ServiceTypePrivateApi = "http://api.escape-app.com/api/"
-    //case ServiceTypePrivateApi = "staging"
-    case testService = "http://api.androidhive.info/"
+enum ServiceType : String {
+    case ServiceTypePrivateApi="http://api.escape-app.com/api/"
 }
 enum SubServiceType : String {
-    case testSubService = "contacts/"
+
+    //Sign in
     case GetUsers = "users/"
     case FBSignIn = "signin_with_facebook"
     case EmailSignUp = "register_with_email"
     case EmailSigIn =  "login_with_email"
     case FetchInterests = "fetch_all_interests"
     case PostInterests = "user_interests"
+    
+    // My Account
+    case GetUserDetails = "get_my_details"
+    
     
 }
 

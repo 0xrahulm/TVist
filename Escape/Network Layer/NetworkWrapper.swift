@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-@objc protocol NetworkWrapperProtocol : class{
+protocol NetworkWrapperProtocol : class {
     func serviceFinishedSucessfully(service : Service)
     func serivceFinishedWithError(service : Service)
 }

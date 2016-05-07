@@ -46,6 +46,9 @@ extension UIColor{
     class func textColor() -> UIColor{
         return UIColor.colorWithHexString("#353847")
     }
+    class func viewSelectedColor() -> UIColor{
+        return UIColor.colorWithHexString("#EFEFF4")
+    }
     
     
 }

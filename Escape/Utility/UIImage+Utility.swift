@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AlamofireImage
 
 extension UIImage {
     class func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
@@ -19,4 +20,14 @@ extension UIImage {
         return image
     }
 }
+extension UIImageView{
+     func downloadImageWithUrl(str : String){
+        
+        if let url = NSURL(string: str){
+            self.af_setImageWithURL(url)
+        }
+        
+    }
+}
+
 

@@ -9,12 +9,12 @@
 import UIKit
 import Alamofire
 
-class CommonDataProvider: NSObject {
+class CommonDataProvider: NetworkWrapperProtocol {
     
     var activeServices : [Service] = []
     
 
-    func ServiceCall(method :Alamofire.Method, serviceType : ServiceType , subServiceType : SubServiceType, params : [String:AnyObject]? , delegate : NetworkWrapperProtocol ){
+    func ServiceCall(method :Alamofire.Method, serviceType : ServiceType, subServiceType : SubServiceType, params : [String:AnyObject]? , delegate : NetworkWrapperProtocol){
         
         
         let service = Service(method : method ,serviceType: serviceType, subServiveType: subServiceType, parameters: params)
@@ -42,10 +42,6 @@ class CommonDataProvider: NSObject {
         NetworkAvailability.sharedNetwork.activeServices = []
     }
     
-
-}
-
-extension CommonDataProvider : NetworkWrapperProtocol{
     
     func serivceFinishedWithError(service: Service) {
         if service.errorCode != nil{
