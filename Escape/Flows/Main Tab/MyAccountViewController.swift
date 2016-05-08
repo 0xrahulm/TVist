@@ -12,8 +12,8 @@ import ionicons
 enum MyAccountSegments : String{
     case Activity = "activity"
     case Movie = "movie"
-    case TvShows = "tvshows"
-    case Books = "books"
+    case TvShows = "tv_show"
+    case Books = "book"
 }
 enum Tap : Int{
     case Activity = 1
@@ -61,8 +61,12 @@ class MyAccountViewController: UIViewController {
         setupViewControllers()
         
         MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
-        MyAccountDataProvider.sharedDataProvider.getUserDetails()
         
+        
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        MyAccountDataProvider.sharedDataProvider.getUserDetails()
     }
     
     func setVisuals(){
@@ -152,12 +156,11 @@ class MyAccountViewController: UIViewController {
             }
             
         }
-        if let profilePic = userData?.profilePicture{
             
-            profileImage.downloadImageWithUrl(profilePic)
+        profileImage.downloadImageWithUrl(userData?.profilePicture , placeHolder: UIImage(named: "profile_placeholder"))
             
             
-        }
+        
         if let followers = userData?.followers{
             followerCount.text = "\(followers)"
         }

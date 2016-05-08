@@ -74,6 +74,20 @@
 		BC4F45621CDE029F00A65A63 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45601CDE029F00A65A63 /* Utilities.swift */; };
 		BC4F45641CDE1EF000A65A63 /* CustomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */; };
 		BC4F45651CDE1EF000A65A63 /* CustomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */; };
+		BC4F45681CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */; };
+		BC4F45691CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */; };
+		BC4F456B1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F456A1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift */; };
+		BC4F456C1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F456A1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift */; };
+		BC4F456E1CDF3EC200A65A63 /* MyAccountEscapeItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItems.swift */; };
+		BC4F456F1CDF3EC200A65A63 /* MyAccountEscapeItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItems.swift */; };
+		BC4F45741CDF432A00A65A63 /* EscapeDataItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */; };
+		BC4F45751CDF432A00A65A63 /* EscapeDataItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */; };
+		BC4F45771CDF6EC300A65A63 /* EnumsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */; };
+		BC4F45781CDF6EC300A65A63 /* EnumsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */; };
+		BC4F457B1CDF739C00A65A63 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45791CDF739C00A65A63 /* User+CoreDataProperties.swift */; };
+		BC4F457C1CDF739C00A65A63 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45791CDF739C00A65A63 /* User+CoreDataProperties.swift */; };
+		BC4F457D1CDF739C00A65A63 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F457A1CDF739C00A65A63 /* User.swift */; };
+		BC4F457E1CDF739C00A65A63 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F457A1CDF739C00A65A63 /* User.swift */; };
 		BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */; };
 		BC85DBF81CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */; };
 		BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF41CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m */; };
@@ -148,6 +162,13 @@
 		BC47EDC71CA013EC008143C2 /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
 		BC4F45601CDE029F00A65A63 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListViewController.swift; sourceTree = "<group>"; };
+		BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListTableViewCell.swift; sourceTree = "<group>"; };
+		BC4F456A1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListCollectionViewCell.swift; sourceTree = "<group>"; };
+		BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountEscapeItems.swift; sourceTree = "<group>"; };
+		BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EscapeDataItems.swift; sourceTree = "<group>"; };
+		BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumsUtility.swift; sourceTree = "<group>"; };
+		BC4F45791CDF739C00A65A63 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BC4F457A1CDF739C00A65A63 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BC85DBF11CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		BC85DBF31CA69F0E002237A4 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
@@ -332,6 +353,7 @@
 				BCB7B4B61CA17643002147FA /* SFUIAttributedText.swift */,
 				BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */,
 				BC4F45601CDE029F00A65A63 /* Utilities.swift */,
+				BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */,
 				BC02D0C21CD0D674009D7EE6 /* UIImage+Utility.swift */,
 				BCCD70C41CA19278002A0C07 /* UIColor+Utility.swift */,
 				BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */,
@@ -372,6 +394,20 @@
 			path = "Custom Controllers";
 			sourceTree = "<group>";
 		};
+		BC4F45661CDF29F200A65A63 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC4F45791CDF739C00A65A63 /* User+CoreDataProperties.swift */,
+				BC4F457A1CDF739C00A65A63 /* User.swift */,
+				BC2485551CDC900800DC7077 /* MyAccountItems.swift */,
+				BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItems.swift */,
+				BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */,
+				BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */,
+				BC4F456A1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		BCB7B49F1CA16C6A002147FA /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,10 +425,10 @@
 		BCB7B4A11CA16CA8002147FA /* My Account */ = {
 			isa = PBXGroup;
 			children = (
+				BC4F45661CDF29F200A65A63 /* Model */,
 				BC85DBFD1CA6D3E0002237A4 /* MyAccount.storyboard */,
 				BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */,
 				BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */,
-				BC2485551CDC900800DC7077 /* MyAccountItems.swift */,
 			);
 			name = "My Account";
 			sourceTree = "<group>";
@@ -613,6 +649,7 @@
 				BC3A81A91CA5753000FF8678 /* MainTabBarViewController.swift in Sources */,
 				BC47EDC81CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */,
 				BC15C1561CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */,
+				BC4F456E1CDF3EC200A65A63 /* MyAccountEscapeItems.swift in Sources */,
 				BC47EDC11CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BCCD70C81CA19468002A0C07 /* Service.swift in Sources */,
 				BC47ED8A1C9FEEC8008143C2 /* Escape.xcdatamodeld in Sources */,
@@ -624,19 +661,25 @@
 				BCCD70CB1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
 				BC02D0C31CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */,
 				BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
+				BC4F456B1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */,
 				BC2485561CDC900800DC7077 /* MyAccountItems.swift in Sources */,
 				BC4F45611CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BC2A73161CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
+				BC4F45771CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC47EDB91CA00333008143C2 /* ScreenVader.swift in Sources */,
 				BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */,
 				BC2A73121CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
+				BC4F45681CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
 				BC47EDC41CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */,
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				BC2A730C1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */,
 				BCB7B4B71CA17643002147FA /* SFUIAttributedText.swift in Sources */,
+				BC4F457B1CDF739C00A65A63 /* User+CoreDataProperties.swift in Sources */,
+				BC4F45741CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
 				BC02D0C01CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
 				BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
+				BC4F457D1CDF739C00A65A63 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +699,7 @@
 				BC3A81AA1CA5753000FF8678 /* MainTabBarViewController.swift in Sources */,
 				BC47EDC91CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */,
 				BC15C1571CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */,
+				BC4F456F1CDF3EC200A65A63 /* MyAccountEscapeItems.swift in Sources */,
 				BC47EDC21CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BCCD70C91CA19468002A0C07 /* Service.swift in Sources */,
 				BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */,
@@ -667,19 +711,25 @@
 				BCCD70CC1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
 				BC02D0C41CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */,
 				BC2485541CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
+				BC4F456C1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */,
 				BC2485571CDC900800DC7077 /* MyAccountItems.swift in Sources */,
 				BC4F45621CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BC2A73171CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
+				BC4F45781CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC47EDBA1CA00333008143C2 /* ScreenVader.swift in Sources */,
 				BC3A81891CA521D500FF8678 /* DeviceID.swift in Sources */,
 				BC2A73131CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
+				BC4F45691CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
 				BC47EDC51CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */,
 				BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				BC2A730D1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */,
 				BCB7B4B81CA17643002147FA /* SFUIAttributedText.swift in Sources */,
+				BC4F457C1CDF739C00A65A63 /* User+CoreDataProperties.swift in Sources */,
+				BC4F45751CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
 				BC02D0C11CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
 				BC85DBFA1CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
+				BC4F457E1CDF739C00A65A63 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@ import UIKit
 class ECUserDefaults: NSObject {
     
     static let kLoggedIn = "loggedInKey"
+    static let kCurrentUserId = "currentUserIdKey"
     
     class func isLoggedIn()-> Bool{
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -24,10 +25,21 @@ class ECUserDefaults: NSObject {
         
     }
     
+    class func getCurrentUserId() -> String?{
+        let defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.valueForKey(kCurrentUserId) as? String
+    }
+    class func setCurrentUserId(id : String){
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(id, forKey: kCurrentUserId)
+    }
+    
     //Remove keys
     class func removeLoggedInKeys(){
         let defaults = NSUserDefaults.standardUserDefaults()
+        
         defaults.removeObjectForKey(kLoggedIn)
+        defaults.removeObjectForKey(kCurrentUserId)
     }
 
 }

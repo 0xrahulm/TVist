@@ -21,10 +21,14 @@ extension UIImage {
     }
 }
 extension UIImageView{
-     func downloadImageWithUrl(str : String){
+    func downloadImageWithUrl(str : String? , placeHolder : UIImage?){
         
-        if let url = NSURL(string: str){
-            self.af_setImageWithURL(url)
+        self.image = placeHolder
+        
+        if let str = str{
+            if let url = NSURL(string: str){
+                self.af_setImageWithURL(url)
+            }
         }
         
     }
