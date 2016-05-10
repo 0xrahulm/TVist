@@ -14,7 +14,7 @@ class User: NSManagedObject {
     
     // Insert code here to add functionality to your managed object subclass
     
-    class func createOrUpdateData(id: String?, firstName: String?, lastName: String?, email: String?, gender: NSNumber?, profilePicture: String?, followers: NSNumber?, following: NSNumber?, escapes_count : NSNumber?){
+    class func createOrUpdateData(id: String?, firstName: String?, lastName: String?, email: String?, gender: NSNumber?, profilePicture: String?, followers: NSNumber?, following: NSNumber?, escapes_count : NSNumber?) -> User {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
@@ -37,7 +37,7 @@ class User: NSManagedObject {
             print(fetchError)
         }
         var userExist = false
-        var user : NSManagedObject!
+        var user : User!
         do {
             let result = try managedContext.executeFetchRequest(fetchRequest)
             
@@ -59,7 +59,7 @@ class User: NSManagedObject {
             print(fetchError)
         }
         if !userExist{
-            user = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: managedContext)
+            user = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: managedContext) as! User
             
         }
         user.setValue(firstName, forKey: "firstName")
@@ -80,6 +80,7 @@ class User: NSManagedObject {
             print("Could not save \(error), \(error.userInfo)")
         }
         
+        return user
     }
     
 }

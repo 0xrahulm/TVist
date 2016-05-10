@@ -157,7 +157,6 @@ class EmailLoginViewController: UIViewController {
 }
 extension EmailLoginViewController : LoginProtocol{
     
-    
     func signInError(data : AnyObject?){
        
         if let data = data as? [String:AnyObject]{

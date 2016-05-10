@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum StoryBoardIdentifier : String{
-    case Onboarding = "Onboarding"
-    case MainTab = "MainTab"
-}
-
 class ScreenManagerViewController: UIViewController {
     
     var currentStoryBoard : UIStoryboard?

@@ -8,15 +8,6 @@
 
 import UIKit
 
-enum ScreenManagerAction : String{
-    
-    case MainTab = "MainTab"
-    case HomeTab = "Home"
-    case DiscoverTab = "Discover"
-    case MyAccountTab = "MyAccount"
-    
-}
-
 class ScreenVader: NSObject {
     
     static let sharedVader = ScreenVader()

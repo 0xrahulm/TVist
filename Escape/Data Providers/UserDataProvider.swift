@@ -10,10 +10,6 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-enum LoginTypeEnum : String {
-    case Facebook = "fb"
-    case Email    = "email"
-}
 
 protocol LoginProtocol : class{
     
@@ -32,7 +28,6 @@ class UserDataProvider: CommonDataProvider {
     weak var emailLoginDelegate:   LoginProtocol?
     weak var fbLoginDelegate:      LoginProtocol?
     weak var interestDelegate:     InterestProtocol?
-    
     
     func getSecurityToken(){
         

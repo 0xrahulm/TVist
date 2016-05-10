@@ -28,6 +28,8 @@ class MyAccountDataProvider: CommonDataProvider {
     weak var myAccountDetailsDelegate : MyAccountDetailsProtocol?
     weak var escapeItemsDelegate : EscapeItemsProtocol?
     
+    var currentUser:User?
+    
     func getUserDetails(){
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserDetails, params: nil, delegate: self)
     }
@@ -39,6 +41,80 @@ class MyAccountDataProvider: CommonDataProvider {
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserEscapes, params: params, delegate: self)
         
     }
+    
+    
+    func userFetchedControler(withDelegate: MyAccountViewController) -> NSFetchedResultsController? {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName: "User")
+        fetchRequest.fetchLimit = 100
+        fetchRequest.fetchBatchSize = 20
+        
+        if let current_user_id = ECUserDefaults.getCurrentUserId() {
+            
+            // Filter Food where type is breastmilk
+            let predicate = NSPredicate(format: "%K == %@", "user_id", current_user_id)
+            fetchRequest.predicate = predicate
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "user_id", ascending: false)]
+            
+            let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
+            frc.delegate = withDelegate
+            do {
+                try frc.performFetch()
+            } catch {
+                print("Error")
+            }
+            return frc
+        }
+        
+        return nil
+//        
+//        let fetchRequest = NSFetchRequest()
+//        
+//        // Create Entity Description
+//        let entityDescription = NSEntityDescription.entityForName("User", inManagedObjectContext: managedContext)
+//        
+//        // Configure Fetch Request
+//        fetchRequest.entity = entityDescription
+//
+//        
+//        do {
+//            let result = try managedContext.executeFetchRequest(fetchRequest)
+//            print(result)
+//            
+//        } catch {
+//            let fetchError = error as NSError
+//            print(fetchError)
+//        }
+//        var userExist = false
+//        var user : User!
+//        do {
+//            let result = try managedContext.executeFetchRequest(fetchRequest)
+//            
+//            
+//            for item in result{
+//                if let userid = item.valueForKey("user_id") as? String{
+//                    if let currentUser = currentUser, let current_user_id = currentUser.valueForKey("user_id") as? String {
+//                        
+//                        if current_user_id == userid {
+//                            userExist = true
+//                            user = item as! User
+//                            break
+//                        }
+//                    }
+//                    
+//                }
+//            }
+//            
+//            
+//        } catch {
+//            let fetchError = error as NSError
+//            print(fetchError)
+//        }
+        
+    }
+    
     
     
     override func serviceSuccessfull(service: Service) {
@@ -73,6 +149,8 @@ class MyAccountDataProvider: CommonDataProvider {
             break
         }
     }
+    
+    
     
     override func serviceError(service: Service) {
         switch service.subServiveType! {
@@ -165,7 +243,7 @@ extension MyAccountDataProvider {
             
             
         }
-        User.createOrUpdateData(id, firstName: firstName, lastName: lastName, email: email, gender: gender?.rawValue, profilePicture: profilePicture, followers: followers, following: following, escapes_count: escapes_count)
+        currentUser = User.createOrUpdateData(id, firstName: firstName, lastName: lastName, email: email, gender: gender?.rawValue, profilePicture: profilePicture, followers: followers, following: following, escapes_count: escapes_count)
         
         userData = MyAccountItems(id: id, firstName: firstName, lastName: lastName, email: email, gender: gender, profilePicture: profilePicture, followers: followers, following: following, movies_count: movies_count, books_count: books_count, tvShows_count: tvShows_count ,escapes_count : escapes_count)
         

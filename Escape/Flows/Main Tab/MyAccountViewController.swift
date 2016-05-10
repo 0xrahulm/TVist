@@ -8,21 +8,11 @@
 
 import UIKit
 import ionicons
+import CoreData
 
-enum MyAccountSegments : String{
-    case Activity = "activity"
-    case Movie = "movie"
-    case TvShows = "tv_show"
-    case Books = "book"
-}
-enum Tap : Int{
-    case Activity = 1
-    case Movie = 2
-    case TvShows = 3
-    case Books = 4
-}
 
-class MyAccountViewController: UIViewController {
+
+class MyAccountViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var profileImage: UIImageView!
     
@@ -47,6 +37,7 @@ class MyAccountViewController: UIViewController {
     
     private var viewControllers: [UIViewController] = []
     var currentDisplayIndex = -1
+    var fetchedRC:NSFetchedResultsController!
     
     private var activeViewController: UIViewController? {
         didSet {
@@ -61,9 +52,22 @@ class MyAccountViewController: UIViewController {
         setupViewControllers()
         
         MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
-        
-        
+        fetchedRC = MyAccountDataProvider.sharedDataProvider.userFetchedControler(self)
     }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        if let currentUser = MyAccountDataProvider.sharedDataProvider.currentUser {
+            print(currentUser.valueForKey("firstName") as? String)
+        }
+    }
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        if let currentUser = MyAccountDataProvider.sharedDataProvider.currentUser {
+            print(currentUser.valueForKey("firstName") as? String)
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         MyAccountDataProvider.sharedDataProvider.getUserDetails()
@@ -223,7 +227,7 @@ class MyAccountViewController: UIViewController {
 extension MyAccountViewController : MyAccountDetailsProtocol{
     func recievedUserDetails(data: MyAccountItems?) {
         
-        fillData(data)
+//        fillData(data)
         
     }
     func errorUserDetails() {
