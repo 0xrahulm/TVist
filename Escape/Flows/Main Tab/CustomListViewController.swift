@@ -45,7 +45,7 @@ class CustomListViewController: UIViewController {
         super.viewWillAppear(animated)
         
         fetchEscapesDataFromRealm()
-        //MyAccountDataProvider.sharedDataProvider.getUserEscapes(escapeType)
+        MyAccountDataProvider.sharedDataProvider.getUserEscapes(escapeType)
         
     }
     
