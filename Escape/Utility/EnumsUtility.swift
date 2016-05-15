@@ -14,10 +14,12 @@ enum ScreenManagerAction : String{
     case HomeTab = "Home"
     case DiscoverTab = "Discover"
     case MyAccountTab = "MyAccount"
+    case MyAccountSetting = "MyAccountSetting"
 }
 enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"
     case MainTab = "MainTab"
+    case MyAccount = "MyAccount"
 }
 enum LoginTypeEnum : String {
     case Facebook = "fb"
@@ -28,11 +30,6 @@ enum Gender : Int{
     case Femeal = 2
 }
 enum EscapeType : String{
-    case Movie = "movie"
-    case TvShows = "tv_show"
-    case Books = "book"
-}
-enum MyAccountSegments : String{
     case Activity = "activity"
     case Movie = "movie"
     case TvShows = "tv_show"

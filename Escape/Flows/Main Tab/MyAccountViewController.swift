@@ -8,11 +8,9 @@
 
 import UIKit
 import ionicons
-import CoreData
+import RealmSwift
 
-
-
-class MyAccountViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class MyAccountViewController: UIViewController{
     
     @IBOutlet weak var profileImage: UIImageView!
     
@@ -33,11 +31,10 @@ class MyAccountViewController: UIViewController, NSFetchedResultsControllerDeleg
     @IBOutlet weak var activityView: UIView!
     // Segment
     
-    var listOfVCType : [MyAccountSegments] = [.Activity, .Movie, .TvShows, .Books]
+    var listOfVCType : [EscapeType] = [.Activity, .Movie, .TvShows, .Books]
     
     private var viewControllers: [UIViewController] = []
     var currentDisplayIndex = -1
-    var fetchedRC:NSFetchedResultsController!
     
     private var activeViewController: UIViewController? {
         didSet {
@@ -52,24 +49,15 @@ class MyAccountViewController: UIViewController, NSFetchedResultsControllerDeleg
         setupViewControllers()
         
         MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
-        fetchedRC = MyAccountDataProvider.sharedDataProvider.userFetchedControler(self)
-    }
-    
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         
-        if let currentUser = MyAccountDataProvider.sharedDataProvider.currentUser {
-            print(currentUser.valueForKey("firstName") as? String)
-        }
     }
-    
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        if let currentUser = MyAccountDataProvider.sharedDataProvider.currentUser {
-            print(currentUser.valueForKey("firstName") as? String)
-        }
-    }
+   
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        fetchDataFromRealm()
+        
         MyAccountDataProvider.sharedDataProvider.getUserDetails()
     }
     
@@ -84,6 +72,8 @@ class MyAccountViewController: UIViewController, NSFetchedResultsControllerDeleg
         booksImage.image = IonIcons.imageWithIcon(ion_ios_book, iconColor: UIColor.themeColorBlue(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
     }
     func settingTapped(){
+        performSegueWithIdentifier("settingSegue", sender: nil)
+        //ScreenVader.sharedVader.performScreenManagerAction(.MyAccountSetting, queryParams: nil)
         
     }
     
@@ -150,6 +140,22 @@ class MyAccountViewController: UIViewController, NSFetchedResultsControllerDeleg
         }
     }
     
+    func fetchDataFromRealm(){
+        
+        print("PATH : \(Realm.Configuration.defaultConfiguration.fileURL)")
+        
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser{
+            
+            var data : MyAccountItems?
+            data = MyAccountItems(id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, gender: Gender(rawValue :user.gender), profilePicture: user.profilePicture, followers: user.following, following: user.following, movies_count: user.movies_count, books_count: user.books_count, tvShows_count: user.tvShows_count, escapes_count: user.escape_count)
+            
+            fillData(data)
+            
+            print("FirstName \(user.firstName)")
+        }
+        
+    }
+    
     func fillData(userData : MyAccountItems?){
         if let firstName = userData?.firstName{
             
@@ -162,8 +168,7 @@ class MyAccountViewController: UIViewController, NSFetchedResultsControllerDeleg
         }
             
         profileImage.downloadImageWithUrl(userData?.profilePicture , placeHolder: UIImage(named: "profile_placeholder"))
-            
-            
+        
         
         if let followers = userData?.followers{
             followerCount.text = "\(followers)"
@@ -227,7 +232,7 @@ class MyAccountViewController: UIViewController, NSFetchedResultsControllerDeleg
 extension MyAccountViewController : MyAccountDetailsProtocol{
     func recievedUserDetails(data: MyAccountItems?) {
         
-//        fillData(data)
+        fillData(data)
         
     }
     func errorUserDetails() {

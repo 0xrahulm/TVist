@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rjC-MI-3M0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rjC-MI-3M0">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -40,7 +40,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdI-mB-ltK" userLabel="Top view">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KXu-tG-fT7">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="KXu-tG-fT7">
                                                         <rect key="frame" x="15" y="12" width="75" height="75"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="75" id="2pe-Px-S1C"/>
@@ -56,7 +56,7 @@
                                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x0b-f6-QFG" userLabel="escapeView">
                                                         <rect key="frame" x="239.5" y="7" width="51.5" height="50"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AR9-6p-HFX">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AR9-6p-HFX">
                                                                 <rect key="frame" x="8" y="5" width="35.5" height="18"/>
                                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="15"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -82,7 +82,7 @@
                                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4p7-jv-wgG" userLabel="followers">
                                                         <rect key="frame" x="321.5" y="7" width="57.5" height="50"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oyg-1m-JXs">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oyg-1m-JXs">
                                                                 <rect key="frame" x="11" y="5" width="35.5" height="18"/>
                                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="15"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -108,7 +108,7 @@
                                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ToX-UB-Euf" userLabel="following">
                                                         <rect key="frame" x="408.5" y="7" width="57.5" height="50"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUU-h8-7kL">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUU-h8-7kL">
                                                                 <rect key="frame" x="11" y="5" width="35.5" height="18"/>
                                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="15"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -397,6 +397,7 @@
                         <outlet property="profileImage" destination="KXu-tG-fT7" id="Ghx-UN-LWy"/>
                         <outlet property="tvImage" destination="JU0-Jb-lAX" id="iYs-ba-Uh4"/>
                         <outlet property="tvshowsView" destination="w3Y-5U-CUC" id="F4q-tO-HNF"/>
+                        <segue destination="t3X-yS-tmM" kind="show" identifier="settingSegue" id="ezo-ha-rOL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5AB-8q-S1R" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -422,6 +423,61 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="117" y="382"/>
+        </scene>
+        <!--My Account Setting View Controller-->
+        <scene sceneID="LR3-UJ-XCm">
+            <objects>
+                <viewController storyboardIdentifier="myAccountSettingVC" id="t3X-yS-tmM" customClass="MyAccountSettingViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ty2-El-KGo"/>
+                        <viewControllerLayoutGuide type="bottom" id="yCK-Hh-NnL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RIR-Nq-PM3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uhX-Sx-r1A">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingTableCellIdentifier" id="eGr-M7-qxc">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eGr-M7-qxc" id="HrE-iC-lVc">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="t3X-yS-tmM" id="eKW-r6-fJs"/>
+                                    <outlet property="delegate" destination="t3X-yS-tmM" id="fa6-ti-SLg"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yCK-Hh-NnL" firstAttribute="top" secondItem="uhX-Sx-r1A" secondAttribute="bottom" id="8Hp-dy-jAn"/>
+                            <constraint firstItem="uhX-Sx-r1A" firstAttribute="leading" secondItem="RIR-Nq-PM3" secondAttribute="leading" id="9go-eR-UK0"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="uhX-Sx-r1A" secondAttribute="bottom" id="N5h-Ld-X1G"/>
+                            <constraint firstItem="uhX-Sx-r1A" firstAttribute="top" secondItem="Ty2-El-KGo" secondAttribute="bottom" id="cl8-Ds-nvl"/>
+                            <constraint firstAttribute="trailing" secondItem="uhX-Sx-r1A" secondAttribute="trailing" id="eCP-RS-VS9"/>
+                            <constraint firstItem="uhX-Sx-r1A" firstAttribute="top" secondItem="RIR-Nq-PM3" secondAttribute="topMargin" id="wlr-Aj-ELI"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="cl8-Ds-nvl"/>
+                                <exclude reference="8Hp-dy-jAn"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="uhX-Sx-r1A" id="VuG-TB-E0A"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BfH-tQ-4Sc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117" y="1119"/>
         </scene>
         <!--Custom List View Controller-->
         <scene sceneID="E5U-as-l84">
@@ -572,4 +628,7 @@
             <point key="canvasLocation" x="1068" y="382"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="profile_placeholder" width="200" height="200"/>
+    </resources>
 </document>

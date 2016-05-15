@@ -95,6 +95,8 @@ class ScreenManagerViewController: UIViewController {
                 
             }
         }
+        
+
     }
     
     private func presentViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:AnyObject]?){
@@ -167,7 +169,11 @@ extension ScreenManagerViewController{
             
         case .MainTab:
             openMainTab()
-            break;
+            break
+            
+        case .MyAccountSetting:
+            openMyAccountSetting()
+            break
             
         default:
             break
@@ -183,6 +189,9 @@ extension ScreenManagerViewController{
         currentPresentedViewController?.dismissViewControllerAnimated(true, completion: nil)
         ECUserDefaults.setLoggedIn(false)
         
+    }
+    func openMyAccountSetting(){
+        pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountSettingVC", queryParams: nil)
     }
     
 }

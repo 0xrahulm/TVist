@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import CoreData
+import RealmSwift
 
 
 protocol MyAccountDetailsProtocol : class {
@@ -28,7 +29,41 @@ class MyAccountDataProvider: CommonDataProvider {
     weak var myAccountDetailsDelegate : MyAccountDetailsProtocol?
     weak var escapeItemsDelegate : EscapeItemsProtocol?
     
-    var currentUser:User?
+    var currentUser:UserData?
+    
+    override init() {
+        super.init()
+        
+        setCurrentUser()
+        
+    }
+    
+    func setCurrentUser(){
+        
+        if let currentUserId = ECUserDefaults.getCurrentUserId(){
+            
+            let predicate = NSPredicate(format: "id == %@", currentUserId)
+            let userDataPredicate = NSPredicate(format: "userId == %@", currentUserId)
+            
+            do {
+                if let user = try Realm().objects(UserData).filter(predicate).first{
+                    
+                    currentUser = user
+                
+                    let escapeData = try Realm().objects(UserEscapeData).filter(userDataPredicate)
+                    
+                    let uiRealm = try! Realm()
+                    try! uiRealm.write({
+                        currentUser?.escapeList.appendContentsOf(escapeData)
+                    })
+                  
+                }
+                
+            } catch let  error as NSError{
+                print(error.userInfo)
+            }
+        }
+    }
     
     func getUserDetails(){
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserDetails, params: nil, delegate: self)
@@ -41,80 +76,9 @@ class MyAccountDataProvider: CommonDataProvider {
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserEscapes, params: params, delegate: self)
         
     }
-    
-    
-    func userFetchedControler(withDelegate: MyAccountViewController) -> NSFetchedResultsController? {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "User")
-        fetchRequest.fetchLimit = 100
-        fetchRequest.fetchBatchSize = 20
-        
-        if let current_user_id = ECUserDefaults.getCurrentUserId() {
-            
-            // Filter Food where type is breastmilk
-            let predicate = NSPredicate(format: "%K == %@", "user_id", current_user_id)
-            fetchRequest.predicate = predicate
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "user_id", ascending: false)]
-            
-            let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
-            frc.delegate = withDelegate
-            do {
-                try frc.performFetch()
-            } catch {
-                print("Error")
-            }
-            return frc
-        }
-        
-        return nil
-//        
-//        let fetchRequest = NSFetchRequest()
-//        
-//        // Create Entity Description
-//        let entityDescription = NSEntityDescription.entityForName("User", inManagedObjectContext: managedContext)
-//        
-//        // Configure Fetch Request
-//        fetchRequest.entity = entityDescription
-//
-//        
-//        do {
-//            let result = try managedContext.executeFetchRequest(fetchRequest)
-//            print(result)
-//            
-//        } catch {
-//            let fetchError = error as NSError
-//            print(fetchError)
-//        }
-//        var userExist = false
-//        var user : User!
-//        do {
-//            let result = try managedContext.executeFetchRequest(fetchRequest)
-//            
-//            
-//            for item in result{
-//                if let userid = item.valueForKey("user_id") as? String{
-//                    if let currentUser = currentUser, let current_user_id = currentUser.valueForKey("user_id") as? String {
-//                        
-//                        if current_user_id == userid {
-//                            userExist = true
-//                            user = item as! User
-//                            break
-//                        }
-//                    }
-//                    
-//                }
-//            }
-//            
-//            
-//        } catch {
-//            let fetchError = error as NSError
-//            print(fetchError)
-//        }
-        
+    func logoutUser(){
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .LogoutUser, params: nil, delegate: self)
     }
-    
     
     
     override func serviceSuccessfull(service: Service) {
@@ -145,6 +109,10 @@ class MyAccountDataProvider: CommonDataProvider {
                 }
             }
             break
+            
+        case .LogoutUser:
+            ScreenVader.sharedVader.performLogout()
+            break
         default:
             break
         }
@@ -165,6 +133,10 @@ class MyAccountDataProvider: CommonDataProvider {
             if self.escapeItemsDelegate != nil{
                 self.escapeItemsDelegate?.errorEscapeData()
             }
+            break
+            
+        case .LogoutUser:
+            
             break
             
         default:
@@ -243,10 +215,10 @@ extension MyAccountDataProvider {
             
             
         }
-        currentUser = User.createOrUpdateData(id, firstName: firstName, lastName: lastName, email: email, gender: gender?.rawValue, profilePicture: profilePicture, followers: followers, following: following, escapes_count: escapes_count)
         
         userData = MyAccountItems(id: id, firstName: firstName, lastName: lastName, email: email, gender: gender, profilePicture: profilePicture, followers: followers, following: following, movies_count: movies_count, books_count: books_count, tvShows_count: tvShows_count ,escapes_count : escapes_count)
         
+        saveUserDataToRealm(userData)
         
         if let myAccountDetailsDelegate = myAccountDetailsDelegate{
             myAccountDetailsDelegate.recievedUserDetails(userData)
@@ -286,12 +258,108 @@ extension MyAccountDataProvider {
                 }
             }
         }
+        
+        saveEscapesToRealm(escapeDataArray , escapeType: EscapeType(rawValue: escape_type)!)
+        
         if self.escapeItemsDelegate != nil{
             self.escapeItemsDelegate?.recievedEscapeData(escapeDataArray , escape_type: EscapeType(rawValue: escape_type)!)
         }
         
     }
 }
+
+//MARK :- Persist Data
+extension MyAccountDataProvider{
+    func saveUserDataToRealm(userItem : MyAccountItems?){
+        
+        if let userItem = userItem{
+            
+            let userData = UserData()
+            userData.id = userItem.id
+            userData.firstName  = userItem.firstName
+            userData.lastName = userItem.lastName
+            userData.email = userItem.email
+            if let gender = userItem.gender?.rawValue{
+                userData.gender = gender
+            }
+            
+            userData.profilePicture = userItem.profilePicture
+            if let followers = userItem.followers{
+                userData.followers = Int(followers)
+            }
+            if let following = userItem.following{
+                userData.following = Int(following)
+            }
+            if let movies = userItem.movies_count{
+                userData.movies_count = Int(movies)
+            }
+            if let books = userItem.books_count{
+                userData.books_count = Int(books)
+            }
+            if let tvShows = userItem.tvShows_count{
+                userData.tvShows_count = Int(tvShows)
+            }
+            if let escape = userItem.escapes_count{
+                userData.escape_count = Int(escape)
+            }
+            
+            self.currentUser = userData
+            
+            let uiRealm  = try! Realm()
+            try! uiRealm.write({
+                uiRealm.add(userData , update: true)
+            })
+            
+            
+        }
+        
+    }
+    
+    func saveEscapesToRealm(escapeDataArray : [MyAccountEscapeItems] , escapeType : EscapeType){
+        
+        for item in escapeDataArray{
+            
+            if let currentUserId = ECUserDefaults.getCurrentUserId(){
+                
+                if let escapeItems = item.escapeData{
+                    
+                    for escapeItem in escapeItems{
+                        
+                        let escapeData = UserEscapeData()
+                        
+                        escapeData.userId = currentUserId
+                        
+                        escapeData.sectionTitle = item.title
+                        
+                        if let count = item.count{
+                            escapeData.sectionCount = Int(count)
+                        }
+                        escapeData.id = escapeItem.id
+                        escapeData.name = escapeItem.name
+                        escapeData.posterImage = escapeItem.image
+                        escapeData.escapeType = escapeItem.escapeType?.rawValue
+                        
+                        let uiRealm = try! Realm()
+                        try! uiRealm.write({
+                            uiRealm.add(escapeData ,update: true)
+                            self.currentUser?.escapeList.append(escapeData)
+                        })
+                        
+                    }
+                    
+                }
+
+                
+            }
+            
+        }
+        
+        
+    }
+    
+}
+
+
 
 
 

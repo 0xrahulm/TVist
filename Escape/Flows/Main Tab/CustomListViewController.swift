@@ -10,7 +10,7 @@ import UIKit
 
 class CustomListViewController: UIViewController {
     
-    var typeOfList:MyAccountSegments!
+    var typeOfList:EscapeType!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -35,10 +35,92 @@ class CustomListViewController: UIViewController {
             escapeType = .Books
             
         }
+        
         MyAccountDataProvider.sharedDataProvider.escapeItemsDelegate = self
-        MyAccountDataProvider.sharedDataProvider.getUserEscapes(escapeType)
-        tableDataArray = []
-        tableView.reloadData()
+        
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchEscapesDataFromRealm()
+        //MyAccountDataProvider.sharedDataProvider.getUserEscapes(escapeType)
+        
+    }
+    
+    func fetchEscapesDataFromRealm(){
+        
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser{
+            
+            let escapeType = typeOfList.rawValue
+           
+            let predicate = NSPredicate(format: "escapeType == %@", escapeType)
+            
+            var dataArray : [MyAccountEscapeItems] = []
+            
+             let list = user.escapeList.filter(predicate)
+             if list.count > 0 {
+                var distinctElement : [String] = []
+                
+                for i in list{
+                    if let section = i.sectionTitle{
+                        
+                        var check = true
+                        for j in distinctElement{
+                            if j == section{
+                                check = false
+                                break
+                            }
+                        }
+                        if (check){
+                            distinctElement.append(section)
+                        }
+                    }
+                }
+                
+                for item in distinctElement{
+                    let predicate = NSPredicate(format: "sectionTitle == %@", item)
+                    let sectionList = list.filter(predicate)
+                    if sectionList.count > 0 {
+                        
+                        var title : String?
+                        var count : NSNumber?
+                        var escapeData : [EscapeDataItems] = []
+                        
+                        for item in sectionList{
+                            title = item.sectionTitle
+                            count = item.sectionCount
+                            
+                            if let escapeType = item.escapeType{
+                                escapeData.append(EscapeDataItems(id: item.id, name: item.name, image: item.posterImage, escapeType: EscapeType(rawValue:escapeType)))
+                            }
+                            
+                        }
+                        dataArray.append(MyAccountEscapeItems(title: title, count: count, escapeData: escapeData))
+                    }
+                }
+                
+                reloadTableView(dataArray, escape_type: typeOfList)
+    
+                    
+             }
+            
+            
+        }
+        
+    }
+    
+    
+    func reloadTableView(data: [MyAccountEscapeItems] , escape_type : EscapeType ){
+        
+        if (typeOfList == escape_type) {
+            
+            tableDataArray = []
+            tableView.reloadData()
+            tableDataArray = data
+            tableView.reloadData()
+        }
         
     }
     
@@ -99,18 +181,16 @@ extension CustomListViewController : UICollectionViewDelegate , UICollectionView
             
         }
 
-       
-        
         return cell
     }
 }
 extension CustomListViewController : EscapeItemsProtocol{
     func recievedEscapeData(data: [MyAccountEscapeItems] , escape_type : EscapeType) {
         
-        tableDataArray = data
-        tableView.reloadData()
+        reloadTableView(data , escape_type: escape_type)
         
     }
+    
     func errorEscapeData() {
         
     }

@@ -38,6 +38,10 @@
 		BC2A73191CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC2A73091CCBF84F007E5DFB /* ScreenManger.storyboard */; };
 		BC2A731B1CCBF8CC007E5DFB /* InterestItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A731A1CCBF8CC007E5DFB /* InterestItems.swift */; };
 		BC2A731C1CCBF8CC007E5DFB /* InterestItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A731A1CCBF8CC007E5DFB /* InterestItems.swift */; };
+		BC3595F91CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3595F81CE75E53007903DB /* UserEscapeDataRealm.swift */; };
+		BC3595FA1CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3595F81CE75E53007903DB /* UserEscapeDataRealm.swift */; };
+		BC3595FC1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3595FB1CE8634F007903DB /* MyAccountSettingViewController.swift */; };
+		BC3595FD1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3595FB1CE8634F007903DB /* MyAccountSettingViewController.swift */; };
 		BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */; };
 		BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */; };
 		BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81871CA521D500FF8678 /* DeviceID.swift */; };
@@ -84,10 +88,6 @@
 		BC4F45751CDF432A00A65A63 /* EscapeDataItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */; };
 		BC4F45771CDF6EC300A65A63 /* EnumsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */; };
 		BC4F45781CDF6EC300A65A63 /* EnumsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */; };
-		BC4F457B1CDF739C00A65A63 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45791CDF739C00A65A63 /* User+CoreDataProperties.swift */; };
-		BC4F457C1CDF739C00A65A63 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45791CDF739C00A65A63 /* User+CoreDataProperties.swift */; };
-		BC4F457D1CDF739C00A65A63 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F457A1CDF739C00A65A63 /* User.swift */; };
-		BC4F457E1CDF739C00A65A63 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F457A1CDF739C00A65A63 /* User.swift */; };
 		BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */; };
 		BC85DBF81CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */; };
 		BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF41CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m */; };
@@ -116,6 +116,8 @@
 		BCCD70CC1CA19555002A0C07 /* NetworkWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */; };
 		BCCD71191CA26F08002A0C07 /* UIApperance+Swift.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCD71181CA26F08002A0C07 /* UIApperance+Swift.m */; };
 		BCCD711A1CA26F08002A0C07 /* UIApperance+Swift.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCD71181CA26F08002A0C07 /* UIApperance+Swift.m */; };
+		BCFC92B81CE2132700AE82BC /* UserDataRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */; };
+		BCFC92B91CE2132700AE82BC /* UserDataRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */; };
 		BCFE486B1CA3C1C00098160D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCFE486A1CA3C1C00098160D /* Images.xcassets */; };
 		BCFE486C1CA3C1C00098160D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCFE486A1CA3C1C00098160D /* Images.xcassets */; };
 		BCFE486E1CA400C60098160D /* NetworkAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE486D1CA400C60098160D /* NetworkAvailability.swift */; };
@@ -140,6 +142,8 @@
 		BC2A73081CCBF84F007E5DFB /* ScreenManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenManagerViewController.swift; sourceTree = "<group>"; };
 		BC2A73091CCBF84F007E5DFB /* ScreenManger.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ScreenManger.storyboard; sourceTree = "<group>"; };
 		BC2A731A1CCBF8CC007E5DFB /* InterestItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestItems.swift; sourceTree = "<group>"; };
+		BC3595F81CE75E53007903DB /* UserEscapeDataRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEscapeDataRealm.swift; sourceTree = "<group>"; };
+		BC3595FB1CE8634F007903DB /* MyAccountSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountSettingViewController.swift; sourceTree = "<group>"; };
 		BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Utility.swift"; sourceTree = "<group>"; };
 		BC3A81871CA521D500FF8678 /* DeviceID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceID.swift; sourceTree = "<group>"; };
 		BC3A818A1CA531FE00FF8678 /* ECUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECUserDefaults.swift; sourceTree = "<group>"; };
@@ -167,8 +171,6 @@
 		BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountEscapeItems.swift; sourceTree = "<group>"; };
 		BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EscapeDataItems.swift; sourceTree = "<group>"; };
 		BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumsUtility.swift; sourceTree = "<group>"; };
-		BC4F45791CDF739C00A65A63 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		BC4F457A1CDF739C00A65A63 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BC85DBF11CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		BC85DBF31CA69F0E002237A4 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		BCCD71101CA26CF4002A0C07 /* Escape-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Escape-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCCD71171CA26F08002A0C07 /* UIApperance+Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApperance+Swift.h"; sourceTree = "<group>"; };
 		BCCD71181CA26F08002A0C07 /* UIApperance+Swift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApperance+Swift.m"; sourceTree = "<group>"; };
+		BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDataRealm.swift; path = ../UserDataRealm.swift; sourceTree = "<group>"; };
 		BCFE486A1CA3C1C00098160D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BCFE486D1CA400C60098160D /* NetworkAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAvailability.swift; sourceTree = "<group>"; };
 		F69DBC530D1D5B690731DBA4 /* Pods-Escape.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Escape/Pods-Escape.debug.xcconfig"; sourceTree = "<group>"; };
@@ -327,6 +330,7 @@
 		BC47EDA91C9FFDD9008143C2 /* Data Providers */ = {
 			isa = PBXGroup;
 			children = (
+				BCFC92BA1CE2134300AE82BC /* Model */,
 				BC47EDC01CA00F60008143C2 /* UserDataProvider.swift */,
 				BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */,
 				BC47EDC31CA00F99008143C2 /* CommonDataProvider.swift */,
@@ -397,8 +401,6 @@
 		BC4F45661CDF29F200A65A63 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BC4F45791CDF739C00A65A63 /* User+CoreDataProperties.swift */,
-				BC4F457A1CDF739C00A65A63 /* User.swift */,
 				BC2485551CDC900800DC7077 /* MyAccountItems.swift */,
 				BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItems.swift */,
 				BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */,
@@ -428,6 +430,7 @@
 				BC4F45661CDF29F200A65A63 /* Model */,
 				BC85DBFD1CA6D3E0002237A4 /* MyAccount.storyboard */,
 				BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */,
+				BC3595FB1CE8634F007903DB /* MyAccountSettingViewController.swift */,
 				BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */,
 			);
 			name = "My Account";
@@ -471,6 +474,15 @@
 				BCCD71181CA26F08002A0C07 /* UIApperance+Swift.m */,
 			);
 			path = "Bridging-Headers";
+			sourceTree = "<group>";
+		};
+		BCFC92BA1CE2134300AE82BC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */,
+				BC3595F81CE75E53007903DB /* UserEscapeDataRealm.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -637,11 +649,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCFC92B81CE2132700AE82BC /* UserDataRealm.swift in Sources */,
 				BC2A73141CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
 				BCB7B4971CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BCCD71191CA26F08002A0C07 /* UIApperance+Swift.m in Sources */,
 				BC4F45641CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC47ED841C9FEEC7008143C2 /* ViewController.swift in Sources */,
+				BC3595F91CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */,
 				BCCD70C51CA19278002A0C07 /* UIColor+Utility.swift in Sources */,
 				BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				BC3A818B1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
@@ -666,6 +680,7 @@
 				BC4F45611CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BC2A73161CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
 				BC4F45771CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
+				BC3595FC1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
 				BC47EDB91CA00333008143C2 /* ScreenVader.swift in Sources */,
 				BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */,
 				BC2A73121CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
@@ -675,11 +690,9 @@
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				BC2A730C1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */,
 				BCB7B4B71CA17643002147FA /* SFUIAttributedText.swift in Sources */,
-				BC4F457B1CDF739C00A65A63 /* User+CoreDataProperties.swift in Sources */,
 				BC4F45741CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
 				BC02D0C01CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
 				BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
-				BC4F457D1CDF739C00A65A63 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,11 +700,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCFC92B91CE2132700AE82BC /* UserDataRealm.swift in Sources */,
 				BC2A73151CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
 				BCB7B4981CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BCCD711A1CA26F08002A0C07 /* UIApperance+Swift.m in Sources */,
 				BC4F45651CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC47ED981C9FF233008143C2 /* ViewController.swift in Sources */,
+				BC3595FA1CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */,
 				BCCD70C61CA19278002A0C07 /* UIColor+Utility.swift in Sources */,
 				BC85DBF81CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				BC3A818C1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
@@ -716,6 +731,7 @@
 				BC4F45621CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BC2A73171CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
 				BC4F45781CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
+				BC3595FD1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
 				BC47EDBA1CA00333008143C2 /* ScreenVader.swift in Sources */,
 				BC3A81891CA521D500FF8678 /* DeviceID.swift in Sources */,
 				BC2A73131CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
@@ -725,11 +741,9 @@
 				BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				BC2A730D1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */,
 				BCB7B4B81CA17643002147FA /* SFUIAttributedText.swift in Sources */,
-				BC4F457C1CDF739C00A65A63 /* User+CoreDataProperties.swift in Sources */,
 				BC4F45751CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
 				BC02D0C11CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
 				BC85DBFA1CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
-				BC4F457E1CDF739C00A65A63 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
