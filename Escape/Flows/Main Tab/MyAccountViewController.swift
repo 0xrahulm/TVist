@@ -48,6 +48,8 @@ class MyAccountViewController: UIViewController{
         setVisuals()
         setupViewControllers()
         
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+
         MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
         
     }
@@ -62,8 +64,9 @@ class MyAccountViewController: UIViewController{
     }
     
     func setVisuals(){
-        let settingImage = IonIcons.imageWithIcon(ion_ios_settings, size: 30, color: UIColor.whiteColor())
+        let settingImage = IonIcons.imageWithIcon(ion_android_settings, size: 30, color: UIColor.whiteColor())
         let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MyAccountViewController.settingTapped))
+        
         self.navigationItem.rightBarButtonItem = settingButton
         
         activityImage.image = IonIcons.imageWithIcon(ion_android_clipboard, iconColor: UIColor.themeColorBlue(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
@@ -71,9 +74,10 @@ class MyAccountViewController: UIViewController{
         tvImage.image = IonIcons.imageWithIcon(ion_easel, iconColor: UIColor.themeColorBlue(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
         booksImage.image = IonIcons.imageWithIcon(ion_ios_book, iconColor: UIColor.themeColorBlue(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
     }
+    
     func settingTapped(){
-        performSegueWithIdentifier("settingSegue", sender: nil)
-        //ScreenVader.sharedVader.performScreenManagerAction(.MyAccountSetting, queryParams: nil)
+        
+        ScreenVader.sharedVader.performScreenManagerAction(.MyAccountSetting, queryParams: nil)
         
     }
     
@@ -93,7 +97,6 @@ class MyAccountViewController: UIViewController{
         customSegmentedPageMenu(0)
         setSelectedViewColor(.Activity)
     }
-    
     
     private func changeActiveViewControllerFrom(inactiveViewController:UIViewController?) {
         if isViewLoaded() {
@@ -150,8 +153,6 @@ class MyAccountViewController: UIViewController{
             data = MyAccountItems(id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, gender: Gender(rawValue :user.gender), profilePicture: user.profilePicture, followers: user.following, following: user.following, movies_count: user.movies_count, books_count: user.books_count, tvShows_count: user.tvShows_count, escapes_count: user.escape_count)
             
             fillData(data)
-            
-            print("FirstName \(user.firstName)")
         }
         
     }

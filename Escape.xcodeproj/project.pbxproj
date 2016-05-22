@@ -12,6 +12,14 @@
 		BC02D0C11CD0D556009D7EE6 /* BubblePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02D0BF1CD0D556009D7EE6 /* BubblePickerView.swift */; };
 		BC02D0C31CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02D0C21CD0D674009D7EE6 /* UIImage+Utility.swift */; };
 		BC02D0C41CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02D0C21CD0D674009D7EE6 /* UIImage+Utility.swift */; };
+		BC0BBBDE1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBDD1CF0C2F900B03A93 /* ItemDescViewController.swift */; };
+		BC0BBBDF1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBDD1CF0C2F900B03A93 /* ItemDescViewController.swift */; };
+		BC0BBBE11CF1BC1300B03A93 /* DescDataItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE01CF1BC1300B03A93 /* DescDataItems.swift */; };
+		BC0BBBE21CF1BC1300B03A93 /* DescDataItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE01CF1BC1300B03A93 /* DescDataItems.swift */; };
+		BC0BBBE41CF1D08F00B03A93 /* UIView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE31CF1D08E00B03A93 /* UIView+Utility.swift */; };
+		BC0BBBE51CF1D08F00B03A93 /* UIView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE31CF1D08E00B03A93 /* UIView+Utility.swift */; };
+		BC0BBBE71CF1D30600B03A93 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */; };
+		BC0BBBE81CF1D30600B03A93 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */; };
 		BC15C1561CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */; };
 		BC15C1571CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */; };
 		BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */; };
@@ -129,6 +137,10 @@
 		8726EB99D692F7FE33628154 /* Pods-Escape.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape.release.xcconfig"; path = "Pods/Target Support Files/Pods-Escape/Pods-Escape.release.xcconfig"; sourceTree = "<group>"; };
 		BC02D0BF1CD0D556009D7EE6 /* BubblePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblePickerView.swift; sourceTree = "<group>"; };
 		BC02D0C21CD0D674009D7EE6 /* UIImage+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Utility.swift"; sourceTree = "<group>"; };
+		BC0BBBDD1CF0C2F900B03A93 /* ItemDescViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDescViewController.swift; sourceTree = "<group>"; };
+		BC0BBBE01CF1BC1300B03A93 /* DescDataItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescDataItems.swift; sourceTree = "<group>"; };
+		BC0BBBE31CF1D08E00B03A93 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
+		BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeUtility.swift; sourceTree = "<group>"; };
 		BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountDataProvider.swift; sourceTree = "<group>"; };
 		BC2485551CDC900800DC7077 /* MyAccountItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountItems.swift; sourceTree = "<group>"; };
@@ -357,6 +369,8 @@
 				BCB7B4B61CA17643002147FA /* SFUIAttributedText.swift */,
 				BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */,
 				BC4F45601CDE029F00A65A63 /* Utilities.swift */,
+				BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */,
+				BC0BBBE31CF1D08E00B03A93 /* UIView+Utility.swift */,
 				BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */,
 				BC02D0C21CD0D674009D7EE6 /* UIImage+Utility.swift */,
 				BCCD70C41CA19278002A0C07 /* UIColor+Utility.swift */,
@@ -404,6 +418,7 @@
 				BC2485551CDC900800DC7077 /* MyAccountItems.swift */,
 				BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItems.swift */,
 				BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */,
+				BC0BBBE01CF1BC1300B03A93 /* DescDataItems.swift */,
 				BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */,
 				BC4F456A1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift */,
 			);
@@ -430,6 +445,7 @@
 				BC4F45661CDF29F200A65A63 /* Model */,
 				BC85DBFD1CA6D3E0002237A4 /* MyAccount.storyboard */,
 				BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */,
+				BC0BBBDD1CF0C2F900B03A93 /* ItemDescViewController.swift */,
 				BC3595FB1CE8634F007903DB /* MyAccountSettingViewController.swift */,
 				BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */,
 			);
@@ -655,10 +671,12 @@
 				BCCD71191CA26F08002A0C07 /* UIApperance+Swift.m in Sources */,
 				BC4F45641CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC47ED841C9FEEC7008143C2 /* ViewController.swift in Sources */,
+				BC0BBBE41CF1D08F00B03A93 /* UIView+Utility.swift in Sources */,
 				BC3595F91CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */,
 				BCCD70C51CA19278002A0C07 /* UIColor+Utility.swift in Sources */,
 				BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				BC3A818B1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
+				BC0BBBDE1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */,
 				BC2A72DC1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */,
 				BC3A81A91CA5753000FF8678 /* MainTabBarViewController.swift in Sources */,
 				BC47EDC81CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */,
@@ -667,6 +685,7 @@
 				BC47EDC11CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BCCD70C81CA19468002A0C07 /* Service.swift in Sources */,
 				BC47ED8A1C9FEEC8008143C2 /* Escape.xcdatamodeld in Sources */,
+				BC0BBBE11CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
 				BC2A73101CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */,
 				BCFE486E1CA400C60098160D /* NetworkAvailability.swift in Sources */,
 				BC2A731B1CCBF8CC007E5DFB /* InterestItems.swift in Sources */,
@@ -693,6 +712,7 @@
 				BC4F45741CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
 				BC02D0C01CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
 				BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
+				BC0BBBE71CF1D30600B03A93 /* TimeUtility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,10 +726,12 @@
 				BCCD711A1CA26F08002A0C07 /* UIApperance+Swift.m in Sources */,
 				BC4F45651CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC47ED981C9FF233008143C2 /* ViewController.swift in Sources */,
+				BC0BBBE51CF1D08F00B03A93 /* UIView+Utility.swift in Sources */,
 				BC3595FA1CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */,
 				BCCD70C61CA19278002A0C07 /* UIColor+Utility.swift in Sources */,
 				BC85DBF81CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				BC3A818C1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
+				BC0BBBDF1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */,
 				BC2A72DD1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */,
 				BC3A81AA1CA5753000FF8678 /* MainTabBarViewController.swift in Sources */,
 				BC47EDC91CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */,
@@ -718,6 +740,7 @@
 				BC47EDC21CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BCCD70C91CA19468002A0C07 /* Service.swift in Sources */,
 				BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */,
+				BC0BBBE21CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
 				BC2A73111CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */,
 				BCFE486F1CA400C60098160D /* NetworkAvailability.swift in Sources */,
 				BC2A731C1CCBF8CC007E5DFB /* InterestItems.swift in Sources */,
@@ -744,6 +767,7 @@
 				BC4F45751CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
 				BC02D0C11CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
 				BC85DBFA1CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
+				BC0BBBE81CF1D30600B03A93 /* TimeUtility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

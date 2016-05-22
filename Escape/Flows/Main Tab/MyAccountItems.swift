@@ -40,5 +40,6 @@ class MyAccountItems: NSObject {
         self.escapes_count = escapes_count
         
     }
+    
 
 }

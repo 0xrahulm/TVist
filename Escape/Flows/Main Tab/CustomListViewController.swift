@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CustomListViewController: UIViewController {
     
@@ -14,7 +15,7 @@ class CustomListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-
+    
     var tableDataArray : [MyAccountEscapeItems] = []
     var storedOffsets = [Int: CGFloat]()
     var escapeType : EscapeType = .Movie
@@ -51,64 +52,66 @@ class CustomListViewController: UIViewController {
     
     func fetchEscapesDataFromRealm(){
         
-        if let user = MyAccountDataProvider.sharedDataProvider.currentUser{
+        if let currentUserId = ECUserDefaults.getCurrentUserId(){
             
             let escapeType = typeOfList.rawValue
-           
-            let predicate = NSPredicate(format: "escapeType == %@", escapeType)
             
-            var dataArray : [MyAccountEscapeItems] = []
+            let userDataPredicate = NSPredicate(format: "userId == %@ AND escapeType == %@", currentUserId, escapeType)
             
-             let list = user.escapeList.filter(predicate)
-             if list.count > 0 {
-                var distinctElement : [String] = []
+            do{
+                let escapeData = try Realm().objects(UserEscapeData).filter(userDataPredicate)
                 
-                for i in list{
-                    if let section = i.sectionTitle{
-                        
-                        var check = true
-                        for j in distinctElement{
-                            if j == section{
-                                check = false
-                                break
-                            }
-                        }
-                        if (check){
-                            distinctElement.append(section)
-                        }
-                    }
-                }
+                var dataArray : [MyAccountEscapeItems] = []
                 
-                for item in distinctElement{
-                    let predicate = NSPredicate(format: "sectionTitle == %@", item)
-                    let sectionList = list.filter(predicate)
-                    if sectionList.count > 0 {
-                        
-                        var title : String?
-                        var count : NSNumber?
-                        var escapeData : [EscapeDataItems] = []
-                        
-                        for item in sectionList{
-                            title = item.sectionTitle
-                            count = item.sectionCount
-                            
-                            if let escapeType = item.escapeType{
-                                escapeData.append(EscapeDataItems(id: item.id, name: item.name, image: item.posterImage, escapeType: EscapeType(rawValue:escapeType)))
-                            }
-                            
-                        }
-                        dataArray.append(MyAccountEscapeItems(title: title, count: count, escapeData: escapeData))
-                    }
-                }
-                
-                reloadTableView(dataArray, escape_type: typeOfList)
-    
+                let list = escapeData
+                if list.count > 0 {
+                    var distinctElement : [String] = []
                     
-             }
-            
-            
+                    for i in list{
+                        if let section = i.sectionTitle{
+                            
+                            var check = true
+                            for j in distinctElement{
+                                if j == section{
+                                    check = false
+                                    break
+                                }
+                            }
+                            if (check){
+                                distinctElement.append(section)
+                            }
+                        }
+                    }
+                    
+                    for item in distinctElement{
+                        let predicate = NSPredicate(format: "sectionTitle == %@", item)
+                        let sectionList = list.filter(predicate)
+                        if sectionList.count > 0 {
+                            
+                            var title : String?
+                            var count : NSNumber?
+                            var escapeData : [EscapeDataItems] = []
+                            
+                            for item in sectionList{
+                                title = item.sectionTitle
+                                count = item.sectionCount
+                                
+                                if let escapeType = item.escapeType{
+                                    escapeData.append(EscapeDataItems(id: item.id, name: item.name, image: item.posterImage, escapeType: EscapeType(rawValue:escapeType)))
+                                }
+                                
+                            }
+                            dataArray.append(MyAccountEscapeItems(title: title, count: count, escapeData: escapeData))
+                        }
+                    }
+                    
+                    reloadTableView(dataArray, escape_type: typeOfList)
+                }
+                
+            }catch let error as NSError{
+                print("fetchEscapesDataFromRealm error : \(error.userInfo)")
+            }
         }
-        
     }
     
     
@@ -160,6 +163,33 @@ extension CustomListViewController : UITableViewDataSource , UITableViewDelegate
 
 extension CustomListViewController : UICollectionViewDelegate , UICollectionViewDataSource{
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let data = tableDataArray[collectionView.tag].escapeData{
+            if data.count > 0 {
+                let id = data[indexPath.row].id
+                let escapeType = data[indexPath.row].escapeType
+                let name = data[indexPath.row].name
+                let image = data[indexPath.row].image
+                
+                var params : [String:AnyObject] = [:]
+                if let id = id{
+                    params["id"] = id
+                }
+                if let escapeType = escapeType{
+                    params["escapeType"] = escapeType.rawValue
+                }
+                if let name = name{
+                    params["name"] = name
+                }
+                if let image = image{
+                    params["image"] = image
+                }
+                
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+            }
+        }
+    }
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var count = 0
         if let data = tableDataArray[collectionView.tag].escapeData{
@@ -177,10 +207,8 @@ extension CustomListViewController : UICollectionViewDelegate , UICollectionView
             cell.titleLabel.text = item[indexPath.row].name
             cell.itemImage.downloadImageWithUrl(item[indexPath.row].image , placeHolder: UIImage(named: "movie_placeholder"))
             
-            
-            
         }
-
+        
         return cell
     }
 }

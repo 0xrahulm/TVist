@@ -43,11 +43,17 @@ extension UIColor{
     class func fbThemeColor() -> UIColor{
         return UIColor.colorWithHexString("#4267B2")
     }
+    class func viewSelectedColor() -> UIColor{
+        return UIColor.colorWithHexString("#EFEFF4")
+    }
     class func textColor() -> UIColor{
         return UIColor.colorWithHexString("#353847")
     }
-    class func viewSelectedColor() -> UIColor{
-        return UIColor.colorWithHexString("#EFEFF4")
+    class func textBlackColor() -> UIColor{
+        return UIColor.colorWithHexString("#333333")
+    }
+    class func textGrayColor() -> UIColor{
+        return UIColor.colorWithHexString("#555555")
     }
     
     

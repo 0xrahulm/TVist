@@ -15,6 +15,7 @@ enum ScreenManagerAction : String{
     case DiscoverTab = "Discover"
     case MyAccountTab = "MyAccount"
     case MyAccountSetting = "MyAccountSetting"
+    case OpenItemDescription = "OpenItemDescription"
 }
 enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"

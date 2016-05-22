@@ -10,6 +10,7 @@ import UIKit
 
 extension UIViewController{
     
+    
     func setObjectsWithQueryParameters(queryParams: [String:AnyObject]) {
         //vcFootPrint = createClassFootPrintWith(theClassName, queryParams: queryParams)
         // Receive Parameterized Data

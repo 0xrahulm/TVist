@@ -21,6 +21,10 @@ protocol EscapeItemsProtocol : class {
     func recievedEscapeData(data : [MyAccountEscapeItems] , escape_type : EscapeType)
     func errorEscapeData()
 }
+protocol ItemDescProtocol : class {
+    func receivedItemDesc(data : DescDataItems?)
+    func errorItemDescData()
+}
 
 class MyAccountDataProvider: CommonDataProvider {
     
@@ -28,6 +32,7 @@ class MyAccountDataProvider: CommonDataProvider {
     
     weak var myAccountDetailsDelegate : MyAccountDetailsProtocol?
     weak var escapeItemsDelegate : EscapeItemsProtocol?
+    weak var itemDescDelegate : ItemDescProtocol?
     
     var currentUser:UserData?
     
@@ -43,20 +48,12 @@ class MyAccountDataProvider: CommonDataProvider {
         if let currentUserId = ECUserDefaults.getCurrentUserId(){
             
             let predicate = NSPredicate(format: "id == %@", currentUserId)
-            let userDataPredicate = NSPredicate(format: "userId == %@", currentUserId)
             
             do {
                 if let user = try Realm().objects(UserData).filter(predicate).first{
                     
                     currentUser = user
                 
-                    let escapeData = try Realm().objects(UserEscapeData).filter(userDataPredicate)
-                    
-                    let uiRealm = try! Realm()
-                    try! uiRealm.write({
-                        currentUser?.escapeList.appendContentsOf(escapeData)
-                    })
-                  
                 }
                 
             } catch let  error as NSError{
@@ -76,6 +73,16 @@ class MyAccountDataProvider: CommonDataProvider {
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserEscapes, params: params, delegate: self)
         
     }
+    
+    func getItemDesc(escapeType : EscapeType , id : String){
+        var params : [String:AnyObject] = [:]
+        params["escape_id"] = id
+        params["escape_type"] = escapeType.rawValue
+        
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetItemDesc, params: params, delegate: self)
+        
+    }
+    
     func logoutUser(){
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .LogoutUser, params: nil, delegate: self)
     }
@@ -113,6 +120,17 @@ class MyAccountDataProvider: CommonDataProvider {
         case .LogoutUser:
             ScreenVader.sharedVader.performLogout()
             break
+            
+        case .GetItemDesc:
+            if let data = service.outPutResponse as? [String:AnyObject]{
+                self.parseDescData(data)
+            }else{
+                if self.itemDescDelegate != nil{
+                    self.itemDescDelegate?.errorItemDescData()
+                }
+            }
+            break
+        
         default:
             break
         }
@@ -136,6 +154,13 @@ class MyAccountDataProvider: CommonDataProvider {
             break
             
         case .LogoutUser:
+            
+            break
+            
+        case .GetItemDesc:
+            if self.itemDescDelegate != nil{
+                self.itemDescDelegate?.errorItemDescData()
+            }
             
             break
             
@@ -263,6 +288,18 @@ extension MyAccountDataProvider {
         
         if self.escapeItemsDelegate != nil{
             self.escapeItemsDelegate?.recievedEscapeData(escapeDataArray , escape_type: EscapeType(rawValue: escape_type)!)
+        }
+        
+    }
+    
+    func parseDescData(dict : [String:AnyObject]){
+        
+        var dataItems : DescDataItems?
+        
+        dataItems = DescDataItems(dict: dict)
+        
+        if self.itemDescDelegate != nil{
+            self.itemDescDelegate?.receivedItemDesc(dataItems)
         }
         
     }

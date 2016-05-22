@@ -54,6 +54,8 @@ class ScreenManagerViewController: UIViewController {
                 if let queryParams = queryParams{
                     currentPushedVC.setObjectsWithQueryParameters(queryParams)
                 }
+                 self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                
                 currentPresentedViewController.pushViewController(currentPushedVC, animated: true)
                 currentPushedViewController = currentPushedVC
             }
@@ -84,19 +86,24 @@ class ScreenManagerViewController: UIViewController {
     
     private func pushViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:AnyObject]?){
         
-        if let currentPresentedViewController = currentPresentedViewController as? CustomNavigationViewController{
-            
-            if let currentPushedVC = instantiateViewControllerWith(storyBoardIdentifier, forIdentifier: viewControllerIdentifier){
-                
-                if let queryParams = queryParams{
-                    currentPushedVC.setObjectsWithQueryParameters(queryParams)
+        if currentPresentedViewController != nil{
+            if currentPresentedViewController is MainTabBarViewController{
+                let mainTabVC = currentPresentedViewController as! MainTabBarViewController
+                if let customNavVC = mainTabVC.selectedViewController as? CustomNavigationViewController{
+                    
+                    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                    
+                    customNavVC.pushViewController(getViewControllerToOpen(storyBoardIdentifier, forIdentifier: viewControllerIdentifier, queryParam: queryParams), animated: true)
+                    
                 }
-                currentPresentedViewController.pushViewController(currentPushedVC, animated: true)
+            }else if let currentNavVc = currentPresentedViewController as? CustomNavigationViewController{
+                 self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                
+                currentNavVc.pushViewController(getViewControllerToOpen(storyBoardIdentifier, forIdentifier: viewControllerIdentifier, queryParam: queryParams), animated: true)
                 
             }
         }
-        
-
+      
     }
     
     private func presentViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:AnyObject]?){
@@ -120,6 +127,21 @@ class ScreenManagerViewController: UIViewController {
     
     private func instantiateViewControllerWith(storyboard: StoryBoardIdentifier, forIdentifier: String) -> UIViewController? {
         return UIStoryboard(name: storyboard.rawValue, bundle: nil).instantiateViewControllerWithIdentifier(forIdentifier)
+    }
+    
+    private func getViewControllerToOpen(storyboard: StoryBoardIdentifier, forIdentifier: String?, queryParam: [String:AnyObject]?) -> UIViewController {
+        
+        var viewControllerToOpen: UIViewController!
+        if let forIdentifier = forIdentifier {
+            viewControllerToOpen = instantiateViewControllerWith(storyboard, forIdentifier: forIdentifier)
+        } else {
+            viewControllerToOpen = initialViewControllerFor(storyboard)
+        }
+        
+        if let queryParam = queryParam {
+            viewControllerToOpen.setObjectsWithQueryParameters(queryParam)
+        }
+        return viewControllerToOpen
     }
     
     func removePresentedViewController(dismissVC : UIViewController){
@@ -175,6 +197,10 @@ extension ScreenManagerViewController{
             openMyAccountSetting()
             break
             
+        case .OpenItemDescription:
+            openItemDesc(params)
+            break
+            
         default:
             break
         }
@@ -192,6 +218,9 @@ extension ScreenManagerViewController{
     }
     func openMyAccountSetting(){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountSettingVC", queryParams: nil)
+    }
+    func openItemDesc(params : [String:AnyObject]?){
+        pushViewControllerOf(.MyAccount, viewControllerIdentifier: "itemDescVC", queryParams: params)
     }
     
 }
