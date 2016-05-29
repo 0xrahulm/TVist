@@ -20,6 +20,14 @@
 		BC0BBBE51CF1D08F00B03A93 /* UIView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE31CF1D08E00B03A93 /* UIView+Utility.swift */; };
 		BC0BBBE71CF1D30600B03A93 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */; };
 		BC0BBBE81CF1D30600B03A93 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */; };
+		BC14BAB91CFAF3F000B7E546 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC14BAB81CFAF3F000B7E546 /* Discover.storyboard */; };
+		BC14BABA1CFAF3F000B7E546 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC14BAB81CFAF3F000B7E546 /* Discover.storyboard */; };
+		BC14BABC1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BABB1CFAF55800B7E546 /* DiscoverAllViewController.swift */; };
+		BC14BABD1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BABB1CFAF55800B7E546 /* DiscoverAllViewController.swift */; };
+		BC14BABF1CFAF5CD00B7E546 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BABE1CFAF5CD00B7E546 /* DiscoverViewController.swift */; };
+		BC14BAC01CFAF5CD00B7E546 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BABE1CFAF5CD00B7E546 /* DiscoverViewController.swift */; };
+		BC14BAC21CFB183000B7E546 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BAC11CFB183000B7E546 /* CAPSPageMenu.swift */; };
+		BC14BAC31CFB183000B7E546 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BAC11CFB183000B7E546 /* CAPSPageMenu.swift */; };
 		BC15C1561CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */; };
 		BC15C1571CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */; };
 		BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */; };
@@ -141,6 +149,10 @@
 		BC0BBBE01CF1BC1300B03A93 /* DescDataItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescDataItems.swift; sourceTree = "<group>"; };
 		BC0BBBE31CF1D08E00B03A93 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
 		BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeUtility.swift; sourceTree = "<group>"; };
+		BC14BAB81CFAF3F000B7E546 /* Discover.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Discover.storyboard; path = Escape/Flows/Discover/Discover.storyboard; sourceTree = SOURCE_ROOT; };
+		BC14BABB1CFAF55800B7E546 /* DiscoverAllViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverAllViewController.swift; path = Escape/Flows/Discover/DiscoverAllViewController.swift; sourceTree = SOURCE_ROOT; };
+		BC14BABE1CFAF5CD00B7E546 /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverViewController.swift; path = Escape/Flows/Discover/DiscoverViewController.swift; sourceTree = SOURCE_ROOT; };
+		BC14BAC11CFB183000B7E546 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
 		BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountDataProvider.swift; sourceTree = "<group>"; };
 		BC2485551CDC900800DC7077 /* MyAccountItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountItems.swift; sourceTree = "<group>"; };
@@ -408,6 +420,7 @@
 				BC85DBF51CA69F0E002237A4 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
 				BC85DBF61CA69F0E002237A4 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 				BC47EDC71CA013EC008143C2 /* CustomNavigationViewController.swift */,
+				BC14BAC11CFB183000B7E546 /* CAPSPageMenu.swift */,
 			);
 			path = "Custom Controllers";
 			sourceTree = "<group>";
@@ -435,6 +448,9 @@
 		BCB7B4A01CA16C85002147FA /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				BC14BAB81CFAF3F000B7E546 /* Discover.storyboard */,
+				BC14BABE1CFAF5CD00B7E546 /* DiscoverViewController.swift */,
+				BC14BABB1CFAF55800B7E546 /* DiscoverAllViewController.swift */,
 			);
 			name = Discover;
 			sourceTree = "<group>";
@@ -581,6 +597,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC85DBFE1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
+				BC14BAB91CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BCFE486B1CA3C1C00098160D /* Images.xcassets in Resources */,
 				BCB7B4B01CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BCB7B4B41CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
@@ -598,6 +615,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC85DBFF1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
+				BC14BABA1CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BCFE486C1CA3C1C00098160D /* Images.xcassets in Resources */,
 				BCB7B4B11CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BCB7B4B51CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
@@ -698,6 +716,7 @@
 				BC2485561CDC900800DC7077 /* MyAccountItems.swift in Sources */,
 				BC4F45611CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BC2A73161CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
+				BC14BAC21CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
 				BC4F45771CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FC1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
 				BC47EDB91CA00333008143C2 /* ScreenVader.swift in Sources */,
@@ -707,7 +726,9 @@
 				BC47EDC41CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */,
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
+				BC14BABC1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */,
 				BC2A730C1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */,
+				BC14BABF1CFAF5CD00B7E546 /* DiscoverViewController.swift in Sources */,
 				BCB7B4B71CA17643002147FA /* SFUIAttributedText.swift in Sources */,
 				BC4F45741CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
 				BC02D0C01CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
@@ -753,6 +774,7 @@
 				BC2485571CDC900800DC7077 /* MyAccountItems.swift in Sources */,
 				BC4F45621CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BC2A73171CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
+				BC14BAC31CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
 				BC4F45781CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FD1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
 				BC47EDBA1CA00333008143C2 /* ScreenVader.swift in Sources */,
@@ -762,7 +784,9 @@
 				BC47EDC51CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */,
 				BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
+				BC14BABD1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */,
 				BC2A730D1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */,
+				BC14BAC01CFAF5CD00B7E546 /* DiscoverViewController.swift in Sources */,
 				BCB7B4B81CA17643002147FA /* SFUIAttributedText.swift in Sources */,
 				BC4F45751CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
 				BC02D0C11CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,

@@ -16,6 +16,7 @@ class DescDataItems: NSObject {
     var image : String?
     var desc : String?
     var releaseDate : Double?
+    var yearRange : String?
     var rating : NSNumber?
     var runtime : String?
     var cast : String?
@@ -48,11 +49,15 @@ class DescDataItems: NSObject {
             }
             
             self.runtime = dict["runtime"] as? String
+            self.yearRange = dict["year_range"] as? String
             self.cast = dict["cast"] as? String
+            
             if let director = dict["director"] as? String{
                 self.director = director
             }else if let author = dict["author"] as? String{
                 self.director = author
+            }else if let creator = dict["creator"] as? String{
+                self.director = creator
             }
             
             

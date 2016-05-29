@@ -61,7 +61,9 @@ class ItemDescViewController: UIViewController {
        
     }
     func fillData(descData : DescDataItems?){
+        
         if let descData = descData {
+            
             if let name = descData.name{
                 itemTitle.text = name
             }
@@ -75,6 +77,9 @@ class ItemDescViewController: UIViewController {
                 yearTitle.text = "Released In"
                 yearLabel.text = "\(TimeUtility.getYear(year))"
                 
+            }else if let yearRange = descData.yearRange{
+                yearTitle.text = "Year"
+                yearLabel.text = yearRange
             }
             if let rating = descData.rating{
                 ratingTitle.text = "Rating"
@@ -92,6 +97,8 @@ class ItemDescViewController: UIViewController {
                 var text = "Directed by"
                 if escapeType == .Books{
                     text = "Author"
+                }else if escapeType == .TvShows{
+                    text = "Creator"
                 }
                 DirectorLabel.attributedText = getString(text, str: director)
             }
@@ -132,9 +139,17 @@ class ItemDescViewController: UIViewController {
         return attributedString
     }
 }
+
 extension ItemDescViewController : ItemDescProtocol{
+    
     func receivedItemDesc(data: DescDataItems?) {
-        fillData(data)
+        
+        if let getId = data?.id{
+            if id == getId{
+                fillData(data)
+            }
+        }
+        
         
     }
     func errorItemDescData() {

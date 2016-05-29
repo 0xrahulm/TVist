@@ -34,11 +34,13 @@ extension UIColor{
     }
     
     class func themeColorBlue() -> UIColor{
-        return UIColor.colorWithHexString("#43C5B8")
+        //return UIColor.colorWithHexString("#43C5B8")
+        return UIColor.colorWithHexString("#322332")
         
     }
     class func themeColorRed() -> UIColor{
-        return UIColor.colorWithHexString("#F56363")
+        //return UIColor.colorWithHexString("#F56363")
+        return UIColor.colorWithHexString("#fe5e3a")
     }
     class func fbThemeColor() -> UIColor{
         return UIColor.colorWithHexString("#4267B2")
