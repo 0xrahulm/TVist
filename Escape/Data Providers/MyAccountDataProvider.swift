@@ -175,73 +175,11 @@ class MyAccountDataProvider: CommonDataProvider {
 extension MyAccountDataProvider {
     
     func parseUserDetails(dict : [String:AnyObject]){
-        print (dict)
+        print ("User Details :\(dict)")
         
         var userData : MyAccountItems?
         
-        var id :            String?
-        var firstName :     String?
-        var lastName :      String?
-        var email :         String?
-        var gender :        Gender?
-        var profilePicture :String?
-        var followers :     NSNumber?
-        var following :     NSNumber?
-        var movies_count :  NSNumber?
-        var books_count :   NSNumber?
-        var tvShows_count : NSNumber?
-        var escapes_count = 0
-        
-        
-        if let profileDetails = dict["profile_details"] as? [String:AnyObject]{
-            if let uId = profileDetails["id"] as? String{
-                id = uId
-                ECUserDefaults.setCurrentUserId(uId)
-                
-            }
-            if let uFirst = profileDetails["first_name"] as? String{
-                firstName = uFirst
-                
-            }
-            if let uLast = profileDetails["last_name"] as? String{
-                lastName = uLast
-                
-            }
-            if let uEmail = profileDetails["email"] as? String{
-                email = uEmail
-            }
-            if let uGender = profileDetails["gender"] as? NSNumber{
-                gender =  Gender(rawValue : Int(uGender))
-            }
-            if let picture = profileDetails["profile_picture"] as? String{
-                profilePicture = picture
-            }
-        }
-        
-        if let uFollowers = dict["follower_count"] as? NSNumber{
-            followers = uFollowers
-        }
-        if let uFollowing = dict["following_count"] as? NSNumber{
-            following = uFollowing
-        }
-        if let uMovies = dict["movies"] as? NSNumber{
-            movies_count = uMovies
-            escapes_count = escapes_count + Int(uMovies)
-            
-        }
-        if let uBooks = dict["books"] as? NSNumber{
-            books_count =  uBooks
-            escapes_count = escapes_count + Int(uBooks)
-            
-        }
-        if let uShows = dict["shows"] as? NSNumber{
-            tvShows_count = uShows
-            escapes_count = escapes_count + Int(uShows)
-            
-            
-        }
-        
-        userData = MyAccountItems(id: id, firstName: firstName, lastName: lastName, email: email, gender: gender, profilePicture: profilePicture, followers: followers, following: following, movies_count: movies_count, books_count: books_count, tvShows_count: tvShows_count ,escapes_count : escapes_count)
+        userData = MyAccountItems(dict : dict)
         
         saveUserDataToRealm(userData)
         
@@ -265,6 +203,8 @@ extension MyAccountDataProvider {
                         
                         for escapeItem in escapeArray{
                             var image : String?
+                            var rating : NSNumber?
+                            var year : String?
                             
                             if let id = escapeItem["id"] as? String{
                                 if let name = escapeItem["name"] as? String{
@@ -272,7 +212,13 @@ extension MyAccountDataProvider {
                                         if let escImage = escapeItem["poster_image"] as? String{
                                             image = escImage
                                         }
-                                        escapeItems.append(EscapeDataItems(id: id, name: name, image: image, escapeType: EscapeType(rawValue: type)))
+                                        if let escapeRating = escapeItem["escape_rating"] as? NSNumber{
+                                            rating = escapeRating
+                                        }
+                                        if let releaseYear = escapeItem["year"] as? String{
+                                            year = releaseYear
+                                        }
+                                        escapeItems.append(EscapeDataItems(id: id, name: name, image: image, escapeType: EscapeType(rawValue: type), escapeRating: rating, year: year))
                                         
                                     }
                                 }
@@ -375,6 +321,11 @@ extension MyAccountDataProvider{
                         escapeData.name = escapeItem.name
                         escapeData.posterImage = escapeItem.image
                         escapeData.escapeType = escapeItem.escapeType?.rawValue
+                        escapeData.year = escapeItem.year
+                        if let rating = escapeItem.escapeRating{
+                            escapeData.rating = Double(rating)
+                        }
+                        
                         
                         let uiRealm = try! Realm()
                         try! uiRealm.write({

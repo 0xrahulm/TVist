@@ -9,24 +9,58 @@
 import UIKit
 
 class DiscoverAllViewController: UIViewController {
-
+    
+    var type : DiscoverType = .All
+    var dataArray : [DiscoverItems] = []
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       print("didload")
-        // Do any additional setup after loading the view.
+        print("didload")
+        dataArray = []
+        tableView.reloadData()
+        
     }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print("didappear")
+        print("didappear : \(type)")
         
+        DiscoverDataProvider.shareDataProvider.discoverDataDelegate = self
+        DiscoverDataProvider.shareDataProvider.getDiscoverItems(type)
         
     }
     
     
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+}
+extension DiscoverAllViewController : UITableViewDelegate{
+    
+}
+extension DiscoverAllViewController : UITableViewDataSource{
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("discoverEscapeCellIdentifier") as! DiscoverEscapeTableViewCell
+        let data = dataArray[indexPath.row]
+        cell.data = data
+        
+        return cell
     }
-
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataArray.count
+    }
+}
+extension DiscoverAllViewController : DiscoverDataProtocol{
+    func recievedDiscoverData(data: [DiscoverItems], discoverType: DiscoverType) {
+        if self.type == discoverType{
+            self.dataArray = data
+            tableView.reloadData()
+            
+        }
+        
+    }
+    func errorDiscoverData() {
+        
+    }
 }

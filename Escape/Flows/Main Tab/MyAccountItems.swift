@@ -24,11 +24,11 @@ class MyAccountItems: NSObject {
     var tvShows_count : NSNumber?
     var escapes_count : NSNumber?
     
-    init(id: String?,firstName:String?,lastName:String?,email:String?,gender:Gender?,profilePicture:String?,followers:NSNumber?,following:NSNumber?,movies_count :  NSNumber?,books_count:NSNumber?,tvShows_count : NSNumber?,escapes_count : NSNumber?) {
+    init(id : String?,firstName : String?,lastName : String?,email :String?,gender :        Gender?,profilePicture :String?,followers :NSNumber?,following :NSNumber?,movies_count :  NSNumber?,books_count : NSNumber?,tvShows_count : NSNumber?,escapes_count : NSNumber?) {
         
         self.id = id
         self.firstName = firstName
-        self.lastName = lastName
+        self.lastName  = lastName
         self.email = email
         self.gender = gender
         self.profilePicture = profilePicture
@@ -41,5 +41,52 @@ class MyAccountItems: NSObject {
         
     }
     
-
+    init(dict : [String:AnyObject]) {
+        super.init()
+        parseData(dict)
+        
+    }
+    
+    func parseData(profileDetails : [String:AnyObject]){
+        
+        var escapes_count = 0
+        
+        if let uId = profileDetails["id"] as? String{
+            self.id = uId
+            ECUserDefaults.setCurrentUserId(uId)
+            
+        }
+        
+        firstName = profileDetails["first_name"] as? String
+        
+        lastName = profileDetails["last_name"] as? String
+        
+        email = profileDetails["email"] as? String
+        
+        profilePicture = profileDetails["profile_picture"] as? String
+        
+        followers = profileDetails["follower_count"] as? NSNumber
+        
+        following = profileDetails["following_count"] as? NSNumber
+        
+        if let uGender = profileDetails["gender"] as? NSNumber{
+            gender =  Gender(rawValue : Int(uGender))
+        }
+        
+        if let uMovies = profileDetails["movies_count"] as? NSNumber{
+            movies_count = uMovies
+            escapes_count = escapes_count + Int(uMovies)
+            
+        }
+        if let uBooks = profileDetails["books_count"] as? NSNumber{
+            books_count =  uBooks
+            escapes_count = escapes_count + Int(uBooks)
+            
+        }
+        if let uShows = profileDetails["tv_shows_count"] as? NSNumber{
+            tvShows_count = uShows
+            escapes_count = escapes_count + Int(uShows)
+            
+        }
+    }
 }

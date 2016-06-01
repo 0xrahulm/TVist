@@ -20,6 +20,8 @@ class UserEscapeData: Object {
     dynamic var id : String? = nil
     dynamic var name : String? = nil
     dynamic var posterImage : String? = nil
+    dynamic var year : String? = nil
+    dynamic var rating = 0.0
     
     
     override class func primaryKey() -> String? {

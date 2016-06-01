@@ -90,14 +90,18 @@ class CustomListViewController: UIViewController {
                             
                             var title : String?
                             var count : NSNumber?
+                            var rating : NSNumber?
+                            var year : String?
                             var escapeData : [EscapeDataItems] = []
                             
                             for item in sectionList{
                                 title = item.sectionTitle
                                 count = item.sectionCount
+                                rating = item.rating
+                                year = item.year
                                 
                                 if let escapeType = item.escapeType{
-                                    escapeData.append(EscapeDataItems(id: item.id, name: item.name, image: item.posterImage, escapeType: EscapeType(rawValue:escapeType)))
+                                    escapeData.append(EscapeDataItems(id: item.id, name: item.name, image: item.posterImage, escapeType: EscapeType(rawValue:escapeType), escapeRating: rating, year: year))
                                 }
                                 
                             }
@@ -204,8 +208,7 @@ extension CustomListViewController : UICollectionViewDelegate , UICollectionView
         
         if let item = tableDataArray[collectionView.tag].escapeData{
             
-            cell.titleLabel.text = item[indexPath.row].name
-            cell.itemImage.downloadImageWithUrl(item[indexPath.row].image , placeHolder: UIImage(named: "movie_placeholder"))
+            cell.dataItems = item[indexPath.row]
             
         }
         

@@ -36,6 +36,13 @@ enum EscapeType : String{
     case TvShows = "tv_show"
     case Books = "book"
 }
+enum DiscoverType : String{
+    case All = "all"
+    case People = "people"
+    case Movie = "movie"
+    case TvShows = "tv_show"
+    case Books = "book"
+}
 enum Tap : Int{
     case Activity = 1
     case Movie = 2

@@ -28,6 +28,9 @@ enum SubServiceType : String {
     case LogoutUser     = "logout"
     case GetItemDesc    = "escapes/detail"
     
+    //Discover
+    case GetDiscoverItems = "lets_discover"
+    
     
 }
 

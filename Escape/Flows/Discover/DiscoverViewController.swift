@@ -36,19 +36,23 @@ class DiscoverViewController: UIViewController {
         let controller1 = UIStoryboard(name: "Discover", bundle: nil).instantiateViewControllerWithIdentifier("DiscoverAllVC") as? DiscoverAllViewController
        
         controller1!.title = "All"
+        controller1!.type = .All
         controllerArray.append(controller1!)
         
         let controller2  = UIStoryboard(name: "Discover", bundle: nil).instantiateViewControllerWithIdentifier("DiscoverAllVC") as? DiscoverAllViewController
         controller2!.title = "Movies"
+        controller2!.type = .Movie
         controllerArray.append(controller2!)
         
         let controller3 = UIStoryboard(name: "Discover", bundle: nil).instantiateViewControllerWithIdentifier("DiscoverAllVC") as? DiscoverAllViewController
         
         controller3!.title = "Tv Shows"
+        controller3!.type = .TvShows
         controllerArray.append(controller3!)
         
         let controller4 = UIStoryboard(name: "Discover", bundle: nil).instantiateViewControllerWithIdentifier("DiscoverAllVC") as? DiscoverAllViewController
         controller4!.title = "Books"
+        controller4!.type = .Books
         controllerArray.append(controller4!)
         
         // Customize menu (Optional)

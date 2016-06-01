@@ -28,6 +28,12 @@
 		BC14BAC01CFAF5CD00B7E546 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BABE1CFAF5CD00B7E546 /* DiscoverViewController.swift */; };
 		BC14BAC21CFB183000B7E546 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BAC11CFB183000B7E546 /* CAPSPageMenu.swift */; };
 		BC14BAC31CFB183000B7E546 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BAC11CFB183000B7E546 /* CAPSPageMenu.swift */; };
+		BC14BAD31CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BAD21CFF0F7B00B7E546 /* DiscoverEscapeTableViewCell.swift */; };
+		BC14BAD41CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BAD21CFF0F7B00B7E546 /* DiscoverEscapeTableViewCell.swift */; };
+		BC14BAD61CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BAD51CFF109E00B7E546 /* DiscoverDataProvider.swift */; };
+		BC14BAD71CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BAD51CFF109E00B7E546 /* DiscoverDataProvider.swift */; };
+		BC14BAD91CFF143800B7E546 /* DiscoverItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BAD81CFF143800B7E546 /* DiscoverItems.swift */; };
+		BC14BADA1CFF143800B7E546 /* DiscoverItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BAD81CFF143800B7E546 /* DiscoverItems.swift */; };
 		BC15C1561CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */; };
 		BC15C1571CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */; };
 		BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */; };
@@ -153,6 +159,9 @@
 		BC14BABB1CFAF55800B7E546 /* DiscoverAllViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverAllViewController.swift; path = Escape/Flows/Discover/DiscoverAllViewController.swift; sourceTree = SOURCE_ROOT; };
 		BC14BABE1CFAF5CD00B7E546 /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverViewController.swift; path = Escape/Flows/Discover/DiscoverViewController.swift; sourceTree = SOURCE_ROOT; };
 		BC14BAC11CFB183000B7E546 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
+		BC14BAD21CFF0F7B00B7E546 /* DiscoverEscapeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverEscapeTableViewCell.swift; sourceTree = "<group>"; };
+		BC14BAD51CFF109E00B7E546 /* DiscoverDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverDataProvider.swift; sourceTree = "<group>"; };
+		BC14BAD81CFF143800B7E546 /* DiscoverItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverItems.swift; sourceTree = "<group>"; };
 		BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountDataProvider.swift; sourceTree = "<group>"; };
 		BC2485551CDC900800DC7077 /* MyAccountItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountItems.swift; sourceTree = "<group>"; };
@@ -265,6 +274,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		BC14BAD11CFF0E9B00B7E546 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC14BAD21CFF0F7B00B7E546 /* DiscoverEscapeTableViewCell.swift */,
+				BC14BAD81CFF143800B7E546 /* DiscoverItems.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		BC2A73011CCBF7C0007E5DFB /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,6 +374,7 @@
 			children = (
 				BCFC92BA1CE2134300AE82BC /* Model */,
 				BC47EDC01CA00F60008143C2 /* UserDataProvider.swift */,
+				BC14BAD51CFF109E00B7E546 /* DiscoverDataProvider.swift */,
 				BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */,
 				BC47EDC31CA00F99008143C2 /* CommonDataProvider.swift */,
 			);
@@ -448,6 +467,7 @@
 		BCB7B4A01CA16C85002147FA /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				BC14BAD11CFF0E9B00B7E546 /* Model */,
 				BC14BAB81CFAF3F000B7E546 /* Discover.storyboard */,
 				BC14BABE1CFAF5CD00B7E546 /* DiscoverViewController.swift */,
 				BC14BABB1CFAF55800B7E546 /* DiscoverAllViewController.swift */,
@@ -712,11 +732,13 @@
 				BCCD70CB1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
 				BC02D0C31CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */,
 				BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
+				BC14BAD31CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */,
 				BC4F456B1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */,
 				BC2485561CDC900800DC7077 /* MyAccountItems.swift in Sources */,
 				BC4F45611CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BC2A73161CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
 				BC14BAC21CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
+				BC14BAD91CFF143800B7E546 /* DiscoverItems.swift in Sources */,
 				BC4F45771CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FC1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
 				BC47EDB91CA00333008143C2 /* ScreenVader.swift in Sources */,
@@ -726,6 +748,7 @@
 				BC47EDC41CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */,
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
+				BC14BAD61CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
 				BC14BABC1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */,
 				BC2A730C1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */,
 				BC14BABF1CFAF5CD00B7E546 /* DiscoverViewController.swift in Sources */,
@@ -770,11 +793,13 @@
 				BCCD70CC1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
 				BC02D0C41CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */,
 				BC2485541CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
+				BC14BAD41CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */,
 				BC4F456C1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */,
 				BC2485571CDC900800DC7077 /* MyAccountItems.swift in Sources */,
 				BC4F45621CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BC2A73171CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
 				BC14BAC31CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
+				BC14BADA1CFF143800B7E546 /* DiscoverItems.swift in Sources */,
 				BC4F45781CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FD1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
 				BC47EDBA1CA00333008143C2 /* ScreenVader.swift in Sources */,
@@ -784,6 +809,7 @@
 				BC47EDC51CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */,
 				BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
+				BC14BAD71CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
 				BC14BABD1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */,
 				BC2A730D1CCBF84F007E5DFB /* LoginPageViewController.swift in Sources */,
 				BC14BAC01CFAF5CD00B7E546 /* DiscoverViewController.swift in Sources */,
