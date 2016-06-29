@@ -23,10 +23,12 @@ enum SubServiceType : String {
     case PostInterests = "user_interests"
     
     // My Account
-    case GetUserDetails = "get_my_details"
-    case GetUserEscapes = "get_my_escape"
+    case GetUserDetails = "get_user_details"
+    case GetUserEscapes = "get_user_escape"
     case LogoutUser     = "logout"
     case GetItemDesc    = "escapes/detail"
+    case GetFollowers   = "get_user_followers"
+    case GetFollows     = "get_user_following"
     
     //Discover
     case GetDiscoverItems = "lets_discover"

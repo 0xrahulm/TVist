@@ -14,49 +14,56 @@ class DiscoverItems: NSObject {
     var name : String?
     var image : String?
     var director : String?
-    var isActed : Bool?
     var followers : NSNumber?
+    var year:       String?
+    var subtitle : String?
+    var discoverType : DiscoverType?
+    var rating : NSNumber?
+    var discoverData : [DiscoverItems] = []
     
-    init(id : String?,name : String?,image : String?,director : String?,isActed : Bool?,followers : NSNumber?) {
+    
+    init(id : String?,name : String?,image : String?,director : String?, followers : NSNumber?, year : String? , subtitle : String? , discoverType : DiscoverType? , rating : NSNumber?) {
         
         self.id = id
         self.name = name
         self.image = image
         self.director = director
-        self.isActed = isActed
         self.followers = followers
+        self.year = year
+        self.subtitle = subtitle
+        self.discoverType = discoverType
+        self.rating = rating
+        
         
     }
     
-    init(dict : [String:AnyObject]) {
+    init(dict : [AnyObject]) {
         super.init()
         
         parseData(dict)
     }
     
-    func parseData(dict : [String:AnyObject]){
-        if let id = dict["id"] as? String{
-            if let name = dict["name"] as? String{
-                self.id  = id
-                self.name = name
-                
-                self.image = dict["poster_image"] as? String
-                
-                if let director = dict["director"] as? String{
-                    self.director = director
-                }else if let author = dict["author"] as? String{
-                    self.director = author
-                }else if let creator = dict["creator"] as? String{
-                    self.director = creator
+    func parseData(data : [AnyObject]){
+        var discoverDataArray : [DiscoverItems] = []
+        
+        if let dataArray = data as? [[String:AnyObject]]{
+            for dict in dataArray{
+                if let id = dict["id"] as? String{
+                    if let name = dict["name"] as? String{
+                        if let image = dict["poster_image"] as? String{
+                            if let discoverType = dict["escape_type"] as? String{
+                                
+                                discoverDataArray.append(DiscoverItems(id: id, name: name, image: image, director: dict["creator"] as? String, followers: dict["followers"] as? NSNumber, year: dict["release_year"] as? String, subtitle: dict["subtitle"] as? String, discoverType: DiscoverType(rawValue: discoverType), rating: dict["escape_rating"] as? NSNumber))
+                                
+                            }
+                            
+                        }
+                    }
                 }
-                
-                self.isActed = dict["is_acted"] as? Bool
-                self.followers = dict["followers"] as? NSNumber
-                
                 
             }
         }
         
+        self.discoverData = discoverDataArray
     }
-
 }

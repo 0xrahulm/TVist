@@ -12,12 +12,14 @@ class DiscoverAllViewController: UIViewController {
     
     var type : DiscoverType = .All
     var dataArray : [DiscoverItems] = []
+    var callOnce = true
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("didload")
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, 120, 0)
         dataArray = []
         tableView.reloadData()
         
@@ -27,16 +29,47 @@ class DiscoverAllViewController: UIViewController {
         super.viewDidAppear(animated)
         print("didappear : \(type)")
         
-        DiscoverDataProvider.shareDataProvider.discoverDataDelegate = self
-        DiscoverDataProvider.shareDataProvider.getDiscoverItems(type)
+        if callOnce{
+            DiscoverDataProvider.shareDataProvider.discoverDataDelegate = self
+            DiscoverDataProvider.shareDataProvider.getDiscoverItems(type)
+            callOnce = false
+        }
+    }    
+}
+
+extension DiscoverAllViewController : UITableViewDelegate{
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if dataArray.count > 0{
+            
+            let data = dataArray[indexPath.row]
+            let id = data.id
+            
+            let escapeType = data.discoverType
+            let name = data.name
+            let image = data.image
+            
+            var params : [String:AnyObject] = [:]
+            if let id = id{
+                params["id"] = id
+            }
+            if let escapeType = escapeType{
+                params["escapeType"] = escapeType.rawValue
+            }
+            if let name = name{
+                params["name"] = name
+            }
+            if let image = image{
+                params["image"] = image
+            }
+            if data.discoverType == .Movie || data.discoverType == .TvShows || data.discoverType == .Books{
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+            }
+            
+            
+        }
         
     }
-    
-    
-    
-    
-}
-extension DiscoverAllViewController : UITableViewDelegate{
     
 }
 extension DiscoverAllViewController : UITableViewDataSource{
@@ -52,9 +85,12 @@ extension DiscoverAllViewController : UITableViewDataSource{
     }
 }
 extension DiscoverAllViewController : DiscoverDataProtocol{
-    func recievedDiscoverData(data: [DiscoverItems], discoverType: DiscoverType) {
+    func recievedDiscoverData(data: [DiscoverItems]?, discoverType: DiscoverType) {
         if self.type == discoverType{
-            self.dataArray = data
+            if let data = data{
+                self.dataArray = data
+            }
+            
             tableView.reloadData()
             
         }

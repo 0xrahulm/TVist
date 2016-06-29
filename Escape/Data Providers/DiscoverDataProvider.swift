@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DiscoverDataProtocol : class {
-    func recievedDiscoverData(data : [DiscoverItems], discoverType : DiscoverType)
+    func recievedDiscoverData(data : [DiscoverItems]?, discoverType : DiscoverType)
     func errorDiscoverData()
 }
 
@@ -70,18 +70,12 @@ extension DiscoverDataProvider{
     
     func parseDiscoverData(data : [AnyObject], discoverType : String ){
         
-        var discoverData : [DiscoverItems] = []
+        var discoverItem : DiscoverItems?
         
-        if let dataArray = data as? [[String:AnyObject]]{
-            
-            for dict in dataArray{
-                
-                discoverData.append(DiscoverItems(dict: dict))
-                
-            }
-        }
-        if discoverDataDelegate != nil{
-            discoverDataDelegate?.recievedDiscoverData(discoverData, discoverType: DiscoverType(rawValue: discoverType)!)
+        discoverItem = DiscoverItems(dict: data)
+       
+        if discoverDataDelegate != nil {
+            discoverDataDelegate?.recievedDiscoverData(discoverItem?.discoverData, discoverType: DiscoverType(rawValue: discoverType)!)
         }
     }
 }
