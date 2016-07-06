@@ -12,8 +12,8 @@ import RealmSwift
 class UserData: Object {
     
     dynamic var id :            String? = nil
-    dynamic var firstName :     String? = nil
-    dynamic var lastName :      String? = nil
+    dynamic var firstName :     String = ""
+    dynamic var lastName :      String = ""
     dynamic var email :         String? = nil
     dynamic var gender = 1
     dynamic var profilePicture :String? = nil

@@ -201,6 +201,10 @@ extension ScreenManagerViewController{
             openItemDesc(params)
             break
             
+        case .OpenFollowers:
+            openFollower(params)
+            break
+            
         default:
             break
         }
@@ -221,6 +225,9 @@ extension ScreenManagerViewController{
     }
     func openItemDesc(params : [String:AnyObject]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "itemDescVC", queryParams: params)
+    }
+    func openFollower(params : [String:AnyObject]?){
+        pushViewControllerOf(.MyAccount, viewControllerIdentifier: "FollowersVC", queryParams: params)
     }
     
 }

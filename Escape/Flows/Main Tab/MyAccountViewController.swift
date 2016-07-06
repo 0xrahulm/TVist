@@ -229,6 +229,18 @@ class MyAccountViewController: UIViewController{
         booksView.backgroundColor = booksColor
     
     }
+    
+    @IBAction func followerFollowingClicked(sender: UITapGestureRecognizer) {
+        if let view = sender.view{
+            var userType : UserType = .Followers
+            if view.tag == 6{
+                userType = .Following
+            }
+            
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue])
+        }
+        
+    }
 }
 extension MyAccountViewController : MyAccountDetailsProtocol{
     func recievedUserDetails(data: MyAccountItems?) {

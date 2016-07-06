@@ -12,19 +12,19 @@ import UIKit
 class MyAccountItems: NSObject {
     
     var id :            String?
-    var firstName :     String?
-    var lastName :      String?
+    var firstName  = ""
+    var lastName   = ""
     var email :         String?
     var gender :        Gender?
     var profilePicture :String?
-    var followers :     NSNumber?
-    var following :     NSNumber?
+    var followers :     NSNumber = 0
+    var following :     NSNumber = 0
     var movies_count :  NSNumber?
     var books_count :   NSNumber?
     var tvShows_count : NSNumber?
     var escapes_count : NSNumber?
     
-    init(id : String?,firstName : String?,lastName : String?,email :String?,gender :        Gender?,profilePicture :String?,followers :NSNumber?,following :NSNumber?,movies_count :  NSNumber?,books_count : NSNumber?,tvShows_count : NSNumber?,escapes_count : NSNumber?) {
+    init(id : String?,firstName : String,lastName : String,email :String?,gender :        Gender?,profilePicture :String?,followers :NSNumber,following :NSNumber,movies_count :  NSNumber?,books_count : NSNumber?,tvShows_count : NSNumber?,escapes_count : NSNumber?) {
         
         self.id = id
         self.firstName = firstName
@@ -47,6 +47,7 @@ class MyAccountItems: NSObject {
         
     }
     
+    
     func parseData(profileDetails : [String:AnyObject]){
         
         var escapes_count = 0
@@ -57,17 +58,25 @@ class MyAccountItems: NSObject {
             
         }
         
-        firstName = profileDetails["first_name"] as? String
+        if let fName = profileDetails["first_name"] as? String{
+            firstName = fName
+        }
         
-        lastName = profileDetails["last_name"] as? String
+        if let lName = profileDetails["last_name"] as? String{
+            lastName = lName
+        }
         
         email = profileDetails["email"] as? String
         
         profilePicture = profileDetails["profile_picture"] as? String
         
-        followers = profileDetails["follower_count"] as? NSNumber
+        if let count = profileDetails["follower_count"] as? NSNumber{
+            followers = count
+        }
         
-        following = profileDetails["following_count"] as? NSNumber
+        if let count = profileDetails["following_count"] as? NSNumber{
+            following = count
+        }
         
         if let uGender = profileDetails["gender"] as? NSNumber{
             gender =  Gender(rawValue : Int(uGender))

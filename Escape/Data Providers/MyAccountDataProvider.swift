@@ -25,6 +25,10 @@ protocol ItemDescProtocol : class {
     func receivedItemDesc(data : DescDataItems?)
     func errorItemDescData()
 }
+protocol FollowersProtocol : class {
+    func recievedFollowersData(data : [MyAccountItems] , userType : UserType)
+    func error()
+}
 
 class MyAccountDataProvider: CommonDataProvider {
     
@@ -33,6 +37,7 @@ class MyAccountDataProvider: CommonDataProvider {
     weak var myAccountDetailsDelegate : MyAccountDetailsProtocol?
     weak var escapeItemsDelegate : EscapeItemsProtocol?
     weak var itemDescDelegate : ItemDescProtocol?
+    weak var followersDelegate : FollowersProtocol?
     
     var currentUser:UserData?
     
@@ -87,6 +92,30 @@ class MyAccountDataProvider: CommonDataProvider {
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .LogoutUser, params: nil, delegate: self)
     }
     
+    func getUserFollowing(id : String?){
+        
+        var params : [String:AnyObject] = [:]
+        
+        if let id = id{
+          params["user_id"] = id
+        }
+        
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFollowing, params: nil, delegate: self)
+        
+    }
+    
+    func getUserFollowers(id : String?){
+        
+        var params : [String:AnyObject] = [:]
+        
+        if let id = id{
+            params["user_id"] = id
+        }
+        
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFollowers, params: nil, delegate: self)
+        
+    }
+    
     
     override func serviceSuccessfull(service: Service) {
         switch service.subServiveType! {
@@ -130,6 +159,18 @@ class MyAccountDataProvider: CommonDataProvider {
                 }
             }
             break
+            
+        case .GetFollowing:
+            if let data = service.outPutResponse as? [[String:AnyObject]]{
+                self.parseFollwingData(data, userType: .Following)
+            }
+            break
+        
+        case .GetFollowers:
+            if let data = service.outPutResponse as? [[String:AnyObject]]{
+                self.parseFollwingData(data, userType: .Followers)
+            }
+            break
         
         default:
             break
@@ -160,6 +201,20 @@ class MyAccountDataProvider: CommonDataProvider {
         case .GetItemDesc:
             if self.itemDescDelegate != nil{
                 self.itemDescDelegate?.errorItemDescData()
+            }
+            
+            break
+            
+        case .GetFollowing:
+            if followersDelegate != nil{
+                followersDelegate?.error()
+            }
+            
+            break
+            
+        case .GetFollowers:
+            if followersDelegate != nil{
+                followersDelegate?.error()
             }
             
             break
@@ -249,6 +304,20 @@ extension MyAccountDataProvider {
         }
         
     }
+    
+    func parseFollwingData(data : [[String:AnyObject]] , userType : UserType){
+        
+        var userItems : [MyAccountItems] = []
+        for item in data{
+            
+            userItems.append(MyAccountItems(dict: item))
+            
+        }
+        
+        if followersDelegate != nil{
+            followersDelegate?.recievedFollowersData(userItems, userType: userType)
+        }
+    }
 }
 
 //MARK :- Persist Data
@@ -267,12 +336,11 @@ extension MyAccountDataProvider{
             }
             
             userData.profilePicture = userItem.profilePicture
-            if let followers = userItem.followers{
-                userData.followers = Int(followers)
-            }
-            if let following = userItem.following{
-                userData.following = Int(following)
-            }
+            
+            userData.followers = Int(userItem.followers)
+            
+            userData.following = Int(userItem.following)
+            
             if let movies = userItem.movies_count{
                 userData.movies_count = Int(movies)
             }

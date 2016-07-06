@@ -32,14 +32,16 @@ class MainTabBarViewController: UITabBarController {
         self.tabBar.layer.shadowOpacity = 0.50
         self.tabBar.layer.shadowPath = UIBezierPath(rect: self.tabBar.bounds).CGPath
         
-        self.tabBar.tintColor = UIColor.themeColorRed()
+        self.tabBar.tintColor = UIColor.themeColorBlue()
         let tabItems = self.tabBar.items! as [UITabBarItem]
         let tabItem1 = tabItems[0] as UITabBarItem
         let tabItem2 = tabItems[1] as UITabBarItem
         let tabItem3 = tabItems[2] as UITabBarItem
+        let tabItem4 = tabItems[3] as UITabBarItem
         tabItem1.title = "Home"
         tabItem2.title = "Discover"
-        tabItem3.title = "My Account"
+        tabItem3.title = "Notification"
+        tabItem4.title = "My Account"
         
         
     }

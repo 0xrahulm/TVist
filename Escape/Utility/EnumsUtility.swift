@@ -16,6 +16,7 @@ enum ScreenManagerAction : String{
     case MyAccountTab = "MyAccount"
     case MyAccountSetting = "MyAccountSetting"
     case OpenItemDescription = "OpenItemDescription"
+    case OpenFollowers = "OpenFollowers"
 }
 enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"
@@ -48,4 +49,8 @@ enum Tap : Int{
     case Movie = 2
     case TvShows = 3
     case Books = 4
+}
+enum UserType : Int{
+    case Followers = 1
+    case Following = 2
 }

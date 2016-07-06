@@ -40,6 +40,10 @@
 		BC2485541CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */; };
 		BC2485561CDC900800DC7077 /* MyAccountItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485551CDC900800DC7077 /* MyAccountItems.swift */; };
 		BC2485571CDC900800DC7077 /* MyAccountItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485551CDC900800DC7077 /* MyAccountItems.swift */; };
+		BC26D0CB1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC26D0CA1D2CFA5600FDB87F /* FollowersViewController.swift */; };
+		BC26D0CC1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC26D0CA1D2CFA5600FDB87F /* FollowersViewController.swift */; };
+		BC26D0CE1D2CFF7E00FDB87F /* FollowersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC26D0CD1D2CFF7E00FDB87F /* FollowersTableViewCell.swift */; };
+		BC26D0CF1D2CFF7E00FDB87F /* FollowersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC26D0CD1D2CFF7E00FDB87F /* FollowersTableViewCell.swift */; };
 		BC2A72DC1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */; };
 		BC2A72DD1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */; };
 		BC2A730A1CCBF84F007E5DFB /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73021CCBF84F007E5DFB /* EmailLoginViewController.swift */; };
@@ -165,6 +169,8 @@
 		BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountDataProvider.swift; sourceTree = "<group>"; };
 		BC2485551CDC900800DC7077 /* MyAccountItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountItems.swift; sourceTree = "<group>"; };
+		BC26D0CA1D2CFA5600FDB87F /* FollowersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersViewController.swift; path = "Escape/Flows/My Account/FollowersViewController.swift"; sourceTree = SOURCE_ROOT; };
+		BC26D0CD1D2CFF7E00FDB87F /* FollowersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersTableViewCell.swift; path = "Escape/Flows/My Account/FollowersTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utility.swift"; sourceTree = "<group>"; };
 		BC2A73021CCBF84F007E5DFB /* EmailLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		BC2A73031CCBF84F007E5DFB /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
@@ -453,6 +459,7 @@
 				BC0BBBE01CF1BC1300B03A93 /* DescDataItems.swift */,
 				BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */,
 				BC4F456A1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift */,
+				BC26D0CD1D2CFF7E00FDB87F /* FollowersTableViewCell.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -481,6 +488,7 @@
 				BC4F45661CDF29F200A65A63 /* Model */,
 				BC85DBFD1CA6D3E0002237A4 /* MyAccount.storyboard */,
 				BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */,
+				BC26D0CA1D2CFA5600FDB87F /* FollowersViewController.swift */,
 				BC0BBBDD1CF0C2F900B03A93 /* ItemDescViewController.swift */,
 				BC3595FB1CE8634F007903DB /* MyAccountSettingViewController.swift */,
 				BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */,
@@ -720,6 +728,7 @@
 				BC47EDC81CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */,
 				BC15C1561CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */,
 				BC4F456E1CDF3EC200A65A63 /* MyAccountEscapeItems.swift in Sources */,
+				BC26D0CB1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */,
 				BC47EDC11CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BCCD70C81CA19468002A0C07 /* Service.swift in Sources */,
 				BC47ED8A1C9FEEC8008143C2 /* Escape.xcdatamodeld in Sources */,
@@ -741,6 +750,7 @@
 				BC14BAD91CFF143800B7E546 /* DiscoverItems.swift in Sources */,
 				BC4F45771CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FC1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
+				BC26D0CE1D2CFF7E00FDB87F /* FollowersTableViewCell.swift in Sources */,
 				BC47EDB91CA00333008143C2 /* ScreenVader.swift in Sources */,
 				BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */,
 				BC2A73121CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
@@ -781,6 +791,7 @@
 				BC47EDC91CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */,
 				BC15C1571CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */,
 				BC4F456F1CDF3EC200A65A63 /* MyAccountEscapeItems.swift in Sources */,
+				BC26D0CC1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */,
 				BC47EDC21CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BCCD70C91CA19468002A0C07 /* Service.swift in Sources */,
 				BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */,
@@ -802,6 +813,7 @@
 				BC14BADA1CFF143800B7E546 /* DiscoverItems.swift in Sources */,
 				BC4F45781CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FD1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
+				BC26D0CF1D2CFF7E00FDB87F /* FollowersTableViewCell.swift in Sources */,
 				BC47EDBA1CA00333008143C2 /* ScreenVader.swift in Sources */,
 				BC3A81891CA521D500FF8678 /* DeviceID.swift in Sources */,
 				BC2A73131CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
