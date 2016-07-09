@@ -64,6 +64,27 @@ class UserDataProvider: CommonDataProvider {
         ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .PostInterests, params: params, delegate: self)
     }
     
+    func addToEscape(id : String, action : EscapeAddActions , status : String){
+        var params : [String:AnyObject] = [:]
+        params["escape_id"] = id
+        params["escape_action"] = action.rawValue
+        params["status"] = status
+        
+        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .AddEscapes, params: params, delegate: self)
+    }
+    
+    func followUser(id : String){
+        var params : [String:AnyObject] = [:]
+        params["user_id"] = id
+        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .FollowUser, params: params, delegate: self)
+    }
+    
+    func unfollowUser(id : String){
+        var params : [String:AnyObject] = [:]
+        params["user_id"] = id
+        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .UnfollowUser, params: params, delegate: self)
+    }
+    
     
 // MARK: - Service Responses
     
@@ -97,6 +118,20 @@ class UserDataProvider: CommonDataProvider {
             }
             break
             
+        case .AddEscapes:
+            print("Escape Added")
+            break
+        
+        case .FollowUser:
+            print("User followed")
+            break
+            
+        case .UnfollowUser:
+            print("User UNfollowed")
+            break
+            
+        
+            
         default:
             break
         }
@@ -106,7 +141,7 @@ class UserDataProvider: CommonDataProvider {
         switch service.subServiveType! {
         case .FBSignIn:
             
-             ECUserDefaults.setLoggedIn(false)
+            ECUserDefaults.setLoggedIn(false)
             
             if self.fbLoginDelegate != nil{
                 self.fbLoginDelegate?.signInError(service.errorMessage)
@@ -116,7 +151,7 @@ class UserDataProvider: CommonDataProvider {
             
         case .EmailSignUp:
             
-             ECUserDefaults.setLoggedIn(false)
+            ECUserDefaults.setLoggedIn(false)
             
             if self.emailLoginDelegate != nil {
                 self.emailLoginDelegate?.signInError(service.errorMessage)
@@ -132,6 +167,18 @@ class UserDataProvider: CommonDataProvider {
                 self.emailLoginDelegate?.signInError(service.errorMessage)
             }
             
+            break
+       
+        case .AddEscapes:
+            print("Error in Escape adding")
+            break
+            
+        case .FollowUser:
+            print("Error in User follow")
+            break;
+            
+        case .UnfollowUser:
+            print("Error in User UNfollow")
             break
             
         default :

@@ -17,6 +17,7 @@ enum ScreenManagerAction : String{
     case MyAccountSetting = "MyAccountSetting"
     case OpenItemDescription = "OpenItemDescription"
     case OpenFollowers = "OpenFollowers"
+    case OpenAddToEscapePopUp = "OpenAddToEscapePopUp"
 }
 enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"
@@ -29,7 +30,7 @@ enum LoginTypeEnum : String {
 }
 enum Gender : Int{
     case Male = 1
-    case Femeal = 2
+    case Female = 2
 }
 enum EscapeType : String{
     case Activity = "activity"
@@ -53,4 +54,12 @@ enum Tap : Int{
 enum UserType : Int{
     case Followers = 1
     case Following = 2
+}
+enum EscapeAddActions : String{
+    case Watched = "Watched"
+    case ToWatch = "To Watch"
+    case Watching = "Currently Watching"
+    case Read = "Read"
+    case ToRead = "To Read"
+    case Reading = "Currently Reading"
 }

@@ -57,6 +57,10 @@ extension UIColor{
     class func textGrayColor() -> UIColor{
         return UIColor.colorWithHexString("#555555")
     }
+    class func textLightGrayColor() -> UIColor{
+        return UIColor.colorWithHexString("#AAAAAA")
+    }
+    
     class func colorForMovie() -> UIColor{
         return UIColor.colorWithHexString("#551A8B")
     }

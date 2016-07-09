@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol RemoveAddedEscapeCellProtocol : class {
+    func removeAtIndex(indexPath : NSIndexPath)
+}
+
 class DiscoverEscapeTableViewCell: UITableViewCell {
+    
+    weak var removeAddedEscapeCellDelegate : RemoveAddedEscapeCellProtocol?
     
     @IBOutlet weak var posterImage: UIImageView!
     
@@ -19,6 +25,15 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
     @IBOutlet weak var ctaButton: UIButton!
     
     @IBOutlet weak var distinguishView: UIView!
+    
+    @IBOutlet weak var loadingView: UIActivityIndicatorView!
+    
+    @IBOutlet weak var peopleImage: UIImageView!
+    
+    @IBOutlet weak var peopleName: UILabel!
+    @IBOutlet weak var peopleFollowerLabel: UILabel!
+    
+    var indexPath : NSIndexPath!
     
     var data : DiscoverItems? {
         didSet{
@@ -46,7 +61,16 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
         }
     }
     
-
+    var peopleData : DiscoverItems?{
+        didSet{
+            if let peopleData = peopleData{
+                peopleName.text = peopleData.name
+                peopleImage.downloadImageWithUrl(peopleData.image, placeHolder: UIImage(named: "profile_placeholder"))
+                peopleFollowerLabel.text = "22 Followers"
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -57,5 +81,32 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    @IBAction func addButtonClicked(sender: AnyObject) {
+        
+        if let id = data?.id{
+            if let type = data?.discoverType?.rawValue{
+                
+                let obj = AddToEscapeViewController()
+                obj.addToEscapeDoneDelegate = self
+                if let delegate = obj.addToEscapeDoneDelegate{
+                    ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: ["id" : id, "type" : type , "delegate" : delegate])
+                }
+                
+                
+            }
+            
+        }
+    }
+    
+    @IBAction func followButtonClicked(sender: AnyObject) {
+    }
+    
+    
+}
+extension DiscoverEscapeTableViewCell : AddToEscapeDoneProtocol{
+    func doneButtonTapped() {
+        if removeAddedEscapeCellDelegate != nil{
+            removeAddedEscapeCellDelegate?.removeAtIndex(indexPath)
+        }
+    }
 }

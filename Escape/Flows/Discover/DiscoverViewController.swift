@@ -13,6 +13,8 @@ class DiscoverViewController: UIViewController {
     var pageMenu : CAPSPageMenu?
     
     @IBOutlet weak var containerView: UIView!
+    
+    var controllerArray : [UIViewController] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,47 +22,26 @@ class DiscoverViewController: UIViewController {
         self.title = "Discover"
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
-
         
-       
+        configureVCs()
+
     }
-    
-    
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        
-        
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<-", style: UIBarButtonItemStyle.Done, target: self, action: #selector(DiscoverViewController.didTapGoToLeft))
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "->", style: UIBarButtonItemStyle.Done, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
-        
-        // MARK: - Scroll menu setup
+        //configureVCs()
+    }
+    
+    func configureVCs(){
         
         // Initialize view controllers to display and place in array
-        var controllerArray : [UIViewController] = []
-        
-        let controller1 = UIStoryboard(name: "Discover", bundle: nil).instantiateViewControllerWithIdentifier("DiscoverAllVC") as? DiscoverAllViewController
        
-        controller1!.title = "All"
-        controller1!.type = .All
-        controllerArray.append(controller1!)
-        
-        let controller2  = UIStoryboard(name: "Discover", bundle: nil).instantiateViewControllerWithIdentifier("DiscoverAllVC") as? DiscoverAllViewController
-        controller2!.title = "Movies"
-        controller2!.type = .Movie
-        controllerArray.append(controller2!)
-        
-        let controller3 = UIStoryboard(name: "Discover", bundle: nil).instantiateViewControllerWithIdentifier("DiscoverAllVC") as? DiscoverAllViewController
-        
-        controller3!.title = "Tv Shows"
-        controller3!.type = .TvShows
-        controllerArray.append(controller3!)
-        
-        let controller4 = UIStoryboard(name: "Discover", bundle: nil).instantiateViewControllerWithIdentifier("DiscoverAllVC") as? DiscoverAllViewController
-        controller4!.title = "Books"
-        controller4!.type = .Books
-        controllerArray.append(controller4!)
+        addVcFor(.All, title: "All")
+        addVcFor(.Movie, title: "Movies")
+        addVcFor(.TvShows, title: "Tv Shows")
+        addVcFor(.Books, title: "Books")
+        addVcFor(.People, title: "People")
         
         // Customize menu (Optional)
         let parameters: [CAPSPageMenuOption] = [
@@ -76,21 +57,25 @@ class DiscoverViewController: UIViewController {
             .UnselectedMenuItemLabelColor(UIColor.grayColor()),
             .SelectionIndicatorHeight(1.0),
             
-            
-        ]
+            ]
         
         // Initialize scroll menu
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 64, self.view.frame.width, self.view.frame.height-64), pageMenuOptions: parameters)
         
         self.addChildViewController(pageMenu!)
-        self.containerView.addSubview(pageMenu!.view)
+        self.view.addSubview(pageMenu!.view)
         
         pageMenu!.didMoveToParentViewController(self)
         
-        
-        
     }
     
+    func addVcFor(type : DiscoverType , title : String){
+        let controller = UIStoryboard(name: "Discover", bundle: nil).instantiateViewControllerWithIdentifier("DiscoverAllVC") as? DiscoverAllViewController
+        controller!.title = title
+        controller!.type = type
+        controllerArray.append(controller!)
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -125,3 +110,8 @@ class DiscoverViewController: UIViewController {
 
 
 }
+
+//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<-", style: UIBarButtonItemStyle.Done, target: self, action: #selector(DiscoverViewController.didTapGoToLeft))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "->", style: UIBarButtonItemStyle.Done, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
+
+// MARK: - Scroll menu setup

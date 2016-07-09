@@ -58,6 +58,10 @@ class DiscoverItems: NSObject {
                             }
                             
                         }
+                    }else if let fullName = dict["full_name"] as? String{
+                        if let image = dict["profile_picture"] as? String{
+                            discoverDataArray.append(DiscoverItems(id: id, name: fullName, image: image, director: nil, followers: nil, year: nil, subtitle: nil, discoverType: .People, rating: nil))
+                        }
                     }
                 }
                 

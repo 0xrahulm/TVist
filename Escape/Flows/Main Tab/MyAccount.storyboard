@@ -46,7 +46,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ise-8H-tfB">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ise-8H-tfB">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PcK-QZ-M0W" userLabel="Content View">
@@ -834,7 +834,7 @@
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KNg-Da-hYB">
                                                                         <rect key="frame" x="0.0" y="0.0" width="105" height="208"/>
-                                                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hq2-ya-qeg">
                                                                         <rect key="frame" x="1" y="1" width="103" height="206"/>
@@ -1063,7 +1063,7 @@
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P1W-7a-zgU">
                                                     <rect key="frame" x="50" y="54" width="550" height="1"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="QN1-73-6DV"/>
                                                     </constraints>
@@ -1086,8 +1086,8 @@
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="DL9-Cq-lRn"/>
-                                                    <exclude reference="33c-U1-w8y"/>
                                                     <exclude reference="5Kb-7y-AoW"/>
+                                                    <exclude reference="33c-U1-w8y"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>

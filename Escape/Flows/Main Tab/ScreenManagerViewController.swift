@@ -144,6 +144,22 @@ class ScreenManagerViewController: UIViewController {
         return viewControllerToOpen
     }
     
+    func getTopViewController() -> UIViewController {
+        if currentPresentedViewController != nil {
+            if let mainTabVC  = currentPresentedViewController as? MainTabBarViewController {
+                if let selectedNav = mainTabVC.selectedViewController as? CustomNavigationViewController {
+                    return selectedNav.topViewController!
+                }
+            }
+            
+            if let selectedNav = currentPresentedViewController as? CustomNavigationViewController {
+                return selectedNav.topViewController!
+            }
+        }
+        
+        return self
+    }
+    
     func removePresentedViewController(dismissVC : UIViewController){
         
         if currentPresentedViewController == dismissVC {
@@ -205,6 +221,10 @@ extension ScreenManagerViewController{
             openFollower(params)
             break
             
+        case .OpenAddToEscapePopUp:
+            openAddToEscapePopUp(params)
+            break
+            
         default:
             break
         }
@@ -228,6 +248,28 @@ extension ScreenManagerViewController{
     }
     func openFollower(params : [String:AnyObject]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "FollowersVC", queryParams: params)
+    }
+    func openAddToEscapePopUp(params : [String:AnyObject]?){
+        
+            if let params = params{
+                if let type = params["type"] as? String{
+                    if let id = params["id"] as? String{
+                        if let delegate = params["delegate"] as? DiscoverEscapeTableViewCell{
+                            let addToEscapePopup = AddToEscapeViewController(nibName:"AddToEscapeViewController", bundle: nil)
+                            addToEscapePopup.modalPresentationStyle = .Custom
+                            addToEscapePopup.transitioningDelegate = addToEscapePopup
+                            addToEscapePopup.presentingVC = self
+                            addToEscapePopup.type = DiscoverType(rawValue: type)
+                            addToEscapePopup.id = id
+                            addToEscapePopup.addToEscapeDoneDelegate = delegate
+                            
+                            let topVC = getTopViewController()
+                            topVC.presentViewController(addToEscapePopup, animated: true, completion: nil)
+                            
+                        }
+                    }
+                }
+            }
     }
     
 }

@@ -68,6 +68,14 @@
 		BC3595FA1CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3595F81CE75E53007903DB /* UserEscapeDataRealm.swift */; };
 		BC3595FC1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3595FB1CE8634F007903DB /* MyAccountSettingViewController.swift */; };
 		BC3595FD1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3595FB1CE8634F007903DB /* MyAccountSettingViewController.swift */; };
+		BC38DC691D30C01700290717 /* CustomPopupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC681D30C01700290717 /* CustomPopupPresentationController.swift */; };
+		BC38DC6A1D30C01700290717 /* CustomPopupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC681D30C01700290717 /* CustomPopupPresentationController.swift */; };
+		BC38DC701D30C1F900290717 /* AddToEscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC6E1D30C1F900290717 /* AddToEscapeViewController.swift */; };
+		BC38DC711D30C1F900290717 /* AddToEscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC6E1D30C1F900290717 /* AddToEscapeViewController.swift */; };
+		BC38DC721D30C1F900290717 /* AddToEscapeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC38DC6F1D30C1F900290717 /* AddToEscapeViewController.xib */; };
+		BC38DC731D30C1F900290717 /* AddToEscapeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC38DC6F1D30C1F900290717 /* AddToEscapeViewController.xib */; };
+		BC38DC751D30F18200290717 /* CustomPresentationAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC741D30F18200290717 /* CustomPresentationAnimationViewController.swift */; };
+		BC38DC761D30F18200290717 /* CustomPresentationAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC741D30F18200290717 /* CustomPresentationAnimationViewController.swift */; };
 		BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */; };
 		BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */; };
 		BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81871CA521D500FF8678 /* DeviceID.swift */; };
@@ -183,6 +191,10 @@
 		BC2A731A1CCBF8CC007E5DFB /* InterestItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestItems.swift; sourceTree = "<group>"; };
 		BC3595F81CE75E53007903DB /* UserEscapeDataRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEscapeDataRealm.swift; sourceTree = "<group>"; };
 		BC3595FB1CE8634F007903DB /* MyAccountSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountSettingViewController.swift; sourceTree = "<group>"; };
+		BC38DC681D30C01700290717 /* CustomPopupPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPopupPresentationController.swift; sourceTree = "<group>"; };
+		BC38DC6E1D30C1F900290717 /* AddToEscapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToEscapeViewController.swift; sourceTree = "<group>"; };
+		BC38DC6F1D30C1F900290717 /* AddToEscapeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddToEscapeViewController.xib; sourceTree = "<group>"; };
+		BC38DC741D30F18200290717 /* CustomPresentationAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPresentationAnimationViewController.swift; sourceTree = "<group>"; };
 		BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Utility.swift"; sourceTree = "<group>"; };
 		BC3A81871CA521D500FF8678 /* DeviceID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceID.swift; sourceTree = "<group>"; };
 		BC3A818A1CA531FE00FF8678 /* ECUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECUserDefaults.swift; sourceTree = "<group>"; };
@@ -446,6 +458,8 @@
 				BC85DBF61CA69F0E002237A4 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 				BC47EDC71CA013EC008143C2 /* CustomNavigationViewController.swift */,
 				BC14BAC11CFB183000B7E546 /* CAPSPageMenu.swift */,
+				BC38DC681D30C01700290717 /* CustomPopupPresentationController.swift */,
+				BC38DC741D30F18200290717 /* CustomPresentationAnimationViewController.swift */,
 			);
 			path = "Custom Controllers";
 			sourceTree = "<group>";
@@ -476,7 +490,9 @@
 			children = (
 				BC14BAD11CFF0E9B00B7E546 /* Model */,
 				BC14BAB81CFAF3F000B7E546 /* Discover.storyboard */,
+				BC38DC6F1D30C1F900290717 /* AddToEscapeViewController.xib */,
 				BC14BABE1CFAF5CD00B7E546 /* DiscoverViewController.swift */,
+				BC38DC6E1D30C1F900290717 /* AddToEscapeViewController.swift */,
 				BC14BABB1CFAF55800B7E546 /* DiscoverAllViewController.swift */,
 			);
 			name = Discover;
@@ -631,6 +647,7 @@
 				BCB7B4B41CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B21CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
 				BC47ED8F1C9FEEC8008143C2 /* LaunchScreen.storyboard in Resources */,
+				BC38DC721D30C1F900290717 /* AddToEscapeViewController.xib in Resources */,
 				BC2A73181CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730E1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A11CA5626000FF8678 /* MainTab.storyboard in Resources */,
@@ -649,6 +666,7 @@
 				BCB7B4B51CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B31CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
 				BC47ED9D1C9FF233008143C2 /* LaunchScreen.storyboard in Resources */,
+				BC38DC731D30C1F900290717 /* AddToEscapeViewController.xib in Resources */,
 				BC2A73191CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730F1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A21CA5626000FF8678 /* MainTab.storyboard in Resources */,
@@ -730,8 +748,10 @@
 				BC4F456E1CDF3EC200A65A63 /* MyAccountEscapeItems.swift in Sources */,
 				BC26D0CB1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */,
 				BC47EDC11CA00F60008143C2 /* UserDataProvider.swift in Sources */,
+				BC38DC691D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
 				BCCD70C81CA19468002A0C07 /* Service.swift in Sources */,
 				BC47ED8A1C9FEEC8008143C2 /* Escape.xcdatamodeld in Sources */,
+				BC38DC701D30C1F900290717 /* AddToEscapeViewController.swift in Sources */,
 				BC0BBBE11CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
 				BC2A73101CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */,
 				BCFE486E1CA400C60098160D /* NetworkAvailability.swift in Sources */,
@@ -767,6 +787,7 @@
 				BC02D0C01CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
 				BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
 				BC0BBBE71CF1D30600B03A93 /* TimeUtility.swift in Sources */,
+				BC38DC751D30F18200290717 /* CustomPresentationAnimationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,8 +814,10 @@
 				BC4F456F1CDF3EC200A65A63 /* MyAccountEscapeItems.swift in Sources */,
 				BC26D0CC1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */,
 				BC47EDC21CA00F60008143C2 /* UserDataProvider.swift in Sources */,
+				BC38DC6A1D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
 				BCCD70C91CA19468002A0C07 /* Service.swift in Sources */,
 				BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */,
+				BC38DC711D30C1F900290717 /* AddToEscapeViewController.swift in Sources */,
 				BC0BBBE21CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
 				BC2A73111CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */,
 				BCFE486F1CA400C60098160D /* NetworkAvailability.swift in Sources */,
@@ -830,6 +853,7 @@
 				BC02D0C11CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
 				BC85DBFA1CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
 				BC0BBBE81CF1D30600B03A93 /* TimeUtility.swift in Sources */,
+				BC38DC761D30F18200290717 /* CustomPresentationAnimationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
