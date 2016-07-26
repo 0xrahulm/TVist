@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D832E0E0446E1F614E194EF /* Pods_Escape_copy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C08B4600E257F0C862D199 /* Pods_Escape_copy.framework */; };
 		AED7BF8EC1D30A7602FD2614 /* Pods_Escape.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDAD66427A6544E6402FADF /* Pods_Escape.framework */; };
 		BC02D0C01CD0D556009D7EE6 /* BubblePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02D0BF1CD0D556009D7EE6 /* BubblePickerView.swift */; };
 		BC02D0C11CD0D556009D7EE6 /* BubblePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02D0BF1CD0D556009D7EE6 /* BubblePickerView.swift */; };
@@ -159,8 +160,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C62520A88D62EF2777735A0 /* Pods-Escape copy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape copy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Escape copy/Pods-Escape copy.debug.xcconfig"; sourceTree = "<group>"; };
 		7DDAD66427A6544E6402FADF /* Pods_Escape.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escape.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8726EB99D692F7FE33628154 /* Pods-Escape.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape.release.xcconfig"; path = "Pods/Target Support Files/Pods-Escape/Pods-Escape.release.xcconfig"; sourceTree = "<group>"; };
+		98C08B4600E257F0C862D199 /* Pods_Escape_copy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escape_copy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B802FA0C18A87E900BCFA947 /* Pods-Escape copy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape copy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Escape copy/Pods-Escape copy.release.xcconfig"; sourceTree = "<group>"; };
 		BC02D0BF1CD0D556009D7EE6 /* BubblePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblePickerView.swift; sourceTree = "<group>"; };
 		BC02D0C21CD0D674009D7EE6 /* UIImage+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Utility.swift"; sourceTree = "<group>"; };
 		BC0BBBDD1CF0C2F900B03A93 /* ItemDescViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDescViewController.swift; sourceTree = "<group>"; };
@@ -266,6 +270,7 @@
 				BC3A81931CA5397B00FF8678 /* FBSDKLoginKit.framework in Frameworks */,
 				BC3A81911CA5397B00FF8678 /* FBSDKCoreKit.framework in Frameworks */,
 				BC3A81951CA5397B00FF8678 /* FBSDKShareKit.framework in Frameworks */,
+				2D832E0E0446E1F614E194EF /* Pods_Escape_copy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +284,7 @@
 				BC3A818E1CA5397B00FF8678 /* FBSDKLoginKit.framework */,
 				BC3A818F1CA5397B00FF8678 /* FBSDKShareKit.framework */,
 				7DDAD66427A6544E6402FADF /* Pods_Escape.framework */,
+				98C08B4600E257F0C862D199 /* Pods_Escape_copy.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -288,6 +294,8 @@
 			children = (
 				F69DBC530D1D5B690731DBA4 /* Pods-Escape.debug.xcconfig */,
 				8726EB99D692F7FE33628154 /* Pods-Escape.release.xcconfig */,
+				2C62520A88D62EF2777735A0 /* Pods-Escape copy.debug.xcconfig */,
+				B802FA0C18A87E900BCFA947 /* Pods-Escape copy.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -568,12 +576,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC47ED931C9FEEC8008143C2 /* Build configuration list for PBXNativeTarget "Escape" */;
 			buildPhases = (
-				56F21F4F72B6A36FF9FC614D /* Check Pods Manifest.lock */,
+				56F21F4F72B6A36FF9FC614D /* 📦 Check Pods Manifest.lock */,
 				BC47ED7A1C9FEEC7008143C2 /* Sources */,
 				BC47ED7B1C9FEEC7008143C2 /* Frameworks */,
 				BC47ED7C1C9FEEC7008143C2 /* Resources */,
-				0B2D9972497495D9F9AD710C /* Embed Pods Frameworks */,
-				A6B862C66285002AA74EE728 /* Copy Pods Resources */,
+				0B2D9972497495D9F9AD710C /* 📦 Embed Pods Frameworks */,
+				A6B862C66285002AA74EE728 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -588,9 +596,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC47EDA01C9FF233008143C2 /* Build configuration list for PBXNativeTarget "Escape copy" */;
 			buildPhases = (
+				047B747CF6908E0B71015E62 /* 📦 Check Pods Manifest.lock */,
 				BC47ED971C9FF233008143C2 /* Sources */,
 				BC47ED9B1C9FF233008143C2 /* Frameworks */,
 				BC47ED9C1C9FF233008143C2 /* Resources */,
+				7B912260A071F60C9661E81E /* 📦 Embed Pods Frameworks */,
+				6192FA1D87CE405AB497F4CA /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -677,29 +688,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0B2D9972497495D9F9AD710C /* Embed Pods Frameworks */ = {
+		047B747CF6908E0B71015E62 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Escape/Pods-Escape-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		56F21F4F72B6A36FF9FC614D /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -707,14 +703,74 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A6B862C66285002AA74EE728 /* Copy Pods Resources */ = {
+		0B2D9972497495D9F9AD710C /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Escape/Pods-Escape-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		56F21F4F72B6A36FF9FC614D /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6192FA1D87CE405AB497F4CA /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Escape copy/Pods-Escape copy-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7B912260A071F60C9661E81E /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Escape copy/Pods-Escape copy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A6B862C66285002AA74EE728 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -995,6 +1051,7 @@
 		};
 		BC47EDA11C9FF233008143C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C62520A88D62EF2777735A0 /* Pods-Escape copy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1014,6 +1071,7 @@
 		};
 		BC47EDA21C9FF233008143C2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B802FA0C18A87E900BCFA947 /* Pods-Escape copy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

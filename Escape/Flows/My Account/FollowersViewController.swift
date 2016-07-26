@@ -56,6 +56,25 @@ extension FollowersViewController : UITableViewDelegate , UITableViewDataSource{
         cell.nameLabel.text = "\(data.firstName) \(data.lastName)"
         cell.countLabel.text = "\(data.followers) Followers"
         
+        cell.isFollow = data.isFollow
+        if let id = data.id{
+         cell.userId = id  // id should not be optinal here.
+        }
+        
+        
+        if data.isFollow {
+            cell.followButton.setTitle("  Following  ", forState: .Normal)
+            cell.followButton.backgroundColor = UIColor.greenColor()
+            cell.followButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        }else{
+            cell.followButton.setTitle("  + Follow  ", forState: .Normal)
+            cell.followButton.backgroundColor = UIColor.whiteColor()
+            cell.followButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+            cell.followButton.layer.borderColor = UIColor.blueColor().CGColor
+            cell.followButton.layer.borderWidth = 1.0
+        }
+        
+        
         return cell
         
     }

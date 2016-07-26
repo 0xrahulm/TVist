@@ -23,6 +23,7 @@ class MyAccountItems: NSObject {
     var books_count :   NSNumber?
     var tvShows_count : NSNumber?
     var escapes_count : NSNumber?
+    var isFollow = false
     
     init(id : String?,firstName : String,lastName : String,email :String?,gender :        Gender?,profilePicture :String?,followers :NSNumber,following :NSNumber,movies_count :  NSNumber?,books_count : NSNumber?,tvShows_count : NSNumber?,escapes_count : NSNumber?) {
         
@@ -96,6 +97,10 @@ class MyAccountItems: NSObject {
             tvShows_count = uShows
             escapes_count = escapes_count + Int(uShows)
             
+        }
+        
+        if let isFollow = profileDetails["is_follow"] as? Bool{
+            self.isFollow = isFollow
         }
     }
 }

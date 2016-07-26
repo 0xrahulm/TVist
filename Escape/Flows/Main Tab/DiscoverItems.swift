@@ -33,8 +33,7 @@ class DiscoverItems: NSObject {
         self.subtitle = subtitle
         self.discoverType = discoverType
         self.rating = rating
-        
-        
+       
     }
     
     init(dict : [AnyObject]) {
@@ -62,6 +61,7 @@ class DiscoverItems: NSObject {
                         if let image = dict["profile_picture"] as? String{
                             discoverDataArray.append(DiscoverItems(id: id, name: fullName, image: image, director: nil, followers: nil, year: nil, subtitle: nil, discoverType: .People, rating: nil))
                         }
+                        
                     }
                 }
                 

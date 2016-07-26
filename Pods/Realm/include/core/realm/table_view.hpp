@@ -404,7 +404,7 @@ protected:
     /// Move constructor.
     TableViewBase(TableViewBase&&) noexcept;
 
-    TableViewBase& operator=(const TableViewBase&) noexcept;
+    TableViewBase& operator=(const TableViewBase&);
     TableViewBase& operator=(TableViewBase&&) noexcept;
 
     template<class R, class V>
@@ -784,7 +784,7 @@ inline bool TableViewBase::is_attached() const noexcept
 
 inline bool TableViewBase::is_row_attached(size_t row_ndx) const noexcept
 {
-    return size_t(m_row_indexes.get(row_ndx)) != detached_ref;
+    return m_row_indexes.get(row_ndx) != detached_ref;
 }
 
 inline size_t TableViewBase::size() const noexcept
@@ -884,7 +884,7 @@ inline TableViewBase::TableViewBase(const TableViewBase& tv):
     m_limit(tv.m_limit),
     m_last_seen_version(tv.m_last_seen_version),
     m_num_detached_refs(tv.m_num_detached_refs)
-    {
+{
     // FIXME: This code is unreasonably complicated because it uses `IntegerColumn` as
     // a free-standing container, and beause `IntegerColumn` does not conform to the
     // RAII idiom (nor should it).
@@ -953,6 +953,44 @@ inline TableViewBase& TableViewBase::operator=(TableViewBase&& tv) noexcept
     m_distinct_columns = std::move(tv.m_distinct_columns);
     m_distinct_column_source = tv.m_distinct_column_source;
     m_sorting_predicate = std::move(tv.m_sorting_predicate);
+
+    return *this;
+}
+
+inline TableViewBase& TableViewBase::operator=(const TableViewBase& tv)
+{
+    if (this == &tv)
+        return *this;
+
+    if (m_table != tv.m_table) {
+        if (m_table)
+            m_table->unregister_view(this);
+        m_table = tv.m_table;
+        if (m_table)
+            m_table->register_view(this);
+    }
+
+    Allocator& alloc = m_row_indexes.get_alloc();
+    MemRef mem = tv.m_row_indexes.get_root_array()->clone_deep(alloc); // Throws
+    _impl::DeepArrayRefDestroyGuard ref_guard(mem.m_ref, alloc);
+    m_row_indexes.destroy();
+    m_row_indexes.get_root_array()->init_from_mem(mem);
+    ref_guard.release();
+
+    m_query = tv.m_query;
+    m_num_detached_refs = tv.m_num_detached_refs;
+    m_last_seen_version = tv.m_last_seen_version;
+    m_auto_sort = tv.m_auto_sort;
+    m_start = tv.m_start;
+    m_end = tv.m_end;
+    m_limit = tv.m_limit;
+    m_linked_table = tv.m_linked_table;
+    m_linked_column = tv.m_linked_column;
+    m_linked_row = tv.m_linked_row;
+    m_linkview_source = tv.m_linkview_source;
+    m_distinct_columns = tv.m_distinct_columns;
+    m_distinct_column_source = tv.m_distinct_column_source;
+    m_sorting_predicate = tv.m_sorting_predicate;
 
     return *this;
 }
@@ -1029,108 +1067,108 @@ inline int64_t TableViewBase::get_int(size_t column_ndx, size_t row_ndx) const n
 {
     REALM_ASSERT_INDEX(column_ndx, row_ndx);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_int(column_ndx, real_ndx);
+    return m_table->get_int(column_ndx, to_size_t(real_ndx));
 }
 
 inline bool TableViewBase::get_bool(size_t column_ndx, size_t row_ndx) const noexcept
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Bool);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_bool(column_ndx, real_ndx);
+    return m_table->get_bool(column_ndx, to_size_t(real_ndx));
 }
 
 inline OldDateTime TableViewBase::get_olddatetime(size_t column_ndx, size_t row_ndx) const noexcept
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_OldDateTime);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_olddatetime(column_ndx, real_ndx);
+    return m_table->get_olddatetime(column_ndx, to_size_t(real_ndx));
 }
 
 inline Timestamp TableViewBase::get_timestamp(size_t column_ndx, size_t row_ndx) const noexcept
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Timestamp);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_timestamp(column_ndx, real_ndx);
+    return m_table->get_timestamp(column_ndx, to_size_t(real_ndx));
 }
 
 inline float TableViewBase::get_float(size_t column_ndx, size_t row_ndx) const noexcept
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Float);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_float(column_ndx, real_ndx);
+    return m_table->get_float(column_ndx, to_size_t(real_ndx));
 }
 
 inline double TableViewBase::get_double(size_t column_ndx, size_t row_ndx) const noexcept
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Double);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_double(column_ndx, real_ndx);
+    return m_table->get_double(column_ndx, to_size_t(real_ndx));
 }
 
 inline StringData TableViewBase::get_string(size_t column_ndx, size_t row_ndx) const noexcept
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_String);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_string(column_ndx, real_ndx);
+    return m_table->get_string(column_ndx, to_size_t(real_ndx));
 }
 
 inline BinaryData TableViewBase::get_binary(size_t column_ndx, size_t row_ndx) const noexcept
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Binary);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_binary(column_ndx, real_ndx);
+    return m_table->get_binary(column_ndx, to_size_t(real_ndx));
 }
 
 inline Mixed TableViewBase::get_mixed(size_t column_ndx, size_t row_ndx) const noexcept
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Mixed);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_mixed(column_ndx, real_ndx);
+    return m_table->get_mixed(column_ndx, to_size_t(real_ndx));
 }
 
 inline DataType TableViewBase::get_mixed_type(size_t column_ndx, size_t row_ndx) const noexcept
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Mixed);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_mixed_type(column_ndx, real_ndx);
+    return m_table->get_mixed_type(column_ndx, to_size_t(real_ndx));
 }
 
 inline size_t TableViewBase::get_subtable_size(size_t column_ndx, size_t row_ndx) const noexcept
 {
     REALM_ASSERT_INDEX_AND_TYPE_TABLE_OR_MIXED(column_ndx, row_ndx);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_subtable_size(column_ndx, real_ndx);
+    return m_table->get_subtable_size(column_ndx, to_size_t(real_ndx));
 }
 
 inline size_t TableViewBase::get_link(size_t column_ndx, size_t row_ndx) const noexcept
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Link);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_link(column_ndx, real_ndx);
+    return m_table->get_link(column_ndx, to_size_t(real_ndx));
 }
 
 inline TableRef TableView::get_link_target(size_t column_ndx) noexcept
@@ -1152,9 +1190,9 @@ inline bool TableViewBase::is_null_link(size_t column_ndx, size_t row_ndx) const
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Link);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->is_null_link(column_ndx, real_ndx);
+    return m_table->is_null_link(column_ndx, to_size_t(real_ndx));
 }
 
 
@@ -1421,25 +1459,25 @@ inline ConstTableView ConstTableView::find_all_olddatetime(size_t column_ndx, Ol
 inline TableView::RowExpr TableView::get(size_t row_ndx) noexcept
 {
     REALM_ASSERT_ROW(row_ndx);
-    size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get(real_ndx);
+    return m_table->get(to_size_t(real_ndx));
 }
 
 inline TableView::ConstRowExpr TableView::get(size_t row_ndx) const noexcept
 {
     REALM_ASSERT_ROW(row_ndx);
-    size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get(real_ndx);
+    return m_table->get(to_size_t(real_ndx));
 }
 
 inline ConstTableView::ConstRowExpr ConstTableView::get(size_t row_ndx) const noexcept
 {
     REALM_ASSERT_ROW(row_ndx);
-    size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get(real_ndx);
+    return m_table->get(to_size_t(real_ndx));
 }
 
 inline TableView::RowExpr TableView::front() noexcept
@@ -1499,36 +1537,36 @@ inline TableRef TableView::get_subtable(size_t column_ndx, size_t row_ndx)
 {
     REALM_ASSERT_INDEX_AND_TYPE_TABLE_OR_MIXED(column_ndx, row_ndx);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_subtable(column_ndx, real_ndx);
+    return m_table->get_subtable(column_ndx, to_size_t(real_ndx));
 }
 
 inline ConstTableRef TableView::get_subtable(size_t column_ndx, size_t row_ndx) const
 {
     REALM_ASSERT_INDEX_AND_TYPE_TABLE_OR_MIXED(column_ndx, row_ndx);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_subtable(column_ndx, real_ndx);
+    return m_table->get_subtable(column_ndx, to_size_t(real_ndx));
 }
 
 inline ConstTableRef ConstTableView::get_subtable(size_t column_ndx, size_t row_ndx) const
 {
     REALM_ASSERT_INDEX_AND_TYPE_TABLE_OR_MIXED(column_ndx, row_ndx);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->get_subtable(column_ndx, real_ndx);
+    return m_table->get_subtable(column_ndx, to_size_t(real_ndx));
 }
 
 inline void TableView::clear_subtable(size_t column_ndx, size_t row_ndx)
 {
     REALM_ASSERT_INDEX_AND_TYPE_TABLE_OR_MIXED(column_ndx, row_ndx);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    return m_table->clear_subtable(column_ndx, real_ndx);
+    return m_table->clear_subtable(column_ndx, to_size_t(real_ndx));
 }
 
 
@@ -1539,60 +1577,60 @@ inline void TableView::set_int(size_t column_ndx, size_t row_ndx, int64_t value)
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Int);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->set_int(column_ndx, real_ndx, value);
+    m_table->set_int(column_ndx, to_size_t(real_ndx), value);
 }
 
 inline void TableView::set_bool(size_t column_ndx, size_t row_ndx, bool value)
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Bool);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->set_bool(column_ndx, real_ndx, value);
+    m_table->set_bool(column_ndx, to_size_t(real_ndx), value);
 }
 
 inline void TableView::set_olddatetime(size_t column_ndx, size_t row_ndx, OldDateTime value)
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_OldDateTime);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->set_olddatetime(column_ndx, real_ndx, value);
+    m_table->set_olddatetime(column_ndx, to_size_t(real_ndx), value);
 }
 
 inline void TableView::set_timestamp(size_t column_ndx, size_t row_ndx, Timestamp value)
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Timestamp);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->set_timestamp(column_ndx, real_ndx, value);
+    m_table->set_timestamp(column_ndx, to_size_t(real_ndx), value);
 }
 
 inline void TableView::set_float(size_t column_ndx, size_t row_ndx, float value)
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Float);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->set_float(column_ndx, real_ndx, value);
+    m_table->set_float(column_ndx, to_size_t(real_ndx), value);
 }
 
 inline void TableView::set_double(size_t column_ndx, size_t row_ndx, double value)
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Double);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->set_double(column_ndx, real_ndx, value);
+    m_table->set_double(column_ndx, to_size_t(real_ndx), value);
 }
 
 template<class E>
 inline void TableView::set_enum(size_t column_ndx, size_t row_ndx, E value)
 {
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
     m_table->set_int(column_ndx, real_ndx, value);
 }
@@ -1601,51 +1639,51 @@ inline void TableView::set_string(size_t column_ndx, size_t row_ndx, StringData 
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_String);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->set_string(column_ndx, real_ndx, value);
+    m_table->set_string(column_ndx, to_size_t(real_ndx), value);
 }
 
 inline void TableView::set_binary(size_t column_ndx, size_t row_ndx, BinaryData value)
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Binary);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->set_binary(column_ndx, real_ndx, value);
+    m_table->set_binary(column_ndx, to_size_t(real_ndx), value);
 }
 
 inline void TableView::set_mixed(size_t column_ndx, size_t row_ndx, Mixed value)
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Mixed);
 
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->set_mixed(column_ndx, real_ndx, value);
+    m_table->set_mixed(column_ndx, to_size_t(real_ndx), value);
 }
 
 inline void TableView::set_subtable(size_t column_ndx, size_t row_ndx, const Table* value)
 {
     REALM_ASSERT_INDEX_AND_TYPE_TABLE_OR_MIXED(column_ndx, row_ndx);
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->set_subtable(column_ndx, real_ndx, value);
+    m_table->set_subtable(column_ndx, to_size_t(real_ndx), value);
 }
 
 inline void TableView::set_link(size_t column_ndx, size_t row_ndx, size_t target_row_ndx)
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Link);
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->set_link(column_ndx, real_ndx, target_row_ndx);
+    m_table->set_link(column_ndx, to_size_t(real_ndx), target_row_ndx);
 }
 
 inline void TableView::nullify_link(size_t column_ndx, size_t row_ndx)
 {
     REALM_ASSERT_INDEX_AND_TYPE(column_ndx, row_ndx, type_Link);
-    const size_t real_ndx = size_t(m_row_indexes.get(row_ndx));
+    const int64_t real_ndx = m_row_indexes.get(row_ndx);
     REALM_ASSERT(real_ndx != detached_ref);
-    m_table->nullify_link(column_ndx, real_ndx);
+    m_table->nullify_link(column_ndx, to_size_t(real_ndx));
 }
 
 } // namespace realm

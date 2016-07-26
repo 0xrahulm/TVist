@@ -242,7 +242,6 @@ public:
     /// \param column_ndx The index of a column of this table.
 
     bool has_search_index(size_t column_ndx) const noexcept;
-//    void remove_search_index(size_t col_ndx);
     void add_search_index(size_t column_ndx);
     void remove_search_index(size_t column_ndx);
 
@@ -784,7 +783,7 @@ public:
 
     // Debug
 #ifdef REALM_DEBUG
-    void verify() const; // Must be upper case to avoid conflict with macro in ObjC
+    void verify() const;
     void to_dot(std::ostream&, StringData title = StringData()) const;
     void print() const;
     MemStats stats() const;
@@ -1731,7 +1730,8 @@ inline Columns<T> Table::column(const Table& origin, size_t origin_col_ndx)
     static_assert(std::is_same<T, BackLink>::value, "");
 
     size_t origin_table_ndx = origin.get_index_in_group();
-    size_t backlink_col_ndx = m_spec.find_backlink_column(origin_table_ndx, origin_col_ndx);
+    const Table& current_target_table = *get_link_chain_target(m_link_chain);
+    size_t backlink_col_ndx = current_target_table.m_spec.find_backlink_column(origin_table_ndx, origin_col_ndx);
 
     std::vector<size_t> link_chain = std::move(m_link_chain);
     m_link_chain.clear();
@@ -1764,7 +1764,8 @@ inline Table& Table::link(size_t link_column)
 inline Table& Table::backlink(const Table& origin, size_t origin_col_ndx)
 {
     size_t origin_table_ndx = origin.get_index_in_group();
-    size_t backlink_col_ndx = m_spec.find_backlink_column(origin_table_ndx, origin_col_ndx);
+    const Table& current_target_table = *get_link_chain_target(m_link_chain);
+    size_t backlink_col_ndx = current_target_table.m_spec.find_backlink_column(origin_table_ndx, origin_col_ndx);
     return link(backlink_col_ndx);
 }
 

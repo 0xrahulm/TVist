@@ -251,25 +251,20 @@ extension ScreenManagerViewController{
     }
     func openAddToEscapePopUp(params : [String:AnyObject]?){
         
-            if let params = params{
-                if let type = params["type"] as? String{
-                    if let id = params["id"] as? String{
-                        if let delegate = params["delegate"] as? DiscoverEscapeTableViewCell{
-                            let addToEscapePopup = AddToEscapeViewController(nibName:"AddToEscapeViewController", bundle: nil)
-                            addToEscapePopup.modalPresentationStyle = .Custom
-                            addToEscapePopup.transitioningDelegate = addToEscapePopup
-                            addToEscapePopup.presentingVC = self
-                            addToEscapePopup.type = DiscoverType(rawValue: type)
-                            addToEscapePopup.id = id
-                            addToEscapePopup.addToEscapeDoneDelegate = delegate
-                            
-                            let topVC = getTopViewController()
-                            topVC.presentViewController(addToEscapePopup, animated: true, completion: nil)
-                            
-                        }
-                    }
-                }
-            }
+        if let params = params, type = params["type"] as? String, id = params["id"] as? String, delegate = params["delegate"] as? DiscoverEscapeTableViewCell{
+            
+            let addToEscapePopup = AddToEscapeViewController(nibName:"AddToEscapeViewController", bundle: nil)
+            addToEscapePopup.modalPresentationStyle = .Custom
+            addToEscapePopup.transitioningDelegate = addToEscapePopup
+            addToEscapePopup.presentingVC = self
+            addToEscapePopup.type = DiscoverType(rawValue: type)
+            addToEscapePopup.id = id
+            addToEscapePopup.addToEscapeDoneDelegate = delegate
+            
+            let topVC = getTopViewController()
+            topVC.presentViewController(addToEscapePopup, animated: true, completion: nil)
+            
+        }
     }
     
 }
