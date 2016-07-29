@@ -98,9 +98,5 @@ class MyAccountItems: NSObject {
             escapes_count = escapes_count + Int(uShows)
             
         }
-        
-        if let isFollow = profileDetails["is_follow"] as? Bool{
-            self.isFollow = isFollow
-        }
     }
 }
