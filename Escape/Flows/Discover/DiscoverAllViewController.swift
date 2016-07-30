@@ -117,6 +117,9 @@ extension DiscoverAllViewController : UITableViewDataSource{
         }else if data.discoverType == .People{
             cell = tableView.dequeueReusableCellWithIdentifier("followCellIdentifier") as! DiscoverEscapeTableViewCell
             cell.peopleData = data
+            cell.followButtonDiscoverDelegate = self
+            cell.indexPath = indexPath
+
         }
         
         return cell
@@ -157,5 +160,14 @@ extension DiscoverAllViewController : RemoveAddedEscapeCellProtocol{
             loadMoreData()
         }
         
+    }
+}
+extension DiscoverAllViewController : FollowerButtonProtocol{
+    func changeLocalDataArray(indexPath: NSIndexPath?, isFollow: Bool) {
+        if let indexPath = indexPath{
+            if dataArray.count > indexPath.row{
+                dataArray[indexPath.row].isFollow = isFollow
+            }
+        }
     }
 }

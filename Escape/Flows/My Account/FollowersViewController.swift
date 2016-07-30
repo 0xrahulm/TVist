@@ -37,8 +37,6 @@ class FollowersViewController: UIViewController {
             MyAccountDataProvider.sharedDataProvider.getUserFollowing(id)
             self.title = "Following"
         }
-
-        
     }
    
 }
@@ -57,23 +55,18 @@ extension FollowersViewController : UITableViewDelegate , UITableViewDataSource{
         cell.countLabel.text = "\(data.followers) Followers"
         
         cell.isFollow = data.isFollow
+        cell.indexPath = indexPath
+        cell.followButtonDelegate = self
+        
         if let id = data.id{
          cell.userId = id  // id should not be optinal here.
         }
         
-        
         if data.isFollow {
-            cell.followButton.setTitle("  Following  ", forState: .Normal)
-            cell.followButton.backgroundColor = UIColor.greenColor()
-            cell.followButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            cell.followButton.followViewWithAnimate(false)
         }else{
-            cell.followButton.setTitle("  + Follow  ", forState: .Normal)
-            cell.followButton.backgroundColor = UIColor.whiteColor()
-            cell.followButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            cell.followButton.layer.borderColor = UIColor.blueColor().CGColor
-            cell.followButton.layer.borderWidth = 1.0
+            cell.followButton.unfollowViewWithAnimate(false)
         }
-        
         
         return cell
         
@@ -90,5 +83,14 @@ extension FollowersViewController : FollowersProtocol{
     }
     func error() {
         
+    }
+}
+extension FollowersViewController : FollowerButtonProtocol{
+    func changeLocalDataArray(indexPath: NSIndexPath?, isFollow: Bool) {
+        if let indexPath = indexPath{
+            if dataArray.count > indexPath.row{
+                dataArray[indexPath.row].isFollow = isFollow
+            }
+        }
     }
 }

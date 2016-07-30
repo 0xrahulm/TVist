@@ -8,12 +8,18 @@
 
 import UIKit
 
+protocol FollowerButtonProtocol : class {
+    func changeLocalDataArray(indexPath : NSIndexPath? , isFollow : Bool)
+}
+
 class FollowersTableViewCell: UITableViewCell {
     
     var isFollow = false
     var userId = ""
+    var indexPath : NSIndexPath?
     
- 
+    weak var followButtonDelegate : FollowerButtonProtocol?
+    
     @IBOutlet weak var followerImage: UIImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -25,35 +31,18 @@ class FollowersTableViewCell: UITableViewCell {
     @IBAction func followButtonClicked(sender: AnyObject) {
         
         if isFollow {
-            followButton.setTitle("  + Follow  ", forState: .Normal)
-            followButton.backgroundColor = UIColor.whiteColor()
-            followButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            followButton.layer.borderColor = UIColor.blueColor().CGColor
-            followButton.layer.borderWidth = 1.0
+            followButton.unfollowViewWithAnimate(true)
             isFollow = false
-
             UserDataProvider.sharedDataProvider.unfollowUser(self.userId)
         }else{
-            followButton.setTitle("  Following  ", forState: .Normal)
-            followButton.backgroundColor = UIColor.greenColor()
-            followButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-            followButton.layer.borderWidth = 0.0
+            followButton.followViewWithAnimate(true)
             isFollow = true
-            
             UserDataProvider.sharedDataProvider.followUser(self.userId)
         }
         
-        
-        
-        UIView.animateWithDuration(0.1 ,
-                                   animations: {
-                                    self.followButton.transform = CGAffineTransformMakeScale(1.3, 1.3)
-            },
-                                   completion: { finish in
-                                    UIView.animateWithDuration(0.1){
-                                        self.followButton.transform = CGAffineTransformIdentity
-                                    }
-        })
+        if self.followButtonDelegate != nil{
+            self.followButtonDelegate?.changeLocalDataArray(self.indexPath, isFollow: isFollow)
+        }
     }
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -42,8 +42,13 @@ class MyAccountItems: NSObject {
         
     }
     
-    init(dict : [String:AnyObject]) {
+    init(dict : [String:AnyObject], userType : UserType?) {
         super.init()
+        if let userType = userType{
+            if userType == .Following{
+                self.isFollow = true
+            }
+        }
         parseData(dict)
         
     }
@@ -97,6 +102,10 @@ class MyAccountItems: NSObject {
             tvShows_count = uShows
             escapes_count = escapes_count + Int(uShows)
             
+        }
+        
+        if let isFollow = profileDetails["is_following"] as? Bool{
+            self.isFollow = isFollow
         }
     }
 }

@@ -234,7 +234,7 @@ extension MyAccountDataProvider {
         
         var userData : MyAccountItems?
         
-        userData = MyAccountItems(dict : dict)
+        userData = MyAccountItems(dict : dict,userType: nil)
         
         saveUserDataToRealm(userData)
         
@@ -310,7 +310,7 @@ extension MyAccountDataProvider {
         var userItems : [MyAccountItems] = []
         for item in data{
             
-            userItems.append(MyAccountItems(dict: item))
+            userItems.append(MyAccountItems(dict: item, userType: userType))
             
         }
         
