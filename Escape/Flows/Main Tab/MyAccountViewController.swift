@@ -29,6 +29,10 @@ class MyAccountViewController: UIViewController{
     @IBOutlet weak var tvshowsView: UIView!
     @IBOutlet weak var moviesView: UIView!
     @IBOutlet weak var activityView: UIView!
+    
+    @IBOutlet weak var editProfileButton: UIButton!
+    var userId : String?
+    var isFollow = false
     // Segment
     
     var listOfVCType : [EscapeType] = [.Activity, .Movie, .TvShows, .Books]
@@ -39,6 +43,14 @@ class MyAccountViewController: UIViewController{
     private var activeViewController: UIViewController? {
         didSet {
             changeActiveViewControllerFrom(oldValue)
+        }
+    }
+    override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
+        if let userId = queryParams["user_id"] as? String{
+            self.userId = userId
+        }
+        if let isFollow = queryParams["isFollow"] as? Bool{
+            self.isFollow = isFollow
         }
     }
     
@@ -52,15 +64,18 @@ class MyAccountViewController: UIViewController{
 
         MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
         
+        if userId == nil{ // means self user
+            fetchDataFromRealm()
+        }
+        
     }
    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchDataFromRealm()
+        MyAccountDataProvider.sharedDataProvider.getUserDetails(userId)
         
-        MyAccountDataProvider.sharedDataProvider.getUserDetails()
     }
     
     func setVisuals(){
@@ -73,6 +88,16 @@ class MyAccountViewController: UIViewController{
         movieImage.image = IonIcons.imageWithIcon(ion_film_marker, iconColor: UIColor.themeColorBlue(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
         tvImage.image = IonIcons.imageWithIcon(ion_easel, iconColor: UIColor.themeColorBlue(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
         booksImage.image = IonIcons.imageWithIcon(ion_ios_book, iconColor: UIColor.themeColorBlue(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
+        
+        if let _ = userId{
+            if isFollow{
+                
+                editProfileButton.followViewWithAnimate(false)
+            }else{
+                editProfileButton.unfollowViewWithAnimate(false)
+            }
+            
+        }
     }
     
     func settingTapped(){
@@ -89,6 +114,7 @@ class MyAccountViewController: UIViewController{
             
             if let listVC = UIStoryboard(name: "MyAccount", bundle: nil).instantiateViewControllerWithIdentifier("customListVC") as? CustomListViewController {
                 listVC.typeOfList = listType
+                listVC.userId = userId
                 listViewControllers.append(listVC)
             }
         }
@@ -206,6 +232,7 @@ class MyAccountViewController: UIViewController{
         }
         
     }
+    
     func setSelectedViewColor(view : Tap?){
         
         var activityColor = UIColor.whiteColor()
@@ -236,19 +263,35 @@ class MyAccountViewController: UIViewController{
             if view.tag == 6{
                 userType = .Following
             }
-            
-            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue])
+            if let userId = userId{
+               ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue, "userId" : userId])
+            }else{
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue])
+            }
         }
-        
     }
+    
+    @IBAction func editProfileButtonTapped(sender: AnyObject) {
+        
+        if let userId = userId{
+            if isFollow{
+                isFollow = false
+                editProfileButton.unfollowViewWithAnimate(true)
+                UserDataProvider.sharedDataProvider.unfollowUser(userId)
+                
+            }else{
+                isFollow = true
+                editProfileButton.followViewWithAnimate(true)
+                UserDataProvider.sharedDataProvider.followUser(userId)
+            }
+        }
+    }
+    
 }
 extension MyAccountViewController : MyAccountDetailsProtocol{
     func recievedUserDetails(data: MyAccountItems?) {
-        
         fillData(data)
-        
     }
     func errorUserDetails() {
-        
     }
 }

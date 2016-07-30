@@ -20,7 +20,7 @@ class FollowersViewController: UIViewController {
         if let userType = queryParams["userType"]{
             self.userType = UserType(rawValue :  Int(userType as! NSNumber))
         }
-        if let id = queryParams["id"] as? String{
+        if let id = queryParams["userId"] as? String{
             self.id = id
         }
     }
@@ -42,6 +42,15 @@ class FollowersViewController: UIViewController {
 }
 extension FollowersViewController : UITableViewDelegate , UITableViewDataSource{
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if dataArray.count > indexPath.row{
+            let data = dataArray[indexPath.row]
+            if let id  = data.id{
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenUserAccount, queryParams: ["user_id":id, "isFollow" : data.isFollow])
+            }
+        }
+        
+    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }

@@ -8,22 +8,9 @@
 
 import UIKit
 
-protocol DiscoverDataProtocol : class {
-    func recievedDiscoverData(data : [DiscoverItems]?, discoverType : DiscoverType)
-    func errorDiscoverData()
-}
-
 class DiscoverDataProvider: CommonDataProvider {
     
-    var discoverAll : [DiscoverItems] = []
-    var discoverMovie : [DiscoverItems] = []
-    var discoverTvshows : [DiscoverItems] = []
-    var discoverBooks : [DiscoverItems] = []
-    var discoverPeople : [DiscoverItems] = []
-    
     static let shareDataProvider = DiscoverDataProvider()
-    
-    weak var discoverDataDelegate : DiscoverDataProtocol?
     
     func getDiscoverItems(discovertype : DiscoverType, page : Int){
         
@@ -61,9 +48,8 @@ class DiscoverDataProvider: CommonDataProvider {
     override func serviceError(service: Service) {
         switch service.subServiveType! {
         case .GetDiscoverItems:
-            if discoverDataDelegate != nil{
-                discoverDataDelegate?.errorDiscoverData()
-            }
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.DiscoverObserver.rawValue, object: ["error" : "error"])
+            
             break
             
         default:
@@ -81,55 +67,11 @@ extension DiscoverDataProvider{
         
         discoverItem = DiscoverItems(dict: data)
         
-        if DiscoverType(rawValue: discoverType) == .Books{
-            if let data = discoverItem?.discoverData{
-                for item in data{
-                    discoverBooks.append(item)
-                }
-            }
-        }else if DiscoverType(rawValue: discoverType) == .All{
-            if let data = discoverItem?.discoverData{
-                for item in data{
-                    discoverAll.append(item)
-                }
-            }
-        }else if DiscoverType(rawValue: discoverType) == .Movie{
-            if let data = discoverItem?.discoverData{
-                for item in data{
-                    discoverMovie.append(item)
-                }
-            }
-        }else if DiscoverType(rawValue: discoverType) == .TvShows{
-            if let data = discoverItem?.discoverData{
-                for item in data{
-                    discoverTvshows.append(item)
-                }
-            }
-        }else if DiscoverType(rawValue: discoverType) == .People{
-            if let data = discoverItem?.discoverData{
-                for item in data{
-                    discoverPeople.append(item)
-                }
-            }
+        if let data = discoverItem?.discoverData{
+         
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.DiscoverObserver.rawValue, object: ["data" : data, "type":discoverType])
+            
         }
-       
-        if discoverDataDelegate != nil {
-            discoverDataDelegate?.recievedDiscoverData(discoverItem?.discoverData, discoverType: DiscoverType(rawValue: discoverType)!)
-        }
-    }
-    
-    func getStoredDiscoverData(discoverType : DiscoverType) -> [DiscoverItems]?{
-        if discoverType == .Books{
-            return discoverBooks
-        }else if discoverType == .All{
-            return discoverAll
-        }else if discoverType == .Movie{
-            return discoverMovie
-        }else if discoverType == .TvShows{
-            return discoverTvshows
-        }
-        return nil
-        
     }
 }
 

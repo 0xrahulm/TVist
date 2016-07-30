@@ -40,26 +40,9 @@ class ScreenManagerViewController: UIViewController {
         }else{
             
             presentRootViewControllerOf(.MainTab , queryParams: nil)
-          
-        }
-        
-    }
-    
-    private func pushInitialViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier , queryParams : [String:AnyObject]?){
-        
-        if let currentPresentedViewController = currentPresentedViewController as? CustomNavigationViewController {
             
-            if let currentPushedVC = initialViewControllerFor(storyBoardIdentifier){
-                
-                if let queryParams = queryParams{
-                    currentPushedVC.setObjectsWithQueryParameters(queryParams)
-                }
-                 self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
-                
-                currentPresentedViewController.pushViewController(currentPushedVC, animated: true)
-                currentPushedViewController = currentPushedVC
-            }
         }
+        
     }
     
     private func presentRootViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier, queryParams : [String:AnyObject]?){
@@ -83,6 +66,38 @@ class ScreenManagerViewController: UIViewController {
         }
         
     }
+    private func pushInitialViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier , queryParams : [String:AnyObject]?){
+        
+        if currentPresentedViewController != nil{
+            if currentPresentedViewController is MainTabBarViewController{
+                let mainTabVC = currentPresentedViewController as! MainTabBarViewController
+                if let customNavVC = mainTabVC.selectedViewController as? CustomNavigationViewController{
+                    
+                    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                    if let vc = initialViewControllerFor(storyBoardIdentifier){
+                        if let params = queryParams{
+                            vc.setObjectsWithQueryParameters(params)
+                        }
+                        
+                        customNavVC.pushViewController(vc, animated : true)
+                        
+                    }
+                    
+                    
+                }
+            }else if let currentNavVc = currentPresentedViewController as? CustomNavigationViewController{
+                self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                
+                if let vc = initialViewControllerFor(storyBoardIdentifier){
+                    if let params = queryParams{
+                        vc.setObjectsWithQueryParameters(params)
+                    }
+                    currentNavVc.pushViewController(vc, animated : true)
+                }
+            }
+        }
+    }
+    
     
     private func pushViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:AnyObject]?){
         
@@ -97,13 +112,13 @@ class ScreenManagerViewController: UIViewController {
                     
                 }
             }else if let currentNavVc = currentPresentedViewController as? CustomNavigationViewController{
-                 self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
                 
                 currentNavVc.pushViewController(getViewControllerToOpen(storyBoardIdentifier, forIdentifier: viewControllerIdentifier, queryParam: queryParams), animated: true)
                 
             }
         }
-      
+        
     }
     
     private func presentViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:AnyObject]?){
@@ -163,11 +178,15 @@ class ScreenManagerViewController: UIViewController {
     func removePresentedViewController(dismissVC : UIViewController){
         
         if currentPresentedViewController == dismissVC {
-            
-            presentedViewControllers.removeAtIndex(0)
-            
             if presentedViewControllers.count > 0 {
-                currentPresentedViewController = presentedViewControllers[0]
+                
+                presentedViewControllers.removeAtIndex(presentedViewControllers.count-1)
+                
+                if presentedViewControllers.count > 0 {
+                    
+                    currentPresentedViewController = presentedViewControllers[presentedViewControllers.count-1]
+                }
+                
             }
         }
     }
@@ -225,6 +244,10 @@ extension ScreenManagerViewController{
             openAddToEscapePopUp(params)
             break
             
+        case .OpenUserAccount:
+            openUserAccount(params)
+            break
+            
         default:
             break
         }
@@ -266,5 +289,10 @@ extension ScreenManagerViewController{
             
         }
     }
+    func openUserAccount(params : [String:AnyObject]?){
+        pushInitialViewControllerOf(.MyAccount, queryParams: params)
+        
+    }
+    
     
 }

@@ -18,6 +18,7 @@ enum ScreenManagerAction : String{
     case OpenItemDescription = "OpenItemDescription"
     case OpenFollowers = "OpenFollowers"
     case OpenAddToEscapePopUp = "OpenAddToEscapePopUp"
+    case OpenUserAccount = "OpenUserAccount"
 }
 enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"
@@ -62,4 +63,8 @@ enum EscapeAddActions : String{
     case Read = "Read"
     case ToRead = "To Read"
     case Reading = "Currently Reading"
+}
+enum NotificationObservers : String{
+    case MyAccountObserver = "MyAccountObserver"
+    case DiscoverObserver = "DiscoverObserver"
 }

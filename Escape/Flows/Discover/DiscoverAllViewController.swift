@@ -25,28 +25,44 @@ class DiscoverAllViewController: UIViewController {
         dataArray = []
         tableView.reloadData()
         
+       NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DiscoverAllViewController.receivedNotification(_:)), name:NotificationObservers.DiscoverObserver.rawValue, object: nil)
+        
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: NotificationObservers.DiscoverObserver.rawValue, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         print("didappear : \(type)")
-        
-        if let preStoredData = DiscoverDataProvider.shareDataProvider.getStoredDiscoverData(type){
-            dataArray = preStoredData
-            tableView.reloadData()
-            
-        }
-        
+      
         if callOnce{
-            DiscoverDataProvider.shareDataProvider.discoverDataDelegate = self
             DiscoverDataProvider.shareDataProvider.getDiscoverItems(type, page : currentPage)
             callOnce = false
         }
     }
+    
     func loadMoreData(){
         if callFurther{
             currentPage = currentPage + 1
             DiscoverDataProvider.shareDataProvider.getDiscoverItems(type, page : currentPage)
+        }
+    }
+    
+    func receivedNotification(notification : NSNotification){
+        if let dict = notification.object as? [String:AnyObject]{
+            if let type = dict["type"] as? String, discoverType = DiscoverType(rawValue: type) {
+                if self.type == discoverType{
+                    if let data = dict["data"] as? [DiscoverItems]{
+                        self.dataArray.appendContentsOf(data)
+                        if data.count == 0{
+                            callFurther = false
+                        }
+                        tableView.reloadData()
+                    }
+                }
+            }
         }
     }
 }
@@ -59,6 +75,7 @@ extension DiscoverAllViewController : UITableViewDelegate{
         }
         return 120
     }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -128,25 +145,7 @@ extension DiscoverAllViewController : UITableViewDataSource{
         return dataArray.count
     }
 }
-extension DiscoverAllViewController : DiscoverDataProtocol{
-    func recievedDiscoverData(data: [DiscoverItems]?, discoverType: DiscoverType) {
-        if self.type == discoverType{
-            if let data = data{
-                for item in data{
-                   self.dataArray.append(item)
-                }
-                if data.count == 0{
-                    callFurther = false
-                }
-                
-            }
-            tableView.reloadData()
-        }
-    }
-    func errorDiscoverData() {
-        
-    }
-}
+
 extension DiscoverAllViewController : RemoveAddedEscapeCellProtocol{
     func removeAtIndex(indexPath : NSIndexPath){
         if dataArray.count > indexPath.row{
@@ -162,6 +161,7 @@ extension DiscoverAllViewController : RemoveAddedEscapeCellProtocol{
         
     }
 }
+
 extension DiscoverAllViewController : FollowerButtonProtocol{
     func changeLocalDataArray(indexPath: NSIndexPath?, isFollow: Bool) {
         if let indexPath = indexPath{

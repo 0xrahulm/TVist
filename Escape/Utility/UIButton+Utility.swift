@@ -8,11 +8,9 @@
 
 import Foundation
 
-
-
 extension UIButton{
     
-    func unfollowViewWithAnimate(animate :Bool){
+     func unfollowViewWithAnimate(animate :Bool){
         
         self.setTitle("  + Follow  ", forState: .Normal)
         self.backgroundColor = UIColor.whiteColor()
@@ -20,9 +18,10 @@ extension UIButton{
         self.layer.borderColor = UIColor.blueColor().CGColor
         self.layer.borderWidth = 1.0
         if animate{
-            popAnimate()
+            popButtonAnimate()
         }
     }
+    
     func followViewWithAnimate(animate : Bool){
         
         self.setTitle("  Following  ", forState: .Normal)
@@ -30,10 +29,11 @@ extension UIButton{
         self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.layer.borderWidth = 0.0
         if animate{
-            popAnimate()
+            popButtonAnimate()
         }
     }
-    func popAnimate(){
+    
+    func popButtonAnimate(){
         UIView.animateWithDuration(0.1 ,
                                    animations: {
                                     self.transform = CGAffineTransformMakeScale(1.3, 1.3)

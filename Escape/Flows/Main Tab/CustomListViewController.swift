@@ -20,36 +20,31 @@ class CustomListViewController: UIViewController {
     var storedOffsets = [Int: CGFloat]()
     var escapeType : EscapeType = .Movie
     
+    var userId : String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 170, right: 0)
         
-        if typeOfList == .Activity{
-            
-            
-        }else if typeOfList == .Movie{
-            escapeType = .Movie
-            
-        }else if typeOfList == .TvShows{
-            escapeType = .TvShows
-            
-        }else if typeOfList == .Books{
-            escapeType = .Books
-            
-        }
-        
-        MyAccountDataProvider.sharedDataProvider.escapeItemsDelegate = self
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CustomListViewController.receivedNotification(_:)), name:NotificationObservers.MyAccountObserver.rawValue, object: nil)
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
-        fetchEscapesDataFromRealm()
-        MyAccountDataProvider.sharedDataProvider.getUserEscapes(escapeType)
+        self.escapeType  = typeOfList
+        if userId == nil{
+            fetchEscapesDataFromRealm()
+        }
         
+        MyAccountDataProvider.sharedDataProvider.getUserEscapes(escapeType, userId : userId)
+        
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: NotificationObservers.MyAccountObserver.rawValue, object: nil)
     }
     
     func fetchEscapesDataFromRealm(){
@@ -123,13 +118,32 @@ class CustomListViewController: UIViewController {
     
     func reloadTableView(data: [MyAccountEscapeItems] , escape_type : EscapeType ){
         
-        if (typeOfList == escape_type) {
+        if (self.escapeType == escape_type) {
             
             tableDataArray = []
-            tableView.reloadData()
             tableDataArray = data
             tableView.reloadData()
         }
+        
+    }
+    func receivedNotification(notification: NSNotification){
+        if let dict = notification.object as? [String:AnyObject]{
+            if let _ = dict["error"] as? String{
+                errorInGettingEscapes()
+                
+            }else{
+                if let type =  dict["type"] as? String{
+                    if let data = dict["data"] as? [MyAccountEscapeItems]{
+                        if let escapeType = EscapeType(rawValue: type){
+                            self.reloadTableView(data, escape_type: escapeType)
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    func errorInGettingEscapes(){
         
     }
     
@@ -170,28 +184,31 @@ extension CustomListViewController : UITableViewDataSource , UITableViewDelegate
 extension CustomListViewController : UICollectionViewDelegate , UICollectionViewDataSource{
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let data = tableDataArray[collectionView.tag].escapeData{
-            if data.count > 0 {
-                let id = data[indexPath.row].id
-                let escapeType = data[indexPath.row].escapeType
-                let name = data[indexPath.row].name
-                let image = data[indexPath.row].image
-                
-                var params : [String:AnyObject] = [:]
-                if let id = id{
-                    params["id"] = id
+        
+        if tableDataArray.count > collectionView.tag{
+            if let data = tableDataArray[collectionView.tag].escapeData{
+                if data.count > 0 {
+                    let id = data[indexPath.row].id
+                    let escapeType = data[indexPath.row].escapeType
+                    let name = data[indexPath.row].name
+                    let image = data[indexPath.row].image
+                    
+                    var params : [String:AnyObject] = [:]
+                    if let id = id{
+                        params["id"] = id
+                    }
+                    if let escapeType = escapeType{
+                        params["escapeType"] = escapeType.rawValue
+                    }
+                    if let name = name{
+                        params["name"] = name
+                    }
+                    if let image = image{
+                        params["image"] = image
+                    }
+                    
+                    ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
                 }
-                if let escapeType = escapeType{
-                    params["escapeType"] = escapeType.rawValue
-                }
-                if let name = name{
-                    params["name"] = name
-                }
-                if let image = image{
-                    params["image"] = image
-                }
-                
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
             }
         }
     }
@@ -217,15 +234,5 @@ extension CustomListViewController : UICollectionViewDelegate , UICollectionView
         return cell
     }
 }
-extension CustomListViewController : EscapeItemsProtocol{
-    func recievedEscapeData(data: [MyAccountEscapeItems] , escape_type : EscapeType) {
-        
-        reloadTableView(data , escape_type: escape_type)
-        
-    }
-    
-    func errorEscapeData() {
-        
-    }
-}
+
 

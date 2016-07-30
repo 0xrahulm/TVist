@@ -71,5 +71,4 @@ extension UIView {
                 self.transform = CGAffineTransformIdentity
         })
     }
-    
 }

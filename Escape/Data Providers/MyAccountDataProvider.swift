@@ -17,10 +17,7 @@ protocol MyAccountDetailsProtocol : class {
     func recievedUserDetails (data : MyAccountItems?)
     func errorUserDetails()
 }
-protocol EscapeItemsProtocol : class {
-    func recievedEscapeData(data : [MyAccountEscapeItems] , escape_type : EscapeType)
-    func errorEscapeData()
-}
+
 protocol ItemDescProtocol : class {
     func receivedItemDesc(data : DescDataItems?)
     func errorItemDescData()
@@ -35,7 +32,6 @@ class MyAccountDataProvider: CommonDataProvider {
     static let sharedDataProvider = MyAccountDataProvider()
     
     weak var myAccountDetailsDelegate : MyAccountDetailsProtocol?
-    weak var escapeItemsDelegate : EscapeItemsProtocol?
     weak var itemDescDelegate : ItemDescProtocol?
     weak var followersDelegate : FollowersProtocol?
     
@@ -67,13 +63,21 @@ class MyAccountDataProvider: CommonDataProvider {
         }
     }
     
-    func getUserDetails(){
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserDetails, params: nil, delegate: self)
+    func getUserDetails(userId : String?){
+        var params : [String:AnyObject] = [:]
+        if let userId = userId{
+            params["user_id"] = userId
+        }
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserDetails, params: params, delegate: self)
     }
     
-    func getUserEscapes(escapeType : EscapeType){
+    func getUserEscapes(escapeType : EscapeType , userId : String?){
         var params : [String:AnyObject] = [:]
         params["escape_type"] =  escapeType.rawValue
+        
+        if let userId = userId{
+            params["user_id"] = userId
+        }
         
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserEscapes, params: params, delegate: self)
         
@@ -100,7 +104,7 @@ class MyAccountDataProvider: CommonDataProvider {
           params["user_id"] = id
         }
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFollowing, params: nil, delegate: self)
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFollowing, params: params, delegate: self)
         
     }
     
@@ -112,7 +116,7 @@ class MyAccountDataProvider: CommonDataProvider {
             params["user_id"] = id
         }
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFollowers, params: nil, delegate: self)
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFollowers, params: params, delegate: self)
         
     }
     
@@ -122,7 +126,13 @@ class MyAccountDataProvider: CommonDataProvider {
             
         case .GetUserDetails:
             if let data = service.outPutResponse as? [String:AnyObject]{
-                self.parseUserDetails(data)
+                if let params = service.parameters{
+                    self.parseUserDetails(data, userId: params["user_id"] as? String)
+                }else{
+                    self.parseUserDetails(data, userId: nil)
+
+                }
+                
             }else{
                 if self.myAccountDetailsDelegate != nil{
                     self.myAccountDetailsDelegate?.errorUserDetails()
@@ -135,14 +145,12 @@ class MyAccountDataProvider: CommonDataProvider {
                 
                 if let params = service.parameters {
                     if let escape_type = params["escape_type"] as? String{
-                        self.parseEscapeData(data, escape_type: escape_type )
+                        self.parseEscapeData(data, escape_type: escape_type , userId: params["user_id"] as? String)
                     }
                 }
                 
             }else{
-                if self.escapeItemsDelegate != nil{
-                    self.escapeItemsDelegate?.errorEscapeData()
-                }
+                NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["error" : "error"])
             }
             break
             
@@ -189,9 +197,7 @@ class MyAccountDataProvider: CommonDataProvider {
             break
             
         case .GetUserEscapes:
-            if self.escapeItemsDelegate != nil{
-                self.escapeItemsDelegate?.errorEscapeData()
-            }
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["error" : "error"])
             break
             
         case .LogoutUser:
@@ -229,14 +235,16 @@ class MyAccountDataProvider: CommonDataProvider {
 
 extension MyAccountDataProvider {
     
-    func parseUserDetails(dict : [String:AnyObject]){
+    func parseUserDetails(dict : [String:AnyObject] , userId : String?){
         print ("User Details :\(dict)")
         
         var userData : MyAccountItems?
         
         userData = MyAccountItems(dict : dict,userType: nil)
         
-        saveUserDataToRealm(userData)
+        if userId == nil{  // save in case of self only.
+            saveUserDataToRealm(userData)
+        }
         
         if let myAccountDetailsDelegate = myAccountDetailsDelegate{
             myAccountDetailsDelegate.recievedUserDetails(userData)
@@ -244,7 +252,7 @@ extension MyAccountDataProvider {
         
     }
     
-    func parseEscapeData(data : [[String:AnyObject]], escape_type: String){
+    func parseEscapeData(data : [[String:AnyObject]], escape_type: String , userId : String?){
         
         var escapeDataArray : [MyAccountEscapeItems] = []
         
@@ -284,12 +292,11 @@ extension MyAccountDataProvider {
                 }
             }
         }
-        
-        saveEscapesToRealm(escapeDataArray , escapeType: EscapeType(rawValue: escape_type)!)
-        
-        if self.escapeItemsDelegate != nil{
-            self.escapeItemsDelegate?.recievedEscapeData(escapeDataArray , escape_type: EscapeType(rawValue: escape_type)!)
+        if userId == nil{
+          saveEscapesToRealm(escapeDataArray , escapeType: EscapeType(rawValue: escape_type)!)
         }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["data" : escapeDataArray, "type":escape_type])
         
     }
     

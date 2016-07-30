@@ -76,7 +76,7 @@ class MyAccountItems: NSObject {
         
         profilePicture = profileDetails["profile_picture"] as? String
         
-        if let count = profileDetails["follower_count"] as? NSNumber{
+        if let count = profileDetails["followers_count"] as? NSNumber{
             followers = count
         }
         
