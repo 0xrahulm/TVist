@@ -1,28 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nWG-iw-X3s">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nWG-iw-X3s">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Home-->
-        <scene sceneID="ykg-kV-MEB">
-            <objects>
-                <viewController title="Home" id="9Dr-vb-0Lf" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="OPt-tf-brN"/>
-                        <viewControllerLayoutGuide type="bottom" id="7Gc-M8-Fs4"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gWR-b4-Uqp">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="aby-zq-Fq2"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="37J-mt-1z4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1194" y="-497"/>
-        </scene>
         <!--Main Tab Bar View Controller-->
         <scene sceneID="g4F-n5-2y0">
             <objects>
@@ -57,7 +38,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="9Dr-vb-0Lf" kind="relationship" relationship="rootViewController" id="aY5-di-KkC"/>
+                        <segue destination="5GJ-px-gzH" kind="relationship" relationship="rootViewController" id="hNG-oO-cWl"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZqH-kl-qd7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -82,6 +63,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z8G-bO-rHB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="321" y="168"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="XEa-FQ-wzI">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Home" id="5GJ-px-gzH" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="MpL-8P-eox"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M1N-ic-c9F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1063.5" y="-503"/>
         </scene>
         <!--Discover-->
         <scene sceneID="u1x-FK-irF">

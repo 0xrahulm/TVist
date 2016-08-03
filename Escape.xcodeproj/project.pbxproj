@@ -39,14 +39,18 @@
 		BC15C1571CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */; };
 		BC1842671D4BCE84003CC19A /* UIButton+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842661D4BCE84003CC19A /* UIButton+Utility.swift */; };
 		BC1842681D4BCE84003CC19A /* UIButton+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842661D4BCE84003CC19A /* UIButton+Utility.swift */; };
+		BC18426A1D51F342003CC19A /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1842691D51F342003CC19A /* Home.storyboard */; };
+		BC18426B1D51F342003CC19A /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1842691D51F342003CC19A /* Home.storyboard */; };
+		BC18426D1D51F420003CC19A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC18426C1D51F420003CC19A /* HomeViewController.swift */; };
+		BC18426E1D51F420003CC19A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC18426C1D51F420003CC19A /* HomeViewController.swift */; };
+		BC1842711D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842701D51FD79003CC19A /* FollowersTableViewCell.swift */; };
+		BC1842721D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842701D51FD79003CC19A /* FollowersTableViewCell.swift */; };
 		BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */; };
 		BC2485541CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */; };
 		BC2485561CDC900800DC7077 /* MyAccountItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485551CDC900800DC7077 /* MyAccountItems.swift */; };
 		BC2485571CDC900800DC7077 /* MyAccountItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485551CDC900800DC7077 /* MyAccountItems.swift */; };
 		BC26D0CB1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC26D0CA1D2CFA5600FDB87F /* FollowersViewController.swift */; };
 		BC26D0CC1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC26D0CA1D2CFA5600FDB87F /* FollowersViewController.swift */; };
-		BC26D0CE1D2CFF7E00FDB87F /* FollowersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC26D0CD1D2CFF7E00FDB87F /* FollowersTableViewCell.swift */; };
-		BC26D0CF1D2CFF7E00FDB87F /* FollowersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC26D0CD1D2CFF7E00FDB87F /* FollowersTableViewCell.swift */; };
 		BC2A72DC1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */; };
 		BC2A72DD1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */; };
 		BC2A730A1CCBF84F007E5DFB /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2A73021CCBF84F007E5DFB /* EmailLoginViewController.swift */; };
@@ -182,10 +186,12 @@
 		BC14BAD81CFF143800B7E546 /* DiscoverItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverItems.swift; sourceTree = "<group>"; };
 		BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		BC1842661D4BCE84003CC19A /* UIButton+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Utility.swift"; sourceTree = "<group>"; };
+		BC1842691D51F342003CC19A /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		BC18426C1D51F420003CC19A /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		BC1842701D51FD79003CC19A /* FollowersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersTableViewCell.swift; sourceTree = "<group>"; };
 		BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountDataProvider.swift; sourceTree = "<group>"; };
 		BC2485551CDC900800DC7077 /* MyAccountItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountItems.swift; sourceTree = "<group>"; };
 		BC26D0CA1D2CFA5600FDB87F /* FollowersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersViewController.swift; path = "Escape/Flows/My Account/FollowersViewController.swift"; sourceTree = SOURCE_ROOT; };
-		BC26D0CD1D2CFF7E00FDB87F /* FollowersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersTableViewCell.swift; path = "Escape/Flows/My Account/FollowersTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utility.swift"; sourceTree = "<group>"; };
 		BC2A73021CCBF84F007E5DFB /* EmailLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		BC2A73031CCBF84F007E5DFB /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
@@ -248,7 +254,7 @@
 		BCCD71101CA26CF4002A0C07 /* Escape-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Escape-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCCD71171CA26F08002A0C07 /* UIApperance+Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApperance+Swift.h"; sourceTree = "<group>"; };
 		BCCD71181CA26F08002A0C07 /* UIApperance+Swift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApperance+Swift.m"; sourceTree = "<group>"; };
-		BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDataRealm.swift; path = ../UserDataRealm.swift; sourceTree = "<group>"; };
+		BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataRealm.swift; sourceTree = "<group>"; };
 		BCFE486A1CA3C1C00098160D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BCFE486D1CA400C60098160D /* NetworkAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAvailability.swift; sourceTree = "<group>"; };
 		F69DBC530D1D5B690731DBA4 /* Pods-Escape.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Escape/Pods-Escape.debug.xcconfig"; sourceTree = "<group>"; };
@@ -309,7 +315,14 @@
 				BC14BAD21CFF0F7B00B7E546 /* DiscoverEscapeTableViewCell.swift */,
 				BC14BAD81CFF143800B7E546 /* DiscoverItems.swift */,
 			);
-			name = Model;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BC18426F1D51F47C003CC19A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BC2A73011CCBF7C0007E5DFB /* Onboarding */ = {
@@ -327,6 +340,7 @@
 				BC2A73091CCBF84F007E5DFB /* ScreenManger.storyboard */,
 			);
 			name = Onboarding;
+			path = ../Onboarding;
 			sourceTree = "<group>";
 		};
 		BC2A731D1CCBF961007E5DFB /* Model */ = {
@@ -334,7 +348,7 @@
 			children = (
 				BC2A731A1CCBF8CC007E5DFB /* InterestItems.swift */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BC3A819F1CA5622E00FF8678 /* Main Tab */ = {
@@ -479,22 +493,26 @@
 		BC4F45661CDF29F200A65A63 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BC1842701D51FD79003CC19A /* FollowersTableViewCell.swift */,
 				BC2485551CDC900800DC7077 /* MyAccountItems.swift */,
 				BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItems.swift */,
 				BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */,
 				BC0BBBE01CF1BC1300B03A93 /* DescDataItems.swift */,
 				BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */,
 				BC4F456A1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift */,
-				BC26D0CD1D2CFF7E00FDB87F /* FollowersTableViewCell.swift */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BCB7B49F1CA16C6A002147FA /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				BC18426F1D51F47C003CC19A /* Model */,
+				BC1842691D51F342003CC19A /* Home.storyboard */,
+				BC18426C1D51F420003CC19A /* HomeViewController.swift */,
 			);
 			name = Home;
+			path = ../Home;
 			sourceTree = "<group>";
 		};
 		BCB7B4A01CA16C85002147FA /* Discover */ = {
@@ -508,6 +526,7 @@
 				BC14BABB1CFAF55800B7E546 /* DiscoverAllViewController.swift */,
 			);
 			name = Discover;
+			path = ../Discover;
 			sourceTree = "<group>";
 		};
 		BCB7B4A11CA16CA8002147FA /* My Account */ = {
@@ -522,6 +541,7 @@
 				BC15C1551CD4DF0300BA7CCE /* MyAccountViewController.swift */,
 			);
 			name = "My Account";
+			path = "../My Account";
 			sourceTree = "<group>";
 		};
 		BCB7B4A21CA16FAB002147FA /* Resources */ = {
@@ -657,6 +677,7 @@
 			files = (
 				BC85DBFE1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				BC14BAB91CFAF3F000B7E546 /* Discover.storyboard in Resources */,
+				BC18426A1D51F342003CC19A /* Home.storyboard in Resources */,
 				BCFE486B1CA3C1C00098160D /* Images.xcassets in Resources */,
 				BCB7B4B01CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BCB7B4B41CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
@@ -676,6 +697,7 @@
 			files = (
 				BC85DBFF1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				BC14BABA1CFAF3F000B7E546 /* Discover.storyboard in Resources */,
+				BC18426B1D51F342003CC19A /* Home.storyboard in Resources */,
 				BCFE486C1CA3C1C00098160D /* Images.xcassets in Resources */,
 				BCB7B4B11CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BCB7B4B51CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
@@ -811,6 +833,7 @@
 				BC47EDC11CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BC38DC691D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
 				BCCD70C81CA19468002A0C07 /* Service.swift in Sources */,
+				BC18426D1D51F420003CC19A /* HomeViewController.swift in Sources */,
 				BC47ED8A1C9FEEC8008143C2 /* Escape.xcdatamodeld in Sources */,
 				BC38DC701D30C1F900290717 /* AddToEscapeViewController.swift in Sources */,
 				BC0BBBE11CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
@@ -831,8 +854,8 @@
 				BC14BAD91CFF143800B7E546 /* DiscoverItems.swift in Sources */,
 				BC4F45771CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FC1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
-				BC26D0CE1D2CFF7E00FDB87F /* FollowersTableViewCell.swift in Sources */,
 				BC47EDB91CA00333008143C2 /* ScreenVader.swift in Sources */,
+				BC1842711D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */,
 				BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */,
 				BC2A73121CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
 				BC4F45681CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
@@ -878,6 +901,7 @@
 				BC47EDC21CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BC38DC6A1D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
 				BCCD70C91CA19468002A0C07 /* Service.swift in Sources */,
+				BC18426E1D51F420003CC19A /* HomeViewController.swift in Sources */,
 				BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */,
 				BC38DC711D30C1F900290717 /* AddToEscapeViewController.swift in Sources */,
 				BC0BBBE21CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
@@ -898,8 +922,8 @@
 				BC14BADA1CFF143800B7E546 /* DiscoverItems.swift in Sources */,
 				BC4F45781CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FD1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
-				BC26D0CF1D2CFF7E00FDB87F /* FollowersTableViewCell.swift in Sources */,
 				BC47EDBA1CA00333008143C2 /* ScreenVader.swift in Sources */,
+				BC1842721D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */,
 				BC3A81891CA521D500FF8678 /* DeviceID.swift in Sources */,
 				BC2A73131CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
 				BC4F45691CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
