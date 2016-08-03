@@ -12,16 +12,16 @@ import SwiftyJSON
 import CoreData
 import RealmSwift
 
-
 protocol MyAccountDetailsProtocol : class {
     func recievedUserDetails (data : MyAccountItems?)
     func errorUserDetails()
 }
 
 protocol ItemDescProtocol : class {
-    func receivedItemDesc(data : DescDataItems?)
+    func receivedItemDesc(data : DescDataItems? ,id : String)
     func errorItemDescData()
 }
+
 protocol FollowersProtocol : class {
     func recievedFollowersData(data : [MyAccountItems] , userType : UserType)
     func error()
@@ -41,7 +41,6 @@ class MyAccountDataProvider: CommonDataProvider {
         super.init()
         
         setCurrentUser()
-        
     }
     
     func setCurrentUser(){
@@ -54,7 +53,7 @@ class MyAccountDataProvider: CommonDataProvider {
                 if let user = try Realm().objects(UserData).filter(predicate).first{
                     
                     currentUser = user
-                
+                    
                 }
                 
             } catch let  error as NSError{
@@ -80,7 +79,6 @@ class MyAccountDataProvider: CommonDataProvider {
         }
         
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserEscapes, params: params, delegate: self)
-        
     }
     
     func getItemDesc(escapeType : EscapeType , id : String){
@@ -89,10 +87,10 @@ class MyAccountDataProvider: CommonDataProvider {
         params["escape_type"] = escapeType.rawValue
         
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetItemDesc, params: params, delegate: self)
-        
     }
     
     func logoutUser(){
+        
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .LogoutUser, params: nil, delegate: self)
     }
     
@@ -101,11 +99,10 @@ class MyAccountDataProvider: CommonDataProvider {
         var params : [String:AnyObject] = [:]
         
         if let id = id{
-          params["user_id"] = id
+            params["user_id"] = id
         }
         
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFollowing, params: params, delegate: self)
-        
     }
     
     func getUserFollowers(id : String?){
@@ -130,7 +127,7 @@ class MyAccountDataProvider: CommonDataProvider {
                     self.parseUserDetails(data, userId: params["user_id"] as? String)
                 }else{
                     self.parseUserDetails(data, userId: nil)
-
+                    
                 }
                 
             }else{
@@ -160,7 +157,12 @@ class MyAccountDataProvider: CommonDataProvider {
             
         case .GetItemDesc:
             if let data = service.outPutResponse as? [String:AnyObject]{
-                self.parseDescData(data)
+                if let params = service.parameters{
+                    if let id = params["escape_id"] as? String{
+                        self.parseDescData(data , id : id)
+                    }
+                }
+                
             }else{
                 if self.itemDescDelegate != nil{
                     self.itemDescDelegate?.errorItemDescData()
@@ -173,13 +175,13 @@ class MyAccountDataProvider: CommonDataProvider {
                 self.parseFollwingData(data, userType: .Following)
             }
             break
-        
+            
         case .GetFollowers:
             if let data = service.outPutResponse as? [[String:AnyObject]]{
                 self.parseFollwingData(data, userType: .Followers)
             }
             break
-        
+            
         default:
             break
         }
@@ -246,8 +248,8 @@ extension MyAccountDataProvider {
             saveUserDataToRealm(userData)
         }
         
-        if let myAccountDetailsDelegate = myAccountDetailsDelegate{
-            myAccountDetailsDelegate.recievedUserDetails(userData)
+        if self.myAccountDetailsDelegate != nil{
+            self.myAccountDetailsDelegate!.recievedUserDetails(userData)
         }
         
     }
@@ -293,21 +295,21 @@ extension MyAccountDataProvider {
             }
         }
         if userId == nil{
-          saveEscapesToRealm(escapeDataArray , escapeType: EscapeType(rawValue: escape_type)!)
+            saveEscapesToRealm(escapeDataArray , escapeType: EscapeType(rawValue: escape_type)!)
         }
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["data" : escapeDataArray, "type":escape_type])
         
     }
     
-    func parseDescData(dict : [String:AnyObject]){
+    func parseDescData(dict : [String:AnyObject], id : String){
         
         var dataItems : DescDataItems?
         
         dataItems = DescDataItems(dict: dict)
         
         if self.itemDescDelegate != nil{
-            self.itemDescDelegate?.receivedItemDesc(dataItems)
+            self.itemDescDelegate?.receivedItemDesc(dataItems, id : id)
         }
         
     }
@@ -367,10 +369,7 @@ extension MyAccountDataProvider{
             try! uiRealm.write({
                 uiRealm.add(userData , update: true)
             })
-            
-            
         }
-        
     }
     
     func saveEscapesToRealm(escapeDataArray : [MyAccountEscapeItems] , escapeType : EscapeType){
@@ -409,15 +408,9 @@ extension MyAccountDataProvider{
                         })
                         
                     }
-                    
                 }
-
-                
             }
-            
         }
-        
-        
     }
     
 }

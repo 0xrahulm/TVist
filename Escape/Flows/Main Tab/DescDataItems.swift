@@ -49,6 +49,8 @@ class DescDataItems: NSObject {
                     self.rating = rating
                 }else if let rating = dict["imdb_rating"] as? NSNumber{
                     self.rating = rating
+                }else if let rating = dict["escape_rating"] as? NSNumber{
+                    self.rating = rating
                 }
                 
                 self.runtime = dict["runtime"] as? String
@@ -62,7 +64,6 @@ class DescDataItems: NSObject {
                 }else if let creator = dict["creator"] as? String{
                     self.director = creator
                 }
-                
                 
                 if let generes = dict["genres"] as? [String]{
                     self.generes = generes

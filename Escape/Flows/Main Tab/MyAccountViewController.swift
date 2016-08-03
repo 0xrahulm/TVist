@@ -62,7 +62,7 @@ class MyAccountViewController: UIViewController{
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
 
-        MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
+        
         
         if userId == nil{ // means self user
             fetchDataFromRealm()
@@ -73,7 +73,7 @@ class MyAccountViewController: UIViewController{
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
         MyAccountDataProvider.sharedDataProvider.getUserDetails(userId)
         
     }

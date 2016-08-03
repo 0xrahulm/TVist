@@ -142,16 +142,13 @@ class ItemDescViewController: UIViewController {
 
 extension ItemDescViewController : ItemDescProtocol{
     
-    func receivedItemDesc(data: DescDataItems?) {
+    func receivedItemDesc(data: DescDataItems?, id : String) {
         
-        if let getId = data?.id{
-            if id == getId{
+            if self.id == id{
                 fillData(data)
             }
-        }
-        
-        
     }
+    
     func errorItemDescData() {
         
     }

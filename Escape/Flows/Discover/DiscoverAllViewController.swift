@@ -103,6 +103,10 @@ extension DiscoverAllViewController : UITableViewDelegate{
             }
             if data.discoverType == .Movie || data.discoverType == .TvShows || data.discoverType == .Books{
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+            }else if data.discoverType == .People{
+                if let id  = data.id{
+                    ScreenVader.sharedVader.performScreenManagerAction(.OpenUserAccount, queryParams: ["user_id":id, "isFollow" : data.isFollow])
+                }
             }
         }
     }
