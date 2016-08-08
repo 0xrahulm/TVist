@@ -55,6 +55,47 @@ class TimeUtility: NSObject {
         return components
         
     }
+    class func getTimeStampForCard(unixTimeStamp : Double) -> String{
+        
+        let timeString = "Just now"
+        
+        let date = NSDate(timeIntervalSince1970: unixTimeStamp)
+        
+        let days = NSDate().daysFrom(date)
+        let month = NSDate().monthsFrom(date)
+        let year = NSDate().yearsFrom(date)
+        
+        let hour = NSDate().hoursFrom(date)
+        let min = NSDate().minutesFrom(date)
+        
+        
+        if year > 1{
+            return "\(year) year ago"
+        }
+        if year == 1{
+            return "a year ago"
+        }
+        if month > 1{
+            return "\(month) months ago"
+        }
+        if month == 1{
+            return "a month ago"
+        }
+        if days > 1{
+            return "\(days) days ago"
+        }
+        if days > 0{
+            return "Yesterday"
+        }
+        if hour > 1{
+            return "\(hour) hours"
+        }
+        if min > 1{
+            return "\(min) mins"
+        }
+        
+        return timeString
+    }
     
 
 }

@@ -68,3 +68,12 @@ enum NotificationObservers : String{
     case MyAccountObserver = "MyAccountObserver"
     case DiscoverObserver = "DiscoverObserver"
 }
+enum StoryType : NSNumber {
+    case EmptyStory = -1
+    case FBFriendFollow = 0
+    case AddToEscape = 1
+}
+enum CreatorType : NSNumber{
+    case User =     0
+    case Escape =   1
+}

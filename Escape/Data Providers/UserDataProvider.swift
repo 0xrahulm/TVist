@@ -90,100 +90,109 @@ class UserDataProvider: CommonDataProvider {
     
     override func serviceSuccessfull(service: Service) {
         
-        switch service.subServiveType! {
+        if let subServiceType = service.subServiveType{
             
-        case .FBSignIn:
-            if let data = service.outPutResponse as? [String:AnyObject]{
-                self.parseFBUserData(data)
+            switch subServiceType {
+                
+            case .FBSignIn:
+                if let data = service.outPutResponse as? [String:AnyObject]{
+                    self.parseFBUserData(data)
+                }
+                break
+                
+            case .EmailSignUp:
+                if let data = service.outPutResponse as? [String:AnyObject]{
+                    self.parseEmailSignInUserData(data)
+                    
+                }
+                break
+                
+            case .EmailSigIn:
+                if let data = service.outPutResponse as? [String:AnyObject]{
+                    self.parseEmailSignInUserData(data)
+                }
+                
+                break
+                
+            case .FetchInterests:
+                if let data = service.outPutResponse as? [AnyObject]{
+                    self.parseIntereset(data)
+                }
+                break
+                
+            case .AddEscapes:
+                print("Escape Added")
+                break
+                
+            case .FollowUser:
+                print("User followed")
+                break
+                
+            case .UnfollowUser:
+                print("User UNfollowed")
+                break
+                
+                
+                
+            default:
+                break
             }
-            break
             
-        case .EmailSignUp:
-            if let data = service.outPutResponse as? [String:AnyObject]{
-                self.parseEmailSignInUserData(data)
-            
-            }
-            break
-            
-        case .EmailSigIn:
-            if let data = service.outPutResponse as? [String:AnyObject]{
-                self.parseEmailSignInUserData(data)
-            }
-            
-            break
-            
-        case .FetchInterests:
-            if let data = service.outPutResponse as? [AnyObject]{
-                self.parseIntereset(data)
-            }
-            break
-            
-        case .AddEscapes:
-            print("Escape Added")
-            break
-        
-        case .FollowUser:
-            print("User followed")
-            break
-            
-        case .UnfollowUser:
-            print("User UNfollowed")
-            break
-            
-        
-            
-        default:
-            break
         }
+        
     
     }
     override func serviceError(service: Service) {
-        switch service.subServiveType! {
-        case .FBSignIn:
+        if let subServiceType = service.subServiveType{
             
-            ECUserDefaults.setLoggedIn(false)
+            switch subServiceType {
             
-            if self.fbLoginDelegate != nil{
-                self.fbLoginDelegate?.signInError(service.errorMessage)
+            case .FBSignIn:
+                
+                ECUserDefaults.setLoggedIn(false)
+                
+                if self.fbLoginDelegate != nil{
+                    self.fbLoginDelegate?.signInError(service.errorMessage)
+                }
+                
+                break
+                
+            case .EmailSignUp:
+                
+                ECUserDefaults.setLoggedIn(false)
+                
+                if self.emailLoginDelegate != nil {
+                    self.emailLoginDelegate?.signInError(service.errorMessage)
+                }
+                
+                break
+                
+            case .EmailSigIn:
+                
+                ECUserDefaults.setLoggedIn(false)
+                
+                if self.emailLoginDelegate != nil {
+                    self.emailLoginDelegate?.signInError(service.errorMessage)
+                }
+                
+                break
+                
+            case .AddEscapes:
+                print("Error in Escape adding")
+                break
+                
+            case .FollowUser:
+                print("Error in User follow")
+                break;
+                
+            case .UnfollowUser:
+                print("Error in User UNfollow")
+                break
+                
+            default :
+                print("Service error code \(service.errorCode)")
+                break
             }
-            
-            break
-            
-        case .EmailSignUp:
-            
-            ECUserDefaults.setLoggedIn(false)
-            
-            if self.emailLoginDelegate != nil {
-                self.emailLoginDelegate?.signInError(service.errorMessage)
-            }
-            
-            break
-            
-        case .EmailSigIn:
-            
-            ECUserDefaults.setLoggedIn(false)
-            
-            if self.emailLoginDelegate != nil {
-                self.emailLoginDelegate?.signInError(service.errorMessage)
-            }
-            
-            break
-       
-        case .AddEscapes:
-            print("Error in Escape adding")
-            break
-            
-        case .FollowUser:
-            print("Error in User follow")
-            break;
-            
-        case .UnfollowUser:
-            print("Error in User UNfollow")
-            break
-            
-        default :
-            print("Service error code \(service.errorCode)")
-            break
         }
     }
     

@@ -25,35 +25,41 @@ class DiscoverDataProvider: CommonDataProvider {
     }
     
     override func serviceSuccessfull(service: Service) {
-        switch service.subServiveType! {
-            
-        case .GetDiscoverItems:
-            if let data = service.outPutResponse as? [AnyObject]{
-                if let params = service.parameters{
-                    if let discoverType = params["discovery_type"] as? String{
-                        self.parseDiscoverData(data, discoverType : discoverType)
-                    }
-            
-                }
+        if let subServiceType = service.subServiveType{
+            switch subServiceType {
                 
+            case .GetDiscoverItems:
+                if let data = service.outPutResponse as? [AnyObject]{
+                    if let params = service.parameters{
+                        if let discoverType = params["discovery_type"] as? String{
+                            self.parseDiscoverData(data, discoverType : discoverType)
+                        }
+                        
+                    }
+                    
+                }
+                break
+                
+            default:
+                break
             }
-            break
             
-        default:
-            break
         }
-        
     }
     
     override func serviceError(service: Service) {
-        switch service.subServiveType! {
-        case .GetDiscoverItems:
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.DiscoverObserver.rawValue, object: ["error" : "error"])
+        if let subServiceType = service.subServiveType{
             
-            break
+            switch subServiceType  {
             
-        default:
-            break
+            case .GetDiscoverItems:
+                NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.DiscoverObserver.rawValue, object: ["error" : "error"])
+                
+                break
+                
+            default:
+                break
+            }
         }
     }
     

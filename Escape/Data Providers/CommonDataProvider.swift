@@ -45,8 +45,8 @@ class CommonDataProvider: NetworkWrapperProtocol {
     
     func serivceFinishedWithError(service: Service) {
         if service.errorCode != nil{
-            if service.errorCode == 409 {  // logout
-                
+            if service.errorCode == 401 {  // logout
+                ScreenVader.sharedVader.performLogout()
                 cancelAllRequest()
             }else{
                 if let activeServiceIndex = self.activeServices.indexOf(service) where activeServiceIndex > -1 {

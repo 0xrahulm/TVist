@@ -119,116 +119,122 @@ class MyAccountDataProvider: CommonDataProvider {
     
     
     override func serviceSuccessfull(service: Service) {
-        switch service.subServiveType! {
+        if let subServiceType = service.subServiveType{
             
-        case .GetUserDetails:
-            if let data = service.outPutResponse as? [String:AnyObject]{
-                if let params = service.parameters{
-                    self.parseUserDetails(data, userId: params["user_id"] as? String)
-                }else{
-                    self.parseUserDetails(data, userId: nil)
+            switch subServiceType {
+                
+            case .GetUserDetails:
+                if let data = service.outPutResponse as? [String:AnyObject]{
+                    if let params = service.parameters{
+                        self.parseUserDetails(data, userId: params["user_id"] as? String)
+                    }else{
+                        self.parseUserDetails(data, userId: nil)
+                        
+                    }
                     
-                }
-                
-            }else{
-                if self.myAccountDetailsDelegate != nil{
-                    self.myAccountDetailsDelegate?.errorUserDetails()
-                }
-            }
-            break
-            
-        case .GetUserEscapes:
-            if let data = service.outPutResponse as? [[String:AnyObject]]{
-                
-                if let params = service.parameters {
-                    if let escape_type = params["escape_type"] as? String{
-                        self.parseEscapeData(data, escape_type: escape_type , userId: params["user_id"] as? String)
+                }else{
+                    if self.myAccountDetailsDelegate != nil{
+                        self.myAccountDetailsDelegate?.errorUserDetails()
                     }
                 }
+                break
                 
-            }else{
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["error" : "error"])
-            }
-            break
-            
-        case .LogoutUser:
-            ScreenVader.sharedVader.performLogout()
-            break
-            
-        case .GetItemDesc:
-            if let data = service.outPutResponse as? [String:AnyObject]{
-                if let params = service.parameters{
-                    if let id = params["escape_id"] as? String{
-                        self.parseDescData(data , id : id)
+            case .GetUserEscapes:
+                if let data = service.outPutResponse as? [[String:AnyObject]]{
+                    
+                    if let params = service.parameters {
+                        if let escape_type = params["escape_type"] as? String{
+                            self.parseEscapeData(data, escape_type: escape_type , userId: params["user_id"] as? String)
+                        }
+                    }
+                    
+                }else{
+                    NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["error" : "error"])
+                }
+                break
+                
+            case .LogoutUser:
+                ScreenVader.sharedVader.performLogout()
+                break
+                
+            case .GetItemDesc:
+                if let data = service.outPutResponse as? [String:AnyObject]{
+                    if let params = service.parameters{
+                        if let id = params["escape_id"] as? String{
+                            self.parseDescData(data , id : id)
+                        }
+                    }
+                    
+                }else{
+                    if self.itemDescDelegate != nil{
+                        self.itemDescDelegate?.errorItemDescData()
                     }
                 }
+                break
                 
-            }else{
-                if self.itemDescDelegate != nil{
-                    self.itemDescDelegate?.errorItemDescData()
+            case .GetFollowing:
+                if let data = service.outPutResponse as? [[String:AnyObject]]{
+                    self.parseFollwingData(data, userType: .Following)
                 }
+                break
+                
+            case .GetFollowers:
+                if let data = service.outPutResponse as? [[String:AnyObject]]{
+                    self.parseFollwingData(data, userType: .Followers)
+                }
+                break
+                
+            default:
+                break
             }
-            break
-            
-        case .GetFollowing:
-            if let data = service.outPutResponse as? [[String:AnyObject]]{
-                self.parseFollwingData(data, userType: .Following)
-            }
-            break
-            
-        case .GetFollowers:
-            if let data = service.outPutResponse as? [[String:AnyObject]]{
-                self.parseFollwingData(data, userType: .Followers)
-            }
-            break
-            
-        default:
-            break
         }
     }
     
     
     
     override func serviceError(service: Service) {
-        switch service.subServiveType! {
+        if let subServiceType = service.subServiveType{
             
-        case .GetUserDetails:
-            if self.myAccountDetailsDelegate != nil{
-                self.myAccountDetailsDelegate?.errorUserDetails()
+            switch subServiceType {
+                
+            case .GetUserDetails:
+                if self.myAccountDetailsDelegate != nil{
+                    self.myAccountDetailsDelegate?.errorUserDetails()
+                }
+                break
+                
+            case .GetUserEscapes:
+                NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["error" : "error"])
+                break
+                
+            case .LogoutUser:
+                
+                break
+                
+            case .GetItemDesc:
+                if self.itemDescDelegate != nil{
+                    self.itemDescDelegate?.errorItemDescData()
+                }
+                
+                break
+                
+            case .GetFollowing:
+                if followersDelegate != nil{
+                    followersDelegate?.error()
+                }
+                
+                break
+                
+            case .GetFollowers:
+                if followersDelegate != nil{
+                    followersDelegate?.error()
+                }
+                
+                break
+                
+            default:
+                break
             }
-            break
-            
-        case .GetUserEscapes:
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["error" : "error"])
-            break
-            
-        case .LogoutUser:
-            
-            break
-            
-        case .GetItemDesc:
-            if self.itemDescDelegate != nil{
-                self.itemDescDelegate?.errorItemDescData()
-            }
-            
-            break
-            
-        case .GetFollowing:
-            if followersDelegate != nil{
-                followersDelegate?.error()
-            }
-            
-            break
-            
-        case .GetFollowers:
-            if followersDelegate != nil{
-                followersDelegate?.error()
-            }
-            
-            break
-            
-        default:
-            break
         }
     }
 }

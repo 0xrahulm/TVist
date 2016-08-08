@@ -9,6 +9,7 @@ PODS:
   - Realm/Headers (1.0.1)
   - RealmSwift (1.0.1):
     - Realm (= 1.0.1)
+  - Shimmer (1.0.2)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - ionicons
   - Locksmith (~> 2.0.8)
   - RealmSwift
+  - Shimmer
   - SwiftyJSON (~> 2.3.2)
 
 SPEC CHECKSUMS:
@@ -26,8 +28,9 @@ SPEC CHECKSUMS:
   Locksmith: a8ed41ac4c06506ea8cb199d8ec8a8d3d108eb2a
   Realm: 2e15e39d35b08abb529e212ed5d8af107b5236c8
   RealmSwift: d73ea2af08c3676dbdd5e4b669651a0f492162a4
+  Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: cd3a88b0adb921c39feabe2218d04006541b6c6f
+PODFILE CHECKSUM: c3c00e16a136f9ec11e2d4917151d748b084e41d
 
 COCOAPODS: 1.0.0

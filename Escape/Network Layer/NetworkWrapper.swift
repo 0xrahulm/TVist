@@ -69,6 +69,7 @@ class NetworkWrapper: NSObject {
         case .Failure:
             service.errorMessage = response.result.value
             service.errorCode = response.response?.statusCode
+            
             if service.responderDelegate != nil{
                 service.responderDelegate!.serivceFinishedWithError(service)
             }

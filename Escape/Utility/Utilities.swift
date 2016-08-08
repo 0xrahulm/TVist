@@ -28,6 +28,19 @@ func suffixNumber(number:NSNumber) -> NSString {
     return "\(sign)\(roundedNum)\(units[exp-1])";
 }
 
+extension UITableView{
+    func reloadDataAnimated(){
+        
+        UIView.transitionWithView(self,
+                                  duration:0.25,
+                                  options:.TransitionCrossDissolve,
+                                  animations:
+            { () -> Void in
+                self.reloadData()
+            },
+                                  completion: nil);
+    }
+}
 
 
 

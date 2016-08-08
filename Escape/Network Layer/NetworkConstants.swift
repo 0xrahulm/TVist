@@ -36,6 +36,9 @@ enum SubServiceType : String {
     //Discover
     case GetDiscoverItems = "lets_discover"
     
+    //Home
+    case GetUserStory   =  "get_user_stories"
+    
     
     
     
