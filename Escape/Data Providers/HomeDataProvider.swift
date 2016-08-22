@@ -80,6 +80,10 @@ extension HomeDataProvider {
                         storyData.append(AddToEscapeCard(dict: dataDict))
                         break
                         
+                    case .Recommeded:
+                        storyData.append(AddToEscapeCard(dict: dataDict))
+                        break
+                        
                     case .EmptyStory:
                         break
                         

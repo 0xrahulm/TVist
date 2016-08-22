@@ -51,8 +51,7 @@ class HomeViewController: UIViewController {
     
     func configureSeperatorCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.Seperator.rawValue, forIndexPath: indexPath) as! PlaceholderTableViewCell
-        cell.shimmer()
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.Seperator.rawValue, forIndexPath: indexPath)
         
         return cell
     }
@@ -75,6 +74,9 @@ extension HomeViewController : UITableViewDelegate{
                 return CellHeight.FBFriends.rawValue
                 
             case .AddToEscape:
+                return CellHeight.AddtoEscape.rawValue
+            
+            case .Recommeded:
                 return CellHeight.AddtoEscape.rawValue
                 
             case .EmptyStory:
@@ -101,6 +103,9 @@ extension HomeViewController : UITableViewDataSource{
                 return configureFBFriendCell(tableView, indexPath: indexPath)
             
             case .AddToEscape:
+                return configureAddToEscapeCell(tableView, indexPath: indexPath)
+                
+            case .Recommeded:
                 return configureAddToEscapeCell(tableView, indexPath: indexPath)
                 
             case .EmptyStory:

@@ -55,6 +55,7 @@ enum Tap : Int{
 enum UserType : Int{
     case Followers = 1
     case Following = 2
+    case Friends   = 3
 }
 enum EscapeAddActions : String{
     case Watched = "Watched"
@@ -72,8 +73,15 @@ enum StoryType : NSNumber {
     case EmptyStory = -1
     case FBFriendFollow = 0
     case AddToEscape = 1
+    case Recommeded = 2
 }
 enum CreatorType : NSNumber{
     case User =     0
     case Escape =   1
+}
+enum OptionsType : String{
+    case Edit = "Edit"
+    case Delete = "Delete"
+    case Recommend = "Recommend to friend"
+    case Add = "Add to your escape"
 }

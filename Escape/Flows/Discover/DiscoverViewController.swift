@@ -19,6 +19,7 @@ class DiscoverViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         self.title = "Discover"
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
@@ -91,11 +92,13 @@ class DiscoverViewController: UIViewController {
     }
     
     func didTapGoToRight() {
-        let currentIndex = pageMenu!.currentPageIndex
+//        let currentIndex = pageMenu!.currentPageIndex
+//        
+//        if currentIndex < pageMenu!.controllerArray.count {
+//            pageMenu!.moveToPage(currentIndex + 1)
+//        }
         
-        if currentIndex < pageMenu!.controllerArray.count {
-            pageMenu!.moveToPage(currentIndex + 1)
-        }
+       
     }
     
     // MARK: - Container View Controller
@@ -107,11 +110,12 @@ class DiscoverViewController: UIViewController {
         return true
     }
     
-
-
 }
 
+
 //        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<-", style: UIBarButtonItemStyle.Done, target: self, action: #selector(DiscoverViewController.didTapGoToLeft))
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "->", style: UIBarButtonItemStyle.Done, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
+
+ //self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "->", style: UIBarButtonItemStyle.Done, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
+
 
 // MARK: - Scroll menu setup

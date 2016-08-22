@@ -3,8 +3,10 @@
 //
 
 #import "UIApperance+Swift.h"
-#import <Shimmer/FBShimmering.h>
-#import <Shimmer/FBShimmeringView.h>
-#import <Shimmer/FBShimmeringLayer.h>
+//#import <Shimmer/FBShimmering.h>
+//#import <Shimmer/FBShimmeringView.h>
+//#import <Shimmer/FBShimmeringLayer.h>
 
-
+#import "FBShimmering.h"
+#import "FBShimmeringView.h"
+#import "FBShimmeringLayer.h"

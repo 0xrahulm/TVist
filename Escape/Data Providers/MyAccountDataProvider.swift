@@ -117,6 +117,26 @@ class MyAccountDataProvider: CommonDataProvider {
         
     }
     
+    func getUserFriends(){
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFriends, params: nil, delegate: self)
+    }
+    func postRecommend(escapeId : [String] , friendId : [String] , message : String?){
+        
+        var params : [String:AnyObject] = [:]
+        
+        if let message = message {
+            if message != ""{
+                params["status"] = message
+            }
+        }
+        
+        params["to_user_ids"] = friendId
+        params["escape_ids"] = escapeId
+        
+        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .PostRecommend, params: params, delegate: self)
+        
+    }
+    
     
     override func serviceSuccessfull(service: Service) {
         if let subServiceType = service.subServiveType{
@@ -184,6 +204,15 @@ class MyAccountDataProvider: CommonDataProvider {
                 }
                 break
                 
+            case .GetFriends:
+                if let data = service.outPutResponse as? [[String:AnyObject]]{
+                    self.parseFollwingData(data, userType: .Friends)
+                }
+                break
+            case .PostRecommend:
+                print("recommendation posted 200 OK")
+                break
+                
             default:
                 break
             }
@@ -230,6 +259,17 @@ class MyAccountDataProvider: CommonDataProvider {
                     followersDelegate?.error()
                 }
                 
+                break
+                
+            case .GetFriends:
+                if followersDelegate != nil{
+                    followersDelegate?.error()
+                }
+                
+                break
+            
+            case .PostRecommend:
+                print("Error in Recommedation")
                 break
                 
             default:

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ionicons
 
 class ItemDescViewController: UIViewController {
     
@@ -24,6 +25,20 @@ class ItemDescViewController: UIViewController {
     @IBOutlet weak var castLabel:       UILabel!
     @IBOutlet weak var generesLabel:    UILabel!
     @IBOutlet weak var descLabel:       UILabel!
+    
+    @IBOutlet weak var addEscapeButton: UIButton!
+    
+    private var popover: Popover!
+    
+    var optionsArray : [OptionsType] = [.Add , .Recommend]
+    var popOverHeight : CGFloat = 90
+    var escapeAlreadyAdded = false
+    
+    
+    private var popoverOptions: [PopoverOption] = [
+        .Type(.Down),
+        .BlackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
+    ]
     
     var escapeType : EscapeType! //required Field
     var id : String! // required Field
@@ -55,14 +70,23 @@ class ItemDescViewController: UIViewController {
             itemImage.downloadImageWithUrl(image , placeHolder: UIImage(named: "movie_placeholder"))
             
         }
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+
         MyAccountDataProvider.sharedDataProvider.itemDescDelegate = self
         MyAccountDataProvider.sharedDataProvider.getItemDesc(escapeType, id: id)
 
        
     }
+    func setVisuals(){
+        let settingImage = IonIcons.imageWithIcon(ion_android_options, size: 30, color: UIColor.whiteColor())
+        let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ItemDescViewController.optionsTapped))
+        
+        self.navigationItem.rightBarButtonItem = settingButton
+    }
     func fillData(descData : DescDataItems?){
         
         if let descData = descData {
+
             
             if let name = descData.name{
                 itemTitle.text = name
@@ -122,8 +146,16 @@ class ItemDescViewController: UIViewController {
             if let desc = descData.desc{
                 descLabel.attributedText = getString("Description", str: desc)
             }
+           
+            escapeAlreadyAdded  = descData.isActed
+
+            setVisuals()
             
-            
+            if descData.isActed{
+                addEscapeButton.hidden = true
+            }else{
+                addEscapeButton.hidden = false
+            }
         }
         
     }
@@ -137,6 +169,59 @@ class ItemDescViewController: UIViewController {
         attributedString.appendAttributedString(titleString)
         attributedString.appendAttributedString(descString)
         return attributedString
+    }
+    
+    
+    @IBAction func addEscapeTapped(sender: AnyObject) {
+        
+        
+    }
+    func optionsTapped(){
+        if escapeAlreadyAdded{
+            optionsArray = [.Edit , .Delete , .Recommend]
+            popOverHeight = 135
+        }
+        
+        let viewX = UIView(frame: CGRect(x: self.view.frame.width - 30, y: 65, width: 0, height: 0))
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: popOverHeight))
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.scrollEnabled = false
+        tableView.separatorColor = UIColor.clearColor()
+        self.popover = Popover(options: self.popoverOptions, showHandler: nil, dismissHandler: nil)
+        self.popover.show(tableView, fromView: viewX)
+        
+    }
+    
+}
+extension ItemDescViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.popover.dismiss()
+        
+        if optionsArray[indexPath.row] == .Recommend{
+            if let escapeId = self.id{
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.Friends.rawValue, "escape_id" : escapeId])
+            }
+            
+        }
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return optionsArray.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .Default, reuseIdentifier: nil)
+        cell.textLabel?.text =  optionsArray[indexPath.row].rawValue
+        
+        if(indexPath.row != self.optionsArray.count-1){
+            let line = UIView(frame: CGRect(x: 0, y: 44, width: tableView.frame.width, height: 1))
+            line.backgroundColor = UIColor.groupTableViewBackgroundColor()
+            cell.addSubview(line)
+        
+        }
+        return cell
     }
 }
 

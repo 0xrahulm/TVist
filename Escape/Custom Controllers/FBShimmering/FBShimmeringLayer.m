@@ -47,10 +47,9 @@ static NSString *const kFBShimmerSlideAnimationKey = @"slide";
 static NSString *const kFBFadeAnimationKey = @"fade";
 static NSString *const kFBEndFadeAnimationKey = @"fade-end";
 
-static CABasicAnimation *fade_animation(id delegate, CALayer *layer, CGFloat opacity, CFTimeInterval duration)
+static CABasicAnimation *fade_animation(CALayer *layer, CGFloat opacity, CFTimeInterval duration)
 {
   CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-  animation.delegate = delegate;
   animation.fromValue = @([(layer.presentationLayer ?: layer) opacity]);
   animation.toValue = @(opacity);
   animation.fillMode = kCAFillModeBoth;
@@ -60,22 +59,9 @@ static CABasicAnimation *fade_animation(id delegate, CALayer *layer, CGFloat opa
   return animation;
 }
 
-static CABasicAnimation *shimmer_begin_fade_animation(id delegate, CALayer *layer, CGFloat opacity, CGFloat duration)
-{
-  return fade_animation(delegate, layer, opacity, duration);
-}
-
-static CABasicAnimation *shimmer_end_fade_animation(id delegate, CALayer *layer, CGFloat opacity, CGFloat duration)
-{
-  CABasicAnimation *animation = fade_animation(delegate, layer, opacity, duration);
-  [animation setValue:@YES forKey:kFBEndFadeAnimationKey];
-  return animation;
-}
-
-static CABasicAnimation *shimmer_slide_animation(id delegate, CFTimeInterval duration, FBShimmerDirection direction)
+static CABasicAnimation *shimmer_slide_animation(CFTimeInterval duration, FBShimmerDirection direction)
 {
   CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-  animation.delegate = delegate;
   animation.toValue = [NSValue valueWithCGPoint:CGPointZero];
   animation.duration = duration;
   animation.repeatCount = HUGE_VALF;
@@ -133,6 +119,11 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
 @end
 
 @interface FBShimmeringLayer ()
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+// iOS 10 SDK has CALayerDelegate and CAAnimationDelegate as proper protocols.
+<CALayerDelegate, CAAnimationDelegate>
+#endif
+
 @property (strong, nonatomic) FBShimmeringMaskLayer *maskLayer;
 @end
 
@@ -154,6 +145,7 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
 @synthesize shimmeringFadeTime = _shimmeringFadeTime;
 @synthesize shimmeringBeginFadeDuration = _shimmeringBeginFadeDuration;
 @synthesize shimmeringEndFadeDuration = _shimmeringEndFadeDuration;
+@synthesize shimmeringBeginTime = _shimmeringBeginTime;
 @dynamic shimmeringHighlightWidth;
 
 - (instancetype)init
@@ -169,6 +161,7 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
     _shimmeringDirection = FBShimmerDirectionRight;
     _shimmeringBeginFadeDuration = 0.1;
     _shimmeringEndFadeDuration = 0.3;
+    _shimmeringBeginTime = FBShimmerDefaultBeginTime;
   }
   return self;
 }
@@ -230,10 +223,10 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
 
 - (void)setShimmeringAnimationOpacity:(CGFloat)shimmeringAnimationOpacity
 {
-    if (shimmeringAnimationOpacity != _shimmeringAnimationOpacity) {
-        _shimmeringAnimationOpacity = shimmeringAnimationOpacity;
-        [self _updateMaskColors];
-    }
+  if (shimmeringAnimationOpacity != _shimmeringAnimationOpacity) {
+    _shimmeringAnimationOpacity = shimmeringAnimationOpacity;
+    [self _updateMaskColors];
+  }
 }
 
 - (void)setShimmeringOpacity:(CGFloat)shimmeringOpacity
@@ -241,6 +234,14 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
   if (shimmeringOpacity != _shimmeringOpacity) {
     _shimmeringOpacity = shimmeringOpacity;
     [self _updateMaskColors];
+  }
+}
+
+- (void)setShimmeringBeginTime:(CFTimeInterval)beginTime
+{
+  if (beginTime != _shimmeringBeginTime) {
+    _shimmeringBeginTime = beginTime;
+    [self _updateShimmering];
   }
 }
 
@@ -259,9 +260,10 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
 
 - (void)setBounds:(CGRect)bounds
 {
-  if (!CGRectEqualToRect(self.bounds, bounds)) {
-    [super setBounds:bounds];
-
+  CGRect oldBounds = self.bounds;
+  [super setBounds:bounds];
+ 
+  if (!CGRectEqualToRect(oldBounds, bounds)) {
     [self _updateShimmering];
   }
 }
@@ -314,7 +316,7 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
   // Everything outside the mask layer is hidden, so we need to create a mask long enough for the shimmered layer to be always covered by the mask.
   CGFloat length = 0.0f;
   if (_shimmeringDirection == FBShimmerDirectionDown ||
-    _shimmeringDirection == FBShimmerDirectionUp) {
+      _shimmeringDirection == FBShimmerDirectionUp) {
     length = CGRectGetHeight(_contentLayer.bounds);
   } else {
     length = CGRectGetWidth(_contentLayer.bounds);
@@ -365,7 +367,7 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
     return;
   }
 
-  // ensure layed out
+  // ensure layout
   [self layoutIfNeeded];
 
   BOOL disableActions = [CATransaction disableActions];
@@ -379,7 +381,8 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
 
       CAAnimation *slideAnimation = [_maskLayer animationForKey:kFBShimmerSlideAnimationKey];
       if (slideAnimation != nil) {
-        // determing total time sliding
+
+        // determine total time sliding
         CFTimeInterval now = CACurrentMediaTime();
         CFTimeInterval slideTotalDuration = now - slideAnimation.beginTime;
 
@@ -398,7 +401,9 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
       }
 
       // fade in text at slideEndTime
-      CABasicAnimation *fadeInAnimation = shimmer_end_fade_animation(self, _maskLayer.fadeLayer, 1.0, _shimmeringEndFadeDuration);
+      CABasicAnimation *fadeInAnimation = fade_animation(_maskLayer.fadeLayer, 1.0, _shimmeringEndFadeDuration);
+      fadeInAnimation.delegate = self;
+      [fadeInAnimation setValue:@YES forKey:kFBEndFadeAnimationKey];
       fadeInAnimation.beginTime = slideEndTime;
       [_maskLayer.fadeLayer addAnimation:fadeInAnimation forKey:kFBFadeAnimationKey];
 
@@ -409,7 +414,7 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
     // fade out text, optionally animated
     CABasicAnimation *fadeOutAnimation = nil;
     if (_shimmeringBeginFadeDuration > 0.0 && !disableActions) {
-      fadeOutAnimation = shimmer_begin_fade_animation(self, _maskLayer.fadeLayer, 0.0, _shimmeringBeginFadeDuration);
+      fadeOutAnimation = fade_animation(_maskLayer.fadeLayer, 0.0, _shimmeringBeginFadeDuration);
       [_maskLayer.fadeLayer addAnimation:fadeOutAnimation forKey:kFBFadeAnimationKey];
     } else {
       BOOL innerDisableActions = [CATransaction disableActions];
@@ -439,10 +444,14 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
       [_maskLayer addAnimation:shimmer_slide_repeat(slideAnimation, animationDuration, _shimmeringDirection) forKey:kFBShimmerSlideAnimationKey];
     } else {
       // add slide animation
-      slideAnimation = shimmer_slide_animation(self, animationDuration, _shimmeringDirection);
+      slideAnimation = shimmer_slide_animation(animationDuration, _shimmeringDirection);
       slideAnimation.fillMode = kCAFillModeForwards;
       slideAnimation.removedOnCompletion = NO;
-      slideAnimation.beginTime = CACurrentMediaTime() + fadeOutAnimation.duration;
+      if (_shimmeringBeginTime == FBShimmerDefaultBeginTime) {
+        _shimmeringBeginTime = CACurrentMediaTime() + fadeOutAnimation.duration;
+      }
+      slideAnimation.beginTime = _shimmeringBeginTime;
+      
       [_maskLayer addAnimation:slideAnimation forKey:kFBShimmerSlideAnimationKey];
     }
   }
@@ -461,6 +470,8 @@ static CAAnimation *shimmer_slide_finish(CAAnimation *a)
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
   if (flag && [[anim valueForKey:kFBEndFadeAnimationKey] boolValue]) {
+    [_maskLayer.fadeLayer removeAnimationForKey:kFBFadeAnimationKey];
+
     [self _clearMask];
   }
 }

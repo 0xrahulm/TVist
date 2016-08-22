@@ -45,8 +45,23 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
                 }else{
                     self.creatorImage.hidden = true
                 }
+                var recommededUser = ""
+                
                 if let title = escapeItems.title{
-                    self.titleLabel.text = title
+                    if escapeItems.recommededUsers.count > 0{
+                       
+                        var i = 0
+                        for item in escapeItems.recommededUsers{
+                            if i != 0{
+                                recommededUser = item + ", " + recommededUser
+                            }else{
+                                recommededUser = item
+                            }
+                            i = i + 1
+                        }
+                        
+                    }
+                    self.titleLabel.text = "\(title) \(recommededUser)"
                     
                 }else{
                     self.titleLabel.text = ""
@@ -91,6 +106,28 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
 
 }
 extension AddToEscapeTableViewCell : UICollectionViewDelegate{
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if collectionDataArray.count > indexPath.row{
+             let data = collectionDataArray[indexPath.row]
+            
+                    var params : [String:AnyObject] = [:]
+                    if let id = data.id{
+                        params["id"] = id
+                    }
+                    if let escapeType = data.escapeType{
+                        params["escapeType"] = escapeType.rawValue
+                    }
+                    if let name = data.name{
+                        params["name"] = name
+                    }
+                    if let image = data.image{
+                        params["image"] = image
+                    }
+                    
+                    ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+
+        }
+    }
     
 }
 extension AddToEscapeTableViewCell : UICollectionViewDataSource{

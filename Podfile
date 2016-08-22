@@ -10,7 +10,6 @@ pod 'SwiftyJSON', '~> 2.3.2'
 pod 'Locksmith', '~> 2.0.8'
 pod 'ionicons'
 pod 'RealmSwift'
-pod 'Shimmer'
 
 end
 

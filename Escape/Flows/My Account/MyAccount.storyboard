@@ -780,11 +780,25 @@
                                     </mask>
                                 </variation>
                             </scrollView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2T-83-kyW">
+                                <rect key="frame" x="0.0" y="570" width="600" height="30"/>
+                                <color key="backgroundColor" red="0.94509803920000002" green="0.43529411759999997" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="EhE-bV-0nl"/>
+                                </constraints>
+                                <state key="normal" title="Add To Escape"/>
+                                <connections>
+                                    <action selector="addEscapeTapped:" destination="a11-ht-bSR" eventType="touchUpInside" id="yy2-JP-lTW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="D2T-83-kyW" firstAttribute="leading" secondItem="fZZ-Ur-GgF" secondAttribute="leading" id="De1-nU-9NQ"/>
                             <constraint firstItem="YjR-hc-W4q" firstAttribute="height" secondItem="fZZ-Ur-GgF" secondAttribute="height" id="OLb-4h-VGo"/>
                             <constraint firstItem="71u-CL-WuL" firstAttribute="top" secondItem="fZZ-Ur-GgF" secondAttribute="topMargin" id="SNn-cn-lIh"/>
+                            <constraint firstAttribute="trailing" secondItem="D2T-83-kyW" secondAttribute="trailing" id="Wqe-h2-SBQ"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="D2T-83-kyW" secondAttribute="bottom" id="jqk-II-w4d"/>
                             <constraint firstAttribute="bottomMargin" secondItem="71u-CL-WuL" secondAttribute="bottom" id="qM6-RE-3Xf"/>
                             <constraint firstAttribute="trailing" secondItem="71u-CL-WuL" secondAttribute="trailing" id="qYP-lK-pPe"/>
                             <constraint firstItem="71u-CL-WuL" firstAttribute="leading" secondItem="fZZ-Ur-GgF" secondAttribute="leading" id="xaP-tg-Qzc"/>
@@ -794,6 +808,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="DirectorLabel" destination="BVi-ym-69q" id="Tku-NV-kTQ"/>
+                        <outlet property="addEscapeButton" destination="D2T-83-kyW" id="5nm-Zq-YUN"/>
                         <outlet property="castLabel" destination="k1y-XK-vcv" id="ym3-QY-A7o"/>
                         <outlet property="descLabel" destination="IGb-fd-DwK" id="Z9K-Km-ALL"/>
                         <outlet property="generesLabel" destination="tf4-Ot-1oF" id="wO5-SC-l1z"/>

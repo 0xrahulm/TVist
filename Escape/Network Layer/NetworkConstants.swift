@@ -29,9 +29,11 @@ enum SubServiceType : String {
     case GetItemDesc    =  "escapes/detail"
     case GetFollowers   =  "get_user_followers"
     case GetFollowing   =  "get_user_following"
+    case GetFriends     =  "get_user_friends"
     case AddEscapes     =  "add_escape"
     case FollowUser     =  "follow_user"
     case UnfollowUser   =  "unfollow_user"
+    case PostRecommend  =  "users/recommendation"
     
     //Discover
     case GetDiscoverItems = "lets_discover"

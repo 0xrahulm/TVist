@@ -74,6 +74,15 @@ extension UIColor{
         return UIColor.colorWithHexString("#0000ff")
     }
     
+    class func placeholderColor() -> UIColor{
+        return UIColor.colorWithHexString("#f2f2f2")
+    }
+    
+    class func darkPlaceholderColor() -> UIColor{
+        return UIColor.colorWithHexString("#dcdcdc")
+    }
+    
+    
     
 }
 

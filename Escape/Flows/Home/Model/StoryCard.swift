@@ -23,9 +23,11 @@ class StoryCard: BaseStory {
     var timestamp:      NSNumber?
     var likesCount = 0
     var commentsCount = 0
+    var recommededUsers:[String] = []
     
     
     init(dict : [String:AnyObject]) {
+        
         super.init()
         
         parseStoryCard(dict)
@@ -61,6 +63,10 @@ class StoryCard: BaseStory {
                 }
                 if let comment = dict["comments_count"] as? NSNumber{
                     self.commentsCount = Int(comment)
+                }
+                
+                if let recommededUsers = dict["recommended_users"] as? [String]{
+                    self.recommededUsers   = recommededUsers
                 }
                 
             }
