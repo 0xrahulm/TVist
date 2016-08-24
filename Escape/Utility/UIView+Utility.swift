@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension UIView {
+public extension UIView {
     
     func hideWithAnimationAndRemoveView(removeFromSuperView: Bool, duration: Double) {
         UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: { [unowned self] () -> Void in
@@ -71,4 +71,6 @@ extension UIView {
                 self.transform = CGAffineTransformIdentity
         })
     }
+   
+    
 }

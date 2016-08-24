@@ -19,6 +19,9 @@ enum ScreenManagerAction : String{
     case OpenFollowers = "OpenFollowers"
     case OpenAddToEscapePopUp = "OpenAddToEscapePopUp"
     case OpenUserAccount = "OpenUserAccount"
+    case NoNetworkPresent = "NoNetworkPresent"
+    case NetworkPresent = "NetworkPresent"
+    
 }
 enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"

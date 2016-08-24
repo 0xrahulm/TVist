@@ -15,6 +15,8 @@ class ScreenManagerViewController: UIViewController {
     var currentPushedViewController : UIViewController!
     var presentedViewControllers : [UIViewController] = []
     
+    var noNetworkVC = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -248,6 +250,14 @@ extension ScreenManagerViewController{
             openUserAccount(params)
             break
             
+        case .NoNetworkPresent:
+            presentNoNetworkPopUP()
+            break
+            
+        case .NetworkPresent:
+            noNetworkCloseTapped()
+            break
+            
         default:
             break
         }
@@ -293,6 +303,30 @@ extension ScreenManagerViewController{
         pushInitialViewControllerOf(.MyAccount, queryParams: params)
         
     }
+    func presentNoNetworkPopUP(){
+        
+        noNetworkVC = NoNetworkView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 30))
+        
+        getTopViewController().view.addSubview(noNetworkVC)
+        
+        UIView.transitionWithView(noNetworkVC, duration:0.5,options:.TransitionCrossDissolve,
+                                  animations:
+            { () -> Void in
+                self.noNetworkVC.frame.origin.y = 64
+            },
+            completion: nil);
+    }
     
-    
+    func noNetworkCloseTapped(){
+        
+        UIView.transitionWithView(noNetworkVC,duration:0.5,options:.TransitionCrossDissolve,
+                                  animations:
+            { () -> Void in
+                self.noNetworkVC.frame.origin.y = 0
+                
+            },
+                completion: { (finished) -> Void in
+                //self.noNetworkVC.hidden = true
+        });
+    }
 }

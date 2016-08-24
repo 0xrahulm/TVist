@@ -72,10 +72,13 @@ class NetworkAvailability: NSObject {
     }
     
     func openNetworkNotAvailablePopUp(){
+        ScreenVader.sharedVader.performScreenManagerAction(.NoNetworkPresent, queryParams: nil)
         
     }
     
     func callPendingServices(){
+        ScreenVader.sharedVader.performScreenManagerAction(.NetworkPresent, queryParams: nil)
+        
         for pendingService in activeServices {
             if pendingService.failedCount > 0 {
                 let wrapperObject = NetworkWrapper()

@@ -129,6 +129,12 @@
 		BC47EDC91CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDC71CA013EC008143C2 /* CustomNavigationViewController.swift */; };
 		BC4B562B1D687DA8008BF1F6 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4B562A1D687DA8008BF1F6 /* Popover.swift */; };
 		BC4B562C1D687DA8008BF1F6 /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4B562A1D687DA8008BF1F6 /* Popover.swift */; };
+		BC4B56371D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC4B56361D6DE0AE008BF1F6 /* NoNetworkView.xib */; };
+		BC4B56381D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC4B56361D6DE0AE008BF1F6 /* NoNetworkView.xib */; };
+		BC4B563A1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4B56391D6DE0C0008BF1F6 /* NoNetworkView.swift */; };
+		BC4B563B1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4B56391D6DE0C0008BF1F6 /* NoNetworkView.swift */; };
+		BC4B563D1D6DE388008BF1F6 /* UINibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4B563C1D6DE388008BF1F6 /* UINibView.swift */; };
+		BC4B563E1D6DE388008BF1F6 /* UINibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4B563C1D6DE388008BF1F6 /* UINibView.swift */; };
 		BC4F45611CDE029F00A65A63 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45601CDE029F00A65A63 /* Utilities.swift */; };
 		BC4F45621CDE029F00A65A63 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45601CDE029F00A65A63 /* Utilities.swift */; };
 		BC4F45641CDE1EF000A65A63 /* CustomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */; };
@@ -261,6 +267,9 @@
 		BC47EDC31CA00F99008143C2 /* CommonDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonDataProvider.swift; sourceTree = "<group>"; };
 		BC47EDC71CA013EC008143C2 /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
 		BC4B562A1D687DA8008BF1F6 /* Popover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
+		BC4B56361D6DE0AE008BF1F6 /* NoNetworkView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoNetworkView.xib; sourceTree = "<group>"; };
+		BC4B56391D6DE0C0008BF1F6 /* NoNetworkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNetworkView.swift; sourceTree = "<group>"; };
+		BC4B563C1D6DE388008BF1F6 /* UINibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINibView.swift; sourceTree = "<group>"; };
 		BC4F45601CDE029F00A65A63 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListViewController.swift; sourceTree = "<group>"; };
 		BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListTableViewCell.swift; sourceTree = "<group>"; };
@@ -466,6 +475,8 @@
 				BCCD70C71CA19468002A0C07 /* Service.swift */,
 				BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */,
 				BCFE486D1CA400C60098160D /* NetworkAvailability.swift */,
+				BC4B56361D6DE0AE008BF1F6 /* NoNetworkView.xib */,
+				BC4B56391D6DE0C0008BF1F6 /* NoNetworkView.swift */,
 			);
 			path = "Network Layer";
 			sourceTree = "<group>";
@@ -547,6 +558,7 @@
 				BC38DC681D30C01700290717 /* CustomPopupPresentationController.swift */,
 				BCACE88C1D58C91500FAF262 /* PlaceholderView.swift */,
 				BC4B562A1D687DA8008BF1F6 /* Popover.swift */,
+				BC4B563C1D6DE388008BF1F6 /* UINibView.swift */,
 				BCACE88F1D59B31600FAF262 /* FBShimmering */,
 				BC38DC741D30F18200290717 /* CustomPresentationAnimationViewController.swift */,
 			);
@@ -760,6 +772,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC4B56371D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
 				BC85DBFE1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				BC14BAB91CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BC18426A1D51F342003CC19A /* Home.storyboard in Resources */,
@@ -780,6 +793,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC4B56381D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
 				BC85DBFF1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				BC14BABA1CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BC18426B1D51F342003CC19A /* Home.storyboard in Resources */,
@@ -898,6 +912,7 @@
 			files = (
 				BCFC92B81CE2132700AE82BC /* UserDataRealm.swift in Sources */,
 				BC2A73141CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
+				BC4B563A1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */,
 				BCB7B4971CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BC4F45641CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC47ED841C9FEEC7008143C2 /* ViewController.swift in Sources */,
@@ -931,6 +946,7 @@
 				BC85DBFB1CA69F0E002237A4 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				BCACE8781D55212600FAF262 /* EscapeCollectionViewCell.swift in Sources */,
 				BCCD70CB1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
+				BC4B563D1D6DE388008BF1F6 /* UINibView.swift in Sources */,
 				BC02D0C31CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */,
 				BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
 				BC14BAD31CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */,
@@ -979,6 +995,7 @@
 			files = (
 				BCFC92B91CE2132700AE82BC /* UserDataRealm.swift in Sources */,
 				BC2A73151CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
+				BC4B563B1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */,
 				BCB7B4981CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BC4F45651CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC47ED981C9FF233008143C2 /* ViewController.swift in Sources */,
@@ -1012,6 +1029,7 @@
 				BC85DBFC1CA69F0E002237A4 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				BCACE8791D55212600FAF262 /* EscapeCollectionViewCell.swift in Sources */,
 				BCCD70CC1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
+				BC4B563E1D6DE388008BF1F6 /* UINibView.swift in Sources */,
 				BC02D0C41CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */,
 				BC2485541CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
 				BC14BAD41CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */,
