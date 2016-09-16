@@ -37,12 +37,11 @@ class CustomPresentationAnimationViewController: NSObject, UIViewControllerAnima
         
         guard
             let presentedController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey),
-            let presentedControllerView = transitionContext.viewForKey(UITransitionContextToViewKey),
-            let containerView = transitionContext.containerView()
+            let presentedControllerView = transitionContext.viewForKey(UITransitionContextToViewKey)
             else {
                 return
         }
-        
+        let containerView = transitionContext.containerView()
         // Position the presented view off the top of the container view
         presentedControllerView.frame = transitionContext.finalFrameForViewController(presentedController)
         presentedControllerView.center.y -= containerView.bounds.size.height
@@ -60,12 +59,11 @@ class CustomPresentationAnimationViewController: NSObject, UIViewControllerAnima
     func animateDismissalWithTransitionContext(transitionContext: UIViewControllerContextTransitioning) {
         
         guard
-            let presentedControllerView = transitionContext.viewForKey(UITransitionContextFromViewKey),
-            let containerView = transitionContext.containerView()
+            let presentedControllerView = transitionContext.viewForKey(UITransitionContextFromViewKey)
             else {
                 return
         }
-        
+        let containerView = transitionContext.containerView()
         // Animate the presented view off the bottom of the view
         UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
             presentedControllerView.center.y += containerView.bounds.size.height
