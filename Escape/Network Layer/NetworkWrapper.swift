@@ -17,7 +17,7 @@ protocol NetworkWrapperProtocol : class {
 class NetworkWrapper: NSObject {
     
     var headers : [String:String] = [:]
-    
+    var activeRequest : [Request] = []
     
     func serverCall(service : Service){
         
@@ -27,19 +27,39 @@ class NetworkWrapper: NSObject {
         if (isNetworkAvailable()){
             
                 setHeaders()
-                
-                Alamofire.request(service.method, service.finalURL, parameters: service.parameters ,headers: headers).responseJSON { response in
+            
+            let currentRequest = Alamofire.request(service.method, service.finalURL, parameters: service.parameters ,headers: headers)
+            
+            
+                //checkForRequests(currentRequest)
+            
+                //activeRequest.append(currentRequest)
+            
+                currentRequest.responseJSON { response in
                             
                         self.recievedServerResponse(service, response: response)
                     
                 }
-            
             
         }else{
             if service.responderDelegate != nil{
                 service.failedCount += 1
             }
             
+        }
+    }
+    func checkForRequests(currentRequest : Request){
+        if let url = currentRequest.task.originalRequest?.URLString{
+            if url.containsString(SubServiceType.GetSearchItems.rawValue){
+                for request in activeRequest{
+                    if let url  = request.task.originalRequest?.URLString{
+                        if url.containsString(SubServiceType.GetSearchItems.rawValue){
+                            request.cancel()
+                        }
+                    }
+                   
+                }
+            }
         }
     }
     

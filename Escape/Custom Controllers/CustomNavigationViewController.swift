@@ -35,6 +35,7 @@ class CustomNavigationViewController: UINavigationController {
         
         self.navigationBar.barTintColor = UIColor.themeColorBlue()
         self.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationBar.translucent = false
         self.navigationBar.titleTextAttributes = SFUIAttributedText.mediumAttributesForSize(17.0, color: UIColor.whiteColor())
     }
     

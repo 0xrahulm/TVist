@@ -258,6 +258,10 @@ extension ScreenManagerViewController{
             noNetworkCloseTapped()
             break
             
+        case .OpenSearchView:
+            openSearchView()
+            break
+            
         default:
             break
         }
@@ -305,14 +309,14 @@ extension ScreenManagerViewController{
     }
     func presentNoNetworkPopUP(){
         
-        noNetworkVC = NoNetworkView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 30))
+        noNetworkVC = NoNetworkView(frame: CGRect(x: 0, y: -64, width: UIScreen.mainScreen().bounds.width, height: 30))
         
         getTopViewController().view.addSubview(noNetworkVC)
         
         UIView.transitionWithView(noNetworkVC, duration:0.5,options:.TransitionCrossDissolve,
                                   animations:
             { () -> Void in
-                self.noNetworkVC.frame.origin.y = 64
+                self.noNetworkVC.frame.origin.y = 0
             },
             completion: nil);
     }
@@ -322,11 +326,15 @@ extension ScreenManagerViewController{
         UIView.transitionWithView(noNetworkVC,duration:0.5,options:.TransitionCrossDissolve,
                                   animations:
             { () -> Void in
-                self.noNetworkVC.frame.origin.y = 0
+                self.noNetworkVC.frame.origin.y = -64
                 
             },
                 completion: { (finished) -> Void in
                 //self.noNetworkVC.hidden = true
         });
+    }
+    func openSearchView(){
+        presentViewControllerOf(.Search, viewControllerIdentifier: "searchVC", queryParams: nil)
+        
     }
 }

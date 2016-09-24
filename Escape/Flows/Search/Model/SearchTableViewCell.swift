@@ -1,0 +1,118 @@
+//
+//  SearchTableViewCell.swift
+//  Escape
+//
+//  Created by Ankit on 17/09/16.
+//  Copyright © 2016 EscapeApp. All rights reserved.
+//
+
+import UIKit
+
+class SearchTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var loadingView: UIActivityIndicatorView!
+    @IBOutlet weak var loadingViewLabel: UILabel!
+    
+    
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userFollowButton: UIButton!
+    
+    
+    @IBOutlet weak var itemImage: UIImageView!
+    @IBOutlet weak var itemNameLabel: UILabel!
+    @IBOutlet weak var itemCreatorLabel: UILabel!
+    @IBOutlet weak var addToEscapeButton: UIButton!
+    @IBOutlet weak var distinguishView: UIView!
+    
+    
+    var userId = ""
+    var isFollow = false
+    var indexPath : NSIndexPath!
+    weak var followButtonDiscoverDelegate : FollowerButtonProtocol?
+    
+    var data : SearchItems? {
+        didSet{
+            if let data = data{
+                itemNameLabel.text = data.name
+                itemImage.downloadImageWithUrl(data.image , placeHolder: UIImage(named: "movie_placeholder"))
+                if let director = data.director{
+                    itemCreatorLabel.text = director
+                    itemCreatorLabel.hidden = false
+                }else{
+                    itemCreatorLabel.hidden = true
+                }
+                if data.isAddedOrFollow{
+                    addToEscapeButton.hidden = true
+                }else{
+                    addToEscapeButton.hidden = false
+                }
+                if data.searchType == .Movie{
+                    distinguishView.backgroundColor = UIColor.colorForMovie()
+                }else if data.searchType == .Books{
+                    distinguishView.backgroundColor = UIColor.colorForBook()
+                }else if data.searchType == .TvShows{
+                    distinguishView.backgroundColor = UIColor.colorForTvShow()
+                }else if data.searchType == .User{
+                    distinguishView.backgroundColor = UIColor.colorForPeople()
+                }
+            }
+        }
+    }
+    
+    var peopleData : SearchItems?{
+        didSet{
+            if let peopleData = peopleData{
+                userNameLabel.text = peopleData.name
+                userImage.downloadImageWithUrl(peopleData.image, placeHolder: UIImage(named: "profile_placeholder"))
+                
+                if let id = peopleData.id{
+                    self.userId = id // remove optional from here
+                }
+                if peopleData.isAddedOrFollow{
+                    userFollowButton.followViewWithAnimate(false)
+                }else{
+                    userFollowButton.unfollowViewWithAnimate(false)
+                }
+            }
+        }
+    }
+    
+    @IBAction func addToEscapeButtonClicked(sender: AnyObject) {
+        
+        if let id = data?.id,
+           let type = data?.searchType?.rawValue{
+            
+            let obj = AddToEscapeViewController()
+            obj.addToEscapeDoneDelegate = self
+            
+            if let delegate = obj.addToEscapeDoneDelegate{
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: ["id" : id, "type" : type , "delegate" : delegate])
+            }
+        }
+    }
+    
+    @IBAction func userFollowButtonClicked(sender: AnyObject) {
+        
+        if isFollow {
+            userFollowButton.unfollowViewWithAnimate(true)
+            isFollow = false
+            UserDataProvider.sharedDataProvider.unfollowUser(self.userId)
+        }else{
+            userFollowButton.followViewWithAnimate(true)
+            isFollow = true
+            UserDataProvider.sharedDataProvider.followUser(self.userId)
+        }
+        
+        if self.followButtonDiscoverDelegate != nil{
+            self.followButtonDiscoverDelegate?.changeLocalDataArray(self.indexPath, isFollow: isFollow)
+        }
+        
+    }
+    
+}
+extension SearchTableViewCell : AddToEscapeDoneProtocol{
+    func doneButtonTapped() {
+        
+    }
+}

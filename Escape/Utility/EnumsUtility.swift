@@ -21,12 +21,14 @@ enum ScreenManagerAction : String{
     case OpenUserAccount = "OpenUserAccount"
     case NoNetworkPresent = "NoNetworkPresent"
     case NetworkPresent = "NetworkPresent"
+    case OpenSearchView = "openSearchView"
     
 }
 enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"
     case MainTab = "MainTab"
     case MyAccount = "MyAccount"
+    case Search = "Search"
 }
 enum LoginTypeEnum : String {
     case Facebook = "fb"
@@ -48,6 +50,14 @@ enum DiscoverType : String{
     case Movie = "movie"
     case TvShows = "tv_show"
     case Books = "book"
+}
+enum SearchType : String{
+    case All = "all"
+    case User = "user"
+    case Movie = "movie"
+    case TvShows = "tv_show"
+    case Books = "book"
+    case Blank = "blank"
 }
 enum Tap : Int{
     case Activity = 1
@@ -71,6 +81,8 @@ enum EscapeAddActions : String{
 enum NotificationObservers : String{
     case MyAccountObserver = "MyAccountObserver"
     case DiscoverObserver = "DiscoverObserver"
+    case SearchObserver = "SearchObserver"
+    case SearchQueryObserver = "SearchQueryObserver"
 }
 enum StoryType : NSNumber {
     case EmptyStory = -1

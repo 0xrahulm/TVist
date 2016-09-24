@@ -149,6 +149,16 @@
 		BC4F45751CDF432A00A65A63 /* EscapeDataItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */; };
 		BC4F45771CDF6EC300A65A63 /* EnumsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */; };
 		BC4F45781CDF6EC300A65A63 /* EnumsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */; };
+		BC5188291D8C688600A85E61 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC5188281D8C688600A85E61 /* Search.storyboard */; };
+		BC51882A1D8C688600A85E61 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC5188281D8C688600A85E61 /* Search.storyboard */; };
+		BC51882C1D8C6ADB00A85E61 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC51882B1D8C6ADB00A85E61 /* SearchViewController.swift */; };
+		BC51882D1D8C6ADB00A85E61 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC51882B1D8C6ADB00A85E61 /* SearchViewController.swift */; };
+		BC51882F1D8D0D6A00A85E61 /* SearchAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC51882E1D8D0D6A00A85E61 /* SearchAllViewController.swift */; };
+		BC5188301D8D0D6A00A85E61 /* SearchAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC51882E1D8D0D6A00A85E61 /* SearchAllViewController.swift */; };
+		BC5188331D8D229900A85E61 /* SearchItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5188321D8D229900A85E61 /* SearchItems.swift */; };
+		BC5188341D8D229900A85E61 /* SearchItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5188321D8D229900A85E61 /* SearchItems.swift */; };
+		BC5188361D8D26DA00A85E61 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5188351D8D26DA00A85E61 /* SearchTableViewCell.swift */; };
+		BC5188371D8D26DA00A85E61 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5188351D8D26DA00A85E61 /* SearchTableViewCell.swift */; };
 		BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */; };
 		BC85DBF81CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */; };
 		BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF41CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m */; };
@@ -277,6 +287,11 @@
 		BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountEscapeItems.swift; sourceTree = "<group>"; };
 		BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EscapeDataItems.swift; sourceTree = "<group>"; };
 		BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumsUtility.swift; sourceTree = "<group>"; };
+		BC5188281D8C688600A85E61 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		BC51882B1D8C6ADB00A85E61 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		BC51882E1D8D0D6A00A85E61 /* SearchAllViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAllViewController.swift; sourceTree = "<group>"; };
+		BC5188321D8D229900A85E61 /* SearchItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchItems.swift; sourceTree = "<group>"; };
+		BC5188351D8D26DA00A85E61 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		BC85DBF11CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		BC85DBF31CA69F0E002237A4 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
@@ -579,9 +594,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BC5188311D8D227100A85E61 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC5188321D8D229900A85E61 /* SearchItems.swift */,
+				BC5188351D8D26DA00A85E61 /* SearchTableViewCell.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		BCACE87D1D563A8300FAF262 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				BC5188311D8D227100A85E61 /* Model */,
+				BC5188281D8C688600A85E61 /* Search.storyboard */,
+				BC51882B1D8C6ADB00A85E61 /* SearchViewController.swift */,
+				BC51882E1D8D0D6A00A85E61 /* SearchAllViewController.swift */,
 			);
 			name = Search;
 			path = ../Search;
@@ -745,7 +773,7 @@
 				TargetAttributes = {
 					BC47ED7D1C9FEEC7008143C2 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = GZM8S25H55;
+						DevelopmentTeam = E87TYV2U4N;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -778,6 +806,7 @@
 				BC85DBFE1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				BC14BAB91CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BC18426A1D51F342003CC19A /* Home.storyboard in Resources */,
+				BC5188291D8C688600A85E61 /* Search.storyboard in Resources */,
 				BCFE486B1CA3C1C00098160D /* Images.xcassets in Resources */,
 				BCB7B4B01CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BCB7B4B41CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
@@ -799,6 +828,7 @@
 				BC85DBFF1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				BC14BABA1CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BC18426B1D51F342003CC19A /* Home.storyboard in Resources */,
+				BC51882A1D8C688600A85E61 /* Search.storyboard in Resources */,
 				BCFE486C1CA3C1C00098160D /* Images.xcassets in Resources */,
 				BCB7B4B11CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BCB7B4B51CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
@@ -913,9 +943,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCFC92B81CE2132700AE82BC /* UserDataRealm.swift in Sources */,
+				BC51882C1D8C6ADB00A85E61 /* SearchViewController.swift in Sources */,
 				BC2A73141CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
 				BC4B563A1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */,
 				BCB7B4971CA0F077002147FA /* NetworkConstants.swift in Sources */,
+				BC5188331D8D229900A85E61 /* SearchItems.swift in Sources */,
 				BC4F45641CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC47ED841C9FEEC7008143C2 /* ViewController.swift in Sources */,
 				BC0BBBE41CF1D08F00B03A93 /* UIView+Utility.swift in Sources */,
@@ -925,6 +957,7 @@
 				BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				BC3A818B1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
 				BC0BBBDE1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */,
+				BC51882F1D8D0D6A00A85E61 /* SearchAllViewController.swift in Sources */,
 				BC2A72DC1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */,
 				BC3A81A91CA5753000FF8678 /* MainTabBarViewController.swift in Sources */,
 				BC1842671D4BCE84003CC19A /* UIButton+Utility.swift in Sources */,
@@ -938,6 +971,7 @@
 				BCCD70C81CA19468002A0C07 /* Service.swift in Sources */,
 				BC18426D1D51F420003CC19A /* HomeViewController.swift in Sources */,
 				BC1842841D535243003CC19A /* FBFriendsTableViewCell.swift in Sources */,
+				BC5188361D8D26DA00A85E61 /* SearchTableViewCell.swift in Sources */,
 				BC47ED8A1C9FEEC8008143C2 /* Escape.xcdatamodeld in Sources */,
 				BC38DC701D30C1F900290717 /* AddToEscapeViewController.swift in Sources */,
 				BC0BBBE11CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
@@ -996,9 +1030,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCFC92B91CE2132700AE82BC /* UserDataRealm.swift in Sources */,
+				BC51882D1D8C6ADB00A85E61 /* SearchViewController.swift in Sources */,
 				BC2A73151CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
 				BC4B563B1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */,
 				BCB7B4981CA0F077002147FA /* NetworkConstants.swift in Sources */,
+				BC5188341D8D229900A85E61 /* SearchItems.swift in Sources */,
 				BC4F45651CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC47ED981C9FF233008143C2 /* ViewController.swift in Sources */,
 				BC0BBBE51CF1D08F00B03A93 /* UIView+Utility.swift in Sources */,
@@ -1008,6 +1044,7 @@
 				BC85DBF81CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				BC3A818C1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
 				BC0BBBDF1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */,
+				BC5188301D8D0D6A00A85E61 /* SearchAllViewController.swift in Sources */,
 				BC2A72DD1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */,
 				BC3A81AA1CA5753000FF8678 /* MainTabBarViewController.swift in Sources */,
 				BC1842681D4BCE84003CC19A /* UIButton+Utility.swift in Sources */,
@@ -1021,6 +1058,7 @@
 				BCCD70C91CA19468002A0C07 /* Service.swift in Sources */,
 				BC18426E1D51F420003CC19A /* HomeViewController.swift in Sources */,
 				BC1842851D535243003CC19A /* FBFriendsTableViewCell.swift in Sources */,
+				BC5188371D8D26DA00A85E61 /* SearchTableViewCell.swift in Sources */,
 				BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */,
 				BC38DC711D30C1F900290717 /* AddToEscapeViewController.swift in Sources */,
 				BC0BBBE21CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
@@ -1177,7 +1215,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = GZM8S25H55;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = E87TYV2U4N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1185,7 +1224,7 @@
 				INFOPLIST_FILE = Escape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape2";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1199,7 +1238,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = GZM8S25H55;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = E87TYV2U4N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1207,7 +1247,7 @@
 				INFOPLIST_FILE = Escape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape2";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;

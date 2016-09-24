@@ -12,6 +12,7 @@ class ECUserDefaults: NSObject {
     
     static let kLoggedIn = "loggedInKey"
     static let kCurrentUserId = "currentUserIdKey"
+    static let kSearchText = "kSearchTextKey"
     
     class func isLoggedIn()-> Bool{
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -32,6 +33,18 @@ class ECUserDefaults: NSObject {
     class func setCurrentUserId(id : String){
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setValue(id, forKey: kCurrentUserId)
+    }
+    
+    class func getSearchedText() -> String?{
+        let defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.valueForKey(kSearchText) as? String
+    }
+    class func setSearchedText(id : String){
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(id, forKey: kSearchText)
+    }
+    class func removeSearchedText(){
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(kSearchText)
     }
     
     //Remove keys

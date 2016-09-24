@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ionicons
 
 class DiscoverViewController: UIViewController {
     
@@ -19,10 +20,14 @@ class DiscoverViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         self.title = "Discover"
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        
+        let searchImage = IonIcons.imageWithIcon(ion_android_search, size: 30, color: UIColor.whiteColor())
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: searchImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
+        
         
         configureVCs()
 
@@ -31,7 +36,7 @@ class DiscoverViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        //configureVCs()
+        
     }
     
     func configureVCs(){
@@ -60,8 +65,7 @@ class DiscoverViewController: UIViewController {
             
             ]
         
-        // Initialize scroll menu
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 64, self.view.frame.width, self.view.frame.height-64), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
         
         self.addChildViewController(pageMenu!)
         self.view.addSubview(pageMenu!.view)
@@ -92,12 +96,7 @@ class DiscoverViewController: UIViewController {
     }
     
     func didTapGoToRight() {
-//        let currentIndex = pageMenu!.currentPageIndex
-//        
-//        if currentIndex < pageMenu!.controllerArray.count {
-//            pageMenu!.moveToPage(currentIndex + 1)
-//        }
-        
+        ScreenVader.sharedVader.performScreenManagerAction(.OpenSearchView, queryParams: nil)
        
     }
     

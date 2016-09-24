@@ -81,7 +81,9 @@ extension UIColor{
     class func darkPlaceholderColor() -> UIColor{
         return UIColor.colorWithHexString("#dcdcdc")
     }
-    
+    class func searchPlaceHolderColor() -> UIColor{
+        return UIColor.colorWithHexString("#EEEEEE")
+    }
     
     
 }
