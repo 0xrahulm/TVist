@@ -45,6 +45,28 @@ extension UIButton{
         })
     }
     
+    func selectedFalseForCollection(){
+        self.selected = false
+        self.backgroundColor = UIColor.clearColor()
+        self.layer.cornerRadius = 5
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.grayColor().CGColor
+        self.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        
+        
+    }
+    
+    func selectedTrueForCollection(){
+        self.selected = true
+        self.backgroundColor = UIColor.clearColor()
+        self.layer.cornerRadius = 5
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.themeColorBlue().CGColor
+        self.setTitleColor(UIColor.themeColorBlue(), forState: .Normal)
+        
+    }
+    
 }
+
 
 

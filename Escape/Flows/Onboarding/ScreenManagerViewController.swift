@@ -262,6 +262,10 @@ extension ScreenManagerViewController{
             openSearchView()
             break
             
+        case .OpenAddToEscapeView:
+            openAddToEscapeView(params)
+            break
+            
         default:
             break
         }
@@ -336,5 +340,8 @@ extension ScreenManagerViewController{
     func openSearchView(){
         presentViewControllerOf(.Search, viewControllerIdentifier: "searchVC", queryParams: nil)
         
+    }
+    func openAddToEscapeView(params : [String:AnyObject]?){
+        presentViewControllerOf(.AddToEscape, viewControllerIdentifier: "addToEscapeVC", queryParams: params)
     }
 }

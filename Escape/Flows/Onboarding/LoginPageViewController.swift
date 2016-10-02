@@ -152,8 +152,6 @@ class LoginPageViewController: UIViewController {
     
     func emailLoginButtonTapped(){
         
-        
-        
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("EmailLoginVC") as! EmailLoginViewController
         self.navigationController?.pushViewController(vc, animated: true)
         

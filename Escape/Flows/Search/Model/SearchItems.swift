@@ -60,8 +60,5 @@ class SearchItems: NSObject {
         
         self.searchData = searchDataArray
     }
-    
-    
-    
-    
+
 }

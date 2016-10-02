@@ -26,7 +26,11 @@ class DiscoverViewController: UIViewController {
         
         let searchImage = IonIcons.imageWithIcon(ion_android_search, size: 30, color: UIColor.whiteColor())
         
+        let addImage = IonIcons.imageWithIcon(ion_android_add, size: 30, color: UIColor.whiteColor())
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: searchImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: addImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DiscoverViewController.didTapGoToLeft))
         
         
         configureVCs()
@@ -88,11 +92,12 @@ class DiscoverViewController: UIViewController {
     }
     
     func didTapGoToLeft() {
-        let currentIndex = pageMenu!.currentPageIndex
-        
-        if currentIndex > 0 {
-            pageMenu!.moveToPage(currentIndex - 1)
-        }
+        ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapeView, queryParams: nil)
+//        let currentIndex = pageMenu!.currentPageIndex
+//        
+//        if currentIndex > 0 {
+//            pageMenu!.moveToPage(currentIndex - 1)
+//        }
     }
     
     func didTapGoToRight() {

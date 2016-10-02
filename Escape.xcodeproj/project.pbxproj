@@ -199,6 +199,12 @@
 		BCCD70C91CA19468002A0C07 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70C71CA19468002A0C07 /* Service.swift */; };
 		BCCD70CB1CA19555002A0C07 /* NetworkWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */; };
 		BCCD70CC1CA19555002A0C07 /* NetworkWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */; };
+		BCD378241D97F4000000BC77 /* AddToEscape.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCD378231D97F4000000BC77 /* AddToEscape.storyboard */; };
+		BCD378251D97F4000000BC77 /* AddToEscape.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCD378231D97F4000000BC77 /* AddToEscape.storyboard */; };
+		BCD3782A1D98025D0000BC77 /* AddToEscapeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD378291D98025D0000BC77 /* AddToEscapeScreenViewController.swift */; };
+		BCD3782B1D98025D0000BC77 /* AddToEscapeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD378291D98025D0000BC77 /* AddToEscapeScreenViewController.swift */; };
+		BCD3782E1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD3782D1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift */; };
+		BCD3782F1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD3782D1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift */; };
 		BCFC92B81CE2132700AE82BC /* UserDataRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */; };
 		BCFC92B91CE2132700AE82BC /* UserDataRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */; };
 		BCFE486B1CA3C1C00098160D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCFE486A1CA3C1C00098160D /* Images.xcassets */; };
@@ -321,6 +327,9 @@
 		BCCD70C71CA19468002A0C07 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkWrapper.swift; sourceTree = "<group>"; };
 		BCCD71101CA26CF4002A0C07 /* Escape-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Escape-Bridging-Header.h"; sourceTree = "<group>"; };
+		BCD378231D97F4000000BC77 /* AddToEscape.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddToEscape.storyboard; sourceTree = "<group>"; };
+		BCD378291D98025D0000BC77 /* AddToEscapeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToEscapeScreenViewController.swift; sourceTree = "<group>"; };
+		BCD3782D1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagPeopleCollectionViewCell.swift; sourceTree = "<group>"; };
 		BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataRealm.swift; sourceTree = "<group>"; };
 		BCFE486A1CA3C1C00098160D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BCFE486D1CA400C60098160D /* NetworkAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAvailability.swift; sourceTree = "<group>"; };
@@ -512,6 +521,7 @@
 		BC47EDAA1C9FFE36008143C2 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				BCD378221D97F2C80000BC77 /* AddToEscape */,
 				BCACE87D1D563A8300FAF262 /* Search */,
 				BC2A73011CCBF7C0007E5DFB /* Onboarding */,
 				BC3A819F1CA5622E00FF8678 /* Main Tab */,
@@ -709,6 +719,25 @@
 			path = "Bridging-Headers";
 			sourceTree = "<group>";
 		};
+		BCD378221D97F2C80000BC77 /* AddToEscape */ = {
+			isa = PBXGroup;
+			children = (
+				BCD3782C1D9807630000BC77 /* Model */,
+				BCD378231D97F4000000BC77 /* AddToEscape.storyboard */,
+				BCD378291D98025D0000BC77 /* AddToEscapeScreenViewController.swift */,
+			);
+			name = AddToEscape;
+			path = ../AddToEscape;
+			sourceTree = "<group>";
+		};
+		BCD3782C1D9807630000BC77 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BCD3782D1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		BCFC92BA1CE2134300AE82BC /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,6 +841,7 @@
 				BCB7B4B41CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B21CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
 				BC47ED8F1C9FEEC8008143C2 /* LaunchScreen.storyboard in Resources */,
+				BCD378241D97F4000000BC77 /* AddToEscape.storyboard in Resources */,
 				BC38DC721D30C1F900290717 /* AddToEscapeViewController.xib in Resources */,
 				BC2A73181CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730E1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
@@ -834,6 +864,7 @@
 				BCB7B4B51CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B31CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
 				BC47ED9D1C9FF233008143C2 /* LaunchScreen.storyboard in Resources */,
+				BCD378251D97F4000000BC77 /* AddToEscape.storyboard in Resources */,
 				BC38DC731D30C1F900290717 /* AddToEscapeViewController.xib in Resources */,
 				BC2A73191CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730F1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
@@ -1008,7 +1039,9 @@
 				BC4F45681CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
 				BC47EDC41CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */,
+				BCD3782A1D98025D0000BC77 /* AddToEscapeScreenViewController.swift in Sources */,
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
+				BCD3782E1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift in Sources */,
 				BC14BAD61CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
 				BC14BABC1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */,
 				BCACE88D1D58C91500FAF262 /* PlaceholderView.swift in Sources */,
@@ -1095,7 +1128,9 @@
 				BC4F45691CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
 				BC47EDC51CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */,
+				BCD3782B1D98025D0000BC77 /* AddToEscapeScreenViewController.swift in Sources */,
 				BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
+				BCD3782F1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift in Sources */,
 				BC14BAD71CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
 				BC14BABD1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */,
 				BCACE88E1D58C91500FAF262 /* PlaceholderView.swift in Sources */,
