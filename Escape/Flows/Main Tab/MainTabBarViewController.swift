@@ -32,7 +32,7 @@ class MainTabBarViewController: UITabBarController {
         self.tabBar.layer.shadowOpacity = 0.50
         self.tabBar.layer.shadowPath = UIBezierPath(rect: self.tabBar.bounds).CGPath
         
-        self.tabBar.tintColor = UIColor.themeColorBlue()
+        self.tabBar.tintColor = UIColor.escapeBlueColor()
         let tabItems = self.tabBar.items! as [UITabBarItem]
         let tabItem1 = tabItems[0] as UITabBarItem
         let tabItem2 = tabItems[1] as UITabBarItem

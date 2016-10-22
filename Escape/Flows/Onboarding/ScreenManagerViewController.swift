@@ -26,6 +26,8 @@ class ScreenManagerViewController: UIViewController {
         
         presentedViewControllers.append(self)
         
+        setNeedsStatusBarAppearanceUpdate()
+        
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -33,23 +35,20 @@ class ScreenManagerViewController: UIViewController {
         initialViewBootUp()
     }
     
-    private func initialViewBootUp(){
-        
-        if (!ECUserDefaults.isLoggedIn()){ // if not login, open onBoardingflow
+    private func initialViewBootUp() {
+        if (ECUserDefaults.isLoggedIn() &&
+            LocalStorageVader.sharedVader.flagValueForKey(.InterestsSelected)) {
             
-            presentRootViewControllerOf(.Onboarding , queryParams: nil)
-            
-        }else{
-            
-            presentRootViewControllerOf(.MainTab , queryParams: nil)
-            
+            presentRootViewControllerOf(.MainTab, queryParams: nil)
+        } else {
+            presentRootViewControllerOf(.Onboarding, queryParams: nil)
         }
-        
     }
     
     private func presentRootViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier, queryParams : [String:AnyObject]?){
         
         currentPresentedViewController = initialViewControllerFor(storyBoardIdentifier)
+        
         if let currentPresentedViewController = currentPresentedViewController{
             
             if let queryParams = queryParams{
@@ -80,11 +79,8 @@ class ScreenManagerViewController: UIViewController {
                         if let params = queryParams{
                             vc.setObjectsWithQueryParameters(params)
                         }
-                        
                         customNavVC.pushViewController(vc, animated : true)
-                        
                     }
-                    
                     
                 }
             }else if let currentNavVc = currentPresentedViewController as? CustomNavigationViewController{
@@ -336,5 +332,9 @@ extension ScreenManagerViewController{
     func openSearchView(){
         presentViewControllerOf(.Search, viewControllerIdentifier: "searchVC", queryParams: nil)
         
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
 }

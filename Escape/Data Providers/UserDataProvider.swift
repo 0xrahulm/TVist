@@ -51,14 +51,12 @@ class UserDataProvider: CommonDataProvider {
         
     }
     
-    func fetchInterest(){
+    func fetchInterest() {
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .FetchInterests, params: nil, delegate: self)
     }
     
-    func postInterest(interests : [NSNumber]){
-        
+    func postInterest(interests : [String]) {
         var params : [String:AnyObject] = [:]
-        
         params["interests"] = interests
         
         ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .PostInterests, params: params, delegate: self)
@@ -208,6 +206,8 @@ extension UserDataProvider{
         if let token = JSON(dict)["auth_token"].string{
             DeviceID.saveXauth(token)
             
+            LocalStorageVader.sharedVader.setFlagForKey(.InterestsSelected)
+            
             if self.fbLoginDelegate != nil{
                 self.fbLoginDelegate?.signInSuccessfull(dict, type: .Facebook)
             }
@@ -235,7 +235,7 @@ extension UserDataProvider{
         
         if let data = data as? [[String:AnyObject]]{
             for item in data{
-                if let id = item["id"] as? NSNumber{
+                if let id = item["id"] as? String {
                     if let name = item["name"] as? String{
                         if let weightage = item["weightage"] as? NSNumber{
                             if let isSelected = item["is_default_selected"] as? Bool{

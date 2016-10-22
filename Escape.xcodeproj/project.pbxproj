@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		2D832E0E0446E1F614E194EF /* Pods_Escape_copy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C08B4600E257F0C862D199 /* Pods_Escape_copy.framework */; };
+		84A0FA871DBBF77F0072A36A /* CustomDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA861DBBF77F0072A36A /* CustomDoneButton.swift */; };
+		84A0FA881DBBF77F0072A36A /* CustomDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA861DBBF77F0072A36A /* CustomDoneButton.swift */; };
+		84A0FA8A1DBC02AF0072A36A /* LocalStorageVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA891DBC02AF0072A36A /* LocalStorageVader.swift */; };
+		84A0FA8B1DBC02AF0072A36A /* LocalStorageVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA891DBC02AF0072A36A /* LocalStorageVader.swift */; };
+		84EA4E971DBB9135002A4A2F /* RNLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA4E961DBB9135002A4A2F /* RNLoadingButton.swift */; };
+		84EA4E981DBB9135002A4A2F /* RNLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA4E961DBB9135002A4A2F /* RNLoadingButton.swift */; };
+		84EA4E9A1DBBDA6E002A4A2F /* HighlightableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA4E991DBBDA6E002A4A2F /* HighlightableTextView.swift */; };
+		84EA4E9B1DBBDA6E002A4A2F /* HighlightableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA4E991DBBDA6E002A4A2F /* HighlightableTextView.swift */; };
 		AED7BF8EC1D30A7602FD2614 /* Pods_Escape.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDAD66427A6544E6402FADF /* Pods_Escape.framework */; };
 		BC02D0C01CD0D556009D7EE6 /* BubblePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02D0BF1CD0D556009D7EE6 /* BubblePickerView.swift */; };
 		BC02D0C11CD0D556009D7EE6 /* BubblePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02D0BF1CD0D556009D7EE6 /* BubblePickerView.swift */; };
@@ -112,10 +120,8 @@
 		BC3A81A91CA5753000FF8678 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81A81CA5753000FF8678 /* MainTabBarViewController.swift */; };
 		BC3A81AA1CA5753000FF8678 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81A81CA5753000FF8678 /* MainTabBarViewController.swift */; };
 		BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED811C9FEEC7008143C2 /* AppDelegate.swift */; };
-		BC47ED841C9FEEC7008143C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED831C9FEEC7008143C2 /* ViewController.swift */; };
 		BC47ED8A1C9FEEC8008143C2 /* Escape.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED881C9FEEC8008143C2 /* Escape.xcdatamodeld */; };
 		BC47ED8F1C9FEEC8008143C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC47ED8D1C9FEEC8008143C2 /* LaunchScreen.storyboard */; };
-		BC47ED981C9FF233008143C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED831C9FEEC7008143C2 /* ViewController.swift */; };
 		BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED881C9FEEC8008143C2 /* Escape.xcdatamodeld */; };
 		BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED811C9FEEC7008143C2 /* AppDelegate.swift */; };
 		BC47ED9D1C9FF233008143C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC47ED8D1C9FEEC8008143C2 /* LaunchScreen.storyboard */; };
@@ -210,6 +216,10 @@
 /* Begin PBXFileReference section */
 		2C62520A88D62EF2777735A0 /* Pods-Escape copy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape copy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Escape copy/Pods-Escape copy.debug.xcconfig"; sourceTree = "<group>"; };
 		7DDAD66427A6544E6402FADF /* Pods_Escape.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escape.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84A0FA861DBBF77F0072A36A /* CustomDoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDoneButton.swift; sourceTree = "<group>"; };
+		84A0FA891DBC02AF0072A36A /* LocalStorageVader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageVader.swift; sourceTree = "<group>"; };
+		84EA4E961DBB9135002A4A2F /* RNLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNLoadingButton.swift; sourceTree = "<group>"; };
+		84EA4E991DBBDA6E002A4A2F /* HighlightableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightableTextView.swift; sourceTree = "<group>"; };
 		8726EB99D692F7FE33628154 /* Pods-Escape.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape.release.xcconfig"; path = "Pods/Target Support Files/Pods-Escape/Pods-Escape.release.xcconfig"; sourceTree = "<group>"; };
 		98C08B4600E257F0C862D199 /* Pods_Escape_copy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escape_copy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B802FA0C18A87E900BCFA947 /* Pods-Escape copy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape copy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Escape copy/Pods-Escape copy.release.xcconfig"; sourceTree = "<group>"; };
@@ -266,7 +276,6 @@
 		BC3A81A81CA5753000FF8678 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		BC47ED7E1C9FEEC7008143C2 /* Escape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Escape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC47ED811C9FEEC7008143C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BC47ED831C9FEEC7008143C2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BC47ED891C9FEEC8008143C2 /* Escape.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Escape.xcdatamodel; sourceTree = "<group>"; };
 		BC47ED8E1C9FEEC8008143C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC47ED901C9FEEC8008143C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -475,7 +484,6 @@
 				BC47EDA91C9FFDD9008143C2 /* Data Providers */,
 				BC47EDA81C9FFD74008143C2 /* Network Layer */,
 				BC47ED811C9FEEC7008143C2 /* AppDelegate.swift */,
-				BC47ED831C9FEEC7008143C2 /* ViewController.swift */,
 				BC47ED8D1C9FEEC8008143C2 /* LaunchScreen.storyboard */,
 				BC47ED901C9FEEC8008143C2 /* Info.plist */,
 				BC47ED881C9FEEC8008143C2 /* Escape.xcdatamodeld */,
@@ -547,6 +555,7 @@
 			isa = PBXGroup;
 			children = (
 				BC47EDB81CA00333008143C2 /* ScreenVader.swift */,
+				84A0FA891DBC02AF0072A36A /* LocalStorageVader.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -562,6 +571,8 @@
 		BC47EDC61CA0138A008143C2 /* Custom Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				84EA4E961DBB9135002A4A2F /* RNLoadingButton.swift */,
+				84A0FA861DBBF77F0072A36A /* CustomDoneButton.swift */,
 				BC85DBF11CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.h */,
 				BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */,
 				BC85DBF31CA69F0E002237A4 /* TPKeyboardAvoidingTableView.h */,
@@ -576,6 +587,7 @@
 				BC4B563C1D6DE388008BF1F6 /* UINibView.swift */,
 				BCACE88F1D59B31600FAF262 /* FBShimmering */,
 				BC38DC741D30F18200290717 /* CustomPresentationAnimationViewController.swift */,
+				84EA4E991DBBDA6E002A4A2F /* HighlightableTextView.swift */,
 			);
 			path = "Custom Controllers";
 			sourceTree = "<group>";
@@ -773,8 +785,9 @@
 				TargetAttributes = {
 					BC47ED7D1C9FEEC7008143C2 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = E87TYV2U4N;
+						DevelopmentTeam = GZM8S25H55;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -949,7 +962,6 @@
 				BCB7B4971CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BC5188331D8D229900A85E61 /* SearchItems.swift in Sources */,
 				BC4F45641CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
-				BC47ED841C9FEEC7008143C2 /* ViewController.swift in Sources */,
 				BC0BBBE41CF1D08F00B03A93 /* UIView+Utility.swift in Sources */,
 				BC18427D1D532F39003CC19A /* FBFriendCard.swift in Sources */,
 				BC3595F91CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */,
@@ -959,6 +971,7 @@
 				BC0BBBDE1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */,
 				BC51882F1D8D0D6A00A85E61 /* SearchAllViewController.swift in Sources */,
 				BC2A72DC1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */,
+				84A0FA8A1DBC02AF0072A36A /* LocalStorageVader.swift in Sources */,
 				BC3A81A91CA5753000FF8678 /* MainTabBarViewController.swift in Sources */,
 				BC1842671D4BCE84003CC19A /* UIButton+Utility.swift in Sources */,
 				BC47EDC81CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */,
@@ -969,6 +982,7 @@
 				BC47EDC11CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BC38DC691D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
 				BCCD70C81CA19468002A0C07 /* Service.swift in Sources */,
+				84EA4E971DBB9135002A4A2F /* RNLoadingButton.swift in Sources */,
 				BC18426D1D51F420003CC19A /* HomeViewController.swift in Sources */,
 				BC1842841D535243003CC19A /* FBFriendsTableViewCell.swift in Sources */,
 				BC5188361D8D26DA00A85E61 /* SearchTableViewCell.swift in Sources */,
@@ -1007,6 +1021,7 @@
 				BC2A73121CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
 				BC4F45681CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
 				BC47EDC41CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
+				84EA4E9A1DBBDA6E002A4A2F /* HighlightableTextView.swift in Sources */,
 				BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */,
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				BC14BAD61CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
@@ -1017,6 +1032,7 @@
 				BCB7B4B71CA17643002147FA /* SFUIAttributedText.swift in Sources */,
 				BCACE8981D59B31600FAF262 /* FBShimmeringView.m in Sources */,
 				BC4F45741CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
+				84A0FA871DBBF77F0072A36A /* CustomDoneButton.swift in Sources */,
 				BC02D0C01CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
 				BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
 				BC0BBBE71CF1D30600B03A93 /* TimeUtility.swift in Sources */,
@@ -1036,7 +1052,6 @@
 				BCB7B4981CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BC5188341D8D229900A85E61 /* SearchItems.swift in Sources */,
 				BC4F45651CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
-				BC47ED981C9FF233008143C2 /* ViewController.swift in Sources */,
 				BC0BBBE51CF1D08F00B03A93 /* UIView+Utility.swift in Sources */,
 				BC18427E1D532F39003CC19A /* FBFriendCard.swift in Sources */,
 				BC3595FA1CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */,
@@ -1046,6 +1061,7 @@
 				BC0BBBDF1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */,
 				BC5188301D8D0D6A00A85E61 /* SearchAllViewController.swift in Sources */,
 				BC2A72DD1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */,
+				84A0FA8B1DBC02AF0072A36A /* LocalStorageVader.swift in Sources */,
 				BC3A81AA1CA5753000FF8678 /* MainTabBarViewController.swift in Sources */,
 				BC1842681D4BCE84003CC19A /* UIButton+Utility.swift in Sources */,
 				BC47EDC91CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */,
@@ -1056,6 +1072,7 @@
 				BC47EDC21CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BC38DC6A1D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
 				BCCD70C91CA19468002A0C07 /* Service.swift in Sources */,
+				84EA4E981DBB9135002A4A2F /* RNLoadingButton.swift in Sources */,
 				BC18426E1D51F420003CC19A /* HomeViewController.swift in Sources */,
 				BC1842851D535243003CC19A /* FBFriendsTableViewCell.swift in Sources */,
 				BC5188371D8D26DA00A85E61 /* SearchTableViewCell.swift in Sources */,
@@ -1094,6 +1111,7 @@
 				BC2A73131CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
 				BC4F45691CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
 				BC47EDC51CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
+				84EA4E9B1DBBDA6E002A4A2F /* HighlightableTextView.swift in Sources */,
 				BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */,
 				BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				BC14BAD71CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
@@ -1104,6 +1122,7 @@
 				BCB7B4B81CA17643002147FA /* SFUIAttributedText.swift in Sources */,
 				BCACE8991D59B31600FAF262 /* FBShimmeringView.m in Sources */,
 				BC4F45751CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
+				84A0FA881DBBF77F0072A36A /* CustomDoneButton.swift in Sources */,
 				BC02D0C11CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
 				BC85DBFA1CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
 				BC0BBBE81CF1D30600B03A93 /* TimeUtility.swift in Sources */,
@@ -1215,8 +1234,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = E87TYV2U4N;
+				CODE_SIGN_IDENTITY = "iPhone Developer: rahulmeena@live.com (Z5FMSD54TF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = GZM8S25H55;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1224,7 +1244,7 @@
 				INFOPLIST_FILE = Escape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1239,7 +1259,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = E87TYV2U4N;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = GZM8S25H55;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1247,7 +1268,7 @@
 				INFOPLIST_FILE = Escape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;

@@ -19,7 +19,9 @@ class PageContentViewController: UIViewController {
         super.viewDidLoad()
         
         if let imageFile = imageFile{
-            self.image.image = UIImage(named: imageFile)
+            if let foundImage = UIImage(named: imageFile) {
+                self.image.image = foundImage
+            }
         }
         
         

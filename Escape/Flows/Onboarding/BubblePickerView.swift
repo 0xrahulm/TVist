@@ -38,8 +38,8 @@ class BubblePickerView: UIView {
         
         for preferenceItem in preferenceItems {
             let button = UIButton(type: .Custom)
-            button.setAttributedTitle(SFUIAttributedText.mediumAttributedTextForString(preferenceItem.name!.uppercaseString, size: 13, color: UIColor.textColor()), forState: .Normal)
-            button.setAttributedTitle(SFUIAttributedText.mediumAttributedTextForString(preferenceItem.name!.uppercaseString, size: 13, color: UIColor.whiteColor()), forState: .Selected)
+            button.setAttributedTitle(SFUIAttributedText.mediumAttributedTextForString(preferenceItem.name!.uppercaseString, size: 15, color: UIColor.whiteColor().colorWithAlphaComponent(0.6)), forState: .Normal)
+            button.setAttributedTitle(SFUIAttributedText.mediumAttributedTextForString(preferenceItem.name!.uppercaseString, size: 15, color: UIColor.textBlackColor()), forState: .Selected)
             
             button.sizeToFit()
             let buttonWidth = CGRectGetWidth(button.frame) + 35
@@ -55,7 +55,7 @@ class BubblePickerView: UIView {
                 currentX = 0
                 buttonsInRow.removeAll()
             }
-            button.setBackgroundImage(UIImage.getImageWithColor(UIColor.themeColorBlue(), size: CGSizeMake(1, 1)), forState: .Selected)
+            button.setBackgroundImage(UIImage.getImageWithColor(UIColor.whiteColor(), size: CGSizeMake(1, 1)), forState: .Selected)
             
             button.setImage(UIImage(named: "createFeedPlus"), forState: .Normal)
             button.setImage(UIImage(named: "createFeedTick"), forState: .Selected)
@@ -65,7 +65,7 @@ class BubblePickerView: UIView {
             button.frame = CGRectMake(currentX, currentY, buttonWidth, 35)
             
             button.clipsToBounds = true
-            button.layer.borderColor  = UIColor.textColor().CGColor
+            button.layer.borderColor  = UIColor.whiteColor().colorWithAlphaComponent(0.6).CGColor
             button.layer.borderWidth  = 1
             button.tag = buttonTag
             buttonTag += 1

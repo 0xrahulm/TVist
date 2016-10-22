@@ -14,7 +14,6 @@ class CustomNavigationViewController: UINavigationController {
         super.viewDidLoad()
         
         setAppearnce()
-
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(animated: Bool) {
@@ -26,17 +25,13 @@ class CustomNavigationViewController: UINavigationController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
-    }
    
     func setAppearnce(){
         
-        self.navigationBar.barTintColor = UIColor.themeColorBlue()
-        self.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationBar.barTintColor = UIColor.escapeGray()
+        self.navigationBar.tintColor = UIColor.themeColorBlack()
         self.navigationBar.translucent = false
-        self.navigationBar.titleTextAttributes = SFUIAttributedText.mediumAttributesForSize(17.0, color: UIColor.whiteColor())
+        self.navigationBar.titleTextAttributes = SFUIAttributedText.mediumAttributesForSize(17.0, color: UIColor.themeColorBlack())
     }
     
     override func dismissViewControllerAnimated(flag: Bool, completion: (() -> Void)?) {
