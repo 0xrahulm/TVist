@@ -198,21 +198,28 @@ class EmailLoginViewController: UIViewController {
     @IBAction func fbLoginTapped(sender: AnyObject) {
         
         let fbLoginManager : FBSDKLoginManager =  FBSDKLoginManager()
-        let fbPermission = ["user_likes" , "user_friends" , "public_profile"]
+        let fbPermission = ["user_likes" , "user_friends" , "public_profile" , "email"]
         
         fbLoginManager.logInWithReadPermissions(fbPermission, fromViewController: self) { (result, error) in
             if error == nil{
                 
                 let fbLoginResult : FBSDKLoginManagerLoginResult = result
-                if fbLoginResult.grantedPermissions.contains("public_profile"){
-                    
-                    if let token = FBSDKAccessToken.currentAccessToken(), let tokenString = token.tokenString {
+                if let _ = fbLoginResult.grantedPermissions {
+                    if fbLoginResult.grantedPermissions.contains("public_profile"){
                         
-                        let expires_in = token.expirationDate.timeIntervalSince1970
-                        
-                        UserDataProvider.sharedDataProvider.postFBtoken(tokenString, expires_in: expires_in)
-                        
+                        if let token = FBSDKAccessToken.currentAccessToken(){
+                            
+                            if let tokenString = token.tokenString {
+                                
+                                let expires_in = token.expirationDate.timeIntervalSince1970
+                                
+                                UserDataProvider.sharedDataProvider.postFBtoken(tokenString, expires_in: expires_in)
+                                
+                            }
+                            
+                        }
                     }
+                    
                 }
             }
         }
