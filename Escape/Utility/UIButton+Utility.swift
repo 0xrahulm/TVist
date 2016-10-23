@@ -61,8 +61,8 @@ extension UIButton{
         self.backgroundColor = UIColor.clearColor()
         self.layer.cornerRadius = 5
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.themeColorBlue().CGColor
-        self.setTitleColor(UIColor.themeColorBlue(), forState: .Normal)
+        self.layer.borderColor = UIColor.escapeBlueColor().CGColor
+        self.setTitleColor(UIColor.escapeBlueColor(), forState: .Normal)
         
     }
     

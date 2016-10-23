@@ -344,5 +344,5 @@ extension ScreenManagerViewController{
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
-    }
 }
+

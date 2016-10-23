@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="uFh-xj-V1c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="47O-6i-UIi">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -22,7 +22,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="articleCellIdentifier" rowHeight="300" id="xti-ji-wfc" customClass="ArticleTableViewCell" customModule="Escape" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="300"/>
+                                        <rect key="frame" x="0.0" y="92" width="375" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xti-ji-wfc" id="7tr-AQ-jbg">
                                             <frame key="frameInset" width="375" height="300"/>
@@ -196,7 +196,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="seperatorCellIdentifier" rowHeight="250" id="muT-sZ-Ulr">
-                                        <rect key="frame" x="0.0" y="328" width="375" height="250"/>
+                                        <rect key="frame" x="0.0" y="392" width="375" height="250"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="muT-sZ-Ulr" id="0Cg-0Z-JtZ">
                                             <frame key="frameInset" width="375" height="250"/>
@@ -257,7 +257,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="addToEscapeIdentifier" rowHeight="300" id="u0h-eM-saN" customClass="AddToEscapeTableViewCell" customModule="Escape" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="578" width="375" height="300"/>
+                                        <rect key="frame" x="0.0" y="642" width="375" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u0h-eM-saN" id="RPF-S3-JnI">
                                             <frame key="frameInset" width="375" height="300"/>
@@ -429,10 +429,10 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="nIl-5p-dd0"/>
                                                     <exclude reference="E9t-JG-iMK"/>
                                                     <exclude reference="pQh-fd-WoN"/>
                                                     <exclude reference="xcM-1i-LYD"/>
-                                                    <exclude reference="nIl-5p-dd0"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -449,10 +449,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="fbFriendsIdentifier" rowHeight="200" id="F0i-Q4-yKX" customClass="FBFriendsTableViewCell" customModule="Escape" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="878" width="375" height="200"/>
+                                        <rect key="frame" x="0.0" y="942" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F0i-Q4-yKX" id="935-B5-aly">
-                                            <frame key="frameInset" width="375" height="200"/>
+                                            <frame key="frameInset" width="1000" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Facebook Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3L-eB-j2n">
@@ -602,13 +602,32 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="W1H-zU-sM1"/>
                     <connections>
                         <outlet property="tableView" destination="L0o-dI-fwj" id="70Y-Yf-QIv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxU-RE-jKM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="282" y="-183"/>
+            <point key="canvasLocation" x="1968.8" y="-185.75712143928038"/>
+        </scene>
+        <!--Custom Navigation View Controller-->
+        <scene sceneID="sIZ-h4-ptC">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="47O-6i-UIi" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0jL-MW-n78">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uFh-xj-V1c" kind="relationship" relationship="rootViewController" id="qbS-ku-Va6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w79-hd-QoJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1029.5999999999999" y="-185.75712143928038"/>
         </scene>
     </scenes>
 </document>
