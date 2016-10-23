@@ -73,7 +73,7 @@ class AddToEscapeViewController: UIViewController {
     @IBAction func viewTapped(sender: UITapGestureRecognizer) {
         if let view = sender.view{
             if view.tag == 1{
-                leftView.backgroundColor = UIColor.themeColorBlue()
+                leftView.backgroundColor = UIColor.escapeBlueColor()
                 centerView.backgroundColor = UIColor.viewSelectedColor()
                 rightView.backgroundColor = UIColor.viewSelectedColor()
                 
@@ -89,7 +89,7 @@ class AddToEscapeViewController: UIViewController {
                 
             }else if view.tag == 2{
                 leftView.backgroundColor = UIColor.viewSelectedColor()
-                centerView.backgroundColor = UIColor.themeColorBlue()
+                centerView.backgroundColor = UIColor.escapeBlueColor()
                 rightView.backgroundColor = UIColor.viewSelectedColor()
                 
                 toWatchlabel.textColor = UIColor.textLightGrayColor()
@@ -105,7 +105,7 @@ class AddToEscapeViewController: UIViewController {
             }else if view.tag == 3{
                 leftView.backgroundColor = UIColor.viewSelectedColor()
                 centerView.backgroundColor = UIColor.viewSelectedColor()
-                rightView.backgroundColor = UIColor.themeColorBlue()
+                rightView.backgroundColor = UIColor.escapeBlueColor()
                 
                 toWatchlabel.textColor = UIColor.textLightGrayColor()
                 watchedLabel.textColor = UIColor.textLightGrayColor()

@@ -9,12 +9,12 @@
 import UIKit
 
 class InterestItems: NSObject {
-    var id : NSNumber?
+    var id : String?
     var name : String?
     var weightage : Int?
     var isSelected : Bool?
     
-    init(id : NSNumber?, name : String?, weightage : Int?,isSelected : Bool?) {
+    init(id : String?, name : String?, weightage : Int?,isSelected : Bool?) {
         
         self.id = id
         self.name = name

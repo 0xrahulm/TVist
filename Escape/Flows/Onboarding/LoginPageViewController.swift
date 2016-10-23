@@ -15,9 +15,9 @@ class LoginPageViewController: UIViewController {
     var pageViewController : UIPageViewController!
     var pageController : UIPageControl!
     
-    private let onBoardingImages = ["page1",
-                                    "page1",
-                                    "page1"];
+    private let onBoardingImages = ["escape_logo",
+                                    "escape_logo",
+                                    "escape_logo"];
     
     
     override func viewDidLoad() {
@@ -26,8 +26,25 @@ class LoginPageViewController: UIViewController {
         UserDataProvider.sharedDataProvider.fbLoginDelegate = self
         
         setVisuals()
+        setNeedsStatusBarAppearanceUpdate()
+        
+        self.navigationController?.navigationBarHidden = true
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if (ECUserDefaults.isLoggedIn() &&
+            !LocalStorageVader.sharedVader.flagValueForKey(.InterestsSelected)) {
+            openInteresetVC()
+        }
+    }
+    
+    
+    func openInteresetVC(){
+        performSegueWithIdentifier("showInterestsSegue", sender: self)
     }
     
     func setVisuals(){
@@ -39,7 +56,7 @@ class LoginPageViewController: UIViewController {
         
     }
     
-    func setPageViewController(){
+    func setPageViewController() {
         self.pageViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewVC") as! UIPageViewController
         self.pageViewController.dataSource = self
         self.pageViewController.delegate = self
@@ -65,7 +82,7 @@ class LoginPageViewController: UIViewController {
                 height: 10
             )
         )
-        self.pageController.pageIndicatorTintColor = UIColor.lightGrayColor()
+        self.pageController.pageIndicatorTintColor = UIColor.escapeGray()
         self.pageController.currentPageIndicatorTintColor = UIColor.whiteColor()
         self.pageController.numberOfPages = onBoardingImages.count
         
@@ -74,15 +91,26 @@ class LoginPageViewController: UIViewController {
     }
     func setFBbutton(){
         
-        let button   = UIButton(type: UIButtonType.System) as UIButton!
-        button.frame = CGRectMake(20, self.view.frame.height - 120, CGRectGetWidth(view.frame) - 40, 50)
+        let button   = UIButton(type: UIButtonType.System)
+        let buttonWidth = CGRectGetWidth(view.frame) - 40
+        button.frame = CGRectMake(20, self.view.frame.height - 120, buttonWidth, 50)
         button.backgroundColor = UIColor.fbThemeColor()
         button.setTitle("Continue with facebook", forState: UIControlState.Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        button.setImage(UIImage(named: "fb_white_icon"), forState: .Normal)
+        button.contentHorizontalAlignment = .Left
+        button.layer.cornerRadius = 4
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+        button.titleEdgeInsets = UIEdgeInsets(top: 2.5, left: buttonWidth/2-100, bottom: 0, right: 0)
         button.addTarget(self, action: #selector(LoginPageViewController.fbLoginButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
         
         self.view.addSubview(button)
         
+    }
+    
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
     
     func setEmailButton(){
@@ -163,7 +191,7 @@ class LoginPageViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
         
         
-        alert.view.tintColor = UIColor.themeColorRed()
+        alert.view.tintColor = UIColor.escapeRedColor()
         self.presentViewController(alert, animated: true, completion: nil)
     }
 }

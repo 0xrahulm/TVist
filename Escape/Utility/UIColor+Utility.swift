@@ -33,17 +33,35 @@ extension UIColor{
         return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
     }
     
-    class func themeColorBlue() -> UIColor{
-        //return UIColor.colorWithHexString("#43C5B8")
-        return UIColor.colorWithHexString("#322332")
+    class func escapeBlueColor() -> UIColor{
+        return UIColor.colorWithHexString("#0DD6CA")
         
     }
-    class func themeColorRed() -> UIColor{
-        //return UIColor.colorWithHexString("#F56363")
-        return UIColor.colorWithHexString("#fe5e3a")
+    
+    
+    class func themeColorBlack() -> UIColor {
+        return UIColor.colorWithHexString("#142e34")
     }
+    
+    class func escapeRedColor() -> UIColor{
+        return UIColor.colorWithHexString("#F3244B")
+    }
+    
+    class func escapeGray() -> UIColor {
+        return UIColor.colorWithHexString("#f7f7f7")
+    }
+    
+    class func themeColorYellow() -> UIColor{
+        //return UIColor.colorWithHexString("#F56363")
+        return UIColor.colorWithHexString("#ffc107")
+    }
+    
+    class func lineGrayColor() -> UIColor {
+        return UIColor.colorWithHexString("#C8CBD3")
+    }
+
     class func fbThemeColor() -> UIColor{
-        return UIColor.colorWithHexString("#4267B2")
+        return UIColor.colorWithHexString("#3664a2")
     }
     class func viewSelectedColor() -> UIColor{
         return UIColor.colorWithHexString("#EFEFF4")
@@ -52,7 +70,7 @@ extension UIColor{
         return UIColor.colorWithHexString("#353847")
     }
     class func textBlackColor() -> UIColor{
-        return UIColor.colorWithHexString("#333333")
+        return UIColor.colorWithHexString("#142E34")
     }
     class func textGrayColor() -> UIColor{
         return UIColor.colorWithHexString("#555555")
@@ -84,7 +102,6 @@ extension UIColor{
     class func searchPlaceHolderColor() -> UIColor{
         return UIColor.colorWithHexString("#EEEEEE")
     }
-    
     
 }
 

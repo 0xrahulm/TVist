@@ -84,10 +84,10 @@ class MyAccountViewController: UIViewController{
         
         self.navigationItem.rightBarButtonItem = settingButton
         
-        activityImage.image = IonIcons.imageWithIcon(ion_android_clipboard, iconColor: UIColor.themeColorBlue(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
-        movieImage.image = IonIcons.imageWithIcon(ion_film_marker, iconColor: UIColor.themeColorBlue(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
-        tvImage.image = IonIcons.imageWithIcon(ion_easel, iconColor: UIColor.themeColorBlue(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
-        booksImage.image = IonIcons.imageWithIcon(ion_ios_book, iconColor: UIColor.themeColorBlue(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
+        activityImage.image = IonIcons.imageWithIcon(ion_android_clipboard, iconColor: UIColor.escapeBlueColor(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
+        movieImage.image = IonIcons.imageWithIcon(ion_film_marker, iconColor: UIColor.escapeBlueColor(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
+        tvImage.image = IonIcons.imageWithIcon(ion_easel, iconColor: UIColor.escapeBlueColor(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
+        booksImage.image = IonIcons.imageWithIcon(ion_ios_book, iconColor: UIColor.escapeBlueColor(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
         
         if let _ = userId{
             if isFollow{

@@ -26,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
+        setGlobalAppearance()
         
-
         
         return true
     }
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
-    func initializeScreenManager(){
+    func initializeScreenManager() {
         
         let storyboard = UIStoryboard(name: "ScreenManger", bundle: nil)
         
@@ -135,6 +135,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 abort()
             }
         }
+    }
+    
+    func setGlobalAppearance() {
+        
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -500,vertical: 0), forBarMetrics: .Default)
+        
     }
 
 }

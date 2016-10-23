@@ -57,13 +57,13 @@ class DiscoverViewController: UIViewController {
         let parameters: [CAPSPageMenuOption] = [
             .ScrollMenuBackgroundColor(UIColor.whiteColor()),
             .ViewBackgroundColor(UIColor.whiteColor()),
-            .SelectionIndicatorColor(UIColor.themeColorBlue()),
-            .BottomMenuHairlineColor(UIColor.themeColorBlue()),
+            .SelectionIndicatorColor(UIColor.escapeBlueColor()),
+            .BottomMenuHairlineColor(UIColor.escapeBlueColor()),
             .MenuItemFont(UIFont(name: "SFUIDisplay-Regular", size: 14.0)!),
             .MenuHeight(45.0),
             .MenuItemWidth(80.0),
             .CenterMenuItems(true),
-            .SelectedMenuItemLabelColor(UIColor.themeColorBlue()),
+            .SelectedMenuItemLabelColor(UIColor.escapeBlueColor()),
             .UnselectedMenuItemLabelColor(UIColor.grayColor()),
             .SelectionIndicatorHeight(1.0),
             

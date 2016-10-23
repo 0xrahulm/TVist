@@ -1,166 +1,120 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nWG-iw-X3s">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BnE-TS-YbO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main Tab Bar View Controller-->
-        <scene sceneID="g4F-n5-2y0">
+        <!--Custom Tab Bar Controller-->
+        <scene sceneID="e1q-WX-x0O">
             <objects>
-                <tabBarController id="nWG-iw-X3s" customClass="MainTabBarViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="gS8-8s-y7h">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.26274509800000001" green="0.7725490196" blue="0.72156862749999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="czt-L7-Vdg" kind="relationship" relationship="viewControllers" id="Zyl-eU-4Sf"/>
-                        <segue destination="C6K-Ir-12J" kind="relationship" relationship="viewControllers" id="TW9-hN-TO5"/>
-                        <segue destination="cz8-Ad-URW" kind="relationship" relationship="viewControllers" id="Reg-3O-MDI"/>
-                        <segue destination="pOW-D9-yF3" kind="relationship" relationship="viewControllers" id="SpT-ka-Boj"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EIO-bW-PbS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1342" y="-85"/>
-        </scene>
-        <!--Custom Home-->
-        <scene sceneID="m7v-aK-KLw">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="czt-L7-Vdg" userLabel="Custom Home" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="home" selectedImage="homeFilled" id="Q4k-GU-8Fw"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WXU-uW-qkd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.26274509800000001" green="0.7725490196" blue="0.72156862749999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="5GJ-px-gzH" kind="relationship" relationship="rootViewController" id="hNG-oO-cWl"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZqH-kl-qd7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="382" y="-497"/>
-        </scene>
-        <!--Custom Discover-->
-        <scene sceneID="gkL-Pd-LBm">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="C6K-Ir-12J" userLabel="Custom Discover" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Discover" image="Explore" selectedImage="ExploreFilled" id="00W-Zh-Y9l"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cbf-6D-n2h">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="iV7-IV-gaA" kind="relationship" relationship="rootViewController" id="9Jq-Ii-171"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Z8G-bO-rHB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="321" y="168"/>
-        </scene>
-        <!--Home-->
-        <scene sceneID="XEa-FQ-wzI">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Home" id="5GJ-px-gzH" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="MpL-8P-eox"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="M1N-ic-c9F" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1063.5" y="-503"/>
-        </scene>
-        <!--Discover-->
-        <scene sceneID="u1x-FK-irF">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Discover" id="iV7-IV-gaA" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="me9-uJ-ChT"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6PW-gf-oib" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="966.5" y="168"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="qm2-9U-Lcr">
-            <objects>
-                <viewController id="upm-TG-Tba" sceneMemberID="viewController">
+                <viewController id="BnE-TS-YbO" customClass="CustomTabBarController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Tsu-Nm-gZk"/>
-                        <viewControllerLayoutGuide type="bottom" id="UK9-9h-Boc"/>
+                        <viewControllerLayoutGuide type="top" id="6nh-cg-gP6"/>
+                        <viewControllerLayoutGuide type="bottom" id="08z-wy-RCt"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7ks-uR-6Wc">
+                    <view key="view" contentMode="scaleToFill" id="QxR-ZF-Den">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mO4-Eg-2E4">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JhV-cx-SHl">
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="tab_add_escape" translatesAutoresizingMaskIntoConstraints="NO" id="Sav-bA-jsG"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kdd-9f-m2J">
+                                        <state key="normal" image="tab_home"/>
+                                        <state key="selected" image="tab_home_on"/>
+                                        <connections>
+                                            <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="FMm-12-0C6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsF-bH-2VK">
+                                        <state key="normal" image="tab_profile"/>
+                                        <state key="selected" image="tab_profile_on"/>
+                                        <connections>
+                                            <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="HGh-Yw-0ET"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xI-9X-JOt">
+                                        <state key="normal" image="tab_notification"/>
+                                        <state key="selected" image="tab_notification_on"/>
+                                        <connections>
+                                            <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="u3D-oO-3Yl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aQ-Vz-HXD">
+                                        <state key="normal" image="tab_discover"/>
+                                        <state key="selected" image="tab_discover_on"/>
+                                        <connections>
+                                            <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="cj1-S9-DyN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qrd-0s-PuY"/>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="0aQ-Vz-HXD" firstAttribute="leading" secondItem="Kdd-9f-m2J" secondAttribute="trailing" id="14K-F6-xSp"/>
+                                    <constraint firstAttribute="bottom" secondItem="0aQ-Vz-HXD" secondAttribute="bottom" id="5Eq-SX-16K"/>
+                                    <constraint firstAttribute="trailing" secondItem="WsF-bH-2VK" secondAttribute="trailing" id="6SL-8E-Yqu"/>
+                                    <constraint firstItem="Kdd-9f-m2J" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="9wI-2D-FiG"/>
+                                    <constraint firstItem="Sav-bA-jsG" firstAttribute="centerX" secondItem="JhV-cx-SHl" secondAttribute="centerX" id="BN8-BK-JVx"/>
+                                    <constraint firstItem="WsF-bH-2VK" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="Dlz-F9-Tka"/>
+                                    <constraint firstAttribute="bottom" secondItem="2xI-9X-JOt" secondAttribute="bottom" id="EfS-tJ-6pj"/>
+                                    <constraint firstItem="Kdd-9f-m2J" firstAttribute="width" secondItem="WsF-bH-2VK" secondAttribute="width" id="IzI-g2-xWr"/>
+                                    <constraint firstAttribute="height" constant="50" id="Jxl-Rh-EPZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="Qrd-0s-PuY" secondAttribute="bottom" id="LRN-ld-cAJ"/>
+                                    <constraint firstItem="Sav-bA-jsG" firstAttribute="centerY" secondItem="JhV-cx-SHl" secondAttribute="centerY" id="My0-M2-tgm"/>
+                                    <constraint firstItem="0aQ-Vz-HXD" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="Ofn-Mt-E2N"/>
+                                    <constraint firstItem="WsF-bH-2VK" firstAttribute="leading" secondItem="2xI-9X-JOt" secondAttribute="trailing" id="WAC-UF-kWT"/>
+                                    <constraint firstItem="Qrd-0s-PuY" firstAttribute="leading" secondItem="0aQ-Vz-HXD" secondAttribute="trailing" id="XSw-mf-HKj"/>
+                                    <constraint firstAttribute="bottom" secondItem="WsF-bH-2VK" secondAttribute="bottom" id="XiK-JO-uy2"/>
+                                    <constraint firstItem="Qrd-0s-PuY" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="Z5u-lw-flL"/>
+                                    <constraint firstItem="Kdd-9f-m2J" firstAttribute="leading" secondItem="JhV-cx-SHl" secondAttribute="leading" id="cV4-WE-QPf"/>
+                                    <constraint firstItem="Kdd-9f-m2J" firstAttribute="width" secondItem="2xI-9X-JOt" secondAttribute="width" id="hS0-WD-Onq"/>
+                                    <constraint firstItem="2xI-9X-JOt" firstAttribute="leading" secondItem="Qrd-0s-PuY" secondAttribute="trailing" id="jgV-N7-ldb"/>
+                                    <constraint firstAttribute="bottom" secondItem="Kdd-9f-m2J" secondAttribute="bottom" id="uLU-7P-kdZ"/>
+                                    <constraint firstItem="2xI-9X-JOt" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="utd-ef-Je8"/>
+                                    <constraint firstItem="Kdd-9f-m2J" firstAttribute="width" secondItem="0aQ-Vz-HXD" secondAttribute="width" id="yPI-mN-3Sc"/>
+                                    <constraint firstItem="Kdd-9f-m2J" firstAttribute="width" secondItem="Qrd-0s-PuY" secondAttribute="width" id="zvY-vW-SeR"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="mO4-Eg-2E4" secondAttribute="bottom" id="Tku-2s-LTl"/>
+                            <constraint firstItem="08z-wy-RCt" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="bottom" id="dp4-vC-mFm"/>
+                            <constraint firstItem="mO4-Eg-2E4" firstAttribute="leading" secondItem="QxR-ZF-Den" secondAttribute="leading" id="ejz-xl-opG"/>
+                            <constraint firstAttribute="trailing" secondItem="JhV-cx-SHl" secondAttribute="trailing" id="hl3-lf-jhk"/>
+                            <constraint firstItem="JhV-cx-SHl" firstAttribute="leading" secondItem="QxR-ZF-Den" secondAttribute="leading" id="ifM-yG-70m"/>
+                            <constraint firstAttribute="trailing" secondItem="mO4-Eg-2E4" secondAttribute="trailing" id="jbF-3F-I8T"/>
+                            <constraint firstItem="mO4-Eg-2E4" firstAttribute="top" secondItem="QxR-ZF-Den" secondAttribute="topMargin" id="z8b-LN-ypS"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="YoP-2r-541"/>
+                    <connections>
+                        <outlet property="contentView" destination="mO4-Eg-2E4" id="KPB-KE-iiy"/>
+                        <outlet property="discoverButton" destination="0aQ-Vz-HXD" id="wQY-6X-ho3"/>
+                        <outlet property="homeButton" destination="Kdd-9f-m2J" id="PkV-qa-51W"/>
+                        <outlet property="myAccountButton" destination="WsF-bH-2VK" id="Tzb-xe-Z9r"/>
+                        <outlet property="notificationsButton" destination="2xI-9X-JOt" id="Th0-6C-0Af"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I3j-ok-Ekp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tcV-Bp-tK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="55" y="1262"/>
-        </scene>
-        <!--Custom My Account-->
-        <scene sceneID="rnv-Pw-Gul">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pOW-D9-yF3" userLabel="Custom My Account" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Account" image="Profile" selectedImage="ProfileFilled" id="70c-in-0L3"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Smo-9d-bM9">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="GFe-p8-Lwk" kind="relationship" relationship="rootViewController" id="FY9-OS-LWs"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UZC-SO-q39" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1092" y="1048"/>
-        </scene>
-        <!--MyAccount-->
-        <scene sceneID="DBW-IN-dOT">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MyAccount" id="GFe-p8-Lwk" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="x5v-gF-7Ah"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="trS-pb-HhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1773" y="1053"/>
-        </scene>
-        <!--Notification-->
-        <scene sceneID="vBe-9d-6NH">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cz8-Ad-URW" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Notification" image="notification" badgeValue="3" selectedImage="notificationFilled" id="XSa-Xr-IIm"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZB8-EE-xTN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="upm-TG-Tba" kind="relationship" relationship="rootViewController" id="lpL-8h-HQf"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YET-gx-ysv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-757" y="1262"/>
+            <point key="canvasLocation" x="-1924" y="591.45427286356824"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Explore" width="28" height="27"/>
-        <image name="ExploreFilled" width="28" height="27"/>
-        <image name="Profile" width="28" height="27"/>
-        <image name="ProfileFilled" width="28" height="27"/>
-        <image name="home" width="28" height="24"/>
-        <image name="homeFilled" width="28" height="24"/>
-        <image name="notification" width="26" height="24"/>
-        <image name="notificationFilled" width="26" height="24"/>
+        <image name="tab_add_escape" width="45" height="45"/>
+        <image name="tab_discover" width="28" height="28"/>
+        <image name="tab_discover_on" width="28" height="28"/>
+        <image name="tab_home" width="28" height="28"/>
+        <image name="tab_home_on" width="28" height="28"/>
+        <image name="tab_notification" width="28" height="28"/>
+        <image name="tab_notification_on" width="28" height="28"/>
+        <image name="tab_profile" width="28" height="28"/>
+        <image name="tab_profile_on" width="28" height="28"/>
     </resources>
 </document>

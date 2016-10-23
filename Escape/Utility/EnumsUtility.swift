@@ -29,6 +29,9 @@ enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"
     case MainTab = "MainTab"
     case MyAccount = "MyAccount"
+    case Discover = "Discover"
+    case Home = "Home"
+    case Notifications = "Notifications"
     case Search = "Search"
     case AddToEscape = "AddToEscape"
 }

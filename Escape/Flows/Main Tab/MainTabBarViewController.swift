@@ -22,6 +22,7 @@ class MainTabBarViewController: UITabBarController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         appearTabBar()
+        
     }
     
     func setTabBarAppearance(){
@@ -32,18 +33,18 @@ class MainTabBarViewController: UITabBarController {
         self.tabBar.layer.shadowOpacity = 0.50
         self.tabBar.layer.shadowPath = UIBezierPath(rect: self.tabBar.bounds).CGPath
         
-        self.tabBar.tintColor = UIColor.themeColorBlue()
-        let tabItems = self.tabBar.items! as [UITabBarItem]
-        let tabItem1 = tabItems[0] as UITabBarItem
-        let tabItem2 = tabItems[1] as UITabBarItem
-        let tabItem3 = tabItems[2] as UITabBarItem
-        let tabItem4 = tabItems[3] as UITabBarItem
-        tabItem1.title = "Home"
-        tabItem2.title = "Discover"
-        tabItem3.title = "Notification"
-        tabItem4.title = "My Account"
+        self.tabBar.tintColor = UIColor.escapeBlueColor()
         
-        
+        if let tabItems = self.tabBar.items {
+            let tabItem1 = tabItems[0] as UITabBarItem
+            let tabItem2 = tabItems[1] as UITabBarItem
+            let tabItem3 = tabItems[2] as UITabBarItem
+            let tabItem4 = tabItems[3] as UITabBarItem
+            tabItem1.title = "Home"
+            tabItem2.title = "Discover"
+            tabItem3.title = "Notification"
+            tabItem4.title = "My Account"
+        }
     }
     func appearTabBar() {
         var tabBarFrame = self.tabBar.frame
