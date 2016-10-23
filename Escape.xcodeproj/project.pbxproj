@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2D832E0E0446E1F614E194EF /* Pods_Escape_copy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C08B4600E257F0C862D199 /* Pods_Escape_copy.framework */; };
 		AED7BF8EC1D30A7602FD2614 /* Pods_Escape.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DDAD66427A6544E6402FADF /* Pods_Escape.framework */; };
+		BC02CA501DA1736E0034C2CB /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02CA4F1DA1736E0034C2CB /* ArticleTableViewCell.swift */; };
+		BC02CA511DA1736E0034C2CB /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02CA4F1DA1736E0034C2CB /* ArticleTableViewCell.swift */; };
 		BC02D0C01CD0D556009D7EE6 /* BubblePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02D0BF1CD0D556009D7EE6 /* BubblePickerView.swift */; };
 		BC02D0C11CD0D556009D7EE6 /* BubblePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02D0BF1CD0D556009D7EE6 /* BubblePickerView.swift */; };
 		BC02D0C31CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC02D0C21CD0D674009D7EE6 /* UIImage+Utility.swift */; };
@@ -219,6 +221,7 @@
 		8726EB99D692F7FE33628154 /* Pods-Escape.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape.release.xcconfig"; path = "Pods/Target Support Files/Pods-Escape/Pods-Escape.release.xcconfig"; sourceTree = "<group>"; };
 		98C08B4600E257F0C862D199 /* Pods_Escape_copy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escape_copy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B802FA0C18A87E900BCFA947 /* Pods-Escape copy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape copy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Escape copy/Pods-Escape copy.release.xcconfig"; sourceTree = "<group>"; };
+		BC02CA4F1DA1736E0034C2CB /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
 		BC02D0BF1CD0D556009D7EE6 /* BubblePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblePickerView.swift; sourceTree = "<group>"; };
 		BC02D0C21CD0D674009D7EE6 /* UIImage+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Utility.swift"; sourceTree = "<group>"; };
 		BC0BBBDD1CF0C2F900B03A93 /* ItemDescViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDescViewController.swift; sourceTree = "<group>"; };
@@ -409,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				BC1842831D535243003CC19A /* FBFriendsTableViewCell.swift */,
+				BC02CA4F1DA1736E0034C2CB /* ArticleTableViewCell.swift */,
 				BCACE8741D55191E00FAF262 /* AddToEscapeTableViewCell.swift */,
 				BCACE8771D55212600FAF262 /* EscapeCollectionViewCell.swift */,
 				BC1842861D537015003CC19A /* BaseStoryTableViewCell.swift */,
@@ -1015,6 +1019,7 @@
 				BCCD70CB1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
 				BC4B563D1D6DE388008BF1F6 /* UINibView.swift in Sources */,
 				BC02D0C31CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */,
+				BC02CA501DA1736E0034C2CB /* ArticleTableViewCell.swift in Sources */,
 				BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
 				BC14BAD31CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */,
 				BC4F456B1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */,
@@ -1104,6 +1109,7 @@
 				BCCD70CC1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
 				BC4B563E1D6DE388008BF1F6 /* UINibView.swift in Sources */,
 				BC02D0C41CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */,
+				BC02CA511DA1736E0034C2CB /* ArticleTableViewCell.swift in Sources */,
 				BC2485541CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
 				BC14BAD41CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */,
 				BC4F456C1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */,
