@@ -41,7 +41,7 @@ class CustomTabBarController: UIViewController {
         setupViewControllers()
     }
     
-    private var activeViewController: UIViewController? {
+    var activeViewController: UIViewController? {
         didSet {
             changeActiveViewControllerFrom(oldValue)
         }
@@ -121,6 +121,7 @@ class CustomTabBarController: UIViewController {
                     //disabling segment till animation is completed
                     
                     addChildViewController(activeVC)
+                    
                     
                     transitionFromViewController(inActiveVC, toViewController: activeVC, duration: 0.2, options: UIViewAnimationOptions.AllowAnimatedContent,
                                                  animations: { [unowned self] () -> Void in
