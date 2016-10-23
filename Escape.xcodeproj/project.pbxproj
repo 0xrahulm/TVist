@@ -12,6 +12,10 @@
 		84A0FA881DBBF77F0072A36A /* CustomDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA861DBBF77F0072A36A /* CustomDoneButton.swift */; };
 		84A0FA8A1DBC02AF0072A36A /* LocalStorageVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA891DBC02AF0072A36A /* LocalStorageVader.swift */; };
 		84A0FA8B1DBC02AF0072A36A /* LocalStorageVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA891DBC02AF0072A36A /* LocalStorageVader.swift */; };
+		84A0FA8D1DBCA3CA0072A36A /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA8C1DBCA3CA0072A36A /* CustomTabBarController.swift */; };
+		84A0FA8E1DBCA3CA0072A36A /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA8C1DBCA3CA0072A36A /* CustomTabBarController.swift */; };
+		84A0FA911DBCADB50072A36A /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A0FA901DBCADB50072A36A /* Notifications.storyboard */; };
+		84A0FA921DBCADB50072A36A /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A0FA901DBCADB50072A36A /* Notifications.storyboard */; };
 		84EA4E971DBB9135002A4A2F /* RNLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA4E961DBB9135002A4A2F /* RNLoadingButton.swift */; };
 		84EA4E981DBB9135002A4A2F /* RNLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA4E961DBB9135002A4A2F /* RNLoadingButton.swift */; };
 		84EA4E9A1DBBDA6E002A4A2F /* HighlightableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EA4E991DBBDA6E002A4A2F /* HighlightableTextView.swift */; };
@@ -218,6 +222,8 @@
 		7DDAD66427A6544E6402FADF /* Pods_Escape.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escape.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A0FA861DBBF77F0072A36A /* CustomDoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDoneButton.swift; sourceTree = "<group>"; };
 		84A0FA891DBC02AF0072A36A /* LocalStorageVader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageVader.swift; sourceTree = "<group>"; };
+		84A0FA8C1DBCA3CA0072A36A /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		84A0FA901DBCADB50072A36A /* Notifications.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
 		84EA4E961DBB9135002A4A2F /* RNLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNLoadingButton.swift; sourceTree = "<group>"; };
 		84EA4E991DBBDA6E002A4A2F /* HighlightableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightableTextView.swift; sourceTree = "<group>"; };
 		8726EB99D692F7FE33628154 /* Pods-Escape.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape.release.xcconfig"; path = "Pods/Target Support Files/Pods-Escape/Pods-Escape.release.xcconfig"; sourceTree = "<group>"; };
@@ -374,6 +380,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		84A0FA8F1DBCAD6D0072A36A /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				84A0FA901DBCADB50072A36A /* Notifications.storyboard */,
+			);
+			name = Notifications;
+			path = ../Notifications;
+			sourceTree = "<group>";
+		};
 		AC7D7AC54D1ADD5CE158A875 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,6 +535,7 @@
 		BC47EDAA1C9FFE36008143C2 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				84A0FA8F1DBCAD6D0072A36A /* Notifications */,
 				BCACE87D1D563A8300FAF262 /* Search */,
 				BC2A73011CCBF7C0007E5DFB /* Onboarding */,
 				BC3A819F1CA5622E00FF8678 /* Main Tab */,
@@ -588,6 +604,7 @@
 				BCACE88F1D59B31600FAF262 /* FBShimmering */,
 				BC38DC741D30F18200290717 /* CustomPresentationAnimationViewController.swift */,
 				84EA4E991DBBDA6E002A4A2F /* HighlightableTextView.swift */,
+				84A0FA8C1DBCA3CA0072A36A /* CustomTabBarController.swift */,
 			);
 			path = "Custom Controllers";
 			sourceTree = "<group>";
@@ -824,6 +841,7 @@
 				BCB7B4B01CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BCB7B4B41CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B21CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
+				84A0FA911DBCADB50072A36A /* Notifications.storyboard in Resources */,
 				BC47ED8F1C9FEEC8008143C2 /* LaunchScreen.storyboard in Resources */,
 				BC38DC721D30C1F900290717 /* AddToEscapeViewController.xib in Resources */,
 				BC2A73181CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
@@ -846,6 +864,7 @@
 				BCB7B4B11CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BCB7B4B51CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B31CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
+				84A0FA921DBCADB50072A36A /* Notifications.storyboard in Resources */,
 				BC47ED9D1C9FF233008143C2 /* LaunchScreen.storyboard in Resources */,
 				BC38DC731D30C1F900290717 /* AddToEscapeViewController.xib in Resources */,
 				BC2A73191CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
@@ -1005,6 +1024,7 @@
 				BC4F45611CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BCACE8751D55191F00FAF262 /* AddToEscapeTableViewCell.swift in Sources */,
 				BC2A73161CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
+				84A0FA8D1DBCA3CA0072A36A /* CustomTabBarController.swift in Sources */,
 				BCACE8801D56459100FAF262 /* UIApperance+Swift.m in Sources */,
 				BC1842771D531F44003CC19A /* StoryCard.swift in Sources */,
 				BC14BAC21CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
@@ -1095,6 +1115,7 @@
 				BC4F45621CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BCACE8761D55191F00FAF262 /* AddToEscapeTableViewCell.swift in Sources */,
 				BC2A73171CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
+				84A0FA8E1DBCA3CA0072A36A /* CustomTabBarController.swift in Sources */,
 				BCACE8811D56459100FAF262 /* UIApperance+Swift.m in Sources */,
 				BC1842781D531F44003CC19A /* StoryCard.swift in Sources */,
 				BC14BAC31CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
