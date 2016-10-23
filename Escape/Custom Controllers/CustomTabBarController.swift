@@ -41,7 +41,7 @@ class CustomTabBarController: UIViewController {
         setupViewControllers()
     }
     
-    private var activeViewController: UIViewController? {
+    var activeViewController: UIViewController? {
         didSet {
             changeActiveViewControllerFrom(oldValue)
         }
@@ -105,45 +105,23 @@ class CustomTabBarController: UIViewController {
     
     private func changeActiveViewControllerFrom(inactiveViewController:UIViewController?) {
         if isViewLoaded() {
-            let width = CGRectGetWidth(contentView!.frame)
-            let height = CGRectGetHeight(contentView!.frame)
             
-            if let inActiveVC = inactiveViewController {
-                inActiveVC.willMoveToParentViewController(nil)
+            
+            if let activeVC = activeViewController {
                 
-                if let activeVC = activeViewController {
-                    var offSet = -width
-                    if tabbedViewControllers.indexOf(activeVC) > tabbedViewControllers.indexOf(inActiveVC) {
-                        offSet = width
-                    }
-                    activeVC.view.frame = CGRectMake(offSet, 0, width, height)
+                if let inActiveVC = inactiveViewController {
+                    inActiveVC.willMoveToParentViewController(nil)
                     
-                    //disabling segment till animation is completed
-                    
-                    addChildViewController(activeVC)
-                    
-                    transitionFromViewController(inActiveVC, toViewController: activeVC, duration: 0.2, options: UIViewAnimationOptions.AllowAnimatedContent,
-                                                 animations: { [unowned self] () -> Void in
-                                                    inActiveVC.view.frame = CGRectMake(-offSet, 0, width, height)
-                                                    inActiveVC.view.alpha = 0
-                                                    activeVC.view.frame   = self.contentView.bounds
-                        }, completion: { [unowned self] (finished) -> Void in
-                            activeVC.didMoveToParentViewController(self)
-                            
-                        })
-                    
-                    activeVC.view.visibleWithAnimationDuration(0.15)
+                    inActiveVC.view.removeFromSuperview()
+                    inActiveVC.removeFromParentViewController()
                 }
                 
-            } else {
+                addChildViewController(activeVC)
                 
-                if let activeVC = activeViewController {
-                    addChildViewController(activeVC)
-                    activeVC.view.frame = contentView!.bounds
-                    contentView!.addSubview(activeVC.view)
-                    activeVC.didMoveToParentViewController(self)
-                    activeVC.view.visibleWithAnimationDuration(0.15)
-                }
+                activeVC.view.frame   = self.contentView.bounds
+                contentView!.addSubview(activeVC.view)
+                activeVC.didMoveToParentViewController(self)
+                
             }
             
         }
