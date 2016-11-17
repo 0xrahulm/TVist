@@ -76,7 +76,6 @@ class MyProfileViewController: UIViewController {
         allProfileData[EscapeType.Movie.rawValue]    = fetchEscapesDataFromRealm(EscapeType.Movie)
         allProfileData[EscapeType.TvShows.rawValue]  = fetchEscapesDataFromRealm(EscapeType.TvShows)
         allProfileData[EscapeType.Books.rawValue]    = fetchEscapesDataFromRealm(EscapeType.Books)
-        tableView.reloadData()
     }
     
     func fetchEscapesDataFromRealm(typeOfList: EscapeType) -> [MyAccountEscapeItem]  {
@@ -183,7 +182,7 @@ class MyProfileViewController: UIViewController {
     
     func setVisuals() {
         let settingImage = IonIcons.imageWithIcon(ion_ios_settings_strong, size: 22, color: UIColor.themeColorBlack())
-        let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MyAccountViewController.settingTapped))
+        let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MyProfileViewController.settingsTapped))
         
         self.navigationItem.rightBarButtonItem = settingButton
         
@@ -194,11 +193,19 @@ class MyProfileViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
     
+    func settingsTapped() {
+        ScreenVader.sharedVader.performScreenManagerAction(.MyAccountSetting, queryParams: nil)
+    }
+    
     func didSelectATab(sender: AnyObject) {
         if let selectedTab = sender as? TabButton {
             disableAllTabs()
             
-            currentSelectedIndex = selectedTab.tag
+            if currentSelectedIndex != selectedTab.tag {
+                
+                currentSelectedIndex = selectedTab.tag
+                tableView.reloadData()
+            }
             selectedTab.setButtonEnabled(true)
         }
     }
@@ -209,6 +216,36 @@ class MyProfileViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func followerFollowingClicked(sender: UITapGestureRecognizer) {
+        if let view = sender.view{
+            var userType : UserType = .Followers
+            if view.tag == 6{
+                userType = .Following
+            }
+            if let userId = userId{
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue, "userId" : userId])
+            }else{
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue])
+            }
+        }
+    }
+    
+    @IBAction func editProfileButtonTapped(sender: AnyObject) {
+        
+        if let userId = userId {
+            if isFollow{
+                isFollow = false
+                editProfileButton.unfollowViewWithAnimate(true)
+                UserDataProvider.sharedDataProvider.unfollowUser(userId)
+                
+            }else{
+                isFollow = true
+                editProfileButton.followViewWithAnimate(true)
+                UserDataProvider.sharedDataProvider.followUser(userId)
+            }
+        }
+    }
 }
 
 

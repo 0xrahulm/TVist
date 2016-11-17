@@ -35,7 +35,7 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
         self.navigationBar.barTintColor = UIColor.escapeGray()
         self.navigationBar.tintColor = UIColor.themeColorBlack()
         self.navigationBar.translucent = false
-        self.navigationBar.titleTextAttributes = SFUIAttributedText.mediumAttributesForSize(17.0, color: UIColor.themeColorBlack())
+        self.navigationBar.titleTextAttributes = SFUIAttributedText.regularAttributesForSize(17.0, color: UIColor.themeColorBlack())
     }
     
     override func dismissViewControllerAnimated(flag: Bool, completion: (() -> Void)?) {

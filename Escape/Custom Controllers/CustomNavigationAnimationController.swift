@@ -25,7 +25,7 @@ class CustomNavigationAnimationController: NSObject, UIViewControllerAnimatedTra
         let fromView = fromViewController.view
         
         
-        var newToFrame = toView.frame
+        var newToFrame = transitionContext.finalFrameForViewController(toViewController)
         var newFromFrame = fromView.frame // for reverse
         
         if reverse {
@@ -51,6 +51,7 @@ class CustomNavigationAnimationController: NSObject, UIViewControllerAnimatedTra
             
             }, completion: {
                 finished in
+                
                 if (transitionContext.transitionWasCancelled()) {
                     toView.removeFromSuperview()
                 } else {
