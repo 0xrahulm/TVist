@@ -73,7 +73,7 @@ extension UIColor{
         return UIColor.colorWithHexString("#142E34")
     }
     class func textGrayColor() -> UIColor{
-        return UIColor.colorWithHexString("#555555")
+        return UIColor.colorWithHexString("#bfbdbd")
     }
     class func textLightGrayColor() -> UIColor{
         return UIColor.colorWithHexString("#AAAAAA")

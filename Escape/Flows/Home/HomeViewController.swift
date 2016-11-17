@@ -36,6 +36,13 @@ class HomeViewController: UIViewController {
 
     }
     
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        ScreenVader.sharedVader.hideTabBar(false)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         HomeDataProvider.sharedDataProvider.homeDataDelegate = self

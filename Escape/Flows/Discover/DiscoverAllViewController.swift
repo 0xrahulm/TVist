@@ -71,9 +71,9 @@ extension DiscoverAllViewController : UITableViewDelegate{
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if dataArray[indexPath.row].discoverType == .People{
-            return 55
+            return 70
         }
-        return 120
+        return 130
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

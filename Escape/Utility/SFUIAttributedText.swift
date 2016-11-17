@@ -49,6 +49,19 @@ class SFUIAttributedText: NSObject {
         
         return attributes
     }
+    
+    //SF UI Semi-Bold
+    class func semiBoldAttributedTextForString(string: String, size: CGFloat, color: UIColor) -> NSAttributedString {
+        return NSAttributedString(string: string, attributes: semiBoldAttributesForSize(size, color: color))
+    }
+    
+    class func semiBoldAttributesForSize(size: CGFloat, color: UIColor) -> Dictionary<String, AnyObject> {
+        
+        let font = UIFont(name: "SFUIDisplay-SemiBold", size: size)!
+        let attributes:[String:AnyObject] = [NSForegroundColorAttributeName: color, NSFontAttributeName: font]
+        
+        return attributes
+    }
 
 
 }

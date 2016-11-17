@@ -56,6 +56,13 @@ enum DiscoverType : String{
     case TvShows = "tv_show"
     case Books = "book"
 }
+
+enum EscapeCreatorType : String{
+    case Movie = "Director"
+    case TvShows = "Creator"
+    case Books = "Author"
+}
+
 enum SearchType : String{
     case All = "all"
     case User = "user"

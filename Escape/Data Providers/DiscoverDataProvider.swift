@@ -58,9 +58,9 @@ class DiscoverDataProvider: CommonDataProvider {
                 
             case .GetDiscoverItems:
                 if let data = service.outPutResponse as? [AnyObject]{
-                    if let params = service.parameters{
-                        if let discoverType = params["discovery_type"] as? String{
-                            self.parseDiscoverData(data, discoverType : discoverType)
+                    if let params = service.parameters {
+                        if let discoverType = params["discovery_type"] as? String {
+                            self.parseDiscoverData(data, discoverType: discoverType)
                         }
                         
                     }

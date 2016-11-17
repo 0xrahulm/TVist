@@ -19,7 +19,7 @@
             <objects>
                 <navigationController id="Wci-5u-knG" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="LHU-Ha-u96">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LHU-Ha-u96">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -104,7 +104,7 @@
         <!--Select Interests-->
         <scene sceneID="sl2-mk-x5J">
             <objects>
-                <viewController storyboardIdentifier="InterestVC" title="Select Interests" id="VTK-T7-bo6" customClass="OnBoardingInterestViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InterestVC" title="Select Interests" hidesBottomBarWhenPushed="YES" id="VTK-T7-bo6" customClass="OnBoardingInterestViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lqG-S4-5hC"/>
                         <viewControllerLayoutGuide type="bottom" id="oI7-ok-QXb"/>
@@ -414,7 +414,7 @@
                                                             </view>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Ek-N9-ciI">
                                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                 <connections>
                                                                     <outlet property="delegate" destination="FLP-Nb-vXy" id="Opd-78-Pm3"/>
                                                                 </connections>
@@ -441,7 +441,7 @@
                                                         <subviews>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="05E-yy-ksX">
                                                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                                 <connections>
                                                                     <outlet property="delegate" destination="8W5-ph-oLW" id="7W2-uv-JVn"/>
                                                                 </connections>
@@ -568,7 +568,7 @@
         <image name="password_icon" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mw8-LA-UbT"/>
+        <segue reference="GZP-FQ-rDR"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.050980392159999999" green="0.83921568629999999" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

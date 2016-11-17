@@ -13,7 +13,7 @@ import CoreData
 import RealmSwift
 
 protocol MyAccountDetailsProtocol : class {
-    func recievedUserDetails (data : MyAccountItems?)
+    func recievedUserDetails()
     func errorUserDetails()
 }
 
@@ -294,15 +294,15 @@ extension MyAccountDataProvider {
             saveUserDataToRealm(userData)
         }
         
-        if self.myAccountDetailsDelegate != nil{
-            self.myAccountDetailsDelegate!.recievedUserDetails(userData)
+        if self.myAccountDetailsDelegate != nil {
+            self.myAccountDetailsDelegate!.recievedUserDetails()
         }
         
     }
     
     func parseEscapeData(data : [[String:AnyObject]], escape_type: String , userId : String?){
         
-        var escapeDataArray : [MyAccountEscapeItems] = []
+        var escapeDataArray : [MyAccountEscapeItem] = []
         
         for dict in data{
             
@@ -335,13 +335,13 @@ extension MyAccountDataProvider {
                                 }
                             }
                         }
-                        escapeDataArray.append(MyAccountEscapeItems(title: selectionTitle, count: count, escapeData: escapeItems))
+                        escapeDataArray.append(MyAccountEscapeItem(title: selectionTitle, count: count, escapeData: escapeItems))
                     }
                 }
             }
         }
         if userId == nil{
-            saveEscapesToRealm(escapeDataArray , escapeType: EscapeType(rawValue: escape_type)!)
+            saveEscapesToRealm(escapeDataArray, escapeType: EscapeType(rawValue: escape_type)!)
         }
         
         NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["data" : escapeDataArray, "type":escape_type])
@@ -418,7 +418,7 @@ extension MyAccountDataProvider{
         }
     }
     
-    func saveEscapesToRealm(escapeDataArray : [MyAccountEscapeItems] , escapeType : EscapeType){
+    func saveEscapesToRealm(escapeDataArray : [MyAccountEscapeItem] , escapeType : EscapeType){
         
         for item in escapeDataArray{
             

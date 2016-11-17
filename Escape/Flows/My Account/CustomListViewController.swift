@@ -15,17 +15,21 @@ class CustomListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    
-    var tableDataArray : [MyAccountEscapeItems] = []
+    var tableDataArray : [MyAccountEscapeItem] = []
     var storedOffsets = [Int: CGFloat]()
     var escapeType : EscapeType = .Movie
     
+    var lastContentOffsetY:CGFloat = 0.0
+    
     var userId : String?
+    
+    weak var parentReference: MyAccountViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 170, right: 0)
+        tableView.scrollEnabled = false
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CustomListViewController.receivedNotification(_:)), name:NotificationObservers.MyAccountObserver.rawValue, object: nil)
         
@@ -47,7 +51,7 @@ class CustomListViewController: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: NotificationObservers.MyAccountObserver.rawValue, object: nil)
     }
     
-    func fetchEscapesDataFromRealm(){
+    func fetchEscapesDataFromRealm() {
         
         if let currentUserId = ECUserDefaults.getCurrentUserId(){
             
@@ -58,7 +62,7 @@ class CustomListViewController: UIViewController {
             do{
                 let escapeData = try Realm().objects(UserEscapeData).filter(userDataPredicate)
                 
-                var dataArray : [MyAccountEscapeItems] = []
+                var dataArray : [MyAccountEscapeItem] = []
                 
                 let list = escapeData
                 if list.count > 0 {
@@ -102,7 +106,7 @@ class CustomListViewController: UIViewController {
                                 }
                                 
                             }
-                            dataArray.append(MyAccountEscapeItems(title: title, count: count, escapeData: escapeData))
+                            dataArray.append(MyAccountEscapeItem(title: title, count: count, escapeData: escapeData))
                         }
                     }
                     
@@ -116,7 +120,7 @@ class CustomListViewController: UIViewController {
     }
     
     
-    func reloadTableView(data: [MyAccountEscapeItems] , escape_type : EscapeType ){
+    func reloadTableView(data: [MyAccountEscapeItem] , escape_type : EscapeType ){
         
         if (self.escapeType == escape_type) {
             
@@ -133,7 +137,7 @@ class CustomListViewController: UIViewController {
                 
             }else{
                 if let type =  dict["type"] as? String{
-                    if let data = dict["data"] as? [MyAccountEscapeItems]{
+                    if let data = dict["data"] as? [MyAccountEscapeItem]{
                         if let escapeType = EscapeType(rawValue: type){
                             self.reloadTableView(data, escape_type: escapeType)
                         }
@@ -149,7 +153,25 @@ class CustomListViewController: UIViewController {
     
 }
 
+
+
 extension CustomListViewController : UITableViewDataSource , UITableViewDelegate{
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let contentOffsetY = scrollView.contentOffset.y
+        if contentOffsetY < lastContentOffsetY {
+            if contentOffsetY < 0 {
+                if let parentReference = parentReference {
+                    parentReference.enableChildScrolls(false)
+                    parentReference.mainScrollView.scrollEnabled = true
+                    parentReference.mainScrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
+                }
+            }
+        }
+        
+        lastContentOffsetY = scrollView.contentOffset.y
+    }
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return tableDataArray.count

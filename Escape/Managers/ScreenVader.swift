@@ -45,6 +45,10 @@ class ScreenVader: NSObject {
         }
     }
     
-    
+    func hideTabBar(hide: Bool) {
+        if let screenManagerVC = screenManagerVC {
+            screenManagerVC.hideTabBar(hide)
+        }
+    }
 
 }

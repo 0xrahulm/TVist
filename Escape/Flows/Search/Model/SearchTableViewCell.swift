@@ -23,8 +23,11 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var itemCreatorLabel: UILabel!
     @IBOutlet weak var addToEscapeButton: UIButton!
-    @IBOutlet weak var distinguishView: UIView!
     
+    @IBOutlet weak var creatorType: UILabel!
+    @IBOutlet weak var followButton: UIButton!
+    
+    @IBOutlet weak var hairlineHeightConstraint: NSLayoutConstraint!
     
     var userId = ""
     var isFollow = false
@@ -47,14 +50,17 @@ class SearchTableViewCell: UITableViewCell {
                 }else{
                     addToEscapeButton.hidden = false
                 }
-                if data.searchType == .Movie{
-                    distinguishView.backgroundColor = UIColor.colorForMovie()
-                }else if data.searchType == .Books{
-                    distinguishView.backgroundColor = UIColor.colorForBook()
-                }else if data.searchType == .TvShows{
-                    distinguishView.backgroundColor = UIColor.colorForTvShow()
-                }else if data.searchType == .User{
-                    distinguishView.backgroundColor = UIColor.colorForPeople()
+                
+                
+                addToEscapeButton.layer.borderColor = UIColor.escapeBlueColor().CGColor
+                addToEscapeButton.layer.borderWidth = 1.0
+                
+                if data.searchType == .Movie {
+                    creatorType.text = EscapeCreatorType.Movie.rawValue+":"
+                } else if data.searchType == .Books {
+                    creatorType.text = EscapeCreatorType.Books.rawValue+":"
+                } else if data.searchType == .TvShows {
+                    creatorType.text = EscapeCreatorType.TvShows.rawValue+":"
                 }
             }
         }
@@ -106,6 +112,15 @@ class SearchTableViewCell: UITableViewCell {
         
         if self.followButtonDiscoverDelegate != nil{
             self.followButtonDiscoverDelegate?.changeLocalDataArray(self.indexPath, isFollow: isFollow)
+        }
+        
+    }
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        if let hairlineHeightConstraint = hairlineHeightConstraint {
+            hairlineHeightConstraint.constant = 0.5
         }
         
     }

@@ -12,10 +12,10 @@ extension UIButton{
     
      func unfollowViewWithAnimate(animate :Bool){
         
-        self.setTitle("  + Follow  ", forState: .Normal)
+        self.setTitle("FOLLOW", forState: .Normal)
         self.backgroundColor = UIColor.whiteColor()
-        self.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        self.layer.borderColor = UIColor.blueColor().CGColor
+        self.setTitleColor(UIColor.escapeBlueColor(), forState: .Normal)
+        self.layer.borderColor = UIColor.escapeBlueColor().CGColor
         self.layer.borderWidth = 1.0
         if animate{
             popButtonAnimate()
@@ -24,8 +24,8 @@ extension UIButton{
     
     func followViewWithAnimate(animate : Bool){
         
-        self.setTitle("  Following  ", forState: .Normal)
-        self.backgroundColor = UIColor.greenColor()
+        self.setTitle("UNFOLLOW", forState: .Normal)
+        self.backgroundColor = UIColor.escapeBlueColor()
         self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.layer.borderWidth = 0.0
         if animate{
@@ -34,12 +34,12 @@ extension UIButton{
     }
     
     func popButtonAnimate(){
-        UIView.animateWithDuration(0.1 ,
+        UIView.animateWithDuration(0.08 ,
                                    animations: {
-                                    self.transform = CGAffineTransformMakeScale(1.3, 1.3)
+                                    self.transform = CGAffineTransformMakeScale(1.2, 1.2)
             },
                                    completion: { finish in
-                                    UIView.animateWithDuration(0.1){
+                                    UIView.animateWithDuration(0.08){
                                         self.transform = CGAffineTransformIdentity
                                     }
         })

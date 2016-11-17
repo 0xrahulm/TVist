@@ -286,7 +286,7 @@ extension EmailLoginViewController : LoginProtocol {
         
         if type == .Email {
             openInteresetVC()
-        }else if type == .Facebook{
+        } else if type == .Facebook {
             ScreenVader.sharedVader.performScreenManagerAction(.MainTab, queryParams: nil)
         }
         

@@ -75,8 +75,13 @@ class ItemDescViewController: UIViewController {
         MyAccountDataProvider.sharedDataProvider.itemDescDelegate = self
         MyAccountDataProvider.sharedDataProvider.getItemDesc(escapeType, id: id)
 
-       
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        ScreenVader.sharedVader.hideTabBar(true)
+    }
+    
     func setVisuals(){
         let settingImage = IonIcons.imageWithIcon(ion_android_options, size: 30, color: UIColor.whiteColor())
         let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ItemDescViewController.optionsTapped))

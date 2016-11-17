@@ -1,15 +1,15 @@
 PODS:
-  - Alamofire (3.5.0)
+  - Alamofire (3.5.1)
   - AlamofireImage (2.5.0):
     - Alamofire (~> 3.5)
   - ionicons (2.0.3)
   - Locksmith (2.0.8)
-  - Realm (1.0.2):
-    - Realm/Headers (= 1.0.2)
-  - Realm/Headers (1.0.2)
-  - RealmSwift (1.0.2):
-    - Realm (= 1.0.2)
-  - SwiftyJSON (2.3.2)
+  - Realm (2.0.3):
+    - Realm/Headers (= 2.0.3)
+  - Realm/Headers (2.0.3)
+  - RealmSwift (2.0.3):
+    - Realm (= 2.0.3)
+  - SwiftyJSON (2.3.3)
 
 DEPENDENCIES:
   - Alamofire (~> 3.5.0)
@@ -32,22 +32,22 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Realm:
-    :commit: 41db543ae102fef9eef133cd4d5bb095eedec697
+    :commit: b33364b6e1af975005f2447824a445b3d52260c8
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
   RealmSwift:
-    :commit: 41db543ae102fef9eef133cd4d5bb095eedec697
+    :commit: b33364b6e1af975005f2447824a445b3d52260c8
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
 
 SPEC CHECKSUMS:
-  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
+  Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
   AlamofireImage: 2d34936e5201270bb17a316a786e90e83b4a249d
   ionicons: ec1e86e6c3316bd9942a7f024080dd75c70dd6a5
   Locksmith: a8ed41ac4c06506ea8cb199d8ec8a8d3d108eb2a
-  Realm: 2948cfa3a05b7acc446abc4c124d443df646c8de
-  RealmSwift: 4816c8608630a9a00bba6d726bb30b4bab6dd6bf
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  Realm: 5f008bfe3c8c47142eddfc30b8c1584cde22db24
+  RealmSwift: 79a9bc83e7ef4fbde17e0f303c5fadb99264a6be
+  SwiftyJSON: 0fd0a115a3c0c09b277d2ab801df154902b942c3
 
 PODFILE CHECKSUM: e6c069f199f3cc5502341cb368483fd4a2be7572
 

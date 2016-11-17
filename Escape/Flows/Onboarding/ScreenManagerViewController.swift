@@ -173,6 +173,12 @@ class ScreenManagerViewController: UIViewController {
         return self
     }
     
+    func hideTabBar(hide: Bool) {
+        if let mainTabVC = currentPresentedViewController as? CustomTabBarController {
+            mainTabVC.hideTabBar(hide)
+        }
+    }
+    
     func removePresentedViewController(dismissVC : UIViewController){
         
         if currentPresentedViewController == dismissVC {

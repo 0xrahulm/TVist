@@ -21,8 +21,24 @@ class CustomTabBarController: UIViewController {
     @IBOutlet weak var discoverButton: UIButton!
     @IBOutlet weak var notificationsButton: UIButton!
     @IBOutlet weak var myAccountButton: UIButton!
+    @IBOutlet weak var tabBarBottomConstraint: NSLayoutConstraint!
     
     var currentDisplayIndex = 0
+    
+    var tabBarHidden:Bool = false {
+        didSet {
+            
+            if tabBarHidden {
+                tabBarBottomConstraint.constant = -80
+            } else {
+                tabBarBottomConstraint.constant = 0
+            }
+            
+            UIView.animateWithDuration(0.15) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
     
     var viewControllers: [UIViewController]  {
         get {
@@ -98,6 +114,14 @@ class CustomTabBarController: UIViewController {
         
     }
     
+    func hideTabBar(hide: Bool) {
+        if self.tabBarHidden == hide {
+            return
+        }
+        
+        self.tabBarHidden = hide
+        
+    }
     
     private func initialViewControllerFor(storyboardId: StoryBoardIdentifier) -> UIViewController? {
         return UIStoryboard(name: storyboardId.rawValue, bundle: nil).instantiateInitialViewController()
@@ -105,7 +129,6 @@ class CustomTabBarController: UIViewController {
     
     private func changeActiveViewControllerFrom(inactiveViewController:UIViewController?) {
         if isViewLoaded() {
-            
             
             if let activeVC = activeViewController {
                 

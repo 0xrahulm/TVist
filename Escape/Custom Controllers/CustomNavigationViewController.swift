@@ -8,11 +8,15 @@
 
 import UIKit
 
-class CustomNavigationViewController: UINavigationController {
+class CustomNavigationViewController: UINavigationController, UINavigationControllerDelegate {
 
+    let customNavigationAnimationController = CustomNavigationAnimationController()
+    let customInteractionController = CustomInteractionController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.delegate = self
         setAppearnce()
         // Do any additional setup after loading the view.
     }
@@ -42,6 +46,18 @@ class CustomNavigationViewController: UINavigationController {
         }
     }
 
+    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        if operation == .Push {
+            customInteractionController.attachToViewController(toVC)
+        }
+        
+        customNavigationAnimationController.reverse = operation == .Pop
+        return customNavigationAnimationController
+    }
     
+    func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return customInteractionController.transitionInProgress ? customInteractionController : nil
+    }
 
 }

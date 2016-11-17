@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BnE-TS-YbO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BnE-TS-YbO">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,12 +22,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mO4-Eg-2E4">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JhV-cx-SHl">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="tab_add_escape" translatesAutoresizingMaskIntoConstraints="NO" id="Sav-bA-jsG"/>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="tab_add_escape" translatesAutoresizingMaskIntoConstraints="NO" id="Sav-bA-jsG">
+                                        <rect key="frame" x="165" y="2.5" width="45" height="45"/>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kdd-9f-m2J">
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
                                         <state key="normal" image="tab_home"/>
                                         <state key="selected" image="tab_home_on"/>
                                         <connections>
@@ -32,6 +40,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsF-bH-2VK">
+                                        <rect key="frame" x="300" y="0.0" width="75" height="50"/>
                                         <state key="normal" image="tab_profile"/>
                                         <state key="selected" image="tab_profile_on"/>
                                         <connections>
@@ -39,6 +48,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xI-9X-JOt">
+                                        <rect key="frame" x="225" y="0.0" width="75" height="50"/>
                                         <state key="normal" image="tab_notification"/>
                                         <state key="selected" image="tab_notification_on"/>
                                         <connections>
@@ -46,13 +56,16 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aQ-Vz-HXD">
+                                        <rect key="frame" x="75" y="0.0" width="75" height="50"/>
                                         <state key="normal" image="tab_discover"/>
                                         <state key="selected" image="tab_discover_on"/>
                                         <connections>
                                             <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="cj1-S9-DyN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qrd-0s-PuY"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qrd-0s-PuY">
+                                        <rect key="frame" x="150" y="0.0" width="75" height="50"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -99,6 +112,7 @@
                         <outlet property="homeButton" destination="Kdd-9f-m2J" id="PkV-qa-51W"/>
                         <outlet property="myAccountButton" destination="WsF-bH-2VK" id="Tzb-xe-Z9r"/>
                         <outlet property="notificationsButton" destination="2xI-9X-JOt" id="Th0-6C-0Af"/>
+                        <outlet property="tabBarBottomConstraint" destination="dp4-vC-mFm" id="4MO-BZ-NNm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tcV-Bp-tK6" userLabel="First Responder" sceneMemberID="firstResponder"/>

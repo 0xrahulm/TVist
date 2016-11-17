@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import ionicons
 
 class SearchViewController: UIViewController {
     
@@ -34,31 +34,32 @@ class SearchViewController: UIViewController {
     
     func setupSearchBar(){
         
-        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
-        searchBar = UISearchBar(frame: CGRectMake(0.0, 0.0, self.view.frame.size.width-90, 40.0))
+        searchBar = UISearchBar(frame: CGRectMake(0.0, 0.0, self.view.frame.size.width-100, 40.0))
         searchBar.delegate = self
         
-        searchBar.barTintColor = UIColor.whiteColor()
+        searchBar.barTintColor = UIColor.themeColorBlack()
         searchBar.placeholder  = "Search"
-        searchBar.tintColor    = UIColor.searchPlaceHolderColor()
+        searchBar.tintColor    = UIColor.themeColorBlack()
         searchBar.backgroundImage = UIImage.getImageWithColor(UIColor.clearColor(), size: CGSizeMake(1, 1))
-        searchBar.backgroundColor = UIColor.escapeBlueColor()
+        searchBar.backgroundColor = UIColor.escapeGray()
         searchBar.searchBarStyle = .Minimal
-        searchBar.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: .Normal)
-        searchBar.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: .Highlighted)
+        if let searchIconImage = IonIcons.imageWithIcon(ion_ios_search_strong, iconColor: UIColor.themeColorBlack(), iconSize: 28, imageSize: CGSize(width: 24, height: 24)) {
+            
+            searchBar.setImage(searchIconImage, forSearchBarIcon: UISearchBarIcon.Search, state: .Normal)
+            searchBar.setImage(searchIconImage, forSearchBarIcon: UISearchBarIcon.Search, state: .Highlighted)
+        }
         
         if let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField {
-            textFieldInsideSearchBar.textColor = UIColor.whiteColor()
+            textFieldInsideSearchBar.textColor = UIColor.themeColorBlack()
             let textFieldInsideSearchBarLabel = textFieldInsideSearchBar.valueForKey("placeholderLabel") as? UILabel
-            textFieldInsideSearchBarLabel?.textColor = UIColor.whiteColor()
+            textFieldInsideSearchBarLabel?.textColor = UIColor.themeColorBlack()
         }
         
         let leftnavButton = UIBarButtonItem(customView:searchBar)
         self.navigationItem.leftBarButtonItem = leftnavButton
         
         searchBar.showsCancelButton = false
-        
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: #selector(SearchViewController.addFirstResponder), userInfo: nil , repeats: false)
+        addFirstResponder()
         
     }
     
@@ -99,21 +100,22 @@ class SearchViewController: UIViewController {
         addVcFor(.Books, title: "Books")
         addVcFor(.User, title: "People")
         
-        // Customize menu (Optional)
+        // Customize menu
         let parameters: [CAPSPageMenuOption] = [
             .ScrollMenuBackgroundColor(UIColor.whiteColor()),
             .ViewBackgroundColor(UIColor.whiteColor()),
             .SelectionIndicatorColor(UIColor.escapeBlueColor()),
-            .BottomMenuHairlineColor(UIColor.escapeBlueColor()),
-            .MenuItemFont(UIFont(name: "SFUIDisplay-Regular", size: 14.0)!),
+            .BottomMenuHairlineColor(UIColor.textGrayColor()),
+            .MenuItemFont(UIFont(name: "SFUIDisplay-SemiBold", size: 15.0)!),
             .MenuHeight(45.0),
-            .MenuItemWidth(80.0),
+            .MenuMargin(0.0),
+            .MenuItemWidth(100.0),
             .CenterMenuItems(true),
-            .SelectedMenuItemLabelColor(UIColor.escapeBlueColor()),
-            .UnselectedMenuItemLabelColor(UIColor.grayColor()),
-            .SelectionIndicatorHeight(1.0),
-            
-            ]
+            .SelectedMenuItemLabelColor(UIColor.themeColorBlack()),
+            .UnselectedMenuItemLabelColor(UIColor.textGrayColor()),
+            .SelectionIndicatorHeight(1.5)
+        ]
+        
         
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
         

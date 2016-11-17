@@ -19,13 +19,15 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var posterImage: UIImageView!
     
+    @IBOutlet weak var hairlineHeightConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var directorLabel: UILabel!
     
     @IBOutlet weak var ctaButton: UIButton!
-    
-    @IBOutlet weak var distinguishView: UIView!
+    @IBOutlet weak var creatorType: UILabel!
+    @IBOutlet weak var followButton: UIButton!
     
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
     
@@ -33,7 +35,7 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var peopleName: UILabel!
     @IBOutlet weak var peopleFollowerLabel: UILabel!
-    @IBOutlet weak var followButton: UIButton!
+    
     
     var userId = ""
     var isFollow = false
@@ -42,9 +44,17 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
     
     var data : DiscoverItems? {
         didSet{
-            if let data = data{
-                titleLabel.text = data.name
+            if let data = data, let escapeName = data.name {
+                var escapeTitleStr = escapeName
+                if let year = data.year {
+                    escapeTitleStr += " (\(year))"
+                }
+                titleLabel.text = escapeTitleStr
                 posterImage.downloadImageWithUrl(data.image , placeHolder: UIImage(named: "movie_placeholder"))
+                
+                ctaButton.layer.borderColor = UIColor.escapeBlueColor().CGColor
+                ctaButton.layer.borderWidth = 1.0
+                
                 if let director = data.director{
                     directorLabel.text = director
                     directorLabel.hidden = false
@@ -52,13 +62,11 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
                     directorLabel.hidden = true
                 }
                 if data.discoverType == .Movie{
-                    distinguishView.backgroundColor = UIColor.colorForMovie()
+                    creatorType.text = EscapeCreatorType.Movie.rawValue+":"
                 }else if data.discoverType == .Books{
-                    distinguishView.backgroundColor = UIColor.colorForBook()
+                    creatorType.text = EscapeCreatorType.Books.rawValue+":"
                 }else if data.discoverType == .TvShows{
-                    distinguishView.backgroundColor = UIColor.colorForTvShow()
-                }else if data.discoverType == .People{
-                    distinguishView.backgroundColor = UIColor.colorForPeople()
+                    creatorType.text = EscapeCreatorType.TvShows.rawValue+":"
                 }
                 
             }
@@ -71,10 +79,13 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
             if let peopleData = peopleData{
                 peopleName.text = peopleData.name
                 peopleImage.downloadImageWithUrl(peopleData.image, placeHolder: UIImage(named: "profile_placeholder"))
-                peopleFollowerLabel.text = "22 Followers"
-                if let id = peopleData.id{
+                if let followersCount = peopleData.followers {
+                    peopleFollowerLabel.text = "\(followersCount) Followers"
+                }
+                if let id = peopleData.id {
                     self.userId = id // remove optional from here
                 }
+                
                 if peopleData.isFollow {
                     followButton.followViewWithAnimate(false)
                 }else{
@@ -86,7 +97,10 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        if let hairlineHeightConstraint = hairlineHeightConstraint {
+            hairlineHeightConstraint.constant = 0.5
+        }
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -108,6 +122,10 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
                 
             }
             
+        }
+        
+        if let button = sender as? UIButton {
+            button.popButtonAnimate()
         }
     }
     

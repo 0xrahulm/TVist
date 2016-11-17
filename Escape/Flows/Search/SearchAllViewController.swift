@@ -163,7 +163,7 @@ extension SearchAllViewController : UITableViewDelegate{
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if dataArray[indexPath.row].searchType == .User || dataArray[indexPath.row].searchType == .Blank{
-            return 55
+            return 70
         }
         return 120
     }

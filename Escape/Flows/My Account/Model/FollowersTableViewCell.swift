@@ -34,7 +34,7 @@ class FollowersTableViewCell: UITableViewCell {
             followButton.unfollowViewWithAnimate(true)
             isFollow = false
             UserDataProvider.sharedDataProvider.unfollowUser(self.userId)
-        }else{
+        } else {
             followButton.followViewWithAnimate(true)
             isFollow = true
             UserDataProvider.sharedDataProvider.followUser(self.userId)

@@ -12,39 +12,34 @@ import RealmSwift
 
 class MyAccountViewController: UIViewController{
     
+    @IBOutlet weak var contentView:     UIView!
+    @IBOutlet weak var topView:     UIView!
+    
+    
+    @IBOutlet weak var mainScrollView: UIScrollView!
+    
+    @IBOutlet weak var editProfileButton: UIButton!
+    
     @IBOutlet weak var profileImage: UIImageView!
     
     @IBOutlet weak var escapeCount:     UILabel!
     @IBOutlet weak var followerCount:   UILabel!
     @IBOutlet weak var followingCount:  UILabel!
     
-    @IBOutlet weak var movieImage:      UIImageView!
-    @IBOutlet weak var activityImage:   UIImageView!
-    @IBOutlet weak var booksImage:      UIImageView!
-    @IBOutlet weak var tvImage:         UIImageView!
-    
-    @IBOutlet weak var contentView:     UIView!
-    
-    @IBOutlet weak var booksView: UIView!
-    @IBOutlet weak var tvshowsView: UIView!
-    @IBOutlet weak var moviesView: UIView!
-    @IBOutlet weak var activityView: UIView!
-    
-    @IBOutlet weak var editProfileButton: UIButton!
     var userId : String?
     var isFollow = false
+    var pageMenu:CAPSPageMenu?
     // Segment
     
     var listOfVCType : [EscapeType] = [.Activity, .Movie, .TvShows, .Books]
+    var listOfTitles = ["Activity", "Movies", "Tv Shows", "Books"]
     
-    private var viewControllers: [UIViewController] = []
+    var lastContentOffsetY:CGFloat = 0.0
+    
+    private var viewControllers: [CustomListViewController] = []
     var currentDisplayIndex = -1
     
-    private var activeViewController: UIViewController? {
-        didSet {
-            changeActiveViewControllerFrom(oldValue)
-        }
-    }
+    
     override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
         if let userId = queryParams["user_id"] as? String{
             self.userId = userId
@@ -76,27 +71,32 @@ class MyAccountViewController: UIViewController{
         MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
         MyAccountDataProvider.sharedDataProvider.getUserDetails(userId)
         
+        ScreenVader.sharedVader.hideTabBar(false)
+        
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.mainScrollView.contentSize = CGSize(width: self.mainScrollView.frame.size.width, height: self.mainScrollView.frame.size.height+self.topView.frame.size.height)
+    }
+    
+    
     func setVisuals(){
-        let settingImage = IonIcons.imageWithIcon(ion_android_settings, size: 30, color: UIColor.whiteColor())
+        let settingImage = IonIcons.imageWithIcon(ion_ios_settings_strong, size: 22, color: UIColor.themeColorBlack())
         let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MyAccountViewController.settingTapped))
         
         self.navigationItem.rightBarButtonItem = settingButton
+        editProfileButton.layer.borderColor = UIColor.textGrayColor().CGColor
+        editProfileButton.layer.borderWidth = 1.0
+        editProfileButton.layer.cornerRadius = 2.0
         
-        activityImage.image = IonIcons.imageWithIcon(ion_android_clipboard, iconColor: UIColor.escapeBlueColor(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
-        movieImage.image = IonIcons.imageWithIcon(ion_film_marker, iconColor: UIColor.escapeBlueColor(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
-        tvImage.image = IonIcons.imageWithIcon(ion_easel, iconColor: UIColor.escapeBlueColor(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
-        booksImage.image = IonIcons.imageWithIcon(ion_ios_book, iconColor: UIColor.escapeBlueColor(), iconSize: 25, imageSize: CGSize(width: 25 , height: 25))
-        
-        if let _ = userId{
-            if isFollow{
-                
+        if let _ = userId {
+            if isFollow {
                 editProfileButton.followViewWithAnimate(false)
-            }else{
+            } else {
                 editProfileButton.unfollowViewWithAnimate(false)
             }
-            
         }
     }
     
@@ -110,63 +110,42 @@ class MyAccountViewController: UIViewController{
         
         var listViewControllers:[CustomListViewController] = []
         
-        for listType in listOfVCType {
+        for (index,listType) in listOfVCType.enumerate() {
             
             if let listVC = UIStoryboard(name: "MyAccount", bundle: nil).instantiateViewControllerWithIdentifier("customListVC") as? CustomListViewController {
                 listVC.typeOfList = listType
                 listVC.userId = userId
+                listVC.parentReference = self
+                listVC.title = self.listOfTitles[index]
                 listViewControllers.append(listVC)
             }
         }
         
         self.viewControllers = listViewControllers
-        customSegmentedPageMenu(0)
+        
         setSelectedViewColor(.Activity)
-    }
-    
-    private func changeActiveViewControllerFrom(inactiveViewController:UIViewController?) {
-        if isViewLoaded() {
-            let width = CGRectGetWidth(contentView.frame)
-            let height = CGRectGetHeight(contentView.frame)
-            
-            if let inActiveVC = inactiveViewController {
-                inActiveVC.willMoveToParentViewController(nil)
-                
-                if let activeVC = activeViewController {
-                    var offSet = -width
-                    if viewControllers.indexOf(activeVC) > viewControllers.indexOf(inActiveVC) {
-                        offSet = width
-                    }
-                    activeVC.view.frame = CGRectMake(offSet, 0, width, height)
-                    
-                    //disabling segment till animation is completed
-                    
-                    addChildViewController(activeVC)
-                    
-                    transitionFromViewController(inActiveVC, toViewController: activeVC, duration: 0.2, options: UIViewAnimationOptions.AllowAnimatedContent,
-                                                 animations: { [unowned self] () -> Void in
-                                                    inActiveVC.view.frame = CGRectMake(-offSet, 0, width, height)
-                                                    inActiveVC.view.alpha = 0
-                                                    activeVC.view.frame   = self.contentView.bounds
-                        }, completion: { [unowned self] (finished) -> Void in
-                            activeVC.didMoveToParentViewController(self)
-                        })
-                    
-                        activeVC.view.visibleWithAnimationDuration(0.15)
-                }
-                
-            } else {
-                
-                if let activeVC = activeViewController {
-                    addChildViewController(activeVC)
-                    activeVC.view.frame = self.contentView.bounds
-                    self.contentView.addSubview(activeVC.view)
-                    activeVC.didMoveToParentViewController(self)
-                    activeVC.view.visibleWithAnimationDuration(0.15)
-                }
-            }
-            
-        }
+        
+        let parameters: [CAPSPageMenuOption] = [
+            .ScrollMenuBackgroundColor(UIColor.whiteColor()),
+            .ViewBackgroundColor(UIColor.whiteColor()),
+            .SelectionIndicatorColor(UIColor.escapeBlueColor()),
+            .BottomMenuHairlineColor(UIColor.textGrayColor()),
+            .MenuItemFont(UIFont(name: "SFUIDisplay-SemiBold", size: 15.0)!),
+            .MenuHeight(45.0),
+            .MenuMargin(0.0),
+            .MenuItemWidth(self.contentView.frame.width/4),
+            .CenterMenuItems(true),
+            .SelectedMenuItemLabelColor(UIColor.themeColorBlack()),
+            .UnselectedMenuItemLabelColor(UIColor.textGrayColor()),
+            .SelectionIndicatorHeight(1.5)
+        ]
+        
+        pageMenu = CAPSPageMenu(viewControllers: listViewControllers, frame: CGRectMake(0.0, 0.0, self.contentView.frame.width, self.contentView.frame.height), pageMenuOptions: parameters)
+        
+        self.addChildViewController(pageMenu!)
+        self.contentView.addSubview(pageMenu!.view)
+        
+        pageMenu!.didMoveToParentViewController(self)
     }
     
     func fetchDataFromRealm(){
@@ -216,45 +195,25 @@ class MyAccountViewController: UIViewController{
          escapeCount.text = "\(count)"
         
     }
-    
-    func customSegmentedPageMenu(selectedIndex: Int) {
-        if currentDisplayIndex != selectedIndex {
-            currentDisplayIndex  = selectedIndex
-            activeViewController = viewControllers[selectedIndex]
-        }
-    }
 
     @IBAction func tapGestureAction(sender: UITapGestureRecognizer) {
         
         if let view = sender.view{
             setSelectedViewColor(Tap(rawValue: view.tag))
-            customSegmentedPageMenu(view.tag - 1)
         }
         
     }
     
     func setSelectedViewColor(view : Tap?){
-        
-        var activityColor = UIColor.whiteColor()
-        var movieColor = UIColor.whiteColor()
-        var tvShowColor = UIColor.whiteColor()
-        var booksColor = UIColor.whiteColor()
-        
-        if view == .Activity{
-            activityColor = UIColor.viewSelectedColor()
-        }else if view == .Movie{
-            movieColor  = UIColor.viewSelectedColor()
-        }else if view == .TvShows{
-            tvShowColor = UIColor.viewSelectedColor()
-        }else if view == .Books{
-            booksColor = UIColor.viewSelectedColor()
-        }
-        
-        activityView.backgroundColor = activityColor
-        moviesView.backgroundColor = movieColor
-        tvshowsView.backgroundColor = tvShowColor
-        booksView.backgroundColor = booksColor
     
+    }
+    
+    func enableChildScrolls(enable: Bool) {
+        for listViewController in self.viewControllers {
+            if listViewController.tableView != nil {
+                listViewController.tableView.scrollEnabled = enable
+            }
+        }
     }
     
     @IBAction func followerFollowingClicked(sender: UITapGestureRecognizer) {
@@ -288,9 +247,23 @@ class MyAccountViewController: UIViewController{
     }
     
 }
+
+extension MyAccountViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let contentOffsetY = scrollView.contentOffset.y
+        if contentOffsetY > lastContentOffsetY {
+            if contentOffsetY > (self.topView.frame.size.height-5) {
+                enableChildScrolls(true)
+            }
+        }
+        
+        lastContentOffsetY = scrollView.contentOffset.y
+    }
+}
+
 extension MyAccountViewController : MyAccountDetailsProtocol{
-    func recievedUserDetails(data: MyAccountItems?) {
-        fillData(data)
+    func recievedUserDetails() {
+        fetchDataFromRealm()
     }
     func errorUserDetails() {
     }

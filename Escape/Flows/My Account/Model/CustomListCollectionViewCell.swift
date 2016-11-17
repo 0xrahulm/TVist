@@ -18,8 +18,6 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var ratingLabel: UILabel!
     
-    @IBOutlet weak var ratingImage: UIImageView!
-    
     var dataItems : EscapeDataItems? {
         didSet{
             if let dataItems = dataItems{
@@ -34,20 +32,32 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 if let escapeRating = dataItems.escapeRating{
                     if escapeRating != 0{
                         ratingLabel.text = (String(format: "%.1f", Double(escapeRating)))
-                        ratingImage.hidden = false
+                        
                         ratingLabel.hidden = false
                     }else{
                         ratingLabel.hidden = true
-                        ratingImage.hidden = true
                     }
                     
                 }else{
                     ratingLabel.hidden = true
-                    ratingImage.hidden = true
                 }
                 
             }
         }
+    }
+    
+    
+    func popTheImage() {
+        
+        UIView.animateWithDuration(0.07,
+                                   animations: {
+                                    self.itemImage.transform = CGAffineTransformMakeScale(0.95, 0.95)
+            },
+                                   completion: { finish in
+                                    UIView.animateWithDuration(0.07){
+                                        self.itemImage.transform = CGAffineTransformIdentity
+                                    }
+        })
     }
     
 }

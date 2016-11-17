@@ -24,7 +24,7 @@ enum SubServiceType : String {
     
     // My Account
     case GetUserDetails =  "get_user_details"
-    case GetUserEscapes =  "get_user_escape"
+    case GetUserEscapes =  "user/escapes"
     case LogoutUser     =  "logout"
     case GetItemDesc    =  "escapes/detail"
     case GetFollowers   =  "get_user_followers"

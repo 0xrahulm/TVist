@@ -24,9 +24,9 @@ class DiscoverViewController: UIViewController {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         
-        let searchImage = IonIcons.imageWithIcon(ion_android_search, size: 30, color: UIColor.whiteColor())
+        let searchImage = IonIcons.imageWithIcon(ion_ios_search, size: 30, color: UIColor.themeColorBlack())
         
-        let addImage = IonIcons.imageWithIcon(ion_android_add, size: 30, color: UIColor.whiteColor())
+        let addImage = IonIcons.imageWithIcon(ion_ios_personadd, size: 30, color: UIColor.themeColorBlack())
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: searchImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
         
@@ -35,6 +35,11 @@ class DiscoverViewController: UIViewController {
         
         configureVCs()
 
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        ScreenVader.sharedVader.hideTabBar(false)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -58,15 +63,15 @@ class DiscoverViewController: UIViewController {
             .ScrollMenuBackgroundColor(UIColor.whiteColor()),
             .ViewBackgroundColor(UIColor.whiteColor()),
             .SelectionIndicatorColor(UIColor.escapeBlueColor()),
-            .BottomMenuHairlineColor(UIColor.escapeBlueColor()),
-            .MenuItemFont(UIFont(name: "SFUIDisplay-Regular", size: 14.0)!),
+            .BottomMenuHairlineColor(UIColor.textGrayColor()),
+            .MenuItemFont(UIFont(name: "SFUIDisplay-SemiBold", size: 15.0)!),
             .MenuHeight(45.0),
-            .MenuItemWidth(80.0),
+            .MenuMargin(0.0),
+            .MenuItemWidth(100.0),
             .CenterMenuItems(true),
-            .SelectedMenuItemLabelColor(UIColor.escapeBlueColor()),
-            .UnselectedMenuItemLabelColor(UIColor.grayColor()),
-            .SelectionIndicatorHeight(1.0),
-            
+            .SelectedMenuItemLabelColor(UIColor.themeColorBlack()),
+            .UnselectedMenuItemLabelColor(UIColor.textGrayColor()),
+            .SelectionIndicatorHeight(1.5)
             ]
         
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
