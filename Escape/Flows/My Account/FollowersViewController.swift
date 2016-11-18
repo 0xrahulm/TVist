@@ -36,25 +36,27 @@ class FollowersViewController: UIViewController {
         
         MyAccountDataProvider.sharedDataProvider.followersDelegate = self
         
-        if userType == .Followers{
-            MyAccountDataProvider.sharedDataProvider.getUserFollowers(id)
+        if userType == .Followers {
             self.title = "Followers"
-        }else if userType == .Following{
-            MyAccountDataProvider.sharedDataProvider.getUserFollowing(id)
+            MyAccountDataProvider.sharedDataProvider.getUserFollowers(id)
+        } else if userType == .Following {
             self.title = "Following"
-        }else if userType == .Friends{
-            MyAccountDataProvider.sharedDataProvider.getUserFriends()
+            MyAccountDataProvider.sharedDataProvider.getUserFollowing(id)
+        } else if userType == .Friends {
             self.title = "Friends"
+            MyAccountDataProvider.sharedDataProvider.getUserFriends()
         }
+        
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
     
-    func configurationTextField(textField: UITextField!)
-    {
+    func configurationTextField(textField: UITextField!) {
         textField.placeholder = "Enter message"
         txtField = textField
     }
+    
     func postRecommend(friendId : String){
-        if let escapeId = escapeId{
+        if let escapeId = escapeId {
             MyAccountDataProvider.sharedDataProvider.postRecommend([escapeId], friendId: [friendId], message: txtField.text)
         }
         
@@ -69,7 +71,6 @@ class FollowersViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler:nil))
         alert.addAction(UIAlertAction(title: "Done", style: .Default, handler:{ (UIAlertAction) in
             self.postRecommend(id)
-            
         }))
         self.presentViewController(alert, animated: true, completion: {
             print("completion block")
@@ -80,15 +81,14 @@ class FollowersViewController: UIViewController {
 extension FollowersViewController : UITableViewDelegate , UITableViewDataSource{
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if dataArray.count > indexPath.row{
+        if dataArray.count > indexPath.row {
             let data = dataArray[indexPath.row]
-            if userType == .Friends{
-                if let id = data.id{
+            if userType == .Friends {
+                if let id = data.id {
                     showTextBoxPopUP(data.firstName, id: id)
-                    
                 }
             }else{
-                if let id  = data.id{
+                if let id  = data.id {
                     ScreenVader.sharedVader.performScreenManagerAction(.OpenUserAccount, queryParams: ["user_id":id, "isFollow" : data.isFollow])
                 }
             }
@@ -98,12 +98,15 @@ extension FollowersViewController : UITableViewDelegate , UITableViewDataSource{
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 70
+    }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let data = dataArray[indexPath.row]
         
         let cell = tableView.dequeueReusableCellWithIdentifier("followCellIdentifier") as! FollowersTableViewCell
-        if userType == .Friends{
+        if userType == .Friends {
             cell.followButton.hidden = true
         }else{
             cell.followButton.hidden = false

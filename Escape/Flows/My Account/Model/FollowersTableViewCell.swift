@@ -27,6 +27,8 @@ class FollowersTableViewCell: UITableViewCell {
     @IBOutlet weak var countLabel: UILabel!
     
     @IBOutlet weak var followButton: UIButton!
+    
+    @IBOutlet weak var hairlineHeightConstraint: NSLayoutConstraint!
 
     @IBAction func followButtonClicked(sender: AnyObject) {
         
@@ -44,9 +46,13 @@ class FollowersTableViewCell: UITableViewCell {
             self.followButtonDelegate?.changeLocalDataArray(self.indexPath, isFollow: isFollow)
         }
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        if let hairlineHeightConstraint = hairlineHeightConstraint {
+            hairlineHeightConstraint.constant = 0.5
+        }
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
