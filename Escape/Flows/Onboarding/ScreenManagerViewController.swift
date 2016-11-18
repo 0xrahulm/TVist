@@ -294,7 +294,7 @@ extension ScreenManagerViewController{
     }
     func openAddToEscapePopUp(params : [String:AnyObject]?){
         
-        if let params = params, type = params["type"] as? String, id = params["id"] as? String, delegate = params["delegate"] as? DiscoverEscapeTableViewCell{
+        if let params = params, type = params["type"] as? String, id = params["id"] as? String, delegate = params["delegate"] as? UITableViewCell {
             
             let addToEscapePopup = AddToEscapeViewController(nibName:"AddToEscapeViewController", bundle: nil)
             addToEscapePopup.modalPresentationStyle = .Custom
@@ -302,7 +302,13 @@ extension ScreenManagerViewController{
             addToEscapePopup.presentingVC = self
             addToEscapePopup.type = DiscoverType(rawValue: type)
             addToEscapePopup.id = id
-            addToEscapePopup.addToEscapeDoneDelegate = delegate
+            if let searchVCDelegate = delegate as? SearchTableViewCell {
+                addToEscapePopup.addToEscapeDoneDelegate = searchVCDelegate
+            }
+            
+            if let discoverVCCell = delegate as? DiscoverEscapeTableViewCell {
+                addToEscapePopup.addToEscapeDoneDelegate = discoverVCCell
+            }
             
             let topVC = getTopViewController()
             topVC.presentViewController(addToEscapePopup, animated: true, completion: nil)
@@ -310,8 +316,7 @@ extension ScreenManagerViewController{
         }
     }
     func openUserAccount(params : [String:AnyObject]?){
-        pushInitialViewControllerOf(.MyAccount, queryParams: params)
-        
+        pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountVC", queryParams: params)        
     }
     func presentNoNetworkPopUP(){
         

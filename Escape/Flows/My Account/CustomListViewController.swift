@@ -43,7 +43,7 @@ class CustomListViewController: UIViewController {
             fetchEscapesDataFromRealm()
         }
         
-        MyAccountDataProvider.sharedDataProvider.getUserEscapes(escapeType, userId : userId)
+        MyAccountDataProvider.sharedDataProvider.getUserEscapes(escapeType, userId: userId)
         
     }
     
@@ -120,7 +120,7 @@ class CustomListViewController: UIViewController {
     }
     
     
-    func reloadTableView(data: [MyAccountEscapeItem] , escape_type : EscapeType ){
+    func reloadTableView(data: [MyAccountEscapeItem], escape_type: EscapeType) {
         
         if (self.escapeType == escape_type) {
             

@@ -19,10 +19,10 @@ class MyAccountItems: NSObject {
     var profilePicture: String?
     var followers:      NSNumber = 0
     var following:      NSNumber = 0
-    var movies_count:   NSNumber?
-    var books_count:    NSNumber?
-    var tvShows_count:  NSNumber?
-    var escapes_count:  NSNumber?
+    var movies_count:   NSNumber = 0
+    var books_count:    NSNumber = 0
+    var tvShows_count:  NSNumber = 0
+    var escapes_count:  NSNumber = 0
     var isFollow = false
     
     init(id : String?,firstName : String,lastName : String,email :String?,gender :        Gender?,profilePicture :String?,followers :NSNumber,following :NSNumber,movies_count :  NSNumber?,books_count : NSNumber?,tvShows_count : NSNumber?,escapes_count : NSNumber?) {
@@ -35,10 +35,21 @@ class MyAccountItems: NSObject {
         self.profilePicture = profilePicture
         self.followers = followers
         self.following = following
-        self.movies_count = movies_count
-        self.books_count = books_count
-        self.tvShows_count = tvShows_count
-        self.escapes_count = escapes_count
+        if let movies_count = movies_count {
+            self.movies_count = movies_count
+        }
+        
+        if let books_count = books_count {
+            self.books_count = books_count
+        }
+        
+        if let tvShows_count = tvShows_count {
+            self.tvShows_count = tvShows_count
+        }
+        
+        if let escapes_count = escapes_count {
+            self.escapes_count = escapes_count
+        }
         
     }
     

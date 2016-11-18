@@ -57,8 +57,16 @@ class MyProfileViewController: UIViewController {
         
         if userId == nil { // means self user
             fetchDataFromRealm()
+        } else {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyProfileViewController.otherUserData(_:)), name: NotificationObservers.GetProfileDetailsObserver.rawValue, object: nil)
         }
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyProfileViewController.receivedSelectedTabData(_:)), name: NotificationObservers.MyAccountObserver.rawValue, object: nil)
+        
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -72,10 +80,15 @@ class MyProfileViewController: UIViewController {
     }
     
     func initialDataSetup() {
-        allProfileData[EscapeType.Activity.rawValue] = fetchEscapesDataFromRealm(EscapeType.Movie)
-        allProfileData[EscapeType.Movie.rawValue]    = fetchEscapesDataFromRealm(EscapeType.Movie)
-        allProfileData[EscapeType.TvShows.rawValue]  = fetchEscapesDataFromRealm(EscapeType.TvShows)
-        allProfileData[EscapeType.Books.rawValue]    = fetchEscapesDataFromRealm(EscapeType.Books)
+        
+        for accountListType in listOfItemType {
+            if let _ = userId {
+                allProfileData[accountListType.rawValue] = []
+            } else {
+                allProfileData[accountListType.rawValue] = fetchEscapesDataFromRealm(accountListType)
+                
+            }
+        }
     }
     
     func fetchEscapesDataFromRealm(typeOfList: EscapeType) -> [MyAccountEscapeItem]  {
@@ -96,10 +109,10 @@ class MyProfileViewController: UIViewController {
                     var distinctElement : [String] = []
                     
                     for i in list{
-                        if let section = i.sectionTitle{
+                        if let section = i.sectionTitle {
                             
                             var check = true
-                            for j in distinctElement{
+                            for j in distinctElement {
                                 if j == section{
                                     check = false
                                     break
@@ -159,23 +172,61 @@ class MyProfileViewController: UIViewController {
     func fetchDataFromRealm() {
         
         if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
-            
-            if user.lastName.characters.count > 0 {
-                self.navigationItem.title = "\(user.firstName) \(user.lastName)"
-            } else {
-                self.navigationItem.title = user.firstName
+            pushUpUserData(user.firstName, lastName: user.lastName, profilePicture: user.profilePicture, followers: user.followers, following: user.following, booksCount: user.books_count, moviesCount: user.movies_count, tvShowsCount: user.tvShows_count)
+        }
+        
+    }
+    
+    
+    func pushUpUserData(firstName: String, lastName: String?, profilePicture: String?, followers:Int, following: Int, booksCount: Int, moviesCount: Int, tvShowsCount: Int) {
+        if let lastName = lastName where lastName.characters.count > 0 {
+            self.navigationItem.title = "\(firstName) \(lastName)"
+        } else {
+            self.navigationItem.title = firstName
+        }
+        
+        profileImage.downloadImageWithUrl(profilePicture, placeHolder: UIImage(named: "profile_placeholder"))
+        
+        followerCount.text = "\(followers)"
+        
+        followingCount.text = "\(following)"
+        
+        let escapes_count = moviesCount + tvShowsCount + booksCount
+        
+        escapeCount.text = "\(escapes_count)"
+    }
+    
+    func otherUserData(notification: NSNotification) {
+        if let userInfo = notification.userInfo, let userData = userInfo["userData"] as? MyAccountItems {
+            if let userId = userId, let userDataId = userData.id {
+                if userId == userDataId {
+                    pushUpUserData(userData.firstName, lastName: userData.lastName, profilePicture: userData.profilePicture, followers: userData.followers.integerValue, following: userData.following.integerValue, booksCount: userData.books_count.integerValue, moviesCount: userData.movies_count.integerValue, tvShowsCount: userData.tvShows_count.integerValue)
+                }
             }
             
-            profileImage.downloadImageWithUrl(user.profilePicture, placeHolder: UIImage(named: "profile_placeholder"))
-            
-            followerCount.text = "\(user.followers)"
-            
-            followingCount.text = "\(user.following)"
-            
-            let escapes_count = user.movies_count + user.tvShows_count + user.books_count
-            
-            escapeCount.text = "\(escapes_count)"
-            
+        }
+    }
+    
+    func receivedSelectedTabData(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let listType = userInfo["type"] as? String, let listTypePresent = EscapeType(rawValue: listType) {
+                
+                if let dataUserId = userInfo["userId"] as? String, let userId = userId {
+                    if dataUserId == userId {
+                        if let listItems = userInfo["data"] as? [MyAccountEscapeItem] {
+                            allProfileData[listTypePresent.rawValue] = listItems
+                            
+                        }
+                        if listOfItemType[currentSelectedIndex] == listTypePresent {
+                            tableView.reloadData()
+                        }
+                    }
+                } else {
+                    if listOfItemType[currentSelectedIndex] == listTypePresent {
+                        tableView.reloadData()
+                    }
+                }
+            }
         }
         
     }
@@ -203,7 +254,11 @@ class MyProfileViewController: UIViewController {
             
             if currentSelectedIndex != selectedTab.tag {
                 
+                
                 currentSelectedIndex = selectedTab.tag
+                
+                let currentTab = listOfItemType[currentSelectedIndex]
+                MyAccountDataProvider.sharedDataProvider.getUserEscapes(currentTab, userId: userId)
                 tableView.reloadData()
             }
             selectedTab.setButtonEnabled(true)

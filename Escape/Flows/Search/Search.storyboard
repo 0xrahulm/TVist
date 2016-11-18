@@ -228,7 +228,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <action selector="addButtonClicked:" destination="2RR-2b-eYN" eventType="touchUpInside" id="5wn-7q-KAe"/>
+                                                        <action selector="addToEscapeButtonClicked:" destination="2RR-2b-eYN" eventType="touchUpInside" id="e61-dx-BKo"/>
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FO4-sJ-KIR" userLabel="bottom">
@@ -268,8 +268,8 @@
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="xMd-1q-Lho"/>
-                                                    <exclude reference="dmc-5E-cvp"/>
                                                     <exclude reference="dTy-us-KWI"/>
+                                                    <exclude reference="dmc-5E-cvp"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -310,7 +310,7 @@
             <objects>
                 <navigationController storyboardIdentifier="searchVC" automaticallyAdjustsScrollViewInsets="NO" id="7gS-9J-yvY" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="scc-R4-YZE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="scc-R4-YZE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

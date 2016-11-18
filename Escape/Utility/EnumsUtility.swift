@@ -8,8 +8,7 @@
 
 import Foundation
 
-enum ScreenManagerAction : String{
-    
+enum ScreenManagerAction : String {
     case MainTab = "MainTab"
     case HomeTab = "Home"
     case DiscoverTab = "Discover"
@@ -23,8 +22,8 @@ enum ScreenManagerAction : String{
     case NetworkPresent = "NetworkPresent"
     case OpenSearchView = "openSearchView"
     case OpenAddToEscapeView = "OpenAddToEscapeView"
-    
 }
+
 enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"
     case MainTab = "MainTab"
@@ -82,7 +81,8 @@ enum UserType : Int{
     case Following = 2
     case Friends   = 3
 }
-enum EscapeAddActions : String{
+
+enum EscapeAddActions: String {
     case Watched = "Watched"
     case ToWatch = "To Watch"
     case Watching = "Currently Watching"
@@ -90,11 +90,13 @@ enum EscapeAddActions : String{
     case ToRead = "To Read"
     case Reading = "Currently Reading"
 }
-enum NotificationObservers : String{
+
+enum NotificationObservers: String {
     case MyAccountObserver = "MyAccountObserver"
     case DiscoverObserver = "DiscoverObserver"
     case SearchObserver = "SearchObserver"
     case SearchQueryObserver = "SearchQueryObserver"
+    case GetProfileDetailsObserver = "GetProfileDetailsObserver"
 }
 enum StoryType : NSNumber {
     case EmptyStory = -1

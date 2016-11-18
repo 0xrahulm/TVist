@@ -56,7 +56,6 @@ class MyAccountViewController: UIViewController{
         setupViewControllers()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
-
         
         
         if userId == nil{ // means self user
@@ -150,7 +149,7 @@ class MyAccountViewController: UIViewController{
     
     func fetchDataFromRealm(){
         
-        print("PATH : \(Realm.Configuration.defaultConfiguration.fileURL)")
+        Logger.debug("PATH : \(Realm.Configuration.defaultConfiguration.fileURL)")
         
         if let user = MyAccountDataProvider.sharedDataProvider.currentUser{
             

@@ -74,7 +74,7 @@ class MyAccountDataProvider: CommonDataProvider {
         var params : [String:AnyObject] = [:]
         params["escape_type"] =  escapeType.rawValue
         
-        if let userId = userId{
+        if let userId = userId {
             params["user_id"] = userId
         }
         
@@ -163,8 +163,8 @@ class MyAccountDataProvider: CommonDataProvider {
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
                     
                     if let params = service.parameters {
-                        if let escape_type = params["escape_type"] as? String{
-                            self.parseEscapeData(data, escape_type: escape_type , userId: params["user_id"] as? String)
+                        if let escape_type = params["escape_type"] as? String {
+                            self.parseEscapeData(data, escape_type: escape_type, userId: params["user_id"] as? String)
                         }
                     }
                     
@@ -283,19 +283,21 @@ class MyAccountDataProvider: CommonDataProvider {
 
 extension MyAccountDataProvider {
     
-    func parseUserDetails(dict : [String:AnyObject] , userId : String?){
-        print ("User Details :\(dict)")
+    func parseUserDetails(dict: [String:AnyObject], userId: String?){
+        Logger.debug("User Details :\(dict)")
         
-        var userData : MyAccountItems?
+        let userData: MyAccountItems = MyAccountItems(dict: dict, userType: nil)
         
-        userData = MyAccountItems(dict : dict,userType: nil)
-        
-        if userId == nil{  // save in case of self only.
+        if userId == nil {  // save in case of self only.
             saveUserDataToRealm(userData)
-        }
-        
-        if self.myAccountDetailsDelegate != nil {
-            self.myAccountDetailsDelegate!.recievedUserDetails()
+            
+            
+            if self.myAccountDetailsDelegate != nil {
+                self.myAccountDetailsDelegate!.recievedUserDetails()
+            }
+            
+        } else {
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.GetProfileDetailsObserver.rawValue, object: nil, userInfo: ["userData": userData])
         }
         
     }
@@ -340,11 +342,14 @@ extension MyAccountDataProvider {
                 }
             }
         }
-        if userId == nil{
+        var postableUserInfo:[String:AnyObject] = ["data" : escapeDataArray, "type":escape_type]
+        if let userId = userId {
+            postableUserInfo["userId"] = userId
+        } else {
             saveEscapesToRealm(escapeDataArray, escapeType: EscapeType(rawValue: escape_type)!)
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["data" : escapeDataArray, "type":escape_type])
+        NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: nil, userInfo: postableUserInfo)
         
     }
     
@@ -396,18 +401,14 @@ extension MyAccountDataProvider{
             
             userData.following = Int(userItem.following)
             
-            if let movies = userItem.movies_count{
-                userData.movies_count = Int(movies)
-            }
-            if let books = userItem.books_count{
-                userData.books_count = Int(books)
-            }
-            if let tvShows = userItem.tvShows_count{
-                userData.tvShows_count = Int(tvShows)
-            }
-            if let escape = userItem.escapes_count{
-                userData.escape_count = Int(escape)
-            }
+            userData.movies_count = userItem.movies_count.integerValue
+            
+            userData.books_count = userItem.books_count.integerValue
+            
+            userData.tvShows_count = userItem.tvShows_count.integerValue
+            
+            userData.escape_count = userItem.escapes_count.integerValue
+            
             
             self.currentUser = userData
             
