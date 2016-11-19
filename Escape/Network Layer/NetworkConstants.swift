@@ -40,6 +40,8 @@ enum SubServiceType : String {
     
     //Home
     case GetUserStory   =  "get_user_stories"
+    case GetStoryComment =  "story/comments"
+    case PostStoryComment =  "story/comment"
     
     //Search
     case GetSearchItems = "search"

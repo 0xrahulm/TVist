@@ -49,6 +49,17 @@ class HomeViewController: UIViewController {
         HomeDataProvider.sharedDataProvider.getUserStroies()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let dict = sender as? [String:AnyObject]{
+            if let storyId = dict["id"] as? String{
+                if let commentVC = segue.destinationViewController as? HomeCommentViewController{
+                    commentVC.storyId = storyId
+                    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                }
+            }
+        }
+    }
+    
     func configureFBFriendCell(tableView : UITableView , indexPath : NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.FBFriends.rawValue) as! FBFriendsTableViewCell
         let data = dataArray[indexPath.row] as? FBFriendCard
@@ -66,6 +77,8 @@ class HomeViewController: UIViewController {
     func configureAddToEscapeCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("addToEscapeIdentifier", forIndexPath: indexPath) as! AddToEscapeTableViewCell
         let data = dataArray[indexPath.row] as? AddToEscapeCard
+        cell.homeCommentDelegate = self
+        cell.indexPath = indexPath
         cell.escapeItems = data
         return cell
     }
@@ -142,3 +155,14 @@ extension HomeViewController : HomeDataProtocol{
         
     }
 }
+extension HomeViewController : HomeCommentProtocol{
+    func commentTapped(indexPath: NSIndexPath) {
+        if dataArray.count > indexPath.row{
+            let story = dataArray[indexPath.row]
+            if let storyId = story.id{
+                performSegueWithIdentifier("showStoryCommentSegue", sender: ["id" : storyId])
+            }
+        }
+    }
+}
+

@@ -12,10 +12,17 @@ protocol HomeDataProtocol : class {
     func recievedStories(data : [BaseStory])
     func error()
 }
+protocol HomeStoryCommentProtocol : class {
+    func recievedStoryComment(comments : [StoryComment] , storyId : String)
+    func error()
+    func postStoryCommentSuccess()
+    func errorPostComment()
+}
 
 class HomeDataProvider: CommonDataProvider {
     
     weak var homeDataDelegate : HomeDataProtocol?
+    weak var storyCommentDelegate : HomeStoryCommentProtocol?
     
     static let sharedDataProvider = HomeDataProvider()
     
@@ -26,14 +33,49 @@ class HomeDataProvider: CommonDataProvider {
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserStory, params: nil, delegate: self)
     }
     
+    func getStoryComments(storyId : String){
+        var params : [String:AnyObject] = [:]
+        params["story_id"] = storyId
+        
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetStoryComment, params: params, delegate: self)
+        
+    }
+    
+    func postStoryComments(storyId : String,comment : String){
+        var params : [String:AnyObject] = [:]
+        params["story_id"] = storyId
+        params["comment"] = comment
+        
+        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .PostStoryComment, params: params, delegate: self)
+        
+    }
+    
+    
     override func serviceSuccessfull(service: Service) {
         if let subServiceType = service.subServiveType{
+            
+            let params = service.parameters 
             
             switch subServiceType {
                 
             case .GetUserStory:
                 if let data = service.outPutResponse as? [AnyObject]{
                     self.parseUserStories(data)
+                }
+                break
+                
+            case .GetStoryComment:
+                if let data = service.outPutResponse as? [AnyObject]{
+                    if let params = params, let storyId = params["story_id"] as? String{
+                        self.parseStoryComment(data,storyId: storyId)
+                    }
+                    
+                }
+                break
+                
+            case .PostStoryComment:
+                if let delegate = storyCommentDelegate{
+                    delegate.postStoryCommentSuccess()
                 }
                 break
             default:
@@ -52,6 +94,19 @@ class HomeDataProvider: CommonDataProvider {
                     homeDataDelegate?.error()
                 }
                 break
+                
+            case .GetStoryComment:
+                if let delegate = storyCommentDelegate{
+                    delegate.error()
+                }
+                break
+                
+            case .PostStoryComment:
+                if let delegate = storyCommentDelegate{
+                    delegate.errorPostComment()
+                }
+                break
+                
             default:
                 break
             }
@@ -98,5 +153,23 @@ extension HomeDataProvider {
         }else{
             print("Empty Stories")
         }
+    }
+    
+    
+    func parseStoryComment(data : [AnyObject], storyId : String){
+        
+        let comments = StoryComment(commentArray: data).comments
+        
+        if comments.count > 0{
+            if let delegate = storyCommentDelegate{
+                delegate.recievedStoryComment(comments, storyId: storyId)
+            }
+        }else{
+            if let delegate = storyCommentDelegate{
+                delegate.error()
+            }
+
+        }
+        
     }
 }

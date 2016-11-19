@@ -8,25 +8,27 @@
 
 import UIKit
 
+protocol HomeCommentProtocol : class {
+    func commentTapped(indexPath : NSIndexPath)
+}
+
 class AddToEscapeTableViewCell: BaseStoryTableViewCell {
     
     @IBOutlet weak var creatorImage: UIImageView!
-    
     @IBOutlet weak var creatorNameLabel: UILabel!
     @IBOutlet weak var createdTimeLabel: UILabel!
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var likesLabel: UILabel!
-    
     @IBOutlet weak var creatorStatusLabel: UILabel!
     @IBOutlet weak var sharesLabel: UILabel!
-    
     @IBOutlet weak var commentLabel: UILabel!
     
     @IBOutlet weak var escapeCollectionView: UICollectionView!
     
     var collectionDataArray : [EscapeDataItems] = []
+    var indexPath : NSIndexPath?
     
+    weak var homeCommentDelegate : HomeCommentProtocol?
     
     var escapeItems : AddToEscapeCard?{
         didSet{
@@ -103,6 +105,12 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
         }
     }
 
+    @IBAction func commentTapped(sender: UIButton) {
+        
+        if let delegate = homeCommentDelegate , indexPath = self.indexPath{
+            delegate.commentTapped(indexPath)
+        }
+    }
 
 }
 extension AddToEscapeTableViewCell : UICollectionViewDelegate{
@@ -128,7 +136,7 @@ extension AddToEscapeTableViewCell : UICollectionViewDelegate{
 
         }
     }
-    
+
 }
 extension AddToEscapeTableViewCell : UICollectionViewDataSource{
     

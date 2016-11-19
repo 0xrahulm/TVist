@@ -219,6 +219,14 @@
 		BCB7B4B51CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCB7B4AD1CA17378002147FA /* SF-UI-Display-Semibold.ttf */; };
 		BCB7B4B71CA17643002147FA /* SFUIAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB7B4B61CA17643002147FA /* SFUIAttributedText.swift */; };
 		BCB7B4B81CA17643002147FA /* SFUIAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB7B4B61CA17643002147FA /* SFUIAttributedText.swift */; };
+		BCB81AD91DE0B6310002E52D /* HomeCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB81AD81DE0B6310002E52D /* HomeCommentViewController.swift */; };
+		BCB81ADA1DE0B6310002E52D /* HomeCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB81AD81DE0B6310002E52D /* HomeCommentViewController.swift */; };
+		BCB81ADC1DE0BB370002E52D /* StoryComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB81ADB1DE0BB370002E52D /* StoryComment.swift */; };
+		BCB81ADD1DE0BB370002E52D /* StoryComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB81ADB1DE0BB370002E52D /* StoryComment.swift */; };
+		BCB81ADF1DE0BC230002E52D /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB81ADE1DE0BC230002E52D /* Creator.swift */; };
+		BCB81AE01DE0BC230002E52D /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB81ADE1DE0BC230002E52D /* Creator.swift */; };
+		BCB81AE21DE0C7440002E52D /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB81AE11DE0C7440002E52D /* CommentTableViewCell.swift */; };
+		BCB81AE31DE0C7440002E52D /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB81AE11DE0C7440002E52D /* CommentTableViewCell.swift */; };
 		BCCD70C51CA19278002A0C07 /* UIColor+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70C41CA19278002A0C07 /* UIColor+Utility.swift */; };
 		BCCD70C61CA19278002A0C07 /* UIColor+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70C41CA19278002A0C07 /* UIColor+Utility.swift */; };
 		BCCD70C81CA19468002A0C07 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70C71CA19468002A0C07 /* Service.swift */; };
@@ -362,6 +370,10 @@
 		BCB7B4AC1CA17378002147FA /* SF-UI-Display-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Regular.ttf"; sourceTree = "<group>"; };
 		BCB7B4AD1CA17378002147FA /* SF-UI-Display-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Semibold.ttf"; sourceTree = "<group>"; };
 		BCB7B4B61CA17643002147FA /* SFUIAttributedText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFUIAttributedText.swift; sourceTree = "<group>"; };
+		BCB81AD81DE0B6310002E52D /* HomeCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCommentViewController.swift; sourceTree = "<group>"; };
+		BCB81ADB1DE0BB370002E52D /* StoryComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryComment.swift; sourceTree = "<group>"; };
+		BCB81ADE1DE0BC230002E52D /* Creator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
+		BCB81AE11DE0C7440002E52D /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		BCCD70C41CA19278002A0C07 /* UIColor+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Utility.swift"; sourceTree = "<group>"; };
 		BCCD70C71CA19468002A0C07 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkWrapper.swift; sourceTree = "<group>"; };
@@ -454,6 +466,8 @@
 			isa = PBXGroup;
 			children = (
 				BC1842761D531F44003CC19A /* StoryCard.swift */,
+				BCB81ADB1DE0BB370002E52D /* StoryComment.swift */,
+				BCB81ADE1DE0BC230002E52D /* Creator.swift */,
 				BC18427C1D532F39003CC19A /* FBFriendCard.swift */,
 				BCACE87A1D55C24500FAF262 /* AddToEscapeCard.swift */,
 				BC18427F1D533441003CC19A /* BaseStory.swift */,
@@ -468,6 +482,7 @@
 				BC02CA4F1DA1736E0034C2CB /* ArticleTableViewCell.swift */,
 				BCACE8741D55191E00FAF262 /* AddToEscapeTableViewCell.swift */,
 				BCACE8771D55212600FAF262 /* EscapeCollectionViewCell.swift */,
+				BCB81AE11DE0C7440002E52D /* CommentTableViewCell.swift */,
 				BC1842861D537015003CC19A /* BaseStoryTableViewCell.swift */,
 			);
 			path = "Cell Views";
@@ -713,6 +728,7 @@
 				BC18426F1D51F47C003CC19A /* Model */,
 				BC1842691D51F342003CC19A /* Home.storyboard */,
 				BC18426C1D51F420003CC19A /* HomeViewController.swift */,
+				BCB81AD81DE0B6310002E52D /* HomeCommentViewController.swift */,
 			);
 			name = Home;
 			path = ../Home;
@@ -871,7 +887,7 @@
 				TargetAttributes = {
 					BC47ED7D1C9FEEC7008143C2 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = GZM8S25H55;
+						DevelopmentTeam = E87TYV2U4N;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -1046,6 +1062,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCFC92B81CE2132700AE82BC /* UserDataRealm.swift in Sources */,
+				BCB81ADC1DE0BB370002E52D /* StoryComment.swift in Sources */,
 				BC51882C1D8C6ADB00A85E61 /* SearchViewController.swift in Sources */,
 				BC2A73141CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
 				BC4B563A1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */,
@@ -1061,6 +1078,7 @@
 				BC3A818B1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
 				84DD65681DDB49EC00C35EBE /* ChiefVader.swift in Sources */,
 				BC0BBBDE1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */,
+				BCB81AD91DE0B6310002E52D /* HomeCommentViewController.swift in Sources */,
 				BC51882F1D8D0D6A00A85E61 /* SearchAllViewController.swift in Sources */,
 				BC2A72DC1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */,
 				84A0FA8A1DBC02AF0072A36A /* LocalStorageVader.swift in Sources */,
@@ -1070,6 +1088,7 @@
 				BC1842801D533441003CC19A /* BaseStory.swift in Sources */,
 				BC15C1561CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */,
 				BC4F456E1CDF3EC200A65A63 /* MyAccountEscapeItem.swift in Sources */,
+				BCB81ADF1DE0BC230002E52D /* Creator.swift in Sources */,
 				BC26D0CB1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */,
 				BC47EDC11CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BC38DC691D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
@@ -1123,6 +1142,7 @@
 				BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */,
 				8446C9931DD8E4B8008C6DED /* MyProfileViewController.swift in Sources */,
 				BCD3782A1D98025D0000BC77 /* AddToEscapeScreenViewController.swift in Sources */,
+				BCB81AE21DE0C7440002E52D /* CommentTableViewCell.swift in Sources */,
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				BCD3782E1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift in Sources */,
 				BC14BAD61CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
@@ -1147,6 +1167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCFC92B91CE2132700AE82BC /* UserDataRealm.swift in Sources */,
+				BCB81ADD1DE0BB370002E52D /* StoryComment.swift in Sources */,
 				BC51882D1D8C6ADB00A85E61 /* SearchViewController.swift in Sources */,
 				BC2A73151CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
 				BC4B563B1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */,
@@ -1162,6 +1183,7 @@
 				BC3A818C1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
 				84DD65691DDB49EC00C35EBE /* ChiefVader.swift in Sources */,
 				BC0BBBDF1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */,
+				BCB81ADA1DE0B6310002E52D /* HomeCommentViewController.swift in Sources */,
 				BC5188301D8D0D6A00A85E61 /* SearchAllViewController.swift in Sources */,
 				BC2A72DD1CC9225E007E5DFB /* UIViewController+Utility.swift in Sources */,
 				84A0FA8B1DBC02AF0072A36A /* LocalStorageVader.swift in Sources */,
@@ -1171,6 +1193,7 @@
 				BC1842811D533441003CC19A /* BaseStory.swift in Sources */,
 				BC15C1571CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */,
 				BC4F456F1CDF3EC200A65A63 /* MyAccountEscapeItem.swift in Sources */,
+				BCB81AE01DE0BC230002E52D /* Creator.swift in Sources */,
 				BC26D0CC1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */,
 				BC47EDC21CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BC38DC6A1D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
@@ -1224,6 +1247,7 @@
 				BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */,
 				8446C9941DD8E4B8008C6DED /* MyProfileViewController.swift in Sources */,
 				BCD3782B1D98025D0000BC77 /* AddToEscapeScreenViewController.swift in Sources */,
+				BCB81AE31DE0C7440002E52D /* CommentTableViewCell.swift in Sources */,
 				BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				BCD3782F1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift in Sources */,
 				BC14BAD71CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
@@ -1348,7 +1372,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ankit Garg (84T3ZUUXSH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = GZM8S25H55;
+				DEVELOPMENT_TEAM = E87TYV2U4N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1356,7 +1380,7 @@
 				INFOPLIST_FILE = Escape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape2";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1372,7 +1396,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = GZM8S25H55;
+				DEVELOPMENT_TEAM = E87TYV2U4N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1380,7 +1404,7 @@
 				INFOPLIST_FILE = Escape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape2";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
