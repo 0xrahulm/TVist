@@ -34,7 +34,9 @@ class MyProfileViewController: UIViewController {
     
     var allProfileData:[String:[MyAccountEscapeItem]] = [:]
     
-    var currentSelectedIndex = 0
+    var currentSelectedIndex = 1
+    
+    var sectionLoadedOnce = false
     
     override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
         if let userId = queryParams["user_id"] as? String {
@@ -86,7 +88,6 @@ class MyProfileViewController: UIViewController {
                 allProfileData[accountListType.rawValue] = []
             } else {
                 allProfileData[accountListType.rawValue] = fetchEscapesDataFromRealm(accountListType)
-                
             }
         }
     }
@@ -252,16 +253,21 @@ class MyProfileViewController: UIViewController {
         if let selectedTab = sender as? TabButton {
             disableAllTabs()
             
-            if currentSelectedIndex != selectedTab.tag {
-                
+            selectedTab.setButtonEnabled(true)
+            
+            if !sectionLoadedOnce || currentSelectedIndex != selectedTab.tag {
                 
                 currentSelectedIndex = selectedTab.tag
                 
+                if userId == nil {
+                    tableView.reloadData()
+                }
+                
+                
                 let currentTab = listOfItemType[currentSelectedIndex]
                 MyAccountDataProvider.sharedDataProvider.getUserEscapes(currentTab, userId: userId)
-                tableView.reloadData()
             }
-            selectedTab.setButtonEnabled(true)
+            
         }
     }
     
@@ -338,6 +344,8 @@ extension MyProfileViewController: UITableViewDelegate {
         if self.tabItems.count > currentSelectedIndex {
             didSelectATab(self.tabItems[currentSelectedIndex])
         }
+        
+        sectionLoadedOnce = true
         
         // HairLine at the bottom
         let hairLineView = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height-0.5, width: headerView.frame.size.width, height: 0.5))
