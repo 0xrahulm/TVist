@@ -39,6 +39,9 @@ class ScreenManagerViewController: UIViewController {
         if (ECUserDefaults.isLoggedIn() &&
             LocalStorageVader.sharedVader.flagValueForKey(.InterestsSelected)) {
             
+            // Get user details early on so the data is available before 
+            MyAccountDataProvider.sharedDataProvider.getUserDetails(nil)
+            
             presentRootViewControllerOf(.MainTab, queryParams: nil)
         } else {
             presentRootViewControllerOf(.Onboarding, queryParams: nil)

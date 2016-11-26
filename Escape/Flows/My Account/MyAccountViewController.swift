@@ -31,7 +31,7 @@ class MyAccountViewController: UIViewController{
     var pageMenu:CAPSPageMenu?
     // Segment
     
-    var listOfVCType : [EscapeType] = [.Activity, .Movie, .TvShows, .Books]
+    var listOfVCType : [ProfileListType] = [.Activity, .Movie, .TvShows, .Books]
     var listOfTitles = ["Activity", "Movies", "Tv Shows", "Books"]
     
     var lastContentOffsetY:CGFloat = 0.0
@@ -67,8 +67,6 @@ class MyAccountViewController: UIViewController{
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
-        MyAccountDataProvider.sharedDataProvider.getUserDetails(userId)
         
         ScreenVader.sharedVader.hideTabBar(false)
         

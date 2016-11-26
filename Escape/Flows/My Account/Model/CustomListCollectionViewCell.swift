@@ -18,25 +18,24 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var ratingLabel: UILabel!
     
-    var dataItems : EscapeDataItems? {
+    var dataItems : EscapeItem? {
         didSet{
             if let dataItems = dataItems{
                 titleLabel.text = dataItems.name
-                itemImage.downloadImageWithUrl(dataItems.image , placeHolder: UIImage(named: "movie_placeholder"))
-                if let year = dataItems.year{
+                itemImage.downloadImageWithUrl(dataItems.posterImage, placeHolder: UIImage(named: "movie_placeholder"))
+                let year = dataItems.year
+                if year.characters.count > 0 {
                     yearLabel.text = year
                     yearLabel.hidden = false
                 }else{
                     yearLabel.hidden = true
                 }
-                if let escapeRating = dataItems.escapeRating{
-                    if escapeRating != 0{
-                        ratingLabel.text = (String(format: "%.1f", Double(escapeRating)))
-                        
-                        ratingLabel.hidden = false
-                    }else{
-                        ratingLabel.hidden = true
-                    }
+                let rating = dataItems.rating
+                if rating.characters.count > 0 {
+                    
+                    ratingLabel.text = rating
+                    
+                    ratingLabel.hidden = false
                     
                 }else{
                     ratingLabel.hidden = true

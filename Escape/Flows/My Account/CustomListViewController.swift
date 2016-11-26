@@ -11,13 +11,13 @@ import RealmSwift
 
 class CustomListViewController: UIViewController {
     
-    var typeOfList:EscapeType!
+    var typeOfList:ProfileListType!
     
     @IBOutlet weak var tableView: UITableView!
     
     var tableDataArray : [MyAccountEscapeItem] = []
     var storedOffsets = [Int: CGFloat]()
-    var escapeType : EscapeType = .Movie
+    var escapeType : ProfileListType = .Movie
     
     var lastContentOffsetY:CGFloat = 0.0
     
@@ -120,7 +120,7 @@ class CustomListViewController: UIViewController {
     }
     
     
-    func reloadTableView(data: [MyAccountEscapeItem], escape_type: EscapeType) {
+    func reloadTableView(data: [MyAccountEscapeItem], escape_type: ProfileListType) {
         
         if (self.escapeType == escape_type) {
             
@@ -138,7 +138,7 @@ class CustomListViewController: UIViewController {
             }else{
                 if let type =  dict["type"] as? String{
                     if let data = dict["data"] as? [MyAccountEscapeItem]{
-                        if let escapeType = EscapeType(rawValue: type){
+                        if let escapeType = ProfileListType(rawValue: type){
                             self.reloadTableView(data, escape_type: escapeType)
                         }
                     }
@@ -249,7 +249,6 @@ extension CustomListViewController : UICollectionViewDelegate , UICollectionView
         
         if let item = tableDataArray[collectionView.tag].escapeData{
             
-            cell.dataItems = item[indexPath.row]
             
         }
         

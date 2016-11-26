@@ -42,12 +42,24 @@ enum Gender : Int{
     case Male = 1
     case Female = 2
 }
-enum EscapeType : String{
+
+enum ProfileItemType: Int {
+    case EscapeList = 0
+}
+
+enum ProfileListType: String {
     case Activity = "activity"
     case Movie = "movie"
     case TvShows = "tv_show"
     case Books = "book"
 }
+
+enum EscapeType: String {
+    case Movie = "movie"
+    case TvShows = "tv_show"
+    case Books = "book"
+}
+
 enum DiscoverType : String{
     case All = "all"
     case People = "people"

@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-import CoreData
 import RealmSwift
 
 protocol MyAccountDetailsProtocol : class {
@@ -45,20 +44,8 @@ class MyAccountDataProvider: CommonDataProvider {
     
     func setCurrentUser(){
         
-        if let currentUserId = ECUserDefaults.getCurrentUserId(){
-            
-            let predicate = NSPredicate(format: "id == %@", currentUserId)
-            
-            do {
-                if let user = try Realm().objects(UserData).filter(predicate).first{
-                    
-                    currentUser = user
-                    
-                }
-                
-            } catch let  error as NSError{
-                print(error.userInfo)
-            }
+        if let currentUserId = ECUserDefaults.getCurrentUserId() {
+            currentUser = RealmDataVader.sharedVader.getUserById(currentUserId)
         }
     }
     
@@ -70,7 +57,7 @@ class MyAccountDataProvider: CommonDataProvider {
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserDetails, params: params, delegate: self)
     }
     
-    func getUserEscapes(escapeType : EscapeType , userId : String?){
+    func getUserEscapes(escapeType : ProfileListType, userId : String?){
         var params : [String:AnyObject] = [:]
         params["escape_type"] =  escapeType.rawValue
         
@@ -79,6 +66,33 @@ class MyAccountDataProvider: CommonDataProvider {
         }
         
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserEscapes, params: params, delegate: self)
+    }
+    
+    
+    func getProfileList(listType: ProfileListType, forUserId:String?) -> Results<ProfileList> {
+        
+        serviceResquestForProfileList(listType, forUserId: forUserId)
+        
+        var userId = ""
+        
+        if let currentUser = currentUser, let currentUserId = currentUser.id {
+            userId = currentUserId
+        }
+        
+        if let forUserId = forUserId {
+            userId = forUserId
+        }
+        
+        return RealmDataVader.sharedVader.getProfileListData(listType, userId: userId)
+    }
+    
+    func serviceResquestForProfileList(listType: ProfileListType, forUserId: String?) {
+        var params:[String:AnyObject] = ["list_type":listType.rawValue]
+        if let forUserId = forUserId {
+            params["user_id"] = forUserId
+        }
+        
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetProfileList, params: params, delegate: self)
     }
     
     func getItemDesc(escapeType : EscapeType , id : String){
@@ -143,6 +157,12 @@ class MyAccountDataProvider: CommonDataProvider {
             
             switch subServiceType {
                 
+            case .GetProfileList:
+                if let profileListData = service.outPutResponse as? [String:AnyObject] {
+                    updateProfileListWith(profileListData)
+                }
+                break
+                
             case .GetUserDetails:
                 if let data = service.outPutResponse as? [String:AnyObject]{
                     if let params = service.parameters{
@@ -160,7 +180,7 @@ class MyAccountDataProvider: CommonDataProvider {
                 break
                 
             case .GetUserEscapes:
-                if let data = service.outPutResponse as? [[String:AnyObject]]{
+                if let data = service.outPutResponse as? [[String:AnyObject]] {
                     
                     if let params = service.parameters {
                         if let escape_type = params["escape_type"] as? String {
@@ -168,7 +188,7 @@ class MyAccountDataProvider: CommonDataProvider {
                         }
                     }
                     
-                }else{
+                } else {
                     NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["error" : "error"])
                 }
                 break
@@ -186,7 +206,7 @@ class MyAccountDataProvider: CommonDataProvider {
                     }
                     
                 }else{
-                    if self.itemDescDelegate != nil{
+                    if self.itemDescDelegate != nil {
                         self.itemDescDelegate?.errorItemDescData()
                     }
                 }
@@ -210,7 +230,7 @@ class MyAccountDataProvider: CommonDataProvider {
                 }
                 break
             case .PostRecommend:
-                print("recommendation posted 200 OK")
+                Logger.debug("recommendation posted 200 OK")
                 break
                 
             default:
@@ -269,7 +289,7 @@ class MyAccountDataProvider: CommonDataProvider {
                 break
             
             case .PostRecommend:
-                print("Error in Recommedation")
+                Logger.debug("Error in Recommedation")
                 break
                 
             default:
@@ -282,6 +302,19 @@ class MyAccountDataProvider: CommonDataProvider {
 //MARK :- PARSING
 
 extension MyAccountDataProvider {
+    
+    func updateProfileListWith(data: [String: AnyObject]) {
+        guard let listType = data["list_type"] as? String,
+            let _ = ProfileListType(rawValue: listType),
+            let userId = data["user_id"] as? String,
+            let listData = data["list_data"] as? [[String:AnyObject]] else {
+                return
+        }
+        
+        
+        
+        RealmDataVader.sharedVader.writeOrUpdateProfileList(userId, type: listType, listData: listData)
+    }
     
     func parseUserDetails(dict: [String:AnyObject], userId: String?){
         Logger.debug("User Details :\(dict)")
@@ -302,7 +335,7 @@ extension MyAccountDataProvider {
         
     }
     
-    func parseEscapeData(data : [[String:AnyObject]], escape_type: String , userId : String?){
+    func parseEscapeData(data: [[String:AnyObject]], escape_type: String , userId: String?) {
         
         var escapeDataArray : [MyAccountEscapeItem] = []
         

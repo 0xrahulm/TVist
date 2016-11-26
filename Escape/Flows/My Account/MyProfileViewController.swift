@@ -28,13 +28,46 @@ class MyProfileViewController: UIViewController {
     var userId : String?
     var isFollow = false
     
-    var listOfItemType:[EscapeType] = [.Activity, .Movie, .TvShows, .Books]
+    var listOfItemType:[ProfileListType] = [.Activity, .Movie, .TvShows, .Books]
     var listOfTitles:[String] = ["Activity", "Movies", "Tv Shows", "Books"]
     var tabItems:[TabButton] = []
     
-    var allProfileData:[String:[MyAccountEscapeItem]] = [:]
+    var profileItemUpdateNotification:NotificationToken?
+    
+    private var _profileList:Results<ProfileList>?
+    
+    var profileListData:Results<ProfileList> {
+        get {
+            if currentSelectedIndex == lastSelectedIndex {
+                if let profileList = _profileList {
+                    return profileList
+                }
+            }
+            let listItem = listOfItemType[currentSelectedIndex]
+            lastSelectedIndex = currentSelectedIndex
+            _profileList = MyAccountDataProvider.sharedDataProvider.getProfileList(listItem, forUserId: userId)
+            
+            profileItemUpdateNotification = _profileList!.addNotificationBlock { [weak self] (changes: RealmCollectionChange) in
+                guard let tableView = self?.tableView else { return }
+                switch changes {
+                case .Initial(_):
+                    // Results are now populated and can be accessed without blocking the UI
+                    tableView.reloadData()
+                    break
+                case .Update(_, _, _, _):
+                    tableView.reloadData()
+                    break
+                case .Error:
+                    Logger.debug("Error in notificationBlock")
+                    break
+                }
+            }
+            return _profileList!
+        }
+    }
     
     var currentSelectedIndex = 1
+    var lastSelectedIndex = -1
     
     var sectionLoadedOnce = false
     
@@ -53,8 +86,6 @@ class MyProfileViewController: UIViewController {
         
         setVisuals()
         
-        initialDataSetup()
-        
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         
         if userId == nil { // means self user
@@ -63,12 +94,12 @@ class MyProfileViewController: UIViewController {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyProfileViewController.otherUserData(_:)), name: NotificationObservers.GetProfileDetailsObserver.rawValue, object: nil)
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyProfileViewController.receivedSelectedTabData(_:)), name: NotificationObservers.MyAccountObserver.rawValue, object: nil)
-        
     }
     
     deinit {
+        
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        profileItemUpdateNotification?.stop()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -81,20 +112,9 @@ class MyProfileViewController: UIViewController {
         
     }
     
-    func initialDataSetup() {
+    func fetchEscapesDataFromRealm(typeOfList: ProfileListType) -> [MyAccountEscapeItem]  {
         
-        for accountListType in listOfItemType {
-            if let _ = userId {
-                allProfileData[accountListType.rawValue] = []
-            } else {
-                allProfileData[accountListType.rawValue] = fetchEscapesDataFromRealm(accountListType)
-            }
-        }
-    }
-    
-    func fetchEscapesDataFromRealm(typeOfList: EscapeType) -> [MyAccountEscapeItem]  {
-        
-        if let currentUserId = ECUserDefaults.getCurrentUserId(){
+        if let currentUserId = ECUserDefaults.getCurrentUserId() {
             
             let escapeType = typeOfList.rawValue
             
@@ -162,12 +182,12 @@ class MyProfileViewController: UIViewController {
         return []
     }
     
-    func getAllDataItemsForSelectedTab() -> [MyAccountEscapeItem] {
-        let escapeType = listOfItemType[currentSelectedIndex]
-        if let escapeItems = allProfileData[escapeType.rawValue] {
-            return escapeItems
+    func profileItemsForSelectedTab() -> List<ProfileItem> {
+        
+        if let profileList = profileListData.first {
+            return profileList.data
         }
-        return []
+        return List<ProfileItem>()
     }
     
     func fetchDataFromRealm() {
@@ -207,30 +227,30 @@ class MyProfileViewController: UIViewController {
             
         }
     }
-    
-    func receivedSelectedTabData(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            if let listType = userInfo["type"] as? String, let listTypePresent = EscapeType(rawValue: listType) {
-                
-                if let dataUserId = userInfo["userId"] as? String, let userId = userId {
-                    if dataUserId == userId {
-                        if let listItems = userInfo["data"] as? [MyAccountEscapeItem] {
-                            allProfileData[listTypePresent.rawValue] = listItems
-                            
-                        }
-                        if listOfItemType[currentSelectedIndex] == listTypePresent {
-                            tableView.reloadData()
-                        }
-                    }
-                } else {
-                    if listOfItemType[currentSelectedIndex] == listTypePresent {
-                        tableView.reloadData()
-                    }
-                }
-            }
-        }
-        
-    }
+    //
+    //    func receivedSelectedTabData(notification: NSNotification) {
+    //        if let userInfo = notification.userInfo {
+    //            if let listType = userInfo["type"] as? String, let listTypePresent = ProfileListType(rawValue: listType) {
+    //
+    //                if let dataUserId = userInfo["userId"] as? String, let userId = userId {
+    //                    if dataUserId == userId {
+    //                        if let listItems = userInfo["data"] as? [MyAccountEscapeItem] {
+    //                            allProfileData[listTypePresent.rawValue] = listItems
+    //
+    //                        }
+    //                        if listOfItemType[currentSelectedIndex] == listTypePresent {
+    //                            tableView.reloadData()
+    //                        }
+    //                    }
+    //                } else {
+    //                    if listOfItemType[currentSelectedIndex] == listTypePresent {
+    //                        tableView.reloadData()
+    //                    }
+    //                }
+    //            }
+    //        }
+    //
+    //    }
     
     func setVisuals() {
         let settingImage = IonIcons.imageWithIcon(ion_ios_settings_strong, size: 22, color: UIColor.themeColorBlack())
@@ -259,13 +279,8 @@ class MyProfileViewController: UIViewController {
                 
                 currentSelectedIndex = selectedTab.tag
                 
-                if userId == nil {
-                    tableView.reloadData()
-                }
+                tableView.reloadData()
                 
-                
-                let currentTab = listOfItemType[currentSelectedIndex]
-                MyAccountDataProvider.sharedDataProvider.getUserEscapes(currentTab, userId: userId)
             }
             
         }
@@ -365,7 +380,7 @@ extension MyProfileViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return getAllDataItemsForSelectedTab().count
+        return profileItemsForSelectedTab().endIndex
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -376,7 +391,7 @@ extension MyProfileViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("escapesSectionHorizontalidentifier") as! CustomListTableViewCell
         
-        cell.cellTitleLabel.text = getAllDataItemsForSelectedTab()[indexPath.row].title
+        cell.cellTitleLabel.text = profileItemsForSelectedTab()[indexPath.row].title
         
         return cell
     }
@@ -405,51 +420,43 @@ extension MyProfileViewController : UICollectionViewDelegate , UICollectionViewD
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        if getAllDataItemsForSelectedTab().count > collectionView.tag{
-            if let data = getAllDataItemsForSelectedTab()[collectionView.tag].escapeData{
-                if data.count > 0 {
-                    let id = data[indexPath.row].id
-                    let escapeType = data[indexPath.row].escapeType
-                    let name = data[indexPath.row].name
-                    let image = data[indexPath.row].image
-                    
-                    var params : [String:AnyObject] = [:]
-                    if let id = id {
-                        params["id"] = id
-                    }
-                    if let escapeType = escapeType {
-                        params["escapeType"] = escapeType.rawValue
-                    }
-                    if let name = name {
-                        params["name"] = name
-                    }
-                    if let image = image {
-                        params["image"] = image
-                    }
-                    
-                    ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+        if profileItemsForSelectedTab().endIndex > collectionView.tag{
+            let data = profileItemsForSelectedTab()[collectionView.tag].escapeDataList
+            
+            if data.endIndex > 0 {
+                let id = data[indexPath.row].id
+                let escapeType = data[indexPath.row].escapeType
+                let name = data[indexPath.row].name
+                let image = data[indexPath.row].posterImage
+                
+                var params : [String:AnyObject] = [:]
+                
+                params["id"] = id
+                params["escapeType"] = escapeType
+                params["name"] = name
+                
+                if let image = image {
+                    params["image"] = image
                 }
+                
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
             }
+            
         }
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var count = 0
-        if let data = getAllDataItemsForSelectedTab()[collectionView.tag].escapeData{
-            count = data.count
-        }
-        return count
+        let dataList = profileItemsForSelectedTab()[collectionView.tag].escapeDataList
+        return dataList.endIndex
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("collectionViewBasicCell", forIndexPath: indexPath) as! CustomListCollectionViewCell
         
-        if let item = getAllDataItemsForSelectedTab()[collectionView.tag].escapeData{
-            
-            cell.dataItems = item[indexPath.row]
-            
-        }
+        
+        let item = profileItemsForSelectedTab()[collectionView.tag].escapeDataList
+        cell.dataItems = item[indexPath.row]
         
         return cell
     }
