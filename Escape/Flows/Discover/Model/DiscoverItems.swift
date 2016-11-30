@@ -54,7 +54,7 @@ class DiscoverItems: NSObject {
                         if let image = dict["poster_image"] as? String {
                             if let discoverType = dict["escape_type"] as? String {
                                 
-                                discoverDataArray.append(DiscoverItems(id: id, name: name, image: image, director: dict["creator"] as? String, followers: dict["followers"] as? NSNumber, year: dict["release_year"] as? String, subtitle: dict["subtitle"] as? String, discoverType: DiscoverType(rawValue: discoverType), rating: dict["escape_rating"] as? NSNumber, isFollow : false))
+                                discoverDataArray.append(DiscoverItems(id: id, name: name, image: image, director: dict["creator"] as? String, followers: dict["followers"] as? NSNumber, year: dict["year"] as? String, subtitle: dict["subtitle"] as? String, discoverType: DiscoverType(rawValue: discoverType), rating: dict["escape_rating"] as? NSNumber, isFollow : false))
                                 
                             }
                             

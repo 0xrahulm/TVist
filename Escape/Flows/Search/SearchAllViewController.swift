@@ -226,7 +226,13 @@ extension SearchAllViewController : UITableViewDataSource{
                 cell.loadingView.startAnimating()
                 
             }else if data.searchType != .User{
-                cell = tableView.dequeueReusableCellWithIdentifier("searchEscapeCellIdentifier") as! SearchTableViewCell
+                
+                var discoverCellIdentifier = "searchEscapeCellIdentifier"
+                
+                if type == .All {
+                    discoverCellIdentifier = "searchEscapeWithTagCellIdentifier"
+                }
+                cell = tableView.dequeueReusableCellWithIdentifier(discoverCellIdentifier) as! SearchTableViewCell
                 cell.data = data
                 cell.indexPath = indexPath
                 

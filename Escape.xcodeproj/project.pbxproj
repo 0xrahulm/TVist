@@ -20,6 +20,26 @@
 		84A0FA8E1DBCA3CA0072A36A /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA8C1DBCA3CA0072A36A /* CustomTabBarController.swift */; };
 		84A0FA911DBCADB50072A36A /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A0FA901DBCADB50072A36A /* Notifications.storyboard */; };
 		84A0FA921DBCADB50072A36A /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A0FA901DBCADB50072A36A /* Notifications.storyboard */; };
+		84A484021DE9A04000DAC553 /* CustomPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A484011DE9A04000DAC553 /* CustomPresentAnimationController.swift */; };
+		84A484031DE9A04000DAC553 /* CustomPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A484011DE9A04000DAC553 /* CustomPresentAnimationController.swift */; };
+		84A484061DEDE05100DAC553 /* GenericListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A484051DEDE05100DAC553 /* GenericListViewController.swift */; };
+		84A484071DEDE05100DAC553 /* GenericListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A484051DEDE05100DAC553 /* GenericListViewController.swift */; };
+		84A484091DEDE07100DAC553 /* GenericLists.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A484081DEDE07100DAC553 /* GenericLists.storyboard */; };
+		84A4840A1DEDE07100DAC553 /* GenericLists.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A484081DEDE07100DAC553 /* GenericLists.storyboard */; };
+		84A4840D1DEDE69000DAC553 /* NormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4840C1DEDE69000DAC553 /* NormalCell.swift */; };
+		84A4840E1DEDE69000DAC553 /* NormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4840C1DEDE69000DAC553 /* NormalCell.swift */; };
+		84A484101DEDED4000DAC553 /* ActivityIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4840F1DEDED4000DAC553 /* ActivityIndicatorCell.swift */; };
+		84A484111DEDED4000DAC553 /* ActivityIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4840F1DEDED4000DAC553 /* ActivityIndicatorCell.swift */; };
+		84A484131DEDEE2E00DAC553 /* PeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A484121DEDEE2E00DAC553 /* PeopleCell.swift */; };
+		84A484141DEDEE2E00DAC553 /* PeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A484121DEDEE2E00DAC553 /* PeopleCell.swift */; };
+		84A484161DEDEE4400DAC553 /* EscapeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A484151DEDEE4400DAC553 /* EscapeCell.swift */; };
+		84A484171DEDEE4400DAC553 /* EscapeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A484151DEDEE4400DAC553 /* EscapeCell.swift */; };
+		84A484191DEDEF0C00DAC553 /* TaggedEscapeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A484181DEDEF0C00DAC553 /* TaggedEscapeCell.swift */; };
+		84A4841A1DEDEF0C00DAC553 /* TaggedEscapeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A484181DEDEF0C00DAC553 /* TaggedEscapeCell.swift */; };
+		84A4841C1DEE09AF00DAC553 /* UserEscapeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4841B1DEE09AF00DAC553 /* UserEscapeListViewController.swift */; };
+		84A4841D1DEE09AF00DAC553 /* UserEscapeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4841B1DEE09AF00DAC553 /* UserEscapeListViewController.swift */; };
+		84A4841F1DEE1A4500DAC553 /* DataConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4841E1DEE1A4500DAC553 /* DataConstants.swift */; };
+		84A484201DEE1A4500DAC553 /* DataConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4841E1DEE1A4500DAC553 /* DataConstants.swift */; };
 		84DD655C1DD9BF1300C35EBE /* BaseDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD655B1DD9BF1300C35EBE /* BaseDataItem.swift */; };
 		84DD655D1DD9BF1300C35EBE /* BaseDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD655B1DD9BF1300C35EBE /* BaseDataItem.swift */; };
 		84DD655F1DDB2B4000C35EBE /* CustomNavigationAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD655E1DDB2B4000C35EBE /* CustomNavigationAnimationController.swift */; };
@@ -264,6 +284,16 @@
 		84A0FA891DBC02AF0072A36A /* LocalStorageVader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageVader.swift; sourceTree = "<group>"; };
 		84A0FA8C1DBCA3CA0072A36A /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		84A0FA901DBCADB50072A36A /* Notifications.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
+		84A484011DE9A04000DAC553 /* CustomPresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPresentAnimationController.swift; sourceTree = "<group>"; };
+		84A484051DEDE05100DAC553 /* GenericListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericListViewController.swift; sourceTree = "<group>"; };
+		84A484081DEDE07100DAC553 /* GenericLists.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GenericLists.storyboard; sourceTree = "<group>"; };
+		84A4840C1DEDE69000DAC553 /* NormalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalCell.swift; sourceTree = "<group>"; };
+		84A4840F1DEDED4000DAC553 /* ActivityIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorCell.swift; sourceTree = "<group>"; };
+		84A484121DEDEE2E00DAC553 /* PeopleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleCell.swift; sourceTree = "<group>"; };
+		84A484151DEDEE4400DAC553 /* EscapeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EscapeCell.swift; sourceTree = "<group>"; };
+		84A484181DEDEF0C00DAC553 /* TaggedEscapeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaggedEscapeCell.swift; sourceTree = "<group>"; };
+		84A4841B1DEE09AF00DAC553 /* UserEscapeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEscapeListViewController.swift; sourceTree = "<group>"; };
+		84A4841E1DEE1A4500DAC553 /* DataConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataConstants.swift; sourceTree = "<group>"; };
 		84DD655B1DD9BF1300C35EBE /* BaseDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseDataItem.swift; sourceTree = "<group>"; };
 		84DD655E1DDB2B4000C35EBE /* CustomNavigationAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationAnimationController.swift; sourceTree = "<group>"; };
 		84DD65611DDB470600C35EBE /* CustomInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInteractionController.swift; sourceTree = "<group>"; };
@@ -454,6 +484,30 @@
 			path = ../Notifications;
 			sourceTree = "<group>";
 		};
+		84A484041DEDDFA700DAC553 /* GenericLists */ = {
+			isa = PBXGroup;
+			children = (
+				84A4840B1DEDE5EF00DAC553 /* GenericCells */,
+				84A484051DEDE05100DAC553 /* GenericListViewController.swift */,
+				84A4841B1DEE09AF00DAC553 /* UserEscapeListViewController.swift */,
+				84A484081DEDE07100DAC553 /* GenericLists.storyboard */,
+			);
+			name = GenericLists;
+			path = ../GenericLists;
+			sourceTree = "<group>";
+		};
+		84A4840B1DEDE5EF00DAC553 /* GenericCells */ = {
+			isa = PBXGroup;
+			children = (
+				84A4840C1DEDE69000DAC553 /* NormalCell.swift */,
+				84A4840F1DEDED4000DAC553 /* ActivityIndicatorCell.swift */,
+				84A484121DEDEE2E00DAC553 /* PeopleCell.swift */,
+				84A484151DEDEE4400DAC553 /* EscapeCell.swift */,
+				84A484181DEDEF0C00DAC553 /* TaggedEscapeCell.swift */,
+			);
+			path = GenericCells;
+			sourceTree = "<group>";
+		};
 		AC7D7AC54D1ADD5CE158A875 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,6 +659,7 @@
 		BC47EDAA1C9FFE36008143C2 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				84A484041DEDDFA700DAC553 /* GenericLists */,
 				BCD378221D97F2C80000BC77 /* AddToEscape */,
 				84A0FA8F1DBCAD6D0072A36A /* Notifications */,
 				BCACE87D1D563A8300FAF262 /* Search */,
@@ -622,6 +677,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB7B4B61CA17643002147FA /* SFUIAttributedText.swift */,
+				84A4841E1DEE1A4500DAC553 /* DataConstants.swift */,
 				BC2A72DB1CC9225E007E5DFB /* UIViewController+Utility.swift */,
 				BC4F45601CDE029F00A65A63 /* Utilities.swift */,
 				BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */,
@@ -681,6 +737,7 @@
 				84A0FA8C1DBCA3CA0072A36A /* CustomTabBarController.swift */,
 				84DD655E1DDB2B4000C35EBE /* CustomNavigationAnimationController.swift */,
 				84DD65611DDB470600C35EBE /* CustomInteractionController.swift */,
+				84A484011DE9A04000DAC553 /* CustomPresentAnimationController.swift */,
 			);
 			path = "Custom Controllers";
 			sourceTree = "<group>";
@@ -935,6 +992,7 @@
 			files = (
 				BC4B56371D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
 				BC85DBFE1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
+				84A484091DEDE07100DAC553 /* GenericLists.storyboard in Resources */,
 				BC14BAB91CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BC18426A1D51F342003CC19A /* Home.storyboard in Resources */,
 				BC5188291D8C688600A85E61 /* Search.storyboard in Resources */,
@@ -959,6 +1017,7 @@
 			files = (
 				BC4B56381D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
 				BC85DBFF1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
+				84A4840A1DEDE07100DAC553 /* GenericLists.storyboard in Resources */,
 				BC14BABA1CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BC18426B1D51F342003CC19A /* Home.storyboard in Resources */,
 				BC51882A1D8C688600A85E61 /* Search.storyboard in Resources */,
@@ -1081,6 +1140,7 @@
 				BCB81ADC1DE0BB370002E52D /* StoryComment.swift in Sources */,
 				BC51882C1D8C6ADB00A85E61 /* SearchViewController.swift in Sources */,
 				BC2A73141CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
+				84A484161DEDEE4400DAC553 /* EscapeCell.swift in Sources */,
 				BC4B563A1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */,
 				BCB7B4971CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BC5188331D8D229900A85E61 /* SearchItems.swift in Sources */,
@@ -1128,6 +1188,7 @@
 				BCCD70CB1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
 				BC4B563D1D6DE388008BF1F6 /* UINibView.swift in Sources */,
 				84DD655F1DDB2B4000C35EBE /* CustomNavigationAnimationController.swift in Sources */,
+				84A484131DEDEE2E00DAC553 /* PeopleCell.swift in Sources */,
 				BC02D0C31CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */,
 				BC02CA501DA1736E0034C2CB /* ArticleTableViewCell.swift in Sources */,
 				BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
@@ -1138,10 +1199,14 @@
 				BCACE8751D55191F00FAF262 /* AddToEscapeTableViewCell.swift in Sources */,
 				BC2A73161CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
 				84A0FA8D1DBCA3CA0072A36A /* CustomTabBarController.swift in Sources */,
+				84A484021DE9A04000DAC553 /* CustomPresentAnimationController.swift in Sources */,
+				84A484191DEDEF0C00DAC553 /* TaggedEscapeCell.swift in Sources */,
 				BCACE8801D56459100FAF262 /* UIApperance+Swift.m in Sources */,
 				BC1842771D531F44003CC19A /* StoryCard.swift in Sources */,
 				BC14BAC21CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
 				BC1842871D537016003CC19A /* BaseStoryTableViewCell.swift in Sources */,
+				84A484061DEDE05100DAC553 /* GenericListViewController.swift in Sources */,
+				84A4841F1DEE1A4500DAC553 /* DataConstants.swift in Sources */,
 				BC18427A1D532150003CC19A /* HomeDataProvider.swift in Sources */,
 				BC14BAD91CFF143800B7E546 /* DiscoverItems.swift in Sources */,
 				84E845091DE5193B00DCB9D9 /* EscapeItem.swift in Sources */,
@@ -1149,6 +1214,7 @@
 				BC4F45771CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FC1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
 				BC47EDB91CA00333008143C2 /* ScreenVader.swift in Sources */,
+				84A484101DEDED4000DAC553 /* ActivityIndicatorCell.swift in Sources */,
 				BC1842711D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */,
 				BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */,
 				84E8450F1DE521DD00DCB9D9 /* ProfileList.swift in Sources */,
@@ -1156,6 +1222,7 @@
 				BC2A73121CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
 				BC4F45681CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
 				BC47EDC41CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
+				84A4841C1DEE09AF00DAC553 /* UserEscapeListViewController.swift in Sources */,
 				84EA4E9A1DBBDA6E002A4A2F /* HighlightableTextView.swift in Sources */,
 				8446C9971DD8F430008C6DED /* TabButton.swift in Sources */,
 				BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */,
@@ -1172,6 +1239,7 @@
 				BC14BABF1CFAF5CD00B7E546 /* DiscoverViewController.swift in Sources */,
 				BCB7B4B71CA17643002147FA /* SFUIAttributedText.swift in Sources */,
 				BCACE8981D59B31600FAF262 /* FBShimmeringView.m in Sources */,
+				84A4840D1DEDE69000DAC553 /* NormalCell.swift in Sources */,
 				BC4F45741CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
 				84A0FA871DBBF77F0072A36A /* CustomDoneButton.swift in Sources */,
 				BC02D0C01CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,
@@ -1190,6 +1258,7 @@
 				BCB81ADD1DE0BB370002E52D /* StoryComment.swift in Sources */,
 				BC51882D1D8C6ADB00A85E61 /* SearchViewController.swift in Sources */,
 				BC2A73151CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
+				84A484171DEDEE4400DAC553 /* EscapeCell.swift in Sources */,
 				BC4B563B1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */,
 				BCB7B4981CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BC5188341D8D229900A85E61 /* SearchItems.swift in Sources */,
@@ -1237,6 +1306,7 @@
 				BCCD70CC1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
 				BC4B563E1D6DE388008BF1F6 /* UINibView.swift in Sources */,
 				84DD65601DDB2B4000C35EBE /* CustomNavigationAnimationController.swift in Sources */,
+				84A484141DEDEE2E00DAC553 /* PeopleCell.swift in Sources */,
 				BC02D0C41CD0D674009D7EE6 /* UIImage+Utility.swift in Sources */,
 				BC02CA511DA1736E0034C2CB /* ArticleTableViewCell.swift in Sources */,
 				BC2485541CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
@@ -1247,10 +1317,14 @@
 				BCACE8761D55191F00FAF262 /* AddToEscapeTableViewCell.swift in Sources */,
 				BC2A73171CCBF84F007E5DFB /* ScreenManagerViewController.swift in Sources */,
 				84A0FA8E1DBCA3CA0072A36A /* CustomTabBarController.swift in Sources */,
+				84A484031DE9A04000DAC553 /* CustomPresentAnimationController.swift in Sources */,
+				84A4841A1DEDEF0C00DAC553 /* TaggedEscapeCell.swift in Sources */,
 				BCACE8811D56459100FAF262 /* UIApperance+Swift.m in Sources */,
 				BC1842781D531F44003CC19A /* StoryCard.swift in Sources */,
 				BC14BAC31CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
 				BC1842881D537016003CC19A /* BaseStoryTableViewCell.swift in Sources */,
+				84A484071DEDE05100DAC553 /* GenericListViewController.swift in Sources */,
+				84A484201DEE1A4500DAC553 /* DataConstants.swift in Sources */,
 				BC18427B1D532150003CC19A /* HomeDataProvider.swift in Sources */,
 				BC14BADA1CFF143800B7E546 /* DiscoverItems.swift in Sources */,
 				84E8450A1DE5193B00DCB9D9 /* EscapeItem.swift in Sources */,
@@ -1258,6 +1332,7 @@
 				BC4F45781CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FD1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
 				BC47EDBA1CA00333008143C2 /* ScreenVader.swift in Sources */,
+				84A484111DEDED4000DAC553 /* ActivityIndicatorCell.swift in Sources */,
 				BC1842721D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */,
 				BC3A81891CA521D500FF8678 /* DeviceID.swift in Sources */,
 				84E845101DE521DD00DCB9D9 /* ProfileList.swift in Sources */,
@@ -1265,6 +1340,7 @@
 				BC2A73131CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
 				BC4F45691CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
 				BC47EDC51CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
+				84A4841D1DEE09AF00DAC553 /* UserEscapeListViewController.swift in Sources */,
 				84EA4E9B1DBBDA6E002A4A2F /* HighlightableTextView.swift in Sources */,
 				8446C9981DD8F430008C6DED /* TabButton.swift in Sources */,
 				BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */,
@@ -1281,6 +1357,7 @@
 				BC14BAC01CFAF5CD00B7E546 /* DiscoverViewController.swift in Sources */,
 				BCB7B4B81CA17643002147FA /* SFUIAttributedText.swift in Sources */,
 				BCACE8991D59B31600FAF262 /* FBShimmeringView.m in Sources */,
+				84A4840E1DEDE69000DAC553 /* NormalCell.swift in Sources */,
 				BC4F45751CDF432A00A65A63 /* EscapeDataItems.swift in Sources */,
 				84A0FA881DBBF77F0072A36A /* CustomDoneButton.swift in Sources */,
 				BC02D0C11CD0D556009D7EE6 /* BubblePickerView.swift in Sources */,

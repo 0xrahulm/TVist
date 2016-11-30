@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol ViewAllTapProtocol:class {
+    func viewAllTappedIn(cell: UITableViewCell)
+}
+
 class CustomListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var cellTitleLabel: UILabel!
+    
+    weak var viewAllTapDelegate: ViewAllTapProtocol?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,6 +49,12 @@ class CustomListTableViewCell: UITableViewCell {
         collectionView.dataSource = dataSourceDelegate
         collectionView.tag = row
         collectionView.reloadData()
+    }
+    
+    @IBAction func viewAllTapped() {
+        if let viewAllTapDelegate = viewAllTapDelegate {
+            viewAllTapDelegate.viewAllTappedIn(self)
+        }
     }
 
 }

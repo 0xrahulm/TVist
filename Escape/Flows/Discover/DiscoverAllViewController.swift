@@ -131,7 +131,13 @@ extension DiscoverAllViewController : UITableViewDataSource{
             cell.loadingView.startAnimating()
             
         }else if data.discoverType != .People{
-            cell = tableView.dequeueReusableCellWithIdentifier("discoverEscapeCellIdentifier") as! DiscoverEscapeTableViewCell
+            
+            var discoverCellIdentifier = "discoverEscapeCellIdentifier"
+            
+            if type == .All {
+                discoverCellIdentifier = "discoverEscapeWithTagCellIdentifier"
+            }
+            cell = tableView.dequeueReusableCellWithIdentifier(discoverCellIdentifier) as! DiscoverEscapeTableViewCell
             cell.data = data
             cell.indexPath = indexPath
             cell.removeAddedEscapeCellDelegate = self

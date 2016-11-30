@@ -50,5 +50,11 @@ class ScreenVader: NSObject {
             screenManagerVC.hideTabBar(hide)
         }
     }
+    
+    func changeStatusBarPreference(shouldBeBlack: Bool) {
+        if let screenManagerVC = screenManagerVC {
+            screenManagerVC.changeStatusBarPreference(shouldBeBlack)
+        }
+    }
 
 }

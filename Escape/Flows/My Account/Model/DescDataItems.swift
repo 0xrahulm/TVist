@@ -10,31 +10,31 @@ import UIKit
 
 class DescDataItems: NSObject {
     
-    var id : String?
-    var name : String?
-    var subtitle : String?
-    var image : String?
-    var desc : String?
-    var releaseDate : Double?
-    var yearRange : String?
-    var rating : NSNumber?
-    var runtime : String?
-    var cast : String?
-    var director : String?
-    var generes : [String] = []
-    var isActed  = false
+    var id: String?
+    var name: String?
+    var subtitle: String?
+    var image: String?
+    var desc: String?
+    var releaseYear: String?
+    var rating: NSNumber?
     
-    init(dict : [String:AnyObject]) {
-        
+    var runtime: String? // In case of movies
+    var pageCount: String? // In case of books
+    
+    var cast: String?
+    var createdBy: String?
+    var generes: [String] = []
+    var isActed = false
+    
+    init(dict: [String:AnyObject]) {
         super.init()
         
         parseData(dict)
-        
     }
     
     func parseData(data : [String:AnyObject]){
         
-        if let dict = data["escape_details"] as? [String:AnyObject]{
+        if let dict = data["details"] as? [String:AnyObject]{
             
             if let name  = dict["name"] as? String{
                 
@@ -43,7 +43,7 @@ class DescDataItems: NSObject {
                 self.subtitle = dict["subtitle"] as? String
                 self.image = dict["poster_image"] as? String
                 self.desc = dict["description"] as? String
-                self.releaseDate = dict["release_date"] as? Double
+                self.releaseYear = dict["release_year"] as? String
                 
                 if let rating = dict["average_rating"] as? NSNumber{
                     self.rating = rating
@@ -53,16 +53,11 @@ class DescDataItems: NSObject {
                     self.rating = rating
                 }
                 
-                self.runtime = dict["runtime"] as? String
-                self.yearRange = dict["year_range"] as? String
+                self.runtime = dict["run_time"] as? String
                 self.cast = dict["cast"] as? String
                 
-                if let director = dict["director"] as? String{
-                    self.director = director
-                }else if let author = dict["author"] as? String{
-                    self.director = author
-                }else if let creator = dict["creator"] as? String{
-                    self.director = creator
+                if let createdBy = dict["created_by"] as? String{
+                    self.createdBy = createdBy
                 }
                 
                 if let generes = dict["genres"] as? [String]{
@@ -73,7 +68,7 @@ class DescDataItems: NSObject {
         if let acted = data["is_acted"] as? Bool{
             self.isActed = acted
         }
-
+        
         
     }
 }

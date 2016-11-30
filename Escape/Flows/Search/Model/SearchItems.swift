@@ -13,6 +13,8 @@ class SearchItems: NSObject {
     var id : String?
     var name : String?
     var image : String?
+    var year : String?
+    var subTitle: String?
     var director : String?
     var searchType : SearchType?
     

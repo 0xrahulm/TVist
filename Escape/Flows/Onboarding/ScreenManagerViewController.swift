@@ -182,6 +182,12 @@ class ScreenManagerViewController: UIViewController {
         }
     }
     
+    func changeStatusBarPreference(shouldBeBlack: Bool) {
+        if let mainTabVC = currentPresentedViewController as? CustomTabBarController {
+            mainTabVC.shouldBeBlack = shouldBeBlack
+        }
+    }
+    
     func removePresentedViewController(dismissVC : UIViewController){
         
         if currentPresentedViewController == dismissVC {
@@ -270,7 +276,11 @@ extension ScreenManagerViewController{
         case .OpenAddToEscapeView:
             openAddToEscapeView(params)
             break
-            
+        case .OpenUserEscapesList:
+            if let params = params {
+                openUserEscapeListViewController(params)
+            }
+            break
         default:
             break
         }
@@ -295,6 +305,11 @@ extension ScreenManagerViewController{
     func openFollower(params : [String:AnyObject]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "FollowersVC", queryParams: params)
     }
+    
+    func openUserEscapeListViewController(params: [String:AnyObject]) {
+        pushViewControllerOf(.GenericLists, viewControllerIdentifier: "userEscapeListVC", queryParams: params)
+    }
+    
     func openAddToEscapePopUp(params : [String:AnyObject]?){
         
         if let params = params, type = params["type"] as? String, id = params["id"] as? String, delegate = params["delegate"] as? UITableViewCell {

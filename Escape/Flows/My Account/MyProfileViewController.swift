@@ -184,10 +184,14 @@ class MyProfileViewController: UIViewController {
     
     func profileItemsForSelectedTab() -> List<ProfileItem> {
         
-        if let profileList = profileListData.first {
+        if let profileList = selectedProfileList() {
             return profileList.data
         }
         return List<ProfileItem>()
+    }
+    
+    func selectedProfileList() -> ProfileList? {
+        return profileListData.first
     }
     
     func fetchDataFromRealm() {
@@ -390,7 +394,7 @@ extension MyProfileViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("escapesSectionHorizontalidentifier") as! CustomListTableViewCell
-        
+        cell.viewAllTapDelegate = self
         cell.cellTitleLabel.text = profileItemsForSelectedTab()[indexPath.row].title
         
         return cell
@@ -424,20 +428,10 @@ extension MyProfileViewController : UICollectionViewDelegate , UICollectionViewD
             let data = profileItemsForSelectedTab()[collectionView.tag].escapeDataList
             
             if data.endIndex > 0 {
-                let id = data[indexPath.row].id
-                let escapeType = data[indexPath.row].escapeType
-                let name = data[indexPath.row].name
-                let image = data[indexPath.row].posterImage
                 
                 var params : [String:AnyObject] = [:]
                 
-                params["id"] = id
-                params["escapeType"] = escapeType
-                params["name"] = name
-                
-                if let image = image {
-                    params["image"] = image
-                }
+                params["escapeItem"] = data[indexPath.row]
                 
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
             }
@@ -459,6 +453,31 @@ extension MyProfileViewController : UICollectionViewDelegate , UICollectionViewD
         cell.dataItems = item[indexPath.row]
         
         return cell
+    }
+}
+
+extension MyProfileViewController: ViewAllTapProtocol {
+    func viewAllTappedIn(cell: UITableViewCell) {
+        if let indexPath = tableView.indexPathForCell(cell) {
+            
+            let selectedProfileItem = profileItemsForSelectedTab()[indexPath.row]
+            
+            
+            if let selectedProfileList = selectedProfileList(), let escapeAction = selectedProfileItem.title {
+                var queryParams:[String:AnyObject] = [:]
+                
+                let escapeType = selectedProfileList.type
+                queryParams["escapeType"] = escapeType
+                queryParams["escapeAction"] = escapeAction
+                
+                if let userId = userId {
+                    queryParams["userId"] = userId
+                }
+                
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenUserEscapesList, queryParams: queryParams)
+            }
+            
+        }
     }
 }
 

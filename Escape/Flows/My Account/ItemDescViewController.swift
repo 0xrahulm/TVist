@@ -13,25 +13,32 @@ class ItemDescViewController: UIViewController {
     
     @IBOutlet weak var itemImage: UIImageView!
     
-    @IBOutlet weak var itemTitle:       UILabel!
-    @IBOutlet weak var itemSubTitle:    UILabel!
-    @IBOutlet weak var yearTitle:       UILabel!
-    @IBOutlet weak var yearLabel:       UILabel!
-    @IBOutlet weak var ratingTitle:     UILabel!
-    @IBOutlet weak var ratingLabel:     UILabel!
-    @IBOutlet weak var runTimeTitle:    UILabel!
-    @IBOutlet weak var runTimeLabel:    UILabel!
-    @IBOutlet weak var DirectorLabel:   UILabel!
-    @IBOutlet weak var castLabel:       UILabel!
-    @IBOutlet weak var generesLabel:    UILabel!
-    @IBOutlet weak var descLabel:       UILabel!
+    @IBOutlet weak var headerImage: UIImageView!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var visualEffectsLayer: UIVisualEffectView!
     
-    @IBOutlet weak var addEscapeButton: UIButton!
+    @IBOutlet weak var headerLabel: UILabel!
+    
+    @IBOutlet weak var itemTitle:       UILabel!
+    @IBOutlet weak var yearLabel:       UILabel!
+    @IBOutlet weak var ratingLabel:     UILabel!
+    @IBOutlet weak var runTimeLabel:    UILabel!
+    @IBOutlet weak var creatorTypeLabel: UILabel!
+    @IBOutlet weak var creatorLabel: UILabel!
+    @IBOutlet weak var castLabel: UILabel!
+    @IBOutlet weak var castDetailLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    //    @IBOutlet weak var addEscapeButton: UIButton!
+    
+    let offset_HeaderStop:CGFloat = 100.0 // At this offset the Header stops its transformations
+    let offset_B_LabelHeader:CGFloat = 95.0 // At this offset the Black label reaches the Header
+    let distance_W_LabelHeader:CGFloat = 35.0
     
     private var popover: Popover!
     
-    var optionsArray : [OptionsType] = [.Add , .Recommend]
-    var popOverHeight : CGFloat = 90
+    var optionsArray: [OptionsType] = [.Add , .Recommend]
+    var popOverHeight: CGFloat = 90
     var escapeAlreadyAdded = false
     
     
@@ -40,46 +47,49 @@ class ItemDescViewController: UIViewController {
         .BlackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
     ]
     
-    var escapeType : EscapeType! //required Field
-    var id : String! // required Field
-    var name : String?
-    var image: String?
+    var escapeItem: EscapeItem!
+    
+    // For Custom Present Animation
+    let customPresentAnimationController = CustomPresentAnimationController()
     
     override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
-        if let type = queryParams["escapeType"] as? String{
-            escapeType = EscapeType(rawValue: type)
-        }
-        if let idToFetch = queryParams["id"] as? String{
-            id = idToFetch
-        }
-        if let itemName = queryParams["name"] as? String{
-            name = itemName
-        }
-        if let itemImage = queryParams["image"] as? String{
-            image = itemImage
+        if let escapeItem = queryParams["escapeItem"] as? EscapeItem {
+            self.escapeItem = escapeItem
         }
     }
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let name = name {
-            self.title = name
-        }
-        if let image = image{
-            itemImage.downloadImageWithUrl(image , placeHolder: UIImage(named: "movie_placeholder"))
-            
-        }
+        
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
-
+        
+        let escapeType = escapeItem.escapeTypeVal()
+        let escapeId   = escapeItem.id
+        
         MyAccountDataProvider.sharedDataProvider.itemDescDelegate = self
-        MyAccountDataProvider.sharedDataProvider.getItemDesc(escapeType, id: id)
-
+        MyAccountDataProvider.sharedDataProvider.getItemDesc(escapeType, id: escapeId)
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         ScreenVader.sharedVader.hideTabBar(true)
+        ScreenVader.sharedVader.changeStatusBarPreference(false)
+        
+        setNeedsStatusBarAppearanceUpdate()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        setEscapeDetails(escapeItem.name, subtitle: nil, year: escapeItem.year, image: escapeItem.posterImage, rating: escapeItem.rating)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        ScreenVader.sharedVader.changeStatusBarPreference(true)
+        
+        setNeedsStatusBarAppearanceUpdate()
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func setVisuals(){
@@ -88,51 +98,63 @@ class ItemDescViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = settingButton
     }
+    
+    func setEscapeDetails(name: String, subtitle: String?, year: String?, image: String?, rating: String?) {
+        
+        if let subtitle = subtitle {
+            itemTitle.text = name+" - "+subtitle
+        } else {
+            itemTitle.text = name
+        }
+        
+        headerLabel.text = name
+        
+        if let yearText = year {
+            yearLabel.text = yearText
+        }
+        
+        
+        if let image = image {
+            itemImage.downloadImageWithUrl(image , placeHolder: UIImage(named: "movie_placeholder"))
+            
+            headerImage.downloadImageWithUrl(image, placeHolder: nil)
+            
+        }
+        
+        if let rating = rating {
+            ratingLabel.text = "\(rating)"
+        }
+        
+    }
+    
     func fillData(descData : DescDataItems?){
         
         if let descData = descData {
-
             
-            if let name = descData.name{
-                itemTitle.text = name
-            }
-            if let subtitle = descData.subtitle{
-                itemSubTitle.text = subtitle
-            }
+            
+            
             if let image = descData.image{
                 itemImage.downloadImageWithUrl(image, placeHolder: UIImage(named: "movie_placeholder"))
             }
-            if let year = descData.releaseDate{
-                yearTitle.text = "Released In"
-                yearLabel.text = "\(TimeUtility.getYear(year))"
-                
-            }else if let yearRange = descData.yearRange{
-                yearTitle.text = "Year"
-                yearLabel.text = yearRange
-            }
-            if let rating = descData.rating{
-                ratingTitle.text = "Rating"
-                var outOf = " / 10"
-                if escapeType == .Books{
-                    outOf = " / 5"
-                }
-                ratingLabel.text = "\(rating)\(outOf)"
-            }
+            
             if let runtime = descData.runtime{
-                runTimeTitle.text = "Runtime"
                 runTimeLabel.text = runtime
             }
-            if let director = descData.director{
+            if let createdBy = descData.createdBy {
                 var text = "Directed by"
-                if escapeType == .Books{
+                if escapeItem.escapeTypeVal() == .Books {
                     text = "Author"
-                }else if escapeType == .TvShows{
+                }else if escapeItem.escapeTypeVal() == .TvShows {
                     text = "Creator"
                 }
-                DirectorLabel.attributedText = getString(text, str: director)
+                creatorTypeLabel.text = text
+                creatorLabel.text = createdBy
             }
             if let cast = descData.cast{
-                castLabel.attributedText = getString("Cast", str: cast)
+                castDetailLabel.text = cast
+            } else {
+                castDetailLabel.text = nil
+                castLabel.text = nil
             }
             if descData.generes.count > 0{
                 var gerenes = ""
@@ -145,21 +167,21 @@ class ItemDescViewController: UIViewController {
                     }
                     i = i + 1
                 }
-                generesLabel.attributedText = getString("Generes", str: gerenes)
+                //                generesLabel.attributedText = getString("Generes", str: gerenes)
                 
             }
             if let desc = descData.desc{
-                descLabel.attributedText = getString("Description", str: desc)
+                descriptionLabel.text = desc
             }
-           
+            
             escapeAlreadyAdded  = descData.isActed
-
+            
             setVisuals()
             
             if descData.isActed{
-                addEscapeButton.hidden = true
+                //                addEscapeButton.hidden = true
             }else{
-                addEscapeButton.hidden = false
+                //                 addEscapeButton.hidden = false
             }
         }
         
@@ -174,6 +196,10 @@ class ItemDescViewController: UIViewController {
         attributedString.appendAttributedString(titleString)
         attributedString.appendAttributedString(descString)
         return attributedString
+    }
+    
+    @IBAction func dismissViewController(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     
@@ -197,7 +223,6 @@ class ItemDescViewController: UIViewController {
         self.popover.show(tableView, fromView: viewX)
         
     }
-    
 }
 extension ItemDescViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -205,9 +230,10 @@ extension ItemDescViewController: UITableViewDataSource, UITableViewDelegate {
         self.popover.dismiss()
         
         if optionsArray[indexPath.row] == .Recommend{
-            if let escapeId = self.id{
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.Friends.rawValue, "escape_id" : escapeId])
-            }
+            let escapeId = escapeItem.id
+            
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.Friends.rawValue, "escape_id" : escapeId])
+            
             
         }
     }
@@ -224,22 +250,84 @@ extension ItemDescViewController: UITableViewDataSource, UITableViewDelegate {
             let line = UIView(frame: CGRect(x: 0, y: 44, width: tableView.frame.width, height: 1))
             line.backgroundColor = UIColor.groupTableViewBackgroundColor()
             cell.addSubview(line)
-        
+            
         }
         return cell
     }
+    
 }
 
 extension ItemDescViewController : ItemDescProtocol{
     
-    func receivedItemDesc(data: DescDataItems?, id : String) {
-        
-            if self.id == id{
-                fillData(data)
-            }
+    func receivedItemDesc(data: DescDataItems?, id: String) {
+        fillData(data)
     }
     
     func errorItemDescData() {
+        
+    }
+}
+
+extension ItemDescViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        var headerTransform = CATransform3DIdentity
+        var imageTransform  = CATransform3DIdentity
+        // Pull Down
+        if offset < 0 {
+            
+            let headerScaleFactor:CGFloat = -(offset) / headerView.bounds.height
+            let headerSizevariation = ((headerView.bounds.height * (1.0 + headerScaleFactor)) - headerView.bounds.height)/2.0
+            headerTransform = CATransform3DTranslate(headerTransform, 0, headerSizevariation, 0)
+            headerTransform = CATransform3DScale(headerTransform, 1.0 + headerScaleFactor, 1.0 + headerScaleFactor, 0)
+            
+            headerView.layer.transform = headerTransform
+        }
+            // SCROLL UP/DOWN ------------
+        else {
+            
+            // Header -----------
+            
+            headerTransform = CATransform3DTranslate(headerTransform, 0, max(-offset_HeaderStop, -offset), 0)
+            
+            //  ------------ Label
+            
+            let labelTransform = CATransform3DMakeTranslation(0, max(-distance_W_LabelHeader, offset_B_LabelHeader - offset), 0)
+            headerLabel.layer.transform = labelTransform
+            
+            //  ------------ Blur
+            let blurOffset = offset/offset_HeaderStop
+            if offset > 0 && blurOffset < 1.01 {
+                visualEffectsLayer.alpha = max(0.7, blurOffset)
+            }
+            
+            // Avatar -----------
+            
+            let avatarScaleFactor = (min(offset_HeaderStop, offset)) / itemImage.bounds.height / 1.8 // Slow down the animation
+            let avatarSizeVariation = ((itemImage.bounds.height * (1.0 + avatarScaleFactor)) - itemImage.bounds.height) / 2.0
+            imageTransform = CATransform3DTranslate(imageTransform, 0, avatarSizeVariation, 0)
+            imageTransform = CATransform3DScale(imageTransform, 1.0 - avatarScaleFactor, 1.0 - avatarScaleFactor, 0)
+            
+            if offset <= offset_HeaderStop {
+                
+                if itemImage.layer.zPosition < headerView.layer.zPosition{
+                    headerView.layer.zPosition = 0
+                    headerLabel.layer.zPosition = 0
+                }
+                
+            }else {
+                if itemImage.layer.zPosition >= headerView.layer.zPosition{
+                    headerView.layer.zPosition = 1
+                    headerLabel.layer.zPosition = 2
+                }
+            }
+        }
+        
+        
+        // Apply Transformations
+        
+        headerView.layer.transform = headerTransform
+        itemImage.layer.transform = imageTransform
         
     }
 }

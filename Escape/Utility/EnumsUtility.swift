@@ -22,6 +22,7 @@ enum ScreenManagerAction : String {
     case NetworkPresent = "NetworkPresent"
     case OpenSearchView = "openSearchView"
     case OpenAddToEscapeView = "OpenAddToEscapeView"
+    case OpenUserEscapesList = "UserEscapeList"
 }
 
 enum StoryBoardIdentifier : String{
@@ -33,6 +34,7 @@ enum StoryBoardIdentifier : String{
     case Notifications = "Notifications"
     case Search = "Search"
     case AddToEscape = "AddToEscape"
+    case GenericLists = "GenericLists"
 }
 enum LoginTypeEnum : String {
     case Facebook = "fb"

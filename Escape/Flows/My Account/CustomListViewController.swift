@@ -43,7 +43,8 @@ class CustomListViewController: UIViewController {
             fetchEscapesDataFromRealm()
         }
         
-        MyAccountDataProvider.sharedDataProvider.getUserEscapes(escapeType, userId: userId)
+        // This is no longer used
+//        MyAccountDataProvider.sharedDataProvider.getUserEscapes(escapeType, esc userId: userId)
         
     }
     

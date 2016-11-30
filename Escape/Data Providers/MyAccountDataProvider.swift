@@ -26,6 +26,11 @@ protocol FollowersProtocol : class {
     func error()
 }
 
+protocol EscapeListDataProtocol: class {
+    func receivedEscapeListData(escapeData: [EscapeItem], page: Int?, escapeType: String?, escapeAction: String?, userId: String?)
+    func failedToReceiveData()
+}
+
 class MyAccountDataProvider: CommonDataProvider {
     
     static let sharedDataProvider = MyAccountDataProvider()
@@ -33,6 +38,7 @@ class MyAccountDataProvider: CommonDataProvider {
     weak var myAccountDetailsDelegate : MyAccountDetailsProtocol?
     weak var itemDescDelegate : ItemDescProtocol?
     weak var followersDelegate : FollowersProtocol?
+    weak var escapeListDataDelegate: EscapeListDataProtocol?
     
     var currentUser:UserData?
     
@@ -57,12 +63,21 @@ class MyAccountDataProvider: CommonDataProvider {
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserDetails, params: params, delegate: self)
     }
     
-    func getUserEscapes(escapeType : ProfileListType, userId : String?){
+    func getUserEscapes(escapeType: EscapeType, escapeAction: String?, userId: String?, page: Int?) {
         var params : [String:AnyObject] = [:]
+        
         params["escape_type"] =  escapeType.rawValue
         
         if let userId = userId {
             params["user_id"] = userId
+        }
+        
+        if let page = page {
+            params["page"] = page
+        }
+        
+        if let escapeAction = escapeAction {
+            params["escape_action"] = escapeAction
         }
         
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserEscapes, params: params, delegate: self)
@@ -184,7 +199,7 @@ class MyAccountDataProvider: CommonDataProvider {
                     
                     if let params = service.parameters {
                         if let escape_type = params["escape_type"] as? String {
-                            self.parseEscapeData(data, escape_type: escape_type, userId: params["user_id"] as? String)
+                            self.parseEscapeListData(data, escape_type: escape_type, escapeAction: params["escape_action"] as? String, userId: params["user_id"] as? String, page: params["page"] as? Int)
                         }
                     }
                     
@@ -335,7 +350,27 @@ extension MyAccountDataProvider {
         
     }
     
-    func parseEscapeData(data: [[String:AnyObject]], escape_type: String , userId: String?) {
+    func parseEscapeListData(data: [[String:AnyObject]], escape_type: String, escapeAction: String?, userId: String?, page: Int?) {
+        var dataArray:[EscapeItem] = []
+        
+        for eachItem in data {
+            guard let itemTitle = eachItem["name"] as? String,
+                let itemId = eachItem["id"] as? String,
+                let escapeType = eachItem["escape_type"] as? String else {
+                    continue
+            }
+            
+            dataArray.append(EscapeItem.addOrEditEscapeItem(itemId, name: itemTitle, escapeType: escapeType, posterImage: eachItem["poster_image"] as? String, year: eachItem["year"] as? String, rating: eachItem["rating"] as? NSNumber, subTitle: eachItem["subtitle"] as? String, createdBy: eachItem["creator"] as? String, _realm: nil))
+        }
+        
+        if let escapeListDataDelegate = escapeListDataDelegate {
+            escapeListDataDelegate.receivedEscapeListData(dataArray, page: page, escapeType: escape_type, escapeAction: escapeAction, userId: userId)
+        }
+    }
+    
+    
+    // This is to be removed, has already been replaced
+    func oldParseEscapeData(data: [[String:AnyObject]], escape_type: String , userId: String?) {
         
         var escapeDataArray : [MyAccountEscapeItem] = []
         

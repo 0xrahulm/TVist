@@ -17,34 +17,39 @@ final class EscapeItem: Object {
     dynamic var year:String = ""
     dynamic var rating:String = ""
     
+    dynamic var subTitle:String?
+    dynamic var createdBy:String?
+    dynamic var hasActed = false
+    
     override static func primaryKey() -> String? {
         return "id"
     }
     
-    class func addOrEditEscapeItem(id: String, name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, _realm: Realm) -> EscapeItem {
+    class func addOrEditEscapeItem(id: String, name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?, _realm: Realm?) -> EscapeItem {
         
-        if let escapeItem = _realm.objectForPrimaryKey(EscapeItem.self, key: id) {
+        if let _realm = _realm, let escapeItem = _realm.objectForPrimaryKey(EscapeItem.self, key: id) {
             
-            escapeItem.updateEscapeName(name, escapeType: escapeType, posterImage: posterImage, year: year, rating: rating)
+            escapeItem.updateEscapeName(name, escapeType: escapeType, posterImage: posterImage, year: year, rating: rating, subTitle: subTitle, createdBy: createdBy)
             return escapeItem
         } else {
             
             let escapeItem = EscapeItem()
             escapeItem.id   = id
             
-            escapeItem.updateEscapeName(name, escapeType: escapeType, posterImage: posterImage, year: year, rating: rating)
+            escapeItem.updateEscapeName(name, escapeType: escapeType, posterImage: posterImage, year: year, rating: rating, subTitle: subTitle, createdBy: createdBy)
             return escapeItem
         }
         
     }
     
-    func updateEscapeName(name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?) {
+    func updateEscapeName(name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?) {
         
         
         self.name = name
         self.escapeType  = escapeType
         self.posterImage = posterImage
-        
+        self.subTitle = subTitle
+        self.createdBy = createdBy
         
         if let year = year {
             self.year = year
@@ -53,5 +58,9 @@ final class EscapeItem: Object {
         if let rating = rating {
             self.rating = String(format: "%.1f", rating.floatValue)
         }
+    }
+    
+    func escapeTypeVal() -> EscapeType {
+        return EscapeType(rawValue: self.escapeType)!
     }
 }

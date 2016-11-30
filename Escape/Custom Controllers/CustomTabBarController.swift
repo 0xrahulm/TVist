@@ -25,6 +25,8 @@ class CustomTabBarController: UIViewController {
     
     var currentDisplayIndex = 0
     
+    var shouldBeBlack = true
+    
     var tabBarHidden:Bool = false {
         didSet {
             
@@ -150,5 +152,12 @@ class CustomTabBarController: UIViewController {
         }
     }
     
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        if shouldBeBlack {
+            return .Default
+        }
+        return .LightContent
+    }
 
 }

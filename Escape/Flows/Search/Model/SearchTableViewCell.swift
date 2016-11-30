@@ -21,11 +21,15 @@ class SearchTableViewCell: UITableViewCell {
     
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var itemNameLabel: UILabel!
+    @IBOutlet weak var itemSubtitleLabel: UILabel!
     @IBOutlet weak var itemCreatorLabel: UILabel!
     @IBOutlet weak var addToEscapeButton: UIButton!
     
     @IBOutlet weak var creatorType: UILabel!
     @IBOutlet weak var followButton: UIButton!
+    
+    @IBOutlet weak var escapeTypeTag: UIImageView?
+    
     
     @IBOutlet weak var hairlineHeightConstraint: NSLayoutConstraint!
     
@@ -36,8 +40,15 @@ class SearchTableViewCell: UITableViewCell {
     
     var data : SearchItems? {
         didSet{
-            if let data = data{
-                itemNameLabel.text = data.name
+            if let data = data, let escapeName = data.name, let searchType = data.searchType {
+                
+                var escapeTitleStr = escapeName
+                if let year = data.year where searchType != .Books {
+                    escapeTitleStr += " (\(year))"
+                }
+                itemNameLabel.text = escapeTitleStr
+                itemSubtitleLabel.text = data.subTitle
+                
                 itemImage.downloadImageWithUrl(data.image , placeHolder: UIImage(named: "movie_placeholder"))
                 if let director = data.director{
                     itemCreatorLabel.text = director
@@ -52,15 +63,18 @@ class SearchTableViewCell: UITableViewCell {
                 }
                 
                 
-                addToEscapeButton.layer.borderColor = UIColor.escapeBlueColor().CGColor
-                addToEscapeButton.layer.borderWidth = 1.0
-                
                 if data.searchType == .Movie {
                     creatorType.text = EscapeCreatorType.Movie.rawValue+":"
                 } else if data.searchType == .Books {
                     creatorType.text = EscapeCreatorType.Books.rawValue+":"
                 } else if data.searchType == .TvShows {
                     creatorType.text = EscapeCreatorType.TvShows.rawValue+":"
+                }
+                
+                
+                
+                if let escapeTypeTag = escapeTypeTag, let searchType = data.searchType {
+                    escapeTypeTag.image = UIImage(named: "\(searchType.rawValue)_tag")
                 }
             }
         }

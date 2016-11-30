@@ -23,6 +23,8 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     
+    @IBOutlet weak var subtitleLabel: UILabel!
+    
     @IBOutlet weak var directorLabel: UILabel!
     
     @IBOutlet weak var ctaButton: UIButton!
@@ -36,6 +38,8 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
     @IBOutlet weak var peopleName: UILabel!
     @IBOutlet weak var peopleFollowerLabel: UILabel!
     
+    @IBOutlet weak var escapeTypeTag: UIImageView?
+    
     
     var userId = ""
     var isFollow = false
@@ -46,14 +50,12 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
         didSet{
             if let data = data, let escapeName = data.name {
                 var escapeTitleStr = escapeName
-                if let year = data.year {
+                if let year = data.year where data.discoverType != .Books {
                     escapeTitleStr += " (\(year))"
                 }
                 titleLabel.text = escapeTitleStr
+                subtitleLabel.text = data.subtitle
                 posterImage.downloadImageWithUrl(data.image , placeHolder: UIImage(named: "movie_placeholder"))
-                
-                ctaButton.layer.borderColor = UIColor.escapeBlueColor().CGColor
-                ctaButton.layer.borderWidth = 1.0
                 
                 if let director = data.director{
                     directorLabel.text = director
@@ -61,12 +63,17 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
                 }else{
                     directorLabel.hidden = true
                 }
+                
                 if data.discoverType == .Movie{
                     creatorType.text = EscapeCreatorType.Movie.rawValue+":"
                 }else if data.discoverType == .Books{
                     creatorType.text = EscapeCreatorType.Books.rawValue+":"
                 }else if data.discoverType == .TvShows{
                     creatorType.text = EscapeCreatorType.TvShows.rawValue+":"
+                }
+                
+                if let escapeTypeTag = escapeTypeTag, let discoveryType = data.discoverType {
+                    escapeTypeTag.image = UIImage(named: "\(discoveryType.rawValue)_tag")
                 }
                 
             }
