@@ -100,14 +100,13 @@ class SearchTableViewCell: UITableViewCell {
     
     @IBAction func addToEscapeButtonClicked(sender: AnyObject) {
         
-        if let id = data?.id,
-           let type = data?.searchType?.rawValue{
+        if let data = data{
             
             let obj = AddToEscapeViewController()
             obj.addToEscapeDoneDelegate = self
             
             if let delegate = obj.addToEscapeDoneDelegate{
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: ["id" : id, "type" : type , "delegate" : delegate])
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: ["data" : data, "delegate" : delegate])
             }
         }
     }

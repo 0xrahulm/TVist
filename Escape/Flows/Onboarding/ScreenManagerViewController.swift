@@ -137,6 +137,15 @@ class ScreenManagerViewController: UIViewController {
         }
     }
     
+    private func presentPopUpViewWithNib( viewController : UIViewController){
+        
+        currentPresentedViewController.presentViewController(viewController, animated: true, completion: nil)
+        currentPresentedViewController = viewController
+        presentedViewControllers.append(viewController)
+        
+        
+    }
+    
     private func initialViewControllerFor(storyboardId: StoryBoardIdentifier) -> UIViewController? {
         return UIStoryboard(name: storyboardId.rawValue, bundle: nil).instantiateInitialViewController()
     }
@@ -273,14 +282,16 @@ extension ScreenManagerViewController{
             openSearchView()
             break
             
-        case .OpenAddToEscapeView:
-            openAddToEscapeView(params)
-            break
         case .OpenUserEscapesList:
             if let params = params {
                 openUserEscapeListViewController(params)
             }
             break
+            
+        case .OpenFriendsView:
+            openFriendsView(params)
+            break
+            
         default:
             break
         }
@@ -312,29 +323,27 @@ extension ScreenManagerViewController{
     
     func openAddToEscapePopUp(params : [String:AnyObject]?){
         
-        if let params = params, type = params["type"] as? String, id = params["id"] as? String, delegate = params["delegate"] as? UITableViewCell {
+        if let params = params{
             
             let addToEscapePopup = AddToEscapeViewController(nibName:"AddToEscapeViewController", bundle: nil)
             addToEscapePopup.modalPresentationStyle = .Custom
             addToEscapePopup.transitioningDelegate = addToEscapePopup
             addToEscapePopup.presentingVC = self
-            addToEscapePopup.type = DiscoverType(rawValue: type)
-            addToEscapePopup.id = id
-            if let searchVCDelegate = delegate as? SearchTableViewCell {
-                addToEscapePopup.addToEscapeDoneDelegate = searchVCDelegate
-            }
+            addToEscapePopup.queryParams = params
             
-            if let discoverVCCell = delegate as? DiscoverEscapeTableViewCell {
-                addToEscapePopup.addToEscapeDoneDelegate = discoverVCCell
-            }
+            presentPopUpViewWithNib(addToEscapePopup)
             
-            let topVC = getTopViewController()
-            topVC.presentViewController(addToEscapePopup, animated: true, completion: nil)
+            //let topVC = getTopViewController()
+            //topVC.presentViewController(addToEscapePopup, animated: true, completion: nil)
             
         }
     }
     func openUserAccount(params : [String:AnyObject]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountVC", queryParams: params)        
+    }
+    func openFriendsView(params : [String:AnyObject]?){
+        pushViewControllerOf(.MyAccount, viewControllerIdentifier: "friendsVC", queryParams: params)
+        
     }
     func presentNoNetworkPopUP(){
         
@@ -365,9 +374,6 @@ extension ScreenManagerViewController{
     func openSearchView(){
         presentViewControllerOf(.Search, viewControllerIdentifier: "searchVC", queryParams: nil)
         
-    }
-    func openAddToEscapeView(params : [String:AnyObject]?){
-        presentViewControllerOf(.AddToEscape, viewControllerIdentifier: "addToEscapeVC", queryParams: params)
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

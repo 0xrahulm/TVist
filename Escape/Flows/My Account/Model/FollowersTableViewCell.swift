@@ -29,6 +29,7 @@ class FollowersTableViewCell: UITableViewCell {
     @IBOutlet weak var followButton: UIButton!
     
     @IBOutlet weak var hairlineHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var friendsCheckImage: UIImageView!
 
     @IBAction func followButtonClicked(sender: AnyObject) {
         

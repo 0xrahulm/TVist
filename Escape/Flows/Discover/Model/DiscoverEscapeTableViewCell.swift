@@ -109,26 +109,22 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
         }
         
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
+    
     @IBAction func addButtonClicked(sender: AnyObject) {
         
-        if let id = data?.id{
-            if let type = data?.discoverType?.rawValue{
-                
-                let obj = AddToEscapeViewController()
-                obj.addToEscapeDoneDelegate = self
-                if let delegate = obj.addToEscapeDoneDelegate{
-                    ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: ["id" : id, "type" : type , "delegate" : delegate])
-                }
-                
-                
-            }
+        if let data = data{
             
+            let obj = AddToEscapeViewController()
+            obj.addToEscapeDoneDelegate = self
+            if let delegate = obj.addToEscapeDoneDelegate{
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: ["data" : data, "delegate" : delegate])
+            }
         }
         
         if let button = sender as? UIButton {

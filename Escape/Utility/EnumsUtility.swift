@@ -21,8 +21,8 @@ enum ScreenManagerAction : String {
     case NoNetworkPresent = "NoNetworkPresent"
     case NetworkPresent = "NetworkPresent"
     case OpenSearchView = "openSearchView"
-    case OpenAddToEscapeView = "OpenAddToEscapeView"
     case OpenUserEscapesList = "UserEscapeList"
+    case OpenFriendsView = "OpenFriendsView"
 }
 
 enum StoryBoardIdentifier : String{

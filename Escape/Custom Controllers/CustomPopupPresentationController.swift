@@ -21,7 +21,20 @@ class CustomPopupPresentationController: UIPresentationController {
         self.popupHeight = height
         self.popupYOffset = yOffset
         self.cornerRadius = cornerRadius
+        
         setupDimmingView()
+        
+    }
+    
+    var closeButton : UIButton!
+    
+    func setCloseButton(){
+        let frame = frameOfPresentedViewInContainerView()
+        
+        closeButton = UIButton(frame: CGRectMake(popupWidth! - 10, frame.origin.y - 55, 55,55) )
+        closeButton.setImage(UIImage(named: "close-popup"), forState: .Normal)
+        closeButton.addTarget(self, action: #selector(CustomPopupPresentationController.dismissView), forControlEvents: .TouchUpInside)
+        dimmingView.addSubview(closeButton)
     }
     
     var dimmingView: UIView!
@@ -32,21 +45,26 @@ class CustomPopupPresentationController: UIPresentationController {
         
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
         visualEffectView.frame = dimmingView.bounds
-        visualEffectView.alpha = 0.35;
+        visualEffectView.alpha = 0.6;
         dimmingView.addSubview(visualEffectView)
         
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(CustomPopupPresentationController.dimmingViewTapped(_:)))
-        dimmingView.addGestureRecognizer(tapRecognizer)
+        //let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(CustomPopupPresentationController.dimmingViewTapped(_:)))
+        //dimmingView.addGestureRecognizer(tapRecognizer)
+    }
+    func dismissView(){
+        presentedViewController.view.endEditing(true)
+        presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+        
     }
     
     func dimmingViewTapped(tapRecognizer: UITapGestureRecognizer) {
-        presentedViewController.view.endEditing(true)
-        presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+        dismissView()
     }
     
     override func presentationTransitionWillBegin() {
         let presentedView = self.presentedViewController.view
         presentedView.layer.cornerRadius = cornerRadius
+        presentedView.clipsToBounds = true
         
         let containerView = self.containerView
         let presentedViewController = self.presentedViewController
@@ -69,6 +87,7 @@ class CustomPopupPresentationController: UIPresentationController {
     override func dismissalTransitionWillBegin() {
         presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ (coordinatorContext) -> Void in
             self.dimmingView.alpha = 0.0
+            ScreenVader.sharedVader.removeDismissedViewController(self.presentedViewController)
             }, completion: nil)
     }
     
@@ -82,6 +101,7 @@ class CustomPopupPresentationController: UIPresentationController {
     override func containerViewWillLayoutSubviews() {
         dimmingView.frame = containerView!.bounds
         presentedView()!.frame = frameOfPresentedViewInContainerView()
+        setCloseButton()
     }
     
     override func frameOfPresentedViewInContainerView() -> CGRect {

@@ -51,7 +51,7 @@ class SearchItems: NSObject {
                     let name = dict["name"] as? String,
                     let image = dict["picture"] as? String,
                     let searchType = dict["search_type"] as? String,
-                    let isAddedOrFollow = dict["has_acted"] as? Bool{
+                    let isAddedOrFollow = dict["is_acted"] as? Bool{
                     
                     searchDataArray.append(SearchItems(id: id, name: name, image: image, director: dict["creator"] as? String, searchType: SearchType(rawValue:searchType), isAddedOrFollow: isAddedOrFollow))
    

@@ -97,7 +97,7 @@ class DiscoverViewController: UIViewController {
     }
     
     func didTapGoToLeft() {
-        ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapeView, queryParams: nil)
+        
 //        let currentIndex = pageMenu!.currentPageIndex
 //        
 //        if currentIndex > 0 {

@@ -113,6 +113,12 @@
 		BC1842851D535243003CC19A /* FBFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842831D535243003CC19A /* FBFriendsTableViewCell.swift */; };
 		BC1842871D537016003CC19A /* BaseStoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842861D537015003CC19A /* BaseStoryTableViewCell.swift */; };
 		BC1842881D537016003CC19A /* BaseStoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842861D537015003CC19A /* BaseStoryTableViewCell.swift */; };
+		BC1A1CFF1DF449930024CC06 /* AddToEscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1A1CFE1DF449930024CC06 /* AddToEscapeViewController.swift */; };
+		BC1A1D001DF449930024CC06 /* AddToEscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1A1CFE1DF449930024CC06 /* AddToEscapeViewController.swift */; };
+		BC1A1D021DF449A10024CC06 /* AddToEscapeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC1A1D011DF449A10024CC06 /* AddToEscapeViewController.xib */; };
+		BC1A1D031DF449A10024CC06 /* AddToEscapeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC1A1D011DF449A10024CC06 /* AddToEscapeViewController.xib */; };
+		BC1A1D051DF4779E0024CC06 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1A1D041DF4779E0024CC06 /* FriendsViewController.swift */; };
+		BC1A1D061DF4779E0024CC06 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1A1D041DF4779E0024CC06 /* FriendsViewController.swift */; };
 		BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */; };
 		BC2485541CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */; };
 		BC2485561CDC900800DC7077 /* MyAccountItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485551CDC900800DC7077 /* MyAccountItems.swift */; };
@@ -145,10 +151,6 @@
 		BC3595FD1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3595FB1CE8634F007903DB /* MyAccountSettingViewController.swift */; };
 		BC38DC691D30C01700290717 /* CustomPopupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC681D30C01700290717 /* CustomPopupPresentationController.swift */; };
 		BC38DC6A1D30C01700290717 /* CustomPopupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC681D30C01700290717 /* CustomPopupPresentationController.swift */; };
-		BC38DC701D30C1F900290717 /* AddToEscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC6E1D30C1F900290717 /* AddToEscapeViewController.swift */; };
-		BC38DC711D30C1F900290717 /* AddToEscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC6E1D30C1F900290717 /* AddToEscapeViewController.swift */; };
-		BC38DC721D30C1F900290717 /* AddToEscapeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC38DC6F1D30C1F900290717 /* AddToEscapeViewController.xib */; };
-		BC38DC731D30C1F900290717 /* AddToEscapeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC38DC6F1D30C1F900290717 /* AddToEscapeViewController.xib */; };
 		BC38DC751D30F18200290717 /* CustomPresentationAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC741D30F18200290717 /* CustomPresentationAnimationViewController.swift */; };
 		BC38DC761D30F18200290717 /* CustomPresentationAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38DC741D30F18200290717 /* CustomPresentationAnimationViewController.swift */; };
 		BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */; };
@@ -261,12 +263,6 @@
 		BCCD70C91CA19468002A0C07 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70C71CA19468002A0C07 /* Service.swift */; };
 		BCCD70CB1CA19555002A0C07 /* NetworkWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */; };
 		BCCD70CC1CA19555002A0C07 /* NetworkWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */; };
-		BCD378241D97F4000000BC77 /* AddToEscape.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCD378231D97F4000000BC77 /* AddToEscape.storyboard */; };
-		BCD378251D97F4000000BC77 /* AddToEscape.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCD378231D97F4000000BC77 /* AddToEscape.storyboard */; };
-		BCD3782A1D98025D0000BC77 /* AddToEscapeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD378291D98025D0000BC77 /* AddToEscapeScreenViewController.swift */; };
-		BCD3782B1D98025D0000BC77 /* AddToEscapeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD378291D98025D0000BC77 /* AddToEscapeScreenViewController.swift */; };
-		BCD3782E1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD3782D1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift */; };
-		BCD3782F1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD3782D1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift */; };
 		BCFC92B81CE2132700AE82BC /* UserDataRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */; };
 		BCFC92B91CE2132700AE82BC /* UserDataRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */; };
 		BCFE486B1CA3C1C00098160D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCFE486A1CA3C1C00098160D /* Images.xcassets */; };
@@ -333,6 +329,9 @@
 		BC18427F1D533441003CC19A /* BaseStory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseStory.swift; sourceTree = "<group>"; };
 		BC1842831D535243003CC19A /* FBFriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBFriendsTableViewCell.swift; sourceTree = "<group>"; };
 		BC1842861D537015003CC19A /* BaseStoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseStoryTableViewCell.swift; sourceTree = "<group>"; };
+		BC1A1CFE1DF449930024CC06 /* AddToEscapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToEscapeViewController.swift; sourceTree = "<group>"; };
+		BC1A1D011DF449A10024CC06 /* AddToEscapeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddToEscapeViewController.xib; sourceTree = "<group>"; };
+		BC1A1D041DF4779E0024CC06 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountDataProvider.swift; sourceTree = "<group>"; };
 		BC2485551CDC900800DC7077 /* MyAccountItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountItems.swift; sourceTree = "<group>"; };
 		BC26D0CA1D2CFA5600FDB87F /* FollowersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersViewController.swift; path = "Escape/Flows/My Account/FollowersViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -349,8 +348,6 @@
 		BC3595F81CE75E53007903DB /* UserEscapeDataRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEscapeDataRealm.swift; sourceTree = "<group>"; };
 		BC3595FB1CE8634F007903DB /* MyAccountSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountSettingViewController.swift; sourceTree = "<group>"; };
 		BC38DC681D30C01700290717 /* CustomPopupPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPopupPresentationController.swift; sourceTree = "<group>"; };
-		BC38DC6E1D30C1F900290717 /* AddToEscapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToEscapeViewController.swift; sourceTree = "<group>"; };
-		BC38DC6F1D30C1F900290717 /* AddToEscapeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddToEscapeViewController.xib; sourceTree = "<group>"; };
 		BC38DC741D30F18200290717 /* CustomPresentationAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPresentationAnimationViewController.swift; sourceTree = "<group>"; };
 		BC3A81801CA51A0300FF8678 /* UIDevice+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Utility.swift"; sourceTree = "<group>"; };
 		BC3A81871CA521D500FF8678 /* DeviceID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceID.swift; sourceTree = "<group>"; };
@@ -420,9 +417,6 @@
 		BCCD70C71CA19468002A0C07 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkWrapper.swift; sourceTree = "<group>"; };
 		BCCD71101CA26CF4002A0C07 /* Escape-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Escape-Bridging-Header.h"; sourceTree = "<group>"; };
-		BCD378231D97F4000000BC77 /* AddToEscape.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddToEscape.storyboard; sourceTree = "<group>"; };
-		BCD378291D98025D0000BC77 /* AddToEscapeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToEscapeScreenViewController.swift; sourceTree = "<group>"; };
-		BCD3782D1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagPeopleCollectionViewCell.swift; sourceTree = "<group>"; };
 		BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataRealm.swift; sourceTree = "<group>"; };
 		BCFE486A1CA3C1C00098160D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BCFE486D1CA400C60098160D /* NetworkAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAvailability.swift; sourceTree = "<group>"; };
@@ -554,6 +548,17 @@
 			path = "Cell Views";
 			sourceTree = "<group>";
 		};
+		BC1A1CF71DF442CE0024CC06 /* AddToEscape */ = {
+			isa = PBXGroup;
+			children = (
+				BC1A1CFE1DF449930024CC06 /* AddToEscapeViewController.swift */,
+				BC1A1D041DF4779E0024CC06 /* FriendsViewController.swift */,
+				BC1A1D011DF449A10024CC06 /* AddToEscapeViewController.xib */,
+			);
+			name = AddToEscape;
+			path = ../AddToEscape;
+			sourceTree = "<group>";
+		};
 		BC2A73011CCBF7C0007E5DFB /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -659,8 +664,8 @@
 		BC47EDAA1C9FFE36008143C2 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				BC1A1CF71DF442CE0024CC06 /* AddToEscape */,
 				84A484041DEDDFA700DAC553 /* GenericLists */,
-				BCD378221D97F2C80000BC77 /* AddToEscape */,
 				84A0FA8F1DBCAD6D0072A36A /* Notifications */,
 				BCACE87D1D563A8300FAF262 /* Search */,
 				BC2A73011CCBF7C0007E5DFB /* Onboarding */,
@@ -809,9 +814,7 @@
 			children = (
 				BC14BAD11CFF0E9B00B7E546 /* Model */,
 				BC14BAB81CFAF3F000B7E546 /* Discover.storyboard */,
-				BC38DC6F1D30C1F900290717 /* AddToEscapeViewController.xib */,
 				BC14BABE1CFAF5CD00B7E546 /* DiscoverViewController.swift */,
-				BC38DC6E1D30C1F900290717 /* AddToEscapeViewController.swift */,
 				BC14BABB1CFAF55800B7E546 /* DiscoverAllViewController.swift */,
 			);
 			name = Discover;
@@ -872,25 +875,6 @@
 				BCACE87F1D56459100FAF262 /* UIApperance+Swift.m */,
 			);
 			path = "Bridging-Headers";
-			sourceTree = "<group>";
-		};
-		BCD378221D97F2C80000BC77 /* AddToEscape */ = {
-			isa = PBXGroup;
-			children = (
-				BCD3782C1D9807630000BC77 /* Model */,
-				BCD378231D97F4000000BC77 /* AddToEscape.storyboard */,
-				BCD378291D98025D0000BC77 /* AddToEscapeScreenViewController.swift */,
-			);
-			name = AddToEscape;
-			path = ../AddToEscape;
-			sourceTree = "<group>";
-		};
-		BCD3782C1D9807630000BC77 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				BCD3782D1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		BCFC92BA1CE2134300AE82BC /* Model */ = {
@@ -960,7 +944,7 @@
 				TargetAttributes = {
 					BC47ED7D1C9FEEC7008143C2 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = GZM8S25H55;
+						DevelopmentTeam = E87TYV2U4N;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -993,6 +977,7 @@
 				BC4B56371D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
 				BC85DBFE1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				84A484091DEDE07100DAC553 /* GenericLists.storyboard in Resources */,
+				BC1A1D021DF449A10024CC06 /* AddToEscapeViewController.xib in Resources */,
 				BC14BAB91CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BC18426A1D51F342003CC19A /* Home.storyboard in Resources */,
 				BC5188291D8C688600A85E61 /* Search.storyboard in Resources */,
@@ -1002,8 +987,6 @@
 				BCB7B4B21CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
 				84A0FA911DBCADB50072A36A /* Notifications.storyboard in Resources */,
 				BC47ED8F1C9FEEC8008143C2 /* LaunchScreen.storyboard in Resources */,
-				BCD378241D97F4000000BC77 /* AddToEscape.storyboard in Resources */,
-				BC38DC721D30C1F900290717 /* AddToEscapeViewController.xib in Resources */,
 				BC2A73181CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730E1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A11CA5626000FF8678 /* MainTab.storyboard in Resources */,
@@ -1018,6 +1001,7 @@
 				BC4B56381D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
 				BC85DBFF1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				84A4840A1DEDE07100DAC553 /* GenericLists.storyboard in Resources */,
+				BC1A1D031DF449A10024CC06 /* AddToEscapeViewController.xib in Resources */,
 				BC14BABA1CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BC18426B1D51F342003CC19A /* Home.storyboard in Resources */,
 				BC51882A1D8C688600A85E61 /* Search.storyboard in Resources */,
@@ -1027,8 +1011,6 @@
 				BCB7B4B31CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
 				84A0FA921DBCADB50072A36A /* Notifications.storyboard in Resources */,
 				BC47ED9D1C9FF233008143C2 /* LaunchScreen.storyboard in Resources */,
-				BCD378251D97F4000000BC77 /* AddToEscape.storyboard in Resources */,
-				BC38DC731D30C1F900290717 /* AddToEscapeViewController.xib in Resources */,
 				BC2A73191CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730F1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A21CA5626000FF8678 /* MainTab.storyboard in Resources */,
@@ -1142,8 +1124,10 @@
 				BC2A73141CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
 				84A484161DEDEE4400DAC553 /* EscapeCell.swift in Sources */,
 				BC4B563A1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */,
+				BC1A1D051DF4779E0024CC06 /* FriendsViewController.swift in Sources */,
 				BCB7B4971CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BC5188331D8D229900A85E61 /* SearchItems.swift in Sources */,
+				BC1A1CFF1DF449930024CC06 /* AddToEscapeViewController.swift in Sources */,
 				BC4F45641CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC0BBBE41CF1D08F00B03A93 /* UIView+Utility.swift in Sources */,
 				BC18427D1D532F39003CC19A /* FBFriendCard.swift in Sources */,
@@ -1176,7 +1160,6 @@
 				84DD65651DDB47F600C35EBE /* Logger.swift in Sources */,
 				BC5188361D8D26DA00A85E61 /* SearchTableViewCell.swift in Sources */,
 				BC47ED8A1C9FEEC8008143C2 /* Escape.xcdatamodeld in Sources */,
-				BC38DC701D30C1F900290717 /* AddToEscapeViewController.swift in Sources */,
 				BC0BBBE11CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
 				BC2A73101CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */,
 				84DD655C1DD9BF1300C35EBE /* BaseDataItem.swift in Sources */,
@@ -1227,11 +1210,9 @@
 				8446C9971DD8F430008C6DED /* TabButton.swift in Sources */,
 				BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */,
 				8446C9931DD8E4B8008C6DED /* MyProfileViewController.swift in Sources */,
-				BCD3782A1D98025D0000BC77 /* AddToEscapeScreenViewController.swift in Sources */,
 				BCB81AE21DE0C7440002E52D /* CommentTableViewCell.swift in Sources */,
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				84E8450C1DE51AD600DCB9D9 /* ProfileItem.swift in Sources */,
-				BCD3782E1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift in Sources */,
 				BC14BAD61CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
 				BC14BABC1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */,
 				BCACE88D1D58C91500FAF262 /* PlaceholderView.swift in Sources */,
@@ -1260,8 +1241,10 @@
 				BC2A73151CCBF84F007E5DFB /* PageContentViewController.swift in Sources */,
 				84A484171DEDEE4400DAC553 /* EscapeCell.swift in Sources */,
 				BC4B563B1D6DE0C1008BF1F6 /* NoNetworkView.swift in Sources */,
+				BC1A1D061DF4779E0024CC06 /* FriendsViewController.swift in Sources */,
 				BCB7B4981CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BC5188341D8D229900A85E61 /* SearchItems.swift in Sources */,
+				BC1A1D001DF449930024CC06 /* AddToEscapeViewController.swift in Sources */,
 				BC4F45651CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC0BBBE51CF1D08F00B03A93 /* UIView+Utility.swift in Sources */,
 				BC18427E1D532F39003CC19A /* FBFriendCard.swift in Sources */,
@@ -1294,7 +1277,6 @@
 				84DD65661DDB47F600C35EBE /* Logger.swift in Sources */,
 				BC5188371D8D26DA00A85E61 /* SearchTableViewCell.swift in Sources */,
 				BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */,
-				BC38DC711D30C1F900290717 /* AddToEscapeViewController.swift in Sources */,
 				BC0BBBE21CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
 				BC2A73111CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */,
 				84DD655D1DD9BF1300C35EBE /* BaseDataItem.swift in Sources */,
@@ -1345,11 +1327,9 @@
 				8446C9981DD8F430008C6DED /* TabButton.swift in Sources */,
 				BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */,
 				8446C9941DD8E4B8008C6DED /* MyProfileViewController.swift in Sources */,
-				BCD3782B1D98025D0000BC77 /* AddToEscapeScreenViewController.swift in Sources */,
 				BCB81AE31DE0C7440002E52D /* CommentTableViewCell.swift in Sources */,
 				BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				84E8450D1DE51AD600DCB9D9 /* ProfileItem.swift in Sources */,
-				BCD3782F1D98078E0000BC77 /* TagPeopleCollectionViewCell.swift in Sources */,
 				BC14BAD71CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
 				BC14BABD1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */,
 				BCACE88E1D58C91500FAF262 /* PlaceholderView.swift in Sources */,
@@ -1471,9 +1451,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ankit Garg (84T3ZUUXSH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = GZM8S25H55;
+				DEVELOPMENT_TEAM = E87TYV2U4N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1481,7 +1461,7 @@
 				INFOPLIST_FILE = Escape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape2";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1497,7 +1477,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = GZM8S25H55;
+				DEVELOPMENT_TEAM = E87TYV2U4N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1505,7 +1485,7 @@
 				INFOPLIST_FILE = Escape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape2";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
