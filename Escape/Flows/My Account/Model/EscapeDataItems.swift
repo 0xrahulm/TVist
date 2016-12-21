@@ -12,6 +12,7 @@ class EscapeDataItems: BaseDataItem {
     
     var image : String?
     var year : String?
+    var creator : String?
     var escapeRating : NSNumber?
     var escapeType : EscapeType?
     
@@ -42,8 +43,10 @@ class EscapeDataItems: BaseDataItem {
             if let type = dict["escape_type"] as? String{
                 self.escapeType = EscapeType(rawValue: type)
             }
-            self.escapeRating = dict["escape_rating"] as? NSNumber
+            self.escapeRating = dict["rating"] as? NSNumber
             self.year = dict["year"] as? String
+            self.creator = dict["creator"] as? String
+            
             
         }
     }

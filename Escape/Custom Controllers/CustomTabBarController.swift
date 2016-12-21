@@ -17,6 +17,7 @@ class CustomTabBarController: UIViewController {
     private var tabbedViewControllers: [UIViewController] = []
     @IBOutlet weak var contentView: UIView!
     
+    @IBOutlet weak var tabBarView: UIView!
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var discoverButton: UIButton!
     @IBOutlet weak var notificationsButton: UIButton!
@@ -57,6 +58,7 @@ class CustomTabBarController: UIViewController {
         super.init(coder: aDecoder)
         
         setupViewControllers()
+        
     }
     
     var activeViewController: UIViewController? {
@@ -69,6 +71,12 @@ class CustomTabBarController: UIViewController {
         super.viewDidLoad()
         
         setTabIndexActive(0)
+        
+        self.tabBarView.layer.shadowColor   = UIColor.grayColor().CGColor
+        self.tabBarView.layer.shadowRadius  = 2
+        self.tabBarView.layer.shadowOffset  = CGSize(width: 0, height: 0)
+        self.tabBarView.layer.shadowOpacity = 0.50
+        self.tabBarView.layer.shadowPath = UIBezierPath(rect: self.tabBarView.bounds).CGPath
     }
     
     
@@ -81,6 +89,7 @@ class CustomTabBarController: UIViewController {
         let myAccountViewController = initialViewControllerFor(.MyAccount) as! CustomNavigationViewController
         
         viewControllers = [homeViewController, discoverViewController, notificationsViewController, myAccountViewController]
+        
     }
     
     @IBAction func tappedOnTabWithSender(sender: UIButton) {

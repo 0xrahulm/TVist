@@ -114,13 +114,16 @@ enum NotificationObservers: String {
 }
 enum StoryType : NSNumber {
     case EmptyStory = -1
+    case WhatsYourEscape = -2
     case FBFriendFollow = 0
     case AddToEscape = 1
     case Recommeded = 2
+    case Article = 3
 }
 enum CreatorType : NSNumber{
     case User =     0
     case Escape =   1
+    case Article =  2
 }
 enum OptionsType : String{
     case Edit = "Edit"

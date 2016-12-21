@@ -324,7 +324,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ESCAPES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqe-HR-jF9">
-                                                                    <rect key="frame" x="19" y="29" width="46.5" height="13"/>
+                                                                    <rect key="frame" x="19.5" y="29" width="46.5" height="13"/>
                                                                     <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="11"/>
                                                                     <color key="textColor" red="0.59607843140000005" green="0.64705882349999999" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -403,7 +403,7 @@
                                                             </connections>
                                                         </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hio-58-w1r">
-                                                            <rect key="frame" x="19" y="53" width="223.5" height="30"/>
+                                                            <rect key="frame" x="19.5" y="53" width="223" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="Q81-2e-Mz6"/>
                                                             </constraints>
@@ -1009,7 +1009,7 @@
         <!--Friends View Controller-->
         <scene sceneID="y8Z-3E-GjC">
             <objects>
-                <viewController storyboardIdentifier="friendsVC" id="huh-bb-nUF" customClass="FriendsViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="huh-bb-nUF" customClass="FriendsViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gt5-Mi-5jv"/>
                         <viewControllerLayoutGuide type="bottom" id="m2G-AY-zme"/>
@@ -1018,7 +1018,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="nJ2-lv-GIK">
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="nJ2-lv-GIK">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -1058,8 +1058,8 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="createFeedPlus" translatesAutoresizingMaskIntoConstraints="NO" id="E6k-bV-BkL">
-                                                    <rect key="frame" x="355" y="30" width="10" height="10"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unselect" translatesAutoresizingMaskIntoConstraints="NO" id="E6k-bV-BkL">
+                                                    <rect key="frame" x="332" y="18.5" width="33" height="33"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nix-Np-Mbm">
                                                     <rect key="frame" x="60" y="69" width="315" height="1"/>
@@ -1115,6 +1115,9 @@
                                 <state key="normal" title="Done">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="doneTapped:" destination="huh-bb-nUF" eventType="touchUpInside" id="SzW-SW-9cy"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1133,12 +1136,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="ylc-5R-mzN"/>
                     <connections>
+                        <outlet property="doneButton" destination="W2n-Cc-rDW" id="VnU-dd-fgB"/>
+                        <outlet property="searchBar" destination="nJ2-lv-GIK" id="QCn-uD-Aku"/>
                         <outlet property="tableView" destination="zoD-g5-jHp" id="dMb-zX-Eqm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dUU-ZO-f3t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="911" y="1809"/>
+            <point key="canvasLocation" x="1079" y="1809"/>
         </scene>
         <!--Custom List View Controller-->
         <scene sceneID="E5U-as-l84">
@@ -1476,15 +1481,33 @@
             </objects>
             <point key="canvasLocation" x="1604" y="382"/>
         </scene>
+        <!--Custom Navigation View Controller-->
+        <scene sceneID="ZXD-nC-OLS">
+            <objects>
+                <navigationController storyboardIdentifier="friendsVC" automaticallyAdjustsScrollViewInsets="NO" id="LcA-Zu-1Ln" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ARd-th-B0N">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="huh-bb-nUF" kind="relationship" relationship="rootViewController" id="t7E-n3-9do"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CWj-g3-aMj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="172" y="1809"/>
+        </scene>
     </scenes>
     <resources>
         <image name="backButtonWhite" width="18" height="25"/>
-        <image name="createFeedPlus" width="10" height="10"/>
         <image name="profile_placeholder" width="90" height="90"/>
         <image name="rated_star" width="27" height="26"/>
         <image name="ratings" width="17" height="17"/>
         <image name="recommend" width="33" height="33"/>
         <image name="runtime" width="17" height="17"/>
+        <image name="unselect" width="33" height="33"/>
     </resources>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

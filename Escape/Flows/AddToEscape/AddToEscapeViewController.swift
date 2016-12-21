@@ -17,6 +17,7 @@ class AddToEscapeViewController: UIViewController {
     weak var addToEscapeDoneDelegate : AddToEscapeDoneProtocol?
     
     var presentingVC: UIViewController?
+    var presentedVCObj : CustomPopupPresentationController?
     var queryParams : [String:AnyObject]?
     
     var id : String?
@@ -24,6 +25,7 @@ class AddToEscapeViewController: UIViewController {
     var director = ""
     var image : String?
     var type : String?
+    var friendsIds : [String] = []
     
     @IBOutlet weak var escapeImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -47,9 +49,38 @@ class AddToEscapeViewController: UIViewController {
         
         setParms()
         setVisuals()
+        addDoneButtonOnKeyboard()
         
         
     }
+    
+    func addDoneButtonOnKeyboard()
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 50))
+        doneToolbar.barStyle = UIBarStyle.Default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(AddToEscapeViewController.doneButtonAction))
+        
+        var items : [UIBarButtonItem] = []
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.textView.inputAccessoryView = doneToolbar
+
+        
+    }
+    
+    func doneButtonAction()
+    {
+        self.textView.resignFirstResponder()
+        
+    }
+    
+    
     
     func setParms(){
         
@@ -116,17 +147,20 @@ class AddToEscapeViewController: UIViewController {
         
         titleLabel.text = self.name
         directorNameLabel.text = self.director
+        self.peopleLabel.text = ""
         
         
         
         if type == "book"{
-            currentSelectedView = .ToRead
+            currentSelectedView = .Read
             segmentController.setTitle("To Read", forSegmentAtIndex: 0)
             segmentController.setTitle("Read", forSegmentAtIndex: 1)
             segmentController.setTitle("Reading", forSegmentAtIndex: 2)
             directorLabel.text = "Author:"
             //tagFriendsView.hidden = true
             
+        }else{
+            currentSelectedView = .Watched
         }
         
         textView.delegate = self
@@ -145,17 +179,25 @@ class AddToEscapeViewController: UIViewController {
         placeholderLabel.textColor = UIColor(white: 0, alpha: 0.3)
         placeholderLabel.hidden = !textView.text.isEmpty
         
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddToEscapeViewController.viewTapped(_:)))
+        self.view.addGestureRecognizer(tapRecognizer)
         
+        
+    }
+    func viewTapped(tapRecognizer: UITapGestureRecognizer){
+        self.textView.resignFirstResponder()
     }
     
     @IBAction func tagPeopleTapped(sender: UITapGestureRecognizer) {
         
         let storyBoard = UIStoryboard(name: "MyAccount", bundle: nil)
-        let vc = storyBoard.instantiateViewControllerWithIdentifier("friendsVC") as! FriendsViewController
+        let vc = storyBoard.instantiateViewControllerWithIdentifier("friendsVC") as! CustomNavigationViewController
+        let rootVC = vc.viewControllers[0] as! FriendsViewController
         
-        vc.freindsDelegate = self
+        rootVC.freindsDelegate = self
         
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.presentViewController(vc, animated: true, completion: nil)
+        
         
         //ScreenVader.sharedVader.performScreenManagerAction(.OpenFriendsView, queryParams: nil)
         
@@ -164,7 +206,10 @@ class AddToEscapeViewController: UIViewController {
     
     @IBAction func doneButtonTapped(sender: AnyObject) {
         
-        //UserDataProvider.sharedDataProvider.addToEscape(data.id, action: currentSelectedView, status : textView.text)
+        if let id = id {
+            UserDataProvider.sharedDataProvider.addToEscape(id, action: currentSelectedView, status : textView.text,friendsId :  friendsIds, shareFB : shareFBSwitch.state.rawValue)
+        }
+        
         if addToEscapeDoneDelegate != nil{
             addToEscapeDoneDelegate?.doneButtonTapped()
         }
@@ -172,13 +217,41 @@ class AddToEscapeViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @IBAction func segmentSelected(sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0{
+            if type == "book"{
+                currentSelectedView = .ToRead
+            }else{
+                currentSelectedView = .ToWatch
+            }
+            
+        }else if sender.selectedSegmentIndex == 1{
+            if type == "book"{
+                currentSelectedView = .Read
+            }else{
+                currentSelectedView = .Watched
+            }
+            
+        }else{
+            if type == "book"{
+                currentSelectedView = .Reading
+            }else{
+                currentSelectedView = .Watching
+            }
+            
+        }
+        
+        self.textView.resignFirstResponder()
+        
+    }
     
     
 }
 
 extension AddToEscapeViewController: UIViewControllerTransitioningDelegate {
     func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController?, sourceViewController source: UIViewController) -> UIPresentationController? {
-        let presentationController = CustomPopupPresentationController(presentedViewController: presented, presentingViewController: presentingVC!, width: 310, height: 400, yOffset: 0, cornerRadius : 5)
+        let presentationController = CustomPopupPresentationController(presentedViewController: presented, presentingViewController: presentingVC!, width: 310, height: 400, yOffset: 55, cornerRadius : 5)
+        presentedVCObj = presentationController
         return presentationController;
     }
     
@@ -204,6 +277,11 @@ extension AddToEscapeViewController : UITextViewDelegate{
 }
 extension AddToEscapeViewController : FriendsProtocol{
     func taggedFriendIds(ids : [String]){
+        if ids.count > 0{
+            self.peopleLabel.text = "\(ids.count) People"
+        }
+        
+        self.friendsIds = ids
         
     }
 }

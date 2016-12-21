@@ -38,7 +38,6 @@ extension UIColor{
         
     }
     
-    
     class func themeColorBlack() -> UIColor {
         return UIColor.colorWithHexString("#142e34")
     }
@@ -51,10 +50,6 @@ extension UIColor{
         return UIColor.colorWithHexString("#f7f7f7")
     }
     
-    class func themeColorYellow() -> UIColor{
-        //return UIColor.colorWithHexString("#F56363")
-        return UIColor.colorWithHexString("#ffc107")
-    }
     
     class func lineGrayColor() -> UIColor {
         return UIColor.colorWithHexString("#C8CBD3")
@@ -63,9 +58,7 @@ extension UIColor{
     class func fbThemeColor() -> UIColor{
         return UIColor.colorWithHexString("#3664a2")
     }
-    class func viewSelectedColor() -> UIColor{
-        return UIColor.colorWithHexString("#EFEFF4")
-    }
+    
     class func textColor() -> UIColor{
         return UIColor.colorWithHexString("#353847")
     }
@@ -73,11 +66,9 @@ extension UIColor{
         return UIColor.colorWithHexString("#142E34")
     }
     class func textGrayColor() -> UIColor{
-        return UIColor.colorWithHexString("#bfbdbd")
+        return UIColor.colorWithHexString("#98A4AF")
     }
-    class func textLightGrayColor() -> UIColor{
-        return UIColor.colorWithHexString("#AAAAAA")
-    }
+    
     
     class func colorForMovie() -> UIColor{
         return UIColor.colorWithHexString("#551A8B")
@@ -99,8 +90,13 @@ extension UIColor{
     class func darkPlaceholderColor() -> UIColor{
         return UIColor.colorWithHexString("#dcdcdc")
     }
-    class func searchPlaceHolderColor() -> UIColor{
+    
+    class func searchBarPlaceHolderColor() -> UIColor{
         return UIColor.colorWithHexString("#EEEEEE")
+    }
+    
+    class func searchBarLightGreyBackgroundColor() -> UIColor{
+        return UIColor.colorWithHexString("#E8E7E7")
     }
     
 }

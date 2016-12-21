@@ -62,7 +62,7 @@ class UserDataProvider: CommonDataProvider {
         ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .PostInterests, params: params, delegate: self)
     }
     
-    func addToEscape(id : String, action : EscapeAddActions , status : String){
+    func addToEscape(id : String, action : EscapeAddActions , status : String, friendsId : [String] , shareFB : UInt){
         var params : [String:AnyObject] = [:]
         params["escape_id"] = id
         params["escape_action"] = action.rawValue

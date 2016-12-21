@@ -22,7 +22,6 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var itemSubtitleLabel: UILabel!
-    @IBOutlet weak var itemCreatorLabel: UILabel!
     @IBOutlet weak var addToEscapeButton: UIButton!
     
     @IBOutlet weak var creatorType: UILabel!
@@ -50,26 +49,35 @@ class SearchTableViewCell: UITableViewCell {
                 itemSubtitleLabel.text = data.subTitle
                 
                 itemImage.downloadImageWithUrl(data.image , placeHolder: UIImage(named: "movie_placeholder"))
+                
+                var directorByStr = ""
                 if let director = data.director{
-                    itemCreatorLabel.text = director
-                    itemCreatorLabel.hidden = false
-                }else{
-                    itemCreatorLabel.hidden = true
+                    directorByStr = director
                 }
+                
                 if data.isAddedOrFollow{
                     addToEscapeButton.hidden = true
                 }else{
                     addToEscapeButton.hidden = false
                 }
                 
-                
+                var directedByStr = ""
                 if data.searchType == .Movie {
-                    creatorType.text = EscapeCreatorType.Movie.rawValue+":"
+                    directedByStr = EscapeCreatorType.Movie.rawValue+":"
                 } else if data.searchType == .Books {
-                    creatorType.text = EscapeCreatorType.Books.rawValue+":"
+                   directedByStr = EscapeCreatorType.Books.rawValue+":"
                 } else if data.searchType == .TvShows {
-                    creatorType.text = EscapeCreatorType.TvShows.rawValue+":"
+                    directedByStr = EscapeCreatorType.TvShows.rawValue+":"
                 }
+                
+                let directedByString = SFUIAttributedText.regularAttributedTextForString("\(directedByStr)  ", size: 13, color: UIColor.textGrayColor())
+                
+                let directorString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(directorByStr)", size: 13, color: UIColor.textBlackColor()))
+                
+                let attributedString = NSMutableAttributedString()
+                attributedString.appendAttributedString(directedByString)
+                attributedString.appendAttributedString(directorString)
+                creatorType.attributedText = attributedString
                 
                 
                 

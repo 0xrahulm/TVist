@@ -26,11 +26,11 @@ class DiscoverViewController: UIViewController {
         
         let searchImage = IonIcons.imageWithIcon(ion_ios_search, size: 30, color: UIColor.themeColorBlack())
         
-        let addImage = IonIcons.imageWithIcon(ion_ios_personadd, size: 30, color: UIColor.themeColorBlack())
+        //let addImage = IonIcons.imageWithIcon(ion_ios_personadd, size: 30, color: UIColor.themeColorBlack())
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: searchImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: addImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DiscoverViewController.didTapGoToLeft))
+        //self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: addImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DiscoverViewController.didTapGoToLeft))
         
         
         configureVCs()
@@ -52,11 +52,11 @@ class DiscoverViewController: UIViewController {
         
         // Initialize view controllers to display and place in array
        
-        addVcFor(.All, title: "All")
-        addVcFor(.Movie, title: "Movies")
-        addVcFor(.TvShows, title: "Tv Shows")
-        addVcFor(.Books, title: "Books")
-        addVcFor(.People, title: "People")
+        addVcFor(.All, title: "ALL")
+        addVcFor(.Movie, title: "MOVIES")
+        addVcFor(.TvShows, title: "TV SHOWS")
+        addVcFor(.Books, title: "BOOKS")
+        addVcFor(.People, title: "PEOPLE")
         
         // Customize menu (Optional)
         let parameters: [CAPSPageMenuOption] = [
@@ -64,7 +64,7 @@ class DiscoverViewController: UIViewController {
             .ViewBackgroundColor(UIColor.whiteColor()),
             .SelectionIndicatorColor(UIColor.escapeBlueColor()),
             .BottomMenuHairlineColor(UIColor.textGrayColor()),
-            .MenuItemFont(UIFont(name: "SFUIDisplay-SemiBold", size: 15.0)!),
+            .MenuItemFont(UIFont(name: "SFUIDisplay-Regular", size: 13.0)!),
             .MenuHeight(45.0),
             .MenuMargin(0.0),
             .MenuItemWidth(100.0),

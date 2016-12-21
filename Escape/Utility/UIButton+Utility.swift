@@ -10,9 +10,9 @@ import Foundation
 
 extension UIButton{
     
-     func unfollowViewWithAnimate(animate :Bool){
+     func followViewWithAnimate(animate :Bool){
         
-        self.setTitle("FOLLOW", forState: .Normal)
+        self.setTitle("UNFOLLOW", forState: .Normal)
         self.backgroundColor = UIColor.whiteColor()
         self.setTitleColor(UIColor.escapeBlueColor(), forState: .Normal)
         self.layer.borderColor = UIColor.escapeBlueColor().CGColor
@@ -22,9 +22,9 @@ extension UIButton{
         }
     }
     
-    func followViewWithAnimate(animate : Bool){
+    func unfollowViewWithAnimate(animate : Bool){
         
-        self.setTitle("UNFOLLOW", forState: .Normal)
+        self.setTitle("+ FOLLOW", forState: .Normal)
         self.backgroundColor = UIColor.escapeBlueColor()
         self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.layer.borderWidth = 0.0

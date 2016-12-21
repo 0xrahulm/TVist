@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ionicons
 
 protocol HomeCommentProtocol : class {
     func commentTapped(indexPath : NSIndexPath)
@@ -14,15 +15,22 @@ protocol HomeCommentProtocol : class {
 
 class AddToEscapeTableViewCell: BaseStoryTableViewCell {
     
+    @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var creatorImage: UIImageView!
-    @IBOutlet weak var creatorNameLabel: UILabel!
     @IBOutlet weak var createdTimeLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var likesLabel: UILabel!
     @IBOutlet weak var creatorStatusLabel: UILabel!
     @IBOutlet weak var sharesLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
     
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
+    
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sharedByImage: UIImageView!
+    
+    @IBOutlet weak var sharedByLabel: UILabel!
     @IBOutlet weak var escapeCollectionView: UICollectionView!
     
     var collectionDataArray : [EscapeDataItems] = []
@@ -34,19 +42,17 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
         didSet{
             if let escapeItems = escapeItems{
                 
-                if let name = escapeItems.creatorName{
-                    self.creatorNameLabel.text = name
-                    self.creatorNameLabel.hidden = false
-                }else{
-                    self.creatorNameLabel.hidden = true
-                }
+                topConstraint.constant = 35
+                sharedByImage.image = IonIcons.imageWithIcon(ion_android_share, size: 15, color: UIColor.textGrayColor())
+                sharedByLabel.text = "Sachin Gupta shared"
                 
                 if let image = escapeItems.creatorImage{
                     self.creatorImage.downloadImageWithUrl(image , placeHolder: UIImage(named: "profile_placeholder"))
-                    self.creatorImage.hidden = false
+                    
                 }else{
-                    self.creatorImage.hidden = true
+                    self.creatorImage.image = UIImage.getImageWithColor(UIColor.placeholderColor(), size: creatorImage.frame.size)
                 }
+                
                 var recommededUser = ""
                 
                 if let title = escapeItems.title{
@@ -62,14 +68,18 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
                             i = i + 1
                         }
                         
+                        sharedByImage.image = IonIcons.imageWithIcon(ion_android_favorite, size: 15, color: UIColor.textGrayColor())
+                        sharedByLabel.text = "Vivek Kishore liked"
+                        
                     }
-                    self.titleLabel.text = "\(title) \(recommededUser)"
+                    //self.titleLabel.text = "\(creatorName) \(title) \(recommededUser)"
                     
                 }else{
-                    self.titleLabel.text = ""
+                    //self.titleLabel.text = "\(creatorName)"
                 }
+                
                 if let status = escapeItems.creatorStatus{
-                    self.creatorStatusLabel.text = status
+                    self.creatorStatusLabel.text = status.firstCharUppercaseFirst
                 }else{
                     self.creatorStatusLabel.text = ""
                 }
@@ -94,21 +104,77 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
                 }else{
                     self.commentLabel.text = ""
                 }
+                
+                if escapeItems.shareCount > 0{
+                    var comment = "shares"
+                    if escapeItems.shareCount == 1{
+                        comment = "share"
+                    }
+                    
+                    self.sharesLabel.text = "\(escapeItems.shareCount) \(comment)"
+                }else{
+                    self.sharesLabel.text = ""
+                }
+                
                 if let timeStamp = escapeItems.timestamp{
                     self.createdTimeLabel.text = TimeUtility.getTimeStampForCard(Double(timeStamp))
+                    self.createdTimeLabel.hidden = false
                 }else{
-                    self.createdTimeLabel.text = ""
+                    self.createdTimeLabel.text = "|"
+                    self.createdTimeLabel.hidden = true
                 }
+                
                 self.collectionDataArray = escapeItems.items
                 escapeCollectionView.reloadData()
+ 
+                let nameString = NSMutableAttributedString(attributedString: SFUIAttributedText.mediumAttributedTextForString("\(escapeItems.creatorName!) ", size: 15, color: UIColor.textBlackColor()))
+                nameString.setAsLink(escapeItems.creatorName!, linkURL: "http://google.com")
+                
+                let verbString = SFUIAttributedText.regularAttributedTextForString("is watching ", size: 14, color: UIColor.textGrayColor())
+                
+                
+                let escapeString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("Inception ", size: 14, color: UIColor.textBlackColor()))
+                escapeString.setAsLink("Inception", linkURL: "stackoverflow")
+                
+                let withString = SFUIAttributedText.regularAttributedTextForString("with ", size: 14, color: UIColor.textGrayColor())
+                
+                let friendsString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("Rahul Meena", size: 14, color: UIColor.textBlackColor()))
+                friendsString.setAsLink("Rahul Meena", linkURL: "http://facebook.com")
+                
+                let attributedString = NSMutableAttributedString()
+                attributedString.appendAttributedString(nameString)
+                attributedString.appendAttributedString(verbString)
+                attributedString.appendAttributedString(escapeString)
+                attributedString.appendAttributedString(withString)
+                attributedString.appendAttributedString(friendsString)
+                self.titleTextView.delegate = self
+                self.titleTextView.attributedText = attributedString
+                self.titleTextView.linkTextAttributes  = [NSForegroundColorAttributeName: UIColor.textBlackColor()]
+                
             }
         }
     }
+    @IBAction func likeTapped(sender: UIButton) {
+        if likeButton.selected{
+            likeButton.selected = false
+        }else{
+            likeButton.selected = true
+        }
+    }
+    
 
     @IBAction func commentTapped(sender: UIButton) {
         
         if let delegate = homeCommentDelegate , indexPath = self.indexPath{
             delegate.commentTapped(indexPath)
+        }
+    }
+    
+    @IBAction func shareTapped(sender: UIButton) {
+        if shareButton.selected{
+            shareButton.selected = false
+        }else{
+            shareButton.selected = true
         }
     }
 
@@ -146,9 +212,31 @@ extension AddToEscapeTableViewCell : UICollectionViewDataSource{
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let collectionCell = collectionView.dequeueReusableCellWithReuseIdentifier("escapeCollectionCellIdentifier", forIndexPath: indexPath) as! EscapeCollectionViewCell
-        let data = collectionDataArray[indexPath.row]
-        collectionCell.escapeImage.downloadImageWithUrl(data.image , placeHolder: UIImage(named: "movie_placeholder"))
+        collectionCell.data = collectionDataArray[indexPath.row]
+        
         return collectionCell
         
     }
 }
+
+extension AddToEscapeTableViewCell : UITextViewDelegate {
+    func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
+        
+        print(URL.absoluteString!)
+        
+        return false
+    }
+}
+extension NSMutableAttributedString {
+    
+    public func setAsLink(textToFind:String, linkURL:String) -> Bool {
+        
+        let foundRange = self.mutableString.rangeOfString(textToFind)
+        if foundRange.location != NSNotFound {
+            self.addAttribute(NSLinkAttributeName, value: linkURL, range: foundRange)
+            return true
+        }
+        return false
+    }
+}
+

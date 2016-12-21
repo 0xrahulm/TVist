@@ -128,7 +128,10 @@ class ScreenManagerViewController: UIViewController {
         if let presentingVC = instantiateViewControllerWith(storyBoardIdentifier, forIdentifier: viewControllerIdentifier){
             
             if let queryParams = queryParams{
-                presentingVC.setObjectsWithQueryParameters(queryParams)
+                if let vc = presentingVC as? CustomNavigationViewController{
+                    vc.viewControllers[0].setObjectsWithQueryParameters(queryParams)
+                }
+                
             }
             currentPresentedViewController.presentViewController(presentingVC, animated: true, completion: nil)
             currentPresentedViewController = presentingVC
@@ -279,7 +282,7 @@ extension ScreenManagerViewController{
             break
             
         case .OpenSearchView:
-            openSearchView()
+            openSearchView(params)
             break
             
         case .OpenUserEscapesList:
@@ -371,8 +374,9 @@ extension ScreenManagerViewController{
                 //self.noNetworkVC.hidden = true
         });
     }
-    func openSearchView(){
-        presentViewControllerOf(.Search, viewControllerIdentifier: "searchVC", queryParams: nil)
+    
+    func openSearchView(params : [String:AnyObject]?){
+        presentViewControllerOf(.Search, viewControllerIdentifier: "searchVC", queryParams: params)
         
     }
     

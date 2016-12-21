@@ -95,6 +95,9 @@
                         <segment title="Watching"/>
                     </segments>
                     <color key="tintColor" red="0.050980392159999999" green="0.83921568629999999" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="segmentSelected:" destination="-1" eventType="valueChanged" id="uND-Ns-B8A"/>
+                    </connections>
                 </segmentedControl>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eO-2g-agh">
                     <rect key="frame" x="15" y="192" width="470" height="1"/>

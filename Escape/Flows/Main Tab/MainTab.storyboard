@@ -28,43 +28,37 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JhV-cx-SHl">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="tab_add_escape" translatesAutoresizingMaskIntoConstraints="NO" id="Sav-bA-jsG">
-                                        <rect key="frame" x="165" y="2.5" width="45" height="45"/>
-                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kdd-9f-m2J">
-                                        <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="94" height="50"/>
                                         <state key="normal" image="tab_home"/>
                                         <state key="selected" image="tab_home_on"/>
                                         <connections>
                                             <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="FMm-12-0C6"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsF-bH-2VK">
-                                        <rect key="frame" x="300" y="0.0" width="75" height="50"/>
-                                        <state key="normal" image="tab_profile"/>
-                                        <state key="selected" image="tab_profile_on"/>
-                                        <connections>
-                                            <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="HGh-Yw-0ET"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xI-9X-JOt">
-                                        <rect key="frame" x="225" y="0.0" width="75" height="50"/>
-                                        <state key="normal" image="tab_notification"/>
-                                        <state key="selected" image="tab_notification_on"/>
-                                        <connections>
-                                            <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="u3D-oO-3Yl"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aQ-Vz-HXD">
-                                        <rect key="frame" x="75" y="0.0" width="75" height="50"/>
+                                        <rect key="frame" x="94" y="0.0" width="93.5" height="50"/>
                                         <state key="normal" image="tab_discover"/>
                                         <state key="selected" image="tab_discover_on"/>
                                         <connections>
                                             <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="cj1-S9-DyN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qrd-0s-PuY">
-                                        <rect key="frame" x="150" y="0.0" width="75" height="50"/>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xI-9X-JOt">
+                                        <rect key="frame" x="187.5" y="0.0" width="94" height="50"/>
+                                        <state key="normal" image="tab_notification"/>
+                                        <state key="selected" image="tab_notification_on"/>
+                                        <connections>
+                                            <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="u3D-oO-3Yl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsF-bH-2VK">
+                                        <rect key="frame" x="281.5" y="0.0" width="93.5" height="50"/>
+                                        <state key="normal" image="tab_profile"/>
+                                        <state key="selected" image="tab_profile_on"/>
+                                        <connections>
+                                            <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="HGh-Yw-0ET"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -73,25 +67,19 @@
                                     <constraint firstAttribute="bottom" secondItem="0aQ-Vz-HXD" secondAttribute="bottom" id="5Eq-SX-16K"/>
                                     <constraint firstAttribute="trailing" secondItem="WsF-bH-2VK" secondAttribute="trailing" id="6SL-8E-Yqu"/>
                                     <constraint firstItem="Kdd-9f-m2J" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="9wI-2D-FiG"/>
-                                    <constraint firstItem="Sav-bA-jsG" firstAttribute="centerX" secondItem="JhV-cx-SHl" secondAttribute="centerX" id="BN8-BK-JVx"/>
+                                    <constraint firstItem="2xI-9X-JOt" firstAttribute="leading" secondItem="0aQ-Vz-HXD" secondAttribute="trailing" id="CDh-bp-85I"/>
                                     <constraint firstItem="WsF-bH-2VK" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="Dlz-F9-Tka"/>
                                     <constraint firstAttribute="bottom" secondItem="2xI-9X-JOt" secondAttribute="bottom" id="EfS-tJ-6pj"/>
                                     <constraint firstItem="Kdd-9f-m2J" firstAttribute="width" secondItem="WsF-bH-2VK" secondAttribute="width" id="IzI-g2-xWr"/>
                                     <constraint firstAttribute="height" constant="50" id="Jxl-Rh-EPZ"/>
-                                    <constraint firstAttribute="bottom" secondItem="Qrd-0s-PuY" secondAttribute="bottom" id="LRN-ld-cAJ"/>
-                                    <constraint firstItem="Sav-bA-jsG" firstAttribute="centerY" secondItem="JhV-cx-SHl" secondAttribute="centerY" id="My0-M2-tgm"/>
                                     <constraint firstItem="0aQ-Vz-HXD" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="Ofn-Mt-E2N"/>
                                     <constraint firstItem="WsF-bH-2VK" firstAttribute="leading" secondItem="2xI-9X-JOt" secondAttribute="trailing" id="WAC-UF-kWT"/>
-                                    <constraint firstItem="Qrd-0s-PuY" firstAttribute="leading" secondItem="0aQ-Vz-HXD" secondAttribute="trailing" id="XSw-mf-HKj"/>
                                     <constraint firstAttribute="bottom" secondItem="WsF-bH-2VK" secondAttribute="bottom" id="XiK-JO-uy2"/>
-                                    <constraint firstItem="Qrd-0s-PuY" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="Z5u-lw-flL"/>
                                     <constraint firstItem="Kdd-9f-m2J" firstAttribute="leading" secondItem="JhV-cx-SHl" secondAttribute="leading" id="cV4-WE-QPf"/>
                                     <constraint firstItem="Kdd-9f-m2J" firstAttribute="width" secondItem="2xI-9X-JOt" secondAttribute="width" id="hS0-WD-Onq"/>
-                                    <constraint firstItem="2xI-9X-JOt" firstAttribute="leading" secondItem="Qrd-0s-PuY" secondAttribute="trailing" id="jgV-N7-ldb"/>
                                     <constraint firstAttribute="bottom" secondItem="Kdd-9f-m2J" secondAttribute="bottom" id="uLU-7P-kdZ"/>
                                     <constraint firstItem="2xI-9X-JOt" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="utd-ef-Je8"/>
                                     <constraint firstItem="Kdd-9f-m2J" firstAttribute="width" secondItem="0aQ-Vz-HXD" secondAttribute="width" id="yPI-mN-3Sc"/>
-                                    <constraint firstItem="Kdd-9f-m2J" firstAttribute="width" secondItem="Qrd-0s-PuY" secondAttribute="width" id="zvY-vW-SeR"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -113,6 +101,7 @@
                         <outlet property="myAccountButton" destination="WsF-bH-2VK" id="Tzb-xe-Z9r"/>
                         <outlet property="notificationsButton" destination="2xI-9X-JOt" id="Th0-6C-0Af"/>
                         <outlet property="tabBarBottomConstraint" destination="dp4-vC-mFm" id="4MO-BZ-NNm"/>
+                        <outlet property="tabBarView" destination="JhV-cx-SHl" id="epr-hM-x6K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tcV-Bp-tK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -121,7 +110,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tab_add_escape" width="45" height="45"/>
         <image name="tab_discover" width="28" height="28"/>
         <image name="tab_discover_on" width="28" height="28"/>
         <image name="tab_home" width="28" height="28"/>

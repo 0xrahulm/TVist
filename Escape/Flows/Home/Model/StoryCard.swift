@@ -23,6 +23,7 @@ class StoryCard: BaseStory {
     var timestamp:      NSNumber?
     var likesCount = 0
     var commentsCount = 0
+    var shareCount = 3
     var recommededUsers:[String] = []
     
     
@@ -52,8 +53,20 @@ class StoryCard: BaseStory {
                 self.storyData =     storyObjs
                 self.createrId =     createrId
                 self.creatorType =   CreatorType(rawValue: creatorType)
-                self.creatorName =   creatorData["full_name"] as? String
-                self.creatorImage =  creatorData["profile_picture"] as? String
+                
+                if let cName = creatorData["full_name"] as? String{
+                    self.creatorName =   cName
+                }else if let cName = creatorData["name"] as? String{ //article card case
+                    self.creatorName = cName
+                }
+                
+                if let cImage = creatorData["profile_picture"] as? String{
+                    self.creatorImage =  cImage
+                    
+                }else if let cImage = creatorData["image"] as? String{//article card case
+                    self.creatorImage =  cImage
+                }
+                
                 self.creatorStatus = dict["status"] as? String
                 self.title =         dict["title"] as? String
                 self.timestamp =     dict["posted_at"] as? NSNumber

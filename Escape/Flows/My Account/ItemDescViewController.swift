@@ -70,6 +70,7 @@ class ItemDescViewController: UIViewController {
         MyAccountDataProvider.sharedDataProvider.itemDescDelegate = self
         MyAccountDataProvider.sharedDataProvider.getItemDesc(escapeType, id: escapeId)
         
+        
     }
     
     override func viewWillAppear(animated: Bool) {

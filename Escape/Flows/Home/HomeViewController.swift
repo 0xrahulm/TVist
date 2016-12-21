@@ -11,11 +11,15 @@ import UIKit
 enum CellIdentifier : String{
     case FBFriends = "fbFriendsIdentifier"
     case Seperator = "seperatorCellIdentifier"
+    case Article = "articleCellIdentifier"
+    case AddToEscape = "addToEscapeIdentifier"
+    case WhatsYourEscape = "whatsYourLatestEscapedentifier"
 }
 enum CellHeight : CGFloat{
     case FBFriends = 200
     case Seperator = 125
     case AddtoEscape = 315
+    case WhatsYourEscape = 126
 }
 
 class HomeViewController: UIViewController {
@@ -32,7 +36,14 @@ class HomeViewController: UIViewController {
         dataArray.append(StoryCard(storyType : .EmptyStory))
         dataArray.append(StoryCard(storyType : .EmptyStory))
         dataArray.append(StoryCard(storyType : .EmptyStory))
+       
+        tableView.estimatedRowHeight = 110
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
         tableView.reloadData()
+        
+        HomeDataProvider.sharedDataProvider.homeDataDelegate = self
+        HomeDataProvider.sharedDataProvider.getUserStroies()
 
     }
     
@@ -45,8 +56,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        HomeDataProvider.sharedDataProvider.homeDataDelegate = self
-        HomeDataProvider.sharedDataProvider.getUserStroies()
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -74,12 +84,40 @@ class HomeViewController: UIViewController {
         return cell
     }
     
+    func configureArticleCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.Article.rawValue, forIndexPath: indexPath) as! ArticleTableViewCell
+        let data = dataArray[indexPath.row] as? ArticleCard
+        cell.homeCommentDelegate = self
+        cell.indexPath = indexPath
+        cell.data = data
+        return cell
+    }
+    
     func configureAddToEscapeCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("addToEscapeIdentifier", forIndexPath: indexPath) as! AddToEscapeTableViewCell
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.AddToEscape.rawValue, forIndexPath: indexPath) as! AddToEscapeTableViewCell
         let data = dataArray[indexPath.row] as? AddToEscapeCard
         cell.homeCommentDelegate = self
         cell.indexPath = indexPath
         cell.escapeItems = data
+        return cell
+    }
+    
+    func configureWhatsYourEscapeCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.WhatsYourEscape.rawValue, forIndexPath: indexPath) as! WhatsYourLatestEscapeCell
+        
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+            if let image = user.profilePicture{
+                cell.imageStr = image
+            }else{
+                MyAccountDataProvider.sharedDataProvider.getUserDetails(nil)
+            }
+        }else{
+            MyAccountDataProvider.sharedDataProvider.getUserDetails(nil)
+        }
+        
         return cell
     }
 
@@ -94,13 +132,19 @@ extension HomeViewController : UITableViewDelegate{
                 return CellHeight.FBFriends.rawValue
                 
             case .AddToEscape:
-                return CellHeight.AddtoEscape.rawValue
+                return UITableViewAutomaticDimension
             
             case .Recommeded:
-                return CellHeight.AddtoEscape.rawValue
+                return UITableViewAutomaticDimension
+                
+            case .Article:
+                return UITableViewAutomaticDimension
                 
             case .EmptyStory:
                 return CellHeight.Seperator.rawValue
+                
+            case .WhatsYourEscape:
+                return CellHeight.WhatsYourEscape.rawValue
                 
             }
         }
@@ -130,6 +174,12 @@ extension HomeViewController : UITableViewDataSource{
                 
             case .EmptyStory:
                 return configureSeperatorCell(tableView, indexPath: indexPath)
+                
+            case .Article:
+                return configureArticleCell(tableView, indexPath: indexPath)
+                
+            case .WhatsYourEscape:
+                return configureWhatsYourEscapeCell(tableView, indexPath: indexPath)
             
             }
         }
@@ -146,18 +196,32 @@ extension HomeViewController : UITableViewDataSource{
 extension HomeViewController : HomeDataProtocol{
     func recievedStories(data: [BaseStory]) {
         if let data = data as? [StoryCard]{
-            self.dataArray = data
+            
+            addWhatsYourEscapeCard()
+            self.dataArray.appendContentsOf(data)
             tableView.reloadDataAnimated()
             
         }
     }
+    
     func error() { 
+        
+    }
+    
+    func addWhatsYourEscapeCard(){
+        if dataArray.count > 0 {
+            if dataArray[0].storyType == .EmptyStory{
+                self.dataArray = []
+                self.dataArray.append(StoryCard(storyType : .WhatsYourEscape))
+            }
+        }
         
     }
 }
 extension HomeViewController : HomeCommentProtocol{
     func commentTapped(indexPath: NSIndexPath) {
         if dataArray.count > indexPath.row{
+            
             let story = dataArray[indexPath.row]
             if let storyId = story.id{
                 performSegueWithIdentifier("showStoryCommentSegue", sender: ["id" : storyId])

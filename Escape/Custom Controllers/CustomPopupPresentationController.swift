@@ -30,11 +30,12 @@ class CustomPopupPresentationController: UIPresentationController {
     
     func setCloseButton(){
         let frame = frameOfPresentedViewInContainerView()
+                   closeButton = UIButton(frame: CGRectMake(popupWidth! - 10, frame.origin.y - 55, 55,55) )
+            closeButton.setImage(UIImage(named: "close-popup"), forState: .Normal)
+            closeButton.addTarget(self, action: #selector(CustomPopupPresentationController.dismissView), forControlEvents: .TouchUpInside)
+            dimmingView.addSubview(closeButton)
         
-        closeButton = UIButton(frame: CGRectMake(popupWidth! - 10, frame.origin.y - 55, 55,55) )
-        closeButton.setImage(UIImage(named: "close-popup"), forState: .Normal)
-        closeButton.addTarget(self, action: #selector(CustomPopupPresentationController.dismissView), forControlEvents: .TouchUpInside)
-        dimmingView.addSubview(closeButton)
+        
     }
     
     var dimmingView: UIView!

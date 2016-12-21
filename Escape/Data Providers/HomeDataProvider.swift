@@ -139,7 +139,14 @@ extension HomeDataProvider {
                         storyData.append(AddToEscapeCard(dict: dataDict))
                         break
                         
+                    case .Article:
+                        storyData.append(ArticleCard(dict: dataDict))
+                        break
+                        
                     case .EmptyStory:
+                        break
+                        
+                    case .WhatsYourEscape:
                         break
                         
                     }

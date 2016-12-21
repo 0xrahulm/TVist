@@ -16,8 +16,20 @@ class SearchViewController: UIViewController {
     
     var controllerArray : [UIViewController] = []
     var searchedText : String = ""
+    var moveToIndex = 0
+    var screen = ""
     
     static let sharedInstance = SearchViewController()
+    
+    override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
+        print("query params present")
+        if let moveToIndex = queryParams["moveToIndex"] as? Int{
+            self.moveToIndex = moveToIndex
+        }
+        if let screen = queryParams["screen"] as? String{
+            self.screen = screen
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +37,7 @@ class SearchViewController: UIViewController {
         ECUserDefaults.removeSearchedText()
         setupSearchBar()
         configureVCs()
+        pageMenu?.moveToPage(moveToIndex)
 
     }
     deinit {
@@ -94,11 +107,11 @@ class SearchViewController: UIViewController {
     
     func configureVCs(){
         
-        addVcFor(.All, title: "All")
-        addVcFor(.Movie, title: "Movies")
-        addVcFor(.TvShows, title: "Tv Shows")
-        addVcFor(.Books, title: "Books")
-        addVcFor(.User, title: "People")
+        addVcFor(.All, title: "ALL")
+        addVcFor(.Movie, title: "MOVIES")
+        addVcFor(.TvShows, title: "TV SHOWS")
+        addVcFor(.Books, title: "BOOKS")
+        addVcFor(.User, title: "PEOPLE")
         
         // Customize menu
         let parameters: [CAPSPageMenuOption] = [
@@ -106,7 +119,7 @@ class SearchViewController: UIViewController {
             .ViewBackgroundColor(UIColor.whiteColor()),
             .SelectionIndicatorColor(UIColor.escapeBlueColor()),
             .BottomMenuHairlineColor(UIColor.textGrayColor()),
-            .MenuItemFont(UIFont(name: "SFUIDisplay-SemiBold", size: 15.0)!),
+            .MenuItemFont(UIFont(name: "SFUIDisplay-Regular", size: 13.0)!),
             .MenuHeight(45.0),
             .MenuMargin(0.0),
             .MenuItemWidth(100.0),
