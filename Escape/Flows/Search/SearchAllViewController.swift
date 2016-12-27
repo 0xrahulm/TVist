@@ -120,6 +120,8 @@ class SearchAllViewController: UIViewController {
                             self.dataArray.appendContentsOf(data)
                             if data.count < 10{
                                 callFurther = false
+                            }else{
+                                callFurther = true
                             }
                             if let page = dict["page"] as? Int{
                                 if page > 1{
@@ -144,6 +146,7 @@ class SearchAllViewController: UIViewController {
             currentPage = currentPage + 1
             searchQuery()
         }
+        callFurther = false
     }
     
     func validateSearch(timer : NSTimer){

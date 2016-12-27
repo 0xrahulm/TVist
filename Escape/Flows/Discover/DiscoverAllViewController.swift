@@ -48,6 +48,7 @@ class DiscoverAllViewController: UIViewController {
             currentPage = currentPage + 1
             DiscoverDataProvider.shareDataProvider.getDiscoverItems(type, page : currentPage)
         }
+        callFurther = false
     }
     
     func receivedNotification(notification : NSNotification){
@@ -58,6 +59,8 @@ class DiscoverAllViewController: UIViewController {
                         self.dataArray.appendContentsOf(data)
                         if data.count == 0{
                             callFurther = false
+                        }else{
+                            callFurther = true
                         }
                         tableView.reloadData()
                     }
