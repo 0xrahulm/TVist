@@ -26,11 +26,12 @@ class HomeDataProvider: CommonDataProvider {
     
     static let sharedDataProvider = HomeDataProvider()
     
-    func getUserStroies(){
+    func getUserStroies(page : Int){
         
-        //var params : [String:AnyObject] = [:]
+        var params : [String:AnyObject] = [:]
+        params["page"] = page
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserStory, params: nil, delegate: self)
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserStory, params: params, delegate: self)
     }
     
     func getStoryComments(storyId : String){

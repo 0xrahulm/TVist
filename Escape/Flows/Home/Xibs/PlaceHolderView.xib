@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaceHolderView" rowHeight="250" id="vVl-py-utC">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vVl-py-utC" id="llw-em-W72">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="249"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jZF-P6-fjy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="249.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Auj-tj-pLR">
+                                <rect key="frame" x="0.0" y="64" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Eef-JF-i0l"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lcx-zV-V7K" customClass="PlaceholderView" customModule="Escape" customModuleProvider="target">
+                                <rect key="frame" x="10" y="14" width="36" height="36"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="PNn-YF-hJI"/>
+                                    <constraint firstAttribute="width" constant="36" id="xvG-0a-Aqs"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="18"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c8m-Hn-EfQ" customClass="PlaceholderView" customModule="Escape" customModuleProvider="target">
+                                <rect key="frame" x="58" y="18" width="120" height="5"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="5" id="HAs-aQ-vkG"/>
+                                    <constraint firstAttribute="width" constant="120" id="saG-df-Q5i"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EdQ-DV-pu9" customClass="PlaceholderView" customModule="Escape" customModuleProvider="target">
+                                <rect key="frame" x="58" y="35" width="200" height="7"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="7" id="Smc-2t-BTd"/>
+                                    <constraint firstAttribute="width" constant="200" id="vbe-wg-gbS"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZlA-LB-Yhd" customClass="PlaceholderView" customModule="Escape" customModuleProvider="target">
+                                <rect key="frame" x="10" y="80" width="165" height="7"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="WHZ-md-ktH"/>
+                                    <constraint firstAttribute="height" constant="7" id="Z5Q-0n-wtw"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="WHZ-md-ktH"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yDE-GP-jXR" customClass="PlaceholderView" customModule="Escape" customModuleProvider="target">
+                                <rect key="frame" x="10" y="102" width="215" height="7"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="7" id="Wcd-uS-Hz2"/>
+                                    <constraint firstAttribute="width" constant="180" id="jil-ed-x6b"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="jil-ed-x6b"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RwD-ki-4wy" customClass="PlaceholderView" customModule="Escape" customModuleProvider="target">
+                                <rect key="frame" x="10" y="124" width="352" height="7"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="6TL-cS-zd5"/>
+                                    <constraint firstAttribute="height" constant="7" id="Isk-dL-4BE"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="6TL-cS-zd5"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxu-0e-b2W">
+                                <rect key="frame" x="0.0" y="242.5" width="375" height="7"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="7" id="NvV-GW-mjM"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="Auj-tj-pLR" firstAttribute="top" secondItem="jZF-P6-fjy" secondAttribute="top" constant="64" id="70a-Yx-Qa2"/>
+                            <constraint firstItem="c8m-Hn-EfQ" firstAttribute="leading" secondItem="Lcx-zV-V7K" secondAttribute="trailing" constant="15" id="7ts-K0-Tmc"/>
+                            <constraint firstItem="yDE-GP-jXR" firstAttribute="top" secondItem="ZlA-LB-Yhd" secondAttribute="bottom" constant="15" id="92t-2F-ii2"/>
+                            <constraint firstItem="c8m-Hn-EfQ" firstAttribute="leading" secondItem="jZF-P6-fjy" secondAttribute="leading" constant="58" id="Acw-QT-gxE"/>
+                            <constraint firstAttribute="trailing" secondItem="bxu-0e-b2W" secondAttribute="trailing" id="BFV-oZ-439"/>
+                            <constraint firstAttribute="trailing" secondItem="RwD-ki-4wy" secondAttribute="trailing" constant="13" id="CL8-lB-eQU"/>
+                            <constraint firstItem="yDE-GP-jXR" firstAttribute="leading" secondItem="ZlA-LB-Yhd" secondAttribute="leading" id="DTP-JR-mk9"/>
+                            <constraint firstItem="EdQ-DV-pu9" firstAttribute="leading" secondItem="c8m-Hn-EfQ" secondAttribute="leading" id="Ebg-CI-2fW"/>
+                            <constraint firstItem="ZlA-LB-Yhd" firstAttribute="leading" secondItem="jZF-P6-fjy" secondAttribute="leading" constant="10" id="Hef-z6-keF"/>
+                            <constraint firstAttribute="trailing" secondItem="ZlA-LB-Yhd" secondAttribute="trailing" constant="200" id="K6M-qf-rfK"/>
+                            <constraint firstItem="EdQ-DV-pu9" firstAttribute="top" secondItem="c8m-Hn-EfQ" secondAttribute="bottom" constant="12" id="L9b-ZF-25v"/>
+                            <constraint firstItem="ZlA-LB-Yhd" firstAttribute="top" secondItem="Auj-tj-pLR" secondAttribute="bottom" constant="15" id="NPe-eS-Rna"/>
+                            <constraint firstItem="Lcx-zV-V7K" firstAttribute="leading" secondItem="jZF-P6-fjy" secondAttribute="leading" constant="10" id="PLV-BN-6Y7"/>
+                            <constraint firstAttribute="trailing" secondItem="RwD-ki-4wy" secondAttribute="trailing" constant="150" id="RNi-aU-6YP"/>
+                            <constraint firstItem="RwD-ki-4wy" firstAttribute="top" secondItem="yDE-GP-jXR" secondAttribute="bottom" constant="15" id="Ru5-mH-PzR"/>
+                            <constraint firstItem="Auj-tj-pLR" firstAttribute="leading" secondItem="jZF-P6-fjy" secondAttribute="leading" id="VaM-YF-8Tz"/>
+                            <constraint firstAttribute="trailing" secondItem="Auj-tj-pLR" secondAttribute="trailing" id="aCq-T3-hoe"/>
+                            <constraint firstAttribute="trailing" secondItem="c8m-Hn-EfQ" secondAttribute="trailing" constant="334" id="cbD-gp-YLL"/>
+                            <constraint firstAttribute="trailing" secondItem="ZlA-LB-Yhd" secondAttribute="trailing" constant="378" id="hdn-SB-ZDS"/>
+                            <constraint firstAttribute="bottom" secondItem="bxu-0e-b2W" secondAttribute="bottom" id="hl9-Qi-vFM"/>
+                            <constraint firstAttribute="trailing" secondItem="yDE-GP-jXR" secondAttribute="trailing" constant="150" id="iLR-Hr-ESy"/>
+                            <constraint firstItem="Lcx-zV-V7K" firstAttribute="top" secondItem="jZF-P6-fjy" secondAttribute="top" constant="14" id="jPM-vt-gwA"/>
+                            <constraint firstItem="c8m-Hn-EfQ" firstAttribute="top" secondItem="jZF-P6-fjy" secondAttribute="top" constant="18" id="kIH-d8-hhY"/>
+                            <constraint firstItem="RwD-ki-4wy" firstAttribute="leading" secondItem="yDE-GP-jXR" secondAttribute="leading" id="mPA-PN-e57"/>
+                            <constraint firstAttribute="trailing" secondItem="EdQ-DV-pu9" secondAttribute="trailing" constant="200" id="pHa-j0-MBf"/>
+                            <constraint firstAttribute="trailing" secondItem="yDE-GP-jXR" secondAttribute="trailing" constant="250" id="t61-Ru-8fs"/>
+                            <constraint firstItem="bxu-0e-b2W" firstAttribute="leading" secondItem="jZF-P6-fjy" secondAttribute="leading" id="xm3-dd-Qjd"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="7ts-K0-Tmc"/>
+                                <exclude reference="cbD-gp-YLL"/>
+                                <exclude reference="pHa-j0-MBf"/>
+                                <exclude reference="hdn-SB-ZDS"/>
+                                <exclude reference="t61-Ru-8fs"/>
+                                <exclude reference="RNi-aU-6YP"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jZF-P6-fjy" firstAttribute="leading" secondItem="llw-em-W72" secondAttribute="leading" id="5zS-1e-4fq"/>
+                    <constraint firstAttribute="trailing" secondItem="jZF-P6-fjy" secondAttribute="trailing" id="Lqj-4d-lD8"/>
+                    <constraint firstAttribute="bottom" secondItem="jZF-P6-fjy" secondAttribute="bottom" id="SKR-UH-dFb"/>
+                    <constraint firstItem="jZF-P6-fjy" firstAttribute="top" secondItem="llw-em-W72" secondAttribute="top" id="di2-Kz-MiE"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </tableViewCell>
+    </objects>
+</document>

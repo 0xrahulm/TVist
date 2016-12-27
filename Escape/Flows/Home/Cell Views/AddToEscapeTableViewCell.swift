@@ -42,6 +42,8 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
         didSet{
             if let escapeItems = escapeItems{
                 
+                escapeCollectionView.registerNib(UINib(nibName: CellIdentifier.EscapeCollection.rawValue, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.EscapeCollection.rawValue)
+                
                 topConstraint.constant = 35
                 sharedByImage.image = IonIcons.imageWithIcon(ion_android_share, size: 15, color: UIColor.textGrayColor())
                 sharedByLabel.text = "Sachin Gupta shared"
@@ -211,7 +213,7 @@ extension AddToEscapeTableViewCell : UICollectionViewDataSource{
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let collectionCell = collectionView.dequeueReusableCellWithReuseIdentifier("escapeCollectionCellIdentifier", forIndexPath: indexPath) as! EscapeCollectionViewCell
+        let collectionCell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier.EscapeCollection.rawValue, forIndexPath: indexPath) as! EscapeCollectionViewCell
         collectionCell.data = collectionDataArray[indexPath.row]
         
         return collectionCell

@@ -77,6 +77,18 @@
 		BC0BBBE51CF1D08F00B03A93 /* UIView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE31CF1D08E00B03A93 /* UIView+Utility.swift */; };
 		BC0BBBE71CF1D30600B03A93 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */; };
 		BC0BBBE81CF1D30600B03A93 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */; };
+		BC1099701E1275C10036CA75 /* WhatsYourEscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC10996F1E1275C10036CA75 /* WhatsYourEscape.xib */; };
+		BC1099711E1275C10036CA75 /* WhatsYourEscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC10996F1E1275C10036CA75 /* WhatsYourEscape.xib */; };
+		BC1099731E1276F60036CA75 /* ArticleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC1099721E1276F60036CA75 /* ArticleView.xib */; };
+		BC1099741E1276F60036CA75 /* ArticleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC1099721E1276F60036CA75 /* ArticleView.xib */; };
+		BC1099761E1277F90036CA75 /* FBFriendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC1099751E1277F90036CA75 /* FBFriendView.xib */; };
+		BC1099771E1277F90036CA75 /* FBFriendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC1099751E1277F90036CA75 /* FBFriendView.xib */; };
+		BC1099791E1278810036CA75 /* AddToEscapeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC1099781E1278810036CA75 /* AddToEscapeView.xib */; };
+		BC10997A1E1278810036CA75 /* AddToEscapeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC1099781E1278810036CA75 /* AddToEscapeView.xib */; };
+		BC10997C1E127AF10036CA75 /* EscapeCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC10997B1E127AF10036CA75 /* EscapeCollectionView.xib */; };
+		BC10997D1E127AF10036CA75 /* EscapeCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC10997B1E127AF10036CA75 /* EscapeCollectionView.xib */; };
+		BC10997F1E127C570036CA75 /* PlaceHolderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC10997E1E127C570036CA75 /* PlaceHolderView.xib */; };
+		BC1099801E127C570036CA75 /* PlaceHolderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC10997E1E127C570036CA75 /* PlaceHolderView.xib */; };
 		BC14BAB91CFAF3F000B7E546 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC14BAB81CFAF3F000B7E546 /* Discover.storyboard */; };
 		BC14BABA1CFAF3F000B7E546 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC14BAB81CFAF3F000B7E546 /* Discover.storyboard */; };
 		BC14BABC1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC14BABB1CFAF55800B7E546 /* DiscoverAllViewController.swift */; };
@@ -315,6 +327,12 @@
 		BC0BBBE01CF1BC1300B03A93 /* DescDataItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescDataItems.swift; sourceTree = "<group>"; };
 		BC0BBBE31CF1D08E00B03A93 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
 		BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeUtility.swift; sourceTree = "<group>"; };
+		BC10996F1E1275C10036CA75 /* WhatsYourEscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WhatsYourEscape.xib; sourceTree = "<group>"; };
+		BC1099721E1276F60036CA75 /* ArticleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleView.xib; sourceTree = "<group>"; };
+		BC1099751E1277F90036CA75 /* FBFriendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FBFriendView.xib; sourceTree = "<group>"; };
+		BC1099781E1278810036CA75 /* AddToEscapeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddToEscapeView.xib; sourceTree = "<group>"; };
+		BC10997B1E127AF10036CA75 /* EscapeCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EscapeCollectionView.xib; sourceTree = "<group>"; };
+		BC10997E1E127C570036CA75 /* PlaceHolderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceHolderView.xib; sourceTree = "<group>"; };
 		BC14BAB81CFAF3F000B7E546 /* Discover.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Discover.storyboard; path = Escape/Flows/Discover/Discover.storyboard; sourceTree = SOURCE_ROOT; };
 		BC14BABB1CFAF55800B7E546 /* DiscoverAllViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverAllViewController.swift; path = Escape/Flows/Discover/DiscoverAllViewController.swift; sourceTree = SOURCE_ROOT; };
 		BC14BABE1CFAF5CD00B7E546 /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverViewController.swift; path = Escape/Flows/Discover/DiscoverViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -517,6 +535,19 @@
 				B802FA0C18A87E900BCFA947 /* Pods-Escape copy.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		BC1099621E12539A0036CA75 /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				BC10996F1E1275C10036CA75 /* WhatsYourEscape.xib */,
+				BC1099721E1276F60036CA75 /* ArticleView.xib */,
+				BC1099751E1277F90036CA75 /* FBFriendView.xib */,
+				BC1099781E1278810036CA75 /* AddToEscapeView.xib */,
+				BC10997B1E127AF10036CA75 /* EscapeCollectionView.xib */,
+				BC10997E1E127C570036CA75 /* PlaceHolderView.xib */,
+			);
+			path = Xibs;
 			sourceTree = "<group>";
 		};
 		BC14BAD11CFF0E9B00B7E546 /* Model */ = {
@@ -807,6 +838,7 @@
 		BCB7B49F1CA16C6A002147FA /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				BC1099621E12539A0036CA75 /* Xibs */,
 				BC1842821D53520A003CC19A /* Cell Views */,
 				BC18426F1D51F47C003CC19A /* Model */,
 				BC1842691D51F342003CC19A /* Home.storyboard */,
@@ -982,14 +1014,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC1099701E1275C10036CA75 /* WhatsYourEscape.xib in Resources */,
+				BC10997F1E127C570036CA75 /* PlaceHolderView.xib in Resources */,
 				BC4B56371D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
 				BC85DBFE1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				84A484091DEDE07100DAC553 /* GenericLists.storyboard in Resources */,
 				BC1A1D021DF449A10024CC06 /* AddToEscapeViewController.xib in Resources */,
 				BC14BAB91CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BC18426A1D51F342003CC19A /* Home.storyboard in Resources */,
+				BC1099791E1278810036CA75 /* AddToEscapeView.xib in Resources */,
 				BC5188291D8C688600A85E61 /* Search.storyboard in Resources */,
+				BC1099761E1277F90036CA75 /* FBFriendView.xib in Resources */,
 				BCFE486B1CA3C1C00098160D /* Images.xcassets in Resources */,
+				BC10997C1E127AF10036CA75 /* EscapeCollectionView.xib in Resources */,
 				BCB7B4B01CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BCB7B4B41CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B21CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
@@ -998,6 +1035,7 @@
 				BC2A73181CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730E1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A11CA5626000FF8678 /* MainTab.storyboard in Resources */,
+				BC1099731E1276F60036CA75 /* ArticleView.xib in Resources */,
 				BCB7B4AE1CA17378002147FA /* SF-UI-Display-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1006,14 +1044,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC1099711E1275C10036CA75 /* WhatsYourEscape.xib in Resources */,
+				BC1099801E127C570036CA75 /* PlaceHolderView.xib in Resources */,
 				BC4B56381D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
 				BC85DBFF1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				84A4840A1DEDE07100DAC553 /* GenericLists.storyboard in Resources */,
 				BC1A1D031DF449A10024CC06 /* AddToEscapeViewController.xib in Resources */,
 				BC14BABA1CFAF3F000B7E546 /* Discover.storyboard in Resources */,
 				BC18426B1D51F342003CC19A /* Home.storyboard in Resources */,
+				BC10997A1E1278810036CA75 /* AddToEscapeView.xib in Resources */,
 				BC51882A1D8C688600A85E61 /* Search.storyboard in Resources */,
+				BC1099771E1277F90036CA75 /* FBFriendView.xib in Resources */,
 				BCFE486C1CA3C1C00098160D /* Images.xcassets in Resources */,
+				BC10997D1E127AF10036CA75 /* EscapeCollectionView.xib in Resources */,
 				BCB7B4B11CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BCB7B4B51CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B31CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
@@ -1022,6 +1065,7 @@
 				BC2A73191CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730F1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A21CA5626000FF8678 /* MainTab.storyboard in Resources */,
+				BC1099741E1276F60036CA75 /* ArticleView.xib in Resources */,
 				BCB7B4AF1CA17378002147FA /* SF-UI-Display-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

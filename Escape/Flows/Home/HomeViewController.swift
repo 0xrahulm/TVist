@@ -9,17 +9,18 @@
 import UIKit
 
 enum CellIdentifier : String{
-    case FBFriends = "fbFriendsIdentifier"
-    case Seperator = "seperatorCellIdentifier"
-    case Article = "articleCellIdentifier"
-    case AddToEscape = "addToEscapeIdentifier"
-    case WhatsYourEscape = "whatsYourLatestEscapedentifier"
+    case FBFriends = "FBFriendView"
+    case PlaceHolder = "PlaceHolderView"
+    case Article = "ArticleView"
+    case AddToEscape = "AddToEscapeView"
+    case WhatsYourEscape = "WhatsYourEscape"
+    case EscapeCollection = "EscapeCollectionView" 
 }
 enum CellHeight : CGFloat{
     case FBFriends = 200
-    case Seperator = 125
+    case PlaceHolder = 250
     case AddtoEscape = 315
-    case WhatsYourEscape = 126
+    case WhatsYourEscape = 123
 }
 
 class HomeViewController: UIViewController {
@@ -27,6 +28,10 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var dataArray : [StoryCard] = []
+    
+    var currentPage = 0
+    var callFurther = true
+    var animateOneTime = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +41,16 @@ class HomeViewController: UIViewController {
         dataArray.append(StoryCard(storyType : .EmptyStory))
         dataArray.append(StoryCard(storyType : .EmptyStory))
         dataArray.append(StoryCard(storyType : .EmptyStory))
-       
+        
+        initXibs()
+        
         tableView.estimatedRowHeight = 110
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
         tableView.reloadData()
         
         HomeDataProvider.sharedDataProvider.homeDataDelegate = self
-        HomeDataProvider.sharedDataProvider.getUserStroies()
+        loadMoreData()
 
     }
     
@@ -57,6 +64,26 @@ class HomeViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+    }
+    
+    func initXibs(){
+        tableView.registerNib(UINib(nibName: CellIdentifier.WhatsYourEscape.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.WhatsYourEscape.rawValue)
+        
+        tableView.registerNib(UINib(nibName: CellIdentifier.Article.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.Article.rawValue)
+        
+        tableView.registerNib(UINib(nibName: CellIdentifier.FBFriends.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.FBFriends.rawValue)
+        
+        tableView.registerNib(UINib(nibName: CellIdentifier.AddToEscape.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.AddToEscape.rawValue)
+        
+        tableView.registerNib(UINib(nibName: CellIdentifier.PlaceHolder.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.PlaceHolder.rawValue)
+    }
+    
+    func loadMoreData(){
+        if callFurther{
+            currentPage = currentPage + 1
+            HomeDataProvider.sharedDataProvider.getUserStroies(currentPage)
+        }
+        callFurther = false
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -77,9 +104,9 @@ class HomeViewController: UIViewController {
         return cell
     }
     
-    func configureSeperatorCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+    func configurePlaceHolderCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.Seperator.rawValue, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.PlaceHolder.rawValue, forIndexPath: indexPath)
         
         return cell
     }
@@ -117,8 +144,8 @@ class HomeViewController: UIViewController {
         }else{
             MyAccountDataProvider.sharedDataProvider.getUserDetails(nil)
         }
-        
         return cell
+        
     }
 
 }
@@ -141,14 +168,14 @@ extension HomeViewController : UITableViewDelegate{
                 return UITableViewAutomaticDimension
                 
             case .EmptyStory:
-                return CellHeight.Seperator.rawValue
+                return CellHeight.PlaceHolder.rawValue
                 
             case .WhatsYourEscape:
                 return CellHeight.WhatsYourEscape.rawValue
                 
             }
         }
-        return CellHeight.Seperator.rawValue
+        return 0
         
     }
     
@@ -156,8 +183,11 @@ extension HomeViewController : UITableViewDelegate{
 extension HomeViewController : UITableViewDataSource{
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        
+        if indexPath.row > 3 && indexPath.row >= dataArray.count - 5{
+            loadMoreData()
+        }
     }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if let storyType = dataArray[indexPath.row].storyType{
@@ -173,7 +203,7 @@ extension HomeViewController : UITableViewDataSource{
                 return configureAddToEscapeCell(tableView, indexPath: indexPath)
                 
             case .EmptyStory:
-                return configureSeperatorCell(tableView, indexPath: indexPath)
+                return configurePlaceHolderCell(tableView, indexPath: indexPath)
                 
             case .Article:
                 return configureArticleCell(tableView, indexPath: indexPath)
@@ -184,7 +214,7 @@ extension HomeViewController : UITableViewDataSource{
             }
         }
         
-        return configureSeperatorCell(tableView,indexPath: indexPath)
+        return configurePlaceHolderCell(tableView,indexPath: indexPath)
         
     }
     
@@ -199,13 +229,23 @@ extension HomeViewController : HomeDataProtocol{
             
             addWhatsYourEscapeCard()
             self.dataArray.appendContentsOf(data)
-            tableView.reloadDataAnimated()
+            if animateOneTime{
+                tableView.reloadDataAnimated()
+            }else{
+                tableView.reloadData()
+            }
+            animateOneTime = false
             
+            if data.count > 5{
+                callFurther = true
+            }else{
+              callFurther = false
+            }
         }
     }
     
     func error() { 
-        
+        callFurther = false
     }
     
     func addWhatsYourEscapeCard(){
