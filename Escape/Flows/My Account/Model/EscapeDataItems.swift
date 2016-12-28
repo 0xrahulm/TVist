@@ -38,6 +38,7 @@ class EscapeDataItems: BaseDataItem {
             self.id = id
             self.name = name
             self.image = image
+            
             self.year = dict["year"] as? String
             
             if let type = dict["escape_type"] as? String{

@@ -21,10 +21,21 @@ class StoryCard: BaseStory {
     var creatorImage:   String?
     var creatorStatus:  String?
     var timestamp:      NSNumber?
+    
     var likesCount = 0
     var commentsCount = 0
     var shareCount = 3
-    var recommededUsers:[String] = []
+    
+    var isLiked = false
+    var isCommented = false
+    var isShared = false
+    
+    var sharedText : String?
+    
+    var recommededUsers:[Creator] = []
+    
+    var actionVerb = ""
+    var preposition = ""
     
     
     init(dict : [String:AnyObject]) {
@@ -66,22 +77,54 @@ class StoryCard: BaseStory {
                 }else if let cImage = creatorData["image"] as? String{//article card case
                     self.creatorImage =  cImage
                 }
-                
-                self.creatorStatus = dict["status"] as? String
-                self.title =         dict["title"] as? String
-                self.timestamp =     dict["posted_at"] as? NSNumber
-                
-                if let likes = dict["likes_count"] as? NSNumber{
-                    self.likesCount = Int(likes)
+            }
+            
+            self.creatorStatus = dict["status"] as? String
+            self.title =         dict["title"] as? String
+            self.timestamp =     dict["posted_at"] as? NSNumber
+            
+            if let likes = dict["likes_count"] as? NSNumber{
+                self.likesCount = Int(likes)
+            }
+            
+            if let comment = dict["comments_count"] as? NSNumber{
+                self.commentsCount = Int(comment)
+            }
+            
+            if let recommededUsers = dict["recommended_users"] as? [[String:AnyObject]]{
+                for dict in recommededUsers{
+                    self.recommededUsers.append(Creator(dict: dict))
                 }
-                if let comment = dict["comments_count"] as? NSNumber{
-                    self.commentsCount = Int(comment)
+            }
+            if let recommededUsers = dict["tagged_users"] as? [[String:AnyObject]]{
+                for dict in recommededUsers{
+                    self.recommededUsers.append(Creator(dict: dict))
                 }
-                
-                if let recommededUsers = dict["recommended_users"] as? [String]{
-                    self.recommededUsers   = recommededUsers
+            }
+            
+            if let states = dict["states"] as? [String:AnyObject]{
+                if let like = states["liked"] as? Bool{
+                    self.isLiked = like
                 }
-                
+                if let comment = states["commented"] as? Bool{
+                    self.isCommented = comment
+                }
+                if let share = states["shared"] as? Bool{
+                    self.isShared = share
+                }
+            }
+            
+            if let titleAttrbs = dict["title_attrs"] as? [String:AnyObject]{
+                if let verb = titleAttrbs["action_verb"] as? String{
+                    self.actionVerb = verb
+                }
+                if let prep = titleAttrbs["preposition"] as? String{
+                    self.preposition = prep
+                }
+            }
+            
+            if let sharedText = dict["share_text"] as? String{
+                self.sharedText = sharedText
             }
         }
     }

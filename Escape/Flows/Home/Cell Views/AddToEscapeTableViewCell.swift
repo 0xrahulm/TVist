@@ -40,44 +40,29 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
     
     var escapeItems : AddToEscapeCard?{
         didSet{
+            
+            escapeCollectionView.registerNib(UINib(nibName: CellIdentifier.EscapeCollection.rawValue, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.EscapeCollection.rawValue)
+            
+            
             if let escapeItems = escapeItems{
+                if let shareText = escapeItems.sharedText{
+                    topConstraint.constant = 35
+                    sharedByImage.image = IonIcons.imageWithIcon(ion_android_share, size: 15, color: UIColor.textGrayColor())
+                    sharedByLabel.text = shareText
+                    sharedByImage.hidden = false
+                    sharedByLabel.hidden = false
+                }else{
+                    topConstraint.constant = 15
+                    sharedByImage.hidden = true
+                    sharedByLabel.hidden = true
+                }
                 
-                escapeCollectionView.registerNib(UINib(nibName: CellIdentifier.EscapeCollection.rawValue, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.EscapeCollection.rawValue)
-                
-                topConstraint.constant = 35
-                sharedByImage.image = IonIcons.imageWithIcon(ion_android_share, size: 15, color: UIColor.textGrayColor())
-                sharedByLabel.text = "Sachin Gupta shared"
                 
                 if let image = escapeItems.creatorImage{
                     self.creatorImage.downloadImageWithUrl(image , placeHolder: UIImage(named: "profile_placeholder"))
                     
                 }else{
                     self.creatorImage.image = UIImage.getImageWithColor(UIColor.placeholderColor(), size: creatorImage.frame.size)
-                }
-                
-                var recommededUser = ""
-                
-                if let title = escapeItems.title{
-                    if escapeItems.recommededUsers.count > 0{
-                       
-                        var i = 0
-                        for item in escapeItems.recommededUsers{
-                            if i != 0{
-                                recommededUser = item + ", " + recommededUser
-                            }else{
-                                recommededUser = item
-                            }
-                            i = i + 1
-                        }
-                        
-                        sharedByImage.image = IonIcons.imageWithIcon(ion_android_favorite, size: 15, color: UIColor.textGrayColor())
-                        sharedByLabel.text = "Vivek Kishore liked"
-                        
-                    }
-                    //self.titleLabel.text = "\(creatorName) \(title) \(recommededUser)"
-                    
-                }else{
-                    //self.titleLabel.text = "\(creatorName)"
                 }
                 
                 if let status = escapeItems.creatorStatus{
@@ -126,29 +111,29 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
                     self.createdTimeLabel.hidden = true
                 }
                 
+                if escapeItems.isLiked{
+                    likeButton.selected = true
+                }else{
+                    likeButton.selected = false
+                }
+                
+                if escapeItems.isShared{
+                    shareButton.selected = true
+                }else{
+                    shareButton.selected = false
+                }
+                
+                if escapeItems.isCommented{
+                    commentButton.selected = true
+                }else{
+                    commentButton.selected = false
+                }
+                
                 self.collectionDataArray = escapeItems.items
                 escapeCollectionView.reloadData()
- 
-                let nameString = NSMutableAttributedString(attributedString: SFUIAttributedText.mediumAttributedTextForString("\(escapeItems.creatorName!) ", size: 15, color: UIColor.textBlackColor()))
-                nameString.setAsLink(escapeItems.creatorName!, linkURL: "http://google.com")
                 
-                let verbString = SFUIAttributedText.regularAttributedTextForString("is watching ", size: 14, color: UIColor.textGrayColor())
+                let attributedString = constructAttributedString(escapeItems)
                 
-                
-                let escapeString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("Inception ", size: 14, color: UIColor.textBlackColor()))
-                escapeString.setAsLink("Inception", linkURL: "stackoverflow")
-                
-                let withString = SFUIAttributedText.regularAttributedTextForString("with ", size: 14, color: UIColor.textGrayColor())
-                
-                let friendsString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("Rahul Meena", size: 14, color: UIColor.textBlackColor()))
-                friendsString.setAsLink("Rahul Meena", linkURL: "http://facebook.com")
-                
-                let attributedString = NSMutableAttributedString()
-                attributedString.appendAttributedString(nameString)
-                attributedString.appendAttributedString(verbString)
-                attributedString.appendAttributedString(escapeString)
-                attributedString.appendAttributedString(withString)
-                attributedString.appendAttributedString(friendsString)
                 self.titleTextView.delegate = self
                 self.titleTextView.attributedText = attributedString
                 self.titleTextView.linkTextAttributes  = [NSForegroundColorAttributeName: UIColor.textBlackColor()]
@@ -178,6 +163,155 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
         }else{
             shareButton.selected = true
         }
+    }
+    
+    func constructAttributedString(escapeItems : AddToEscapeCard) -> NSMutableAttributedString{
+        
+        let attributedString = NSMutableAttributedString()
+        
+        var creatorName = ""
+        var creatorId = ""
+        if let name = escapeItems.creatorName,let id = escapeItems.createrId{
+            creatorName = name
+            creatorId = id
+        }
+        
+        let nameString = NSMutableAttributedString(attributedString: SFUIAttributedText.mediumAttributedTextForString("\(creatorName) ", size: 15, color: UIColor.textBlackColor()))
+        nameString.setAsLink(creatorName, linkURL: "escape://user?id=\(creatorId)")
+        attributedString.appendAttributedString(nameString)
+        
+        
+        let verbString = SFUIAttributedText.regularAttributedTextForString("\(escapeItems.actionVerb) ", size: 14, color: UIColor.textGrayColor())
+         attributedString.appendAttributedString(verbString)
+        
+        
+        if escapeItems.items.count == 1{
+            if let name = escapeItems.items[0].name, let id = escapeItems.items[0].id{
+                let escapeString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
+                escapeString.setAsLink(name, linkURL: "escape://item?id=\(id)")
+                attributedString.appendAttributedString(escapeString)
+                
+            }
+        }else if escapeItems.items.count == 2{
+            
+            if let name = escapeItems.items[0].name, let id = escapeItems.items[0].id{
+                let escapeString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
+                escapeString.setAsLink(name, linkURL: "escape://item?id=\(id)")
+                attributedString.appendAttributedString(escapeString)
+                
+            }
+            
+            let prepositionString = SFUIAttributedText.regularAttributedTextForString("and ", size: 14, color: UIColor.textGrayColor())
+            attributedString.appendAttributedString(prepositionString)
+            
+            if let name = escapeItems.items[1].name, let id = escapeItems.items[1].id{
+                let escapeString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
+                escapeString.setAsLink(name, linkURL: "escape://item?id=\(id)")
+                attributedString.appendAttributedString(escapeString)
+                
+            }
+        }else if escapeItems.items.count > 2{
+            if let name = escapeItems.items[0].name, let id = escapeItems.items[0].id{
+                let escapeString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
+                escapeString.setAsLink(name, linkURL: "escape://item?id=\(id)")
+                attributedString.appendAttributedString(escapeString)
+                
+            }
+            let prepositionString1 = SFUIAttributedText.regularAttributedTextForString(", ", size: 14, color: UIColor.textBlackColor())
+            attributedString.appendAttributedString(prepositionString1)
+            
+            if let name = escapeItems.items[1].name, let id = escapeItems.items[1].id{
+                let escapeString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
+                escapeString.setAsLink(name, linkURL: "escape://item?id=\(id)")
+                attributedString.appendAttributedString(escapeString)
+                
+            }
+            
+            let prepositionString2 = SFUIAttributedText.regularAttributedTextForString("and ", size: 14, color: UIColor.textGrayColor())
+            attributedString.appendAttributedString(prepositionString2)
+            
+            if escapeItems.items.count > 3{
+                let prepositionString3 = NSMutableAttributedString(attributedString:SFUIAttributedText.regularAttributedTextForString("\(escapeItems.items.count-2) others", size: 14, color: UIColor.textBlackColor()))
+                prepositionString3.setAsLink("\(escapeItems.items.count-2) others", linkURL: "escape://openListingItems")
+                attributedString.appendAttributedString(prepositionString3)
+                
+            }else{
+                
+                let prepositionString4 = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("1 other", size: 14, color: UIColor.textBlackColor()))
+                prepositionString4.setAsLink("1 other", linkURL: "escape://user?id=\(escapeItems.items[2].id)")
+                attributedString.appendAttributedString(prepositionString4)
+                
+            }
+            
+        }
+    
+        
+        let prepositionString = SFUIAttributedText.regularAttributedTextForString("\(escapeItems.preposition) ", size: 14, color: UIColor.textGrayColor())
+        attributedString.appendAttributedString(prepositionString)
+        
+        
+        if escapeItems.recommededUsers.count == 1{
+            if let name = escapeItems.recommededUsers[0].name, let id = escapeItems.recommededUsers[0].id{
+                let friendsString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
+                friendsString.setAsLink(name, linkURL: "escape://user?id=\(id)")
+                attributedString.appendAttributedString(friendsString)
+                
+            }
+        }else if escapeItems.recommededUsers.count == 2{
+            
+            if let name = escapeItems.recommededUsers[0].name, let id = escapeItems.recommededUsers[0].id{
+                let friendsString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
+                friendsString.setAsLink(name, linkURL: "escape://user?id=\(id)")
+                attributedString.appendAttributedString(friendsString)
+                
+            }
+            
+            let prepositionString = SFUIAttributedText.regularAttributedTextForString("and ", size: 14, color: UIColor.textGrayColor())
+            attributedString.appendAttributedString(prepositionString)
+            
+            if let name = escapeItems.recommededUsers[1].name, let id = escapeItems.recommededUsers[1].id{
+                let friendsString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
+                friendsString.setAsLink(name, linkURL: "escape://user?id=\(id)")
+                attributedString.appendAttributedString(friendsString)
+                
+            }
+        }else if escapeItems.recommededUsers.count > 2{
+            if let name = escapeItems.recommededUsers[0].name, let id = escapeItems.recommededUsers[0].id{
+                let friendsString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
+                friendsString.setAsLink(name, linkURL: "escape://user?id=\(id)")
+                attributedString.appendAttributedString(friendsString)
+                
+            }
+            let prepositionString1 = SFUIAttributedText.regularAttributedTextForString(", ", size: 14, color: UIColor.textBlackColor())
+            attributedString.appendAttributedString(prepositionString1)
+            
+            if let name = escapeItems.recommededUsers[1].name, let id = escapeItems.recommededUsers[1].id{
+                let friendsString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
+                friendsString.setAsLink(name, linkURL: "escape://user?id=\(id)")
+                attributedString.appendAttributedString(friendsString)
+                
+            }
+            
+            let prepositionString2 = SFUIAttributedText.regularAttributedTextForString("and ", size: 14, color: UIColor.textGrayColor())
+            attributedString.appendAttributedString(prepositionString2)
+            
+            if escapeItems.recommededUsers.count > 3{
+                let prepositionString3 = NSMutableAttributedString(attributedString:SFUIAttributedText.regularAttributedTextForString("\(escapeItems.recommededUsers.count-2) others", size: 14, color: UIColor.textBlackColor()))
+                prepositionString3.setAsLink("\(escapeItems.recommededUsers.count-2) others", linkURL: "escape://openListingFriends")
+                attributedString.appendAttributedString(prepositionString3)
+                
+            }else{
+                
+                let prepositionString4 = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("1 other", size: 14, color: UIColor.textBlackColor()))
+                prepositionString4.setAsLink("1 other", linkURL: "escape://user?id=\(escapeItems.recommededUsers[2].id)")
+                attributedString.appendAttributedString(prepositionString4)
+                
+            }
+            
+        }
+    
+        return attributedString
+        
     }
 
 }

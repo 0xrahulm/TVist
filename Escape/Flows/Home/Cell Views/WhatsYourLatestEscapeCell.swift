@@ -29,6 +29,8 @@ class WhatsYourLatestEscapeCell: BaseStoryTableViewCell {
         didSet{
             if let image = imageStr{
                 userImage.downloadImageWithUrl(image, placeHolder: UIImage(named: "profile_placeholder"))
+            }else{
+                userImage.image = UIImage(named: "profile_placeholder")
             }
             
         }
