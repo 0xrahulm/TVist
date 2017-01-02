@@ -131,6 +131,12 @@
 		BC1A1D031DF449A10024CC06 /* AddToEscapeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC1A1D011DF449A10024CC06 /* AddToEscapeViewController.xib */; };
 		BC1A1D051DF4779E0024CC06 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1A1D041DF4779E0024CC06 /* FriendsViewController.swift */; };
 		BC1A1D061DF4779E0024CC06 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1A1D041DF4779E0024CC06 /* FriendsViewController.swift */; };
+		BC2247311E1A6675002955A0 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2247301E1A6675002955A0 /* NotificationViewController.swift */; };
+		BC2247321E1A6675002955A0 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2247301E1A6675002955A0 /* NotificationViewController.swift */; };
+		BC2247361E1A6AA4002955A0 /* NotificationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2247351E1A6AA4002955A0 /* NotificationItem.swift */; };
+		BC2247371E1A6AA4002955A0 /* NotificationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2247351E1A6AA4002955A0 /* NotificationItem.swift */; };
+		BC2247391E1A76E6002955A0 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2247381E1A76E6002955A0 /* NotificationTableViewCell.swift */; };
+		BC22473A1E1A76E6002955A0 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2247381E1A76E6002955A0 /* NotificationTableViewCell.swift */; };
 		BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */; };
 		BC2485541CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */; };
 		BC2485561CDC900800DC7077 /* MyAccountItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2485551CDC900800DC7077 /* MyAccountItems.swift */; };
@@ -354,6 +360,9 @@
 		BC1A1CFE1DF449930024CC06 /* AddToEscapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToEscapeViewController.swift; sourceTree = "<group>"; };
 		BC1A1D011DF449A10024CC06 /* AddToEscapeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddToEscapeViewController.xib; sourceTree = "<group>"; };
 		BC1A1D041DF4779E0024CC06 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		BC2247301E1A6675002955A0 /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		BC2247351E1A6AA4002955A0 /* NotificationItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationItem.swift; sourceTree = "<group>"; };
+		BC2247381E1A76E6002955A0 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		BC2485521CDC8FA800DC7077 /* MyAccountDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountDataProvider.swift; sourceTree = "<group>"; };
 		BC2485551CDC900800DC7077 /* MyAccountItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountItems.swift; sourceTree = "<group>"; };
 		BC26D0CA1D2CFA5600FDB87F /* FollowersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersViewController.swift; path = "Escape/Flows/My Account/FollowersViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -496,7 +505,10 @@
 		84A0FA8F1DBCAD6D0072A36A /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				BC2247341E1A69CA002955A0 /* Cell */,
+				BC2247331E1A69B2002955A0 /* Model */,
 				84A0FA901DBCADB50072A36A /* Notifications.storyboard */,
+				BC2247301E1A6675002955A0 /* NotificationViewController.swift */,
 			);
 			name = Notifications;
 			path = ../Notifications;
@@ -596,6 +608,22 @@
 			);
 			name = AddToEscape;
 			path = ../AddToEscape;
+			sourceTree = "<group>";
+		};
+		BC2247331E1A69B2002955A0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC2247351E1A6AA4002955A0 /* NotificationItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BC2247341E1A69CA002955A0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				BC2247381E1A76E6002955A0 /* NotificationTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		BC2A73011CCBF7C0007E5DFB /* Onboarding */ = {
@@ -1186,6 +1214,7 @@
 				84DD65621DDB470600C35EBE /* CustomInteractionController.swift in Sources */,
 				BC3595F91CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */,
 				BCCD70C51CA19278002A0C07 /* UIColor+Utility.swift in Sources */,
+				BC2247391E1A76E6002955A0 /* NotificationTableViewCell.swift in Sources */,
 				BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				BC3A818B1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
 				84DD65681DDB49EC00C35EBE /* ChiefVader.swift in Sources */,
@@ -1247,11 +1276,13 @@
 				BC14BAD91CFF143800B7E546 /* DiscoverItems.swift in Sources */,
 				84E845091DE5193B00DCB9D9 /* EscapeItem.swift in Sources */,
 				BC4B562B1D687DA8008BF1F6 /* Popover.swift in Sources */,
+				BC2247361E1A6AA4002955A0 /* NotificationItem.swift in Sources */,
 				BC4F45771CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FC1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
 				BC47EDB91CA00333008143C2 /* ScreenVader.swift in Sources */,
 				BC54E5251DFD48840001B3D4 /* ArticleCard.swift in Sources */,
 				84A484101DEDED4000DAC553 /* ActivityIndicatorCell.swift in Sources */,
+				BC2247311E1A6675002955A0 /* NotificationViewController.swift in Sources */,
 				BC1842711D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */,
 				BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */,
 				84E8450F1DE521DD00DCB9D9 /* ProfileList.swift in Sources */,
@@ -1305,6 +1336,7 @@
 				84DD65631DDB470600C35EBE /* CustomInteractionController.swift in Sources */,
 				BC3595FA1CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */,
 				BCCD70C61CA19278002A0C07 /* UIColor+Utility.swift in Sources */,
+				BC22473A1E1A76E6002955A0 /* NotificationTableViewCell.swift in Sources */,
 				BC85DBF81CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				BC3A818C1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
 				84DD65691DDB49EC00C35EBE /* ChiefVader.swift in Sources */,
@@ -1366,11 +1398,13 @@
 				BC14BADA1CFF143800B7E546 /* DiscoverItems.swift in Sources */,
 				84E8450A1DE5193B00DCB9D9 /* EscapeItem.swift in Sources */,
 				BC4B562C1D687DA8008BF1F6 /* Popover.swift in Sources */,
+				BC2247371E1A6AA4002955A0 /* NotificationItem.swift in Sources */,
 				BC4F45781CDF6EC300A65A63 /* EnumsUtility.swift in Sources */,
 				BC3595FD1CE8634F007903DB /* MyAccountSettingViewController.swift in Sources */,
 				BC47EDBA1CA00333008143C2 /* ScreenVader.swift in Sources */,
 				BC54E5261DFD48840001B3D4 /* ArticleCard.swift in Sources */,
 				84A484111DEDED4000DAC553 /* ActivityIndicatorCell.swift in Sources */,
+				BC2247321E1A6675002955A0 /* NotificationViewController.swift in Sources */,
 				BC1842721D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */,
 				BC3A81891CA521D500FF8678 /* DeviceID.swift in Sources */,
 				84E845101DE521DD00DCB9D9 /* ProfileList.swift in Sources */,

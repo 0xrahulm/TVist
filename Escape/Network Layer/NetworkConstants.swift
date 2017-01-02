@@ -51,6 +51,9 @@ enum SubServiceType : String {
     //Search
     case GetSearchItems = "search"
     
+    //Notification
+    case GetNotification = "user/notifications"
+    
     
     
     

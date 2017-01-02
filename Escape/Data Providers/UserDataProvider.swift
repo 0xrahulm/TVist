@@ -21,6 +21,11 @@ protocol InterestProtocol : class{
     func interestList(list : [InterestItems])
 }
 
+protocol NotificationProtocol : class {
+    func recievedNotification(data : [NotificationItem])
+    func error()
+}
+
 class UserDataProvider: CommonDataProvider {
     
     static let sharedDataProvider  = UserDataProvider()
@@ -28,6 +33,7 @@ class UserDataProvider: CommonDataProvider {
     weak var emailLoginDelegate:   LoginProtocol?
     weak var fbLoginDelegate:      LoginProtocol?
     weak var interestDelegate:     InterestProtocol?
+    weak var notificationDelegate : NotificationProtocol?
     
     func getSecurityToken(){
         
@@ -83,6 +89,10 @@ class UserDataProvider: CommonDataProvider {
         ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .UnfollowUser, params: params, delegate: self)
     }
     
+    func getNotification(){
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetNotification, params: nil, delegate: self)
+    }
+    
     
 // MARK: - Service Responses
     
@@ -130,7 +140,15 @@ class UserDataProvider: CommonDataProvider {
                 print("User UNfollowed")
                 break
                 
-                
+            case .GetNotification:
+                if let data = service.outPutResponse as? [[String:AnyObject]]{
+                    self.parseNotification(data)
+                }else{
+                    if let delegate = notificationDelegate{
+                        delegate.error()
+                    }
+                }
+                break
                 
             default:
                 break
@@ -185,6 +203,13 @@ class UserDataProvider: CommonDataProvider {
                 
             case .UnfollowUser:
                 print("Error in User UNfollow")
+                break
+                
+            case .GetNotification:
+                print("Error in getting notification")
+                if let delegate = notificationDelegate{
+                    delegate.error()
+                }
                 break
                 
             default :
@@ -254,6 +279,14 @@ extension UserDataProvider{
         
         if interestDelegate != nil{
             interestDelegate?.interestList(intersts)
+        }
+    }
+    
+    func parseNotification(data : [[String:AnyObject]]){
+        let notificationData = NotificationItem(data : data).items
+        
+        if let delegate = notificationDelegate{
+            delegate.recievedNotification(notificationData)
         }
     }
     
