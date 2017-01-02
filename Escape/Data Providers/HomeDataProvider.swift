@@ -51,6 +51,21 @@ class HomeDataProvider: CommonDataProvider {
         
     }
     
+    func likeStory(isLike : Bool, storyId : String){
+        if isLike{
+            ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .LikeStory, params: ["story_id" : storyId], delegate: self)
+        }else{
+            ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .UnlikeStroy, params:  ["story_id" : storyId], delegate: self)
+        }
+    }
+    
+    func shareStory(isShare : Bool, storyId : String){
+        if isShare{
+            ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .ShareStory, params: ["story_id" : storyId], delegate: self)
+        }else{
+            ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .UnShareStory, params:  ["story_id" : storyId], delegate: self)
+        }
+    }
     
     override func serviceSuccessfull(service: Service) {
         if let subServiceType = service.subServiveType{
@@ -79,6 +94,19 @@ class HomeDataProvider: CommonDataProvider {
                     delegate.postStoryCommentSuccess()
                 }
                 break
+                
+            case .LikeStory:
+                print("Story Liked")
+                break
+            case .UnlikeStroy:
+                print("Story UnLiked")
+                break
+            case .ShareStory:
+                print("Story Shared")
+                break
+            case .UnShareStory:
+                print("Story UnShared")
+                break
             default:
                 break
             }
@@ -106,6 +134,19 @@ class HomeDataProvider: CommonDataProvider {
                 if let delegate = storyCommentDelegate{
                     delegate.errorPostComment()
                 }
+                break
+                
+            case .LikeStory:
+                print("Story Liked Error")
+                break
+            case .UnlikeStroy:
+                print("Story UnLiked Error")
+                break
+            case .ShareStory:
+                print("Story Shared Error")
+                break
+            case .UnShareStory:
+                print("Story UnShared Error")
                 break
                 
             default:

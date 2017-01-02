@@ -56,5 +56,53 @@ class ScreenVader: NSObject {
             screenManagerVC.changeStatusBarPreference(shouldBeBlack)
         }
     }
+    
+    func processDeepLink(deepLinkString : String){
+        if let deepLinkUrl = NSURL(string: deepLinkString) {
+            processDeepLinkUrl(deepLinkUrl)
+        }
+    }
+    
+    func processDeepLinkUrl(deepLinkUrl: NSURL) {
+        
+        if let pathString = deepLinkUrl.path where pathString.characters.count > 0 {
+            print(pathString)
+            var pathComponents = pathString.componentsSeparatedByString("/")
+            
+            if pathComponents.count > 1{
+                pathComponents.removeFirst()
+                if let action = pathComponents.first{
+                    if let screenManagerAction = ScreenManagerAction(rawValue: action){
+                        
+                        let deepLinkQueryParams : [String:AnyObject]? = getQueryParamsForString(deepLinkUrl.query)
+                        
+                        performScreenManagerAction(screenManagerAction, queryParams: deepLinkQueryParams)
+                
+                    }
+                }
+            }
+        }
+    }
+    
+    private func getQueryParamsForString(queryString: String?) -> [String: AnyObject]? {
+        
+        var queryParams: [String:AnyObject]?
+        
+        if let queryString = queryString {
+            let queryComponenets = queryString.componentsSeparatedByString("&")
+            if queryComponenets.count > 0 {
+                queryParams = [:]
+                for queryComp in queryComponenets {
+                    let queryKVPString = queryComp.componentsSeparatedByString("=")
+                    
+                    if queryKVPString.count > 1 {
+                        queryParams![queryKVPString[0]] = queryKVPString[1]
+                    }
+                }
+            }
+        }
+        
+        return queryParams
+    }
 
 }

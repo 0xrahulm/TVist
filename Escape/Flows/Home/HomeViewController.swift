@@ -43,6 +43,7 @@ class HomeViewController: UIViewController {
         dataArray.append(StoryCard(storyType : .EmptyStory))
         
         initXibs()
+        initNotificationObserver()
         
         tableView.estimatedRowHeight = 110
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -54,7 +55,6 @@ class HomeViewController: UIViewController {
 
     }
     
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -63,6 +63,17 @@ class HomeViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+    }
+    
+    func initNotificationObserver(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.receivedNotification(_:)), name:NotificationObservers.HomeTappedObserver.rawValue, object: nil)
+    }
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: NotificationObservers.HomeTappedObserver.rawValue, object: nil)
+    }
+    func receivedNotification(notification : NSNotification){
+           //tableView.setContentOffset(CGPointZero, animated:true)
         
     }
     
@@ -254,6 +265,8 @@ extension HomeViewController : HomeDataProtocol{
                 self.dataArray = []
                 self.dataArray.append(StoryCard(storyType : .WhatsYourEscape))
             }
+        }else if dataArray.count == 0{
+            self.dataArray.append(StoryCard(storyType : .WhatsYourEscape))
         }
         
     }
@@ -269,4 +282,5 @@ extension HomeViewController : HomeCommentProtocol{
         }
     }
 }
+
 

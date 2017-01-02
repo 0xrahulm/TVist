@@ -14,10 +14,10 @@ enum ScreenManagerAction : String {
     case DiscoverTab = "Discover"
     case MyAccountTab = "MyAccount"
     case MyAccountSetting = "MyAccountSetting"
-    case OpenItemDescription = "OpenItemDescription"
+    case OpenItemDescription = "item"
     case OpenFollowers = "OpenFollowers"
     case OpenAddToEscapePopUp = "OpenAddToEscapePopUp"
-    case OpenUserAccount = "OpenUserAccount"
+    case OpenUserAccount = "user"
     case NoNetworkPresent = "NoNetworkPresent"
     case NetworkPresent = "NetworkPresent"
     case OpenSearchView = "openSearchView"
@@ -111,6 +111,7 @@ enum NotificationObservers: String {
     case SearchObserver = "SearchObserver"
     case SearchQueryObserver = "SearchQueryObserver"
     case GetProfileDetailsObserver = "GetProfileDetailsObserver"
+    case HomeTappedObserver =  "HomeTappedObserver" 
 }
 enum StoryType : NSNumber {
     case EmptyStory = -1

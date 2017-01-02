@@ -110,6 +110,7 @@ class CustomTabBarController: UIViewController {
             switch selectedTab {
             case .Home:
                 homeButton.selected = true
+                NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.HomeTappedObserver.rawValue, object: nil)
                 break
             case .Discover:
                 discoverButton.selected = true

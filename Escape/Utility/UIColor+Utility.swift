@@ -99,5 +99,9 @@ extension UIColor{
         return UIColor.colorWithHexString("#E8E7E7")
     }
     
+    class func facebookThemeColor() -> UIColor{
+        return UIColor.colorWithHexString("#3b5998")
+    }
+    
 }
 

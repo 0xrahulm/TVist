@@ -56,6 +56,10 @@ class ItemDescViewController: UIViewController {
         if let escapeItem = queryParams["escapeItem"] as? EscapeItem {
             self.escapeItem = escapeItem
         }
+        
+        if let escapeId = queryParams["escape_id"] as? String{
+            
+        }
     }
     
     
@@ -81,7 +85,7 @@ class ItemDescViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
-        setEscapeDetails(escapeItem.name, subtitle: nil, year: escapeItem.year, image: escapeItem.posterImage, rating: escapeItem.rating)
+        setEscapeDetails(escapeItem.name, subtitle: nil, year: escapeItem.year, image:escapeItem.posterImage, rating: escapeItem.rating)
     }
     
     override func viewWillDisappear(animated: Bool) {

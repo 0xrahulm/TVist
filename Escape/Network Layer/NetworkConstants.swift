@@ -40,9 +40,13 @@ enum SubServiceType : String {
     case GetDiscoverItems = "lets_discover"
     
     //Home
-    case GetUserStory   =  "get_user_stories"
-    case GetStoryComment =  "story/comments"
-    case PostStoryComment =  "story/comment"
+    case GetUserStory       =  "get_user_stories"
+    case GetStoryComment    =  "story/comments"
+    case PostStoryComment   =  "story/comment"
+    case LikeStory          =  "stories/like"
+    case UnlikeStroy        =  "stories/unlike"
+    case ShareStory         =  "stories/share"
+    case UnShareStory       =  "stories/unshare"
     
     //Search
     case GetSearchItems = "search"
