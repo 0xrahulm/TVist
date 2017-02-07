@@ -23,6 +23,7 @@ enum ScreenManagerAction : String {
     case OpenSearchView = "openSearchView"
     case OpenUserEscapesList = "UserEscapeList"
     case OpenFriendsView = "OpenFriendsView"
+    case OpenSingleStoryView = "story"
 }
 
 enum StoryBoardIdentifier : String{
@@ -47,6 +48,7 @@ enum Gender : Int{
 
 enum ProfileItemType: Int {
     case EscapeList = 0
+    case MaybeSeen = 1
 }
 
 enum ProfileListType: String {
@@ -94,6 +96,7 @@ enum UserType : Int{
     case Followers = 1
     case Following = 2
     case Friends   = 3
+    case FBFriends = 4
 }
 
 enum EscapeAddActions: String {
@@ -116,10 +119,10 @@ enum NotificationObservers: String {
 enum StoryType : NSNumber {
     case EmptyStory = -1
     case WhatsYourEscape = -2
-    case FBFriendFollow = 0
     case AddToEscape = 1
     case Recommeded = 2
     case Article = 3
+    case FBFriendFollow = 4
 }
 enum CreatorType : NSNumber{
     case User =     0

@@ -295,6 +295,10 @@ extension ScreenManagerViewController{
             openFriendsView(params)
             break
             
+        case .OpenSingleStoryView:
+            openSingleStory(params)
+            break
+            
         default:
             break
         }
@@ -347,6 +351,10 @@ extension ScreenManagerViewController{
     func openFriendsView(params : [String:AnyObject]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "friendsVC", queryParams: params)
         
+    }
+    
+    func openSingleStory(params : [String:AnyObject]?){
+         pushViewControllerOf(.Home, viewControllerIdentifier: "singleStoryVC", queryParams: params)
     }
     func presentNoNetworkPopUP(){
         

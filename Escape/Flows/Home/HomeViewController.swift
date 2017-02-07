@@ -28,15 +28,19 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var dataArray : [StoryCard] = []
+    var cardsTypeArray : [CellIdentifier] = [.FBFriends, .PlaceHolder, .Article, . AddToEscape, .WhatsYourEscape]
     
     var currentPage = 0
     var callFurther = true
     var animateOneTime = true
+    var presentToast : UIWindow?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Home"
+        
+        presentToast = UIApplication.sharedApplication().keyWindow
         
         dataArray.append(StoryCard(storyType : .EmptyStory))
         dataArray.append(StoryCard(storyType : .EmptyStory))
@@ -78,15 +82,11 @@ class HomeViewController: UIViewController {
     }
     
     func initXibs(){
-        tableView.registerNib(UINib(nibName: CellIdentifier.WhatsYourEscape.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.WhatsYourEscape.rawValue)
         
-        tableView.registerNib(UINib(nibName: CellIdentifier.Article.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.Article.rawValue)
-        
-        tableView.registerNib(UINib(nibName: CellIdentifier.FBFriends.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.FBFriends.rawValue)
-        
-        tableView.registerNib(UINib(nibName: CellIdentifier.AddToEscape.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.AddToEscape.rawValue)
-        
-        tableView.registerNib(UINib(nibName: CellIdentifier.PlaceHolder.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.PlaceHolder.rawValue)
+        for cardType in cardsTypeArray{
+            tableView.registerNib(UINib(nibName: cardType.rawValue, bundle: nil), forCellReuseIdentifier: cardType.rawValue)
+        }
+
     }
     
     func loadMoreData(){
@@ -112,6 +112,8 @@ class HomeViewController: UIViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.FBFriends.rawValue) as! FBFriendsTableViewCell
         let data = dataArray[indexPath.row] as? FBFriendCard
         cell.friendItems = data
+        cell.removeFbCardDelegate = self
+        cell.indexPath = indexPath
         return cell
     }
     
@@ -277,8 +279,30 @@ extension HomeViewController : HomeCommentProtocol{
             
             let story = dataArray[indexPath.row]
             if let storyId = story.id{
-                performSegueWithIdentifier("showStoryCommentSegue", sender: ["id" : storyId])
+                //performSegueWithIdentifier("showStoryCommentSegue", sender: ["id" : storyId])
+                
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenSingleStoryView, queryParams: ["id" : storyId])
             }
+        }
+        
+        
+    }
+}
+extension HomeViewController : RemoveFbCardProtocol{
+    func removeFBCard(indexPath: NSIndexPath) {
+        if dataArray.count > indexPath.row{
+            dataArray.removeAtIndex(indexPath.row)
+        }
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Right)
+        
+        if dataArray.count == 1{
+            callFurther = true
+            currentPage = 0
+            loadMoreData()
+        }
+        
+        if let toast = self.presentToast {
+            toast.makeToast(message: "Facebook Friends followed. You can check them in your My Account section.", duration: 3.0, position: HRToastPositionDefault)
         }
     }
 }

@@ -74,6 +74,8 @@ class UserDataProvider: CommonDataProvider {
         params["escape_action"] = action.rawValue
         params["status"] = status
         
+        params["tagged_users"] = friendsId
+        
         ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .AddEscapes, params: params, delegate: self)
     }
     

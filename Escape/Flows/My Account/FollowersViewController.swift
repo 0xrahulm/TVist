@@ -16,6 +16,7 @@ class FollowersViewController: UIViewController {
     var userType : UserType?
     var id : String?
     var escapeId : String? // for recommedation
+    var storyId : String? // for story linked objects
     var txtField: UITextField!
     
     override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
@@ -27,6 +28,9 @@ class FollowersViewController: UIViewController {
         }
         if let id = queryParams["escape_id"] as? String{
             self.escapeId = id
+        }
+        if let id = queryParams["story_id"] as? String{
+            self.storyId = id
         }
         
     }
@@ -45,6 +49,12 @@ class FollowersViewController: UIViewController {
         } else if userType == .Friends {
             self.title = "Friends"
             MyAccountDataProvider.sharedDataProvider.getUserFriends()
+        }else if userType == .FBFriends {
+            self.title = "Facebook Friends"
+            if let storyId = storyId{
+              MyAccountDataProvider.sharedDataProvider.getStoryLinkedObjects(storyId)
+            }
+            
         }
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)

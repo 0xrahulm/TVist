@@ -166,6 +166,10 @@ class MyAccountDataProvider: CommonDataProvider {
         
     }
     
+    func getStoryLinkedObjects(storyId : String){
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetLinkedObjects, params:  ["story_id" : storyId], delegate: self)
+    }
+    
     
     override func serviceSuccessfull(service: Service) {
         if let subServiceType = service.subServiveType{
@@ -248,6 +252,12 @@ class MyAccountDataProvider: CommonDataProvider {
                 Logger.debug("recommendation posted 200 OK")
                 break
                 
+            case .GetLinkedObjects:
+                if let data = service.outPutResponse as? [[String:AnyObject]]{
+                    self.parseFollwingData(data, userType: .FBFriends)
+                }
+                break
+                
             default:
                 break
             }
@@ -305,6 +315,12 @@ class MyAccountDataProvider: CommonDataProvider {
             
             case .PostRecommend:
                 Logger.debug("Error in Recommedation")
+                break
+                
+            case .GetLinkedObjects:
+                if followersDelegate != nil{
+                    followersDelegate?.error()
+                }
                 break
                 
             default:

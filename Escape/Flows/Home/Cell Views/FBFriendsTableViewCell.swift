@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol RemoveFbCardProtocol : class{
+    func removeFBCard(indexPath : NSIndexPath)
+    
+}
+
 class FBFriendsTableViewCell: BaseStoryTableViewCell {
     
     @IBOutlet weak var image1: UIImageView!
@@ -33,12 +38,25 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
         followView.layer.borderColor = UIColor.facebookThemeColor().CGColor
     }
     
+    var storyId : String?
+    weak var removeFbCardDelegate : RemoveFbCardProtocol?
+    var indexPath : NSIndexPath?
+    
     var friendItems : FBFriendCard?{
         didSet{
             if let friendItems  = friendItems{
-                //if let title = friendItems.title{
-                    cellTitleLabel.text = "Your \(friendItems.friends.count) Facebook friends have already joined Escape."
-                //}
+                if let id = friendItems.id{
+                    self.storyId = id
+                }
+                
+                let titleTapGesture = UITapGestureRecognizer(target: self, action: #selector(FBFriendsTableViewCell.handletitleTapGesture(_:)))
+                followView.addGestureRecognizer(titleTapGesture)
+                
+                if let title = friendItems.title{
+                    cellTitleLabel.text = title
+                }else{
+                    cellTitleLabel.text = "Your facebook friends have already joined Escape."
+                }
                 
                 image2Width.constant = 0
                 image3Width.constant = 0
@@ -49,6 +67,7 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
                     
                     image1.downloadImageWithUrl(friendItems.friends[0].profilePicture , placeHolder: UIImage(named: "profile_placeholder"))
                 }
+                                
                 if friendItems.friends.count > 1{
                     image2.downloadImageWithUrl(friendItems.friends[1].profilePicture , placeHolder: UIImage(named: "profile_placeholder"))
                     image2Width.constant = 45
@@ -76,8 +95,23 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
     }
     
     @IBAction func seeAllTapped(sender: UIButton) {
+        
+        if let storyId = storyId{
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.FBFriends.rawValue, "story_id" : storyId])
+        }
+        
     }
     
+    func handletitleTapGesture(sender: UITapGestureRecognizer) {
+        if let storyId = storyId{
+            HomeDataProvider.sharedDataProvider.followAllFriends(storyId)
+        }
+        
+        if let delegate = removeFbCardDelegate, let indexPath = indexPath{
+            delegate.removeFBCard(indexPath)
+        }
+    }
+
     
 }
 
