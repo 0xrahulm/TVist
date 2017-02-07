@@ -77,6 +77,10 @@
 		BC0BBBE51CF1D08F00B03A93 /* UIView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE31CF1D08E00B03A93 /* UIView+Utility.swift */; };
 		BC0BBBE71CF1D30600B03A93 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */; };
 		BC0BBBE81CF1D30600B03A93 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */; };
+		BC1087A01E463C50006D9EAC /* SingleStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10879F1E463C50006D9EAC /* SingleStoryViewController.swift */; };
+		BC1087A11E463C50006D9EAC /* SingleStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC10879F1E463C50006D9EAC /* SingleStoryViewController.swift */; };
+		BC1087A31E49D7CA006D9EAC /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1087A21E49D7C9006D9EAC /* HRToast+UIView.swift */; };
+		BC1087A41E49D7CA006D9EAC /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1087A21E49D7C9006D9EAC /* HRToast+UIView.swift */; };
 		BC1099701E1275C10036CA75 /* WhatsYourEscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC10996F1E1275C10036CA75 /* WhatsYourEscape.xib */; };
 		BC1099711E1275C10036CA75 /* WhatsYourEscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC10996F1E1275C10036CA75 /* WhatsYourEscape.xib */; };
 		BC1099731E1276F60036CA75 /* ArticleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC1099721E1276F60036CA75 /* ArticleView.xib */; };
@@ -333,6 +337,8 @@
 		BC0BBBE01CF1BC1300B03A93 /* DescDataItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescDataItems.swift; sourceTree = "<group>"; };
 		BC0BBBE31CF1D08E00B03A93 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
 		BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeUtility.swift; sourceTree = "<group>"; };
+		BC10879F1E463C50006D9EAC /* SingleStoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleStoryViewController.swift; sourceTree = "<group>"; };
+		BC1087A21E49D7C9006D9EAC /* HRToast+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRToast+UIView.swift"; sourceTree = "<group>"; };
 		BC10996F1E1275C10036CA75 /* WhatsYourEscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WhatsYourEscape.xib; sourceTree = "<group>"; };
 		BC1099721E1276F60036CA75 /* ArticleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleView.xib; sourceTree = "<group>"; };
 		BC1099751E1277F90036CA75 /* FBFriendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FBFriendView.xib; sourceTree = "<group>"; };
@@ -792,6 +798,7 @@
 				84EA4E961DBB9135002A4A2F /* RNLoadingButton.swift */,
 				84A0FA861DBBF77F0072A36A /* CustomDoneButton.swift */,
 				BC85DBF11CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.h */,
+				BC1087A21E49D7C9006D9EAC /* HRToast+UIView.swift */,
 				BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */,
 				BC85DBF31CA69F0E002237A4 /* TPKeyboardAvoidingTableView.h */,
 				BC85DBF41CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m */,
@@ -872,6 +879,7 @@
 				BC1842691D51F342003CC19A /* Home.storyboard */,
 				BC18426C1D51F420003CC19A /* HomeViewController.swift */,
 				BCB81AD81DE0B6310002E52D /* HomeCommentViewController.swift */,
+				BC10879F1E463C50006D9EAC /* SingleStoryViewController.swift */,
 			);
 			name = Home;
 			path = ../Home;
@@ -1230,6 +1238,7 @@
 				BC15C1561CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */,
 				BC4F456E1CDF3EC200A65A63 /* MyAccountEscapeItem.swift in Sources */,
 				BCB81ADF1DE0BC230002E52D /* Creator.swift in Sources */,
+				BC1087A31E49D7CA006D9EAC /* HRToast+UIView.swift in Sources */,
 				BC26D0CB1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */,
 				BC47EDC11CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BC38DC691D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
@@ -1266,6 +1275,7 @@
 				84A0FA8D1DBCA3CA0072A36A /* CustomTabBarController.swift in Sources */,
 				84A484021DE9A04000DAC553 /* CustomPresentAnimationController.swift in Sources */,
 				84A484191DEDEF0C00DAC553 /* TaggedEscapeCell.swift in Sources */,
+				BC1087A01E463C50006D9EAC /* SingleStoryViewController.swift in Sources */,
 				BCACE8801D56459100FAF262 /* UIApperance+Swift.m in Sources */,
 				BC1842771D531F44003CC19A /* StoryCard.swift in Sources */,
 				BC14BAC21CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
@@ -1352,6 +1362,7 @@
 				BC15C1571CD4DF0300BA7CCE /* MyAccountViewController.swift in Sources */,
 				BC4F456F1CDF3EC200A65A63 /* MyAccountEscapeItem.swift in Sources */,
 				BCB81AE01DE0BC230002E52D /* Creator.swift in Sources */,
+				BC1087A41E49D7CA006D9EAC /* HRToast+UIView.swift in Sources */,
 				BC26D0CC1D2CFA5600FDB87F /* FollowersViewController.swift in Sources */,
 				BC47EDC21CA00F60008143C2 /* UserDataProvider.swift in Sources */,
 				BC38DC6A1D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
@@ -1388,6 +1399,7 @@
 				84A0FA8E1DBCA3CA0072A36A /* CustomTabBarController.swift in Sources */,
 				84A484031DE9A04000DAC553 /* CustomPresentAnimationController.swift in Sources */,
 				84A4841A1DEDEF0C00DAC553 /* TaggedEscapeCell.swift in Sources */,
+				BC1087A11E463C50006D9EAC /* SingleStoryViewController.swift in Sources */,
 				BCACE8811D56459100FAF262 /* UIApperance+Swift.m in Sources */,
 				BC1842781D531F44003CC19A /* StoryCard.swift in Sources */,
 				BC14BAC31CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,

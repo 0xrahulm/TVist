@@ -77,6 +77,6 @@ extension NotificationViewController : NotificationProtocol{
         
     }
     func error() {
-        
+        loadingView.stopAnimating()
     }
 }

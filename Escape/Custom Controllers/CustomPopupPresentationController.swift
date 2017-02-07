@@ -14,6 +14,8 @@ class CustomPopupPresentationController: UIPresentationController {
     var popupHeight: CGFloat? = 200
     var popupYOffset: CGFloat = 65
     var cornerRadius : CGFloat = 20
+    var closeButton : UIButton!
+    var dimmingView: UIView!
     
     init(presentedViewController: UIViewController, presentingViewController: UIViewController, width: CGFloat, height: CGFloat, yOffset:CGFloat = 65, cornerRadius:CGFloat = 20) {
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
@@ -26,8 +28,6 @@ class CustomPopupPresentationController: UIPresentationController {
         
     }
     
-    var closeButton : UIButton!
-    
     func setCloseButton(){
         let frame = frameOfPresentedViewInContainerView()
                    closeButton = UIButton(frame: CGRectMake(popupWidth! - 10, frame.origin.y - 55, 55,55) )
@@ -38,8 +38,6 @@ class CustomPopupPresentationController: UIPresentationController {
         
     }
     
-    var dimmingView: UIView!
-    
     func setupDimmingView() {
         
         dimmingView = UIView(frame: CGRectMake(0,0, CGRectGetWidth(presentingViewController.view.bounds),CGRectGetHeight(presentingViewController.view.bounds) + 64))
@@ -48,14 +46,11 @@ class CustomPopupPresentationController: UIPresentationController {
         visualEffectView.frame = dimmingView.bounds
         visualEffectView.alpha = 0.6;
         dimmingView.addSubview(visualEffectView)
-        
-        //let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(CustomPopupPresentationController.dimmingViewTapped(_:)))
-        //dimmingView.addGestureRecognizer(tapRecognizer)
     }
+    
     func dismissView(){
         presentedViewController.view.endEditing(true)
         presentingViewController.dismissViewControllerAnimated(true, completion: nil)
-        
     }
     
     func dimmingViewTapped(tapRecognizer: UITapGestureRecognizer) {
@@ -97,7 +92,6 @@ class CustomPopupPresentationController: UIPresentationController {
             dimmingView.removeFromSuperview()
         }
     }
-    
     
     override func containerViewWillLayoutSubviews() {
         dimmingView.frame = containerView!.bounds

@@ -18,11 +18,16 @@ protocol HomeStoryCommentProtocol : class {
     func postStoryCommentSuccess()
     func errorPostComment()
 }
+protocol SingleStoryProtocol : class{
+    func recievedStory(story : BaseStory)
+    func error()
+}
 
 class HomeDataProvider: CommonDataProvider {
     
     weak var homeDataDelegate : HomeDataProtocol?
     weak var storyCommentDelegate : HomeStoryCommentProtocol?
+    weak var singleStoryDelegate : SingleStoryProtocol?
     
     static let sharedDataProvider = HomeDataProvider()
     
@@ -67,6 +72,14 @@ class HomeDataProvider: CommonDataProvider {
         }
     }
     
+    func getSingleStrory(storyId : String){
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSingleStory, params:  ["story_id" : storyId], delegate: self)
+    }
+    
+    func followAllFriends(storyId : String){
+        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .FollowAllFriends, params:  ["story_id" : storyId], delegate: self)
+    }
+    
     override func serviceSuccessfull(service: Service) {
         if let subServiceType = service.subServiveType{
             
@@ -85,7 +98,6 @@ class HomeDataProvider: CommonDataProvider {
                     if let params = params, let storyId = params["story_id"] as? String{
                         self.parseStoryComment(data,storyId: storyId)
                     }
-                    
                 }
                 break
                 
@@ -106,6 +118,14 @@ class HomeDataProvider: CommonDataProvider {
                 break
             case .UnShareStory:
                 print("Story UnShared")
+                break
+            case .GetSingleStory:
+                if let data = service.outPutResponse as? [String:AnyObject]{
+                    self.parseSingleStory(data)
+                }
+                break
+            case .FollowAllFriends:
+                print("All Friends Followed")
                 break
             default:
                 break
@@ -147,6 +167,14 @@ class HomeDataProvider: CommonDataProvider {
                 break
             case .UnShareStory:
                 print("Story UnShared Error")
+                break
+            case .GetSingleStory:
+                if let delegate = singleStoryDelegate{
+                    delegate.error()
+                }
+                break
+            case .FollowAllFriends:
+                print("All Friends Followed Error")
                 break
                 
             default:
@@ -190,7 +218,8 @@ extension HomeDataProvider {
                         
                     case .WhatsYourEscape:
                         break
-                        
+                       
+                        // Also make changes in single story function
                     }
                 }
             }
@@ -218,6 +247,53 @@ extension HomeDataProvider {
                 delegate.error()
             }
 
+        }
+        
+    }
+    
+    func parseSingleStory(dict : [String:AnyObject]){
+        
+        var storyData : BaseStory?
+        
+        if let storyType = dict["story_type"] as? NSNumber,
+            let storyCardType = StoryType(rawValue: storyType) {
+            
+            switch storyCardType {
+                
+            case .FBFriendFollow:
+                storyData = FBFriendCard(dict: dict)
+                break
+                
+            case .AddToEscape:
+                storyData = AddToEscapeCard(dict: dict)
+                break
+                
+            case .Recommeded:
+                storyData = AddToEscapeCard(dict: dict)
+                break
+                
+            case .Article:
+                storyData = ArticleCard(dict: dict)
+                break
+                
+            case .EmptyStory:
+                break
+                
+            case .WhatsYourEscape:
+                break
+                
+                 // Also make changes in get stories function
+                
+            }
+        }
+        
+        if let delegate = singleStoryDelegate{
+            if let storyData = storyData{
+                delegate.recievedStory(storyData)
+            }else{
+                delegate.error()
+            }
+            
         }
         
     }

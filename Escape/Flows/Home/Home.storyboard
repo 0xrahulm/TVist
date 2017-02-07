@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="47O-6i-UIi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="47O-6i-UIi">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -58,6 +58,51 @@
             </objects>
             <point key="canvasLocation" x="1968.8" y="-185.75712143928038"/>
         </scene>
+        <!--Single Story View Controller-->
+        <scene sceneID="1Ym-zJ-9lg">
+            <objects>
+                <viewController storyboardIdentifier="singleStoryVC" hidesBottomBarWhenPushed="YES" id="YBj-Nf-plr" customClass="SingleStoryViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UwW-Kx-JC2"/>
+                        <viewControllerLayoutGuide type="bottom" id="iu3-AH-RnG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0vv-Jo-a8Q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="83I-ap-40b">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="YBj-Nf-plr" id="xqX-FU-rni"/>
+                                    <outlet property="delegate" destination="YBj-Nf-plr" id="oG0-IO-gfP"/>
+                                </connections>
+                            </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hNQ-7o-3wD">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="83I-ap-40b" secondAttribute="trailing" id="JSC-yf-ry4"/>
+                            <constraint firstItem="83I-ap-40b" firstAttribute="leading" secondItem="0vv-Jo-a8Q" secondAttribute="leading" id="OTd-yT-WD0"/>
+                            <constraint firstItem="hNQ-7o-3wD" firstAttribute="centerX" secondItem="0vv-Jo-a8Q" secondAttribute="centerX" id="UDc-hy-QZt"/>
+                            <constraint firstItem="iu3-AH-RnG" firstAttribute="top" secondItem="83I-ap-40b" secondAttribute="bottom" id="XqO-Sq-zmL"/>
+                            <constraint firstItem="83I-ap-40b" firstAttribute="top" secondItem="UwW-Kx-JC2" secondAttribute="bottom" id="Zd3-B7-7IV"/>
+                            <constraint firstItem="hNQ-7o-3wD" firstAttribute="centerY" secondItem="0vv-Jo-a8Q" secondAttribute="centerY" id="mz2-fu-LoR"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="loadingView" destination="hNQ-7o-3wD" id="E2x-mv-FC1"/>
+                        <outlet property="tableView" destination="83I-ap-40b" id="dHc-gm-aXd"/>
+                        <segue destination="Cqg-H4-aa2" kind="show" identifier="showStoryCommentSegue" id="Fs0-QT-P3G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MOe-87-rda" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1973" y="530"/>
+        </scene>
         <!--Home Comment View Controller-->
         <scene sceneID="jad-1z-o0E">
             <objects>
@@ -71,7 +116,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="V3y-Qt-evn">
-                                <rect key="frame" x="0.0" y="64" width="375" height="553"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="597"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCellIdentifier" rowHeight="70" id="zjO-3h-5UH" customClass="CommentTableViewCell" customModule="Escape" customModuleProvider="target">
@@ -219,4 +264,7 @@
             <point key="canvasLocation" x="1029.5999999999999" y="-185.75712143928038"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Fs0-QT-P3G"/>
+    </inferredMetricsTieBreakers>
 </document>
