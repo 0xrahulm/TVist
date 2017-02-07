@@ -25,6 +25,13 @@ class OnBoardingInterestViewController: UIViewController {
         UserDataProvider.sharedDataProvider.interestDelegate = self
         UserDataProvider.sharedDataProvider.fetchInterest()
         setNeedsStatusBarAppearanceUpdate()
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,12 +59,12 @@ class OnBoardingInterestViewController: UIViewController {
                 }
             }
         }
-        if self.selectedInterests.count > 0 {
+        if self.selectedInterests.count > 2 {
             LocalStorageVader.sharedVader.setFlagForKey(.InterestsSelected)
             UserDataProvider.sharedDataProvider.postInterest(selectedInterests)
             ScreenVader.sharedVader.performScreenManagerAction(.MainTab, queryParams: nil)
         } else {
-            loadErrorPopUp("Please select atleast 1 interest.")
+            loadErrorPopUp("Please select atleast 3 interests to proceed.")
         }
     }
     

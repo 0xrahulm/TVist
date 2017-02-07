@@ -43,7 +43,7 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
         super.dismissViewControllerAnimated(flag, completion: completion)
         if isBeingDismissed() {
             ScreenVader.sharedVader.removeDismissedViewController(self)
-    
+
         }
     }
 
