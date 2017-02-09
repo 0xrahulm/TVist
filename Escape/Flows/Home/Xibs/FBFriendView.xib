@@ -191,7 +191,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellTitleLabel" destination="sCf-aa-hRY" id="IyU-Nt-sBE"/>
-                <outlet property="followView" destination="bTK-DU-Mse" id="1tM-dv-4ln"/>
+                <outlet property="followView" destination="bTK-DU-Mse" id="cXa-uJ-keV"/>
+                <outlet property="friendsImageView" destination="Rs5-Jj-BU9" id="vRL-1M-fhy"/>
                 <outlet property="image1" destination="Mbi-ps-LIn" id="I9n-P5-n7a"/>
                 <outlet property="image2" destination="zZ1-iU-4ZX" id="CUa-Xc-CXK"/>
                 <outlet property="image2Width" destination="ncA-hz-Y7S" id="IFC-0r-97z"/>

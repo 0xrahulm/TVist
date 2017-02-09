@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-UI-Display-Medium.ttf">
+            <string>SFUIDisplay-Medium</string>
+        </array>
+        <array key="SF-UI-Display-Regular.ttf">
+            <string>SFUIDisplay-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SuggestedPeopleCollectionView" id="h8U-3s-tq6" customClass="SuggestedPeopleCollectionViewCell" customModule="Escape" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="140" height="270"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="140" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJs-r5-mCK">
+                        <rect key="frame" x="15" y="0.0" width="125" height="270"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="e0Y-mw-xZs">
+                                <rect key="frame" x="40" y="10" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="DX8-a8-NkV"/>
+                                    <constraint firstAttribute="height" constant="45" id="vNe-4b-W0r"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="22.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGy-99-mvI">
+                                <rect key="frame" x="10" y="65" width="105" height="18"/>
+                                <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="15"/>
+                                <color key="textColor" red="0.035294117647058823" green="0.043137254901960784" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ET-NG-7Ap">
+                                <rect key="frame" x="10" y="87" width="105" height="14.5"/>
+                                <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="12"/>
+                                <color key="textColor" red="0.59607843137254901" green="0.64313725490196072" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LtH-fr-ezC">
+                                <rect key="frame" x="17.5" y="233" width="90" height="27"/>
+                                <color key="backgroundColor" red="0.050980392159999999" green="0.83921568629999999" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="fJP-Zl-XXH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="12"/>
+                                <state key="normal" title="+ FOLLOW">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="followButtonTapped:" destination="h8U-3s-tq6" eventType="touchUpInside" id="uoN-V7-Kuy"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="1ET-NG-7Ap" secondAttribute="trailing" constant="10" id="4kp-2r-YNo"/>
+                            <constraint firstItem="1ET-NG-7Ap" firstAttribute="leading" secondItem="BJs-r5-mCK" secondAttribute="leading" constant="10" id="AQf-z1-7ni"/>
+                            <constraint firstItem="LtH-fr-ezC" firstAttribute="centerX" secondItem="BJs-r5-mCK" secondAttribute="centerX" id="Qwb-VT-FQD"/>
+                            <constraint firstItem="bGy-99-mvI" firstAttribute="centerX" secondItem="BJs-r5-mCK" secondAttribute="centerX" id="RpI-Ld-9yb"/>
+                            <constraint firstAttribute="bottom" secondItem="LtH-fr-ezC" secondAttribute="bottom" constant="10" id="baz-NS-WR0"/>
+                            <constraint firstItem="e0Y-mw-xZs" firstAttribute="centerX" secondItem="BJs-r5-mCK" secondAttribute="centerX" id="fTk-iX-FBw"/>
+                            <constraint firstAttribute="trailing" secondItem="bGy-99-mvI" secondAttribute="trailing" constant="10" id="kvQ-4F-q3T"/>
+                            <constraint firstItem="1ET-NG-7Ap" firstAttribute="top" secondItem="bGy-99-mvI" secondAttribute="bottom" constant="4" id="pO2-kC-pGA"/>
+                            <constraint firstItem="bGy-99-mvI" firstAttribute="top" secondItem="e0Y-mw-xZs" secondAttribute="bottom" constant="10" id="qeo-7g-Nwr"/>
+                            <constraint firstItem="bGy-99-mvI" firstAttribute="leading" secondItem="BJs-r5-mCK" secondAttribute="leading" constant="10" id="v6v-RG-3JE"/>
+                            <constraint firstItem="e0Y-mw-xZs" firstAttribute="top" secondItem="BJs-r5-mCK" secondAttribute="top" constant="10" id="voG-Yu-dBu"/>
+                            <constraint firstItem="1ET-NG-7Ap" firstAttribute="centerX" secondItem="BJs-r5-mCK" secondAttribute="centerX" id="yFR-pd-EY4"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="BJs-r5-mCK" firstAttribute="leading" secondItem="h8U-3s-tq6" secondAttribute="leading" constant="15" id="N7z-R4-GGL"/>
+                <constraint firstAttribute="bottom" secondItem="BJs-r5-mCK" secondAttribute="bottom" id="aS6-Xg-NhV"/>
+                <constraint firstAttribute="trailing" secondItem="BJs-r5-mCK" secondAttribute="trailing" id="qZL-Ba-rtn"/>
+                <constraint firstItem="BJs-r5-mCK" firstAttribute="top" secondItem="h8U-3s-tq6" secondAttribute="top" id="zLg-Mi-dAY"/>
+            </constraints>
+            <connections>
+                <outlet property="cellImage" destination="e0Y-mw-xZs" id="ecM-VO-E49"/>
+                <outlet property="followButton" destination="LtH-fr-ezC" id="BcE-5f-bvt"/>
+                <outlet property="followersLabel" destination="1ET-NG-7Ap" id="WSo-y8-S5C"/>
+                <outlet property="nameLabel" destination="bGy-99-mvI" id="qx6-AF-aOg"/>
+                <outlet property="outerView" destination="BJs-r5-mCK" id="lmg-fu-jyF"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -80,6 +80,7 @@ class HomeDataProvider: CommonDataProvider {
         ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .FollowAllFriends, params:  ["story_id" : storyId], delegate: self)
     }
     
+    
     override func serviceSuccessfull(service: Service) {
         if let subServiceType = service.subServiveType{
             
@@ -127,6 +128,7 @@ class HomeDataProvider: CommonDataProvider {
             case .FollowAllFriends:
                 print("All Friends Followed")
                 break
+                
             default:
                 break
             }
@@ -177,6 +179,7 @@ class HomeDataProvider: CommonDataProvider {
                 print("All Friends Followed Error")
                 break
                 
+                
             default:
                 break
             }
@@ -217,6 +220,10 @@ extension HomeDataProvider {
                         break
                         
                     case .WhatsYourEscape:
+                        break
+                        
+                    case .SuggestedFollows:
+                        storyData.append(SuggestedFollowsCard(dict: dataDict))
                         break
                        
                         // Also make changes in single story function
@@ -280,6 +287,10 @@ extension HomeDataProvider {
                 break
                 
             case .WhatsYourEscape:
+                break
+                
+            case .SuggestedFollows:
+                storyData = SuggestedFollowsCard(dict: dict)
                 break
                 
                  // Also make changes in get stories function

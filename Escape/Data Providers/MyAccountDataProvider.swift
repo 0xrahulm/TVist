@@ -170,6 +170,10 @@ class MyAccountDataProvider: CommonDataProvider {
         ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetLinkedObjects, params:  ["story_id" : storyId], delegate: self)
     }
     
+    func getSharedUsersOfStory(storyId : String){
+        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSharedUsersOfStory, params:  ["story_id" : storyId], delegate: self)
+    }
+    
     
     override func serviceSuccessfull(service: Service) {
         if let subServiceType = service.subServiveType{
@@ -258,6 +262,12 @@ class MyAccountDataProvider: CommonDataProvider {
                 }
                 break
                 
+            case .GetSharedUsersOfStory:
+                if let data = service.outPutResponse as? [[String:AnyObject]]{
+                    self.parseFollwingData(data, userType: .SharedUsersOfStory)
+                }
+                break
+                
             default:
                 break
             }
@@ -318,6 +328,12 @@ class MyAccountDataProvider: CommonDataProvider {
                 break
                 
             case .GetLinkedObjects:
+                if followersDelegate != nil{
+                    followersDelegate?.error()
+                }
+                break
+                
+            case .GetSharedUsersOfStory:
                 if followersDelegate != nil{
                     followersDelegate?.error()
                 }

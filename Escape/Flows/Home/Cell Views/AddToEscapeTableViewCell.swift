@@ -22,6 +22,7 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
     @IBOutlet weak var creatorStatusLabel: UILabel!
     @IBOutlet weak var sharesLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var sharedLabelView: UIView!
     
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
@@ -47,6 +48,9 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
             
             if let escapeItems = escapeItems{
                 
+                if let id = escapeItems.id{
+                    self.storyId = id
+                }
                 
                 if let shareText = escapeItems.sharedText{
                     topConstraint.constant = 35
@@ -54,15 +58,16 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
                     sharedByLabel.text = shareText
                     sharedByImage.hidden = false
                     sharedByLabel.hidden = false
+                    
+                    let titleTapGesture = UITapGestureRecognizer(target: self, action: #selector(AddToEscapeTableViewCell.handletitleTapGesture(_:)))
+                    sharedLabelView.addGestureRecognizer(titleTapGesture)
+                    
                 }else{
                     topConstraint.constant = 15
                     sharedByImage.hidden = true
                     sharedByLabel.hidden = true
                 }
                 
-                if let id = escapeItems.id{
-                    self.storyId = id
-                }
                 
                 if let image = escapeItems.creatorImage{
                     self.creatorImage.downloadImageWithUrl(image , placeHolder: UIImage(named: "profile_placeholder"))
@@ -175,6 +180,11 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
             shareButton.selected = true
             HomeDataProvider.sharedDataProvider.shareStory(true, storyId: storyId)
         }
+    }
+    
+    func handletitleTapGesture(sender: UITapGestureRecognizer) {
+        ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.SharedUsersOfStory.rawValue, "story_id" : storyId])
+        
     }
     
     func constructAttributedString(escapeItems : AddToEscapeCard) -> NSMutableAttributedString{
