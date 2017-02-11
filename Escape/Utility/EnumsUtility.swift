@@ -97,6 +97,7 @@ enum UserType : Int{
     case Following = 2
     case Friends   = 3
     case FBFriends = 4
+    case SharedUsersOfStory = 5
 }
 
 enum EscapeAddActions: String {
@@ -119,6 +120,7 @@ enum NotificationObservers: String {
 enum StoryType : NSNumber {
     case EmptyStory = -1
     case WhatsYourEscape = -2
+    case SuggestedFollows = 0
     case AddToEscape = 1
     case Recommeded = 2
     case Article = 3

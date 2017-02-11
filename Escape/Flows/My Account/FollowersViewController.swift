@@ -54,7 +54,11 @@ class FollowersViewController: UIViewController {
             if let storyId = storyId{
               MyAccountDataProvider.sharedDataProvider.getStoryLinkedObjects(storyId)
             }
-            
+        }else if userType == .SharedUsersOfStory{
+            self.title = "Shared by"
+            if let storyId = storyId{
+                MyAccountDataProvider.sharedDataProvider.getSharedUsersOfStory(storyId)
+            }
         }
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
@@ -138,6 +142,23 @@ extension FollowersViewController : UITableViewDelegate , UITableViewDataSource{
         }else{
             cell.followButton.unfollowViewWithAnimate(false)
         }
+        
+        var isCurrentUser = false
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+            if let currentUserId = user.id{
+                if let id = data.id{
+                    if id == currentUserId{
+                        isCurrentUser = true
+                    }
+                }
+            }
+        }
+        if isCurrentUser{
+            cell.followButton.hidden = true
+        }else{
+            cell.followButton.hidden = false
+        }
+        
         
         return cell
         

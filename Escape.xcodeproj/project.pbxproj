@@ -239,6 +239,16 @@
 		BC5188371D8D26DA00A85E61 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5188351D8D26DA00A85E61 /* SearchTableViewCell.swift */; };
 		BC54E5251DFD48840001B3D4 /* ArticleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC54E5241DFD48830001B3D4 /* ArticleCard.swift */; };
 		BC54E5261DFD48840001B3D4 /* ArticleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC54E5241DFD48830001B3D4 /* ArticleCard.swift */; };
+		BC6ED7AF1E4C8CDF00DCF838 /* SuggestedFollowsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6ED7AE1E4C8CDF00DCF838 /* SuggestedFollowsCard.swift */; };
+		BC6ED7B01E4C8CDF00DCF838 /* SuggestedFollowsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6ED7AE1E4C8CDF00DCF838 /* SuggestedFollowsCard.swift */; };
+		BC6ED7B21E4C903800DCF838 /* SuggestedFollows.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC6ED7B11E4C903800DCF838 /* SuggestedFollows.xib */; };
+		BC6ED7B31E4C903800DCF838 /* SuggestedFollows.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC6ED7B11E4C903800DCF838 /* SuggestedFollows.xib */; };
+		BC6ED7B51E4C907900DCF838 /* SuggestedFollowsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6ED7B41E4C907900DCF838 /* SuggestedFollowsTableViewCell.swift */; };
+		BC6ED7B61E4C907900DCF838 /* SuggestedFollowsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6ED7B41E4C907900DCF838 /* SuggestedFollowsTableViewCell.swift */; };
+		BC6ED7B81E4C91E600DCF838 /* SuggestedPeopleCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC6ED7B71E4C91E600DCF838 /* SuggestedPeopleCollectionView.xib */; };
+		BC6ED7B91E4C91E600DCF838 /* SuggestedPeopleCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC6ED7B71E4C91E600DCF838 /* SuggestedPeopleCollectionView.xib */; };
+		BC6ED7BB1E4C921F00DCF838 /* SuggestedPeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6ED7BA1E4C921F00DCF838 /* SuggestedPeopleCollectionViewCell.swift */; };
+		BC6ED7BC1E4C921F00DCF838 /* SuggestedPeopleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6ED7BA1E4C921F00DCF838 /* SuggestedPeopleCollectionViewCell.swift */; };
 		BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */; };
 		BC85DBF81CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */; };
 		BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC85DBF41CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m */; };
@@ -422,6 +432,11 @@
 		BC5188321D8D229900A85E61 /* SearchItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchItems.swift; sourceTree = "<group>"; };
 		BC5188351D8D26DA00A85E61 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		BC54E5241DFD48830001B3D4 /* ArticleCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCard.swift; sourceTree = "<group>"; };
+		BC6ED7AE1E4C8CDF00DCF838 /* SuggestedFollowsCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestedFollowsCard.swift; sourceTree = "<group>"; };
+		BC6ED7B11E4C903800DCF838 /* SuggestedFollows.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuggestedFollows.xib; sourceTree = "<group>"; };
+		BC6ED7B41E4C907900DCF838 /* SuggestedFollowsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestedFollowsTableViewCell.swift; sourceTree = "<group>"; };
+		BC6ED7B71E4C91E600DCF838 /* SuggestedPeopleCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuggestedPeopleCollectionView.xib; sourceTree = "<group>"; };
+		BC6ED7BA1E4C921F00DCF838 /* SuggestedPeopleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestedPeopleCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC85DBF11CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		BC85DBF21CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		BC85DBF31CA69F0E002237A4 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
@@ -561,6 +576,8 @@
 				BC10996F1E1275C10036CA75 /* WhatsYourEscape.xib */,
 				BC1099721E1276F60036CA75 /* ArticleView.xib */,
 				BC1099751E1277F90036CA75 /* FBFriendView.xib */,
+				BC6ED7B11E4C903800DCF838 /* SuggestedFollows.xib */,
+				BC6ED7B71E4C91E600DCF838 /* SuggestedPeopleCollectionView.xib */,
 				BC1099781E1278810036CA75 /* AddToEscapeView.xib */,
 				BC10997B1E127AF10036CA75 /* EscapeCollectionView.xib */,
 				BC10997E1E127C570036CA75 /* PlaceHolderView.xib */,
@@ -584,6 +601,7 @@
 				BCB81ADB1DE0BB370002E52D /* StoryComment.swift */,
 				BCB81ADE1DE0BC230002E52D /* Creator.swift */,
 				BC18427C1D532F39003CC19A /* FBFriendCard.swift */,
+				BC6ED7AE1E4C8CDF00DCF838 /* SuggestedFollowsCard.swift */,
 				BC54E5241DFD48830001B3D4 /* ArticleCard.swift */,
 				BCACE87A1D55C24500FAF262 /* AddToEscapeCard.swift */,
 				BC18427F1D533441003CC19A /* BaseStory.swift */,
@@ -597,6 +615,8 @@
 				BC1842831D535243003CC19A /* FBFriendsTableViewCell.swift */,
 				BC02CA4F1DA1736E0034C2CB /* ArticleTableViewCell.swift */,
 				BCACE8741D55191E00FAF262 /* AddToEscapeTableViewCell.swift */,
+				BC6ED7B41E4C907900DCF838 /* SuggestedFollowsTableViewCell.swift */,
+				BC6ED7BA1E4C921F00DCF838 /* SuggestedPeopleCollectionViewCell.swift */,
 				BCFBD7DB1E01407E000E934A /* WhatsYourLatestEscapeCell.swift */,
 				BCACE8771D55212600FAF262 /* EscapeCollectionViewCell.swift */,
 				BCB81AE11DE0C7440002E52D /* CommentTableViewCell.swift */,
@@ -1064,6 +1084,7 @@
 				BCFE486B1CA3C1C00098160D /* Images.xcassets in Resources */,
 				BC10997C1E127AF10036CA75 /* EscapeCollectionView.xib in Resources */,
 				BCB7B4B01CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
+				BC6ED7B21E4C903800DCF838 /* SuggestedFollows.xib in Resources */,
 				BCB7B4B41CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B21CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
 				84A0FA911DBCADB50072A36A /* Notifications.storyboard in Resources */,
@@ -1071,6 +1092,7 @@
 				BC2A73181CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730E1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A11CA5626000FF8678 /* MainTab.storyboard in Resources */,
+				BC6ED7B81E4C91E600DCF838 /* SuggestedPeopleCollectionView.xib in Resources */,
 				BC1099731E1276F60036CA75 /* ArticleView.xib in Resources */,
 				BCB7B4AE1CA17378002147FA /* SF-UI-Display-Light.ttf in Resources */,
 			);
@@ -1094,6 +1116,7 @@
 				BCFE486C1CA3C1C00098160D /* Images.xcassets in Resources */,
 				BC10997D1E127AF10036CA75 /* EscapeCollectionView.xib in Resources */,
 				BCB7B4B11CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
+				BC6ED7B31E4C903800DCF838 /* SuggestedFollows.xib in Resources */,
 				BCB7B4B51CA17378002147FA /* SF-UI-Display-Semibold.ttf in Resources */,
 				BCB7B4B31CA17378002147FA /* SF-UI-Display-Regular.ttf in Resources */,
 				84A0FA921DBCADB50072A36A /* Notifications.storyboard in Resources */,
@@ -1101,6 +1124,7 @@
 				BC2A73191CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730F1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A21CA5626000FF8678 /* MainTab.storyboard in Resources */,
+				BC6ED7B91E4C91E600DCF838 /* SuggestedPeopleCollectionView.xib in Resources */,
 				BC1099741E1276F60036CA75 /* ArticleView.xib in Resources */,
 				BCB7B4AF1CA17378002147FA /* SF-UI-Display-Light.ttf in Resources */,
 			);
@@ -1276,6 +1300,7 @@
 				84A484021DE9A04000DAC553 /* CustomPresentAnimationController.swift in Sources */,
 				84A484191DEDEF0C00DAC553 /* TaggedEscapeCell.swift in Sources */,
 				BC1087A01E463C50006D9EAC /* SingleStoryViewController.swift in Sources */,
+				BC6ED7B51E4C907900DCF838 /* SuggestedFollowsTableViewCell.swift in Sources */,
 				BCACE8801D56459100FAF262 /* UIApperance+Swift.m in Sources */,
 				BC1842771D531F44003CC19A /* StoryCard.swift in Sources */,
 				BC14BAC21CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
@@ -1294,6 +1319,7 @@
 				84A484101DEDED4000DAC553 /* ActivityIndicatorCell.swift in Sources */,
 				BC2247311E1A6675002955A0 /* NotificationViewController.swift in Sources */,
 				BC1842711D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */,
+				BC6ED7BB1E4C921F00DCF838 /* SuggestedPeopleCollectionViewCell.swift in Sources */,
 				BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */,
 				84E8450F1DE521DD00DCB9D9 /* ProfileList.swift in Sources */,
 				BCACE8961D59B31600FAF262 /* FBShimmeringLayer.m in Sources */,
@@ -1306,6 +1332,7 @@
 				BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */,
 				8446C9931DD8E4B8008C6DED /* MyProfileViewController.swift in Sources */,
 				BCB81AE21DE0C7440002E52D /* CommentTableViewCell.swift in Sources */,
+				BC6ED7AF1E4C8CDF00DCF838 /* SuggestedFollowsCard.swift in Sources */,
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				84E8450C1DE51AD600DCB9D9 /* ProfileItem.swift in Sources */,
 				BC14BAD61CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
@@ -1400,6 +1427,7 @@
 				84A484031DE9A04000DAC553 /* CustomPresentAnimationController.swift in Sources */,
 				84A4841A1DEDEF0C00DAC553 /* TaggedEscapeCell.swift in Sources */,
 				BC1087A11E463C50006D9EAC /* SingleStoryViewController.swift in Sources */,
+				BC6ED7B61E4C907900DCF838 /* SuggestedFollowsTableViewCell.swift in Sources */,
 				BCACE8811D56459100FAF262 /* UIApperance+Swift.m in Sources */,
 				BC1842781D531F44003CC19A /* StoryCard.swift in Sources */,
 				BC14BAC31CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
@@ -1418,6 +1446,7 @@
 				84A484111DEDED4000DAC553 /* ActivityIndicatorCell.swift in Sources */,
 				BC2247321E1A6675002955A0 /* NotificationViewController.swift in Sources */,
 				BC1842721D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */,
+				BC6ED7BC1E4C921F00DCF838 /* SuggestedPeopleCollectionViewCell.swift in Sources */,
 				BC3A81891CA521D500FF8678 /* DeviceID.swift in Sources */,
 				84E845101DE521DD00DCB9D9 /* ProfileList.swift in Sources */,
 				BCACE8971D59B31600FAF262 /* FBShimmeringLayer.m in Sources */,
@@ -1430,6 +1459,7 @@
 				BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */,
 				8446C9941DD8E4B8008C6DED /* MyProfileViewController.swift in Sources */,
 				BCB81AE31DE0C7440002E52D /* CommentTableViewCell.swift in Sources */,
+				BC6ED7B01E4C8CDF00DCF838 /* SuggestedFollowsCard.swift in Sources */,
 				BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				84E8450D1DE51AD600DCB9D9 /* ProfileItem.swift in Sources */,
 				BC14BAD71CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,

@@ -50,6 +50,7 @@ enum SubServiceType : String {
     case GetSingleStory     =  "stories/details"
     case GetLinkedObjects   =  "stories/linked_objects"
     case FollowAllFriends   =  "stories/follow_all"
+    case GetSharedUsersOfStory = "stories/shared_by"
     
     
     //Search

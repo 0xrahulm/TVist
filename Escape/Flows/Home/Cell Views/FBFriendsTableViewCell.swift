@@ -20,6 +20,7 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
     @IBOutlet weak var image3: UIImageView!
     @IBOutlet weak var image4: UIImageView!
     @IBOutlet weak var image5: UIImageView!
+    @IBOutlet weak var friendsImageView: UIView!
     
     @IBOutlet weak var image2Width: NSLayoutConstraint!
     @IBOutlet weak var image3Width: NSLayoutConstraint!
@@ -51,6 +52,11 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
                 
                 let titleTapGesture = UITapGestureRecognizer(target: self, action: #selector(FBFriendsTableViewCell.handletitleTapGesture(_:)))
                 followView.addGestureRecognizer(titleTapGesture)
+                
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FBFriendsTableViewCell.handleTapGesture(_:)))
+                friendsImageView.addGestureRecognizer(tapGesture)
+                
+                
                 
                 if let title = friendItems.title{
                     cellTitleLabel.text = title
@@ -95,11 +101,7 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
     }
     
     @IBAction func seeAllTapped(sender: UIButton) {
-        
-        if let storyId = storyId{
-            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.FBFriends.rawValue, "story_id" : storyId])
-        }
-        
+        openAllUsers()
     }
     
     func handletitleTapGesture(sender: UITapGestureRecognizer) {
@@ -109,6 +111,16 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
         
         if let delegate = removeFbCardDelegate, let indexPath = indexPath{
             delegate.removeFBCard(indexPath)
+        }
+    }
+    
+    func handleTapGesture(sender: UITapGestureRecognizer) {
+        openAllUsers()
+    }
+    
+    func openAllUsers(){
+        if let storyId = storyId{
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.FBFriends.rawValue, "story_id" : storyId])
         }
     }
 

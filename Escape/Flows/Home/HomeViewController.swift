@@ -14,7 +14,9 @@ enum CellIdentifier : String{
     case Article = "ArticleView"
     case AddToEscape = "AddToEscapeView"
     case WhatsYourEscape = "WhatsYourEscape"
-    case EscapeCollection = "EscapeCollectionView" 
+    case EscapeCollection = "EscapeCollectionView"
+    case SuggestedFollow = "SuggestedFollows"
+    case SuggestedPeopleCollection = "SuggestedPeopleCollectionView"
 }
 enum CellHeight : CGFloat{
     case FBFriends = 200
@@ -28,7 +30,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var dataArray : [StoryCard] = []
-    var cardsTypeArray : [CellIdentifier] = [.FBFriends, .PlaceHolder, .Article, . AddToEscape, .WhatsYourEscape]
+    var cardsTypeArray : [CellIdentifier] = [.FBFriends, .PlaceHolder, .Article, . AddToEscape, .WhatsYourEscape, .SuggestedFollow]
     
     var currentPage = 0
     var callFurther = true
@@ -158,8 +160,16 @@ class HomeViewController: UIViewController {
             MyAccountDataProvider.sharedDataProvider.getUserDetails(nil)
         }
         return cell
-        
     }
+    
+    func configureSuggestedFollowCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.SuggestedFollow.rawValue, forIndexPath: indexPath) as! SuggestedFollowsTableViewCell
+        let data = dataArray[indexPath.row] as? SuggestedFollowsCard
+        cell.data = data
+        return cell
+    }
+    
 
 }
 extension HomeViewController : UITableViewDelegate{
@@ -180,6 +190,9 @@ extension HomeViewController : UITableViewDelegate{
             case .Article:
                 return UITableViewAutomaticDimension
                 
+            case .SuggestedFollows:
+                return UITableViewAutomaticDimension
+                
             case .EmptyStory:
                 return CellHeight.PlaceHolder.rawValue
                 
@@ -188,6 +201,7 @@ extension HomeViewController : UITableViewDelegate{
                 
             }
         }
+        
         return 0
         
     }
@@ -223,6 +237,9 @@ extension HomeViewController : UITableViewDataSource{
                 
             case .WhatsYourEscape:
                 return configureWhatsYourEscapeCell(tableView, indexPath: indexPath)
+                
+            case .SuggestedFollows:
+                return configureSuggestedFollowCell(tableView, indexPath : indexPath)
             
             }
         }
