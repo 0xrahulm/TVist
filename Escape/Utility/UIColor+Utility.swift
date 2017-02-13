@@ -35,7 +35,6 @@ extension UIColor{
     
     class func escapeBlueColor() -> UIColor{
         return UIColor.colorWithHexString("#0DD6CA")
-        
     }
     
     class func themeColorBlack() -> UIColor {
@@ -50,6 +49,9 @@ extension UIColor{
         return UIColor.colorWithHexString("#f7f7f7")
     }
     
+    class func hairlineGrayColor() -> UIColor {
+        return UIColor.colorWithHexString("#ebebeb")
+    }
     
     class func lineGrayColor() -> UIColor {
         return UIColor.colorWithHexString("#C8CBD3")

@@ -10,8 +10,9 @@ import UIKit
 
 enum ServiceType : String {
     //case ServiceTypePrivateApi="http://api.escape-app.com/api/"
-    case ServiceTypePrivateApi="http://172.16.1.195:3000/api/"
+    case ServiceTypePrivateApi="http://192.168.0.103:3000/api/"
 }
+
 enum SubServiceType : String {
 
     //Sign in

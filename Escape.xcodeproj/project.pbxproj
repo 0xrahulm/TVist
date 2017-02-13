@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		2D832E0E0446E1F614E194EF /* Pods_Escape_copy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C08B4600E257F0C862D199 /* Pods_Escape_copy.framework */; };
+		8423A5AF1E504FF00078FAC1 /* CustomListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423A5AB1E504FF00078FAC1 /* CustomListCollectionViewCell.swift */; };
+		8423A5B01E504FF00078FAC1 /* CustomListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423A5AB1E504FF00078FAC1 /* CustomListCollectionViewCell.swift */; };
+		8423A5B11E504FF00078FAC1 /* CustomListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423A5AC1E504FF00078FAC1 /* CustomListTableViewCell.swift */; };
+		8423A5B21E504FF00078FAC1 /* CustomListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423A5AC1E504FF00078FAC1 /* CustomListTableViewCell.swift */; };
+		8423A5B31E504FF00078FAC1 /* CustomLoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423A5AD1E504FF00078FAC1 /* CustomLoadingTableViewCell.swift */; };
+		8423A5B41E504FF00078FAC1 /* CustomLoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423A5AD1E504FF00078FAC1 /* CustomLoadingTableViewCell.swift */; };
+		8423A5B51E504FF00078FAC1 /* FollowersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423A5AE1E504FF00078FAC1 /* FollowersTableViewCell.swift */; };
+		8423A5B61E504FF00078FAC1 /* FollowersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423A5AE1E504FF00078FAC1 /* FollowersTableViewCell.swift */; };
 		8446C9931DD8E4B8008C6DED /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9921DD8E4B7008C6DED /* MyProfileViewController.swift */; };
 		8446C9941DD8E4B8008C6DED /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9921DD8E4B7008C6DED /* MyProfileViewController.swift */; };
 		8446C9971DD8F430008C6DED /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9961DD8F430008C6DED /* TabButton.swift */; };
@@ -115,8 +123,6 @@
 		BC18426B1D51F342003CC19A /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC1842691D51F342003CC19A /* Home.storyboard */; };
 		BC18426D1D51F420003CC19A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC18426C1D51F420003CC19A /* HomeViewController.swift */; };
 		BC18426E1D51F420003CC19A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC18426C1D51F420003CC19A /* HomeViewController.swift */; };
-		BC1842711D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842701D51FD79003CC19A /* FollowersTableViewCell.swift */; };
-		BC1842721D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842701D51FD79003CC19A /* FollowersTableViewCell.swift */; };
 		BC1842771D531F44003CC19A /* StoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842761D531F44003CC19A /* StoryCard.swift */; };
 		BC1842781D531F44003CC19A /* StoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842761D531F44003CC19A /* StoryCard.swift */; };
 		BC18427A1D532150003CC19A /* HomeDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1842791D532150003CC19A /* HomeDataProvider.swift */; };
@@ -217,10 +223,6 @@
 		BC4F45621CDE029F00A65A63 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45601CDE029F00A65A63 /* Utilities.swift */; };
 		BC4F45641CDE1EF000A65A63 /* CustomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */; };
 		BC4F45651CDE1EF000A65A63 /* CustomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */; };
-		BC4F45681CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */; };
-		BC4F45691CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */; };
-		BC4F456B1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F456A1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift */; };
-		BC4F456C1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F456A1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift */; };
 		BC4F456E1CDF3EC200A65A63 /* MyAccountEscapeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItem.swift */; };
 		BC4F456F1CDF3EC200A65A63 /* MyAccountEscapeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItem.swift */; };
 		BC4F45741CDF432A00A65A63 /* EscapeDataItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */; };
@@ -310,6 +312,10 @@
 /* Begin PBXFileReference section */
 		2C62520A88D62EF2777735A0 /* Pods-Escape copy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape copy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Escape copy/Pods-Escape copy.debug.xcconfig"; sourceTree = "<group>"; };
 		7DDAD66427A6544E6402FADF /* Pods_Escape.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escape.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8423A5AB1E504FF00078FAC1 /* CustomListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListCollectionViewCell.swift; sourceTree = "<group>"; };
+		8423A5AC1E504FF00078FAC1 /* CustomListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListTableViewCell.swift; sourceTree = "<group>"; };
+		8423A5AD1E504FF00078FAC1 /* CustomLoadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingTableViewCell.swift; sourceTree = "<group>"; };
+		8423A5AE1E504FF00078FAC1 /* FollowersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersTableViewCell.swift; sourceTree = "<group>"; };
 		8446C9921DD8E4B7008C6DED /* MyProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		8446C9961DD8F430008C6DED /* TabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
 		84A0FA861DBBF77F0072A36A /* CustomDoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDoneButton.swift; sourceTree = "<group>"; };
@@ -366,7 +372,6 @@
 		BC1842661D4BCE84003CC19A /* UIButton+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Utility.swift"; sourceTree = "<group>"; };
 		BC1842691D51F342003CC19A /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		BC18426C1D51F420003CC19A /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		BC1842701D51FD79003CC19A /* FollowersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersTableViewCell.swift; sourceTree = "<group>"; };
 		BC1842761D531F44003CC19A /* StoryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryCard.swift; sourceTree = "<group>"; };
 		BC1842791D532150003CC19A /* HomeDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDataProvider.swift; sourceTree = "<group>"; };
 		BC18427C1D532F39003CC19A /* FBFriendCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBFriendCard.swift; sourceTree = "<group>"; };
@@ -421,8 +426,6 @@
 		BC4B563C1D6DE388008BF1F6 /* UINibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINibView.swift; sourceTree = "<group>"; };
 		BC4F45601CDE029F00A65A63 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListViewController.swift; sourceTree = "<group>"; };
-		BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListTableViewCell.swift; sourceTree = "<group>"; };
-		BC4F456A1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountEscapeItem.swift; sourceTree = "<group>"; };
 		BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EscapeDataItems.swift; sourceTree = "<group>"; };
 		BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumsUtility.swift; sourceTree = "<group>"; };
@@ -513,6 +516,17 @@
 				98C08B4600E257F0C862D199 /* Pods_Escape_copy.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8423A5A71E504F170078FAC1 /* ViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				8423A5AB1E504FF00078FAC1 /* CustomListCollectionViewCell.swift */,
+				8423A5AC1E504FF00078FAC1 /* CustomListTableViewCell.swift */,
+				8423A5AD1E504FF00078FAC1 /* CustomLoadingTableViewCell.swift */,
+				8423A5AE1E504FF00078FAC1 /* FollowersTableViewCell.swift */,
+			);
+			path = ViewCells;
 			sourceTree = "<group>";
 		};
 		8446C9951DD8F376008C6DED /* Custom Views */ = {
@@ -845,13 +859,10 @@
 			isa = PBXGroup;
 			children = (
 				84DD655B1DD9BF1300C35EBE /* BaseDataItem.swift */,
-				BC1842701D51FD79003CC19A /* FollowersTableViewCell.swift */,
 				BC2485551CDC900800DC7077 /* MyAccountItems.swift */,
 				BC4F456D1CDF3EC200A65A63 /* MyAccountEscapeItem.swift */,
 				BC4F45731CDF432A00A65A63 /* EscapeDataItems.swift */,
 				BC0BBBE01CF1BC1300B03A93 /* DescDataItems.swift */,
-				BC4F45671CDF2A2500A65A63 /* CustomListTableViewCell.swift */,
-				BC4F456A1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -920,6 +931,7 @@
 		BCB7B4A11CA16CA8002147FA /* My Account */ = {
 			isa = PBXGroup;
 			children = (
+				8423A5A71E504F170078FAC1 /* ViewCells */,
 				BC4F45661CDF29F200A65A63 /* Model */,
 				BC85DBFD1CA6D3E0002237A4 /* MyAccount.storyboard */,
 				BC4F45631CDE1EF000A65A63 /* CustomListViewController.swift */,
@@ -1248,6 +1260,7 @@
 				BCCD70C51CA19278002A0C07 /* UIColor+Utility.swift in Sources */,
 				BC2247391E1A76E6002955A0 /* NotificationTableViewCell.swift in Sources */,
 				BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				8423A5B11E504FF00078FAC1 /* CustomListTableViewCell.swift in Sources */,
 				BC3A818B1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
 				84DD65681DDB49EC00C35EBE /* ChiefVader.swift in Sources */,
 				BC0BBBDE1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */,
@@ -1290,7 +1303,6 @@
 				BC02CA501DA1736E0034C2CB /* ArticleTableViewCell.swift in Sources */,
 				BC2485531CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
 				BC14BAD31CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */,
-				BC4F456B1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */,
 				BC2485561CDC900800DC7077 /* MyAccountItems.swift in Sources */,
 				BC4F45611CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BCACE8751D55191F00FAF262 /* AddToEscapeTableViewCell.swift in Sources */,
@@ -1303,6 +1315,8 @@
 				BC6ED7B51E4C907900DCF838 /* SuggestedFollowsTableViewCell.swift in Sources */,
 				BCACE8801D56459100FAF262 /* UIApperance+Swift.m in Sources */,
 				BC1842771D531F44003CC19A /* StoryCard.swift in Sources */,
+				8423A5B31E504FF00078FAC1 /* CustomLoadingTableViewCell.swift in Sources */,
+				8423A5AF1E504FF00078FAC1 /* CustomListCollectionViewCell.swift in Sources */,
 				BC14BAC21CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
 				BC1842871D537016003CC19A /* BaseStoryTableViewCell.swift in Sources */,
 				84A484061DEDE05100DAC553 /* GenericListViewController.swift in Sources */,
@@ -1318,13 +1332,11 @@
 				BC54E5251DFD48840001B3D4 /* ArticleCard.swift in Sources */,
 				84A484101DEDED4000DAC553 /* ActivityIndicatorCell.swift in Sources */,
 				BC2247311E1A6675002955A0 /* NotificationViewController.swift in Sources */,
-				BC1842711D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */,
 				BC6ED7BB1E4C921F00DCF838 /* SuggestedPeopleCollectionViewCell.swift in Sources */,
 				BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */,
 				84E8450F1DE521DD00DCB9D9 /* ProfileList.swift in Sources */,
 				BCACE8961D59B31600FAF262 /* FBShimmeringLayer.m in Sources */,
 				BC2A73121CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
-				BC4F45681CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
 				BC47EDC41CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				84A4841C1DEE09AF00DAC553 /* UserEscapeListViewController.swift in Sources */,
 				84EA4E9A1DBBDA6E002A4A2F /* HighlightableTextView.swift in Sources */,
@@ -1334,6 +1346,7 @@
 				BCB81AE21DE0C7440002E52D /* CommentTableViewCell.swift in Sources */,
 				BC6ED7AF1E4C8CDF00DCF838 /* SuggestedFollowsCard.swift in Sources */,
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
+				8423A5B51E504FF00078FAC1 /* FollowersTableViewCell.swift in Sources */,
 				84E8450C1DE51AD600DCB9D9 /* ProfileItem.swift in Sources */,
 				BC14BAD61CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
 				BC14BABC1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */,
@@ -1375,6 +1388,7 @@
 				BCCD70C61CA19278002A0C07 /* UIColor+Utility.swift in Sources */,
 				BC22473A1E1A76E6002955A0 /* NotificationTableViewCell.swift in Sources */,
 				BC85DBF81CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				8423A5B21E504FF00078FAC1 /* CustomListTableViewCell.swift in Sources */,
 				BC3A818C1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
 				84DD65691DDB49EC00C35EBE /* ChiefVader.swift in Sources */,
 				BC0BBBDF1CF0C2F900B03A93 /* ItemDescViewController.swift in Sources */,
@@ -1417,7 +1431,6 @@
 				BC02CA511DA1736E0034C2CB /* ArticleTableViewCell.swift in Sources */,
 				BC2485541CDC8FA800DC7077 /* MyAccountDataProvider.swift in Sources */,
 				BC14BAD41CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */,
-				BC4F456C1CDF2E9D00A65A63 /* CustomListCollectionViewCell.swift in Sources */,
 				BC2485571CDC900800DC7077 /* MyAccountItems.swift in Sources */,
 				BC4F45621CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BCACE8761D55191F00FAF262 /* AddToEscapeTableViewCell.swift in Sources */,
@@ -1430,6 +1443,8 @@
 				BC6ED7B61E4C907900DCF838 /* SuggestedFollowsTableViewCell.swift in Sources */,
 				BCACE8811D56459100FAF262 /* UIApperance+Swift.m in Sources */,
 				BC1842781D531F44003CC19A /* StoryCard.swift in Sources */,
+				8423A5B41E504FF00078FAC1 /* CustomLoadingTableViewCell.swift in Sources */,
+				8423A5B01E504FF00078FAC1 /* CustomListCollectionViewCell.swift in Sources */,
 				BC14BAC31CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
 				BC1842881D537016003CC19A /* BaseStoryTableViewCell.swift in Sources */,
 				84A484071DEDE05100DAC553 /* GenericListViewController.swift in Sources */,
@@ -1445,13 +1460,11 @@
 				BC54E5261DFD48840001B3D4 /* ArticleCard.swift in Sources */,
 				84A484111DEDED4000DAC553 /* ActivityIndicatorCell.swift in Sources */,
 				BC2247321E1A6675002955A0 /* NotificationViewController.swift in Sources */,
-				BC1842721D51FD79003CC19A /* FollowersTableViewCell.swift in Sources */,
 				BC6ED7BC1E4C921F00DCF838 /* SuggestedPeopleCollectionViewCell.swift in Sources */,
 				BC3A81891CA521D500FF8678 /* DeviceID.swift in Sources */,
 				84E845101DE521DD00DCB9D9 /* ProfileList.swift in Sources */,
 				BCACE8971D59B31600FAF262 /* FBShimmeringLayer.m in Sources */,
 				BC2A73131CCBF84F007E5DFB /* OnBoardingUtility.swift in Sources */,
-				BC4F45691CDF2A2500A65A63 /* CustomListTableViewCell.swift in Sources */,
 				BC47EDC51CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
 				84A4841D1DEE09AF00DAC553 /* UserEscapeListViewController.swift in Sources */,
 				84EA4E9B1DBBDA6E002A4A2F /* HighlightableTextView.swift in Sources */,
@@ -1461,6 +1474,7 @@
 				BCB81AE31DE0C7440002E52D /* CommentTableViewCell.swift in Sources */,
 				BC6ED7B01E4C8CDF00DCF838 /* SuggestedFollowsCard.swift in Sources */,
 				BC3A81821CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
+				8423A5B61E504FF00078FAC1 /* FollowersTableViewCell.swift in Sources */,
 				84E8450D1DE51AD600DCB9D9 /* ProfileItem.swift in Sources */,
 				BC14BAD71CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
 				BC14BABD1CFAF55800B7E546 /* DiscoverAllViewController.swift in Sources */,

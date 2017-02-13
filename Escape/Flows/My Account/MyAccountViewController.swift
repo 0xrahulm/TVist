@@ -152,7 +152,7 @@ class MyAccountViewController: UIViewController{
         if let user = MyAccountDataProvider.sharedDataProvider.currentUser{
             
             var data : MyAccountItems?
-            data = MyAccountItems(id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, gender: Gender(rawValue :user.gender), profilePicture: user.profilePicture, followers: user.following, following: user.following, movies_count: user.movies_count, books_count: user.books_count, tvShows_count: user.tvShows_count, escapes_count: user.escape_count)
+            data = MyAccountItems(id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, gender: Gender(rawValue :user.gender), profilePicture: user.profilePicture, followers: user.following, following: user.following, escapes_count: user.escape_count)
             
             fillData(data)
         }
@@ -179,17 +179,8 @@ class MyAccountViewController: UIViewController{
         if let following = userData?.following{
             followingCount.text = "\(following)"
         }
-        var count  = 0
-        if let movies = userData?.movies_count{
-            count = count + Int(movies)
-        }
-        if let tvshows = userData?.tvShows_count{
-            count = count + Int(tvshows)
-        }
-        if let books = userData?.books_count{
-            count = count + Int(books)
-        }
-         escapeCount.text = "\(count)"
+        
+         escapeCount.text = "0"
         
     }
 

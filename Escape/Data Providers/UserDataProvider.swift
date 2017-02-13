@@ -113,15 +113,12 @@ class UserDataProvider: CommonDataProvider {
             case .EmailSignUp:
                 if let data = service.outPutResponse as? [String:AnyObject]{
                     self.parseEmailSignInUserData(data)
-                    
                 }
                 break
-                
             case .EmailSigIn:
                 if let data = service.outPutResponse as? [String:AnyObject]{
                     self.parseEmailSignInUserData(data)
                 }
-                
                 break
                 
             case .FetchInterests:
