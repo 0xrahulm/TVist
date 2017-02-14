@@ -166,6 +166,8 @@ class HomeViewController: UIViewController {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.SuggestedFollow.rawValue, forIndexPath: indexPath) as! SuggestedFollowsTableViewCell
         let data = dataArray[indexPath.row] as? SuggestedFollowsCard
+        cell.changeDataDelegate = self
+        cell.dataIndexPath = indexPath
         cell.data = data
         return cell
     }
@@ -323,5 +325,15 @@ extension HomeViewController : RemoveFbCardProtocol{
         }
     }
 }
-
+extension HomeViewController : ChangeDataForFollosProtocol{
+    func changeDataArray(dataIndexPath : NSIndexPath, followerIndexPath : NSIndexPath, isFollow : Bool){
+        if dataArray.count > dataIndexPath.row{
+            if let data = dataArray[dataIndexPath.row] as? SuggestedFollowsCard{
+                if data.suggestedFollows.count > followerIndexPath.row{
+                    data.suggestedFollows[followerIndexPath.row].isFollow = isFollow
+                }
+            }
+        }
+    }
+}
 

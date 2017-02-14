@@ -8,48 +8,43 @@
 
 import UIKit
 
+protocol ChangeDataForFollosProtocol : class{
+    func changeDataArray(dataIndexPath : NSIndexPath, followerIndexPath : NSIndexPath, isFollow : Bool)
+}
+
 class SuggestedFollowsTableViewCell: BaseStoryTableViewCell {
     
-    @IBOutlet weak var titleTextView: UITextView!
-    @IBOutlet weak var creatorImage: UIImageView!
-    @IBOutlet weak var createdTimeLabel: UILabel!
-    @IBOutlet weak var creatorStatusLabel: UILabel!
+   
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var suggestedCollectionView: UICollectionView!
     
     var collectionDataArray : [MyAccountItems] = []
+    weak var changeDataDelegate : ChangeDataForFollosProtocol?
+    var dataIndexPath : NSIndexPath?
     
     var data : SuggestedFollowsCard?{
         didSet{
             suggestedCollectionView.registerNib(UINib(nibName: CellIdentifier.SuggestedPeopleCollection.rawValue, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.SuggestedPeopleCollection.rawValue)
+
             if let data = data{
-                let nameString = NSMutableAttributedString(attributedString: SFUIAttributedText.mediumAttributedTextForString("Escape", size: 15, color: UIColor.textBlackColor()))
-                
-                titleTextView.attributedText = nameString
-                
-                if let status = data.title{
-                    creatorStatusLabel.text = status
+
+                if let title = data.title{
+                     titleLabel.text = title
+                    titleLabel.text = "Discover new people"
                 }else{
-                    creatorStatusLabel.text = ""
-                }
-                
-                if let timeStamp = data.timestamp{
-                    self.createdTimeLabel.text = TimeUtility.getTimeStampForCard(Double(timeStamp))
-                    self.createdTimeLabel.hidden = false
-                }else{
-                    self.createdTimeLabel.text = "|"
-                    self.createdTimeLabel.hidden = true
+                    titleLabel.text = ""
                 }
                 
                 self.collectionDataArray = data.suggestedFollows
                 suggestedCollectionView.reloadData()
                 
             }
-            
         }
     }
 }
 extension SuggestedFollowsTableViewCell : UICollectionViewDelegate{
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
         if collectionDataArray.count > indexPath.row{
             let data = collectionDataArray[indexPath.row]
             
@@ -59,7 +54,6 @@ extension SuggestedFollowsTableViewCell : UICollectionViewDelegate{
             }
             
             ScreenVader.sharedVader.performScreenManagerAction(.OpenUserAccount, queryParams: params)
-            
         }
     }
     
@@ -70,13 +64,22 @@ extension SuggestedFollowsTableViewCell : UICollectionViewDataSource{
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionDataArray.count
     }
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let collectionCell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier.SuggestedPeopleCollection.rawValue, forIndexPath: indexPath) as! SuggestedPeopleCollectionViewCell
+        collectionCell.changePeopleDelegate = self
+        collectionCell.indexPath = indexPath
         collectionCell.data = collectionDataArray[indexPath.row]
-        
         return collectionCell
-        
+    }
+    
+}
+extension SuggestedFollowsTableViewCell : ChangePeopleCollectionProtocol{
+    func changePeopleData(indexPath: NSIndexPath, isFollow : Bool){
+        if let changeDataDelegate = changeDataDelegate, let dataIndexPath = dataIndexPath{
+            changeDataDelegate.changeDataArray(dataIndexPath, followerIndexPath : indexPath, isFollow : isFollow)
+        }
     }
     
 }
