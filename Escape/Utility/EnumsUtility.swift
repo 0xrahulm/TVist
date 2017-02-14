@@ -47,6 +47,7 @@ enum Gender : Int{
 }
 
 enum ProfileItemType: Int {
+    case ShowLoading = -1
     case EscapeList = 0
     case MaybeSeen = 1
 }
@@ -115,6 +116,7 @@ enum NotificationObservers: String {
     case SearchObserver = "SearchObserver"
     case SearchQueryObserver = "SearchQueryObserver"
     case GetProfileDetailsObserver = "GetProfileDetailsObserver"
+    case OtherUserProfileListFetchObserver = "OtherUserProfileListFetchObserver" 
     case HomeTappedObserver =  "HomeTappedObserver" 
 }
 enum StoryType : NSNumber {

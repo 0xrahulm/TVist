@@ -17,6 +17,7 @@ extension UIButton{
         self.setTitleColor(UIColor.escapeBlueColor(), forState: .Normal)
         self.layer.borderColor = UIColor.escapeBlueColor().CGColor
         self.layer.borderWidth = 1.0
+        self.enabled = true
         if animate{
             popButtonAnimate()
         }
@@ -28,10 +29,25 @@ extension UIButton{
         self.backgroundColor = UIColor.escapeBlueColor()
         self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.layer.borderWidth = 0.0
+        self.enabled = true
         if animate{
             popButtonAnimate()
         }
     }
+    
+    
+    func disableButton(animate : Bool){
+        
+        self.setTitle("loading...", forState: .Normal)
+        self.backgroundColor = UIColor.grayColor()
+        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.layer.borderWidth = 0.0
+        self.enabled = false
+        if animate{
+            popButtonAnimate()
+        }
+    }
+    
     
     func popButtonAnimate(){
         UIView.animateWithDuration(0.08 ,

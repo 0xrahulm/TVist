@@ -113,15 +113,12 @@ class UserDataProvider: CommonDataProvider {
             case .EmailSignUp:
                 if let data = service.outPutResponse as? [String:AnyObject]{
                     self.parseEmailSignInUserData(data)
-                    
                 }
                 break
-                
             case .EmailSigIn:
                 if let data = service.outPutResponse as? [String:AnyObject]{
                     self.parseEmailSignInUserData(data)
                 }
-                
                 break
                 
             case .FetchInterests:
@@ -264,13 +261,11 @@ extension UserDataProvider{
             for item in data{
                 if let id = item["id"] as? String {
                     if let name = item["name"] as? String{
-                        if let weightage = item["weightage"] as? NSNumber{
                             if let isSelected = item["is_default_selected"] as? Bool{
                                 
-                                intersts.append(InterestItems(id: id, name: name, weightage: Int(weightage), isSelected: isSelected))
+                                intersts.append(InterestItems(id: id, name: name, weightage: nil, isSelected: isSelected))
                             }
-                            
-                        }
+                        
                     }
                 }
             }

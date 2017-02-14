@@ -14,6 +14,7 @@ import RealmSwift
 class MyProfileViewController: UIViewController {
     
     @IBOutlet weak var editProfileButton: UIButton!
+    @IBOutlet weak var followUnfollowButton: UIButton!
     
     @IBOutlet weak var profileImage: UIImageView!
     
@@ -23,48 +24,71 @@ class MyProfileViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    let kHeightOfSegmentedControl:CGFloat = 45.0
+    let kHeightOfSegmentedControl:CGFloat = 60.0
     
     var userId : String?
-    var isFollow = false
     
     var listOfItemType:[ProfileListType] = [.Activity, .Movie, .TvShows, .Books]
     var listOfTitles:[String] = ["Activity", "Movies", "Tv Shows", "Books"]
     var tabItems:[TabButton] = []
-    
+    var isFollow:Bool = false
     var profileItemUpdateNotification:NotificationToken?
     
     private var _profileList:Results<ProfileList>?
     
-    var profileListData:Results<ProfileList> {
+    private var _otherUserProfileList:[ProfileListType:[ProfileList]] = [:]
+    
+    var profileListData: [ProfileList] {
         get {
-            if currentSelectedIndex == lastSelectedIndex {
-                if let profileList = _profileList {
-                    return profileList
-                }
-            }
-            let listItem = listOfItemType[currentSelectedIndex]
-            lastSelectedIndex = currentSelectedIndex
-            _profileList = MyAccountDataProvider.sharedDataProvider.getProfileList(listItem, forUserId: userId)
             
-            profileItemUpdateNotification = _profileList!.addNotificationBlock { [weak self] (changes: RealmCollectionChange) in
-                guard let tableView = self?.tableView else { return }
-                switch changes {
-                case .Initial(_):
-                    // Results are now populated and can be accessed without blocking the UI
-                    tableView.reloadData()
-                    break
-                case .Update(_, _, _, _):
-                    tableView.reloadData()
-                    break
-                case .Error:
-                    Logger.debug("Error in notificationBlock")
-                    break
+            let listItem = listOfItemType[currentSelectedIndex]
+            
+            if currentSelectedIndex == lastSelectedIndex {
+                if let _profileList = _profileList {
+                    return Array(_profileList)
+                }
+                
+                if let otherUserProfile = _otherUserProfileList[listItem] {
+                    return otherUserProfile
+                }
+            } else {
+            
+                lastSelectedIndex = currentSelectedIndex
+                
+                if isLoggedInUser() {
+                    self._profileList = MyAccountDataProvider.sharedDataProvider.getProfileList(listItem, forUserId: userId)
+                    profileItemUpdateNotification = _profileList!.addNotificationBlock { [weak self] (changes: RealmCollectionChange) in
+                        guard let tableView = self?.tableView else { return }
+                        switch changes {
+                        case .Initial(_):
+                            // Results are now populated and can be accessed without blocking the UI
+                            tableView.reloadData()
+                            break
+                        case .Update(_, _, _, _):
+                            tableView.reloadData()
+                            break
+                        case .Error:
+                            Logger.debug("Error in notificationBlock")
+                            break
+                        }
+                    }
+                    if let _profileList = self._profileList {
+                        return Array(_profileList)
+                    }
+                } else {
+                    MyAccountDataProvider.sharedDataProvider.getProfileList(listItem, forUserId: userId)
+                    if let otherUserProfile = _otherUserProfileList[listItem] {
+                        return otherUserProfile
+                    }
                 }
             }
-            return _profileList!
+            
+            
+            let emptyProfileList = ProfileList.getLoadingTypePorfileList()
+            return [emptyProfileList]
         }
     }
+    
     
     var currentSelectedIndex = 1
     var lastSelectedIndex = -1
@@ -75,10 +99,6 @@ class MyProfileViewController: UIViewController {
         if let userId = queryParams["user_id"] as? String {
             self.userId = userId
         }
-        
-        if let isFollow = queryParams["isFollow"] as? Bool {
-            self.isFollow = isFollow
-        }
     }
     
     override func viewDidLoad() {
@@ -88,10 +108,12 @@ class MyProfileViewController: UIViewController {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         
-        if userId == nil { // means self user
+        if isLoggedInUser() {
             fetchDataFromRealm()
         } else {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyProfileViewController.otherUserData(_:)), name: NotificationObservers.GetProfileDetailsObserver.rawValue, object: nil)
+            
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyProfileViewController.receivedListData(_:)), name: NotificationObservers.OtherUserProfileListFetchObserver.rawValue, object: nil)
         }
         
     }
@@ -197,13 +219,13 @@ class MyProfileViewController: UIViewController {
     func fetchDataFromRealm() {
         
         if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
-            pushUpUserData(user.firstName, lastName: user.lastName, profilePicture: user.profilePicture, followers: user.followers, following: user.following, booksCount: user.books_count, moviesCount: user.movies_count, tvShowsCount: user.tvShows_count)
+            pushUpUserData(user.firstName, lastName: user.lastName, profilePicture: user.profilePicture, followers: user.followers, following: user.following, escapesCount: user.escape_count)
         }
         
     }
     
     
-    func pushUpUserData(firstName: String, lastName: String?, profilePicture: String?, followers:Int, following: Int, booksCount: Int, moviesCount: Int, tvShowsCount: Int) {
+    func pushUpUserData(firstName: String, lastName: String?, profilePicture: String?, followers:Int, following: Int, escapesCount: Int) {
         if let lastName = lastName where lastName.characters.count > 0 {
             self.navigationItem.title = "\(firstName) \(lastName)"
         } else {
@@ -216,57 +238,71 @@ class MyProfileViewController: UIViewController {
         
         followingCount.text = "\(following)"
         
-        let escapes_count = moviesCount + tvShowsCount + booksCount
         
-        escapeCount.text = "\(escapes_count)"
+        escapeCount.text = "\(escapesCount)"
     }
     
     func otherUserData(notification: NSNotification) {
         if let userInfo = notification.userInfo, let userData = userInfo["userData"] as? MyAccountItems {
             if let userId = userId, let userDataId = userData.id {
                 if userId == userDataId {
-                    pushUpUserData(userData.firstName, lastName: userData.lastName, profilePicture: userData.profilePicture, followers: userData.followers.integerValue, following: userData.following.integerValue, booksCount: userData.books_count.integerValue, moviesCount: userData.movies_count.integerValue, tvShowsCount: userData.tvShows_count.integerValue)
+                    pushUpUserData(userData.firstName, lastName: userData.lastName, profilePicture: userData.profilePicture, followers: userData.followers.integerValue, following: userData.following.integerValue, escapesCount: userData.escapes_count.integerValue)
+                    self.isFollow = userData.isFollow
+                    if self.isFollow {
+                        self.followUnfollowButton.followViewWithAnimate(false)
+                    } else {
+                        self.followUnfollowButton.unfollowViewWithAnimate(false)
+                    }
                 }
             }
             
         }
     }
-    //
-    //    func receivedSelectedTabData(notification: NSNotification) {
-    //        if let userInfo = notification.userInfo {
-    //            if let listType = userInfo["type"] as? String, let listTypePresent = ProfileListType(rawValue: listType) {
-    //
-    //                if let dataUserId = userInfo["userId"] as? String, let userId = userId {
-    //                    if dataUserId == userId {
-    //                        if let listItems = userInfo["data"] as? [MyAccountEscapeItem] {
-    //                            allProfileData[listTypePresent.rawValue] = listItems
-    //
-    //                        }
-    //                        if listOfItemType[currentSelectedIndex] == listTypePresent {
-    //                            tableView.reloadData()
-    //                        }
-    //                    }
-    //                } else {
-    //                    if listOfItemType[currentSelectedIndex] == listTypePresent {
-    //                        tableView.reloadData()
-    //                    }
-    //                }
-    //            }
-    //        }
-    //
-    //    }
+    
+    func receivedListData(notification:NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let listType = userInfo["type"] as? String, let listTypePresent = ProfileListType(rawValue: listType) {
+                if let listData = userInfo["data"] as? ProfileList {
+                    self._otherUserProfileList[listTypePresent] = [listData]
+                }
+                
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     func setVisuals() {
-        let settingImage = IonIcons.imageWithIcon(ion_ios_settings_strong, size: 22, color: UIColor.themeColorBlack())
-        let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MyProfileViewController.settingsTapped))
         
-        self.navigationItem.rightBarButtonItem = settingButton
+        if isLoggedInUser() {
+            
+            let settingImage = IonIcons.imageWithIcon(ion_ios_settings_strong, size: 22, color: UIColor.themeColorBlack())
+            let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MyProfileViewController.settingsTapped))
+            
+            self.navigationItem.rightBarButtonItem = settingButton
+            
+            editProfileButton.hidden = false
+            followUnfollowButton.hidden = true
+            
+            editProfileButton.layer.borderColor = UIColor.textGrayColor().CGColor
+            editProfileButton.layer.borderWidth = 1.0
+            editProfileButton.layer.cornerRadius = 4.0
+            
+        } else {
+            
+            editProfileButton.hidden = true
+            followUnfollowButton.hidden = false
+            
+            followUnfollowButton.layer.cornerRadius = 4.0
+            self.followUnfollowButton.disableButton(false)
+            
+        }
         
-        editProfileButton.layer.borderColor = UIColor.textGrayColor().CGColor
-        editProfileButton.layer.borderWidth = 1.0
-        editProfileButton.layer.cornerRadius = 4.0
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+    }
+    
+    func isLoggedInUser() -> Bool {
+        return self.userId == nil
     }
     
     func settingsTapped() {
@@ -296,6 +332,21 @@ class MyProfileViewController: UIViewController {
         }
     }
     
+    @IBAction func followButtonTapped(sender: UIButton) {
+        
+        if let userId = userId {
+            if isFollow {
+                isFollow = false
+                self.followUnfollowButton.unfollowViewWithAnimate(true)
+                UserDataProvider.sharedDataProvider.unfollowUser(userId)
+                
+            }else{
+                isFollow = true
+                self.followUnfollowButton.followViewWithAnimate(true)
+                UserDataProvider.sharedDataProvider.followUser(userId)
+            }
+        }
+    }
     
     @IBAction func followerFollowingClicked(sender: UITapGestureRecognizer) {
         if let view = sender.view{
@@ -312,19 +363,7 @@ class MyProfileViewController: UIViewController {
     }
     
     @IBAction func editProfileButtonTapped(sender: AnyObject) {
-        
-        if let userId = userId {
-            if isFollow{
-                isFollow = false
-                editProfileButton.unfollowViewWithAnimate(true)
-                UserDataProvider.sharedDataProvider.unfollowUser(userId)
-                
-            }else{
-                isFollow = true
-                editProfileButton.followViewWithAnimate(true)
-                UserDataProvider.sharedDataProvider.followUser(userId)
-            }
-        }
+       
     }
 }
 
@@ -348,10 +387,14 @@ extension MyProfileViewController: UITableViewDelegate {
         
         self.tabItems = []
         
+        let topLineView = UIView(frame: CGRect(x: 0, y: 4, width: headerView.frame.size.width, height: 1.0))
+            topLineView.backgroundColor = UIColor.hairlineGrayColor()
+        headerView.addSubview(topLineView)
+        
         for (index,aListTitle) in listOfTitles.enumerate() {
-            let tabButton = TabButton(frame: CGRect(x: xMovement, y: 0, width: widthOfButton, height: headerView.frame.size.height))
+            let tabButton = TabButton(frame: CGRect(x: xMovement, y: 12, width: widthOfButton, height: headerView.frame.size.height-12))
             
-            tabButton.setTabTitle(aListTitle)
+            tabButton.setTabTitle(aListTitle, type: listOfItemType[index])
             tabButton.tag = index
             xMovement += widthOfButton
             tabButton.addTarget(self, action: #selector(MyProfileViewController.didSelectATab(_:)), forControlEvents: .TouchUpInside)
@@ -393,10 +436,20 @@ extension MyProfileViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        let selectedProfileItem = profileItemsForSelectedTab()[indexPath.row]
+        
+        if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.ShowLoading {
+            let cell = tableView.dequeueReusableCellWithIdentifier("CustomLoadingTableViewCellIdentifier") as! CustomLoadingTableViewCell
+            
+            cell.activityIndicator.startAnimating()
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("escapesSectionHorizontalidentifier") as! CustomListTableViewCell
         cell.viewAllTapDelegate = self
-        cell.cellTitleLabel.text = profileItemsForSelectedTab()[indexPath.row].title
-        
+        if let cellTitle = selectedProfileItem.title {
+            cell.cellTitleLabel.text = cellTitle+" (\(selectedProfileItem.totalItemsCount))"
+        }
         return cell
     }
     

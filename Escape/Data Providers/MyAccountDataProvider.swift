@@ -359,8 +359,18 @@ extension MyAccountDataProvider {
         }
         
         
-        
-        RealmDataVader.sharedVader.writeOrUpdateProfileList(userId, type: listType, listData: listData)
+        if let currentUser = currentUser, let currentUserId = currentUser.id where currentUserId == userId {
+            
+            RealmDataVader.sharedVader.writeOrUpdateProfileList(userId, type: listType, listData: listData)
+        } else {
+            
+            let profileList = ProfileList()
+            profileList.type = listType
+            profileList.userId = userId
+            profileList.parseDataNoRealm(listData)
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.OtherUserProfileListFetchObserver.rawValue, object: nil, userInfo: ["type":listType, "data":profileList])
+        }
     }
     
     func parseUserDetails(dict: [String:AnyObject], userId: String?){
@@ -500,12 +510,6 @@ extension MyAccountDataProvider{
             userData.followers = Int(userItem.followers)
             
             userData.following = Int(userItem.following)
-            
-            userData.movies_count = userItem.movies_count.integerValue
-            
-            userData.books_count = userItem.books_count.integerValue
-            
-            userData.tvShows_count = userItem.tvShows_count.integerValue
             
             userData.escape_count = userItem.escapes_count.integerValue
             

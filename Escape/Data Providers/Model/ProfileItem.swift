@@ -11,8 +11,9 @@ import RealmSwift
 
 final class ProfileItem: Object {
     dynamic var title:String?
-    dynamic var itemType:Int = 0 // Default is Escape list
+    dynamic var itemType:Int = -1 // Default is Loading
     let escapeDataList = List<EscapeItem>()
+    dynamic var totalItemsCount:Int = 0
     
     func itemTypeEnumValue() -> ProfileItemType {
         return ProfileItemType(rawValue: itemType)! // Bang because itemType will always be present, without which a profile item is useless
@@ -21,6 +22,24 @@ final class ProfileItem: Object {
     func parseDataList(dataList: [[String:AnyObject]], _realm: Realm) {
         if itemTypeEnumValue() == .EscapeList {
             parseEscapesData(dataList, _realm: _realm)
+        }
+    }
+    
+    func parseDataListNoRealm(dataList: [[String:AnyObject]]) {
+        if itemTypeEnumValue() == .EscapeList {
+            parseEscapesDataNoRealm(dataList)
+        }
+    }
+    
+    func parseEscapesDataNoRealm(escapesData: [[String:AnyObject]]) {
+        for eachEscapeData in escapesData {
+            guard let id = eachEscapeData["id"] as? String, let name = eachEscapeData["name"] as? String, let escapeType = eachEscapeData["escape_type"] as? String else {
+                continue
+            }
+            
+            let escapeItem = EscapeItem.addOrEditEscapeItem(id, name: name, escapeType: escapeType, posterImage: eachEscapeData["poster_image"] as? String, year: eachEscapeData["year"] as? String, rating: eachEscapeData["rating"] as? NSNumber, subTitle: eachEscapeData["subtitle"] as? String, createdBy: eachEscapeData["creator"] as? String, _realm: nil)
+            escapeDataList.append(escapeItem)
+            
         }
     }
     

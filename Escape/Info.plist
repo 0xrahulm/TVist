@@ -24,7 +24,10 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb569114529926926</string>
+				<string>escape</string>
 			</array>
+			<key>CFBundleURLName</key>
+			<string>com.escape-app.Escape</string>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
