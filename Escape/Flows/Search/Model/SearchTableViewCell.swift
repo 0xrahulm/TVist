@@ -34,7 +34,7 @@ class SearchTableViewCell: UITableViewCell {
     
     var userId = ""
     var isFollow = false
-    var indexPath : NSIndexPath!
+    var indexPath : IndexPath!
     weak var followButtonDiscoverDelegate : FollowerButtonProtocol?
     
     var data : SearchItems? {
@@ -42,7 +42,7 @@ class SearchTableViewCell: UITableViewCell {
             if let data = data, let escapeName = data.name, let searchType = data.searchType {
                 
                 var escapeTitleStr = escapeName
-                if let year = data.year where searchType != .Books {
+                if let year = data.year, searchType != .Books {
                     escapeTitleStr += " (\(year))"
                 }
                 itemNameLabel.text = escapeTitleStr
@@ -56,9 +56,9 @@ class SearchTableViewCell: UITableViewCell {
                 }
                 
                 if data.isAddedOrFollow{
-                    addToEscapeButton.hidden = true
+                    addToEscapeButton.isHidden = true
                 }else{
-                    addToEscapeButton.hidden = false
+                    addToEscapeButton.isHidden = false
                 }
                 
                 var directedByStr = ""
@@ -75,8 +75,8 @@ class SearchTableViewCell: UITableViewCell {
                 let directorString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(directorByStr)", size: 13, color: UIColor.textBlackColor()))
                 
                 let attributedString = NSMutableAttributedString()
-                attributedString.appendAttributedString(directedByString)
-                attributedString.appendAttributedString(directorString)
+                attributedString.append(directedByString)
+                attributedString.append(directorString)
                 creatorType.attributedText = attributedString
                 
                 
@@ -106,7 +106,7 @@ class SearchTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func addToEscapeButtonClicked(sender: AnyObject) {
+    @IBAction func addToEscapeButtonClicked(_ sender: AnyObject) {
         
         if let data = data{
             
@@ -119,7 +119,7 @@ class SearchTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func userFollowButtonClicked(sender: AnyObject) {
+    @IBAction func userFollowButtonClicked(_ sender: AnyObject) {
         
         if isFollow {
             userFollowButton.unfollowViewWithAnimate(true)

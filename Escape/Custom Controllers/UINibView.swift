@@ -25,14 +25,14 @@ class UINibView: UIView {
         
         contentView = loadViewFromNib()
         contentView.frame = CGRect(x: 0, y: getContentViewOffset(), width: bounds.size.width, height: getContentViewHeight())
-        contentView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth,UIViewAutoresizing.FlexibleHeight]
+        contentView.autoresizingMask = [UIViewAutoresizing.flexibleWidth,UIViewAutoresizing.flexibleHeight]
         
         addToView()
     }
     
     func loadViewFromNib() -> UIView {
-        let nib = UINib(nibName: getNibName(), bundle: NSBundle(forClass: self.dynamicType))
-        return nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let nib = UINib(nibName: getNibName(), bundle: Bundle(for: type(of: self)))
+        return nib.instantiate(withOwner: self, options: nil)[0] as! UIView
     }
     
     func getNibName() -> String {

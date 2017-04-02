@@ -26,19 +26,19 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 let year = dataItems.year
                 if year.characters.count > 0 {
                     yearLabel.text = year
-                    yearLabel.hidden = false
+                    yearLabel.isHidden = false
                 }else{
-                    yearLabel.hidden = true
+                    yearLabel.isHidden = true
                 }
                 let rating = dataItems.rating
                 if rating.characters.count > 0 {
                     
                     ratingLabel.text = rating
                     
-                    ratingLabel.hidden = false
+                    ratingLabel.isHidden = false
                     
                 }else{
-                    ratingLabel.hidden = true
+                    ratingLabel.isHidden = true
                 }
                 
             }
@@ -48,14 +48,14 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     
     func popTheImage() {
         
-        UIView.animateWithDuration(0.07,
+        UIView.animate(withDuration: 0.07,
                                    animations: {
-                                    self.itemImage.transform = CGAffineTransformMakeScale(0.95, 0.95)
+                                    self.itemImage.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
             },
                                    completion: { finish in
-                                    UIView.animateWithDuration(0.07){
-                                        self.itemImage.transform = CGAffineTransformIdentity
-                                    }
+                                    UIView.animate(withDuration: 0.07, animations: {
+                                        self.itemImage.transform = CGAffineTransform.identity
+                                    })
         })
     }
     

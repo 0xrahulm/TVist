@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ViewAllTapProtocol:class {
-    func viewAllTappedIn(cell: UITableViewCell)
+    func viewAllTappedIn(_ cell: UITableViewCell)
 }
 
 class CustomListTableViewCell: UITableViewCell {
@@ -25,7 +25,7 @@ class CustomListTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -43,7 +43,7 @@ class CustomListTableViewCell: UITableViewCell {
     
     func setCollectionViewDataSourceDelegate
         <D: protocol<UICollectionViewDataSource, UICollectionViewDelegate>>
-        (dataSourceDelegate: D, forRow row: Int) {
+        (_ dataSourceDelegate: D, forRow row: Int) {
         
         collectionView.delegate = dataSourceDelegate
         collectionView.dataSource = dataSourceDelegate

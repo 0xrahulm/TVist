@@ -22,13 +22,13 @@ class DiscoverViewController: UIViewController {
         
         self.title = "Discover"
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        let searchImage = IonIcons.imageWithIcon(ion_ios_search, size: 30, color: UIColor.themeColorBlack())
+        let searchImage = IonIcons.image(withIcon: ion_ios_search, size: 30, color: UIColor.themeColorBlack())
         
         //let addImage = IonIcons.imageWithIcon(ion_ios_personadd, size: 30, color: UIColor.themeColorBlack())
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: searchImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: searchImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
         
         //self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: addImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DiscoverViewController.didTapGoToLeft))
         
@@ -36,13 +36,13 @@ class DiscoverViewController: UIViewController {
         configureVCs()
 
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         ScreenVader.sharedVader.hideTabBar(false)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         
@@ -60,31 +60,31 @@ class DiscoverViewController: UIViewController {
         
         // Customize menu (Optional)
         let parameters: [CAPSPageMenuOption] = [
-            .ScrollMenuBackgroundColor(UIColor.whiteColor()),
-            .ViewBackgroundColor(UIColor.whiteColor()),
-            .SelectionIndicatorColor(UIColor.escapeBlueColor()),
-            .BottomMenuHairlineColor(UIColor.textGrayColor()),
-            .MenuItemFont(UIFont(name: "SFUIDisplay-Regular", size: 13.0)!),
-            .MenuHeight(45.0),
-            .MenuMargin(0.0),
-            .MenuItemWidth(100.0),
-            .CenterMenuItems(true),
-            .SelectedMenuItemLabelColor(UIColor.themeColorBlack()),
-            .UnselectedMenuItemLabelColor(UIColor.textGrayColor()),
-            .SelectionIndicatorHeight(1.5)
+            .scrollMenuBackgroundColor(UIColor.white),
+            .viewBackgroundColor(UIColor.white),
+            .selectionIndicatorColor(UIColor.escapeBlueColor()),
+            .bottomMenuHairlineColor(UIColor.textGrayColor()),
+            .menuItemFont(UIFont(name: "SFUIDisplay-Regular", size: 13.0)!),
+            .menuHeight(45.0),
+            .menuMargin(0.0),
+            .menuItemWidth(100.0),
+            .centerMenuItems(true),
+            .selectedMenuItemLabelColor(UIColor.themeColorBlack()),
+            .unselectedMenuItemLabelColor(UIColor.textGrayColor()),
+            .selectionIndicatorHeight(1.5)
             ]
         
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.width, height: self.view.frame.height), pageMenuOptions: parameters)
         
         self.addChildViewController(pageMenu!)
         self.view.addSubview(pageMenu!.view)
         
-        pageMenu!.didMoveToParentViewController(self)
+        pageMenu!.didMove(toParentViewController: self)
         
     }
     
-    func addVcFor(type : DiscoverType , title : String){
-        let controller = UIStoryboard(name: "Discover", bundle: nil).instantiateViewControllerWithIdentifier("DiscoverAllVC") as? DiscoverAllViewController
+    func addVcFor(_ type : DiscoverType , title : String){
+        let controller = UIStoryboard(name: "Discover", bundle: nil).instantiateViewController(withIdentifier: "DiscoverAllVC") as? DiscoverAllViewController
         controller!.title = title
         controller!.type = type
         controllerArray.append(controller!)
@@ -111,7 +111,7 @@ class DiscoverViewController: UIViewController {
     }
     
     // MARK: - Container View Controller
-    override func shouldAutomaticallyForwardAppearanceMethods() -> Bool {
+    override var shouldAutomaticallyForwardAppearanceMethods : Bool {
         return true
     }
     

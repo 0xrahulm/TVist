@@ -32,7 +32,7 @@ class DescDataItems: NSObject {
         parseData(dict)
     }
     
-    func parseData(data : [String:AnyObject]){
+    func parseData(_ data : [String:AnyObject]){
         
         if let dict = data["details"] as? [String:AnyObject]{
             

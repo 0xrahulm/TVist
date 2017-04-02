@@ -26,12 +26,12 @@ class RealmDataVader: NSObject {
         
     }
     
-    func fileUrlForRealmWithCofiguration(config:Realm.Configuration) -> NSURL? {
-        return config.fileURL?.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("escape.rl")
+    func fileUrlForRealmWithCofiguration(_ config:Realm.Configuration) -> URL? {
+        return config.fileURL?.deletingLastPathComponent().appendingPathComponent("escape.rl")
     }
     
     
-    func getUserById(userId: String) -> UserData? {
+    func getUserById(_ userId: String) -> UserData? {
         
         if let realm = realm {
             let predicate = NSPredicate(format: "id == %@", userId)
@@ -66,14 +66,14 @@ class RealmDataVader: NSObject {
     }
     
     
-    func getProfileListData(listType: ProfileListType, userId: String) -> Results<ProfileList> {
+    func getProfileListData(_ listType: ProfileListType, userId: String) -> Results<ProfileList> {
         let predicate = NSPredicate(format: "userId == %@ AND type == %@", userId, listType.rawValue)
-        return realm.objects(ProfileList).filter(predicate)
+        return realm.objects(ProfileList.self).filter(predicate)
     }
     
     
-    func writeToRealm(object: Object) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) { [unowned self]
+    func writeToRealm(_ object: Object) {
+        DispatchQueue.global(qos: .userInitiated).async {[unowned self]
             () -> Void in
             try! self.realm.write({
                 self.realm.add(object)
@@ -83,15 +83,15 @@ class RealmDataVader: NSObject {
     
     
     
-    func writeOrUpdateProfileList(userId:String, type:String, listData:[[String:AnyObject]]) {
+    func writeOrUpdateProfileList(_ userId:String, type:String, listData:[[String:AnyObject]]) {
         let id = userId+type // Constructed id
         
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) { [unowned self]
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async { [unowned self]
             () -> Void in
             var config = self.handleMigrationsIfAny()
             config.fileURL = self.fileUrlForRealmWithCofiguration(config)
             let _realm = try! Realm(configuration: config)
-            if let profileList = _realm.objectForPrimaryKey(ProfileList.self, key: id) {
+            if let profileList = _realm.object(ofType: ProfileList.self, forPrimaryKey: id) {
                 
                 try! _realm.write({
                     profileList.data.removeAll()

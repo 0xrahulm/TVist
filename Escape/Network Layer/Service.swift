@@ -14,17 +14,17 @@ class Service: NSObject {
     var serviceType : ServiceType?
     var subServiveType : SubServiceType?
     
-    var parameters : [String:AnyObject]?
-    var method : Alamofire.Method = .GET
+    var parameters : [String:Any]?
+    var method : HTTPMethod = .get
     
-    var outPutResponse : AnyObject?
-    var errorMessage : AnyObject?
+    var outPutResponse : Any?
+    var errorMessage : Any?
     var errorCode : Int!
     var failedCount = 0
     var finalURL : String!
     var responderDelegate: NetworkWrapperProtocol?
     
-    init(method : Alamofire.Method, serviceType : ServiceType, subServiveType : SubServiceType, parameters : [String:AnyObject]?) {
+    init(method : HTTPMethod, serviceType : ServiceType, subServiveType : SubServiceType, parameters : [String:Any]?) {
         
         self.serviceType = serviceType
         self.subServiveType = subServiveType
@@ -37,7 +37,7 @@ class Service: NSObject {
         
         
     }
-    private func constructFinalUrl(){
+    fileprivate func constructFinalUrl(){
         
         switch subServiveType{
         

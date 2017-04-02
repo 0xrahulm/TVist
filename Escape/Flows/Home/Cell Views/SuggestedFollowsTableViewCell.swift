@@ -20,7 +20,7 @@ class SuggestedFollowsTableViewCell: BaseStoryTableViewCell {
     
     var data : SuggestedFollowsCard?{
         didSet{
-            suggestedCollectionView.registerNib(UINib(nibName: CellIdentifier.SuggestedPeopleCollection.rawValue, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.SuggestedPeopleCollection.rawValue)
+            suggestedCollectionView.register(UINib(nibName: CellIdentifier.SuggestedPeopleCollection.rawValue, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.SuggestedPeopleCollection.rawValue)
             if let data = data{
                 let nameString = NSMutableAttributedString(attributedString: SFUIAttributedText.mediumAttributedTextForString("Escape", size: 15, color: UIColor.textBlackColor()))
                 
@@ -34,10 +34,10 @@ class SuggestedFollowsTableViewCell: BaseStoryTableViewCell {
                 
                 if let timeStamp = data.timestamp{
                     self.createdTimeLabel.text = TimeUtility.getTimeStampForCard(Double(timeStamp))
-                    self.createdTimeLabel.hidden = false
+                    self.createdTimeLabel.isHidden = false
                 }else{
                     self.createdTimeLabel.text = "|"
-                    self.createdTimeLabel.hidden = true
+                    self.createdTimeLabel.isHidden = true
                 }
                 
                 self.collectionDataArray = data.suggestedFollows
@@ -49,11 +49,11 @@ class SuggestedFollowsTableViewCell: BaseStoryTableViewCell {
     }
 }
 extension SuggestedFollowsTableViewCell : UICollectionViewDelegate{
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionDataArray.count > indexPath.row{
             let data = collectionDataArray[indexPath.row]
             
-            var params : [String:AnyObject] = [:]
+            var params : [String:Any] = [:]
             if let id = data.id{
                 params["user_id"] = id
             }
@@ -67,12 +67,12 @@ extension SuggestedFollowsTableViewCell : UICollectionViewDelegate{
 }
 extension SuggestedFollowsTableViewCell : UICollectionViewDataSource{
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionDataArray.count
     }
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let collectionCell = collectionView.dequeueReusableCellWithReuseIdentifier(CellIdentifier.SuggestedPeopleCollection.rawValue, forIndexPath: indexPath) as! SuggestedPeopleCollectionViewCell
+        let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.SuggestedPeopleCollection.rawValue, for: indexPath) as! SuggestedPeopleCollectionViewCell
         collectionCell.data = collectionDataArray[indexPath.row]
         
         return collectionCell

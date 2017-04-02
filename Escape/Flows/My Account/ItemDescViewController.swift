@@ -35,16 +35,16 @@ class ItemDescViewController: UIViewController {
     let offset_B_LabelHeader:CGFloat = 95.0 // At this offset the Black label reaches the Header
     let distance_W_LabelHeader:CGFloat = 35.0
     
-    private var popover: Popover!
+    fileprivate var popover: Popover!
     
     var optionsArray: [OptionsType] = [.Add , .Recommend]
     var popOverHeight: CGFloat = 90
     var escapeAlreadyAdded = false
     
     
-    private var popoverOptions: [PopoverOption] = [
-        .Type(.Down),
-        .BlackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
+    fileprivate var popoverOptions: [PopoverOption] = [
+        .type(.down),
+        .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
     ]
     
     var escapeItem: EscapeItem!
@@ -52,7 +52,7 @@ class ItemDescViewController: UIViewController {
     // For Custom Present Animation
     let customPresentAnimationController = CustomPresentAnimationController()
     
-    override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
+    override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         if let escapeItem = queryParams["escapeItem"] as? EscapeItem {
             self.escapeItem = escapeItem
         }
@@ -66,7 +66,7 @@ class ItemDescViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         let escapeType = escapeItem.escapeTypeVal()
         let escapeId   = escapeItem.id
@@ -77,7 +77,7 @@ class ItemDescViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ScreenVader.sharedVader.hideTabBar(true)
         ScreenVader.sharedVader.changeStatusBarPreference(false)
@@ -88,7 +88,7 @@ class ItemDescViewController: UIViewController {
         setEscapeDetails(escapeItem.name, subtitle: nil, year: escapeItem.year, image:escapeItem.posterImage, rating: escapeItem.rating)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         ScreenVader.sharedVader.changeStatusBarPreference(true)
         
@@ -98,13 +98,13 @@ class ItemDescViewController: UIViewController {
     }
     
     func setVisuals(){
-        let settingImage = IonIcons.imageWithIcon(ion_android_options, size: 30, color: UIColor.whiteColor())
-        let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ItemDescViewController.optionsTapped))
+        let settingImage = IonIcons.image(withIcon: ion_android_options, size: 30, color: UIColor.white)
+        let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(ItemDescViewController.optionsTapped))
         
         self.navigationItem.rightBarButtonItem = settingButton
     }
     
-    func setEscapeDetails(name: String, subtitle: String?, year: String?, image: String?, rating: String?) {
+    func setEscapeDetails(_ name: String, subtitle: String?, year: String?, image: String?, rating: String?) {
         
         if let subtitle = subtitle {
             itemTitle.text = name+" - "+subtitle
@@ -132,7 +132,7 @@ class ItemDescViewController: UIViewController {
         
     }
     
-    func fillData(descData : DescDataItems?){
+    func fillData(_ descData : DescDataItems?){
         
         if let descData = descData {
             
@@ -191,24 +191,24 @@ class ItemDescViewController: UIViewController {
         }
         
     }
-    func getString(title : String , str : String) -> NSAttributedString{
+    func getString(_ title : String , str : String) -> NSAttributedString{
         
         let titleString = SFUIAttributedText.mediumAttributedTextForString("\(title) : ", size: 16, color: UIColor.textBlackColor())
         
         let descString = SFUIAttributedText.regularAttributedTextForString(str, size: 14, color: UIColor.textGrayColor())
         
         let attributedString = NSMutableAttributedString()
-        attributedString.appendAttributedString(titleString)
-        attributedString.appendAttributedString(descString)
+        attributedString.append(titleString)
+        attributedString.append(descString)
         return attributedString
     }
     
-    @IBAction func dismissViewController(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func dismissViewController(_ sender: AnyObject) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     
-    @IBAction func addEscapeTapped(sender: AnyObject) {
+    @IBAction func addEscapeTapped(_ sender: AnyObject) {
         
         
     }
@@ -222,8 +222,8 @@ class ItemDescViewController: UIViewController {
         let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: popOverHeight))
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.scrollEnabled = false
-        tableView.separatorColor = UIColor.clearColor()
+        tableView.isScrollEnabled = false
+        tableView.separatorColor = UIColor.clear
         self.popover = Popover(options: self.popoverOptions, showHandler: nil, dismissHandler: nil)
         self.popover.show(tableView, fromView: viewX)
         
@@ -231,29 +231,29 @@ class ItemDescViewController: UIViewController {
 }
 extension ItemDescViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.popover.dismiss()
         
         if optionsArray[indexPath.row] == .Recommend{
             let escapeId = escapeItem.id
             
-            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.Friends.rawValue, "escape_id" : escapeId])
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.friends.rawValue, "escape_id" : escapeId])
             
             
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return optionsArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: nil)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         cell.textLabel?.text =  optionsArray[indexPath.row].rawValue
         
         if(indexPath.row != self.optionsArray.count-1){
             let line = UIView(frame: CGRect(x: 0, y: 44, width: tableView.frame.width, height: 1))
-            line.backgroundColor = UIColor.groupTableViewBackgroundColor()
+            line.backgroundColor = UIColor.groupTableViewBackground
             cell.addSubview(line)
             
         }
@@ -264,7 +264,7 @@ extension ItemDescViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ItemDescViewController : ItemDescProtocol{
     
-    func receivedItemDesc(data: DescDataItems?, id: String) {
+    func receivedItemDesc(_ data: DescDataItems?, id: String) {
         fillData(data)
     }
     
@@ -274,7 +274,7 @@ extension ItemDescViewController : ItemDescProtocol{
 }
 
 extension ItemDescViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         var headerTransform = CATransform3DIdentity
         var imageTransform  = CATransform3DIdentity

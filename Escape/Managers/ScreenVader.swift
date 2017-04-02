@@ -14,7 +14,7 @@ class ScreenVader: NSObject {
     
     var screenManagerVC : ScreenManagerViewController?
     
-    func performScreenManagerAction(action: ScreenManagerAction, queryParams: [String:AnyObject]?) {
+    func performScreenManagerAction(_ action: ScreenManagerAction, queryParams: [String:Any]?) {
         
         if screenManagerVC != nil {
             screenManagerVC!.performScreenManagerAction(action, params: queryParams)
@@ -24,7 +24,7 @@ class ScreenVader: NSObject {
         }
     }
     
-    func switchMainTab(action : ScreenManagerAction){
+    func switchMainTab(_ action : ScreenManagerAction){
         if screenManagerVC != nil {
             screenManagerVC!.switchTabForAction(action)
         } else {
@@ -38,43 +38,44 @@ class ScreenVader: NSObject {
         }
     }
     
-    func removeDismissedViewController(dismissVC: UIViewController) {
+    func removeDismissedViewController(_ dismissVC: UIViewController) {
         if let screenManagerVC = screenManagerVC {
             screenManagerVC.removePresentedViewController(dismissVC)
             
         }
     }
     
-    func hideTabBar(hide: Bool) {
+    func hideTabBar(_ hide: Bool) {
         if let screenManagerVC = screenManagerVC {
             screenManagerVC.hideTabBar(hide)
         }
     }
     
-    func changeStatusBarPreference(shouldBeBlack: Bool) {
+    func changeStatusBarPreference(_ shouldBeBlack: Bool) {
         if let screenManagerVC = screenManagerVC {
             screenManagerVC.changeStatusBarPreference(shouldBeBlack)
         }
     }
     
-    func processDeepLink(deepLinkString : String){
-        if let deepLinkUrl = NSURL(string: deepLinkString) {
+    func processDeepLink(_ deepLinkString : String){
+        if let deepLinkUrl = URL(string: deepLinkString) {
             processDeepLinkUrl(deepLinkUrl)
         }
     }
     
-    func processDeepLinkUrl(deepLinkUrl: NSURL) {
+    func processDeepLinkUrl(_ deepLinkUrl: URL) {
+        let pathString = deepLinkUrl.path
         
-        if let pathString = deepLinkUrl.path where pathString.characters.count > 0 {
+        if pathString.characters.count > 0 {
             print(pathString)
-            var pathComponents = pathString.componentsSeparatedByString("/")
+            var pathComponents = pathString.components(separatedBy: "/")
             
             if pathComponents.count > 1{
                 pathComponents.removeFirst()
                 if let action = pathComponents.first{
                     if let screenManagerAction = ScreenManagerAction(rawValue: action){
                         
-                        let deepLinkQueryParams : [String:AnyObject]? = getQueryParamsForString(deepLinkUrl.query)
+                        let deepLinkQueryParams : [String:Any]? = getQueryParamsForString(deepLinkUrl.query)
                         
                         performScreenManagerAction(screenManagerAction, queryParams: deepLinkQueryParams)
                 
@@ -84,16 +85,16 @@ class ScreenVader: NSObject {
         }
     }
     
-    private func getQueryParamsForString(queryString: String?) -> [String: AnyObject]? {
+    fileprivate func getQueryParamsForString(_ queryString: String?) -> [String: Any]? {
         
-        var queryParams: [String:AnyObject]?
+        var queryParams: [String:Any]?
         
         if let queryString = queryString {
-            let queryComponenets = queryString.componentsSeparatedByString("&")
+            let queryComponenets = queryString.components(separatedBy: "&")
             if queryComponenets.count > 0 {
                 queryParams = [:]
                 for queryComp in queryComponenets {
-                    let queryKVPString = queryComp.componentsSeparatedByString("=")
+                    let queryKVPString = queryComp.components(separatedBy: "=")
                     
                     if queryKVPString.count > 1 {
                         queryParams![queryKVPString[0]] = queryKVPString[1]

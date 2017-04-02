@@ -33,20 +33,20 @@ class NotificationViewController: UIViewController {
 }
 extension NotificationViewController : UITableViewDelegate{
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let deepLink = dataArray[indexPath.row].deepLink{
             ScreenVader.sharedVader.processDeepLink(deepLink)
         }
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
 }
 extension NotificationViewController : UITableViewDataSource{
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("notificationCellIdentifier", forIndexPath: indexPath) as! NotificationTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "notificationCellIdentifier", for: indexPath) as! NotificationTableViewCell
         let data = dataArray[indexPath.row]
         if let text = data.text{
             cell.titleLabel.text = text
@@ -62,7 +62,7 @@ extension NotificationViewController : UITableViewDataSource{
         
         return cell
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
 }
@@ -70,7 +70,7 @@ extension NotificationViewController : UITableViewDataSource{
 
 
 extension NotificationViewController : NotificationProtocol{
-    func recievedNotification(data: [NotificationItem]) {
+    func recievedNotification(_ data: [NotificationItem]) {
         dataArray = data
         loadingView.stopAnimating()
         tableView.reloadData()

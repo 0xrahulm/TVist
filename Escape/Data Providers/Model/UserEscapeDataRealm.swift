@@ -14,14 +14,14 @@ class UserEscapeData: Object {
     dynamic var userId : String? = nil
     
     dynamic var sectionTitle : String? = nil
-    dynamic var sectionCount =        0
+    dynamic var sectionCount:NSNumber =        0
     dynamic var escapeType : String? = nil
     
     dynamic var id : String? = nil
     dynamic var name : String? = nil
     dynamic var posterImage : String? = nil
     dynamic var year : String? = nil
-    dynamic var rating = 0.0
+    dynamic var rating:NSNumber = 0.0
     
     
     override class func primaryKey() -> String? {

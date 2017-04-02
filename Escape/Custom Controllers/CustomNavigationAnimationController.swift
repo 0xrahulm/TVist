@@ -13,19 +13,20 @@ class CustomNavigationAnimationController: NSObject, UIViewControllerAnimatedTra
     var reverse: Bool = false
     
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.15
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView()
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        let toView = toViewController.view
-        let fromView = fromViewController.view
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let containerView = transitionContext.containerView
+        let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+        let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
         
+        guard let toView = toViewController.view, let fromView = fromViewController.view else {
+            return
+        }
         
-        var newToFrame = transitionContext.finalFrameForViewController(toViewController)
+        var newToFrame = transitionContext.finalFrame(for: toViewController)
         var newFromFrame = fromView.frame // for reverse
         
         if reverse {
@@ -41,7 +42,7 @@ class CustomNavigationAnimationController: NSObject, UIViewControllerAnimatedTra
         newToFrame.origin.x = 0
         newFromFrame.origin.x = fromView.frame.size.width
         
-        UIView.animateWithDuration(transitionDuration(transitionContext), animations: {
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
             
             if self.reverse {
                 fromView.frame = newFromFrame
@@ -52,12 +53,12 @@ class CustomNavigationAnimationController: NSObject, UIViewControllerAnimatedTra
             }, completion: {
                 finished in
                 
-                if (transitionContext.transitionWasCancelled()) {
+                if (transitionContext.transitionWasCancelled) {
                     toView.removeFromSuperview()
                 } else {
                     fromView.removeFromSuperview()
                 }
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         })
     }
 }

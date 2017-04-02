@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FriendsProtocol : class {
-    func taggedFriendIds(ids : [String])
+    func taggedFriendIds(_ ids : [String])
 }
 
 class FriendsViewController: UIViewController {
@@ -36,11 +36,11 @@ class FriendsViewController: UIViewController {
         
     }
     
-    @IBAction func doneTapped(sender: UIButton) {
+    @IBAction func doneTapped(_ sender: UIButton) {
         if let delegate = freindsDelegate{
             delegate.taggedFriendIds(selectedIds)
         }
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     func setupSearchBar(){
@@ -51,30 +51,30 @@ class FriendsViewController: UIViewController {
     }
     
     func addCancelButton(){
-        let leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action:#selector(FriendsViewController.cancelButtonTapped))
+        let leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action:#selector(FriendsViewController.cancelButtonTapped))
         
         leftBarButtonItem.setTitleTextAttributes([
             NSFontAttributeName : UIFont.init(name: "SFUIDisplay-Medium", size: 15)!,
-            NSForegroundColorAttributeName : UIColor.escapeBlueColor(),NSBackgroundColorAttributeName:UIColor.escapeBlueColor()], forState: UIControlState.Normal)
+            NSForegroundColorAttributeName : UIColor.escapeBlueColor(),NSBackgroundColorAttributeName:UIColor.escapeBlueColor()], for: UIControlState())
         leftBarButtonItem.setTitleTextAttributes([
             NSFontAttributeName : UIFont.init(name: "SFUIDisplay-Medium", size: 15)!,
-            NSForegroundColorAttributeName : UIColor.grayColor(),NSBackgroundColorAttributeName:UIColor.grayColor()], forState: UIControlState.Disabled)
+            NSForegroundColorAttributeName : UIColor.gray,NSBackgroundColorAttributeName:UIColor.gray], for: UIControlState.disabled)
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     func cancelButtonTapped(){
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    func addIds(id : String){
+    func addIds(_ id : String){
         selectedIds.append(id)
     }
     
-    func removeIds(id : String){
+    func removeIds(_ id : String){
         
-        for (index,idExist) in selectedIds.enumerate(){
+        for (index,idExist) in selectedIds.enumerated(){
             if idExist == id{
-                selectedIds.removeAtIndex(index)
+                selectedIds.remove(at: index)
                 break
             }
         }
@@ -85,8 +85,8 @@ class FriendsViewController: UIViewController {
 }
 extension FriendsViewController : UITableViewDelegate , UITableViewDataSource{
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? FollowersTableViewCell{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? FollowersTableViewCell{
             
             let data = searchDataArray[indexPath.row]
             
@@ -111,17 +111,17 @@ extension FriendsViewController : UITableViewDelegate , UITableViewDataSource{
         
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchDataArray.count
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let data = searchDataArray[indexPath.row]
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("followCellIdentifier") as! FollowersTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "followCellIdentifier") as! FollowersTableViewCell
         
         cell.followerImage.downloadImageWithUrl(data.profilePicture, placeHolder: UIImage(named: "profile_placeholder"))
         cell.nameLabel.text = "\(data.firstName) \(data.lastName)"
@@ -148,7 +148,7 @@ extension FriendsViewController : UITableViewDelegate , UITableViewDataSource{
     }
 }
 extension FriendsViewController : FollowersProtocol{
-    func recievedFollowersData(data: [MyAccountItems], userType: UserType) {
+    func recievedFollowersData(_ data: [MyAccountItems], userType: UserType) {
         
             dataArray = data
             searchDataArray = data
@@ -161,35 +161,35 @@ extension FriendsViewController : FollowersProtocol{
 }
 extension FriendsViewController : UISearchBarDelegate{
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         
         searchBar.resignFirstResponder()
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         searchBar.resignFirstResponder()
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         searchBar.resignFirstResponder()
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
             searchDataArray = []
-            searchDataArray.appendContentsOf(dataArray.filter({ (item) -> Bool in
+            searchDataArray.append(contentsOf: dataArray.filter({ (item) -> Bool in
                 let tmp = item
                 let str = tmp.firstName
-                let range = str.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+                let range = str.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
                     
                 return range != nil
                 
             }))
             
             if searchText == ""{
-                searchDataArray.appendContentsOf(dataArray)
+                searchDataArray.append(contentsOf: dataArray)
                 searchBar.resignFirstResponder()
             }
 
@@ -198,7 +198,7 @@ extension FriendsViewController : UISearchBarDelegate{
     
 }
 extension FriendsViewController : UIScrollViewDelegate{
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         searchBar.resignFirstResponder()
     }
 }

@@ -9,6 +9,30 @@
 import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class EmailLoginViewController: UIViewController {
     
@@ -37,7 +61,7 @@ class EmailLoginViewController: UIViewController {
     let defaultMarginForViews:CGFloat = 15
     
     enum SegmentTab:Int {
-        case SignUp=0, SignIn=1
+        case signUp=0, signIn=1
     }
     
     override func viewDidLoad() {
@@ -57,29 +81,29 @@ class EmailLoginViewController: UIViewController {
         
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = false
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EmailLoginViewController.keyboardWillAppear(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EmailLoginViewController.keyboardWillAppear(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EmailLoginViewController.keyboardWillDisappear(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EmailLoginViewController.keyboardWillDisappear(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func loadErrorPopUp(str : String){
-        let alert = UIAlertController(title: "Error", message: str, preferredStyle: UIAlertControllerStyle.Alert)
+    func loadErrorPopUp(_ str : String){
+        let alert = UIAlertController(title: "Error", message: str, preferredStyle: UIAlertControllerStyle.alert)
         
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
         
         alert.view.tintColor = UIColor.escapeRedColor()
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func initialVisualSetup() {
@@ -90,60 +114,60 @@ class EmailLoginViewController: UIViewController {
         doneButton.enableButton = false
         
         let defaultMarginDifference = defaultMarginForViews*2
-        signInSceneWidthConstraint.constant = UIScreen.mainScreen().bounds.width - defaultMarginDifference
-        signUpSceneWidthConstraint.constant = UIScreen.mainScreen().bounds.width - defaultMarginDifference
+        signInSceneWidthConstraint.constant = UIScreen.main.bounds.width - defaultMarginDifference
+        signUpSceneWidthConstraint.constant = UIScreen.main.bounds.width - defaultMarginDifference
         
         self.view.layoutIfNeeded()
     }
     
-    @IBAction func segmentChanged(sender: AnyObject) {
+    @IBAction func segmentChanged(_ sender: AnyObject) {
         
-        if segmentController.selectedSegmentIndex == SegmentTab.SignUp.rawValue {
+        if segmentController.selectedSegmentIndex == SegmentTab.signUp.rawValue {
             self.signUpSceneXConstraint.constant = 0
             self.signInSceneXConstraint.constant = 600
             
             determineSignUpButtonState()
         }
         
-        if segmentController.selectedSegmentIndex == SegmentTab.SignIn.rawValue {
+        if segmentController.selectedSegmentIndex == SegmentTab.signIn.rawValue {
             self.signInSceneXConstraint.constant = 0
             self.signUpSceneXConstraint.constant = -600
             
             determineSignInButtonState()
         }
         
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1, options: [], animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1, options: [], animations: {
             self.view.layoutIfNeeded()
             }, completion: nil)
     }
     
-    func keyboardWillAppear(notification: NSNotification) {
+    func keyboardWillAppear(_ notification: Notification) {
         if let userInfo = notification.userInfo {
             if let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
-                doneButtonChangeBottomConstantWithAnimation(keyboardFrame.CGRectValue().height)
+                doneButtonChangeBottomConstantWithAnimation(keyboardFrame.cgRectValue.height)
             }
         }
         
     }
     
-    func keyboardWillDisappear(notification: NSNotification) {
+    func keyboardWillDisappear(_ notification: Notification) {
         doneButtonChangeBottomConstantWithAnimation(0)
     }
     
-    func doneButtonChangeBottomConstantWithAnimation(constant: CGFloat) {
+    func doneButtonChangeBottomConstantWithAnimation(_ constant: CGFloat) {
         doneButtonBottomConstraint.constant = constant
         layoutWithAnimation()
     }
     
     func layoutWithAnimation() {
-        UIView.animateWithDuration(0.4, delay: 0, options: .CurveEaseOut, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
             }, completion: nil)
     }
     
-    @IBAction func doneButtonTappedWithSender(sender: AnyObject) {
+    @IBAction func doneButtonTappedWithSender(_ sender: AnyObject) {
         
-        if segmentController.selectedSegmentIndex == SegmentTab.SignUp.rawValue {
+        if segmentController.selectedSegmentIndex == SegmentTab.signUp.rawValue {
             
             
             if fullNameSignUp.textField.text == "" {
@@ -170,14 +194,14 @@ class EmailLoginViewController: UIViewController {
                     return
                 }
                 
-                doneButton.loading = true
+                doneButton.isLoading = true
                 UserDataProvider.sharedDataProvider.registerUserWithEmail(fullName, email: email, password: password)
                 
             }
         }
         
         
-        if segmentController.selectedSegmentIndex == SegmentTab.SignIn.rawValue {
+        if segmentController.selectedSegmentIndex == SegmentTab.signIn.rawValue {
             
             if emailSignIn.textField.text == "" {
                 loadErrorPopUp("Enter your email address")
@@ -189,25 +213,27 @@ class EmailLoginViewController: UIViewController {
             }
             
             if let email = emailSignIn.textField.text, let password = passwordSignIn.textField.text {
-                doneButton.loading = true
+                doneButton.isLoading = true
                 UserDataProvider.sharedDataProvider.signInWithEmail(email, password: password)
             }
         }
     }
     
-    @IBAction func fbLoginTapped(sender: AnyObject) {
+    @IBAction func fbLoginTapped(_ sender: AnyObject) {
         
         let fbLoginManager : FBSDKLoginManager =  FBSDKLoginManager()
         let fbPermission = ["user_likes" , "user_friends" , "public_profile" , "email"]
         
-        fbLoginManager.logInWithReadPermissions(fbPermission, fromViewController: self) { (result, error) in
+        fbLoginManager.logIn(withReadPermissions: fbPermission, from: self) { (result, error) in
             if error == nil{
-                
+                guard let result = result else {
+                    return
+                }
                 let fbLoginResult : FBSDKLoginManagerLoginResult = result
                 if let _ = fbLoginResult.grantedPermissions {
                     if fbLoginResult.grantedPermissions.contains("public_profile"){
                         
-                        if let token = FBSDKAccessToken.currentAccessToken(){
+                        if let token = FBSDKAccessToken.current(){
                             
                             if let tokenString = token.tokenString {
                                 
@@ -242,23 +268,23 @@ class EmailLoginViewController: UIViewController {
     }
     
     func openInteresetVC(){
-        performSegueWithIdentifier("showInterestSegue", sender: self)
+        performSegue(withIdentifier: "showInterestSegue", sender: self)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .Default
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .default
     }
 }
 
 extension EmailLoginViewController: HighlightableTextViewProtocol {
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        if segmentController.selectedSegmentIndex == SegmentTab.SignUp.rawValue {
+        if segmentController.selectedSegmentIndex == SegmentTab.signUp.rawValue {
             determineSignUpButtonState()
         }
         
         
-        if segmentController.selectedSegmentIndex == SegmentTab.SignIn.rawValue {
+        if segmentController.selectedSegmentIndex == SegmentTab.signIn.rawValue {
             determineSignInButtonState()
         }
         
@@ -268,7 +294,7 @@ extension EmailLoginViewController: HighlightableTextViewProtocol {
 
 extension EmailLoginViewController : LoginProtocol {
     
-    func signInError(data : AnyObject?){
+    func signInError(_ data : Any?){
         
         if let data = data as? [String:AnyObject]{
             
@@ -282,7 +308,7 @@ extension EmailLoginViewController : LoginProtocol {
         
     }
     
-    func signInSuccessfull(data : [String:AnyObject] , type : LoginTypeEnum){
+    func signInSuccessfull(_ data : [String:AnyObject] , type : LoginTypeEnum){
         
         if type == .Email {
             openInteresetVC()

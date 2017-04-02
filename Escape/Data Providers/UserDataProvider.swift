@@ -9,20 +9,44 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 
 protocol LoginProtocol : class{
     
-    func signInSuccessfull(data : [String:AnyObject] , type : LoginTypeEnum)
-    func signInError(data : AnyObject?)
+    func signInSuccessfull(_ data : [String:AnyObject] , type : LoginTypeEnum)
+    func signInError(_ data : Any?)
 }
 
 protocol InterestProtocol : class{
-    func interestList(list : [InterestItems])
+    func interestList(_ list : [InterestItems])
 }
 
 protocol NotificationProtocol : class {
-    func recievedNotification(data : [NotificationItem])
+    func recievedNotification(_ data : [NotificationItem])
     func error()
 }
 
@@ -37,68 +61,68 @@ class UserDataProvider: CommonDataProvider {
     
     func getSecurityToken(){
         
-       //ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUsers, params: nil, delegate: self)
+       //ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUsers, params: nil, delegate: self)
       
     }
-    func postFBtoken(token : String , expires_in : NSTimeInterval){
+    func postFBtoken(_ token : String , expires_in : TimeInterval){
     
-        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .FBSignIn, params: ["facebook_token" : token , "expires_in" : expires_in], delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .FBSignIn, params: ["facebook_token" : token , "expires_in" : expires_in], delegate: self)
         
     }
     
-    func registerUserWithEmail(name : String , email : String , password : String){
+    func registerUserWithEmail(_ name : String , email : String , password : String){
         
-        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSignUp, params: ["full_name":name , "email":email , "password":password], delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSignUp, params: ["full_name":name , "email":email , "password":password], delegate: self)
     }
     
-    func signInWithEmail(email : String, password : String){
+    func signInWithEmail(_ email : String, password : String){
         
-        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSigIn, params: ["email":email , "password":password], delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSigIn, params: ["email":email , "password":password], delegate: self)
         
     }
     
     func fetchInterest() {
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .FetchInterests, params: nil, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .FetchInterests, params: nil, delegate: self)
     }
     
-    func postInterest(interests : [String]) {
-        var params : [String:AnyObject] = [:]
+    func postInterest(_ interests : [String]) {
+        var params : [String:Any] = [:]
         params["interests"] = interests
         
-        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .PostInterests, params: params, delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .PostInterests, params: params, delegate: self)
     }
     
-    func addToEscape(id : String, action : EscapeAddActions , status : String, friendsId : [String] , shareFB : UInt){
-        var params : [String:AnyObject] = [:]
+    func addToEscape(_ id : String, action : EscapeAddActions , status : String, friendsId : [String] , shareFB : UInt){
+        var params : [String:Any] = [:]
         params["escape_id"] = id
         params["escape_action"] = action.rawValue
         params["status"] = status
         
         params["tagged_users"] = friendsId
         
-        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .AddEscapes, params: params, delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .AddEscapes, params: params, delegate: self)
     }
     
-    func followUser(id : String){
-        var params : [String:AnyObject] = [:]
+    func followUser(_ id : String){
+        var params : [String:Any] = [:]
         params["user_id"] = id
-        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .FollowUser, params: params, delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .FollowUser, params: params, delegate: self)
     }
     
-    func unfollowUser(id : String){
-        var params : [String:AnyObject] = [:]
+    func unfollowUser(_ id : String){
+        var params : [String:Any] = [:]
         params["user_id"] = id
-        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .UnfollowUser, params: params, delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .UnfollowUser, params: params, delegate: self)
     }
     
     func getNotification(){
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetNotification, params: nil, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetNotification, params: nil, delegate: self)
     }
     
     
 // MARK: - Service Responses
     
-    override func serviceSuccessfull(service: Service) {
+    override func serviceSuccessfull(_ service: Service) {
         
         if let subServiceType = service.subServiveType{
             
@@ -157,7 +181,7 @@ class UserDataProvider: CommonDataProvider {
         
     
     }
-    override func serviceError(service: Service) {
+    override func serviceError(_ service: Service) {
         if let subServiceType = service.subServiveType{
             
             switch subServiceType {
@@ -223,7 +247,7 @@ class UserDataProvider: CommonDataProvider {
 // MARK: - Parsing
 
 extension UserDataProvider{
-    func parseFBUserData(dict : [String : AnyObject]){
+    func parseFBUserData(_ dict : [String : AnyObject]){
         
         ECUserDefaults.setLoggedIn(true)
         
@@ -241,7 +265,7 @@ extension UserDataProvider{
         
     }
     
-    func parseEmailSignInUserData(dict : [String : AnyObject]){
+    func parseEmailSignInUserData(_ dict : [String : AnyObject]){
         
         ECUserDefaults.setLoggedIn(true)
         
@@ -253,7 +277,7 @@ extension UserDataProvider{
         }
     }
     
-    func parseIntereset(data : [AnyObject]){
+    func parseIntereset(_ data : [AnyObject]){
         
         var intersts : [InterestItems] = []
         
@@ -271,7 +295,7 @@ extension UserDataProvider{
             }
         }
         if intersts.count > 0 {
-            intersts = intersts.sort({ $0.weightage > $1.weightage })
+            intersts = intersts.sorted(by: { $0.weightage > $1.weightage })
         }
         
         if interestDelegate != nil{
@@ -279,7 +303,7 @@ extension UserDataProvider{
         }
     }
     
-    func parseNotification(data : [[String:AnyObject]]){
+    func parseNotification(_ data : [[String:AnyObject]]){
         let notificationData = NotificationItem(data : data).items
         
         if let delegate = notificationDelegate{

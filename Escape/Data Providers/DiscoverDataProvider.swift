@@ -15,21 +15,21 @@ class DiscoverDataProvider: CommonDataProvider {
     
     var searchServices : [Service] = []
     
-    func getDiscoverItems(discovertype : DiscoverType, page : Int){
+    func getDiscoverItems(_ discovertype : DiscoverType, page : Int){
         
-        var params : [String:AnyObject] = [:]
+        var params : [String:Any] = [:]
         
         
         params["discovery_type"] =  discovertype.rawValue // discovery type required
         params["page"] = page
         
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetDiscoverItems, params: params, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetDiscoverItems, params: params, delegate: self)
     }
     
-    func getSearchItems(queryText : String, searchType : SearchType, limit : Int?, page : Int?){
+    func getSearchItems(_ queryText : String, searchType : SearchType, limit : Int?, page : Int?){
         
-        var params : [String:AnyObject] = [:]
+        var params : [String:Any] = [:]
         
         
         params["type"] =  searchType.rawValue // discovery type required
@@ -47,12 +47,12 @@ class DiscoverDataProvider: CommonDataProvider {
             }
         }
 
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSearchItems, params: params, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSearchItems, params: params, delegate: self)
         
         
     }
     
-    override func serviceSuccessfull(service: Service) {
+    override func serviceSuccessfull(_ service: Service) {
         if let subServiceType = service.subServiveType{
             switch subServiceType {
                 
@@ -86,13 +86,13 @@ class DiscoverDataProvider: CommonDataProvider {
         }
     }
     
-    override func serviceError(service: Service) {
+    override func serviceError(_ service: Service) {
         if let subServiceType = service.subServiveType{
             
             switch subServiceType  {
             
             case .GetDiscoverItems:
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.DiscoverObserver.rawValue, object: ["error" : "error"])
+                NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.DiscoverObserver.rawValue), object: ["error" : "error"])
                 
                 break
                 
@@ -109,7 +109,7 @@ class DiscoverDataProvider: CommonDataProvider {
 // MARK :- Parsing
 extension DiscoverDataProvider{
     
-    func parseDiscoverData(data : [AnyObject], discoverType : String ){
+    func parseDiscoverData(_ data : [AnyObject], discoverType : String ){
         
         var discoverItem : DiscoverItems?
         
@@ -117,11 +117,11 @@ extension DiscoverDataProvider{
         
         if let data = discoverItem?.discoverData{
          
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.DiscoverObserver.rawValue, object: ["data" : data, "type":discoverType])
+            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.DiscoverObserver.rawValue), object: ["data" : data, "type":discoverType])
             
         }
     }
-    func parseSearchedData(data : [AnyObject], searchType : String, queryText : String, page : Int?){
+    func parseSearchedData(_ data : [AnyObject], searchType : String, queryText : String, page : Int?){
         var searchedItems : SearchItems?
         var tempPage = 0
         if let page = page{
@@ -131,7 +131,7 @@ extension DiscoverDataProvider{
         
         if let data = searchedItems?.searchData{
             print("searched data count \(data.count)")
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.SearchObserver.rawValue, object: ["data" : data, "type" : searchType, "queryText" : queryText, "page" : tempPage])
+            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.SearchObserver.rawValue), object: ["data" : data, "type" : searchType, "queryText" : queryText, "page" : tempPage])
         }
         
     }

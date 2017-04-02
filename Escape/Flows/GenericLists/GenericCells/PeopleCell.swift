@@ -18,11 +18,11 @@ class PeopleCell: NormalCell {
     var isFollow = false
     
     var userId:String!
-    var indexPath : NSIndexPath?
+    var indexPath : IndexPath?
     
     weak var followButtonDelegate : FollowerButtonProtocol?
 
-    @IBAction func followButtonClicked(sender: AnyObject) {
+    @IBAction func followButtonClicked(_ sender: AnyObject) {
         
         if isFollow {
             followUnfollowButton.unfollowViewWithAnimate(true)

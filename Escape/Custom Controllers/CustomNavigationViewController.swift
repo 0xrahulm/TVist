@@ -20,7 +20,7 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
         setAppearnce()
         // Do any additional setup after loading the view.
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
     }
@@ -34,30 +34,30 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
         
         self.navigationBar.barTintColor = UIColor.escapeGray()
         self.navigationBar.tintColor = UIColor.themeColorBlack()
-        self.navigationBar.translucent = false
+        self.navigationBar.isTranslucent = false
         
         self.navigationBar.titleTextAttributes = SFUIAttributedText.regularAttributesForSize(17.0, color: UIColor.themeColorBlack())
     }
     
-    override func dismissViewControllerAnimated(flag: Bool, completion: (() -> Void)?) {
-        super.dismissViewControllerAnimated(flag, completion: completion)
-        if isBeingDismissed() {
+    override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
+        super.dismiss(animated: flag, completion: completion)
+        if isBeingDismissed {
             ScreenVader.sharedVader.removeDismissedViewController(self)
 
         }
     }
 
-    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        if operation == .Push {
+        if operation == .push {
             customInteractionController.attachToViewController(toVC)
         }
         
-        customNavigationAnimationController.reverse = operation == .Pop
+        customNavigationAnimationController.reverse = operation == .pop
         return customNavigationAnimationController
     }
     
-    func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return customInteractionController.transitionInProgress ? customInteractionController : nil
     }
 

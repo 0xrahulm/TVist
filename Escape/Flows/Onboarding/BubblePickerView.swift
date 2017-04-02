@@ -8,7 +8,7 @@
 import UIKit
 
 protocol BubblePickerProtocol: class {
-    func didTapOnItemAtIndex(sender: UIButton)
+    func didTapOnItemAtIndex(_ sender: UIButton)
 }
 
 
@@ -29,7 +29,7 @@ class BubblePickerView: UIView {
     }
     
     func setupBubbleViewControl() {
-        let bubbleView = UIView(frame: CGRect(x: 10, y: 10, width: CGRectGetWidth(frame)-20, height: 10))
+        let bubbleView = UIView(frame: CGRect(x: 10, y: 10, width: frame.width-20, height: 10))
         var currentX: CGFloat = 0
         var currentY: CGFloat = 0
         var buttonTag = 0
@@ -37,17 +37,17 @@ class BubblePickerView: UIView {
         var buttonsInRow = [UIButton]()
         
         for preferenceItem in preferenceItems {
-            let button = UIButton(type: .Custom)
-            button.setAttributedTitle(SFUIAttributedText.mediumAttributedTextForString(preferenceItem.name!.uppercaseString, size: 15, color: UIColor.whiteColor().colorWithAlphaComponent(0.6)), forState: .Normal)
-            button.setAttributedTitle(SFUIAttributedText.mediumAttributedTextForString(preferenceItem.name!.uppercaseString, size: 15, color: UIColor.textBlackColor()), forState: .Selected)
+            let button = UIButton(type: .custom)
+            button.setAttributedTitle(SFUIAttributedText.mediumAttributedTextForString(preferenceItem.name!.uppercased(), size: 15, color: UIColor.white.withAlphaComponent(0.6)), for: UIControlState())
+            button.setAttributedTitle(SFUIAttributedText.mediumAttributedTextForString(preferenceItem.name!.uppercased(), size: 15, color: UIColor.textBlackColor()), for: .selected)
             
             button.sizeToFit()
-            let buttonWidth = CGRectGetWidth(button.frame) + 35
+            let buttonWidth = button.frame.width + 35
             
-            if currentX+buttonWidth > CGRectGetWidth(bubbleView.frame) {
+            if currentX+buttonWidth > bubbleView.frame.width {
                 currentY += 45
                 for buttonInRow in buttonsInRow {
-                    let offset = (CGRectGetWidth(bubbleView.frame) - currentX)/2
+                    let offset = (bubbleView.frame.width - currentX)/2
                     var buttonFrame = buttonInRow.frame
                     buttonFrame.origin.x += offset
                     buttonInRow.frame = buttonFrame
@@ -55,25 +55,25 @@ class BubblePickerView: UIView {
                 currentX = 0
                 buttonsInRow.removeAll()
             }
-            button.setBackgroundImage(UIImage.getImageWithColor(UIColor.whiteColor(), size: CGSizeMake(1, 1)), forState: .Selected)
+            button.setBackgroundImage(UIImage.getImageWithColor(UIColor.white, size: CGSize(width: 1, height: 1)), for: .selected)
             
-            button.setImage(UIImage(named: "createFeedPlus"), forState: .Normal)
-            button.setImage(UIImage(named: "createFeedTick"), forState: .Selected)
+            button.setImage(UIImage(named: "createFeedPlus"), for: UIControlState())
+            button.setImage(UIImage(named: "createFeedTick"), for: .selected)
             
-            button.imageEdgeInsets = UIEdgeInsetsMake(0, CGRectGetWidth(button.frame)+15, 0, 0)
+            button.imageEdgeInsets = UIEdgeInsetsMake(0, button.frame.width+15, 0, 0)
             button.titleEdgeInsets = UIEdgeInsetsMake(0, -22, 0, 0)
-            button.frame = CGRectMake(currentX, currentY, buttonWidth, 35)
+            button.frame = CGRect(x: currentX, y: currentY, width: buttonWidth, height: 35)
             
             button.clipsToBounds = true
-            button.layer.borderColor  = UIColor.whiteColor().colorWithAlphaComponent(0.6).CGColor
+            button.layer.borderColor  = UIColor.white.withAlphaComponent(0.6).cgColor
             button.layer.borderWidth  = 1
             button.tag = buttonTag
             buttonTag += 1
-            button.addTarget(self, action: #selector(BubblePickerView.bubbleTapped(_:)), forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(BubblePickerView.bubbleTapped(_:)), for: .touchUpInside)
             button.layer.cornerRadius = 4
             if let isSelected = preferenceItem.isSelected {
                 if isSelected{
-                    button.selected = true
+                    button.isSelected = true
                 }
                 
             }
@@ -85,7 +85,7 @@ class BubblePickerView: UIView {
             bubbleView.addSubview(button)
         }
         for buttonInRow in buttonsInRow {
-            let offset = (CGRectGetWidth(bubbleView.frame) - currentX)/2
+            let offset = (bubbleView.frame.width - currentX)/2
             var buttonFrame = buttonInRow.frame
             buttonFrame.origin.x += offset
             buttonInRow.frame = buttonFrame
@@ -100,8 +100,8 @@ class BubblePickerView: UIView {
         heightOfView = bubbleViewFrame.height
     }
     
-    func bubbleTapped(sender: UIButton) {
-        sender.selected = !sender.selected
+    func bubbleTapped(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
         
         if bubblePickerDelegate != nil {
             bubblePickerDelegate?.didTapOnItemAtIndex(sender)

@@ -19,10 +19,10 @@ enum CellIdentifier : String{
     case SuggestedPeopleCollection = "SuggestedPeopleCollectionView"
 }
 enum CellHeight : CGFloat{
-    case FBFriends = 200
-    case PlaceHolder = 250
-    case AddtoEscape = 315
-    case WhatsYourEscape = 123
+    case fbFriends = 200
+    case placeHolder = 250
+    case addtoEscape = 315
+    case whatsYourEscape = 123
 }
 
 class HomeViewController: UIViewController {
@@ -42,11 +42,11 @@ class HomeViewController: UIViewController {
         
         self.title = "Home"
         
-        presentToast = UIApplication.sharedApplication().keyWindow
+        presentToast = UIApplication.shared.keyWindow
         
-        dataArray.append(StoryCard(storyType : .EmptyStory))
-        dataArray.append(StoryCard(storyType : .EmptyStory))
-        dataArray.append(StoryCard(storyType : .EmptyStory))
+        dataArray.append(StoryCard(storyType : .emptyStory))
+        dataArray.append(StoryCard(storyType : .emptyStory))
+        dataArray.append(StoryCard(storyType : .emptyStory))
         
         initXibs()
         initNotificationObserver()
@@ -61,24 +61,24 @@ class HomeViewController: UIViewController {
 
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         ScreenVader.sharedVader.hideTabBar(false)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
     }
     
     func initNotificationObserver(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.receivedNotification(_:)), name:NotificationObservers.HomeTappedObserver.rawValue, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.receivedNotification(_:)), name:NSNotification.Name(rawValue: NotificationObservers.HomeTappedObserver.rawValue), object: nil)
     }
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: NotificationObservers.HomeTappedObserver.rawValue, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NotificationObservers.HomeTappedObserver.rawValue), object: nil)
     }
-    func receivedNotification(notification : NSNotification){
+    func receivedNotification(_ notification : Notification){
            //tableView.setContentOffset(CGPointZero, animated:true)
         
     }
@@ -86,7 +86,7 @@ class HomeViewController: UIViewController {
     func initXibs(){
         
         for cardType in cardsTypeArray{
-            tableView.registerNib(UINib(nibName: cardType.rawValue, bundle: nil), forCellReuseIdentifier: cardType.rawValue)
+            tableView.register(UINib(nibName: cardType.rawValue, bundle: nil), forCellReuseIdentifier: cardType.rawValue)
         }
 
     }
@@ -99,19 +99,19 @@ class HomeViewController: UIViewController {
         callFurther = false
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dict = sender as? [String:AnyObject]{
             if let storyId = dict["id"] as? String{
-                if let commentVC = segue.destinationViewController as? HomeCommentViewController{
+                if let commentVC = segue.destination as? HomeCommentViewController{
                     commentVC.storyId = storyId
-                    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
                 }
             }
         }
     }
     
-    func configureFBFriendCell(tableView : UITableView , indexPath : NSIndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.FBFriends.rawValue) as! FBFriendsTableViewCell
+    func configureFBFriendCell(_ tableView : UITableView , indexPath : IndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.FBFriends.rawValue) as! FBFriendsTableViewCell
         let data = dataArray[indexPath.row] as? FBFriendCard
         cell.friendItems = data
         cell.removeFbCardDelegate = self
@@ -119,16 +119,16 @@ class HomeViewController: UIViewController {
         return cell
     }
     
-    func configurePlaceHolderCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+    func configurePlaceHolderCell(_ tableView : UITableView, indexPath : IndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.PlaceHolder.rawValue, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.PlaceHolder.rawValue, for: indexPath)
         
         return cell
     }
     
-    func configureArticleCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+    func configureArticleCell(_ tableView : UITableView, indexPath : IndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.Article.rawValue, forIndexPath: indexPath) as! ArticleTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.Article.rawValue, for: indexPath) as! ArticleTableViewCell
         let data = dataArray[indexPath.row] as? ArticleCard
         cell.homeCommentDelegate = self
         cell.indexPath = indexPath
@@ -136,9 +136,9 @@ class HomeViewController: UIViewController {
         return cell
     }
     
-    func configureAddToEscapeCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+    func configureAddToEscapeCell(_ tableView : UITableView, indexPath : IndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.AddToEscape.rawValue, forIndexPath: indexPath) as! AddToEscapeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.AddToEscape.rawValue, for: indexPath) as! AddToEscapeTableViewCell
         let data = dataArray[indexPath.row] as? AddToEscapeCard
         cell.homeCommentDelegate = self
         cell.indexPath = indexPath
@@ -146,9 +146,9 @@ class HomeViewController: UIViewController {
         return cell
     }
     
-    func configureWhatsYourEscapeCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+    func configureWhatsYourEscapeCell(_ tableView : UITableView, indexPath : IndexPath) -> UITableViewCell{
 
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.WhatsYourEscape.rawValue, forIndexPath: indexPath) as! WhatsYourLatestEscapeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.WhatsYourEscape.rawValue, for: indexPath) as! WhatsYourLatestEscapeCell
         
         if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
             if let image = user.profilePicture{
@@ -162,9 +162,9 @@ class HomeViewController: UIViewController {
         return cell
     }
     
-    func configureSuggestedFollowCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+    func configureSuggestedFollowCell(_ tableView : UITableView, indexPath : IndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.SuggestedFollow.rawValue, forIndexPath: indexPath) as! SuggestedFollowsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.SuggestedFollow.rawValue, for: indexPath) as! SuggestedFollowsTableViewCell
         let data = dataArray[indexPath.row] as? SuggestedFollowsCard
         cell.data = data
         return cell
@@ -173,31 +173,31 @@ class HomeViewController: UIViewController {
 
 }
 extension HomeViewController : UITableViewDelegate{
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if let storyType = dataArray[indexPath.row].storyType{
             switch storyType {
                 
-            case .FBFriendFollow:
-                return CellHeight.FBFriends.rawValue
+            case .fbFriendFollow:
+                return CellHeight.fbFriends.rawValue
                 
-            case .AddToEscape:
+            case .addToEscape:
                 return UITableViewAutomaticDimension
             
-            case .Recommeded:
+            case .recommeded:
                 return UITableViewAutomaticDimension
                 
-            case .Article:
+            case .article:
                 return UITableViewAutomaticDimension
                 
-            case .SuggestedFollows:
+            case .suggestedFollows:
                 return UITableViewAutomaticDimension
                 
-            case .EmptyStory:
-                return CellHeight.PlaceHolder.rawValue
+            case .emptyStory:
+                return CellHeight.placeHolder.rawValue
                 
-            case .WhatsYourEscape:
-                return CellHeight.WhatsYourEscape.rawValue
+            case .whatsYourEscape:
+                return CellHeight.whatsYourEscape.rawValue
                 
             }
         }
@@ -209,36 +209,36 @@ extension HomeViewController : UITableViewDelegate{
 }
 extension HomeViewController : UITableViewDataSource{
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row > 3 && indexPath.row >= dataArray.count - 5{
             loadMoreData()
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let storyType = dataArray[indexPath.row].storyType{
             switch storyType {
             
-            case .FBFriendFollow:
+            case .fbFriendFollow:
                 return configureFBFriendCell(tableView, indexPath: indexPath)
             
-            case .AddToEscape:
+            case .addToEscape:
                 return configureAddToEscapeCell(tableView, indexPath: indexPath)
                 
-            case .Recommeded:
+            case .recommeded:
                 return configureAddToEscapeCell(tableView, indexPath: indexPath)
                 
-            case .EmptyStory:
+            case .emptyStory:
                 return configurePlaceHolderCell(tableView, indexPath: indexPath)
                 
-            case .Article:
+            case .article:
                 return configureArticleCell(tableView, indexPath: indexPath)
                 
-            case .WhatsYourEscape:
+            case .whatsYourEscape:
                 return configureWhatsYourEscapeCell(tableView, indexPath: indexPath)
                 
-            case .SuggestedFollows:
+            case .suggestedFollows:
                 return configureSuggestedFollowCell(tableView, indexPath : indexPath)
             
             }
@@ -249,16 +249,16 @@ extension HomeViewController : UITableViewDataSource{
     }
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
 }
 extension HomeViewController : HomeDataProtocol{
-    func recievedStories(data: [BaseStory]) {
+    func recievedStories(_ data: [BaseStory]) {
         if let data = data as? [StoryCard]{
             
             addWhatsYourEscapeCard()
-            self.dataArray.appendContentsOf(data)
+            self.dataArray.append(contentsOf: data)
             if animateOneTime{
                 tableView.reloadDataAnimated()
             }else{
@@ -280,18 +280,18 @@ extension HomeViewController : HomeDataProtocol{
     
     func addWhatsYourEscapeCard(){
         if dataArray.count > 0 {
-            if dataArray[0].storyType == .EmptyStory{
+            if dataArray[0].storyType == .emptyStory{
                 self.dataArray = []
-                self.dataArray.append(StoryCard(storyType : .WhatsYourEscape))
+                self.dataArray.append(StoryCard(storyType : .whatsYourEscape))
             }
         }else if dataArray.count == 0{
-            self.dataArray.append(StoryCard(storyType : .WhatsYourEscape))
+            self.dataArray.append(StoryCard(storyType : .whatsYourEscape))
         }
         
     }
 }
 extension HomeViewController : HomeCommentProtocol{
-    func commentTapped(indexPath: NSIndexPath) {
+    func commentTapped(_ indexPath: IndexPath) {
         if dataArray.count > indexPath.row{
             
             let story = dataArray[indexPath.row]
@@ -306,11 +306,11 @@ extension HomeViewController : HomeCommentProtocol{
     }
 }
 extension HomeViewController : RemoveFbCardProtocol{
-    func removeFBCard(indexPath: NSIndexPath) {
+    func removeFBCard(_ indexPath: IndexPath) {
         if dataArray.count > indexPath.row{
-            dataArray.removeAtIndex(indexPath.row)
+            dataArray.remove(at: indexPath.row)
         }
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Right)
+        tableView.deleteRows(at: [indexPath], with: .right)
         
         if dataArray.count == 1{
             callFurther = true
@@ -319,7 +319,8 @@ extension HomeViewController : RemoveFbCardProtocol{
         }
         
         if let toast = self.presentToast {
-            toast.makeToast(message: "Facebook Friends followed. You can check them in your My Account section.", duration: 3.0, position: HRToastPositionDefault)
+            
+            toast.makeToast(message: "Facebook Friends followed. You can check them in your My Account section.", duration: 3.0, position: HRToastPositionDefault as AnyObject)
         }
     }
 }

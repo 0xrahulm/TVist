@@ -9,7 +9,7 @@
 import Foundation
 
 class Logger {
-    class func debug(debugObject: AnyObject) {
+    class func debug(_ debugObject: Any) {
         if ChiefVader.sharedVader.isDebugMode {
             print(debugObject)
         }

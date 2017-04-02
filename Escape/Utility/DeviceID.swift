@@ -20,7 +20,7 @@ class DeviceID: NSObject {
     
     class func getDeviceID () -> String{
         
-        if let keyDict = Locksmith.loadDataForUserAccount(kEscapeXmodel){
+        if let keyDict = Locksmith.loadDataForUserAccount(userAccount: kEscapeXmodel){
             if let id = keyDict[kEscapeXdevicekey]{
                 return id as! String
             }else{
@@ -35,8 +35,8 @@ class DeviceID: NSObject {
     
     class func generateID() -> String{
         
-        let id = UIDevice.currentDevice().identifierForVendor!.UUIDString
-        try! Locksmith.saveData([kEscapeXdevicekey:id], forUserAccount: kEscapeXmodel)
+        let id = UIDevice.current.identifierForVendor!.uuidString
+        try! Locksmith.saveData(data: [kEscapeXdevicekey:id], forUserAccount: kEscapeXmodel)
         return id
 
         
@@ -44,7 +44,7 @@ class DeviceID: NSObject {
     class func getXauth()->String?{
         
         if ECUserDefaults.isLoggedIn(){
-            if let authDict = Locksmith.loadDataForUserAccount(kEscapeXauthModel){
+            if let authDict = Locksmith.loadDataForUserAccount(userAccount: kEscapeXauthModel){
                 if let auth = authDict["X-Auth"] as? String{
                     return auth
                 }
@@ -55,16 +55,16 @@ class DeviceID: NSObject {
         return nil
         
     }
-    class func saveXauth(token : String){
+    class func saveXauth(_ token : String){
         
-        if let authDict = Locksmith.loadDataForUserAccount(kEscapeXauthModel){
+        if let authDict = Locksmith.loadDataForUserAccount(userAccount: kEscapeXauthModel){
             if let _ = authDict[kEscapeXauthkeys] as? String{
-                try! Locksmith.updateData([kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
+                try! Locksmith.updateData(data: [kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
             }else{
-                try! Locksmith.saveData([kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
+                try! Locksmith.saveData(data: [kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
             }
         }else{
-            try! Locksmith.saveData([kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
+            try! Locksmith.saveData(data: [kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
         }
         
     }

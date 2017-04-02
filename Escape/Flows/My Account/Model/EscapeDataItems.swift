@@ -30,7 +30,7 @@ class EscapeDataItems: BaseDataItem {
         parseEscapeItems(dict)
     }
     
-    func parseEscapeItems(dict : [String:AnyObject]){
+    func parseEscapeItems(_ dict : [String:AnyObject]){
         if let id = dict["id"] as? String,
            let name = dict["name"] as? String,
            let image = dict["poster_image"] as? String{

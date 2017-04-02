@@ -38,17 +38,17 @@ class HomeCommentViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         ScreenVader.sharedVader.hideTabBar(true)
         
-        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = false
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeCommentViewController.keyboardWillAppear(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeCommentViewController.keyboardWillAppear(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeCommentViewController.keyboardWillDisappear(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeCommentViewController.keyboardWillDisappear(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         commentTextField.becomeFirstResponder()
     }
@@ -59,31 +59,31 @@ class HomeCommentViewController: UIViewController {
         }
     }
     
-    func keyboardWillAppear(notification: NSNotification) {
+    func keyboardWillAppear(_ notification: Notification) {
         if let userInfo = notification.userInfo {
             if let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
-                doneButtonChangeBottomConstantWithAnimation(keyboardFrame.CGRectValue().height)
+                doneButtonChangeBottomConstantWithAnimation(keyboardFrame.cgRectValue.height)
             }
         }
         
     }
     
-    func keyboardWillDisappear(notification: NSNotification) {
+    func keyboardWillDisappear(_ notification: Notification) {
         doneButtonChangeBottomConstantWithAnimation(0)
     }
     
-    func doneButtonChangeBottomConstantWithAnimation(constant: CGFloat) {
+    func doneButtonChangeBottomConstantWithAnimation(_ constant: CGFloat) {
         commentBottomConstraint.constant = constant
         layoutWithAnimation()
     }
     
     func layoutWithAnimation() {
-        UIView.animateWithDuration(0.4, delay: 0, options: .CurveEaseOut, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
             }, completion: nil)
     }
     
-    @IBAction func postButtonTapped(sender: UIButton) {
+    @IBAction func postButtonTapped(_ sender: UIButton) {
         
         
         if let comment = commentTextField.text{
@@ -100,27 +100,27 @@ class HomeCommentViewController: UIViewController {
     
 }
 extension HomeCommentViewController : UITableViewDelegate{
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
 }
 extension HomeCommentViewController : UITableViewDataSource{
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : CommentTableViewCell!
-        cell = tableView.dequeueReusableCellWithIdentifier("commentCellIdentifier") as? CommentTableViewCell
+        cell = tableView.dequeueReusableCell(withIdentifier: "commentCellIdentifier") as? CommentTableViewCell
         cell.data = commentDataArray[indexPath.row]
         
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return commentDataArray.count
     }
 }
 extension HomeCommentViewController : UIScrollViewDelegate{
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if !firstTimeScroll{
             commentTextField.resignFirstResponder()
         }
@@ -128,7 +128,7 @@ extension HomeCommentViewController : UIScrollViewDelegate{
 }
 extension HomeCommentViewController : UITextFieldDelegate{
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if string == ""{
             postButton.alpha = 0.4
@@ -146,13 +146,13 @@ extension HomeCommentViewController : UITextFieldDelegate{
     }
 }
 extension HomeCommentViewController : HomeStoryCommentProtocol{
-    func recievedStoryComment(comments: [StoryComment], storyId: String) {
+    func recievedStoryComment(_ comments: [StoryComment], storyId: String) {
         
         if self.storyId == storyId{
             self.commentDataArray = comments
             tableView.reloadData()
             
-            _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(HomeCommentViewController.scrollToBottom), userInfo: nil , repeats: false)
+            _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(HomeCommentViewController.scrollToBottom), userInfo: nil , repeats: false)
         }
         
     }
@@ -168,10 +168,10 @@ extension HomeCommentViewController : HomeStoryCommentProtocol{
     }
     
     func scrollToBottom(){
-        let indexPath = NSIndexPath(forItem: commentDataArray.count-1, inSection: 0)
-        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+        let indexPath = IndexPath(item: commentDataArray.count-1, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: #selector(HomeCommentViewController.firstTimeScrollFalse), userInfo: nil , repeats: false)
+        _ = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(HomeCommentViewController.firstTimeScrollFalse), userInfo: nil , repeats: false)
         
         
     }

@@ -15,44 +15,44 @@ class ECUserDefaults: NSObject {
     static let kSearchText = "kSearchTextKey"
     
     class func isLoggedIn()-> Bool{
-        let defaults = NSUserDefaults.standardUserDefaults()
-        return defaults.boolForKey(kLoggedIn)
+        let defaults = UserDefaults.standard
+        return defaults.bool(forKey: kLoggedIn)
     }
     
-    class func setLoggedIn(value : Bool){
+    class func setLoggedIn(_ value : Bool){
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setBool(value, forKey: kLoggedIn)
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: kLoggedIn)
         
     }
     
     class func getCurrentUserId() -> String?{
-        let defaults = NSUserDefaults.standardUserDefaults()
-        return defaults.valueForKey(kCurrentUserId) as? String
+        let defaults = UserDefaults.standard
+        return defaults.value(forKey: kCurrentUserId) as? String
     }
-    class func setCurrentUserId(id : String){
-        let defaults = NSUserDefaults.standardUserDefaults()
+    class func setCurrentUserId(_ id : String){
+        let defaults = UserDefaults.standard
         defaults.setValue(id, forKey: kCurrentUserId)
     }
     
     class func getSearchedText() -> String?{
-        let defaults = NSUserDefaults.standardUserDefaults()
-        return defaults.valueForKey(kSearchText) as? String
+        let defaults = UserDefaults.standard
+        return defaults.value(forKey: kSearchText) as? String
     }
-    class func setSearchedText(id : String){
-        let defaults = NSUserDefaults.standardUserDefaults()
+    class func setSearchedText(_ id : String){
+        let defaults = UserDefaults.standard
         defaults.setValue(id, forKey: kSearchText)
     }
     class func removeSearchedText(){
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(kSearchText)
+        UserDefaults.standard.removeObject(forKey: kSearchText)
     }
     
     //Remove keys
     class func removeLoggedInKeys(){
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         
-        defaults.removeObjectForKey(kLoggedIn)
-        defaults.removeObjectForKey(kCurrentUserId)
+        defaults.removeObject(forKey: kLoggedIn)
+        defaults.removeObject(forKey: kCurrentUserId)
     }
 
 }

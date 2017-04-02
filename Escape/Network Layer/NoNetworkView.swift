@@ -22,7 +22,7 @@ class NoNetworkView: UINibView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @IBAction func closeTapped(sender: AnyObject) {
+    @IBAction func closeTapped(_ sender: AnyObject) {
         
         ScreenVader.sharedVader.performScreenManagerAction(.NetworkPresent, queryParams: nil)
     }

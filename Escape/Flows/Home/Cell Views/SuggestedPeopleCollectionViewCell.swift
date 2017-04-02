@@ -29,7 +29,7 @@ class SuggestedPeopleCollectionViewCell: UICollectionViewCell {
                 followersLabel.text = "\(data.followers) Followers"
                 
                 self.outerView.layer.borderWidth = 1
-                self.outerView.layer.borderColor = UIColor.placeholderColor().CGColor
+                self.outerView.layer.borderColor = UIColor.placeholderColor().cgColor
                 self.outerView.layer.cornerRadius = 5
             }
         }
@@ -37,7 +37,7 @@ class SuggestedPeopleCollectionViewCell: UICollectionViewCell {
     
     
     
-    @IBAction func followButtonTapped(sender: UIButton) {
+    @IBAction func followButtonTapped(_ sender: UIButton) {
     }
     
 }

@@ -42,7 +42,7 @@ class SearchItems: NSObject {
         self.searchType = searchType
     }
     
-    func parseData(data : [AnyObject]){
+    func parseData(_ data : [AnyObject]){
         var searchDataArray : [SearchItems] = []
         
         if let dataArray = data as? [[String:AnyObject]]{

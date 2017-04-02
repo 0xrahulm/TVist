@@ -12,31 +12,31 @@ class CustomPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
     
     var isPresented:Bool = true
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.4
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        let containerView = transitionContext.containerView()
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+        let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+        let containerView = transitionContext.containerView
         
         containerView.addSubview(toViewController.view)
         
         if isPresented {
-            toViewController.view.transform = CGAffineTransformMakeScale(0.65, 0.65)
+            toViewController.view.transform = CGAffineTransform(scaleX: 0.65, y: 0.65)
             toViewController.view.alpha = 0.5
         } else {
-            containerView.sendSubviewToBack(toViewController.view)
+            containerView.sendSubview(toBack: toViewController.view)
         }
         
-        UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1.0, options: .CurveLinear, animations: {
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1.0, options: .curveLinear, animations: {
             if self.isPresented {
                 toViewController.view.alpha = 1.0
-                toViewController.view.transform = CGAffineTransformIdentity
+                toViewController.view.transform = CGAffineTransform.identity
             } else {
                 fromViewController.view.alpha = 0.0
-                fromViewController.view.transform = CGAffineTransformMakeScale(0.65, 0.65)
+                fromViewController.view.transform = CGAffineTransform(scaleX: 0.65, y: 0.65)
             }
             }, completion: {
                 finished in

@@ -29,13 +29,13 @@ class CustomListViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 170, right: 0)
-        tableView.scrollEnabled = false
+        tableView.isScrollEnabled = false
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CustomListViewController.receivedNotification(_:)), name:NotificationObservers.MyAccountObserver.rawValue, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CustomListViewController.receivedNotification(_:)), name:NSNotification.Name(rawValue: NotificationObservers.MyAccountObserver.rawValue), object: nil)
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.escapeType  = typeOfList
@@ -49,7 +49,7 @@ class CustomListViewController: UIViewController {
     }
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: NotificationObservers.MyAccountObserver.rawValue, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NotificationObservers.MyAccountObserver.rawValue), object: nil)
     }
     
     func fetchEscapesDataFromRealm() {
@@ -121,7 +121,7 @@ class CustomListViewController: UIViewController {
     }
     
     
-    func reloadTableView(data: [MyAccountEscapeItem], escape_type: ProfileListType) {
+    func reloadTableView(_ data: [MyAccountEscapeItem], escape_type: ProfileListType) {
         
         if (self.escapeType == escape_type) {
             
@@ -131,7 +131,7 @@ class CustomListViewController: UIViewController {
         }
         
     }
-    func receivedNotification(notification: NSNotification){
+    func receivedNotification(_ notification: Notification){
         if let dict = notification.object as? [String:AnyObject]{
             if let _ = dict["error"] as? String{
                 errorInGettingEscapes()
@@ -158,13 +158,13 @@ class CustomListViewController: UIViewController {
 
 extension CustomListViewController : UITableViewDataSource , UITableViewDelegate{
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffsetY = scrollView.contentOffset.y
         if contentOffsetY < lastContentOffsetY {
             if contentOffsetY < 0 {
                 if let parentReference = parentReference {
                     parentReference.enableChildScrolls(false)
-                    parentReference.mainScrollView.scrollEnabled = true
+                    parentReference.mainScrollView.isScrollEnabled = true
                     parentReference.mainScrollView.setContentOffset(CGPoint(x: 0, y:0), animated: true)
                 }
             }
@@ -174,20 +174,20 @@ extension CustomListViewController : UITableViewDataSource , UITableViewDelegate
     }
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return tableDataArray.count
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("basicCellIdentifier") as! CustomListTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "basicCellIdentifier") as! CustomListTableViewCell
         cell.cellTitleLabel.text = tableDataArray[indexPath.row].title
         
         return cell
         
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         guard let tableViewCell = cell as? CustomListTableViewCell else{
             return
@@ -196,7 +196,7 @@ extension CustomListViewController : UITableViewDataSource , UITableViewDelegate
         tableViewCell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
     }
     
-    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         guard let tableViewCell = cell as? CustomListTableViewCell else { return }
         
@@ -206,7 +206,7 @@ extension CustomListViewController : UITableViewDataSource , UITableViewDelegate
 
 extension CustomListViewController : UICollectionViewDelegate , UICollectionViewDataSource{
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if tableDataArray.count > collectionView.tag{
             if let data = tableDataArray[collectionView.tag].escapeData{
@@ -216,7 +216,7 @@ extension CustomListViewController : UICollectionViewDelegate , UICollectionView
                     let name = data[indexPath.row].name
                     let image = data[indexPath.row].image
                     
-                    var params : [String:AnyObject] = [:]
+                    var params : [String:Any] = [:]
                     if let id = id{
                         params["id"] = id
                     }
@@ -236,7 +236,7 @@ extension CustomListViewController : UICollectionViewDelegate , UICollectionView
         }
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var count = 0
         if let data = tableDataArray[collectionView.tag].escapeData{
             count = data.count
@@ -244,9 +244,9 @@ extension CustomListViewController : UICollectionViewDelegate , UICollectionView
         return count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("collectionViewBasicCell", forIndexPath: indexPath) as! CustomListCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewBasicCell", for: indexPath) as! CustomListCollectionViewCell
         
         if let item = tableDataArray[collectionView.tag].escapeData{
             

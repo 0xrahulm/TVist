@@ -10,39 +10,39 @@ import Foundation
 
 extension UIButton{
     
-     func followViewWithAnimate(animate :Bool){
+     func followViewWithAnimate(_ animate :Bool){
         
-        self.setTitle("UNFOLLOW", forState: .Normal)
-        self.backgroundColor = UIColor.whiteColor()
-        self.setTitleColor(UIColor.escapeBlueColor(), forState: .Normal)
-        self.layer.borderColor = UIColor.escapeBlueColor().CGColor
+        self.setTitle("UNFOLLOW", for: UIControlState())
+        self.backgroundColor = UIColor.white
+        self.setTitleColor(UIColor.escapeBlueColor(), for: UIControlState())
+        self.layer.borderColor = UIColor.escapeBlueColor().cgColor
         self.layer.borderWidth = 1.0
-        self.enabled = true
+        self.isEnabled = true
         if animate{
             popButtonAnimate()
         }
     }
     
-    func unfollowViewWithAnimate(animate : Bool){
+    func unfollowViewWithAnimate(_ animate : Bool){
         
-        self.setTitle("+ FOLLOW", forState: .Normal)
+        self.setTitle("+ FOLLOW", for: UIControlState())
         self.backgroundColor = UIColor.escapeBlueColor()
-        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.setTitleColor(UIColor.white, for: UIControlState())
         self.layer.borderWidth = 0.0
-        self.enabled = true
+        self.isEnabled = true
         if animate{
             popButtonAnimate()
         }
     }
     
     
-    func disableButton(animate : Bool){
+    func disableButton(_ animate : Bool){
         
-        self.setTitle("loading...", forState: .Normal)
-        self.backgroundColor = UIColor.grayColor()
-        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.setTitle("loading...", for: UIControlState())
+        self.backgroundColor = UIColor.gray
+        self.setTitleColor(UIColor.white, for: UIControlState())
         self.layer.borderWidth = 0.0
-        self.enabled = false
+        self.isEnabled = false
         if animate{
             popButtonAnimate()
         }
@@ -50,35 +50,35 @@ extension UIButton{
     
     
     func popButtonAnimate(){
-        UIView.animateWithDuration(0.08 ,
+        UIView.animate(withDuration: 0.08 ,
                                    animations: {
-                                    self.transform = CGAffineTransformMakeScale(1.2, 1.2)
+                                    self.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
             },
                                    completion: { finish in
-                                    UIView.animateWithDuration(0.08){
-                                        self.transform = CGAffineTransformIdentity
-                                    }
+                                    UIView.animate(withDuration: 0.08, animations: {
+                                        self.transform = CGAffineTransform.identity
+                                    })
         })
     }
     
     func selectedFalseForCollection(){
-        self.selected = false
-        self.backgroundColor = UIColor.clearColor()
+        self.isSelected = false
+        self.backgroundColor = UIColor.clear
         self.layer.cornerRadius = 5
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.grayColor().CGColor
-        self.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        self.layer.borderColor = UIColor.gray.cgColor
+        self.setTitleColor(UIColor.gray, for: UIControlState())
         
         
     }
     
     func selectedTrueForCollection(){
-        self.selected = true
-        self.backgroundColor = UIColor.clearColor()
+        self.isSelected = true
+        self.backgroundColor = UIColor.clear
         self.layer.cornerRadius = 5
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.escapeBlueColor().CGColor
-        self.setTitleColor(UIColor.escapeBlueColor(), forState: .Normal)
+        self.layer.borderColor = UIColor.escapeBlueColor().cgColor
+        self.setTitleColor(UIColor.escapeBlueColor(), for: UIControlState())
         
     }
     

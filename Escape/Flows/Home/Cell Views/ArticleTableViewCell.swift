@@ -27,7 +27,7 @@ class ArticleTableViewCell: BaseStoryTableViewCell {
     @IBOutlet weak var articleStatus: UILabel!
     @IBOutlet weak var articleSource: UILabel!
     
-    var indexPath : NSIndexPath?
+    var indexPath : IndexPath?
     weak var homeCommentDelegate : HomeCommentProtocol?
     
     var data : ArticleCard?{
@@ -93,16 +93,16 @@ class ArticleTableViewCell: BaseStoryTableViewCell {
                 
                 if let timeStamp = escapeItems.timestamp{
                     self.createdTimeLabel.text = TimeUtility.getTimeStampForCard(Double(timeStamp))
-                    self.createdTimeLabel.hidden = false
+                    self.createdTimeLabel.isHidden = false
                 }else{
                     self.createdTimeLabel.text = "|"
-                    self.createdTimeLabel.hidden = true
+                    self.createdTimeLabel.isHidden = true
                 }
                
                 if let articleImge = escapeItems.articleImage{
                     
                     self.articleImage.downloadImageWithUrl(articleImge, placeHolder: UIImage.getImageWithColor(UIColor.placeholderColor(), size: articleImage.frame.size))
-                    self.articleImage.hidden = false
+                    self.articleImage.isHidden = false
                 }else{
                     self.articleImage.image = UIImage.getImageWithColor(UIColor.placeholderColor(), size: articleImage.frame.size)
                 }
@@ -120,7 +120,7 @@ class ArticleTableViewCell: BaseStoryTableViewCell {
                 }
                 
                 self.articleView.layer.borderWidth = 1
-                self.articleView.layer.borderColor = UIColor.darkPlaceholderColor().CGColor
+                self.articleView.layer.borderColor = UIColor.darkPlaceholderColor().cgColor
                 //self.articleView.layer.cornerRadius = 5
                 
                 
@@ -140,10 +140,10 @@ class ArticleTableViewCell: BaseStoryTableViewCell {
     
     
     
-    @IBAction func likesTapped(sender: UIButton) {
+    @IBAction func likesTapped(_ sender: UIButton) {
     }
     
-    @IBAction func commentTapped(sender: UIButton) {
+    @IBAction func commentTapped(_ sender: UIButton) {
     }
     
     @IBAction func shareTapped(_ sender: UIButton) {

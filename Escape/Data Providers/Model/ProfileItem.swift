@@ -19,19 +19,19 @@ final class ProfileItem: Object {
         return ProfileItemType(rawValue: itemType)! // Bang because itemType will always be present, without which a profile item is useless
     }
     
-    func parseDataList(dataList: [[String:AnyObject]], _realm: Realm) {
-        if itemTypeEnumValue() == .EscapeList {
+    func parseDataList(_ dataList: [[String:AnyObject]], _realm: Realm) {
+        if itemTypeEnumValue() == .escapeList {
             parseEscapesData(dataList, _realm: _realm)
         }
     }
     
-    func parseDataListNoRealm(dataList: [[String:AnyObject]]) {
-        if itemTypeEnumValue() == .EscapeList {
+    func parseDataListNoRealm(_ dataList: [[String:AnyObject]]) {
+        if itemTypeEnumValue() == .escapeList {
             parseEscapesDataNoRealm(dataList)
         }
     }
     
-    func parseEscapesDataNoRealm(escapesData: [[String:AnyObject]]) {
+    func parseEscapesDataNoRealm(_ escapesData: [[String:AnyObject]]) {
         for eachEscapeData in escapesData {
             guard let id = eachEscapeData["id"] as? String, let name = eachEscapeData["name"] as? String, let escapeType = eachEscapeData["escape_type"] as? String else {
                 continue
@@ -43,7 +43,7 @@ final class ProfileItem: Object {
         }
     }
     
-    func parseEscapesData(escapesData: [[String:AnyObject]], _realm: Realm) {
+    func parseEscapesData(_ escapesData: [[String:AnyObject]], _realm: Realm) {
         for eachEscapeData in escapesData {
             guard let id = eachEscapeData["id"] as? String, let name = eachEscapeData["name"] as? String, let escapeType = eachEscapeData["escape_type"] as? String else {
                 continue

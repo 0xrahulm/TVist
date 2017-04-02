@@ -16,31 +16,31 @@ class CustomInteractionController: UIPercentDrivenInteractiveTransition {
         return 1 - percentComplete
     }
     
-    func attachToViewController(viewController: UIViewController) {
+    func attachToViewController(_ viewController: UIViewController) {
         navigationController = viewController.navigationController
         setupGestureRecognizer(viewController.view)
     }
     
-    private func setupGestureRecognizer(view: UIView) {
+    fileprivate func setupGestureRecognizer(_ view: UIView) {
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(CustomInteractionController.handlePanGesture(_:))))
     }
     
-    func handlePanGesture(gestureRecognizer: UIPanGestureRecognizer) {
-        let viewTranslation = gestureRecognizer.translationInView(gestureRecognizer.view!.superview!)
+    func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
+        let viewTranslation = gestureRecognizer.translation(in: gestureRecognizer.view!.superview!)
         switch gestureRecognizer.state {
-        case .Began:
+        case .began:
             transitionInProgress = true
-            navigationController.popViewControllerAnimated(true)
-        case .Changed:
+            navigationController.popViewController(animated: true)
+        case .changed:
             let const = CGFloat(viewTranslation.x / gestureRecognizer.view!.frame.size.width)
             shouldCompleteTransition = const > 0.5
-            updateInteractiveTransition(const)
-        case .Cancelled, .Ended:
+            update(const)
+        case .cancelled, .ended:
             transitionInProgress = false
-            if !shouldCompleteTransition || gestureRecognizer.state == .Cancelled {
-                cancelInteractiveTransition()
+            if !shouldCompleteTransition || gestureRecognizer.state == .cancelled {
+                cancel()
             } else {
-                finishInteractiveTransition()
+                finish()
             }
         default:
             Logger.debug("Swift switch must be exhaustive, thus the default")

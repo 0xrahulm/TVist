@@ -25,15 +25,15 @@ class DiscoverAllViewController: UIViewController {
         dataArray = []
         tableView.reloadData()
         
-       NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DiscoverAllViewController.receivedNotification(_:)), name:NotificationObservers.DiscoverObserver.rawValue, object: nil)
+       NotificationCenter.default.addObserver(self, selector: #selector(DiscoverAllViewController.receivedNotification(_:)), name: NSNotification.Name(rawValue: NotificationObservers.DiscoverObserver.rawValue), object: nil)
         
     }
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: NotificationObservers.DiscoverObserver.rawValue, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("didappear : \(type)")
       
@@ -51,12 +51,12 @@ class DiscoverAllViewController: UIViewController {
         callFurther = false
     }
     
-    func receivedNotification(notification : NSNotification){
+    func receivedNotification(_ notification : Notification){
         if let dict = notification.object as? [String:AnyObject]{
-            if let type = dict["type"] as? String, discoverType = DiscoverType(rawValue: type) {
+            if let type = dict["type"] as? String, let discoverType = DiscoverType(rawValue: type) {
                 if self.type == discoverType{
                     if let data = dict["data"] as? [DiscoverItems]{
-                        self.dataArray.appendContentsOf(data)
+                        self.dataArray.append(contentsOf: data)
                         if data.count == 0{
                             callFurther = false
                         }else{
@@ -72,15 +72,15 @@ class DiscoverAllViewController: UIViewController {
 
 extension DiscoverAllViewController : UITableViewDelegate{
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if dataArray[indexPath.row].discoverType == .People{
             return 70
         }
         return 130
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
         if dataArray.count > 0{
             
@@ -91,7 +91,7 @@ extension DiscoverAllViewController : UITableViewDelegate{
             let name = data.name
             let image = data.image
             
-            var params : [String:AnyObject] = [:]
+            var params : [String:Any] = [:]
             if let id = id{
                 params["id"] = id
             }
@@ -117,20 +117,20 @@ extension DiscoverAllViewController : UITableViewDelegate{
 
 extension DiscoverAllViewController : UITableViewDataSource{
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row >= dataArray.count - 5{
             loadMoreData()
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell : DiscoverEscapeTableViewCell!
         
         let data = dataArray[indexPath.row]
         
         if indexPath.row == dataArray.count - 1 && callFurther{
-            cell = tableView.dequeueReusableCellWithIdentifier("loadingViewCellIdentifier") as! DiscoverEscapeTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "loadingViewCellIdentifier") as! DiscoverEscapeTableViewCell
             cell.loadingView.startAnimating()
             
         }else if data.discoverType != .People{
@@ -140,12 +140,12 @@ extension DiscoverAllViewController : UITableViewDataSource{
             if type == .All {
                 discoverCellIdentifier = "discoverEscapeWithTagCellIdentifier"
             }
-            cell = tableView.dequeueReusableCellWithIdentifier(discoverCellIdentifier) as! DiscoverEscapeTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: discoverCellIdentifier) as! DiscoverEscapeTableViewCell
             cell.data = data
             cell.indexPath = indexPath
             cell.removeAddedEscapeCellDelegate = self
         }else if data.discoverType == .People{
-            cell = tableView.dequeueReusableCellWithIdentifier("followCellIdentifier") as! DiscoverEscapeTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "followCellIdentifier") as! DiscoverEscapeTableViewCell
             cell.peopleData = data
             cell.followButtonDiscoverDelegate = self
             cell.indexPath = indexPath
@@ -154,17 +154,17 @@ extension DiscoverAllViewController : UITableViewDataSource{
         
         return cell
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
 }
 
 extension DiscoverAllViewController : RemoveAddedEscapeCellProtocol{
-    func removeAtIndex(indexPath : NSIndexPath){
+    func removeAtIndex(_ indexPath : IndexPath){
         if dataArray.count > indexPath.row{
-            dataArray.removeAtIndex(indexPath.row)
+            dataArray.remove(at: indexPath.row)
         }
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Right)
+        tableView.deleteRows(at: [indexPath], with: .right)
         
         if dataArray.count == 0{
             callFurther = true
@@ -176,7 +176,7 @@ extension DiscoverAllViewController : RemoveAddedEscapeCellProtocol{
 }
 
 extension DiscoverAllViewController : FollowerButtonProtocol{
-    func changeLocalDataArray(indexPath: NSIndexPath?, isFollow: Bool) {
+    func changeLocalDataArray(_ indexPath: IndexPath?, isFollow: Bool) {
         if let indexPath = indexPath{
             if dataArray.count > indexPath.row{
                 dataArray[indexPath.row].isFollow = isFollow

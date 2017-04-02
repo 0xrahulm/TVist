@@ -28,7 +28,7 @@ class OnBoardingInterestViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -39,17 +39,17 @@ class OnBoardingInterestViewController: UIViewController {
         
     }
 
-    func addInterestBubbles(list : [InterestItems]) {
+    func addInterestBubbles(_ list : [InterestItems]) {
         var frameForBubbles = self.scrollView.bounds
         bubbleView = BubblePickerView(frame: frameForBubbles, preferenceItems: list)
         bubbleView.bubblePickerDelegate = self
         self.scrollView.addSubview(bubbleView)
-        self.scrollView.contentSize = CGSize(width: CGRectGetWidth(self.scrollView.frame), height: bubbleView.heightOfView+20)
+        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width, height: bubbleView.heightOfView+20)
         frameForBubbles.size.height = bubbleView.heightOfView+20
         bubbleView.frame = frameForBubbles
     }
 
-    @IBAction func continueTapped(sender: AnyObject) {
+    @IBAction func continueTapped(_ sender: AnyObject) {
         for items in interests{
             if let isSelected = items.isSelected{
                 if isSelected{
@@ -70,24 +70,24 @@ class OnBoardingInterestViewController: UIViewController {
     
     
     
-    func loadErrorPopUp(str : String){
-        let alert = UIAlertController(title: "Wait!", message: str, preferredStyle: UIAlertControllerStyle.Alert)
+    func loadErrorPopUp(_ str : String){
+        let alert = UIAlertController(title: "Wait!", message: str, preferredStyle: UIAlertControllerStyle.alert)
         
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
         
         alert.view.tintColor = UIColor.escapeRedColor()
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
 }
 
 extension OnBoardingInterestViewController : InterestProtocol{
     
-    func interestList(list : [InterestItems]){
+    func interestList(_ list : [InterestItems]){
         
         self.interests = list
         self.addInterestBubbles(list)
@@ -95,9 +95,9 @@ extension OnBoardingInterestViewController : InterestProtocol{
     }
 }
 extension OnBoardingInterestViewController : BubblePickerProtocol{
-    func didTapOnItemAtIndex(sender: UIButton) {
+    func didTapOnItemAtIndex(_ sender: UIButton) {
         
-        interests[sender.tag].isSelected = sender.selected
+        interests[sender.tag].isSelected = sender.isSelected
         
     }
 }

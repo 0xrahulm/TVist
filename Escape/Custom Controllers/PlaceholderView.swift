@@ -24,7 +24,7 @@ class PlaceholderView: FBShimmeringView {
         let outerView = UIView(frame: self.frame)
         outerView.backgroundColor = UIColor.placeholderColor()
         self.contentView = outerView
-        self.shimmering = true
+        self.isShimmering = true
         
     }
   

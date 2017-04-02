@@ -9,17 +9,17 @@
 import UIKit
 
 protocol HomeDataProtocol : class {
-    func recievedStories(data : [BaseStory])
+    func recievedStories(_ data : [BaseStory])
     func error()
 }
 protocol HomeStoryCommentProtocol : class {
-    func recievedStoryComment(comments : [StoryComment] , storyId : String)
+    func recievedStoryComment(_ comments : [StoryComment] , storyId : String)
     func error()
     func postStoryCommentSuccess()
     func errorPostComment()
 }
 protocol SingleStoryProtocol : class{
-    func recievedStory(story : BaseStory)
+    func recievedStory(_ story : BaseStory)
     func error()
 }
 
@@ -31,57 +31,57 @@ class HomeDataProvider: CommonDataProvider {
     
     static let sharedDataProvider = HomeDataProvider()
     
-    func getUserStroies(page : Int){
+    func getUserStroies(_ page : Int){
         
-        var params : [String:AnyObject] = [:]
+        var params : [String:Any] = [:]
         params["page"] = page
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserStory, params: params, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserStory, params: params, delegate: self)
     }
     
-    func getStoryComments(storyId : String){
-        var params : [String:AnyObject] = [:]
+    func getStoryComments(_ storyId : String){
+        var params : [String:Any] = [:]
         params["story_id"] = storyId
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetStoryComment, params: params, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetStoryComment, params: params, delegate: self)
         
     }
     
-    func postStoryComments(storyId : String,comment : String){
-        var params : [String:AnyObject] = [:]
+    func postStoryComments(_ storyId : String,comment : String){
+        var params : [String:Any] = [:]
         params["story_id"] = storyId
         params["comment"] = comment
         
-        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .PostStoryComment, params: params, delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .PostStoryComment, params: params, delegate: self)
         
     }
     
-    func likeStory(isLike : Bool, storyId : String){
+    func likeStory(_ isLike : Bool, storyId : String){
         if isLike{
-            ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .LikeStory, params: ["story_id" : storyId], delegate: self)
+            ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .LikeStory, params: ["story_id" : storyId], delegate: self)
         }else{
-            ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .UnlikeStroy, params:  ["story_id" : storyId], delegate: self)
+            ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .UnlikeStroy, params:  ["story_id" : storyId], delegate: self)
         }
     }
     
-    func shareStory(isShare : Bool, storyId : String){
+    func shareStory(_ isShare : Bool, storyId : String){
         if isShare{
-            ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .ShareStory, params: ["story_id" : storyId], delegate: self)
+            ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .ShareStory, params: ["story_id" : storyId], delegate: self)
         }else{
-            ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .UnShareStory, params:  ["story_id" : storyId], delegate: self)
+            ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .UnShareStory, params:  ["story_id" : storyId], delegate: self)
         }
     }
     
-    func getSingleStrory(storyId : String){
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSingleStory, params:  ["story_id" : storyId], delegate: self)
+    func getSingleStrory(_ storyId : String){
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSingleStory, params:  ["story_id" : storyId], delegate: self)
     }
     
-    func followAllFriends(storyId : String){
-        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .FollowAllFriends, params:  ["story_id" : storyId], delegate: self)
+    func followAllFriends(_ storyId : String){
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .FollowAllFriends, params:  ["story_id" : storyId], delegate: self)
     }
     
     
-    override func serviceSuccessfull(service: Service) {
+    override func serviceSuccessfull(_ service: Service) {
         if let subServiceType = service.subServiveType{
             
             let params = service.parameters 
@@ -135,7 +135,7 @@ class HomeDataProvider: CommonDataProvider {
         }
     }
     
-    override func serviceError(service: Service) {
+    override func serviceError(_ service: Service) {
         if let subServiceType = service.subServiveType{
             
             switch subServiceType {
@@ -189,7 +189,7 @@ class HomeDataProvider: CommonDataProvider {
 // MARK :- Parsing
 
 extension HomeDataProvider {
-    func parseUserStories(data : [AnyObject]?){
+    func parseUserStories(_ data : [AnyObject]?){
         
         var storyData : [BaseStory] = []
        
@@ -200,29 +200,29 @@ extension HomeDataProvider {
                     
                     switch storyCardType {
                         
-                    case .FBFriendFollow:
+                    case .fbFriendFollow:
                         storyData.append(FBFriendCard(dict: dataDict))
                         break
                     
-                    case .AddToEscape:
+                    case .addToEscape:
                         storyData.append(AddToEscapeCard(dict: dataDict))
                         break
                         
-                    case .Recommeded:
+                    case .recommeded:
                         storyData.append(AddToEscapeCard(dict: dataDict))
                         break
                         
-                    case .Article:
+                    case .article:
                         storyData.append(ArticleCard(dict: dataDict))
                         break
                         
-                    case .EmptyStory:
+                    case .emptyStory:
                         break
                         
-                    case .WhatsYourEscape:
+                    case .whatsYourEscape:
                         break
                         
-                    case .SuggestedFollows:
+                    case .suggestedFollows:
                         storyData.append(SuggestedFollowsCard(dict: dataDict))
                         break
                        
@@ -241,7 +241,7 @@ extension HomeDataProvider {
     }
     
     
-    func parseStoryComment(data : [AnyObject], storyId : String){
+    func parseStoryComment(_ data : [AnyObject], storyId : String){
         
         let comments = StoryComment(commentArray: data).comments
         
@@ -258,7 +258,7 @@ extension HomeDataProvider {
         
     }
     
-    func parseSingleStory(dict : [String:AnyObject]){
+    func parseSingleStory(_ dict : [String:AnyObject]){
         
         var storyData : BaseStory?
         
@@ -267,29 +267,29 @@ extension HomeDataProvider {
             
             switch storyCardType {
                 
-            case .FBFriendFollow:
+            case .fbFriendFollow:
                 storyData = FBFriendCard(dict: dict)
                 break
                 
-            case .AddToEscape:
+            case .addToEscape:
                 storyData = AddToEscapeCard(dict: dict)
                 break
                 
-            case .Recommeded:
+            case .recommeded:
                 storyData = AddToEscapeCard(dict: dict)
                 break
                 
-            case .Article:
+            case .article:
                 storyData = ArticleCard(dict: dict)
                 break
                 
-            case .EmptyStory:
+            case .emptyStory:
                 break
                 
-            case .WhatsYourEscape:
+            case .whatsYourEscape:
                 break
                 
-            case .SuggestedFollows:
+            case .suggestedFollows:
                 storyData = SuggestedFollowsCard(dict: dict)
                 break
                 

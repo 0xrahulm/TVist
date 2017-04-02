@@ -20,7 +20,7 @@ class WhatsYourLatestEscapeCell: BaseStoryTableViewCell {
         
     }
     
-    func handleTapGesture(sender: UITapGestureRecognizer) {
+    func handleTapGesture(_ sender: UITapGestureRecognizer) {
         ScreenVader.sharedVader.performScreenManagerAction(.OpenSearchView, queryParams: nil)
         
     }
@@ -36,18 +36,18 @@ class WhatsYourLatestEscapeCell: BaseStoryTableViewCell {
         }
     }
     
-    @IBAction func movieTapped(sender: UIButton) {
+    @IBAction func movieTapped(_ sender: UIButton) {
         ScreenVader.sharedVader.performScreenManagerAction(.OpenSearchView, queryParams: ["moveToIndex" : 1])
         
     }
     
-    @IBAction func TvShowTapped(sender: UIButton) {
+    @IBAction func TvShowTapped(_ sender: UIButton) {
         ScreenVader.sharedVader.performScreenManagerAction(.OpenSearchView, queryParams: ["moveToIndex" : 2])
         
     }
     
     
-    @IBAction func bookTapped(sender: UIButton) {
+    @IBAction func bookTapped(_ sender: UIButton) {
         ScreenVader.sharedVader.performScreenManagerAction(.OpenSearchView, queryParams: ["moveToIndex" : 3])
         
     }
