@@ -56,7 +56,7 @@ class NetworkAvailability: NSObject {
     }
     func networkStatusChanged(_ notification: Notification) {
         let userInfo = notification.userInfo
-        print(userInfo ?? "")
+        
         if ((userInfo?.description.contains("Online"))) == true{
             
             isNetworkAvailble = true

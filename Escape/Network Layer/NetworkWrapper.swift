@@ -16,7 +16,6 @@ protocol NetworkWrapperProtocol : class {
 
 class NetworkWrapper: NSObject {
     
-    var headers : [String:String] = [:]
     var activeRequest : [Request] = []
     
     func serverCall(_ service : Service){
@@ -26,15 +25,12 @@ class NetworkWrapper: NSObject {
         
         if (isNetworkAvailable()){
             
-                setHeaders()
             
-            let currentRequest = Alamofire.request(service.finalURL, method: .get, parameters: service.parameters, encoding: JSONEncoding.default)
+            let currentRequest = Alamofire.request(service.finalURL, method: service.method, parameters: service.parameters, encoding: JSONEncoding.default, headers: appHeaders())
             
             
-                //checkForRequests(currentRequest)
-            
-                //activeRequest.append(currentRequest)
             currentRequest.responseJSON(completionHandler: { (response) in
+                
                 self.recievedServerResponse(service, response: response)
             })
             
@@ -107,9 +103,9 @@ class NetworkWrapper: NSObject {
         
         
     }
-    func setHeaders(){
+    func appHeaders() -> HTTPHeaders {
         
-        
+        var headers: HTTPHeaders = [:]
         if let auth = DeviceID.getXauth(){
             headers["X-ESCAPE-AUTH-TOKEN"] = auth
             
@@ -121,7 +117,7 @@ class NetworkWrapper: NSObject {
         headers["Accept"] = "application/version.v1"
         
         print("Device id :\(DeviceID.getDeviceID())")
-        
+        return headers
     }
     
 }
