@@ -14,7 +14,7 @@ class Service: NSObject {
     var serviceType : ServiceType?
     var subServiveType : SubServiceType?
     
-    var parameters : [String:Any]?
+    var parameters : Parameters?
     var method : HTTPMethod = .get
     
     var outPutResponse : Any?

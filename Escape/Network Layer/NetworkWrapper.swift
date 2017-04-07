@@ -24,9 +24,12 @@ class NetworkWrapper: NSObject {
         print("parameters \(String(describing: service.parameters))")
         
         if (isNetworkAvailable()){
+            var encoding:ParameterEncoding = JSONEncoding.default
+            if service.method == .get {
+                encoding = URLEncoding.default
+            }
             
-            
-            let currentRequest = Alamofire.request(service.finalURL, method: service.method, parameters: service.parameters, encoding: JSONEncoding.default, headers: appHeaders())
+            let currentRequest = Alamofire.request(service.finalURL, method: service.method, parameters: service.parameters, encoding: encoding, headers: appHeaders())
             
             
             currentRequest.responseJSON(completionHandler: { (response) in
