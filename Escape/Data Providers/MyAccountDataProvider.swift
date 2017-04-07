@@ -31,12 +31,18 @@ protocol EscapeListDataProtocol: class {
     func failedToReceiveData()
 }
 
+protocol SimilarEscapesProtocol:class {
+    func receivedSimilarEscapes(_ escapeData: [EscapeItem])
+    func failedToReceivedData()
+}
+
 class MyAccountDataProvider: CommonDataProvider {
     
     static let sharedDataProvider = MyAccountDataProvider()
     
     weak var myAccountDetailsDelegate : MyAccountDetailsProtocol?
     weak var itemDescDelegate : ItemDescProtocol?
+    weak var similarEscapesDelegate: SimilarEscapesProtocol?
     weak var followersDelegate : FollowersProtocol?
     weak var escapeListDataDelegate: EscapeListDataProtocol?
     
@@ -110,10 +116,12 @@ class MyAccountDataProvider: CommonDataProvider {
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetProfileList, params: params, delegate: self)
     }
     
-    func getItemDesc(_ escapeType : EscapeType , id : String){
+    func getItemDesc(_ escapeType : EscapeType?, id : String){
         var params : [String:Any] = [:]
         params["escape_id"] = id
-        params["escape_type"] = escapeType.rawValue
+        if let escapeType = escapeType {
+            params["escape_type"] = escapeType.rawValue
+        }
         
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetItemDesc, params: params, delegate: self)
     }
@@ -199,6 +207,12 @@ class MyAccountDataProvider: CommonDataProvider {
                     if self.myAccountDetailsDelegate != nil{
                         self.myAccountDetailsDelegate?.errorUserDetails()
                     }
+                }
+                break
+                
+            case .GetSimilarEscape:
+                if let data = service.outPutResponse as? [[String:Any]] {
+                    self.parseSimilarEscapeData(data: data)
                 }
                 break
                 
@@ -299,7 +313,12 @@ class MyAccountDataProvider: CommonDataProvider {
                 if self.itemDescDelegate != nil{
                     self.itemDescDelegate?.errorItemDescData()
                 }
+                break
                 
+            case .GetSimilarEscape:
+                if let delegate = self.similarEscapesDelegate {
+                    delegate.failedToReceivedData()
+                }
                 break
                 
             case .GetFollowing:
@@ -392,6 +411,25 @@ extension MyAccountDataProvider {
         
     }
     
+    func parseSimilarEscapeData(data: [[String:Any]]) {
+        var dataArray:[EscapeItem] = []
+        
+        for eachItem in data {
+            guard let itemTitle = eachItem["name"] as? String,
+                let itemId = eachItem["id"] as? String,
+                let escapeType = eachItem["escape_type"] as? String else {
+                    continue
+            }
+            
+            dataArray.append(EscapeItem.addOrEditEscapeItem(itemId, name: itemTitle, escapeType: escapeType, posterImage: eachItem["poster_image"] as? String, year: eachItem["year"] as? String, rating: eachItem["rating"] as? NSNumber, subTitle: eachItem["subtitle"] as? String, createdBy: eachItem["creator"] as? String, _realm: nil))
+        }
+        
+        
+        if let delegate = self.similarEscapesDelegate {
+            delegate.receivedSimilarEscapes(dataArray)
+        }
+    }
+    
     func parseEscapeListData(_ data: [[String:AnyObject]], escape_type: String, escapeAction: String?, userId: String?, page: Int?) {
         var dataArray:[EscapeItem] = []
         
@@ -473,6 +511,18 @@ extension MyAccountDataProvider {
             self.itemDescDelegate?.receivedItemDesc(dataItems, id : id)
         }
         
+    }
+    
+    func getSimilarEscapes(escapeId: String, escapeType: EscapeType?) {
+        
+        var params : [String:Any] = [:]
+        params["escape_id"] = escapeId
+        
+        if let escapeType = escapeType {
+            params["escape_type"] = escapeType.rawValue
+        }
+        
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSimilarEscape, params: params, delegate: self)
     }
     
     func parseFollwingData(_ data : [[String:AnyObject]] , userType : UserType){

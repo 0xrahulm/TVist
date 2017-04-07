@@ -42,7 +42,7 @@ class CustomListTableViewCell: UITableViewCell {
     }
     
     func setCollectionViewDataSourceDelegate
-        <D: protocol<UICollectionViewDataSource, UICollectionViewDelegate>>
+        <D: UICollectionViewDataSource & UICollectionViewDelegate>
         (_ dataSourceDelegate: D, forRow row: Int) {
         
         collectionView.delegate = dataSourceDelegate

@@ -23,7 +23,7 @@ class UserEscapeListViewController: GenericListViewController {
     
     
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
-        if let escapeTypeStr = queryParams["escapeType"] as? String, let escapeType = EscapeType(rawValue: escapeTypeStr)  {
+        if let escapeTypeStr = queryParams["escape_type"] as? String, let escapeType = EscapeType(rawValue: escapeTypeStr)  {
             self.escapeType = escapeType
         }
         

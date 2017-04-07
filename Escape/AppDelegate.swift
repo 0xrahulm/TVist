@@ -36,6 +36,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        if let scheme = url.scheme, scheme == "escape" {
+            ScreenVader.sharedVader.processDeepLink(url.absoluteString)
+        }
+        return true
+    }
+    
     func initializeScreenManager() {
         
         let storyboard = UIStoryboard(name: "ScreenManger", bundle: nil)

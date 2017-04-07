@@ -71,13 +71,11 @@ class AddToEscapeViewController: UIViewController {
         
         self.textView.inputAccessoryView = doneToolbar
 
-        
     }
     
     func doneButtonAction()
     {
         self.textView.resignFirstResponder()
-        
     }
     
     
@@ -94,6 +92,36 @@ class AddToEscapeViewController: UIViewController {
                     addToEscapeDoneDelegate = discoverVCCell
                 }
                 
+            }
+            
+            if let delegate = params["delegate"] as? AddToEscapeDoneProtocol {
+                addToEscapeDoneDelegate = delegate
+            }
+            
+//            var paramsToPass: [String:Any] = ["escape_id" : escapeId, "escape_type":escapeType, "escape_name": escapeName, "delegate" : self]
+//            
+//            if let imageUri = self.imageUri {
+//                paramsToPass["escape_image"] = imageUri
+//            }
+            
+            if let escapeId = params["escape_id"] as? String {
+                self.id = escapeId
+            }
+            
+            if let escapeType = params["escape_type"] as? EscapeType {
+                self.type = escapeType.rawValue
+            }
+            
+            if let escapeImageUri = params["escape_image"] as? String {
+                self.image = escapeImageUri
+            }
+            
+            if let escapeName = params["escape_name"] as? String {
+                self.name = escapeName
+            }
+            
+            if let director = params["director"] as? String {
+                self.director = director
             }
             
             if let data = params["data"] as? DiscoverItems{
@@ -150,17 +178,22 @@ class AddToEscapeViewController: UIViewController {
         self.peopleLabel.text = ""
         
         
-        
-        if type == "book"{
-            currentSelectedView = .Read
-            segmentController.setTitle("To Read", forSegmentAt: 0)
-            segmentController.setTitle("Read", forSegmentAt: 1)
-            segmentController.setTitle("Reading", forSegmentAt: 2)
-            directorLabel.text = "Author:"
-            //tagFriendsView.hidden = true
+        if let type = self.type {
             
-        }else{
-            currentSelectedView = .Watched
+            if type == "book"{
+                currentSelectedView = .Read
+                segmentController.setTitle("To Read", forSegmentAt: 0)
+                segmentController.setTitle("Read", forSegmentAt: 1)
+                segmentController.setTitle("Reading", forSegmentAt: 2)
+                directorLabel.text = "Author:"
+                //tagFriendsView.hidden = true
+                
+            } else if type == "tv_show" {
+                currentSelectedView = .Watched
+                directorLabel.text = "Creator:"
+            }else{
+                currentSelectedView = .Watched
+            }
         }
         
         textView.delegate = self

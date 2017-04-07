@@ -340,9 +340,6 @@ extension ScreenManagerViewController{
             
             presentPopUpViewWithNib(addToEscapePopup)
             
-            //let topVC = getTopViewController()
-            //topVC.presentViewController(addToEscapePopup, animated: true, completion: nil)
-            
         }
     }
     func openUserAccount(_ params : [String:Any]?){

@@ -16,6 +16,7 @@ class ItemDescViewController: UIViewController {
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var visualEffectsLayer: UIVisualEffectView!
+    @IBOutlet weak var similarEscapesView: SimilarEscapesView!
     
     @IBOutlet weak var headerLabel: UILabel!
     
@@ -29,7 +30,13 @@ class ItemDescViewController: UIViewController {
     @IBOutlet weak var castDetailLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-    //    @IBOutlet weak var addEscapeButton: UIButton!
+    var escapeId:String?
+    var escapeType:EscapeType?
+    var imageUri: String?
+    var escapeName: String?
+    var createdBy: String?
+    
+    @IBOutlet weak var addEditEscapeButton: UIButton!
     
     let offset_HeaderStop:CGFloat = 100.0 // At this offset the Header stops its transformations
     let offset_B_LabelHeader:CGFloat = 95.0 // At this offset the Black label reaches the Header
@@ -39,7 +46,7 @@ class ItemDescViewController: UIViewController {
     
     var optionsArray: [OptionsType] = [.Add , .Recommend]
     var popOverHeight: CGFloat = 90
-    var escapeAlreadyAdded = false
+    var escapeAlreadyAdded:Bool = false
     
     
     fileprivate var popoverOptions: [PopoverOption] = [
@@ -47,7 +54,7 @@ class ItemDescViewController: UIViewController {
         .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
     ]
     
-    var escapeItem: EscapeItem!
+    var escapeItem: EscapeItem?
     
     // For Custom Present Animation
     let customPresentAnimationController = CustomPresentAnimationController()
@@ -57,8 +64,24 @@ class ItemDescViewController: UIViewController {
             self.escapeItem = escapeItem
         }
         
-        if let escapeId = queryParams["escape_id"] as? String{
-            
+        if let escapeId = queryParams["escape_id"] as? String {
+            self.escapeId = escapeId
+        }
+        
+        if let escapeTypeName = queryParams["escape_type"] as? String, let escapeType = EscapeType(rawValue: escapeTypeName) {
+            self.escapeType = escapeType
+        }
+        
+        if let escapeId = queryParams["id"] as? String{
+            self.escapeId = escapeId
+        }
+        
+        if let escapeName = queryParams["name"] as? String {
+            self.escapeName = escapeName
+        }
+        
+        if let imageUri = queryParams["image"] as? String {
+            self.imageUri = imageUri
         }
     }
     
@@ -68,13 +91,31 @@ class ItemDescViewController: UIViewController {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        let escapeType = escapeItem.escapeTypeVal()
-        let escapeId   = escapeItem.id
         
         MyAccountDataProvider.sharedDataProvider.itemDescDelegate = self
-        MyAccountDataProvider.sharedDataProvider.getItemDesc(escapeType, id: escapeId)
         
+        if let escapeItem = self.escapeItem {
+            self.escapeType = escapeItem.escapeTypeVal()
+            self.escapeId   = escapeItem.id
+            self.escapeName = escapeItem.name
+            self.imageUri = escapeItem.posterImage
+            
+        }
         
+        if let escapeId = self.escapeId {
+            MyAccountDataProvider.sharedDataProvider.getItemDesc(self.escapeType, id: escapeId)
+        }
+        
+        updateButtonStatus()
+        
+    }
+    
+    func updateButtonStatus() {
+        if escapeAlreadyAdded {
+            self.addEditEscapeButton.setTitle("...", for: .normal)
+        } else {
+            self.addEditEscapeButton.setTitle("+", for: .normal)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +126,9 @@ class ItemDescViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
-        setEscapeDetails(escapeItem.name, subtitle: nil, year: escapeItem.year, image:escapeItem.posterImage, rating: escapeItem.rating)
+        if let escapeItem = escapeItem {
+            setEscapeDetails(escapeItem.name, subtitle: nil, year: escapeItem.year, image:escapeItem.posterImage, rating: escapeItem.rating)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -136,9 +179,20 @@ class ItemDescViewController: UIViewController {
         
         if let descData = descData {
             
-            
+            if let escapeName = descData.name {
+                self.escapeName = descData.name
+                
+                var ratingStr:String?
+                
+                if let rating = descData.rating {
+                    ratingStr = rating.stringValue
+                }
+                
+                setEscapeDetails(escapeName, subtitle: descData.subtitle, year: descData.releaseYear, image: descData.image, rating: ratingStr)
+            }
             
             if let image = descData.image{
+                self.imageUri = image
                 itemImage.downloadImageWithUrl(image, placeHolder: UIImage(named: "movie_placeholder"))
             }
             
@@ -146,12 +200,18 @@ class ItemDescViewController: UIViewController {
                 runTimeLabel.text = runtime
             }
             if let createdBy = descData.createdBy {
+                self.createdBy = createdBy
+                
                 var text = "Directed by"
-                if escapeItem.escapeTypeVal() == .Books {
-                    text = "Author"
-                }else if escapeItem.escapeTypeVal() == .TvShows {
-                    text = "Creator"
+                if let escapeType = self.escapeType {
+                    
+                    if escapeType == .Books {
+                        text = "Author"
+                    }else if escapeType == .TvShows {
+                        text = "Creator"
+                    }
                 }
+                
                 creatorTypeLabel.text = text
                 creatorLabel.text = createdBy
             }
@@ -183,11 +243,7 @@ class ItemDescViewController: UIViewController {
             
             setVisuals()
             
-            if descData.isActed{
-                //                addEscapeButton.hidden = true
-            }else{
-                //                 addEscapeButton.hidden = false
-            }
+            updateButtonStatus()
         }
         
     }
@@ -210,8 +266,32 @@ class ItemDescViewController: UIViewController {
     
     @IBAction func addEscapeTapped(_ sender: AnyObject) {
         
-        
+        if escapeAlreadyAdded {
+            
+        } else {
+            if let escapeId = self.escapeId, let escapeType = self.escapeType, let escapeName = self.escapeName {
+                var paramsToPass: [String:Any] = ["escape_id" : escapeId, "escape_type":escapeType, "escape_name": escapeName, "delegate" : self]
+                
+                if let escapeItem = self.escapeItem, let createdBy = self.createdBy {
+                    paramsToPass["createdBy"] = createdBy
+                }
+                
+                if let imageUri = self.imageUri {
+                    paramsToPass["escape_image"] = imageUri
+                }
+                
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: paramsToPass)
+            }
+        }
     }
+    
+    @IBAction func recommendToFriendsTapped(_ sender: AnyObject) {
+        
+        if let escapeId = self.escapeId {
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.friends.rawValue, "escape_id" : escapeId])
+        }
+    }
+    
     func optionsTapped(){
         if escapeAlreadyAdded{
             optionsArray = [.Edit , .Delete , .Recommend]
@@ -235,9 +315,7 @@ extension ItemDescViewController: UITableViewDataSource, UITableViewDelegate {
         self.popover.dismiss()
         
         if optionsArray[indexPath.row] == .Recommend{
-            let escapeId = escapeItem.id
-            
-            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.friends.rawValue, "escape_id" : escapeId])
+        
             
             
         }
@@ -262,10 +340,27 @@ extension ItemDescViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
+extension ItemDescViewController: AddToEscapeDoneProtocol {
+    func doneButtonTapped() {
+        self.escapeAlreadyAdded = true
+        updateButtonStatus()
+    }
+    
+}
+
 extension ItemDescViewController : ItemDescProtocol{
     
     func receivedItemDesc(_ data: DescDataItems?, id: String) {
+        
+        if let data = data  {
+            if let escapeType = data.escapeType {
+                self.escapeType = EscapeType(rawValue: escapeType)
+            }
+            
+        }
         fillData(data)
+        
+        self.similarEscapesView.getSimilarEscapesData(escapeId: id, escapeType: self.escapeType)
     }
     
     func errorItemDescData() {

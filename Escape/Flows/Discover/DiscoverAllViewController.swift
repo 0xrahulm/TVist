@@ -96,7 +96,7 @@ extension DiscoverAllViewController : UITableViewDelegate{
                 params["id"] = id
             }
             if let escapeType = escapeType{
-                params["escapeType"] = escapeType.rawValue
+                params["escape_type"] = escapeType.rawValue
             }
             if let name = name{
                 params["name"] = name
