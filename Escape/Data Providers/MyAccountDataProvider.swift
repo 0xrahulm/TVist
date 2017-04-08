@@ -36,6 +36,16 @@ protocol SimilarEscapesProtocol:class {
     func failedToReceivedData()
 }
 
+protocol RelatedPeopleProtocol:class {
+    func receivedRelatedPeople(_ relatedPeople: [MyAccountItems])
+    func failedToReceivedData()
+}
+
+protocol EscapeActionProtocol:class {
+    func receivedActionForEscape(escapeId: String, escapeAction: EscapeAddActions)
+    func failedToFetchAction()
+}
+
 class MyAccountDataProvider: CommonDataProvider {
     
     static let sharedDataProvider = MyAccountDataProvider()
@@ -43,7 +53,9 @@ class MyAccountDataProvider: CommonDataProvider {
     weak var myAccountDetailsDelegate : MyAccountDetailsProtocol?
     weak var itemDescDelegate : ItemDescProtocol?
     weak var similarEscapesDelegate: SimilarEscapesProtocol?
+    weak var relatedPeopleDelegate: RelatedPeopleProtocol?
     weak var followersDelegate : FollowersProtocol?
+    weak var escapeActionDelegate: EscapeActionProtocol?
     weak var escapeListDataDelegate: EscapeListDataProtocol?
     
     var currentUser:UserData?
@@ -89,6 +101,21 @@ class MyAccountDataProvider: CommonDataProvider {
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserEscapes, params: params, delegate: self)
     }
     
+    func removeEscape(escapeId: String) {
+        ServiceCall(.delete, serviceType: .ServiceTypePrivateApi, subServiceType: .DeleteEscape, params: ["escape_id":escapeId], delegate: self)
+    }
+    
+    func updateEscape(escapeId: String, escapeAction: EscapeAddActions) {
+        let params:[String:Any] = ["escape_id":escapeId, "escape_action":escapeAction.rawValue]
+        
+        ServiceCall(.patch, serviceType: .ServiceTypePrivateApi, subServiceType: .UpdateEscape, params: params, delegate: self)
+    }
+    
+    func getActionForEscape(escapeId: String) {
+        let params:[String:Any] = ["escape_id":escapeId]
+        
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetEscapeAction, params: params, delegate: self)
+    }
     
     func getProfileList(_ listType: ProfileListType, forUserId:String?) -> Results<ProfileList> {
         
@@ -216,6 +243,21 @@ class MyAccountDataProvider: CommonDataProvider {
                 }
                 break
                 
+            case .GetRelatedPeople:
+                if let data = service.outPutResponse as? [[String:Any]] {
+                    self.parseRelatedPeopleData(data: data)
+                }
+                break
+                
+            case .GetEscapeAction:
+                if let data = service.outPutResponse as? [String:Any] {
+                    if let action = data["action"] as? String, let escapeId = data["escape_id"] as? String {
+                        if let delegate = escapeActionDelegate, let escapeAction = EscapeAddActions(rawValue: action) {
+                            delegate.receivedActionForEscape(escapeId: escapeId, escapeAction: escapeAction)
+                        }
+                    }
+                }
+                break
             case .GetUserEscapes:
                 if let data = service.outPutResponse as? [[String:AnyObject]] {
                     
@@ -411,6 +453,26 @@ extension MyAccountDataProvider {
         
     }
     
+    
+    func parseRelatedPeopleData(data: [[String:Any]]) {
+        var dataArray:[MyAccountItems] = []
+        
+        for eachItem in data {
+            guard let _ = eachItem["first_name"] as? String,
+                let _ = eachItem["id"] as? String else {
+                    continue
+            }
+            
+            dataArray.append(MyAccountItems(dict: eachItem, userType: nil))
+        }
+        
+        
+        if let delegate = self.relatedPeopleDelegate {
+            delegate.receivedRelatedPeople(dataArray)
+        }
+    }
+    
+    
     func parseSimilarEscapeData(data: [[String:Any]]) {
         var dataArray:[EscapeItem] = []
         
@@ -511,6 +573,15 @@ extension MyAccountDataProvider {
             self.itemDescDelegate?.receivedItemDesc(dataItems, id : id)
         }
         
+    }
+    
+    
+    func getRelatedPeople(escapeId: String) {
+        
+        var params : [String:Any] = [:]
+        params["escape_id"] = escapeId
+        
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetRelatedPeople, params: params, delegate: self)
     }
     
     func getSimilarEscapes(escapeId: String, escapeType: EscapeType?) {

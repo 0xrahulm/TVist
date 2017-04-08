@@ -120,7 +120,7 @@ class AddToEscapeViewController: UIViewController {
                 self.name = escapeName
             }
             
-            if let director = params["director"] as? String {
+            if let director = params["createdBy"] as? String {
                 self.director = director
             }
             
@@ -283,7 +283,7 @@ class AddToEscapeViewController: UIViewController {
 
 extension AddToEscapeViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        let presentationController = CustomPopupPresentationController(presentedViewController: presented, presentingViewController: presentingVC!, width: 310, height: 400, yOffset: 55, cornerRadius : 5)
+        let presentationController = CustomPopupPresentationController(presentedViewController: presented, presentingViewController: presentingVC!, width: 310, height: 400, yOffset: self.view.frame.size.height/2-200, cornerRadius : 5)
         presentedVCObj = presentationController
         return presentationController;
     }

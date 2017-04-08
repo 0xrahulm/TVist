@@ -17,6 +17,7 @@ enum ScreenManagerAction : String {
     case OpenItemDescription = "item"
     case OpenFollowers = "OpenFollowers"
     case OpenAddToEscapePopUp = "OpenAddToEscapePopUp"
+    case OpenEditEscapePopUp = "OpenEditEscapePopUp"
     case OpenUserAccount = "user"
     case NoNetworkPresent = "NoNetworkPresent"
     case NetworkPresent = "NetworkPresent"
@@ -104,10 +105,10 @@ enum UserType : Int{
 enum EscapeAddActions: String {
     case Watched = "Watched"
     case ToWatch = "To Watch"
-    case Watching = "Currently Watching"
+    case Watching = "Watching"
     case Read = "Read"
     case ToRead = "To Read"
-    case Reading = "Currently Reading"
+    case Reading = "Reading"
 }
 
 enum NotificationObservers: String {

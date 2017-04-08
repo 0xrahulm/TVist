@@ -269,6 +269,11 @@ extension ScreenManagerViewController{
             openAddToEscapePopUp(params)
             break
             
+            
+        case .OpenEditEscapePopUp:
+            openEditEscapePopup(params)
+            break
+            
         case .OpenUserAccount:
             openUserAccount(params)
             break
@@ -342,6 +347,22 @@ extension ScreenManagerViewController{
             
         }
     }
+    
+    func openEditEscapePopup(_ params: [String:Any]?) {
+        guard let params = params else {
+            return
+        }
+        
+        let editEscapePopup = EditEscapeViewController(nibName: "EditEscapeViewController", bundle: nil)
+        editEscapePopup.modalPresentationStyle = .custom
+        editEscapePopup.transitioningDelegate = editEscapePopup
+        editEscapePopup.presentingVC = self
+        editEscapePopup.queryParams = params
+        
+        presentPopUpViewWithNib(editEscapePopup)
+        
+    }
+    
     func openUserAccount(_ params : [String:Any]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountVC", queryParams: params)        
     }

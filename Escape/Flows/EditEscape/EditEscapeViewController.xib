@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-UI-Display-Medium.ttf">
+            <string>SFUIDisplay-Medium</string>
+        </array>
+        <array key="SF-UI-Display-Regular.ttf">
+            <string>SFUIDisplay-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditEscapeViewController" customModule="Escape" customModuleProvider="target">
+            <connections>
+                <outlet property="actionButton1" destination="SVP-85-qXk" id="BIP-cw-R3i"/>
+                <outlet property="actionButton2" destination="6AO-Tb-YPp" id="rJG-km-inl"/>
+                <outlet property="actionButton3" destination="o3p-mP-IyK" id="aoU-nZ-Wel"/>
+                <outlet property="activityIndicator" destination="Tu9-II-W4M" id="hMa-b8-uf5"/>
+                <outlet property="directorLabel" destination="g7v-4x-1bT" id="erZ-ud-0Uc"/>
+                <outlet property="directorNameLabel" destination="AoQ-xf-nem" id="Vna-gz-EEn"/>
+                <outlet property="escapeImage" destination="dMO-fU-Eal" id="LLf-nf-rO1"/>
+                <outlet property="removeButton" destination="CIa-cT-6KC" id="frc-We-2Ho"/>
+                <outlet property="titleLabel" destination="q97-bH-IEs" id="P9E-EX-xkK"/>
+                <outlet property="updateButton" destination="PEU-bb-7SU" id="ACG-we-zP8"/>
+                <outlet property="view" destination="QXh-PH-DvW" id="ivy-6H-HZu"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="QXh-PH-DvW">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="440"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U8R-gU-dsn">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Escape" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0vn-ZV-OzE">
+                            <rect key="frame" x="183" y="13" width="135" height="24"/>
+                            <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="20"/>
+                            <color key="textColor" red="0.078431372550000003" green="0.18039215689999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.91372549020000005" green="0.91764705879999997" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="0vn-ZV-OzE" firstAttribute="centerX" secondItem="U8R-gU-dsn" secondAttribute="centerX" id="CaL-Xg-oZK"/>
+                        <constraint firstAttribute="height" constant="50" id="Esz-l3-gjL"/>
+                        <constraint firstItem="0vn-ZV-OzE" firstAttribute="centerY" secondItem="U8R-gU-dsn" secondAttribute="centerY" id="Fbw-QA-udV"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="dMO-fU-Eal">
+                    <rect key="frame" x="15" y="65" width="50" height="72"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="72" id="CNr-fS-zlC"/>
+                        <constraint firstAttribute="width" constant="50" id="jri-Sm-IGb"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="The Dark Knight" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q97-bH-IEs">
+                    <rect key="frame" x="80" y="68" width="410" height="20"/>
+                    <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="16"/>
+                    <color key="textColor" red="0.035294117649999998" green="0.043137254899999998" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Director:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7v-4x-1bT">
+                    <rect key="frame" x="80" y="100" width="50" height="16"/>
+                    <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="13"/>
+                    <color key="textColor" red="0.59607843140000005" green="0.64313725489999995" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Ron Howard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AoQ-xf-nem">
+                    <rect key="frame" x="138" y="100" width="352" height="16"/>
+                    <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="13"/>
+                    <color key="textColor" red="0.078431372550000003" green="0.18039215689999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PEU-bb-7SU">
+                    <rect key="frame" x="0.0" y="340" width="500" height="50"/>
+                    <color key="backgroundColor" red="0.050980392159999999" green="0.83921568629999999" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="qTc-JF-8ea"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="16"/>
+                    <state key="normal" title="Update">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapOnUpdateButton:" destination="-1" eventType="touchUpInside" id="xj7-ux-m9i"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CIa-cT-6KC">
+                    <rect key="frame" x="0.0" y="390" width="500" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="V8P-k0-FiJ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="16"/>
+                    <state key="normal" title="Remove from your Escape's?">
+                        <color key="titleColor" red="0.95294117647058818" green="0.14117647058823529" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapOnRemoveButton:" destination="-1" eventType="touchUpInside" id="TTO-7g-JFK"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LCa-ao-UxU">
+                    <rect key="frame" x="0.0" y="150" width="500" height="1"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="jID-OD-hRW"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVP-85-qXk">
+                    <rect key="frame" x="0.0" y="151" width="500" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="bDe-Wf-o1C"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="18"/>
+                    <state key="normal" title="To Watch" image="unselect">
+                        <color key="titleColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="selected" image="select"/>
+                    <connections>
+                        <action selector="didTapActionButton:" destination="-1" eventType="touchUpInside" id="M5Y-Fb-IJW"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sw0-c5-Lhq">
+                    <rect key="frame" x="0.0" y="206" width="500" height="1"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="oB5-tK-lkd"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zX9-yg-oka">
+                    <rect key="frame" x="0.0" y="264" width="500" height="1"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="SOd-AF-j5a"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6AO-Tb-YPp">
+                    <rect key="frame" x="0.0" y="209" width="500" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="fMG-99-947"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="18"/>
+                    <state key="normal" title="Currently Watching" image="unselect">
+                        <color key="titleColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="selected" image="select"/>
+                    <connections>
+                        <action selector="didTapActionButton:" destination="-1" eventType="touchUpInside" id="TWW-OA-FyH"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3p-mP-IyK">
+                    <rect key="frame" x="0.0" y="267" width="500" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="3NN-LK-xpZ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="18"/>
+                    <state key="normal" title="Watched" image="unselect">
+                        <color key="titleColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="selected" image="select"/>
+                    <connections>
+                        <action selector="didTapActionButton:" destination="-1" eventType="touchUpInside" id="Hvb-yB-8I2"/>
+                    </connections>
+                </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Tu9-II-W4M">
+                    <rect key="frame" x="240" y="210" width="20" height="20"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="dMO-fU-Eal" firstAttribute="top" secondItem="U8R-gU-dsn" secondAttribute="bottom" constant="15" id="0Tk-EX-18f"/>
+                <constraint firstItem="SVP-85-qXk" firstAttribute="top" secondItem="dMO-fU-Eal" secondAttribute="bottom" constant="14" id="1oK-s6-aDW"/>
+                <constraint firstItem="q97-bH-IEs" firstAttribute="leading" secondItem="dMO-fU-Eal" secondAttribute="trailing" constant="15" id="1tj-Ly-wW4"/>
+                <constraint firstAttribute="bottom" secondItem="CIa-cT-6KC" secondAttribute="bottom" id="2rz-6L-1di"/>
+                <constraint firstItem="sw0-c5-Lhq" firstAttribute="leading" secondItem="QXh-PH-DvW" secondAttribute="leading" id="4dX-BU-ppC"/>
+                <constraint firstItem="dMO-fU-Eal" firstAttribute="leading" secondItem="QXh-PH-DvW" secondAttribute="leading" constant="15" id="7nw-CK-N3c"/>
+                <constraint firstAttribute="trailing" secondItem="AoQ-xf-nem" secondAttribute="trailing" constant="10" id="8Jb-vX-txF"/>
+                <constraint firstItem="zX9-yg-oka" firstAttribute="leading" secondItem="QXh-PH-DvW" secondAttribute="leading" id="9Ba-rJ-mPj"/>
+                <constraint firstItem="6AO-Tb-YPp" firstAttribute="top" secondItem="sw0-c5-Lhq" secondAttribute="bottom" constant="2" id="9cO-0D-GW3"/>
+                <constraint firstItem="LCa-ao-UxU" firstAttribute="leading" secondItem="QXh-PH-DvW" secondAttribute="leading" id="A72-mw-YJ5"/>
+                <constraint firstItem="CIa-cT-6KC" firstAttribute="top" secondItem="PEU-bb-7SU" secondAttribute="bottom" id="Cfm-Co-MxQ"/>
+                <constraint firstAttribute="trailing" secondItem="CIa-cT-6KC" secondAttribute="trailing" id="EJI-T6-BDU"/>
+                <constraint firstAttribute="trailing" secondItem="SVP-85-qXk" secondAttribute="trailing" id="FxG-sn-XLH"/>
+                <constraint firstItem="SVP-85-qXk" firstAttribute="leading" secondItem="QXh-PH-DvW" secondAttribute="leading" id="Ijt-pe-gAi"/>
+                <constraint firstItem="sw0-c5-Lhq" firstAttribute="top" secondItem="SVP-85-qXk" secondAttribute="bottom" id="SEX-0b-v0y"/>
+                <constraint firstItem="g7v-4x-1bT" firstAttribute="leading" secondItem="q97-bH-IEs" secondAttribute="leading" id="SL3-Jd-cNf"/>
+                <constraint firstItem="zX9-yg-oka" firstAttribute="top" secondItem="6AO-Tb-YPp" secondAttribute="bottom" id="TD3-ce-yiF"/>
+                <constraint firstItem="o3p-mP-IyK" firstAttribute="top" secondItem="6AO-Tb-YPp" secondAttribute="bottom" constant="3" id="TMP-Xw-q4z"/>
+                <constraint firstItem="SVP-85-qXk" firstAttribute="top" secondItem="LCa-ao-UxU" secondAttribute="bottom" id="Uga-PJ-kjq"/>
+                <constraint firstItem="AoQ-xf-nem" firstAttribute="top" secondItem="g7v-4x-1bT" secondAttribute="top" id="Usc-RW-yNa"/>
+                <constraint firstAttribute="trailing" secondItem="LCa-ao-UxU" secondAttribute="trailing" id="YJz-dY-HuG"/>
+                <constraint firstItem="o3p-mP-IyK" firstAttribute="leading" secondItem="QXh-PH-DvW" secondAttribute="leading" id="adH-0z-fV0"/>
+                <constraint firstAttribute="trailing" secondItem="6AO-Tb-YPp" secondAttribute="trailing" id="b0j-vo-0qX"/>
+                <constraint firstAttribute="trailing" secondItem="PEU-bb-7SU" secondAttribute="trailing" id="bD8-DM-Jd9"/>
+                <constraint firstItem="PEU-bb-7SU" firstAttribute="leading" secondItem="QXh-PH-DvW" secondAttribute="leading" id="ceV-Zm-Zbg"/>
+                <constraint firstItem="Tu9-II-W4M" firstAttribute="centerX" secondItem="QXh-PH-DvW" secondAttribute="centerX" id="czg-hN-FLW"/>
+                <constraint firstItem="6AO-Tb-YPp" firstAttribute="leading" secondItem="QXh-PH-DvW" secondAttribute="leading" id="dgE-4P-7o1"/>
+                <constraint firstItem="CIa-cT-6KC" firstAttribute="leading" secondItem="QXh-PH-DvW" secondAttribute="leading" id="gYl-g0-Nyh"/>
+                <constraint firstAttribute="trailing" secondItem="U8R-gU-dsn" secondAttribute="trailing" id="hb4-wU-HTv"/>
+                <constraint firstAttribute="trailing" secondItem="o3p-mP-IyK" secondAttribute="trailing" id="i2h-R2-6se"/>
+                <constraint firstAttribute="trailing" secondItem="q97-bH-IEs" secondAttribute="trailing" constant="10" id="j2C-Xf-WtH"/>
+                <constraint firstAttribute="trailing" secondItem="sw0-c5-Lhq" secondAttribute="trailing" id="jPo-ZR-jxw"/>
+                <constraint firstItem="AoQ-xf-nem" firstAttribute="leading" secondItem="g7v-4x-1bT" secondAttribute="trailing" constant="7.5" id="jyX-Qw-O1r"/>
+                <constraint firstItem="q97-bH-IEs" firstAttribute="top" secondItem="U8R-gU-dsn" secondAttribute="bottom" constant="18" id="lJn-gP-5Wu"/>
+                <constraint firstItem="U8R-gU-dsn" firstAttribute="leading" secondItem="QXh-PH-DvW" secondAttribute="leading" id="q7k-3f-hca"/>
+                <constraint firstAttribute="trailing" secondItem="zX9-yg-oka" secondAttribute="trailing" id="rYR-S6-sYZ"/>
+                <constraint firstItem="g7v-4x-1bT" firstAttribute="top" secondItem="q97-bH-IEs" secondAttribute="bottom" constant="12" id="vfP-rk-ZEa"/>
+                <constraint firstItem="U8R-gU-dsn" firstAttribute="top" secondItem="QXh-PH-DvW" secondAttribute="top" id="wjj-pe-0hZ"/>
+                <constraint firstItem="Tu9-II-W4M" firstAttribute="centerY" secondItem="QXh-PH-DvW" secondAttribute="centerY" id="xPm-96-B1S"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="34" y="76"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="select" width="16" height="16"/>
+        <image name="unselect" width="16" height="16"/>
+    </resources>
+</document>

@@ -32,6 +32,7 @@ class SimilarEscapesView: UIView {
         activityIndicator.startAnimating()
         MyAccountDataProvider.sharedDataProvider.similarEscapesDelegate = self
         MyAccountDataProvider.sharedDataProvider.getSimilarEscapes(escapeId: escapeId, escapeType: escapeType)
+        self.isHidden = false
     }
     
     

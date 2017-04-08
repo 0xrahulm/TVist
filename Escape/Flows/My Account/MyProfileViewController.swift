@@ -26,6 +26,7 @@ class MyProfileViewController: UIViewController {
     
     let kHeightOfSegmentedControl:CGFloat = 60.0
     
+    var firstLoad:Bool = true
     var userId : String?
     
     var listOfItemType:[ProfileListType] = [.Activity, .Movie, .TvShows, .Books]
@@ -77,7 +78,7 @@ class MyProfileViewController: UIViewController {
                         return Array(_profileList)
                     }
                 } else {
-                    MyAccountDataProvider.sharedDataProvider.getProfileList(listItem, forUserId: userId)
+                    _ = MyAccountDataProvider.sharedDataProvider.getProfileList(listItem, forUserId: userId)
                     if let otherUserProfile = _otherUserProfileList[listItem] {
                         return otherUserProfile
                     }
@@ -132,7 +133,12 @@ class MyProfileViewController: UIViewController {
         MyAccountDataProvider.sharedDataProvider.getUserDetails(userId)
         
         ScreenVader.sharedVader.hideTabBar(false)
-        
+        let listItem = listOfItemType[currentSelectedIndex]
+        if !self.firstLoad {
+            
+            _ = MyAccountDataProvider.sharedDataProvider.getProfileList(listItem, forUserId: userId)
+        }
+        self.firstLoad = false
     }
     
     func fetchEscapesDataFromRealm(_ typeOfList: ProfileListType) -> [MyAccountEscapeItem]  {

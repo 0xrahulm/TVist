@@ -39,7 +39,7 @@ class MyAccountItems: NSObject {
         
     }
     
-    init(dict : [String:AnyObject], userType : UserType?) {
+    init(dict : [String:Any], userType : UserType?) {
         super.init()
         if let userType = userType{
             if userType == .following{
@@ -51,9 +51,7 @@ class MyAccountItems: NSObject {
     }
     
     
-    func parseData(_ profileDetails : [String:AnyObject]){
-        
-        var escapes_count = 0
+    func parseData(_ profileDetails : [String:Any]){
         
         if let uId = profileDetails["id"] as? String{
             self.id = uId

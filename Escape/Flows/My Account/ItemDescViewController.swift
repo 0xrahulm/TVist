@@ -17,6 +17,7 @@ class ItemDescViewController: UIViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var visualEffectsLayer: UIVisualEffectView!
     @IBOutlet weak var similarEscapesView: SimilarEscapesView!
+    @IBOutlet weak var relatedPeopleView: RelatedPeopleView!
     
     @IBOutlet weak var headerLabel: UILabel!
     
@@ -266,20 +267,20 @@ class ItemDescViewController: UIViewController {
     
     @IBAction func addEscapeTapped(_ sender: AnyObject) {
         
-        if escapeAlreadyAdded {
+        if let escapeId = self.escapeId, let escapeType = self.escapeType, let escapeName = self.escapeName {
+            var paramsToPass: [String:Any] = ["escape_id" : escapeId, "escape_type":escapeType, "escape_name": escapeName, "delegate" : self]
             
-        } else {
-            if let escapeId = self.escapeId, let escapeType = self.escapeType, let escapeName = self.escapeName {
-                var paramsToPass: [String:Any] = ["escape_id" : escapeId, "escape_type":escapeType, "escape_name": escapeName, "delegate" : self]
-                
-                if let escapeItem = self.escapeItem, let createdBy = self.createdBy {
-                    paramsToPass["createdBy"] = createdBy
-                }
-                
-                if let imageUri = self.imageUri {
-                    paramsToPass["escape_image"] = imageUri
-                }
-                
+            if let createdBy = self.createdBy {
+                paramsToPass["createdBy"] = createdBy
+            }
+            
+            if let imageUri = self.imageUri {
+                paramsToPass["escape_image"] = imageUri
+            }
+            
+            if escapeAlreadyAdded {
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenEditEscapePopUp, queryParams: paramsToPass)
+            } else {
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: paramsToPass)
             }
         }
@@ -340,6 +341,14 @@ extension ItemDescViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
+extension ItemDescViewController: EditEscapeProtocol {
+    func didDeleteEscape() {
+        
+        self.escapeAlreadyAdded = false
+        updateButtonStatus()
+    }
+}
+
 extension ItemDescViewController: AddToEscapeDoneProtocol {
     func doneButtonTapped() {
         self.escapeAlreadyAdded = true
@@ -361,6 +370,7 @@ extension ItemDescViewController : ItemDescProtocol{
         fillData(data)
         
         self.similarEscapesView.getSimilarEscapesData(escapeId: id, escapeType: self.escapeType)
+        self.relatedPeopleView.getRelatedPeopleData(escapeId: id)
     }
     
     func errorItemDescData() {
