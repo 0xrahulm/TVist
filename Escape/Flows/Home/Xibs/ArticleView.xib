@@ -67,23 +67,23 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VK2-AM-Mwp">
-                                <rect key="frame" x="15" y="180" width="347" height="16"/>
-                                <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="13"/>
+                                <rect key="frame" x="15" y="177" width="347" height="18"/>
+                                <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="15"/>
                                 <color key="textColor" red="0.078431372550000003" green="0.18039215689999999" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9XX-SQ-UWe">
-                                <rect key="frame" x="15" y="199" width="31" height="16"/>
+                                <rect key="frame" x="15" y="197" width="31" height="16"/>
                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="13"/>
                                 <color key="textColor" red="0.59607843140000005" green="0.64313725489999995" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="0.77986052849999998" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="0.3012531459496644" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hHX-zt-GcG" firstAttribute="top" secondItem="fe7-JB-gAU" secondAttribute="top" id="2oH-fj-jCB"/>
-                            <constraint firstItem="VK2-AM-Mwp" firstAttribute="top" secondItem="hHX-zt-GcG" secondAttribute="bottom" constant="10" id="4Wz-A5-eg3"/>
-                            <constraint firstItem="9XX-SQ-UWe" firstAttribute="top" secondItem="VK2-AM-Mwp" secondAttribute="bottom" constant="3" id="85R-UX-HAX"/>
+                            <constraint firstItem="VK2-AM-Mwp" firstAttribute="top" secondItem="hHX-zt-GcG" secondAttribute="bottom" constant="7" id="4Wz-A5-eg3"/>
+                            <constraint firstItem="9XX-SQ-UWe" firstAttribute="top" secondItem="VK2-AM-Mwp" secondAttribute="bottom" constant="2" id="85R-UX-HAX"/>
                             <constraint firstItem="hHX-zt-GcG" firstAttribute="leading" secondItem="fe7-JB-gAU" secondAttribute="leading" id="Bav-KA-YoQ"/>
                             <constraint firstItem="9XX-SQ-UWe" firstAttribute="leading" secondItem="fe7-JB-gAU" secondAttribute="leading" constant="15" id="G3f-lb-3HG"/>
                             <constraint firstAttribute="trailing" secondItem="hHX-zt-GcG" secondAttribute="trailing" id="Hcz-fF-ahn"/>
