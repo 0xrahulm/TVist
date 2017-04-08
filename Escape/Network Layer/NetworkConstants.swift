@@ -10,7 +10,7 @@ import UIKit
 
 enum ServiceType : String {
     //case ServiceTypePrivateApi="http://api.escape-app.com/api/"
-    case ServiceTypePrivateApi="http://192.168.0.103:3000/api/"
+    case ServiceTypePrivateApi="http://api.escape-app.com/api/"
 }
 
 enum SubServiceType : String {
@@ -24,18 +24,19 @@ enum SubServiceType : String {
     case PostInterests  = "user_interests"
     
     // My Account
-    case GetUserDetails =  "get_user_details"
-    case GetProfileList =  "profile/list"
-    case GetUserEscapes =  "user/escapes"
-    case LogoutUser     =  "logout"
-    case GetItemDesc    =  "escapes/detail"
-    case GetFollowers   =  "get_user_followers"
-    case GetFollowing   =  "get_user_following"
-    case GetFriends     =  "get_user_friends"
-    case AddEscapes     =  "add_escape"
-    case FollowUser     =  "follow_user"
-    case UnfollowUser   =  "unfollow_user"
-    case PostRecommend  =  "users/recommendation"
+    case GetUserDetails     =  "get_user_details"
+    case GetProfileList     =  "profile/list"
+    case GetUserEscapes     =  "user/escapes"
+    case LogoutUser         =  "logout"
+    case GetItemDesc        =  "escapes/detail"
+    case GetSimilarEscape   =  "escapes/similar"
+    case GetFollowers       =  "get_user_followers"
+    case GetFollowing       =  "get_user_following"
+    case GetFriends         =  "get_user_friends"
+    case AddEscapes         =  "add_escape"
+    case FollowUser         =  "follow_user"
+    case UnfollowUser       =  "unfollow_user"
+    case PostRecommend      =  "users/recommendation"
     
     //Discover
     case GetDiscoverItems = "lets_discover"

@@ -10,36 +10,32 @@ import UIKit
 import Alamofire
 
 protocol NetworkWrapperProtocol : class {
-    func serviceFinishedSucessfully(service : Service)
-    func serivceFinishedWithError(service : Service)
+    func serviceFinishedSucessfully(_ service : Service)
+    func serivceFinishedWithError(_ service : Service)
 }
 
 class NetworkWrapper: NSObject {
     
-    var headers : [String:String] = [:]
     var activeRequest : [Request] = []
     
-    func serverCall(service : Service){
+    func serverCall(_ service : Service){
         
         print("server call with API url :: \(service.finalURL)")
-        print("parameters \(service.parameters)")
+        print("parameters \(String(describing: service.parameters))")
         
         if (isNetworkAvailable()){
+            var encoding:ParameterEncoding = JSONEncoding.default
+            if service.method == .get {
+                encoding = URLEncoding.default
+            }
             
-                setHeaders()
-            
-            let currentRequest = Alamofire.request(service.method, service.finalURL, parameters: service.parameters ,headers: headers)
+            let currentRequest = Alamofire.request(service.finalURL, method: service.method, parameters: service.parameters, encoding: encoding, headers: appHeaders())
             
             
-                //checkForRequests(currentRequest)
-            
-                //activeRequest.append(currentRequest)
-            
-                currentRequest.responseJSON { response in
-                            
-                        self.recievedServerResponse(service, response: response)
-                    
-                }
+            currentRequest.responseJSON(completionHandler: { (response) in
+                
+                self.recievedServerResponse(service, response: response)
+            })
             
         }else{
             if service.responderDelegate != nil{
@@ -48,12 +44,13 @@ class NetworkWrapper: NSObject {
             
         }
     }
-    func checkForRequests(currentRequest : Request){
-        if let url = currentRequest.task.originalRequest?.URLString{
-            if url.containsString(SubServiceType.GetSearchItems.rawValue){
+    func checkForRequests(_ currentRequest : Request){
+        if let dataTask = currentRequest.task, let url = dataTask.originalRequest?.url?.absoluteString{
+            
+            if url.contains(SubServiceType.GetSearchItems.rawValue){
                 for request in activeRequest{
-                    if let url  = request.task.originalRequest?.URLString{
-                        if url.containsString(SubServiceType.GetSearchItems.rawValue){
+                    if let task = request.task, let url  = task.originalRequest?.url?.absoluteString {
+                        if url.contains(SubServiceType.GetSearchItems.rawValue){
                             request.cancel()
                         }
                     }
@@ -63,30 +60,33 @@ class NetworkWrapper: NSObject {
         }
     }
     
-    func recievedServerResponse(service : Service , response :Response<AnyObject, NSError>){
-        print("response from : \(response.response)")
+    
+    func recievedServerResponse(_ service : Service , response :DataResponse<Any>){
+        print("response from : \(response.result)")
         
         switch response.result {
-        case .Success:
+        case .success(_):
             
             service.failedCount = 0
             
             if service.responderDelegate != nil{
-                
-                if response.response?.statusCode >= 400 {
-                    service.errorMessage = response.result.value
-                    service.errorCode = response.response?.statusCode
-                    service.responderDelegate!.serivceFinishedWithError(service)
+                if let responseCode = response.response {
                     
-                }else{
-                    service.outPutResponse = response.result.value
-                    service.responderDelegate!.serviceFinishedSucessfully(service)
+                    if responseCode.statusCode >= 400 {
+                        service.errorMessage = response.result.value
+                        service.errorCode = response.response?.statusCode
+                        service.responderDelegate!.serivceFinishedWithError(service)
+                        
+                    }else{
+                        service.outPutResponse = response.result.value
+                        service.responderDelegate!.serviceFinishedSucessfully(service)
+                    }
                 }
             }
             
             break;
             
-        case .Failure:
+        case .failure(_):
             service.errorMessage = response.result.value
             service.errorCode = response.response?.statusCode
             
@@ -106,21 +106,21 @@ class NetworkWrapper: NSObject {
         
         
     }
-    func setHeaders(){
+    func appHeaders() -> HTTPHeaders {
         
-        
+        var headers: HTTPHeaders = [:]
         if let auth = DeviceID.getXauth(){
             headers["X-ESCAPE-AUTH-TOKEN"] = auth
             
             print ("TOKEN : \(auth)")
         }
         headers["X-DEVICE-ID"] = DeviceID.getDeviceID()
-        headers["X-DEVICE-TYPE"] = UIDevice.currentDevice().modelName
+        headers["X-DEVICE-TYPE"] = UIDevice.current.modelName
         headers["X-OS-TYPE"] = "iOS"
         headers["Accept"] = "application/version.v1"
         
         print("Device id :\(DeviceID.getDeviceID())")
-        
+        return headers
     }
     
 }

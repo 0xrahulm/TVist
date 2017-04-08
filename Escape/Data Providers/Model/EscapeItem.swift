@@ -25,9 +25,10 @@ final class EscapeItem: Object {
         return "id"
     }
     
-    class func addOrEditEscapeItem(id: String, name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?, _realm: Realm?) -> EscapeItem {
+    class func addOrEditEscapeItem(_ id: String, name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?, _realm: Realm?) -> EscapeItem {
         
-        if let _realm = _realm, let escapeItem = _realm.objectForPrimaryKey(EscapeItem.self, key: id) {
+        if let _realm = _realm, let escapeItem =  _realm.object(ofType: EscapeItem.self, forPrimaryKey: id) {
+            
             
             escapeItem.updateEscapeName(name, escapeType: escapeType, posterImage: posterImage, year: year, rating: rating, subTitle: subTitle, createdBy: createdBy)
             return escapeItem
@@ -42,7 +43,7 @@ final class EscapeItem: Object {
         
     }
     
-    func updateEscapeName(name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?) {
+    func updateEscapeName(_ name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?) {
         
         
         self.name = name

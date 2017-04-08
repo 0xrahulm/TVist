@@ -22,8 +22,8 @@ class UserEscapeListViewController: GenericListViewController {
     var listItems:[EscapeItem] = []
     
     
-    override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
-        if let escapeTypeStr = queryParams["escapeType"] as? String, let escapeType = EscapeType(rawValue: escapeTypeStr)  {
+    override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
+        if let escapeTypeStr = queryParams["escape_type"] as? String, let escapeType = EscapeType(rawValue: escapeTypeStr)  {
             self.escapeType = escapeType
         }
         
@@ -32,7 +32,7 @@ class UserEscapeListViewController: GenericListViewController {
             self.title = escapeAction
         }
         
-        if let prefillItems = queryParams["prefillItems"] as? [EscapeItem] where prefillItems.count > 0 {
+        if let prefillItems = queryParams["prefillItems"] as? [EscapeItem], prefillItems.count > 0 {
             nextPage = 2
             if prefillItems.count >= DataConstants.kDefaultFetchSize {
                 fullDataLoaded = true
@@ -50,7 +50,7 @@ class UserEscapeListViewController: GenericListViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         ScreenVader.sharedVader.hideTabBar(true)
@@ -75,14 +75,14 @@ class UserEscapeListViewController: GenericListViewController {
         return listItems.count
     }
     
-    override func listItemAtIndexPath(indexPath: NSIndexPath) -> NormalCell {
-        let escapeCell = tableView.dequeueReusableCellWithIdentifier(GenericCellIdentifier.EscapeCell.rawValue, forIndexPath: indexPath) as! EscapeCell
+    override func listItemAtIndexPath(_ indexPath: IndexPath) -> NormalCell {
+        let escapeCell = tableView.dequeueReusableCell(withIdentifier: GenericCellIdentifier.EscapeCell.rawValue, for: indexPath) as! EscapeCell
         escapeCell.escapeItem = listItems[indexPath.row]
         return escapeCell
         
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         
         return 130
     }
@@ -90,20 +90,20 @@ class UserEscapeListViewController: GenericListViewController {
 }
 
 extension UserEscapeListViewController: EscapeListDataProtocol {
-    func receivedEscapeListData(escapeData: [EscapeItem], page: Int?, escapeType: String?, escapeAction: String?, userId: String?) {
+    func receivedEscapeListData(_ escapeData: [EscapeItem], page: Int?, escapeType: String?, escapeAction: String?, userId: String?) {
         
         if self.userId == userId {
             
-            if let escapeType = escapeType, let escapeAction = escapeAction where escapeType == self.escapeType.rawValue && escapeAction == self.escapeAction {
+            if let escapeType = escapeType, let escapeAction = escapeAction, escapeType == self.escapeType.rawValue && escapeAction == self.escapeAction {
                 
-                if let page = page where page == nextPage {
+                if let page = page, page == nextPage {
                     
                     nextPage += 1
                     if escapeData.count < DataConstants.kDefaultFetchSize {
                         fullDataLoaded = true
                     }
                     
-                    listItems.appendContentsOf(escapeData)
+                    listItems.append(contentsOf: escapeData)
                     tableView.reloadData()
                     
                     fetchingData = false
@@ -118,8 +118,8 @@ extension UserEscapeListViewController: EscapeListDataProtocol {
 }
 
 extension UserEscapeListViewController {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > ((CGRectGetHeight(scrollView.frame) - scrollView.contentSize.height)*0.80) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > ((scrollView.frame.height - scrollView.contentSize.height)*0.80) {
             loadNexPage()
         }
     }

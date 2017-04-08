@@ -27,7 +27,7 @@ class UserData: Object {
     let escapeList = List<UserEscapeData>()
     
     
-    dynamic var createdAt =     NSDate()
+    dynamic var createdAt =     Date()
     
     override class func primaryKey() -> String? {
         return "id"

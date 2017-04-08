@@ -14,16 +14,16 @@ class CustomDoneButton: RNLoadingButton {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.hideTextWhenLoading = false
-        self.loading = false
-        self.activityIndicatorAlignment = .Right
+        self.isLoading = false
+        self.activityIndicatorAlignment = .right
     }
     
     var enableButton: Bool {
         get {
-            return self.enabled
+            return self.isEnabled
         }
         set {
-            self.enabled = newValue
+            self.isEnabled = newValue
             
             if(newValue) {
                 self.alpha = 1.0

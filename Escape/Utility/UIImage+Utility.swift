@@ -10,8 +10,8 @@ import Foundation
 import AlamofireImage
 
 extension UIImage {
-    class func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
-        let rect = CGRectMake(0, 0, size.width, size.height)
+    class func getImageWithColor(_ color: UIColor, size: CGSize) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
         UIRectFill(rect)
@@ -21,13 +21,13 @@ extension UIImage {
     }
 }
 extension UIImageView{
-    func downloadImageWithUrl(str : String? , placeHolder : UIImage?){
+    func downloadImageWithUrl(_ str : String? , placeHolder : UIImage?){
         
         self.image = placeHolder
         
         if let str = str{
-            if let url = NSURL(string: str){
-                self.af_setImageWithURL(url)
+            if let url = URL(string: str){
+                self.af_setImage(withURL: url)
             }
         }
         

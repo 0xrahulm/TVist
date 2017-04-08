@@ -36,11 +36,11 @@ class MyAccountViewController: UIViewController{
     
     var lastContentOffsetY:CGFloat = 0.0
     
-    private var viewControllers: [CustomListViewController] = []
+    fileprivate var viewControllers: [CustomListViewController] = []
     var currentDisplayIndex = -1
     
     
-    override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
+    override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         if let userId = queryParams["user_id"] as? String{
             self.userId = userId
         }
@@ -55,7 +55,7 @@ class MyAccountViewController: UIViewController{
         setVisuals()
         setupViewControllers()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         
         if userId == nil{ // means self user
@@ -65,14 +65,14 @@ class MyAccountViewController: UIViewController{
     }
    
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         ScreenVader.sharedVader.hideTabBar(false)
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.mainScrollView.contentSize = CGSize(width: self.mainScrollView.frame.size.width, height: self.mainScrollView.frame.size.height+self.topView.frame.size.height)
@@ -80,11 +80,11 @@ class MyAccountViewController: UIViewController{
     
     
     func setVisuals(){
-        let settingImage = IonIcons.imageWithIcon(ion_ios_settings_strong, size: 22, color: UIColor.themeColorBlack())
-        let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MyAccountViewController.settingTapped))
+        let settingImage = IonIcons.image(withIcon: ion_ios_settings_strong, size: 22, color: UIColor.themeColorBlack())
+        let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(MyAccountViewController.settingTapped))
         
         self.navigationItem.rightBarButtonItem = settingButton
-        editProfileButton.layer.borderColor = UIColor.textGrayColor().CGColor
+        editProfileButton.layer.borderColor = UIColor.textGrayColor().cgColor
         editProfileButton.layer.borderWidth = 1.0
         editProfileButton.layer.cornerRadius = 2.0
         
@@ -107,9 +107,9 @@ class MyAccountViewController: UIViewController{
         
         var listViewControllers:[CustomListViewController] = []
         
-        for (index,listType) in listOfVCType.enumerate() {
+        for (index,listType) in listOfVCType.enumerated() {
             
-            if let listVC = UIStoryboard(name: "MyAccount", bundle: nil).instantiateViewControllerWithIdentifier("customListVC") as? CustomListViewController {
+            if let listVC = UIStoryboard(name: "MyAccount", bundle: nil).instantiateViewController(withIdentifier: "customListVC") as? CustomListViewController {
                 listVC.typeOfList = listType
                 listVC.userId = userId
                 listVC.parentReference = self
@@ -120,46 +120,47 @@ class MyAccountViewController: UIViewController{
         
         self.viewControllers = listViewControllers
         
-        setSelectedViewColor(.Activity)
+        setSelectedViewColor(.activity)
         
         let parameters: [CAPSPageMenuOption] = [
-            .ScrollMenuBackgroundColor(UIColor.whiteColor()),
-            .ViewBackgroundColor(UIColor.whiteColor()),
-            .SelectionIndicatorColor(UIColor.escapeBlueColor()),
-            .BottomMenuHairlineColor(UIColor.textGrayColor()),
-            .MenuItemFont(UIFont(name: "SFUIDisplay-SemiBold", size: 15.0)!),
-            .MenuHeight(45.0),
-            .MenuMargin(0.0),
-            .MenuItemWidth(self.contentView.frame.width/4),
-            .CenterMenuItems(true),
-            .SelectedMenuItemLabelColor(UIColor.themeColorBlack()),
-            .UnselectedMenuItemLabelColor(UIColor.textGrayColor()),
-            .SelectionIndicatorHeight(1.5)
+            .scrollMenuBackgroundColor(UIColor.white),
+            .viewBackgroundColor(UIColor.white),
+            .selectionIndicatorColor(UIColor.escapeBlueColor()),
+            .bottomMenuHairlineColor(UIColor.textGrayColor()),
+            .menuItemFont(UIFont(name: "SFUIDisplay-SemiBold", size: 15.0)!),
+            .menuHeight(45.0),
+            .menuMargin(0.0),
+            .menuItemWidth(self.contentView.frame.width/4),
+            .centerMenuItems(true),
+            .selectedMenuItemLabelColor(UIColor.themeColorBlack()),
+            .unselectedMenuItemLabelColor(UIColor.textGrayColor()),
+            .selectionIndicatorHeight(1.5)
         ]
         
-        pageMenu = CAPSPageMenu(viewControllers: listViewControllers, frame: CGRectMake(0.0, 0.0, self.contentView.frame.width, self.contentView.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: listViewControllers, frame: CGRect(x: 0.0, y: 0.0, width: self.contentView.frame.width, height: self.contentView.frame.height), pageMenuOptions: parameters)
         
         self.addChildViewController(pageMenu!)
         self.contentView.addSubview(pageMenu!.view)
         
-        pageMenu!.didMoveToParentViewController(self)
+        pageMenu!.didMove(toParentViewController: self)
     }
     
     func fetchDataFromRealm(){
         
-        Logger.debug("PATH : \(Realm.Configuration.defaultConfiguration.fileURL)")
+        Logger.debug("PATH : \(String(describing: Realm.Configuration.defaultConfiguration.fileURL))")
         
         if let user = MyAccountDataProvider.sharedDataProvider.currentUser{
             
             var data : MyAccountItems?
-            data = MyAccountItems(id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, gender: Gender(rawValue :user.gender), profilePicture: user.profilePicture, followers: user.following, following: user.following, escapes_count: user.escape_count)
+            
+            data = MyAccountItems(id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, gender: Gender(rawValue :user.gender), profilePicture: user.profilePicture, followers: NSNumber(integerLiteral: user.followers), following: NSNumber(integerLiteral: user.following), escapes_count: NSNumber(integerLiteral: user.escape_count))
             
             fillData(data)
         }
         
     }
     
-    func fillData(userData : MyAccountItems?){
+    func fillData(_ userData : MyAccountItems?){
         if let firstName = userData?.firstName{
             
             if let lastName = userData?.lastName{
@@ -184,7 +185,7 @@ class MyAccountViewController: UIViewController{
         
     }
 
-    @IBAction func tapGestureAction(sender: UITapGestureRecognizer) {
+    @IBAction func tapGestureAction(_ sender: UITapGestureRecognizer) {
         
         if let view = sender.view{
             setSelectedViewColor(Tap(rawValue: view.tag))
@@ -192,23 +193,23 @@ class MyAccountViewController: UIViewController{
         
     }
     
-    func setSelectedViewColor(view : Tap?){
+    func setSelectedViewColor(_ view : Tap?){
     
     }
     
-    func enableChildScrolls(enable: Bool) {
+    func enableChildScrolls(_ enable: Bool) {
         for listViewController in self.viewControllers {
             if listViewController.tableView != nil {
-                listViewController.tableView.scrollEnabled = enable
+                listViewController.tableView.isScrollEnabled = enable
             }
         }
     }
     
-    @IBAction func followerFollowingClicked(sender: UITapGestureRecognizer) {
+    @IBAction func followerFollowingClicked(_ sender: UITapGestureRecognizer) {
         if let view = sender.view{
-            var userType : UserType = .Followers
+            var userType : UserType = .followers
             if view.tag == 6{
-                userType = .Following
+                userType = .following
             }
             if let userId = userId{
                ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue, "userId" : userId])
@@ -218,7 +219,7 @@ class MyAccountViewController: UIViewController{
         }
     }
     
-    @IBAction func editProfileButtonTapped(sender: AnyObject) {
+    @IBAction func editProfileButtonTapped(_ sender: AnyObject) {
         
         if let userId = userId{
             if isFollow{
@@ -237,7 +238,7 @@ class MyAccountViewController: UIViewController{
 }
 
 extension MyAccountViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffsetY = scrollView.contentOffset.y
         if contentOffsetY > lastContentOffsetY {
             if contentOffsetY > (self.topView.frame.size.height-5) {

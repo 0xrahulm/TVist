@@ -26,7 +26,7 @@ class NotificationItem: NSObject {
         self.timestamp = timestamp
     }
     
-    func parseData(data: [[String:AnyObject]]) {
+    func parseData(_ data: [[String:AnyObject]]) {
         for dict in data{
             if let text = dict["text"] as? String{
                 self.items.append(NotificationItem(text : text, deepLink : dict["deeplink"] as? String , timestamp : dict["time"] as? NSNumber))

@@ -17,18 +17,23 @@ protocol MyAccountDetailsProtocol : class {
 }
 
 protocol ItemDescProtocol : class {
-    func receivedItemDesc(data : DescDataItems? ,id : String)
+    func receivedItemDesc(_ data : DescDataItems? ,id : String)
     func errorItemDescData()
 }
 
 protocol FollowersProtocol : class {
-    func recievedFollowersData(data : [MyAccountItems] , userType : UserType)
+    func recievedFollowersData(_ data : [MyAccountItems] , userType : UserType)
     func error()
 }
 
 protocol EscapeListDataProtocol: class {
-    func receivedEscapeListData(escapeData: [EscapeItem], page: Int?, escapeType: String?, escapeAction: String?, userId: String?)
+    func receivedEscapeListData(_ escapeData: [EscapeItem], page: Int?, escapeType: String?, escapeAction: String?, userId: String?)
     func failedToReceiveData()
+}
+
+protocol SimilarEscapesProtocol:class {
+    func receivedSimilarEscapes(_ escapeData: [EscapeItem])
+    func failedToReceivedData()
 }
 
 class MyAccountDataProvider: CommonDataProvider {
@@ -37,6 +42,7 @@ class MyAccountDataProvider: CommonDataProvider {
     
     weak var myAccountDetailsDelegate : MyAccountDetailsProtocol?
     weak var itemDescDelegate : ItemDescProtocol?
+    weak var similarEscapesDelegate: SimilarEscapesProtocol?
     weak var followersDelegate : FollowersProtocol?
     weak var escapeListDataDelegate: EscapeListDataProtocol?
     
@@ -55,16 +61,16 @@ class MyAccountDataProvider: CommonDataProvider {
         }
     }
     
-    func getUserDetails(userId : String?){
-        var params : [String:AnyObject] = [:]
+    func getUserDetails(_ userId : String?){
+        var params : [String:Any] = [:]
         if let userId = userId{
             params["user_id"] = userId
         }
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserDetails, params: params, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserDetails, params: params, delegate: self)
     }
     
-    func getUserEscapes(escapeType: EscapeType, escapeAction: String?, userId: String?, page: Int?) {
-        var params : [String:AnyObject] = [:]
+    func getUserEscapes(_ escapeType: EscapeType, escapeAction: String?, userId: String?, page: Int?) {
+        var params : [String:Any] = [:]
         
         params["escape_type"] =  escapeType.rawValue
         
@@ -80,11 +86,11 @@ class MyAccountDataProvider: CommonDataProvider {
             params["escape_action"] = escapeAction
         }
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserEscapes, params: params, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserEscapes, params: params, delegate: self)
     }
     
     
-    func getProfileList(listType: ProfileListType, forUserId:String?) -> Results<ProfileList> {
+    func getProfileList(_ listType: ProfileListType, forUserId:String?) -> Results<ProfileList> {
         
         serviceResquestForProfileList(listType, forUserId: forUserId)
         
@@ -101,57 +107,59 @@ class MyAccountDataProvider: CommonDataProvider {
         return RealmDataVader.sharedVader.getProfileListData(listType, userId: userId)
     }
     
-    func serviceResquestForProfileList(listType: ProfileListType, forUserId: String?) {
-        var params:[String:AnyObject] = ["list_type":listType.rawValue]
+    func serviceResquestForProfileList(_ listType: ProfileListType, forUserId: String?) {
+        var params:[String:Any] = ["list_type":listType.rawValue]
         if let forUserId = forUserId {
             params["user_id"] = forUserId
         }
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetProfileList, params: params, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetProfileList, params: params, delegate: self)
     }
     
-    func getItemDesc(escapeType : EscapeType , id : String){
-        var params : [String:AnyObject] = [:]
+    func getItemDesc(_ escapeType : EscapeType?, id : String){
+        var params : [String:Any] = [:]
         params["escape_id"] = id
-        params["escape_type"] = escapeType.rawValue
+        if let escapeType = escapeType {
+            params["escape_type"] = escapeType.rawValue
+        }
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetItemDesc, params: params, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetItemDesc, params: params, delegate: self)
     }
     
     func logoutUser(){
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .LogoutUser, params: nil, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .LogoutUser, params: nil, delegate: self)
     }
     
-    func getUserFollowing(id : String?){
+    func getUserFollowing(_ id : String?){
         
-        var params : [String:AnyObject] = [:]
+        var params : [String:Any] = [:]
         
         if let id = id{
             params["user_id"] = id
         }
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFollowing, params: params, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFollowing, params: params, delegate: self)
     }
     
-    func getUserFollowers(id : String?){
+    func getUserFollowers(_ id : String?){
         
-        var params : [String:AnyObject] = [:]
+        var params : [String:Any] = [:]
         
         if let id = id{
             params["user_id"] = id
         }
         
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFollowers, params: params, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFollowers, params: params, delegate: self)
         
     }
     
     func getUserFriends(){
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFriends, params: nil, delegate: self)
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetFriends, params: nil, delegate: self)
     }
-    func postRecommend(escapeId : [String] , friendId : [String] , message : String?){
+    func postRecommend(_ escapeId : [String] , friendId : [String] , message : String?){
         
-        var params : [String:AnyObject] = [:]
+        var params : [String:Any] = [:]
         
         if let message = message {
             if message != ""{
@@ -162,20 +170,20 @@ class MyAccountDataProvider: CommonDataProvider {
         params["to_user_ids"] = friendId
         params["escape_ids"] = escapeId
         
-        ServiceCall(.POST, serviceType: .ServiceTypePrivateApi, subServiceType: .PostRecommend, params: params, delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .PostRecommend, params: params, delegate: self)
         
     }
     
-    func getStoryLinkedObjects(storyId : String){
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetLinkedObjects, params:  ["story_id" : storyId], delegate: self)
+    func getStoryLinkedObjects(_ storyId : String){
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetLinkedObjects, params:  ["story_id" : storyId], delegate: self)
     }
     
-    func getSharedUsersOfStory(storyId : String){
-        ServiceCall(.GET, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSharedUsersOfStory, params:  ["story_id" : storyId], delegate: self)
+    func getSharedUsersOfStory(_ storyId : String){
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSharedUsersOfStory, params:  ["story_id" : storyId], delegate: self)
     }
     
     
-    override func serviceSuccessfull(service: Service) {
+    override func serviceSuccessfull(_ service: Service) {
         if let subServiceType = service.subServiveType{
             
             switch subServiceType {
@@ -202,6 +210,12 @@ class MyAccountDataProvider: CommonDataProvider {
                 }
                 break
                 
+            case .GetSimilarEscape:
+                if let data = service.outPutResponse as? [[String:Any]] {
+                    self.parseSimilarEscapeData(data: data)
+                }
+                break
+                
             case .GetUserEscapes:
                 if let data = service.outPutResponse as? [[String:AnyObject]] {
                     
@@ -212,7 +226,7 @@ class MyAccountDataProvider: CommonDataProvider {
                     }
                     
                 } else {
-                    NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["error" : "error"])
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.MyAccountObserver.rawValue), object: ["error" : "error"])
                 }
                 break
                 
@@ -237,19 +251,19 @@ class MyAccountDataProvider: CommonDataProvider {
                 
             case .GetFollowing:
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
-                    self.parseFollwingData(data, userType: .Following)
+                    self.parseFollwingData(data, userType: .following)
                 }
                 break
                 
             case .GetFollowers:
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
-                    self.parseFollwingData(data, userType: .Followers)
+                    self.parseFollwingData(data, userType: .followers)
                 }
                 break
                 
             case .GetFriends:
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
-                    self.parseFollwingData(data, userType: .Friends)
+                    self.parseFollwingData(data, userType: .friends)
                 }
                 break
             case .PostRecommend:
@@ -258,13 +272,13 @@ class MyAccountDataProvider: CommonDataProvider {
                 
             case .GetLinkedObjects:
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
-                    self.parseFollwingData(data, userType: .FBFriends)
+                    self.parseFollwingData(data, userType: .fbFriends)
                 }
                 break
                 
             case .GetSharedUsersOfStory:
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
-                    self.parseFollwingData(data, userType: .SharedUsersOfStory)
+                    self.parseFollwingData(data, userType: .sharedUsersOfStory)
                 }
                 break
                 
@@ -276,7 +290,7 @@ class MyAccountDataProvider: CommonDataProvider {
     
     
     
-    override func serviceError(service: Service) {
+    override func serviceError(_ service: Service) {
         if let subServiceType = service.subServiveType{
             
             switch subServiceType {
@@ -288,7 +302,7 @@ class MyAccountDataProvider: CommonDataProvider {
                 break
                 
             case .GetUserEscapes:
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: ["error" : "error"])
+                NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.MyAccountObserver.rawValue), object: ["error" : "error"])
                 break
                 
             case .LogoutUser:
@@ -299,7 +313,12 @@ class MyAccountDataProvider: CommonDataProvider {
                 if self.itemDescDelegate != nil{
                     self.itemDescDelegate?.errorItemDescData()
                 }
+                break
                 
+            case .GetSimilarEscape:
+                if let delegate = self.similarEscapesDelegate {
+                    delegate.failedToReceivedData()
+                }
                 break
                 
             case .GetFollowing:
@@ -350,7 +369,7 @@ class MyAccountDataProvider: CommonDataProvider {
 
 extension MyAccountDataProvider {
     
-    func updateProfileListWith(data: [String: AnyObject]) {
+    func updateProfileListWith(_ data: [String: AnyObject]) {
         guard let listType = data["list_type"] as? String,
             let _ = ProfileListType(rawValue: listType),
             let userId = data["user_id"] as? String,
@@ -359,7 +378,7 @@ extension MyAccountDataProvider {
         }
         
         
-        if let currentUser = currentUser, let currentUserId = currentUser.id where currentUserId == userId {
+        if let currentUser = currentUser, let currentUserId = currentUser.id, currentUserId == userId {
             
             RealmDataVader.sharedVader.writeOrUpdateProfileList(userId, type: listType, listData: listData)
         } else {
@@ -369,11 +388,11 @@ extension MyAccountDataProvider {
             profileList.userId = userId
             profileList.parseDataNoRealm(listData)
             
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.OtherUserProfileListFetchObserver.rawValue, object: nil, userInfo: ["type":listType, "data":profileList])
+            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.OtherUserProfileListFetchObserver.rawValue), object: nil, userInfo: ["type":listType, "data":profileList])
         }
     }
     
-    func parseUserDetails(dict: [String:AnyObject], userId: String?){
+    func parseUserDetails(_ dict: [String:AnyObject], userId: String?){
         Logger.debug("User Details :\(dict)")
         
         let userData: MyAccountItems = MyAccountItems(dict: dict, userType: nil)
@@ -387,12 +406,31 @@ extension MyAccountDataProvider {
             }
             
         } else {
-            NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.GetProfileDetailsObserver.rawValue, object: nil, userInfo: ["userData": userData])
+            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.GetProfileDetailsObserver.rawValue), object: nil, userInfo: ["userData": userData])
         }
         
     }
     
-    func parseEscapeListData(data: [[String:AnyObject]], escape_type: String, escapeAction: String?, userId: String?, page: Int?) {
+    func parseSimilarEscapeData(data: [[String:Any]]) {
+        var dataArray:[EscapeItem] = []
+        
+        for eachItem in data {
+            guard let itemTitle = eachItem["name"] as? String,
+                let itemId = eachItem["id"] as? String,
+                let escapeType = eachItem["escape_type"] as? String else {
+                    continue
+            }
+            
+            dataArray.append(EscapeItem.addOrEditEscapeItem(itemId, name: itemTitle, escapeType: escapeType, posterImage: eachItem["poster_image"] as? String, year: eachItem["year"] as? String, rating: eachItem["rating"] as? NSNumber, subTitle: eachItem["subtitle"] as? String, createdBy: eachItem["creator"] as? String, _realm: nil))
+        }
+        
+        
+        if let delegate = self.similarEscapesDelegate {
+            delegate.receivedSimilarEscapes(dataArray)
+        }
+    }
+    
+    func parseEscapeListData(_ data: [[String:AnyObject]], escape_type: String, escapeAction: String?, userId: String?, page: Int?) {
         var dataArray:[EscapeItem] = []
         
         for eachItem in data {
@@ -412,7 +450,7 @@ extension MyAccountDataProvider {
     
     
     // This is to be removed, has already been replaced
-    func oldParseEscapeData(data: [[String:AnyObject]], escape_type: String , userId: String?) {
+    func oldParseEscapeData(_ data: [[String:AnyObject]], escape_type: String , userId: String?) {
         
         var escapeDataArray : [MyAccountEscapeItem] = []
         
@@ -452,18 +490,18 @@ extension MyAccountDataProvider {
                 }
             }
         }
-        var postableUserInfo:[String:AnyObject] = ["data" : escapeDataArray, "type":escape_type]
+        var postableUserInfo:[String:Any] = ["data" : escapeDataArray, "type":escape_type]
         if let userId = userId {
             postableUserInfo["userId"] = userId
         } else {
             saveEscapesToRealm(escapeDataArray, escapeType: EscapeType(rawValue: escape_type)!)
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.MyAccountObserver.rawValue, object: nil, userInfo: postableUserInfo)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.MyAccountObserver.rawValue), object: nil, userInfo: postableUserInfo)
         
     }
     
-    func parseDescData(dict : [String:AnyObject], id : String){
+    func parseDescData(_ dict : [String:AnyObject], id : String){
         
         var dataItems : DescDataItems?
         
@@ -475,7 +513,19 @@ extension MyAccountDataProvider {
         
     }
     
-    func parseFollwingData(data : [[String:AnyObject]] , userType : UserType){
+    func getSimilarEscapes(escapeId: String, escapeType: EscapeType?) {
+        
+        var params : [String:Any] = [:]
+        params["escape_id"] = escapeId
+        
+        if let escapeType = escapeType {
+            params["escape_type"] = escapeType.rawValue
+        }
+        
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSimilarEscape, params: params, delegate: self)
+    }
+    
+    func parseFollwingData(_ data : [[String:AnyObject]] , userType : UserType){
         
         var userItems : [MyAccountItems] = []
         for item in data{
@@ -492,7 +542,7 @@ extension MyAccountDataProvider {
 
 //MARK :- Persist Data
 extension MyAccountDataProvider{
-    func saveUserDataToRealm(userItem : MyAccountItems?){
+    func saveUserDataToRealm(_ userItem : MyAccountItems?){
         
         if let userItem = userItem{
             
@@ -511,7 +561,7 @@ extension MyAccountDataProvider{
             
             userData.following = Int(userItem.following)
             
-            userData.escape_count = userItem.escapes_count.integerValue
+            userData.escape_count = userItem.escapes_count.intValue
             
             
             self.currentUser = userData
@@ -523,7 +573,7 @@ extension MyAccountDataProvider{
         }
     }
     
-    func saveEscapesToRealm(escapeDataArray : [MyAccountEscapeItem] , escapeType : EscapeType){
+    func saveEscapesToRealm(_ escapeDataArray : [MyAccountEscapeItem] , escapeType : EscapeType){
         
         for item in escapeDataArray{
             
@@ -540,7 +590,7 @@ extension MyAccountDataProvider{
                         escapeData.sectionTitle = item.title
                         
                         if let count = item.count{
-                            escapeData.sectionCount = Int(count)
+                            escapeData.sectionCount = count
                         }
                         escapeData.id = escapeItem.id
                         escapeData.name = escapeItem.name
@@ -548,7 +598,7 @@ extension MyAccountDataProvider{
                         escapeData.escapeType = escapeItem.escapeType?.rawValue
                         escapeData.year = escapeItem.year
                         if let rating = escapeItem.escapeRating{
-                            escapeData.rating = Double(rating)
+                            escapeData.rating = rating
                         }
                         
                         

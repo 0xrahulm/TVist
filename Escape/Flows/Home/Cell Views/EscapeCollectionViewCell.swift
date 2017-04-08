@@ -38,10 +38,10 @@ class EscapeCollectionViewCell: UICollectionViewCell {
                 
                 if let year = data.year{
                     yearLabel.text = year
-                    seperatorLabel.hidden = false
+                    seperatorLabel.isHidden = false
                 }else{
                     yearLabel.text  = "|"
-                    seperatorLabel.hidden = true
+                    seperatorLabel.isHidden = true
                 }
                 
                 if let rating = data.escapeRating{
@@ -69,14 +69,14 @@ class EscapeCollectionViewCell: UICollectionViewCell {
                 let directorString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(directorByStr)", size: 14, color: UIColor.textBlackColor()))
                 
                 let attributedString = NSMutableAttributedString()
-                attributedString.appendAttributedString(directedByString)
-                attributedString.appendAttributedString(directorString)
+                attributedString.append(directedByString)
+                attributedString.append(directorString)
                 directorTypeLabel.attributedText = attributedString
                 
             }
             
             self.outerView.layer.borderWidth = 1
-            self.outerView.layer.borderColor = UIColor.placeholderColor().CGColor
+            self.outerView.layer.borderColor = UIColor.placeholderColor().cgColor
             self.outerView.layer.cornerRadius = 5
         }
     }

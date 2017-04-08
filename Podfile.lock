@@ -1,33 +1,33 @@
 PODS:
-  - Alamofire (3.5.1)
-  - AlamofireImage (2.5.0):
-    - Alamofire (~> 3.5)
+  - Alamofire (4.4.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
   - ionicons (2.0.3)
-  - Locksmith (2.0.8)
-  - Realm (2.1.0):
-    - Realm/Headers (= 2.1.0)
-  - Realm/Headers (2.1.0)
-  - RealmSwift (2.1.0):
-    - Realm (= 2.1.0)
-  - SwiftyJSON (2.3.3)
+  - Locksmith (3.0.0)
+  - Realm (2.5.0):
+    - Realm/Headers (= 2.5.0)
+  - Realm/Headers (2.5.0)
+  - RealmSwift (2.5.0):
+    - Realm (= 2.5.0)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.5.0)
-  - AlamofireImage (~> 2.0)
+  - Alamofire (~> 4)
+  - AlamofireImage (~> 3)
   - ionicons
-  - Locksmith (~> 2.0.8)
+  - Locksmith (~> 3)
   - RealmSwift
-  - SwiftyJSON (~> 2.3.2)
+  - SwiftyJSON (~> 3)
 
 SPEC CHECKSUMS:
-  Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
-  AlamofireImage: 2d34936e5201270bb17a316a786e90e83b4a249d
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
   ionicons: ec1e86e6c3316bd9942a7f024080dd75c70dd6a5
-  Locksmith: a8ed41ac4c06506ea8cb199d8ec8a8d3d108eb2a
-  Realm: bc829ad0ef3d4eea70c34cfcc3b1704d18d50df1
-  RealmSwift: a4d4abbf0088c337cab5b738054395842e4b3052
-  SwiftyJSON: 0fd0a115a3c0c09b277d2ab801df154902b942c3
+  Locksmith: 310b4cc5031af5728bf4db5d4de547a5100c6a3b
+  Realm: 62abce501668580092d2be9b6ba7324a3d5f906a
+  RealmSwift: 9f1a8f624f2f153410115c2cb7d486be9976565d
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 887ebc459cf277bd76b20538ea660fc69c6c2615
+PODFILE CHECKSUM: 2e525373d10863a48d87129002fbd719aec57dea
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

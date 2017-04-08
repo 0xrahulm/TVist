@@ -28,17 +28,17 @@ class MyAccountSettingViewController: UIViewController {
 
 }
 extension MyAccountSettingViewController : UITableViewDelegate, UITableViewDataSource{
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell()
         cell.textLabel?.text = dataArray[indexPath.row]
         
         return cell
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if dataArray[indexPath.row] == "Logout"{
             MyAccountDataProvider.sharedDataProvider.logoutUser()
         }

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol RemoveFbCardProtocol : class{
-    func removeFBCard(indexPath : NSIndexPath)
+    func removeFBCard(_ indexPath : IndexPath)
     
 }
 
@@ -33,15 +33,15 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        followView.backgroundColor = UIColor.clearColor()
+        followView.backgroundColor = UIColor.clear
         followView.layer.cornerRadius = 3
         followView.layer.borderWidth = 1
-        followView.layer.borderColor = UIColor.facebookThemeColor().CGColor
+        followView.layer.borderColor = UIColor.facebookThemeColor().cgColor
     }
     
     var storyId : String?
     weak var removeFbCardDelegate : RemoveFbCardProtocol?
-    var indexPath : NSIndexPath?
+    var indexPath : IndexPath?
     
     var friendItems : FBFriendCard?{
         didSet{
@@ -100,11 +100,11 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
         }
     }
     
-    @IBAction func seeAllTapped(sender: UIButton) {
+    @IBAction func seeAllTapped(_ sender: UIButton) {
         openAllUsers()
     }
     
-    func handletitleTapGesture(sender: UITapGestureRecognizer) {
+    func handletitleTapGesture(_ sender: UITapGestureRecognizer) {
         if let storyId = storyId{
             HomeDataProvider.sharedDataProvider.followAllFriends(storyId)
         }
@@ -114,13 +114,13 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
         }
     }
     
-    func handleTapGesture(sender: UITapGestureRecognizer) {
+    func handleTapGesture(_ sender: UITapGestureRecognizer) {
         openAllUsers()
     }
     
     func openAllUsers(){
         if let storyId = storyId{
-            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.FBFriends.rawValue, "story_id" : storyId])
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.fbFriends.rawValue, "story_id" : storyId])
         }
     }
 

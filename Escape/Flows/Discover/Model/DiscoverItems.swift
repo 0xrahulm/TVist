@@ -44,7 +44,7 @@ class DiscoverItems: NSObject {
         parseData(dict)
     }
     
-    func parseData(data : [AnyObject]){
+    func parseData(_ data : [AnyObject]){
         var discoverDataArray : [DiscoverItems] = []
         
         if let dataArray = data as? [[String:AnyObject]] {

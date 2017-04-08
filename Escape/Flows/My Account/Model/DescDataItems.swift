@@ -23,6 +23,7 @@ class DescDataItems: NSObject {
     
     var cast: String?
     var createdBy: String?
+    var escapeType: String?
     var generes: [String] = []
     var isActed = false
     
@@ -32,7 +33,7 @@ class DescDataItems: NSObject {
         parseData(dict)
     }
     
-    func parseData(data : [String:AnyObject]){
+    func parseData(_ data : [String:AnyObject]){
         
         if let dict = data["details"] as? [String:AnyObject]{
             
@@ -44,6 +45,7 @@ class DescDataItems: NSObject {
                 self.image = dict["poster_image"] as? String
                 self.desc = dict["description"] as? String
                 self.releaseYear = dict["release_year"] as? String
+                self.escapeType = dict["escape_type"] as? String
                 
                 if let rating = dict["average_rating"] as? NSNumber{
                     self.rating = rating

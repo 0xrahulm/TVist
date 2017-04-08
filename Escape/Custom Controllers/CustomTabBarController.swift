@@ -9,12 +9,12 @@
 import UIKit
 
 enum EscapeTabs:Int {
-    case Home=0, Discover, Notifications, MyAccount
+    case home=0, discover, notifications, myAccount
 }
 
 class CustomTabBarController: UIViewController {
     
-    private var tabbedViewControllers: [UIViewController] = []
+    fileprivate var tabbedViewControllers: [UIViewController] = []
     @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak var tabBarView: UIView!
@@ -37,9 +37,9 @@ class CustomTabBarController: UIViewController {
                 tabBarBottomConstraint.constant = 0
             }
             
-            UIView.animateWithDuration(0.15) {
+            UIView.animate(withDuration: 0.15, animations: {
                 self.view.layoutIfNeeded()
-            }
+            }) 
         }
     }
     
@@ -72,11 +72,11 @@ class CustomTabBarController: UIViewController {
         
         setTabIndexActive(0)
         
-        self.tabBarView.layer.shadowColor   = UIColor.grayColor().CGColor
+        self.tabBarView.layer.shadowColor   = UIColor.gray.cgColor
         self.tabBarView.layer.shadowRadius  = 2
         self.tabBarView.layer.shadowOffset  = CGSize(width: 0, height: 0)
         self.tabBarView.layer.shadowOpacity = 0.50
-        self.tabBarView.layer.shadowPath = UIBezierPath(rect: self.tabBarView.bounds).CGPath
+        self.tabBarView.layer.shadowPath = UIBezierPath(rect: self.tabBarView.bounds).cgPath
     }
     
     
@@ -92,41 +92,41 @@ class CustomTabBarController: UIViewController {
         
     }
     
-    @IBAction func tappedOnTabWithSender(sender: UIButton) {
+    @IBAction func tappedOnTabWithSender(_ sender: UIButton) {
         setTabIndexActive(sender.tag)
     }
     
-    func setTabIndexActive(index: Int) {
+    func setTabIndexActive(_ index: Int) {
         
         currentDisplayIndex = index
         activeViewController = tabbedViewControllers[currentDisplayIndex]
         
         if let selectedTab = EscapeTabs(rawValue: index) {
-            homeButton.selected = false
-            discoverButton.selected = false
-            notificationsButton.selected = false
-            myAccountButton.selected = false
+            homeButton.isSelected = false
+            discoverButton.isSelected = false
+            notificationsButton.isSelected = false
+            myAccountButton.isSelected = false
             
             switch selectedTab {
-            case .Home:
-                homeButton.selected = true
-                NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.HomeTappedObserver.rawValue, object: nil)
+            case .home:
+                homeButton.isSelected = true
+                NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.HomeTappedObserver.rawValue), object: nil)
                 break
-            case .Discover:
-                discoverButton.selected = true
+            case .discover:
+                discoverButton.isSelected = true
                 break
-            case .Notifications:
-                notificationsButton.selected = true
+            case .notifications:
+                notificationsButton.isSelected = true
                 break
-            case .MyAccount:
-                myAccountButton.selected = true
+            case .myAccount:
+                myAccountButton.isSelected = true
                 break
             }
         }
         
     }
     
-    func hideTabBar(hide: Bool) {
+    func hideTabBar(_ hide: Bool) {
         if self.tabBarHidden == hide {
             return
         }
@@ -135,17 +135,17 @@ class CustomTabBarController: UIViewController {
         
     }
     
-    private func initialViewControllerFor(storyboardId: StoryBoardIdentifier) -> UIViewController? {
+    fileprivate func initialViewControllerFor(_ storyboardId: StoryBoardIdentifier) -> UIViewController? {
         return UIStoryboard(name: storyboardId.rawValue, bundle: nil).instantiateInitialViewController()
     }
     
-    private func changeActiveViewControllerFrom(inactiveViewController:UIViewController?) {
-        if isViewLoaded() {
+    fileprivate func changeActiveViewControllerFrom(_ inactiveViewController:UIViewController?) {
+        if isViewLoaded {
             
             if let activeVC = activeViewController {
                 
                 if let inActiveVC = inactiveViewController {
-                    inActiveVC.willMoveToParentViewController(nil)
+                    inActiveVC.willMove(toParentViewController: nil)
                     
                     inActiveVC.view.removeFromSuperview()
                     inActiveVC.removeFromParentViewController()
@@ -155,7 +155,7 @@ class CustomTabBarController: UIViewController {
                 
                 activeVC.view.frame   = self.contentView.bounds
                 contentView!.addSubview(activeVC.view)
-                activeVC.didMoveToParentViewController(self)
+                activeVC.didMove(toParentViewController: self)
                 
             }
             
@@ -163,11 +163,11 @@ class CustomTabBarController: UIViewController {
     }
     
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    override var preferredStatusBarStyle : UIStatusBarStyle {
         if shouldBeBlack {
-            return .Default
+            return .default
         }
-        return .LightContent
+        return .lightContent
     }
 
 }

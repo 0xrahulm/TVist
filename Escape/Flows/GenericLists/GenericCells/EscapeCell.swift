@@ -40,9 +40,9 @@ class EscapeCell: NormalCell {
             
             if let createdBy = escapeItem.createdBy {
                 creatorNameLabel.text = createdBy
-                creatorNameLabel.hidden = false
+                creatorNameLabel.isHidden = false
             }else{
-                creatorNameLabel.hidden = true
+                creatorNameLabel.isHidden = true
             }
             
             if escapeItem.escapeTypeVal() == .Movie{

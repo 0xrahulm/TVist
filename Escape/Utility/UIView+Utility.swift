@@ -10,8 +10,8 @@ import Foundation
 
 public extension UIView {
     
-    func hideWithAnimationAndRemoveView(removeFromSuperView: Bool, duration: Double) {
-        UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: { [unowned self] () -> Void in
+    func hideWithAnimationAndRemoveView(_ removeFromSuperView: Bool, duration: Double) {
+        UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: { [unowned self] () -> Void in
             self.alpha = 0.0
             }, completion: { [weak self] (finished: Bool) -> Void in
                 
@@ -19,13 +19,13 @@ public extension UIView {
                     if (removeFromSuperView) {
                         weakSelf.removeFromSuperview()
                     } else {
-                        weakSelf.hidden = true
+                        weakSelf.isHidden = true
                     }
                 }
             })
     }
     
-    func hideWithAnimationAndRemoveView(removeFromSuperView: Bool) {
+    func hideWithAnimationAndRemoveView(_ removeFromSuperView: Bool) {
         hideWithAnimationAndRemoveView(removeFromSuperView, duration: 0.4)
     }
     
@@ -37,17 +37,17 @@ public extension UIView {
         hideWithAnimationAndRemoveView(true)
     }
     
-    func visibleWithAnimationDuration(duration: NSTimeInterval, delay: NSTimeInterval) {
+    func visibleWithAnimationDuration(_ duration: TimeInterval, delay: TimeInterval) {
         self.alpha = 0.0
-        self.hidden = false
-        UIView.animateWithDuration(duration, delay: delay, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+        self.isHidden = false
+        UIView.animate(withDuration: duration, delay: delay, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
             self.alpha = 1.0
             }, completion: { (finished: Bool) -> Void in
                 
         })
     }
     
-    func visibleWithAnimationDuration(duration: NSTimeInterval) {
+    func visibleWithAnimationDuration(_ duration: TimeInterval) {
         visibleWithAnimationDuration(duration, delay: 0)
     }
     
@@ -60,15 +60,15 @@ public extension UIView {
         visibleWithAnimationDuration(0.5)
     }
     
-    func disappearWithPopIn(duration : NSTimeInterval , delay : NSTimeInterval){
+    func disappearWithPopIn(_ duration : TimeInterval , delay : TimeInterval){
         
-        self.transform = CGAffineTransformIdentity
-        UIView.animateWithDuration(duration, delay: delay, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-            self.transform = CGAffineTransformMakeScale(0.01, 0.01)
+        self.transform = CGAffineTransform.identity
+        UIView.animate(withDuration: duration, delay: delay, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            self.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             self.layoutIfNeeded()
             }, completion: {action in
-                self.hidden = true
-                self.transform = CGAffineTransformIdentity
+                self.isHidden = true
+                self.transform = CGAffineTransform.identity
         })
     }
    

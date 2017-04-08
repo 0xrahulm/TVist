@@ -10,63 +10,72 @@ import UIKit
 
 class TimeUtility: NSObject {
     
-    class func getYear(unixTimeStamp : Double) -> Int {
+    class func getYear(_ unixTimeStamp : Double) -> Int {
         
-        let date = NSDate(timeIntervalSince1970: unixTimeStamp)
+        let date = Date(timeIntervalSince1970: unixTimeStamp)
         
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Day , .Month , .Year], fromDate: date)
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components([.day , .month , .year], from: date)
         
-        return components.year
+        if let year = components.year {
+            return year
+        }
         
+        return 0
         
-    }
-    class func getMonth(unixTimeStamp : Double) -> Int {
-        
-        let date = NSDate(timeIntervalSince1970: unixTimeStamp)
-        
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Day , .Month , .Year], fromDate: date)
-        
-       
-        return components.month
         
     }
-    class func getDay(unixTimeStamp : Double) -> Int {
+    class func getMonth(_ unixTimeStamp : Double) -> Int {
         
-        let date = NSDate(timeIntervalSince1970: unixTimeStamp)
+        let date = Date(timeIntervalSince1970: unixTimeStamp)
         
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Day , .Month , .Year], fromDate: date)
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components([.day , .month , .year], from: date)
         
+        if let month = components.month {
+            return month
+        }
        
-        return components.day
+        return 0
+        
+    }
+    class func getDay(_ unixTimeStamp : Double) -> Int {
+        
+        let date = Date(timeIntervalSince1970: unixTimeStamp)
+        
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components([.day , .month , .year], from: date)
+        if let day = components.day {
+            return day
+        }
+       
+        return 0
         
     }
     
-    class func getComponent(unixTimeStamp : Double) -> NSDateComponents {
+    class func getComponent(_ unixTimeStamp : Double) -> DateComponents {
         
-        let date = NSDate(timeIntervalSince1970: unixTimeStamp)
+        let date = Date(timeIntervalSince1970: unixTimeStamp)
         
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Day , .Month , .Year], fromDate: date)
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components([.day , .month , .year], from: date)
         
         
         return components
         
     }
-    class func getTimeStampForCard(unixTimeStamp : Double) -> String{
+    class func getTimeStampForCard(_ unixTimeStamp : Double) -> String{
         
         let timeString = "Just now"
         
-        let date = NSDate(timeIntervalSince1970: unixTimeStamp)
+        let date = Date(timeIntervalSince1970: unixTimeStamp)
         
-        let days = NSDate().daysFrom(date)
-        let month = NSDate().monthsFrom(date)
-        let year = NSDate().yearsFrom(date)
+        let days = Date().daysFrom(date)
+        let month = Date().monthsFrom(date)
+        let year = Date().yearsFrom(date)
         
-        let hour = NSDate().hoursFrom(date)
-        let min = NSDate().minutesFrom(date)
+        let hour = Date().hoursFrom(date)
+        let min = Date().minutesFrom(date)
         
         
         if year > 1{
@@ -100,29 +109,50 @@ class TimeUtility: NSObject {
 
 }
 
-extension NSDate {
-    func yearsFrom(date: NSDate) -> Int {
-        return NSCalendar.currentCalendar().components(.Year, fromDate: date, toDate: self, options: []).year
+extension Date {
+    func yearsFrom(_ date: Date) -> Int {
+        if let yearsFrom = (Calendar.current as NSCalendar).components(.year, from: date, to: self, options: []).year {
+            return yearsFrom
+        }
+        return 0
     }
-    func monthsFrom(date: NSDate) -> Int {
-        return NSCalendar.currentCalendar().components(.Month, fromDate: date, toDate: self, options: []).month
+    func monthsFrom(_ date: Date) -> Int {
+        if let monthsFrom = (Calendar.current as NSCalendar).components(.month, from: date, to: self, options: []).month {
+            return monthsFrom
+        }
+        return 0
     }
-    func weeksFrom(date: NSDate) -> Int {
-        return NSCalendar.currentCalendar().components(.WeekOfYear, fromDate: date, toDate: self, options: []).weekOfYear
+    func weeksFrom(_ date: Date) -> Int {
+        if let weekOfYear = (Calendar.current as NSCalendar).components(.weekOfYear, from: date, to: self, options: []).weekOfYear {
+            return weekOfYear
+        }
+        return 0
     }
-    func daysFrom(date: NSDate) -> Int {
-        return NSCalendar.currentCalendar().components(.Day, fromDate: date, toDate: self, options: []).day
+    func daysFrom(_ date: Date) -> Int {
+        if let daysFrom = (Calendar.current as NSCalendar).components(.day, from: date, to: self, options: []).day {
+            return daysFrom
+        }
+        return 0
     }
-    func hoursFrom(date: NSDate) -> Int {
-        return NSCalendar.currentCalendar().components(.Hour, fromDate: date, toDate: self, options: []).hour
+    func hoursFrom(_ date: Date) -> Int {
+        if let hoursFrom = (Calendar.current as NSCalendar).components(.hour, from: date, to: self, options: []).hour {
+            return hoursFrom
+        }
+        return 0
     }
-    func minutesFrom(date: NSDate) -> Int{
-        return NSCalendar.currentCalendar().components(.Minute, fromDate: date, toDate: self, options: []).minute
+    func minutesFrom(_ date: Date) -> Int{
+        if let minutesFrom = (Calendar.current as NSCalendar).components(.minute, from: date, to: self, options: []).minute {
+            return minutesFrom
+        }
+        return 0
     }
-    func secondsFrom(date: NSDate) -> Int{
-        return NSCalendar.currentCalendar().components(.Second, fromDate: date, toDate: self, options: []).second
+    func secondsFrom(_ date: Date) -> Int{
+        if let secondsFrom = (Calendar.current as NSCalendar).components(.second, from: date, to: self, options: []).second {
+            return secondsFrom
+        }
+        return 0
     }
-    func offsetFrom(date: NSDate) -> String {
+    func offsetFrom(_ date: Date) -> String {
         if yearsFrom(date)   > 0 { return "\(yearsFrom(date))y"   }
         if monthsFrom(date)  > 0 { return "\(monthsFrom(date))M"  }
         if weeksFrom(date)   > 0 { return "\(weeksFrom(date))w"   }

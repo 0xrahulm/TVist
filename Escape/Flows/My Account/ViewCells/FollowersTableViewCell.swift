@@ -9,14 +9,14 @@
 import UIKit
 
 protocol FollowerButtonProtocol : class {
-    func changeLocalDataArray(indexPath : NSIndexPath? , isFollow : Bool)
+    func changeLocalDataArray(_ indexPath : IndexPath? , isFollow : Bool)
 }
 
 class FollowersTableViewCell: UITableViewCell {
     
     var isFollow = false
     var userId = ""
-    var indexPath : NSIndexPath?
+    var indexPath : IndexPath?
     
     weak var followButtonDelegate : FollowerButtonProtocol?
     
@@ -31,7 +31,7 @@ class FollowersTableViewCell: UITableViewCell {
     @IBOutlet weak var hairlineHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var friendsCheckImage: UIImageView!
 
-    @IBAction func followButtonClicked(sender: AnyObject) {
+    @IBAction func followButtonClicked(_ sender: AnyObject) {
         
         if isFollow {
             followButton.unfollowViewWithAnimate(true)
@@ -56,7 +56,7 @@ class FollowersTableViewCell: UITableViewCell {
         
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

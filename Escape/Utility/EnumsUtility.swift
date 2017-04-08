@@ -42,14 +42,14 @@ enum LoginTypeEnum : String {
     case Email    = "email"
 }
 enum Gender : Int{
-    case Male = 1
-    case Female = 2
+    case male = 1
+    case female = 2
 }
 
 enum ProfileItemType: Int {
-    case ShowLoading = -1
-    case EscapeList = 0
-    case MaybeSeen = 1
+    case showLoading = -1
+    case escapeList = 0
+    case maybeSeen = 1
 }
 
 enum ProfileListType: String {
@@ -88,17 +88,17 @@ enum SearchType : String{
     case Blank = "blank"
 }
 enum Tap : Int{
-    case Activity = 1
-    case Movie = 2
-    case TvShows = 3
-    case Books = 4
+    case activity = 1
+    case movie = 2
+    case tvShows = 3
+    case books = 4
 }
 enum UserType : Int{
-    case Followers = 1
-    case Following = 2
-    case Friends   = 3
-    case FBFriends = 4
-    case SharedUsersOfStory = 5
+    case followers = 1
+    case following = 2
+    case friends   = 3
+    case fbFriends = 4
+    case sharedUsersOfStory = 5
 }
 
 enum EscapeAddActions: String {
@@ -120,18 +120,18 @@ enum NotificationObservers: String {
     case HomeTappedObserver =  "HomeTappedObserver" 
 }
 enum StoryType : NSNumber {
-    case EmptyStory = -1
-    case WhatsYourEscape = -2
-    case SuggestedFollows = 0
-    case AddToEscape = 1
-    case Recommeded = 2
-    case Article = 3
-    case FBFriendFollow = 4
+    case emptyStory = -1
+    case whatsYourEscape = -2
+    case suggestedFollows = 0
+    case addToEscape = 1
+    case recommeded = 2
+    case article = 3
+    case fbFriendFollow = 4
 }
 enum CreatorType : NSNumber{
-    case User =     0
-    case Escape =   1
-    case Article =  2
+    case user =     0
+    case escape =   1
+    case article =  2
 }
 enum OptionsType : String{
     case Edit = "Edit"

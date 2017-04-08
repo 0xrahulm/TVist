@@ -17,7 +17,7 @@ class SingleStoryViewController: UIViewController {
     var dataArray : [StoryCard] = []
     var cardsTypeArray : [CellIdentifier] = [.FBFriends, .PlaceHolder, .Article, . AddToEscape, .WhatsYourEscape]
     
-    override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
+    override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         if let id = queryParams["id"] as? String{
             self.storyId = id
         }
@@ -45,39 +45,39 @@ class SingleStoryViewController: UIViewController {
     func initXibs(){
         
         for cardType in cardsTypeArray{
-            tableView.registerNib(UINib(nibName: cardType.rawValue, bundle: nil), forCellReuseIdentifier: cardType.rawValue)
+            tableView.register(UINib(nibName: cardType.rawValue, bundle: nil), forCellReuseIdentifier: cardType.rawValue)
         }
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dict = sender as? [String:AnyObject]{
             if let storyId = dict["id"] as? String{
-                if let commentVC = segue.destinationViewController as? HomeCommentViewController{
+                if let commentVC = segue.destination as? HomeCommentViewController{
                     commentVC.storyId = storyId
-                    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
                 }
             }
         }
     }
     
-    func configureFBFriendCell(tableView : UITableView , indexPath : NSIndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.FBFriends.rawValue) as! FBFriendsTableViewCell
+    func configureFBFriendCell(_ tableView : UITableView , indexPath : IndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.FBFriends.rawValue) as! FBFriendsTableViewCell
         let data = dataArray[indexPath.row] as? FBFriendCard
         cell.friendItems = data
         return cell
     }
     
-    func configurePlaceHolderCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+    func configurePlaceHolderCell(_ tableView : UITableView, indexPath : IndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.PlaceHolder.rawValue, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.PlaceHolder.rawValue, for: indexPath)
         
         return cell
     }
     
-    func configureArticleCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+    func configureArticleCell(_ tableView : UITableView, indexPath : IndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.Article.rawValue, forIndexPath: indexPath) as! ArticleTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.Article.rawValue, for: indexPath) as! ArticleTableViewCell
         let data = dataArray[indexPath.row] as? ArticleCard
         cell.homeCommentDelegate = self
         cell.indexPath = indexPath
@@ -85,9 +85,9 @@ class SingleStoryViewController: UIViewController {
         return cell
     }
     
-    func configureAddToEscapeCell(tableView : UITableView, indexPath : NSIndexPath) -> UITableViewCell{
+    func configureAddToEscapeCell(_ tableView : UITableView, indexPath : IndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier.AddToEscape.rawValue, forIndexPath: indexPath) as! AddToEscapeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.AddToEscape.rawValue, for: indexPath) as! AddToEscapeTableViewCell
         let data = dataArray[indexPath.row] as? AddToEscapeCard
         cell.homeCommentDelegate = self
         cell.indexPath = indexPath
@@ -97,25 +97,25 @@ class SingleStoryViewController: UIViewController {
     
 }
 extension SingleStoryViewController : UITableViewDelegate{
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if let storyType = dataArray[indexPath.row].storyType{
             switch storyType {
                 
-            case .FBFriendFollow:
-                return CellHeight.FBFriends.rawValue
+            case .fbFriendFollow:
+                return CellHeight.fbFriends.rawValue
                 
-            case .AddToEscape:
+            case .addToEscape:
                 return UITableViewAutomaticDimension
                 
-            case .Recommeded:
+            case .recommeded:
                 return UITableViewAutomaticDimension
                 
-            case .Article:
+            case .article:
                 return UITableViewAutomaticDimension
                 
-            case .EmptyStory:
-                return CellHeight.PlaceHolder.rawValue
+            case .emptyStory:
+                return CellHeight.placeHolder.rawValue
                 
             default:
                 return 0
@@ -128,24 +128,24 @@ extension SingleStoryViewController : UITableViewDelegate{
 }
 extension SingleStoryViewController : UITableViewDataSource{
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let storyType = dataArray[indexPath.row].storyType{
             switch storyType {
                 
-            case .FBFriendFollow:
+            case .fbFriendFollow:
                 return configureFBFriendCell(tableView, indexPath: indexPath)
                 
-            case .AddToEscape:
+            case .addToEscape:
                 return configureAddToEscapeCell(tableView, indexPath: indexPath)
                 
-            case .Recommeded:
+            case .recommeded:
                 return configureAddToEscapeCell(tableView, indexPath: indexPath)
                 
-            case .EmptyStory:
+            case .emptyStory:
                 return configurePlaceHolderCell(tableView, indexPath: indexPath)
                 
-            case .Article:
+            case .article:
                 return configureArticleCell(tableView, indexPath: indexPath)
                 
             default:
@@ -158,12 +158,12 @@ extension SingleStoryViewController : UITableViewDataSource{
     }
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
 }
 extension SingleStoryViewController : SingleStoryProtocol{
-    func recievedStory(story: BaseStory) {
+    func recievedStory(_ story: BaseStory) {
         loadingView.stopAnimating()
         if let story = story as? StoryCard{
             dataArray.append(story)
@@ -176,12 +176,12 @@ extension SingleStoryViewController : SingleStoryProtocol{
     }
 }
 extension SingleStoryViewController : HomeCommentProtocol{
-    func commentTapped(indexPath: NSIndexPath) {
+    func commentTapped(_ indexPath: IndexPath) {
         if dataArray.count > indexPath.row{
             
             let story = dataArray[indexPath.row]
             if let storyId = story.id{
-                performSegueWithIdentifier("showStoryCommentSegue", sender: ["id" : storyId])
+                performSegue(withIdentifier: "showStoryCommentSegue", sender: ["id" : storyId])
             }
         }
         

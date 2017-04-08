@@ -21,7 +21,7 @@ class SearchViewController: UIViewController {
     
     static let sharedInstance = SearchViewController()
     
-    override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
+    override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         print("query params present")
         if let moveToIndex = queryParams["moveToIndex"] as? Int{
             self.moveToIndex = moveToIndex
@@ -47,24 +47,24 @@ class SearchViewController: UIViewController {
     
     func setupSearchBar(){
         
-        searchBar = UISearchBar(frame: CGRectMake(0.0, 0.0, self.view.frame.size.width-100, 40.0))
+        searchBar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width-100, height: 40.0))
         searchBar.delegate = self
         
         searchBar.barTintColor = UIColor.themeColorBlack()
         searchBar.placeholder  = "Search"
         searchBar.tintColor    = UIColor.themeColorBlack()
-        searchBar.backgroundImage = UIImage.getImageWithColor(UIColor.clearColor(), size: CGSizeMake(1, 1))
+        searchBar.backgroundImage = UIImage.getImageWithColor(UIColor.clear, size: CGSize(width: 1, height: 1))
         searchBar.backgroundColor = UIColor.escapeGray()
-        searchBar.searchBarStyle = .Minimal
-        if let searchIconImage = IonIcons.imageWithIcon(ion_ios_search_strong, iconColor: UIColor.themeColorBlack(), iconSize: 28, imageSize: CGSize(width: 24, height: 24)) {
+        searchBar.searchBarStyle = .minimal
+        if let searchIconImage = IonIcons.image(withIcon: ion_ios_search_strong, iconColor: UIColor.themeColorBlack(), iconSize: 28, imageSize: CGSize(width: 24, height: 24)) {
             
-            searchBar.setImage(searchIconImage, forSearchBarIcon: UISearchBarIcon.Search, state: .Normal)
-            searchBar.setImage(searchIconImage, forSearchBarIcon: UISearchBarIcon.Search, state: .Highlighted)
+            searchBar.setImage(searchIconImage, for: UISearchBarIcon.search, state: UIControlState())
+            searchBar.setImage(searchIconImage, for: UISearchBarIcon.search, state: .highlighted)
         }
         
-        if let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField {
+        if let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField {
             textFieldInsideSearchBar.textColor = UIColor.themeColorBlack()
-            let textFieldInsideSearchBarLabel = textFieldInsideSearchBar.valueForKey("placeholderLabel") as? UILabel
+            let textFieldInsideSearchBarLabel = textFieldInsideSearchBar.value(forKey: "placeholderLabel") as? UILabel
             textFieldInsideSearchBarLabel?.textColor = UIColor.themeColorBlack()
         }
         
@@ -82,21 +82,21 @@ class SearchViewController: UIViewController {
         
     }
 
-    @IBAction func cancelTapped(sender: AnyObject) {
+    @IBAction func cancelTapped(_ sender: AnyObject) {
         if let navController = self.navigationController{
-            navController.dismissViewControllerAnimated(true, completion: nil)
+            navController.dismiss(animated: true, completion: nil)
         }
     }
     
     func addDoneButton() {
         let keyboardToolbar = UIToolbar()
         keyboardToolbar.sizeToFit()
-        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace,
+        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
                                             target: nil, action: nil)
-        let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .Cancel,
+        let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel,
                                             target: self, action: #selector(SearchViewController.doneTapped))
         
-        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
+        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done,
                                             target: self, action: #selector(SearchViewController.doneTapped))
         keyboardToolbar.items = [cancelBarButton,flexBarButton, doneBarButton]
         self.searchBar.inputAccessoryView = keyboardToolbar
@@ -115,32 +115,32 @@ class SearchViewController: UIViewController {
         
         // Customize menu
         let parameters: [CAPSPageMenuOption] = [
-            .ScrollMenuBackgroundColor(UIColor.whiteColor()),
-            .ViewBackgroundColor(UIColor.whiteColor()),
-            .SelectionIndicatorColor(UIColor.escapeBlueColor()),
-            .BottomMenuHairlineColor(UIColor.textGrayColor()),
-            .MenuItemFont(UIFont(name: "SFUIDisplay-Regular", size: 13.0)!),
-            .MenuHeight(45.0),
-            .MenuMargin(0.0),
-            .MenuItemWidth(100.0),
-            .CenterMenuItems(true),
-            .SelectedMenuItemLabelColor(UIColor.themeColorBlack()),
-            .UnselectedMenuItemLabelColor(UIColor.textGrayColor()),
-            .SelectionIndicatorHeight(1.5)
+            .scrollMenuBackgroundColor(UIColor.white),
+            .viewBackgroundColor(UIColor.white),
+            .selectionIndicatorColor(UIColor.escapeBlueColor()),
+            .bottomMenuHairlineColor(UIColor.textGrayColor()),
+            .menuItemFont(UIFont(name: "SFUIDisplay-Regular", size: 13.0)!),
+            .menuHeight(45.0),
+            .menuMargin(0.0),
+            .menuItemWidth(100.0),
+            .centerMenuItems(true),
+            .selectedMenuItemLabelColor(UIColor.themeColorBlack()),
+            .unselectedMenuItemLabelColor(UIColor.textGrayColor()),
+            .selectionIndicatorHeight(1.5)
         ]
         
         
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.width, height: self.view.frame.height), pageMenuOptions: parameters)
         
         self.addChildViewController(pageMenu!)
         self.view.addSubview(pageMenu!.view)
         
-        pageMenu!.didMoveToParentViewController(self)
+        pageMenu!.didMove(toParentViewController: self)
         
     }
     
-    func addVcFor(type : SearchType , title : String){
-        let controller = UIStoryboard(name: "Search", bundle: nil).instantiateViewControllerWithIdentifier("searchAllVC") as? SearchAllViewController
+    func addVcFor(_ type : SearchType , title : String){
+        let controller = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "searchAllVC") as? SearchAllViewController
         controller!.title = title
         controller!.type = type
         controller!.dismissKeyboardDelegate = self
@@ -148,7 +148,7 @@ class SearchViewController: UIViewController {
         
     }
     
-    override func shouldAutomaticallyForwardAppearanceMethods() -> Bool {
+    override var shouldAutomaticallyForwardAppearanceMethods : Bool {
         return true
     }
     
@@ -166,17 +166,17 @@ extension SearchViewController : DismissKeyboardProtocol{
 }
 extension SearchViewController : UISearchBarDelegate{
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         self.searchedText = searchText
         
         ECUserDefaults.setSearchedText(searchText)
         
-        NSNotificationCenter.defaultCenter().postNotificationName(NotificationObservers.SearchQueryObserver.rawValue, object: ["searchText" : searchText])
+        NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.SearchQueryObserver.rawValue), object: ["searchText" : searchText])
         
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.resignFirstResponder()
     }
     

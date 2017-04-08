@@ -9,7 +9,7 @@
 import UIKit
 
 protocol RemoveAddedEscapeCellProtocol : class {
-    func removeAtIndex(indexPath : NSIndexPath)
+    func removeAtIndex(_ indexPath : IndexPath)
 }
 
 class DiscoverEscapeTableViewCell: UITableViewCell {
@@ -42,13 +42,13 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
     var userId = ""
     var isFollow = false
     
-    var indexPath : NSIndexPath!
+    var indexPath : IndexPath!
     
     var data : DiscoverItems? {
         didSet{
             if let data = data, let escapeName = data.name {
                 var escapeTitleStr = escapeName
-                if let year = data.year where data.discoverType != .Books {
+                if let year = data.year, data.discoverType != .Books {
                     escapeTitleStr += " (\(year))"
                 }
                 titleLabel.text = escapeTitleStr
@@ -79,8 +79,8 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
                 let directorString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(directorByStr)", size: 13, color: UIColor.textBlackColor()))
                 
                 let attributedString = NSMutableAttributedString()
-                attributedString.appendAttributedString(directedByString)
-                attributedString.appendAttributedString(directorString)
+                attributedString.append(directedByString)
+                attributedString.append(directorString)
                 
                 creatorType.attributedText = attributedString
                 
@@ -118,13 +118,13 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
         
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
     }
     
-    @IBAction func addButtonClicked(sender: AnyObject) {
+    @IBAction func addButtonClicked(_ sender: AnyObject) {
         
         if let data = data{
             
@@ -140,7 +140,7 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func followButtonClicked(sender: AnyObject) {
+    @IBAction func followButtonClicked(_ sender: AnyObject) {
         
         if isFollow {
             followButton.unfollowViewWithAnimate(true)

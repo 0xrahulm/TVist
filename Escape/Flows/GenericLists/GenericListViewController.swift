@@ -20,15 +20,15 @@ class GenericListViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var tableView: UITableView!
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listCount()
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return listItemAtIndexPath(indexPath)
     }
     
@@ -40,7 +40,7 @@ class GenericListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     
-    func listItemAtIndexPath(indexPath: NSIndexPath) -> NormalCell {
+    func listItemAtIndexPath(_ indexPath: IndexPath) -> NormalCell {
         return NormalCell()
     }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-func suffixNumber(number:NSNumber) -> NSString {
+func suffixNumber(_ number:NSNumber) -> String {
     
     var num:Double = number.doubleValue;
     let sign = ((num < 0) ? "-" : "" );
@@ -31,9 +31,9 @@ func suffixNumber(number:NSNumber) -> NSString {
 extension UITableView{
     func reloadDataAnimated(){
         
-        UIView.transitionWithView(self,
+        UIView.transition(with: self,
                                   duration:0.25,
-                                  options:.TransitionCrossDissolve,
+                                  options:.transitionCrossDissolve,
                                   animations:
             { () -> Void in
                 self.reloadData()
@@ -43,47 +43,47 @@ extension UITableView{
 }
 
 extension UISearchBar{
-    func setGreyAppearance(width : CGFloat , height : CGFloat, clearColor : Bool){
+    func setGreyAppearance(_ width : CGFloat , height : CGFloat, clearColor : Bool){
         
-        self.setSearchFieldBackgroundImage(UIImage.getImageWithColor(UIColor.whiteColor(), size: CGSizeMake(width, height)), forState: .Normal)
-        self.tintColor    = UIColor.grayColor()
-        self.backgroundImage = UIImage.getImageWithColor(UIColor.clearColor(), size: CGSizeMake(1, 1))
+        self.setSearchFieldBackgroundImage(UIImage.getImageWithColor(UIColor.white, size: CGSize(width: width, height: height)), for: UIControlState())
+        self.tintColor    = UIColor.gray
+        self.backgroundImage = UIImage.getImageWithColor(UIColor.clear, size: CGSize(width: 1, height: 1))
         if clearColor{
-            self.backgroundColor = UIColor.clearColor()
+            self.backgroundColor = UIColor.clear
         }else{
             self.backgroundColor = UIColor.searchBarLightGreyBackgroundColor()
         }
         
-        self.setImage(UIImage(named: "search-gray"), forSearchBarIcon: UISearchBarIcon.Search, state: .Normal)
+        self.setImage(UIImage(named: "search-gray"), for: UISearchBarIcon.search, state: UIControlState())
         
-        self.setImage(UIImage(named: "search-gray"), forSearchBarIcon: UISearchBarIcon.Search, state: .Highlighted)
-        self.searchBarStyle = .Minimal
+        self.setImage(UIImage(named: "search-gray"), for: UISearchBarIcon.search, state: .highlighted)
+        self.searchBarStyle = .minimal
         
-        if let textFieldInsideSearchBar = self.valueForKey("searchField") as? UITextField {
-            textFieldInsideSearchBar.textColor = UIColor.grayColor()
-            let textFieldInsideSearchBarLabel = textFieldInsideSearchBar.valueForKey("placeholderLabel") as? UILabel
-            textFieldInsideSearchBar.font = UIFont.systemFontOfSize(12)
-            textFieldInsideSearchBarLabel?.textColor = UIColor.grayColor()
+        if let textFieldInsideSearchBar = self.value(forKey: "searchField") as? UITextField {
+            textFieldInsideSearchBar.textColor = UIColor.gray
+            let textFieldInsideSearchBarLabel = textFieldInsideSearchBar.value(forKey: "placeholderLabel") as? UILabel
+            textFieldInsideSearchBar.font = UIFont.systemFont(ofSize: 12)
+            textFieldInsideSearchBarLabel?.textColor = UIColor.gray
             textFieldInsideSearchBar.layer.cornerRadius = 5.5
             textFieldInsideSearchBar.layer.masksToBounds = true
             
         }
     }
-    func onTopSearchBar(placeHolder : String){
-        self.barTintColor = UIColor.whiteColor()
+    func onTopSearchBar(_ placeHolder : String){
+        self.barTintColor = UIColor.white
         self.placeholder  = placeHolder
         self.tintColor    = UIColor.searchBarPlaceHolderColor()
-        self.backgroundImage = UIImage.getImageWithColor(UIColor.clearColor(), size: CGSizeMake(1, 1))
+        self.backgroundImage = UIImage.getImageWithColor(UIColor.clear, size: CGSize(width: 1, height: 1))
         self.backgroundColor = UIColor.escapeBlueColor()
-        self.searchBarStyle = .Minimal
+        self.searchBarStyle = .minimal
         
-        self.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: .Normal)
-        self.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: .Highlighted)
+        self.setImage(UIImage(named: "search-white"), for: UISearchBarIcon.search, state: UIControlState())
+        self.setImage(UIImage(named: "search-white"), for: UISearchBarIcon.search, state: .highlighted)
         
-        if let textFieldInsideSearchBar = self.valueForKey("searchField") as? UITextField {
-            textFieldInsideSearchBar.textColor = UIColor.whiteColor()
-            let textFieldInsideSearchBarLabel = textFieldInsideSearchBar.valueForKey("placeholderLabel") as? UILabel
-            textFieldInsideSearchBarLabel?.textColor = UIColor.whiteColor()
+        if let textFieldInsideSearchBar = self.value(forKey: "searchField") as? UITextField {
+            textFieldInsideSearchBar.textColor = UIColor.white
+            let textFieldInsideSearchBarLabel = textFieldInsideSearchBar.value(forKey: "placeholderLabel") as? UILabel
+            textFieldInsideSearchBarLabel?.textColor = UIColor.white
         }
         self.showsCancelButton = false
         
@@ -98,7 +98,7 @@ extension String {
         return String(characters.suffix(1))
     }
     var firstCharUppercaseFirst: String {
-        return first.uppercaseString + String(characters.dropFirst())
+        return first.uppercased() + String(characters.dropFirst())
     }
 }
 

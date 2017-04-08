@@ -27,7 +27,7 @@ class StoryComment: NSObject {
         parseArray(commentArray)
     }
     
-    func parseData(dict : [String:AnyObject]){
+    func parseData(_ dict : [String:AnyObject]){
         self.comment = dict["comment"] as? String
         self.createdAt = dict["created_at"] as? String
         if let creatorDict = dict["creator"] as? [String:AnyObject]{
@@ -36,7 +36,7 @@ class StoryComment: NSObject {
         
         
     }
-    func parseArray(commentArray : [AnyObject]){
+    func parseArray(_ commentArray : [AnyObject]){
         
         for comment in commentArray{
             if let dict = comment as? [String:AnyObject]{

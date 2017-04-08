@@ -10,14 +10,14 @@ import UIKit
 
 class OnBoardingUtility: NSObject {
     
-    class func isValidEmail(testStr:String) -> Bool {
+    class func isValidEmail(_ testStr:String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluateWithObject(testStr)
+        return emailTest.evaluate(with: testStr)
     }
     
-    class func isValidPassword(password : String) -> Bool{
+    class func isValidPassword(_ password : String) -> Bool{
         if password.characters.count >= 6 {
             return true
         }

@@ -14,7 +14,7 @@ class CommonDataProvider: NetworkWrapperProtocol {
     var activeServices : [Service] = []
     
 
-    func ServiceCall(method :Alamofire.Method, serviceType : ServiceType, subServiceType : SubServiceType, params : [String:AnyObject]? , delegate : NetworkWrapperProtocol){
+    func ServiceCall(_ method :HTTPMethod, serviceType : ServiceType, subServiceType : SubServiceType, params : [String:Any]? , delegate : NetworkWrapperProtocol){
         
         
         let service = Service(method : method ,serviceType: serviceType, subServiveType: subServiceType, parameters: params)
@@ -29,11 +29,11 @@ class CommonDataProvider: NetworkWrapperProtocol {
         
     }
     
-    func serviceSuccessfull(service:Service){
+    func serviceSuccessfull(_ service:Service){
      
         //override this method in base class
     }
-    func serviceError(service : Service){
+    func serviceError(_ service : Service){
     
         //override this methodi in base class
     }
@@ -43,15 +43,15 @@ class CommonDataProvider: NetworkWrapperProtocol {
     }
     
     
-    func serivceFinishedWithError(service: Service) {
+    func serivceFinishedWithError(_ service: Service) {
         if service.errorCode != nil{
             if service.errorCode == 401 {  // logout
                 ScreenVader.sharedVader.performLogout()
                 cancelAllRequest()
             }else{
-                if let activeServiceIndex = self.activeServices.indexOf(service) where activeServiceIndex > -1 {
+                if let activeServiceIndex = self.activeServices.index(of: service), activeServiceIndex > -1 {
                     self.serviceError(service)
-                    self.activeServices.removeAtIndex(activeServiceIndex)
+                    self.activeServices.remove(at: activeServiceIndex)
                     NetworkAvailability.sharedNetwork.removeServiceFromList(service)
                 }
                 
@@ -63,12 +63,12 @@ class CommonDataProvider: NetworkWrapperProtocol {
         
         
     }
-    func serviceFinishedSucessfully(service: Service) {
+    func serviceFinishedSucessfully(_ service: Service) {
         
-        dispatch_async(dispatch_get_main_queue()){ [unowned self] in
-            if let activeServiceIndex = self.activeServices.indexOf(service) where activeServiceIndex > -1 {
+        DispatchQueue.main.async{ [unowned self] in
+            if let activeServiceIndex = self.activeServices.index(of: service), activeServiceIndex > -1 {
                 self.serviceSuccessfull(service)
-                self.activeServices.removeAtIndex(activeServiceIndex)
+                self.activeServices.remove(at: activeServiceIndex)
                 NetworkAvailability.sharedNetwork.removeServiceFromList(service)
             }
         }

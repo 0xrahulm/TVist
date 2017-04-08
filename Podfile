@@ -1,11 +1,11 @@
 
-platform :ios, "8.0"
+platform :ios, "9.0"
 
 def escape_pods
-    pod 'Alamofire', '~> 3.5.0'
-    pod 'AlamofireImage', '~> 2.0'
-    pod 'SwiftyJSON', '~> 2.3.2'
-    pod 'Locksmith', '~> 2.0.8'
+    pod 'Alamofire', '~> 4'
+    pod 'AlamofireImage', '~> 3'
+    pod 'SwiftyJSON', '~> 3'
+    pod 'Locksmith', '~> 3'
     pod 'ionicons'
     pod 'RealmSwift'
 end
@@ -25,7 +25,7 @@ end
 post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
-            config.build_settings['SWIFT_VERSION'] = '2.3' # or '3.0'
+            config.build_settings['SWIFT_VERSION'] = '3.0' # or '3.0'
         end
     end
 end

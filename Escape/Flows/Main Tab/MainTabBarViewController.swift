@@ -19,7 +19,7 @@ class MainTabBarViewController: UITabBarController {
 
         // Do any additional setup after loading the view.
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         appearTabBar()
         
@@ -27,11 +27,11 @@ class MainTabBarViewController: UITabBarController {
     
     func setTabBarAppearance(){
         
-        self.tabBar.layer.shadowColor   = UIColor.grayColor().CGColor
+        self.tabBar.layer.shadowColor   = UIColor.gray.cgColor
         self.tabBar.layer.shadowRadius  = 2
         self.tabBar.layer.shadowOffset  = CGSize(width: 0, height: 0)
         self.tabBar.layer.shadowOpacity = 0.50
-        self.tabBar.layer.shadowPath = UIBezierPath(rect: self.tabBar.bounds).CGPath
+        self.tabBar.layer.shadowPath = UIBezierPath(rect: self.tabBar.bounds).cgPath
         
         self.tabBar.tintColor = UIColor.escapeBlueColor()
         

@@ -31,7 +31,7 @@ final class ProfileList: Object {
         return profileList
     }
     
-    func parseDataNoRealm(profileItemData:[[String:AnyObject]]) {
+    func parseDataNoRealm(_ profileItemData:[[String:AnyObject]]) {
         for eachItem in profileItemData {
             guard let itemType = eachItem["type"] as? Int, let _ = ProfileItemType(rawValue: itemType) else {
                 continue
@@ -41,7 +41,7 @@ final class ProfileList: Object {
             profileItem.itemType = itemType
             
             if let total_count = eachItem["total_items_count"] as? NSNumber {
-                profileItem.totalItemsCount = total_count.integerValue
+                profileItem.totalItemsCount = total_count.intValue
             }
             
             
@@ -54,7 +54,7 @@ final class ProfileList: Object {
         
     }
     
-    func parseDataList(profileItemData: [[String:AnyObject]], _realm: Realm) {
+    func parseDataList(_ profileItemData: [[String:AnyObject]], _realm: Realm) {
         
         for eachItem in profileItemData {
             guard let itemType = eachItem["type"] as? Int, let _ = ProfileItemType(rawValue: itemType) else {
@@ -65,7 +65,7 @@ final class ProfileList: Object {
             profileItem.itemType = itemType
             
             if let total_count = eachItem["total_items_count"] as? NSNumber {
-                profileItem.totalItemsCount = total_count.integerValue
+                profileItem.totalItemsCount = total_count.intValue
             }
             
             if let listedData = eachItem["data"] as? [[String:AnyObject]] {

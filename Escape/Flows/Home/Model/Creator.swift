@@ -21,7 +21,7 @@ class Creator: NSObject {
         parseData(dict)
     }
     
-    func parseData(dict : [String:AnyObject]){
+    func parseData(_ dict : [String:AnyObject]){
         self.id = dict["id"] as? String
         if let type = dict["type"] as? NSNumber{
             if let creatorType = CreatorType(rawValue: type){

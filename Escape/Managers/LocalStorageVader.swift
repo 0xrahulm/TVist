@@ -15,34 +15,34 @@ enum LocalStorageKey:String {
 class LocalStorageVader: NSObject {
     static let sharedVader = LocalStorageVader()
     
-    func storeValueInKey(storageKey:LocalStorageKey, value: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setObject(value, forKey: storageKey.rawValue)
+    func storeValueInKey(_ storageKey:LocalStorageKey, value: Any) {
+        UserDefaults.standard.set(value, forKey: storageKey.rawValue)
     }
     
-    func valueForStoredKey(storageKey:LocalStorageKey) -> AnyObject? {
-        return NSUserDefaults.standardUserDefaults().valueForKey(storageKey.rawValue)
+    func valueForStoredKey(_ storageKey:LocalStorageKey) -> Any? {
+        return UserDefaults.standard.value(forKey: storageKey.rawValue)
     }
     
-    func flagValueForKey(storageKey:LocalStorageKey) -> Bool {
+    func flagValueForKey(_ storageKey:LocalStorageKey) -> Bool {
         if let valueForKey = valueForStoredKey(storageKey) as? Bool {
             return valueForKey
         }
         return false
     }
     
-    func valuePresentForKey(storageKey:LocalStorageKey) -> Bool {
+    func valuePresentForKey(_ storageKey:LocalStorageKey) -> Bool {
         if let _ = valueForStoredKey(storageKey) {
             return true
         }
         return false
     }
     
-    func setFlagForKey(storageKey:LocalStorageKey) {
+    func setFlagForKey(_ storageKey:LocalStorageKey) {
         storeValueInKey(storageKey, value: true)
     }
     
-    func removeValueForKey(storageKey:LocalStorageKey) {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(storageKey.rawValue)
+    func removeValueForKey(_ storageKey:LocalStorageKey) {
+        UserDefaults.standard.removeObject(forKey: storageKey.rawValue)
     }
 }
 

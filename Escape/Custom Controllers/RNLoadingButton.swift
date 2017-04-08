@@ -5,65 +5,59 @@
 //  Created by Romilson Nunes on 06/06/14.
 //  Copyright (c) 2014 Romilson Nunes. All rights reserved.
 //
-
 import UIKit
-@objc public enum RNActivityIndicatorAlignment: Int {
-    case Left
-    case Center
-    case Right
+public enum RNActivityIndicatorAlignment: Int {
+    case left
+    case center
+    case right
     
     static func Random() ->RNActivityIndicatorAlignment {
-        let max = UInt32(RNActivityIndicatorAlignment.Right.rawValue)
+        let max = UInt32(RNActivityIndicatorAlignment.right.rawValue)
         let randomValue = Int(arc4random_uniform(max + 1))
         return RNActivityIndicatorAlignment(rawValue: randomValue)!
     }
 }
 
 
-@objc public class RNLoadingButton: UIButton {
+open class RNLoadingButton: UIButton {
     
     /** Loading */
-    public var loading:Bool = false {
+    open var isLoading: Bool = false {
         didSet {
-            configureControlState(currentControlState());
-        }
-    }
-
-    public var hideImageWhenLoading:Bool = true {
-        didSet {
-            configureControlState(currentControlState());
-        }
-    }
-    public var hideTextWhenLoading:Bool = true {
-        didSet {
-            configureControlState(currentControlState());
+            configureControl(for: currentControlState())
         }
     }
     
-    public var activityIndicatorEdgeInsets:UIEdgeInsets = UIEdgeInsetsZero
+    open var hideImageWhenLoading: Bool = true {
+        didSet {
+            configureControl(for: currentControlState())
+        }
+    }
+    open var hideTextWhenLoading: Bool = true {
+        didSet {
+            configureControl(for: currentControlState())
+        }
+    }
+    
+    open var activityIndicatorEdgeInsets: UIEdgeInsets = UIEdgeInsets.zero
     
     /** Loading Alingment */
-    public var activityIndicatorAlignment:RNActivityIndicatorAlignment = RNActivityIndicatorAlignment.Center {
+    open var activityIndicatorAlignment = RNActivityIndicatorAlignment.center {
         didSet {
             self.setNeedsLayout()
         }
     }
     
-    /*public func setActivityIndicatorAlignment(alignment: RNActivityIndicatorAlignment){
-        self.activityIndicatorAlignment = alignment
-        self.setNeedsLayout()
-    }*/
-    
-    public let activityIndicatorView:UIActivityIndicatorView! = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    open let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     // Internal properties
-    let imagens:NSMutableDictionary! = NSMutableDictionary()
-    let texts:NSMutableDictionary! = NSMutableDictionary()
-    let indicatorStyles : NSMutableDictionary! = NSMutableDictionary()
+    let imagens = NSMutableDictionary()
+    let texts = NSMutableDictionary()
+    let indicatorStyles = NSMutableDictionary()
     
     // Static
-    let defaultActivityStyle = UIActivityIndicatorViewStyle.Gray
-
+    let defaultActivityStyle = UIActivityIndicatorViewStyle.gray
+    
     
     // MARK: - Initializers
     
@@ -85,63 +79,84 @@ import UIKit
         commonInit()
     }
     
-    override public func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
         
         setupActivityIndicator()
         
         // Images - Icons
-        if (super.imageForState(UIControlState.Normal) != nil) {
-            self.storeValue(super.imageForState(UIControlState.Normal), onDic: imagens, state: UIControlState.Normal)
+        if (super.image(for: UIControlState.normal) != nil) {
+            self.store(super.image(for: UIControlState.normal), in: imagens, for: .normal)
         }
-        if (super.imageForState(UIControlState.Highlighted) != nil) {
-            self.storeValue(super.imageForState(UIControlState.Highlighted), onDic: imagens, state: UIControlState.Highlighted)
+        if (super.image(for: UIControlState.highlighted) != nil) {
+            self.store(super.image(for: UIControlState.highlighted), in: imagens, for: .highlighted)
         }
-        if (super.imageForState(UIControlState.Disabled) != nil) {
-            self.storeValue(super.imageForState(UIControlState.Disabled), onDic: imagens, state: UIControlState.Disabled)
+        if (super.image(for: UIControlState.disabled) != nil) {
+            self.store(super.image(for: UIControlState.disabled), in: imagens, for: .disabled)
         }
-        if (super.imageForState(UIControlState.Selected) != nil) {
-            self.storeValue(super.imageForState(UIControlState.Selected), onDic: imagens, state: UIControlState.Selected)
+        if (super.image(for: UIControlState.selected) != nil) {
+            self.store(super.image(for: UIControlState.selected), in: imagens, for: .selected)
         }
         
         // Title - Texts
-        if let titleNormal = super.titleForState(.Normal) {
-            self.storeValue(titleNormal, onDic: texts, state: .Normal)
+        if let titleNormal = super.title(for: .normal) {
+            self.store(titleNormal, in: texts, for: .normal)
         }
-        if let titleHighlighted = super.titleForState(.Highlighted) {
-            self.storeValue(titleHighlighted, onDic: texts, state: .Highlighted)
+        if let titleHighlighted = super.title(for: .highlighted) {
+            self.store(titleHighlighted, in: texts, for: .highlighted)
         }
-        if let titleDisabled = super.titleForState(.Disabled) {
-            self.storeValue(titleDisabled, onDic: texts, state: .Disabled)
+        if let titleDisabled = super.title(for: .disabled) {
+            self.store(titleDisabled, in: texts, for: .disabled)
         }
-        if let titleSelected = super.titleForState(.Selected) {
-            self.storeValue(titleSelected, onDic: texts, state: .Selected)
+        if let titleSelected = super.title(for: .selected) {
+            self.store(titleSelected, in: texts, for: .selected)
+        }
+        
+        
+        // Attributed Title - Texts
+        if let attributedTitleNormal = super.attributedTitle(for: .normal){
+            self.store(attributedTitleNormal, in: texts, for: .normal)
+        }
+        if let attributedTitleHilighted = super.attributedTitle(for: .highlighted){
+            self.store(attributedTitleHilighted, in: texts, for: .highlighted)
+        }
+        if let attributedTitleSelected = super.attributedTitle(for: .selected){
+            self.store(attributedTitleSelected, in: texts, for: .selected)
+        }
+        if let attributedTitleDisabled = super.attributedTitle(for: .disabled){
+            self.store(attributedTitleDisabled, in: texts, for: .disabled)
         }
         
     }
     
-    private func commonInit() {
+    fileprivate func commonInit() {
         
         self.adjustsImageWhenHighlighted = true
         
         /** Title for States */
-        self.texts.setValue(super.titleForState(UIControlState.Normal), forKey: "\(UIControlState.Normal.rawValue)")
-        self.texts.setValue(super.titleForState(UIControlState.Highlighted), forKey: "\(UIControlState.Highlighted.rawValue)")
-        self.texts.setValue(super.titleForState(UIControlState.Disabled), forKey: "\(UIControlState.Disabled.rawValue)")
-        self.texts.setValue(super.titleForState(UIControlState.Selected), forKey: "\(UIControlState.Selected.rawValue)")
+        self.texts.setValue(super.title(for: .normal), forKey: "\(UIControlState.normal.rawValue)")
+        self.texts.setValue(super.title(for: .highlighted), forKey: "\(UIControlState.highlighted.rawValue)")
+        self.texts.setValue(super.title(for: .disabled), forKey: "\(UIControlState.disabled.rawValue)")
+        self.texts.setValue(super.title(for: .selected), forKey: "\(UIControlState.selected.rawValue)")
+        
+        /** Attributed Title for States */
+        self.texts.setValue(super.attributedTitle(for: .normal), forKey: "\(UIControlState.normal.rawValue)")
+        self.texts.setValue(super.attributedTitle(for: .highlighted), forKey: "\(UIControlState.highlighted.rawValue)")
+        self.texts.setValue(super.attributedTitle(for: .disabled), forKey: "\(UIControlState.disabled.rawValue)")
+        self.texts.setValue(super.attributedTitle(for: .selected), forKey: "\(UIControlState.selected.rawValue)")
         
         /** Images for States */
-        self.imagens.setValue(super.imageForState(UIControlState.Normal), forKey: "\(UIControlState.Normal.rawValue)")
-        self.imagens.setValue(super.imageForState(UIControlState.Highlighted), forKey: "\(UIControlState.Highlighted.rawValue)")
-        self.imagens.setValue(super.imageForState(UIControlState.Disabled), forKey: "\(UIControlState.Disabled.rawValue)")
-        self.imagens.setValue(super.imageForState(UIControlState.Selected), forKey: "\(UIControlState.Selected.rawValue)")
+        self.imagens.setValue(super.image(for: .normal), forKey: "\(UIControlState.normal.rawValue)")
+        self.imagens.setValue(super.image(for: .highlighted), forKey: "\(UIControlState.highlighted.rawValue)")
+        self.imagens.setValue(super.image(for: .disabled), forKey: "\(UIControlState.disabled.rawValue)")
+        self.imagens.setValue(super.image(for: .selected), forKey: "\(UIControlState.selected.rawValue)")
         
         /** Indicator Styles for States */
-        let s:NSNumber = NSNumber(integer: defaultActivityStyle.rawValue)
-        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.Normal.rawValue)")
-        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.Highlighted.rawValue)")
-        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.Disabled.rawValue)")
-        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.Selected.rawValue)")
+        let s = NSNumber(value: defaultActivityStyle.rawValue)
+        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.normal.rawValue)")
+        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.highlighted.rawValue)")
+        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.disabled.rawValue)")
+        self.indicatorStyles.setValue(s, forKey: "\(UIControlState.selected.rawValue)")
         
         self.addObserver(forKeyPath: "self.state")
         self.addObserver(forKeyPath: "self.selected")
@@ -151,35 +166,36 @@ import UIKit
     
     // MARK: - Relayout
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         
-        let style = self.activityIndicatorStyleForState(self.currentControlState())
+        let style = self.activityIndicatorStyle(for: self.currentControlState())
         self.activityIndicatorView.activityIndicatorViewStyle = style
         self.activityIndicatorView.frame = self.frameForActivityIndicator()
-        self.bringSubviewToFront(self.activityIndicatorView)
+        self.bringSubview(toFront: self.activityIndicatorView)
     }
     
     // MARK: - Public Methods
     
-    public func setActivityIndicatorStyle( style:UIActivityIndicatorViewStyle, state:UIControlState) {
-        let s:NSNumber = NSNumber(integer: style.rawValue);
-        setControlState( s, dic: indicatorStyles, state: state)
+    open func setActivityIndicatorStyle(_ style:UIActivityIndicatorViewStyle, for state:UIControlState) {
+        let s:NSNumber = NSNumber(value: style.rawValue)
+        setControlState(s, dic: indicatorStyles, state: state)
         self.setNeedsLayout()
     }
     
     // Activity Indicator Alignment
-    public func setActivityIndicatorAlignmentMethod(alignment: RNActivityIndicatorAlignment) {
-        activityIndicatorAlignment = alignment;
-        self.setNeedsLayout();
+    open func setActivityIndicatorAlignment(_ alignment: RNActivityIndicatorAlignment) {
+        activityIndicatorAlignment = alignment
+        self.setNeedsLayout()
     }
     
-    public func activityIndicatorStyleForState(state: UIControlState) -> UIActivityIndicatorViewStyle {
+    open func activityIndicatorStyle(for state: UIControlState) -> UIActivityIndicatorViewStyle {
         var style:UIActivityIndicatorViewStyle  = defaultActivityStyle
-        if let styleObj: AnyObject = self.getValueForControlState(self.indicatorStyles, state: state)
+        
+        if let styleNumber = getValueFrom(type: NSNumber.self, on: self.indicatorStyles, for: state)
         {
             // https://developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/swift_programming_language/Enumerations.html
-            style = UIActivityIndicatorViewStyle(rawValue: (styleObj as! NSNumber).integerValue)!
+            style = UIActivityIndicatorViewStyle(rawValue: styleNumber.intValue)!
         }
         return style
     }
@@ -187,9 +203,10 @@ import UIKit
     
     // MARK: - Targets/Actions
     
-    func activityIndicatorTapped(sender:AnyObject) {
-        self.sendActionsForControlEvents(UIControlEvents.TouchUpInside)
+    func activityIndicatorTapped(_ sender:AnyObject) {
+        self.sendActions(for: UIControlEvents.touchUpInside)
     }
+    
     
     // MARK: - Internal Methods
     
@@ -203,154 +220,145 @@ import UIKit
     }
     
     func currentControlState() -> UIControlState {
-        var controlState = UIControlState.Normal.rawValue
-        if self.selected {
-            controlState += UIControlState.Selected.rawValue
+        var controlState = UIControlState.normal.rawValue
+        if self.isSelected {
+            controlState += UIControlState.selected.rawValue
         }
-        if self.highlighted {
-            controlState += UIControlState.Highlighted.rawValue
+        if self.isHighlighted {
+            controlState += UIControlState.highlighted.rawValue
         }
-        if !self.enabled {
-            controlState += UIControlState.Disabled.rawValue
+        if !self.isEnabled {
+            controlState += UIControlState.disabled.rawValue
         }
         return UIControlState(rawValue: controlState)
     }
     
-    func setControlState(value:AnyObject ,dic:NSMutableDictionary, state:UIControlState) {
+    func setControlState(_ value: AnyObject, dic:NSMutableDictionary, state:UIControlState) {
         dic["\(state.rawValue)"] = value
-        configureControlState(currentControlState())
+        configureControl(for: currentControlState())
     }
     
-    func setImage(image:UIImage, state:UIControlState) {
+    func setImage(_ image:UIImage, state:UIControlState) {
         setControlState(image, dic: self.imagens, state: state)
     }
     
-
+    
     // MARK: - Override Setters & Getters
-   
-    override public func setTitle(title: String!, forState state: UIControlState) {
-        self.storeValue(title, onDic: self.texts, state: state)
-        if super.titleForState(state) != title {
-            super.setTitle(title, forState: state)
+    
+    override open func setTitle(_ title: String!, for state: UIControlState) {
+        self.store(title, in: self.texts, for: state)
+        if super.title(for: state) != title {
+            super.setTitle(title, for: state)
         }
         self.setNeedsLayout()
     }
     
-    override public func titleForState(state: UIControlState) -> String?  {
-        return self.getValueForControlState(self.texts, state: state) as? String
+    open override func setAttributedTitle(_ title: NSAttributedString?, for state: UIControlState) {
+        self.store(title, in: self.texts, for: state)
+        if super.attributedTitle(for: state) != title {
+            super.setAttributedTitle(title, for: state)
+        }
+        self.setNeedsLayout()
+    }
+    override open func title(for state: UIControlState) -> String?  {
+        return getValueFrom(type: String.self, on: self.texts, for: state)
     }
     
-    override public func setImage(image: UIImage!, forState state: UIControlState) {
-        self.storeValue(image, onDic: self.imagens, state: state)
-        if super.imageForState(state) != image {
-            super.setImage(image, forState: state)
+    open override func attributedTitle(for state: UIControlState) -> NSAttributedString? {
+        return getValueFrom(type: NSAttributedString.self, on: self.texts, for: state)
+    }
+    override open func setImage(_ image: UIImage!, for state: UIControlState) {
+        self.store(image, in: self.imagens, for: state)
+        if super.image(for: state) != image {
+            super.setImage(image, for: state)
         }
         self.setNeedsLayout()
     }
     
-    override public func imageForState(state: UIControlState) -> UIImage? {
-        return self.getValueForControlState(self.imagens, state: state) as? UIImage
+    override open func image(for state: UIControlState) -> UIImage? {
+        return getValueFrom(type: UIImage.self, on: self.imagens, for: state)
     }
     
     
     // MARK: -  Private Methods
     
-    private func addObserver(forKeyPath keyPath:String) {
-        self.addObserver(self, forKeyPath:keyPath, options: ([NSKeyValueObservingOptions.Initial, NSKeyValueObservingOptions.New]), context: nil)
+    fileprivate func addObserver(forKeyPath keyPath:String) {
+        self.addObserver(self, forKeyPath:keyPath, options: ([NSKeyValueObservingOptions.initial, NSKeyValueObservingOptions.new]), context: nil)
     }
     
-    private func removeObserver(forKeyPath keyPath: String!) {
+    fileprivate func removeObserver(forKeyPath keyPath: String!) {
         self.removeObserver(self, forKeyPath: keyPath)
     }
     
-    private func getValueForControlState(dic:NSMutableDictionary!, state:UIControlState) -> AnyObject? {
-        let value:AnyObject? =  dic.valueForKey("\(state.rawValue)");//  dic["\(state)"];
-        if (value != nil) {
-            return value;
-        }
-        //        value = dic["\(UIControlState.Selected.rawValue)"];
-        //        if ( (state & UIControlState.Selected) && value) {
-        //            return value;
-        //        }
-        //
-        //        value = dic["\(UIControlState.Highlighted.rawValue)"];
-        //
-        //        if ( (state & UIControlState.Selected) && value != nil) {
-        //            return value;
-        //        }
-        
-        return dic["\(UIControlState.Normal.rawValue)"];
-    }
-    
-    
-    private func configureControlState(state:UIControlState) {
-        if self.loading {
-            self.activityIndicatorView.startAnimating();
+    fileprivate func configureControl(for state: UIControlState) {
+        if self.isLoading {
+            self.activityIndicatorView.startAnimating()
+            
             if self.hideImageWhenLoading {
                 
                 var imgTmp:UIImage? = nil
-                
-                if let img = self.imageForState(UIControlState.Normal) {
-                    imgTmp = self.clearImage(img.size, scale: img.scale)
+                if let img = self.image(for: UIControlState.normal) {
+                    imgTmp = self.clearImage(size: img.size, scale: img.scale)
                 }
                 
-                super.setImage(imgTmp, forState: UIControlState.Normal)
-                super.setImage(imgTmp, forState: UIControlState.Selected)
+                super.setImage(imgTmp, for: UIControlState.normal)
+                super.setImage(imgTmp, for: UIControlState.selected)
                 
-                super.setImage(imgTmp, forState: state)
+                super.setImage(imgTmp, for: state)
                 super.imageView?.image = imgTmp
                 
-            }
-            else {
-                super.setImage( self.imageForState(state), forState: state)
+            } else {
+                super.setImage( self.image(for: state), for: state)
             }
             
             if (self.hideTextWhenLoading) {
-                super.setTitle(nil, forState: state)
+                super.setTitle(nil, for: state)
+                super.setAttributedTitle(nil, for: state)
                 super.titleLabel?.text = nil
+            } else {
+                super.setTitle( self.title(for: state) , for: state)
+                super.titleLabel?.text = self.title(for: state)
+                super.setAttributedTitle(self.attributedTitle(for: state), for: state)
             }
-            else {
-                super.setTitle( self.titleForState(state) , forState: state)
-                super.titleLabel?.text = self.titleForState(state)
-            }
-        }
-        else {
-            self.activityIndicatorView.stopAnimating();
-            super.setImage(self.imageForState(state), forState: state)
-            super.imageView?.image = self.imageForState(state)
-            super.setTitle(self.titleForState(state), forState: state)
-            super.titleLabel?.text = self.titleForState(state)
+            
+        } else {
+            self.activityIndicatorView.stopAnimating()
+            super.setImage(self.image(for: state), for: state)
+            super.imageView?.image = self.image(for: state)
+            super.setTitle(self.title(for: state), for: state)
+            super.titleLabel?.text = self.title(for: state)
+            super.setAttributedTitle(self.attributedTitle(for: state), for: state)
         }
         
         self.setNeedsLayout()
     }
     
-    private func frameForActivityIndicator() -> CGRect {
+    fileprivate func frameForActivityIndicator() -> CGRect {
         
-        var frame:CGRect = CGRectZero;
-        frame.size = self.activityIndicatorView.frame.size;
-        frame.origin.y = (self.frame.size.height - frame.size.height) / 2;
+        var frame:CGRect = CGRect.zero
+        frame.size = self.activityIndicatorView.frame.size
+        frame.origin.y = (self.frame.size.height - frame.size.height) / 2
         
         switch self.activityIndicatorAlignment {
             
-        case RNActivityIndicatorAlignment.Left:
+        case .left:
             // top,  left bottom right
-            frame.origin.x += self.activityIndicatorEdgeInsets.left;
-            frame.origin.y += self.activityIndicatorEdgeInsets.top;
-        
-        case RNActivityIndicatorAlignment.Center:
-            frame.origin.x = (self.frame.size.width - frame.size.width) / 2;
-       
-        case RNActivityIndicatorAlignment.Right:
-            var lengthOccupied:CFloat = 0;
-            var x:CFloat = 0;
-            let imageView:UIImageView = self.imageView!;
-            let titleLabel:UILabel = self.titleLabel!;
+            frame.origin.x += self.activityIndicatorEdgeInsets.left
+            frame.origin.y += self.activityIndicatorEdgeInsets.top
+            
+        case .center:
+            frame.origin.x = (self.frame.size.width - frame.size.width) / 2
+            
+        case .right:
+            var lengthOccupied:CFloat = 0
+            var x:CFloat = 0
+            let imageView:UIImageView = self.imageView!
+            let titleLabel:UILabel = self.titleLabel!
             
             //let xa = CGFloat(UInt(arc4random_uniform(UInt32(UInt(imageView.frame.size.width) * 5))))// - self.gameView.bounds.size.width * 2
             
             if (imageView.image != nil && titleLabel.text != nil){
-                lengthOccupied = Float( imageView.frame.size.width + titleLabel.frame.size.width );
+                lengthOccupied = Float( imageView.frame.size.width + titleLabel.frame.size.width )
                 
                 
                 if (imageView.frame.origin.x > titleLabel.frame.origin.x){
@@ -365,57 +373,77 @@ import UIKit
             }
             else if (titleLabel.text != nil){
                 lengthOccupied = Float( titleLabel.frame.size.width + imageView.frame.origin.x )
+            }else if (attributedTitle(for: currentControlState()) != nil){
+                let attributedString = attributedTitle(for: currentControlState())
+                lengthOccupied = Float(attributedString!.size().width)
             }
             
             x =  Float(lengthOccupied) + Float( self.activityIndicatorEdgeInsets.left )
             if ( Float(x) + Float(frame.size.width) > Float(self.frame.size.width) ){
-                x = Float(self.frame.size.width) - Float(frame.size.width + self.activityIndicatorEdgeInsets.right);
+                x = Float(self.frame.size.width) - Float(frame.size.width + self.activityIndicatorEdgeInsets.right)
             }
             else if ( Float(x + Float(frame.size.width) ) > Float(self.frame.size.width - self.activityIndicatorEdgeInsets.right)){
-                x = Float(self.frame.size.width) - ( Float(frame.size.width) + Float(self.activityIndicatorEdgeInsets.right) );
+                x = Float(self.frame.size.width) - ( Float(frame.size.width) + Float(self.activityIndicatorEdgeInsets.right) )
+            } else {
+                // default to placing the indicator at 3/4 the buttons length, making sure it doesn't touch the button content
+                let contentRightEdge = (lengthOccupied / 2) + (Float(frame.width) / 2)
+                let threeFourthsButtonWidth = 3 * (Float(frame.width) / 4)
+                x = max(contentRightEdge, threeFourthsButtonWidth)
             }
-
-            frame.origin.x = CGFloat(x);
+            
+            frame.origin.x = CGFloat(x)
         }
         
-        return frame;
+        return frame
     }
     
     
     // UIImage clear
-    private func clearImage(size:CGSize, scale:CGFloat) ->UIImage {
+    fileprivate func clearImage(size: CGSize, scale: CGFloat) -> UIImage {
         UIGraphicsBeginImageContext(size)
-        let context:CGContextRef = UIGraphicsGetCurrentContext()!
+        let context:CGContext = UIGraphicsGetCurrentContext()!
         UIGraphicsPushContext(context)
-        CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
-        CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height))
+        context.setFillColor(UIColor.clear.cgColor)
+        context.fill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         
         UIGraphicsPopContext()
-        let outputImage:UIImage  = UIGraphicsGetImageFromCurrentImageContext()!
+        guard let outputImage = UIGraphicsGetImageFromCurrentImageContext() else {
+            return UIImage()
+        }
         UIGraphicsEndImageContext()
         
-        return  UIImage(CGImage: outputImage.CGImage!, scale: scale, orientation: UIImageOrientation.Up)
+        return  UIImage(cgImage: outputImage.cgImage!, scale: scale, orientation: UIImageOrientation.up)
     }
     
     
-    /** Store values */
-    /** Value in Dictionary on ControlState */
-    private func storeValue(value:AnyObject?, onDic:NSMutableDictionary!, state:UIControlState) {
-        if let _value: AnyObject = value  {
-            onDic.setValue(_value, forKey: "\(state.rawValue)")
+    /** Store and recorver values */
+    /** Value in Dictionary for ControlState */
+    
+    fileprivate func getValueFrom<T>(type: T.Type, on dic: NSMutableDictionary!, for state: UIControlState) -> T? {
+        
+        if let value =  dic.value(forKey: "\(state.rawValue)") as AnyObject? {
+            return value as? T
+        }
+        
+        return dic.value(forKey: "\(UIControlState.normal.rawValue)") as? T
+    }
+    
+    fileprivate func store<T>(_ value: T?, in dic:NSMutableDictionary!, for state:UIControlState) {
+        if let _value = value as AnyObject?  {
+            dic.setValue(_value, forKey: "\(state.rawValue)")
         }
         else {
-            onDic.removeObjectForKey("\(state.rawValue)")
+            dic.removeObject(forKey: "\(state.rawValue)")
         }
-        self.configureControlState(self.currentControlState())
+        self.configureControl(for: self.currentControlState())
     }
     
     
     // MARK: - KVO - Key-value Observer
     
-    override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        configureControlState(currentControlState());
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        configureControl(for: currentControlState())
     }
     
+    
 }
-

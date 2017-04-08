@@ -49,7 +49,7 @@ class StoryCard: BaseStory {
         self.storyType = storyType
     }
     
-    func parseStoryCard(dict : [String:AnyObject]){
+    func parseStoryCard(_ dict : [String:AnyObject]){
         
         if let storyId =        dict["id"] as? String,
            let storyType =      dict["story_type"] as? NSNumber,

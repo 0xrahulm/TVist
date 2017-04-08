@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HighlightableTextViewProtocol: class {
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+    func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
 }
 
 class HighlightableTextView: UIView {
@@ -21,15 +21,15 @@ class HighlightableTextView: UIView {
 }
 
 extension HighlightableTextView: UITextFieldDelegate {
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         self.lineView.backgroundColor = UIColor.escapeBlueColor()
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         self.lineView.backgroundColor = UIColor.lineGrayColor()
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let delegate = self.delegate {
             return delegate.textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
         }

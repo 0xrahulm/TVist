@@ -17,14 +17,14 @@ class TabButton: UIButton {
         super.init(frame: frame)
     }
     
-    func setTabTitle(title: String, type: ProfileListType) {
-        setAttributedTitle(SFUIAttributedText.semiBoldAttributedTextForString(title, size: 12, color: UIColor.textGrayColor()), forState: .Normal)
-        setAttributedTitle(SFUIAttributedText.semiBoldAttributedTextForString(title, size: 12, color: UIColor.escapeRedColor()), forState: .Selected)
+    func setTabTitle(_ title: String, type: ProfileListType) {
+        setAttributedTitle(SFUIAttributedText.semiBoldAttributedTextForString(title, size: 12, color: UIColor.textGrayColor()), for: UIControlState())
+        setAttributedTitle(SFUIAttributedText.semiBoldAttributedTextForString(title, size: 12, color: UIColor.escapeRedColor()), for: .selected)
         
-        setImage(UIImage(named: type.rawValue), forState: .Normal)
-        setImage(UIImage(named: type.rawValue+"_selected"), forState: .Selected)
+        setImage(UIImage(named: type.rawValue), for: UIControlState())
+        setImage(UIImage(named: type.rawValue+"_selected"), for: .selected)
         
-        if let imageView = self.imageView, titleLabel = self.titleLabel {
+        if let imageView = self.imageView, let titleLabel = self.titleLabel {
             let imageSize = imageView.frame.size
             let titleSize = titleLabel.frame.size
             let totalHeight = imageSize.height+titleSize.height+kPaddingBetweenTitleAndImage
@@ -39,7 +39,7 @@ class TabButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setButtonEnabled(enabled: Bool) {
-        self.selected = enabled
+    func setButtonEnabled(_ enabled: Bool) {
+        self.isSelected = enabled
     }
 }

@@ -34,9 +34,9 @@ class MyProfileViewController: UIViewController {
     var isFollow:Bool = false
     var profileItemUpdateNotification:NotificationToken?
     
-    private var _profileList:Results<ProfileList>?
+    fileprivate var _profileList:Results<ProfileList>?
     
-    private var _otherUserProfileList:[ProfileListType:[ProfileList]] = [:]
+    fileprivate var _otherUserProfileList:[ProfileListType:[ProfileList]] = [:]
     
     var profileListData: [ProfileList] {
         get {
@@ -60,14 +60,15 @@ class MyProfileViewController: UIViewController {
                     profileItemUpdateNotification = _profileList!.addNotificationBlock { [weak self] (changes: RealmCollectionChange) in
                         guard let tableView = self?.tableView else { return }
                         switch changes {
-                        case .Initial(_):
+                            
+                        case .initial(_):
                             // Results are now populated and can be accessed without blocking the UI
                             tableView.reloadData()
                             break
-                        case .Update(_, _, _, _):
+                        case .update(_, deletions: _, insertions: _, modifications: _):
                             tableView.reloadData()
                             break
-                        case .Error:
+                        case .error(_):
                             Logger.debug("Error in notificationBlock")
                             break
                         }
@@ -95,7 +96,7 @@ class MyProfileViewController: UIViewController {
     
     var sectionLoadedOnce = false
     
-    override func setObjectsWithQueryParameters(queryParams: [String : AnyObject]) {
+    override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         if let userId = queryParams["user_id"] as? String {
             self.userId = userId
         }
@@ -106,25 +107,25 @@ class MyProfileViewController: UIViewController {
         
         setVisuals()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         if isLoggedInUser() {
             fetchDataFromRealm()
         } else {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyProfileViewController.otherUserData(_:)), name: NotificationObservers.GetProfileDetailsObserver.rawValue, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(MyProfileViewController.otherUserData(_:)), name: NSNotification.Name(rawValue: NotificationObservers.GetProfileDetailsObserver.rawValue), object: nil)
             
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyProfileViewController.receivedListData(_:)), name: NotificationObservers.OtherUserProfileListFetchObserver.rawValue, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(MyProfileViewController.receivedListData(_:)), name: NSNotification.Name(rawValue: NotificationObservers.OtherUserProfileListFetchObserver.rawValue), object: nil)
         }
         
     }
     
     deinit {
         
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         profileItemUpdateNotification?.stop()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
@@ -134,7 +135,7 @@ class MyProfileViewController: UIViewController {
         
     }
     
-    func fetchEscapesDataFromRealm(typeOfList: ProfileListType) -> [MyAccountEscapeItem]  {
+    func fetchEscapesDataFromRealm(_ typeOfList: ProfileListType) -> [MyAccountEscapeItem]  {
         
         if let currentUserId = ECUserDefaults.getCurrentUserId() {
             
@@ -143,7 +144,7 @@ class MyProfileViewController: UIViewController {
             let userDataPredicate = NSPredicate(format: "userId == %@ AND escapeType == %@", currentUserId, escapeType)
             
             do{
-                let escapeData = try Realm().objects(UserEscapeData).filter(userDataPredicate)
+                let escapeData = try Realm().objects(UserEscapeData.self).filter(userDataPredicate)
                 
                 var dataArray : [MyAccountEscapeItem] = []
                 
@@ -225,8 +226,8 @@ class MyProfileViewController: UIViewController {
     }
     
     
-    func pushUpUserData(firstName: String, lastName: String?, profilePicture: String?, followers:Int, following: Int, escapesCount: Int) {
-        if let lastName = lastName where lastName.characters.count > 0 {
+    func pushUpUserData(_ firstName: String, lastName: String?, profilePicture: String?, followers:Int, following: Int, escapesCount: Int) {
+        if let lastName = lastName, lastName.characters.count > 0 {
             self.navigationItem.title = "\(firstName) \(lastName)"
         } else {
             self.navigationItem.title = firstName
@@ -242,11 +243,11 @@ class MyProfileViewController: UIViewController {
         escapeCount.text = "\(escapesCount)"
     }
     
-    func otherUserData(notification: NSNotification) {
+    func otherUserData(_ notification: Notification) {
         if let userInfo = notification.userInfo, let userData = userInfo["userData"] as? MyAccountItems {
             if let userId = userId, let userDataId = userData.id {
                 if userId == userDataId {
-                    pushUpUserData(userData.firstName, lastName: userData.lastName, profilePicture: userData.profilePicture, followers: userData.followers.integerValue, following: userData.following.integerValue, escapesCount: userData.escapes_count.integerValue)
+                    pushUpUserData(userData.firstName, lastName: userData.lastName, profilePicture: userData.profilePicture, followers: userData.followers.intValue, following: userData.following.intValue, escapesCount: userData.escapes_count.intValue)
                     self.isFollow = userData.isFollow
                     if self.isFollow {
                         self.followUnfollowButton.followViewWithAnimate(false)
@@ -259,7 +260,7 @@ class MyProfileViewController: UIViewController {
         }
     }
     
-    func receivedListData(notification:NSNotification) {
+    func receivedListData(_ notification:Notification) {
         if let userInfo = notification.userInfo {
             if let listType = userInfo["type"] as? String, let listTypePresent = ProfileListType(rawValue: listType) {
                 if let listData = userInfo["data"] as? ProfileList {
@@ -275,22 +276,22 @@ class MyProfileViewController: UIViewController {
         
         if isLoggedInUser() {
             
-            let settingImage = IonIcons.imageWithIcon(ion_ios_settings_strong, size: 22, color: UIColor.themeColorBlack())
-            let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MyProfileViewController.settingsTapped))
+            let settingImage = IonIcons.image(withIcon: ion_ios_settings_strong, size: 22, color: UIColor.themeColorBlack())
+            let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(MyProfileViewController.settingsTapped))
             
             self.navigationItem.rightBarButtonItem = settingButton
             
-            editProfileButton.hidden = false
-            followUnfollowButton.hidden = true
+            editProfileButton.isHidden = false
+            followUnfollowButton.isHidden = true
             
-            editProfileButton.layer.borderColor = UIColor.textGrayColor().CGColor
+            editProfileButton.layer.borderColor = UIColor.textGrayColor().cgColor
             editProfileButton.layer.borderWidth = 1.0
             editProfileButton.layer.cornerRadius = 4.0
             
         } else {
             
-            editProfileButton.hidden = true
-            followUnfollowButton.hidden = false
+            editProfileButton.isHidden = true
+            followUnfollowButton.isHidden = false
             
             followUnfollowButton.layer.cornerRadius = 4.0
             self.followUnfollowButton.disableButton(false)
@@ -309,7 +310,7 @@ class MyProfileViewController: UIViewController {
         ScreenVader.sharedVader.performScreenManagerAction(.MyAccountSetting, queryParams: nil)
     }
     
-    func didSelectATab(sender: AnyObject) {
+    func didSelectATab(_ sender: AnyObject) {
         if let selectedTab = sender as? TabButton {
             disableAllTabs()
             
@@ -332,7 +333,7 @@ class MyProfileViewController: UIViewController {
         }
     }
     
-    @IBAction func followButtonTapped(sender: UIButton) {
+    @IBAction func followButtonTapped(_ sender: UIButton) {
         
         if let userId = userId {
             if isFollow {
@@ -348,11 +349,11 @@ class MyProfileViewController: UIViewController {
         }
     }
     
-    @IBAction func followerFollowingClicked(sender: UITapGestureRecognizer) {
+    @IBAction func followerFollowingClicked(_ sender: UITapGestureRecognizer) {
         if let view = sender.view{
-            var userType : UserType = .Followers
+            var userType : UserType = .followers
             if view.tag == 6{
-                userType = .Following
+                userType = .following
             }
             if let userId = userId{
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue, "userId" : userId])
@@ -362,7 +363,7 @@ class MyProfileViewController: UIViewController {
         }
     }
     
-    @IBAction func editProfileButtonTapped(sender: AnyObject) {
+    @IBAction func editProfileButtonTapped(_ sender: AnyObject) {
        
     }
 }
@@ -378,9 +379,9 @@ extension MyProfileViewController : MyAccountDetailsProtocol {
 }
 
 extension MyProfileViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: kHeightOfSegmentedControl))
-        headerView.backgroundColor = UIColor.whiteColor()
+        headerView.backgroundColor = UIColor.white
         
         var xMovement:CGFloat = 0.0
         let widthOfButton = (headerView.frame.size.width/CGFloat(listOfItemType.count))
@@ -391,13 +392,13 @@ extension MyProfileViewController: UITableViewDelegate {
             topLineView.backgroundColor = UIColor.hairlineGrayColor()
         headerView.addSubview(topLineView)
         
-        for (index,aListTitle) in listOfTitles.enumerate() {
+        for (index,aListTitle) in listOfTitles.enumerated() {
             let tabButton = TabButton(frame: CGRect(x: xMovement, y: 12, width: widthOfButton, height: headerView.frame.size.height-12))
             
             tabButton.setTabTitle(aListTitle, type: listOfItemType[index])
             tabButton.tag = index
             xMovement += widthOfButton
-            tabButton.addTarget(self, action: #selector(MyProfileViewController.didSelectATab(_:)), forControlEvents: .TouchUpInside)
+            tabButton.addTarget(self, action: #selector(MyProfileViewController.didSelectATab(_:)), for: .touchUpInside)
             
             headerView.addSubview(tabButton)
             self.tabItems.append(tabButton)
@@ -416,36 +417,36 @@ extension MyProfileViewController: UITableViewDelegate {
         return headerView
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return kHeightOfSegmentedControl
     }
 }
 
 extension MyProfileViewController: UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return profileItemsForSelectedTab().endIndex
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 250
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let selectedProfileItem = profileItemsForSelectedTab()[indexPath.row]
         
-        if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.ShowLoading {
-            let cell = tableView.dequeueReusableCellWithIdentifier("CustomLoadingTableViewCellIdentifier") as! CustomLoadingTableViewCell
+        if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.showLoading {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CustomLoadingTableViewCellIdentifier") as! CustomLoadingTableViewCell
             
             cell.activityIndicator.startAnimating()
             return cell
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("escapesSectionHorizontalidentifier") as! CustomListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "escapesSectionHorizontalidentifier") as! CustomListTableViewCell
         cell.viewAllTapDelegate = self
         if let cellTitle = selectedProfileItem.title {
             cell.cellTitleLabel.text = cellTitle+" (\(selectedProfileItem.totalItemsCount))"
@@ -453,7 +454,7 @@ extension MyProfileViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         guard let tableViewCell = cell as? CustomListTableViewCell else{
             return
@@ -466,16 +467,16 @@ extension MyProfileViewController: UITableViewDataSource {
 
 extension MyProfileViewController : UICollectionViewDelegate , UICollectionViewDataSource {
     
-    func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         
-        if let escapeItemCell = collectionView.cellForItemAtIndexPath(indexPath) as? CustomListCollectionViewCell {
+        if let escapeItemCell = collectionView.cellForItem(at: indexPath) as? CustomListCollectionViewCell {
             
             escapeItemCell.popTheImage()
         }
         return true
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if profileItemsForSelectedTab().endIndex > collectionView.tag{
             let data = profileItemsForSelectedTab()[collectionView.tag].escapeDataList
@@ -492,14 +493,14 @@ extension MyProfileViewController : UICollectionViewDelegate , UICollectionViewD
         }
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let dataList = profileItemsForSelectedTab()[collectionView.tag].escapeDataList
         return dataList.endIndex
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("collectionViewBasicCell", forIndexPath: indexPath) as! CustomListCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewBasicCell", for: indexPath) as! CustomListCollectionViewCell
         
         
         let item = profileItemsForSelectedTab()[collectionView.tag].escapeDataList
@@ -510,14 +511,14 @@ extension MyProfileViewController : UICollectionViewDelegate , UICollectionViewD
 }
 
 extension MyProfileViewController: ViewAllTapProtocol {
-    func viewAllTappedIn(cell: UITableViewCell) {
-        if let indexPath = tableView.indexPathForCell(cell) {
+    func viewAllTappedIn(_ cell: UITableViewCell) {
+        if let indexPath = tableView.indexPath(for: cell) {
             
             let selectedProfileItem = profileItemsForSelectedTab()[indexPath.row]
             
             
             if let selectedProfileList = selectedProfileList(), let escapeAction = selectedProfileItem.title {
-                var queryParams:[String:AnyObject] = [:]
+                var queryParams:[String:Any] = [:]
                 
                 let escapeType = selectedProfileList.type
                 queryParams["escapeType"] = escapeType

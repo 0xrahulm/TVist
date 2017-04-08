@@ -29,13 +29,13 @@ class ScreenManagerViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
         
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         initialViewBootUp()
     }
     
-    private func initialViewBootUp() {
+    fileprivate func initialViewBootUp() {
         if (ECUserDefaults.isLoggedIn() &&
             LocalStorageVader.sharedVader.flagValueForKey(.InterestsSelected)) {
             
@@ -48,7 +48,7 @@ class ScreenManagerViewController: UIViewController {
         }
     }
     
-    private func presentRootViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier, queryParams : [String:AnyObject]?){
+    fileprivate func presentRootViewControllerOf(_ storyBoardIdentifier : StoryBoardIdentifier, queryParams : [String:AnyObject]?){
         
         currentPresentedViewController = initialViewControllerFor(storyBoardIdentifier)
         
@@ -60,7 +60,7 @@ class ScreenManagerViewController: UIViewController {
                 
             }
             
-            presentViewController(currentPresentedViewController, animated: false, completion: nil)
+            present(currentPresentedViewController, animated: false, completion: nil)
             
             if storyBoardIdentifier == .Onboarding{
                 presentedViewControllers = []
@@ -70,14 +70,14 @@ class ScreenManagerViewController: UIViewController {
         }
         
     }
-    private func pushInitialViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier , queryParams : [String:AnyObject]?){
+    fileprivate func pushInitialViewControllerOf(_ storyBoardIdentifier : StoryBoardIdentifier , queryParams : [String:AnyObject]?){
         
         if currentPresentedViewController != nil{
             if currentPresentedViewController is CustomTabBarController {
                 let mainTabVC = currentPresentedViewController as! CustomTabBarController
                 if let customNavVC = mainTabVC.activeViewController as? CustomNavigationViewController{
                     
-                    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
                     if let vc = initialViewControllerFor(storyBoardIdentifier){
                         if let params = queryParams{
                             vc.setObjectsWithQueryParameters(params)
@@ -87,7 +87,7 @@ class ScreenManagerViewController: UIViewController {
                     
                 }
             }else if let currentNavVc = currentPresentedViewController as? CustomNavigationViewController{
-                self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
                 
                 if let vc = initialViewControllerFor(storyBoardIdentifier){
                     if let params = queryParams{
@@ -100,20 +100,20 @@ class ScreenManagerViewController: UIViewController {
     }
     
     
-    private func pushViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:AnyObject]?){
+    fileprivate func pushViewControllerOf(_ storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:Any]?){
         
         if currentPresentedViewController != nil{
             if currentPresentedViewController is CustomTabBarController {
                 let mainTabVC = currentPresentedViewController as! CustomTabBarController
                 if let customNavVC = mainTabVC.activeViewController as? CustomNavigationViewController{
                     
-                    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                    self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
                     
                     customNavVC.pushViewController(getViewControllerToOpen(storyBoardIdentifier, forIdentifier: viewControllerIdentifier, queryParam: queryParams), animated: true)
                     
                 }
             }else if let currentNavVc = currentPresentedViewController as? CustomNavigationViewController{
-                self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+                self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
                 
                 currentNavVc.pushViewController(getViewControllerToOpen(storyBoardIdentifier, forIdentifier: viewControllerIdentifier, queryParam: queryParams), animated: true)
                 
@@ -122,7 +122,7 @@ class ScreenManagerViewController: UIViewController {
         
     }
     
-    private func presentViewControllerOf(storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:AnyObject]?){
+    fileprivate func presentViewControllerOf(_ storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:Any]?){
         
         
         if let presentingVC = instantiateViewControllerWith(storyBoardIdentifier, forIdentifier: viewControllerIdentifier){
@@ -133,31 +133,31 @@ class ScreenManagerViewController: UIViewController {
                 }
                 
             }
-            currentPresentedViewController.presentViewController(presentingVC, animated: true, completion: nil)
+            currentPresentedViewController.present(presentingVC, animated: true, completion: nil)
             currentPresentedViewController = presentingVC
             presentedViewControllers.append(presentingVC)
             
         }
     }
     
-    private func presentPopUpViewWithNib( viewController : UIViewController){
+    fileprivate func presentPopUpViewWithNib( _ viewController : UIViewController){
         
-        currentPresentedViewController.presentViewController(viewController, animated: true, completion: nil)
+        currentPresentedViewController.present(viewController, animated: true, completion: nil)
         currentPresentedViewController = viewController
         presentedViewControllers.append(viewController)
         
         
     }
     
-    private func initialViewControllerFor(storyboardId: StoryBoardIdentifier) -> UIViewController? {
+    fileprivate func initialViewControllerFor(_ storyboardId: StoryBoardIdentifier) -> UIViewController? {
         return UIStoryboard(name: storyboardId.rawValue, bundle: nil).instantiateInitialViewController()
     }
     
-    private func instantiateViewControllerWith(storyboard: StoryBoardIdentifier, forIdentifier: String) -> UIViewController? {
-        return UIStoryboard(name: storyboard.rawValue, bundle: nil).instantiateViewControllerWithIdentifier(forIdentifier)
+    fileprivate func instantiateViewControllerWith(_ storyboard: StoryBoardIdentifier, forIdentifier: String) -> UIViewController? {
+        return UIStoryboard(name: storyboard.rawValue, bundle: nil).instantiateViewController(withIdentifier: forIdentifier)
     }
     
-    private func getViewControllerToOpen(storyboard: StoryBoardIdentifier, forIdentifier: String?, queryParam: [String:AnyObject]?) -> UIViewController {
+    fileprivate func getViewControllerToOpen(_ storyboard: StoryBoardIdentifier, forIdentifier: String?, queryParam: [String:Any]?) -> UIViewController {
         
         var viewControllerToOpen: UIViewController!
         if let forIdentifier = forIdentifier {
@@ -188,24 +188,24 @@ class ScreenManagerViewController: UIViewController {
         return self
     }
     
-    func hideTabBar(hide: Bool) {
+    func hideTabBar(_ hide: Bool) {
         if let mainTabVC = currentPresentedViewController as? CustomTabBarController {
             mainTabVC.hideTabBar(hide)
         }
     }
     
-    func changeStatusBarPreference(shouldBeBlack: Bool) {
+    func changeStatusBarPreference(_ shouldBeBlack: Bool) {
         if let mainTabVC = currentPresentedViewController as? CustomTabBarController {
             mainTabVC.shouldBeBlack = shouldBeBlack
         }
     }
     
-    func removePresentedViewController(dismissVC : UIViewController){
+    func removePresentedViewController(_ dismissVC : UIViewController){
         
         if currentPresentedViewController == dismissVC {
             if presentedViewControllers.count > 0 {
                 
-                presentedViewControllers.removeAtIndex(presentedViewControllers.count-1)
+                presentedViewControllers.remove(at: presentedViewControllers.count-1)
                 
                 if presentedViewControllers.count > 0 {
                     
@@ -219,29 +219,29 @@ class ScreenManagerViewController: UIViewController {
 
 extension ScreenManagerViewController{
     
-    func switchTabForAction(action : ScreenManagerAction){
+    func switchTabForAction(_ action : ScreenManagerAction){
         
         if let mainTAbVC = currentPresentedViewController as? CustomTabBarController {
             switch action {
             case .HomeTab:
-                mainTAbVC.setTabIndexActive(EscapeTabs.Home.rawValue)
+                mainTAbVC.setTabIndexActive(EscapeTabs.home.rawValue)
                 break
             case .DiscoverTab:
-                mainTAbVC.setTabIndexActive(EscapeTabs.Discover.rawValue)
+                mainTAbVC.setTabIndexActive(EscapeTabs.discover.rawValue)
                 break
                 
             case .MyAccountTab:
-                mainTAbVC.setTabIndexActive(EscapeTabs.MyAccount.rawValue)
+                mainTAbVC.setTabIndexActive(EscapeTabs.myAccount.rawValue)
                 break
             default:
-                mainTAbVC.setTabIndexActive(EscapeTabs.Home.rawValue)
+                mainTAbVC.setTabIndexActive(EscapeTabs.home.rawValue)
                 break
             }
         }
         
     }
     
-    func performScreenManagerAction(action : ScreenManagerAction , params : [String:AnyObject]?){
+    func performScreenManagerAction(_ action : ScreenManagerAction , params : [String:Any]?){
         
         if currentPresentedViewController == nil{
             // do pending action here
@@ -306,63 +306,60 @@ extension ScreenManagerViewController{
     
     func openMainTab(){
         
-        currentPresentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+        currentPresentedViewController?.dismiss(animated: true, completion: nil)
         
     }
     func performLogout(){
-        currentPresentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+        currentPresentedViewController?.dismiss(animated: true, completion: nil)
         ECUserDefaults.setLoggedIn(false)
         
     }
     func openMyAccountSetting(){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountSettingVC", queryParams: nil)
     }
-    func openItemDesc(params : [String:AnyObject]?){
+    func openItemDesc(_ params : [String:Any]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "itemDescVC", queryParams: params)
     }
-    func openFollower(params : [String:AnyObject]?){
+    func openFollower(_ params : [String:Any]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "FollowersVC", queryParams: params)
     }
     
-    func openUserEscapeListViewController(params: [String:AnyObject]) {
+    func openUserEscapeListViewController(_ params: [String:Any]) {
         pushViewControllerOf(.GenericLists, viewControllerIdentifier: "userEscapeListVC", queryParams: params)
     }
     
-    func openAddToEscapePopUp(params : [String:AnyObject]?){
+    func openAddToEscapePopUp(_ params : [String:Any]?){
         
         if let params = params{
             
             let addToEscapePopup = AddToEscapeViewController(nibName:"AddToEscapeViewController", bundle: nil)
-            addToEscapePopup.modalPresentationStyle = .Custom
+            addToEscapePopup.modalPresentationStyle = .custom
             addToEscapePopup.transitioningDelegate = addToEscapePopup
             addToEscapePopup.presentingVC = self
             addToEscapePopup.queryParams = params
             
             presentPopUpViewWithNib(addToEscapePopup)
             
-            //let topVC = getTopViewController()
-            //topVC.presentViewController(addToEscapePopup, animated: true, completion: nil)
-            
         }
     }
-    func openUserAccount(params : [String:AnyObject]?){
+    func openUserAccount(_ params : [String:Any]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountVC", queryParams: params)        
     }
-    func openFriendsView(params : [String:AnyObject]?){
+    func openFriendsView(_ params : [String:Any]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "friendsVC", queryParams: params)
         
     }
     
-    func openSingleStory(params : [String:AnyObject]?){
+    func openSingleStory(_ params : [String:Any]?){
          pushViewControllerOf(.Home, viewControllerIdentifier: "singleStoryVC", queryParams: params)
     }
     func presentNoNetworkPopUP(){
         
-        noNetworkVC = NoNetworkView(frame: CGRect(x: 0, y: -64, width: UIScreen.mainScreen().bounds.width, height: 30))
+        noNetworkVC = NoNetworkView(frame: CGRect(x: 0, y: -64, width: UIScreen.main.bounds.width, height: 30))
         
         getTopViewController().view.addSubview(noNetworkVC)
         
-        UIView.transitionWithView(noNetworkVC, duration:0.5,options:.TransitionCrossDissolve,
+        UIView.transition(with: noNetworkVC, duration:0.5,options:.transitionCrossDissolve,
                                   animations:
             { () -> Void in
                 self.noNetworkVC.frame.origin.y = 0
@@ -372,7 +369,7 @@ extension ScreenManagerViewController{
     
     func noNetworkCloseTapped(){
         
-        UIView.transitionWithView(noNetworkVC,duration:0.5,options:.TransitionCrossDissolve,
+        UIView.transition(with: noNetworkVC,duration:0.5,options:.transitionCrossDissolve,
                                   animations:
             { () -> Void in
                 self.noNetworkVC.frame.origin.y = -64
@@ -383,13 +380,13 @@ extension ScreenManagerViewController{
         });
     }
     
-    func openSearchView(params : [String:AnyObject]?){
+    func openSearchView(_ params : [String:Any]?){
         presentViewControllerOf(.Search, viewControllerIdentifier: "searchVC", queryParams: params)
         
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
 }
 
