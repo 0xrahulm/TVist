@@ -62,7 +62,8 @@ class NetworkWrapper: NSObject {
     
     
     func recievedServerResponse(_ service : Service , response :DataResponse<Any>){
-        print("response from : \(response.result)")
+        print("response from : \(service.finalURL) \(response.result)")
+        
         
         switch response.result {
         case .success(_):
@@ -71,7 +72,7 @@ class NetworkWrapper: NSObject {
             
             if service.responderDelegate != nil{
                 if let responseCode = response.response {
-                    
+                    print("Status from : \(service.finalURL) \(responseCode.statusCode)")
                     if responseCode.statusCode >= 400 {
                         service.errorMessage = response.result.value
                         service.errorCode = response.response?.statusCode

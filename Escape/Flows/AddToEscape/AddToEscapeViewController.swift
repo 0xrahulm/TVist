@@ -40,6 +40,9 @@ class AddToEscapeViewController: UIViewController {
     
     @IBOutlet weak var tagFriendsView: UIView!
     
+    @IBOutlet weak var actionButton3: UIButton!
+    @IBOutlet weak var actionButton2: UIButton!
+    @IBOutlet weak var actionButton1: UIButton!
     var currentSelectedView : EscapeAddActions = .ToWatch
     
     var placeholderLabel : UILabel!
@@ -175,23 +178,40 @@ class AddToEscapeViewController: UIViewController {
         titleLabel.text = self.name
         directorNameLabel.text = self.director
         self.peopleLabel.text = ""
+        actionButton1.isSelected = false
+        actionButton2.isSelected = false
+        actionButton3.isSelected = true
         
+        actionButton1.imageEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+        actionButton1.titleEdgeInsets = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 0)
+        actionButton2.imageEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+        actionButton2.titleEdgeInsets = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 0)
+        actionButton3.imageEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+        actionButton3.titleEdgeInsets = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 0)
         
         if let type = self.type {
             
             if type == "book"{
                 currentSelectedView = .Read
-                segmentController.setTitle("To Read", forSegmentAt: 0)
-                segmentController.setTitle("Read", forSegmentAt: 1)
-                segmentController.setTitle("Reading", forSegmentAt: 2)
+//                segmentController.setTitle("To Read", forSegmentAt: 0)
+//                segmentController.setTitle("Read", forSegmentAt: 1)
+//                segmentController.setTitle("Reading", forSegmentAt: 2)
                 directorLabel.text = "Author:"
-                //tagFriendsView.hidden = true
+                actionButton1.setTitle("Reading", for: .normal)
+                actionButton2.setTitle("To Read", for: .normal)
+                actionButton3.setTitle("Read", for: .normal)
                 
-            } else if type == "tv_show" {
+                
+            } else {
                 currentSelectedView = .Watched
-                directorLabel.text = "Creator:"
-            }else{
-                currentSelectedView = .Watched
+                
+                actionButton1.setTitle("Watching", for: .normal)
+                actionButton2.setTitle("To Watch", for: .normal)
+                actionButton3.setTitle("Watched", for: .normal)
+                
+                if type == "tv_show" {
+                    directorLabel.text = "Creator:"
+                }
             }
         }
         
@@ -276,13 +296,46 @@ class AddToEscapeViewController: UIViewController {
         self.textView.resignFirstResponder()
         
     }
+  
+    @IBAction func actionButton1Tapped(_ sender: UIButton) {
+        actionButton1.isSelected = true
+        actionButton2.isSelected = false
+        actionButton3.isSelected = false
+        if type == "book"{
+            currentSelectedView = .Reading
+        }else{
+            currentSelectedView = .Watching
+        }
+        
+    }
     
+    @IBAction func actionButton2Tapped(sender: UIButton) {
+        actionButton1.isSelected = false
+        actionButton2.isSelected = true
+        actionButton3.isSelected = false
+        if type == "book"{
+            currentSelectedView = .ToRead
+        }else{
+            currentSelectedView = .ToWatch
+        }
+
+    }
     
+    @IBAction func actionButton3Tapped(sender: UIButton) {
+        actionButton1.isSelected = false
+        actionButton2.isSelected = false
+        actionButton3.isSelected = true
+        if type == "book"{
+            currentSelectedView = .Read
+        }else{
+            currentSelectedView = .Watched
+        }
+    }
 }
 
 extension AddToEscapeViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        let presentationController = CustomPopupPresentationController(presentedViewController: presented, presentingViewController: presentingVC!, width: 310, height: 400, yOffset: self.view.frame.size.height/2-220, cornerRadius : 5)
+        let presentationController = CustomPopupPresentationController(presentedViewController: presented, presentingViewController: presentingVC!, width: 310, height: 420, yOffset: self.view.frame.size.height/2-220, cornerRadius : 5)
         presentedVCObj = presentationController
         return presentationController;
     }
