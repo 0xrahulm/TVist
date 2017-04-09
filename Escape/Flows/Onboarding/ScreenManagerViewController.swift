@@ -224,7 +224,7 @@ extension ScreenManagerViewController{
         if let mainTAbVC = currentPresentedViewController as? CustomTabBarController {
             switch action {
             case .HomeTab:
-                mainTAbVC.setTabIndexActive(EscapeTabs.home.rawValue)
+                //mainTAbVC.setTabIndexActive(EscapeTabs.home.rawValue)
                 break
             case .DiscoverTab:
                 mainTAbVC.setTabIndexActive(EscapeTabs.discover.rawValue)
@@ -234,7 +234,7 @@ extension ScreenManagerViewController{
                 mainTAbVC.setTabIndexActive(EscapeTabs.myAccount.rawValue)
                 break
             default:
-                mainTAbVC.setTabIndexActive(EscapeTabs.home.rawValue)
+                mainTAbVC.setTabIndexActive(EscapeTabs.search.rawValue)
                 break
             }
         }

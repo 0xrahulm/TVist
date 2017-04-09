@@ -38,6 +38,10 @@ class SearchViewController: UIViewController {
         setupSearchBar()
         configureVCs()
         pageMenu?.moveToPage(moveToIndex)
+        
+        if screen == "discover"{
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelTapped))
+        }
 
     }
     deinit {
@@ -46,8 +50,11 @@ class SearchViewController: UIViewController {
     
     
     func setupSearchBar(){
-        
-        searchBar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width-100, height: 40.0))
+        var width = self.view.frame.size.width-30
+        if screen == "discover"{
+            width = self.view.frame.size.width-100
+        }
+        searchBar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, width: width, height: 40.0))
         searchBar.delegate = self
         
         searchBar.barTintColor = UIColor.themeColorBlack()
@@ -72,6 +79,7 @@ class SearchViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = leftnavButton
         
         searchBar.showsCancelButton = false
+        
         addFirstResponder()
         
     }
@@ -82,7 +90,7 @@ class SearchViewController: UIViewController {
         
     }
 
-    @IBAction func cancelTapped(_ sender: AnyObject) {
+    func cancelTapped() {
         if let navController = self.navigationController{
             navController.dismiss(animated: true, completion: nil)
         }

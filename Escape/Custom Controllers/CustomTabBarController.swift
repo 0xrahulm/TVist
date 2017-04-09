@@ -9,7 +9,7 @@
 import UIKit
 
 enum EscapeTabs:Int {
-    case home=0, discover, notifications, myAccount
+    case discover=0, search, myAccount
 }
 
 class CustomTabBarController: UIViewController {
@@ -83,12 +83,12 @@ class CustomTabBarController: UIViewController {
     
     func setupViewControllers() {
         
-        let homeViewController = initialViewControllerFor(.Home) as! CustomNavigationViewController
+        let searchViewController = initialViewControllerFor(.Search) as! CustomNavigationViewController
         let discoverViewController = initialViewControllerFor(.Discover) as! CustomNavigationViewController
-        let notificationsViewController = initialViewControllerFor(.Notifications) as! CustomNavigationViewController
+        //let notificationsViewController = initialViewControllerFor(.Notifications) as! CustomNavigationViewController
         let myAccountViewController = initialViewControllerFor(.MyAccount) as! CustomNavigationViewController
         
-        viewControllers = [homeViewController, discoverViewController, notificationsViewController, myAccountViewController]
+        viewControllers = [discoverViewController, searchViewController, myAccountViewController]
         
     }
     
@@ -108,16 +108,16 @@ class CustomTabBarController: UIViewController {
             myAccountButton.isSelected = false
             
             switch selectedTab {
-            case .home:
-                homeButton.isSelected = true
+            case .search:
+                notificationsButton.isSelected = true
                 NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.HomeTappedObserver.rawValue), object: nil)
                 break
             case .discover:
                 discoverButton.isSelected = true
                 break
-            case .notifications:
-                notificationsButton.isSelected = true
-                break
+//            case .notifications:
+//                notificationsButton.isSelected = true
+//                break
             case .myAccount:
                 myAccountButton.isSelected = true
                 break

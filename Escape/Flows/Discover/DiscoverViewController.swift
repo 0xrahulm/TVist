@@ -106,7 +106,7 @@ class DiscoverViewController: UIViewController {
     }
     
     func didTapGoToRight() {
-        ScreenVader.sharedVader.performScreenManagerAction(.OpenSearchView, queryParams: nil)
+        ScreenVader.sharedVader.performScreenManagerAction(.OpenSearchView, queryParams: ["screen" : "discover"])
        
     }
     
