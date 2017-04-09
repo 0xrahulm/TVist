@@ -14,7 +14,7 @@ class CustomNavigationAnimationController: NSObject, UIViewControllerAnimatedTra
     
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.15
+        return 0.2
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {

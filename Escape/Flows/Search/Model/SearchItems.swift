@@ -49,11 +49,10 @@ class SearchItems: NSObject {
             for dict in dataArray{
                 if let id = dict["id"] as? String,
                     let name = dict["name"] as? String,
-                    let image = dict["picture"] as? String,
                     let searchType = dict["search_type"] as? String,
                     let isAddedOrFollow = dict["is_acted"] as? Bool{
                     
-                    searchDataArray.append(SearchItems(id: id, name: name, image: image, director: dict["creator"] as? String, searchType: SearchType(rawValue:searchType), isAddedOrFollow: isAddedOrFollow))
+                    searchDataArray.append(SearchItems(id: id, name: name, image: dict["picture"] as? String, director: dict["creator"] as? String, searchType: SearchType(rawValue:searchType), isAddedOrFollow: isAddedOrFollow))
    
                 }
                 

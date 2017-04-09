@@ -33,7 +33,7 @@ class CustomInteractionController: UIPercentDrivenInteractiveTransition {
             navigationController.popViewController(animated: true)
         case .changed:
             let const = CGFloat(viewTranslation.x / gestureRecognizer.view!.frame.size.width)
-            shouldCompleteTransition = const > 0.5
+            shouldCompleteTransition = const > 0.3
             update(const)
         case .cancelled, .ended:
             transitionInProgress = false

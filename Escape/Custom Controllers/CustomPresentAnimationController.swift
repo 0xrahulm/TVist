@@ -13,7 +13,7 @@ class CustomPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
     var isPresented:Bool = true
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.4
+        return 0.2
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {

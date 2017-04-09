@@ -43,10 +43,14 @@ class CustomPopupPresentationController: UIPresentationController {
         
         dimmingView = UIView(frame: CGRect(x: 0,y: 0, width: presentingViewController.view.bounds.width,height: presentingViewController.view.bounds.height + 64))
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark)) as UIVisualEffectView
-        visualEffectView.frame = dimmingView.bounds
-        visualEffectView.alpha = 0.6;
+        let visualEffectView = UIView(frame: dimmingView.bounds)
+        visualEffectView.backgroundColor = UIColor.textColor()
+        visualEffectView.alpha = 0.5;
         dimmingView.addSubview(visualEffectView)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CustomPopupPresentationController.dimmingViewTapped(_:)))
+        
+        dimmingView.addGestureRecognizer(tapGesture)
     }
     
     func dismissView(){

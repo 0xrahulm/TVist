@@ -18,6 +18,8 @@ class EscapeCell: NormalCell {
     
     @IBOutlet weak var addEditButton: UIButton!
     
+    var userHasActed:Bool = false
+    
     
     var escapeItem: EscapeItem? {
         didSet {
@@ -52,9 +54,41 @@ class EscapeCell: NormalCell {
             }else if escapeItem.escapeTypeVal() == .TvShows{
                 creatorTypeLabel.text = EscapeCreatorType.TvShows.rawValue+":"
             }
+            
+            self.userHasActed = escapeItem.hasActed
+            updateAddEditButton()
         }
     }
     
+    func updateAddEditButton() {
+        if self.userHasActed {
+            self.addEditButton.setTitle("...", for: .normal)
+        } else {
+            self.addEditButton.setTitle("+", for: .normal)
+        }
+    }
+    
+    @IBAction func didTapOnAddEditButton() {
+        
+        if let escapeItem = self.escapeItem {
+            
+            var paramsToPass: [String:Any] = ["escape_id" : escapeItem.id, "escape_type":escapeItem.escapeType, "escape_name": escapeItem.name, "delegate" : self]
+            
+            if let createdBy = escapeItem.createdBy {
+                paramsToPass["createdBy"] = createdBy
+            }
+            
+            if let imageUri = escapeItem.posterImage {
+                paramsToPass["escape_image"] = imageUri
+            }
+            
+            if self.userHasActed {
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenEditEscapePopUp, queryParams: paramsToPass)
+            } else {
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: paramsToPass)
+            }
+        }
+    }
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -64,4 +98,22 @@ class EscapeCell: NormalCell {
     }
     */
 
+}
+
+
+
+extension EscapeCell: EditEscapeProtocol {
+    func didDeleteEscape() {
+        
+        self.userHasActed = false
+        updateAddEditButton()
+    }
+}
+
+extension EscapeCell: AddToEscapeDoneProtocol {
+    func doneButtonTapped() {
+        self.userHasActed = true
+        updateAddEditButton()
+    }
+    
 }

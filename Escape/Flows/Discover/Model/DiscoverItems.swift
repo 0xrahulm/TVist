@@ -59,7 +59,11 @@ class DiscoverItems: NSObject {
                             }
                             
                         }
-                    } else if let fullName = dict["full_name"] as? String {
+                    } else if let firstName = dict["first_name"] as? String {
+                        var fullName = firstName
+                        if let lastName = dict["last_name"] as? String {
+                            fullName = fullName + " " + lastName
+                        }
                         if let image = dict["profile_picture"] as? String {
                             if let isfollow  = dict["is_following"] as? Bool {
                                 discoverDataArray.append(DiscoverItems(id: id, name: fullName, image: image, director: nil, followers: dict["followers_count"] as? NSNumber, year: nil, subtitle: nil, discoverType: .People, rating: nil, isFollow : isfollow))

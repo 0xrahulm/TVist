@@ -259,7 +259,7 @@ class MyAccountDataProvider: CommonDataProvider {
                 }
                 break
             case .GetUserEscapes:
-                if let data = service.outPutResponse as? [[String:AnyObject]] {
+                if let data = service.outPutResponse as? [[String:Any]] {
                     
                     if let params = service.parameters {
                         if let escape_type = params["escape_type"] as? String {
@@ -492,7 +492,7 @@ extension MyAccountDataProvider {
         }
     }
     
-    func parseEscapeListData(_ data: [[String:AnyObject]], escape_type: String, escapeAction: String?, userId: String?, page: Int?) {
+    func parseEscapeListData(_ data: [[String:Any]], escape_type: String, escapeAction: String?, userId: String?, page: Int?) {
         var dataArray:[EscapeItem] = []
         
         for eachItem in data {
@@ -502,7 +502,12 @@ extension MyAccountDataProvider {
                     continue
             }
             
-            dataArray.append(EscapeItem.addOrEditEscapeItem(itemId, name: itemTitle, escapeType: escapeType, posterImage: eachItem["poster_image"] as? String, year: eachItem["year"] as? String, rating: eachItem["rating"] as? NSNumber, subTitle: eachItem["subtitle"] as? String, createdBy: eachItem["creator"] as? String, _realm: nil))
+            let escapeItem = EscapeItem.addOrEditEscapeItem(itemId, name: itemTitle, escapeType: escapeType, posterImage: eachItem["poster_image"] as? String, year: eachItem["year"] as? String, rating: eachItem["rating"] as? NSNumber, subTitle: eachItem["subtitle"] as? String, createdBy: eachItem["creator"] as? String, _realm: nil)
+            if let hasActed = eachItem["is_acted"] as? Bool {
+                escapeItem.hasActed = hasActed
+            }
+            
+            dataArray.append(escapeItem)
         }
         
         if let escapeListDataDelegate = escapeListDataDelegate {

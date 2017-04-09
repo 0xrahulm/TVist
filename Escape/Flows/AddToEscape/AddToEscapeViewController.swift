@@ -98,11 +98,6 @@ class AddToEscapeViewController: UIViewController {
                 addToEscapeDoneDelegate = delegate
             }
             
-//            var paramsToPass: [String:Any] = ["escape_id" : escapeId, "escape_type":escapeType, "escape_name": escapeName, "delegate" : self]
-//            
-//            if let imageUri = self.imageUri {
-//                paramsToPass["escape_image"] = imageUri
-//            }
             
             if let escapeId = params["escape_id"] as? String {
                 self.id = escapeId
@@ -110,6 +105,10 @@ class AddToEscapeViewController: UIViewController {
             
             if let escapeType = params["escape_type"] as? EscapeType {
                 self.type = escapeType.rawValue
+            }
+            
+            if let escapeType = params["escape_type"] as? String {
+                self.type = escapeType
             }
             
             if let escapeImageUri = params["escape_image"] as? String {
@@ -283,7 +282,7 @@ class AddToEscapeViewController: UIViewController {
 
 extension AddToEscapeViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        let presentationController = CustomPopupPresentationController(presentedViewController: presented, presentingViewController: presentingVC!, width: 310, height: 400, yOffset: self.view.frame.size.height/2-200, cornerRadius : 5)
+        let presentationController = CustomPopupPresentationController(presentedViewController: presented, presentingViewController: presentingVC!, width: 310, height: 400, yOffset: self.view.frame.size.height/2-220, cornerRadius : 5)
         presentedVCObj = presentationController
         return presentationController;
     }

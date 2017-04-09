@@ -35,6 +35,9 @@ class SearchTableViewCell: UITableViewCell {
     var userId = ""
     var isFollow = false
     var indexPath : IndexPath!
+    
+    var userHasActed:Bool = false
+    
     weak var followButtonDiscoverDelegate : FollowerButtonProtocol?
     
     var data : SearchItems? {
@@ -55,11 +58,8 @@ class SearchTableViewCell: UITableViewCell {
                     directorByStr = director
                 }
                 
-                if data.isAddedOrFollow{
-                    addToEscapeButton.isHidden = true
-                }else{
-                    addToEscapeButton.isHidden = false
-                }
+                self.userHasActed = data.isAddedOrFollow
+                updateAddEditButtonStatus()
                 
                 var directedByStr = ""
                 if data.searchType == .Movie {
@@ -88,6 +88,15 @@ class SearchTableViewCell: UITableViewCell {
         }
     }
     
+    func updateAddEditButtonStatus() {
+        
+        if self.userHasActed {
+            addToEscapeButton.setTitle("...", for: .normal)
+        }else{
+            addToEscapeButton.setTitle("+", for: .normal)
+        }
+    }
+    
     var peopleData : SearchItems?{
         didSet{
             if let peopleData = peopleData{
@@ -108,13 +117,22 @@ class SearchTableViewCell: UITableViewCell {
     
     @IBAction func addToEscapeButtonClicked(_ sender: AnyObject) {
         
-        if let data = data{
+        if let data = data, let escapeId = data.id, let searchType = data.searchType, let escapeName = data.name {
             
-            let obj = AddToEscapeViewController()
-            obj.addToEscapeDoneDelegate = self
+            var paramsToPass: [String:Any] = ["escape_id" : escapeId, "escape_type":searchType.rawValue, "escape_name": escapeName, "delegate" : self]
             
-            if let delegate = obj.addToEscapeDoneDelegate{
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: ["data" : data, "delegate" : delegate])
+            if let createdBy = data.director {
+                paramsToPass["createdBy"] = createdBy
+            }
+            
+            if let imageUri = data.image {
+                paramsToPass["escape_image"] = imageUri
+            }
+            
+            if self.userHasActed {
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenEditEscapePopUp, queryParams: paramsToPass)
+            } else {
+                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: paramsToPass)
             }
         }
     }
@@ -149,6 +167,13 @@ class SearchTableViewCell: UITableViewCell {
 }
 extension SearchTableViewCell : AddToEscapeDoneProtocol{
     func doneButtonTapped() {
-        
+        self.userHasActed = true
+        updateAddEditButtonStatus()
+    }
+}
+extension SearchTableViewCell : EditEscapeProtocol{
+    func didDeleteEscape() {
+        self.userHasActed = false
+        updateAddEditButtonStatus()
     }
 }

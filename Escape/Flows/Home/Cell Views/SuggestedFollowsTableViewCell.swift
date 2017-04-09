@@ -24,21 +24,21 @@ class SuggestedFollowsTableViewCell: BaseStoryTableViewCell {
             if let data = data{
                 let nameString = NSMutableAttributedString(attributedString: SFUIAttributedText.mediumAttributedTextForString("Escape", size: 15, color: UIColor.textBlackColor()))
                 
-                titleTextView.attributedText = nameString
-                
-                if let status = data.title{
-                    creatorStatusLabel.text = status
-                }else{
-                    creatorStatusLabel.text = ""
-                }
-                
-                if let timeStamp = data.timestamp{
-                    self.createdTimeLabel.text = TimeUtility.getTimeStampForCard(Double(timeStamp))
-                    self.createdTimeLabel.isHidden = false
-                }else{
-                    self.createdTimeLabel.text = "|"
-                    self.createdTimeLabel.isHidden = true
-                }
+//                titleTextView.attributedText = nameString
+//                
+//                if let status = data.title{
+//                    creatorStatusLabel.text = status
+//                }else{
+//                    creatorStatusLabel.text = ""
+//                }
+//                
+//                if let timeStamp = data.timestamp{
+//                    self.createdTimeLabel.text = TimeUtility.getTimeStampForCard(Double(timeStamp))
+//                    self.createdTimeLabel.isHidden = false
+//                }else{
+//                    self.createdTimeLabel.text = "|"
+//                    self.createdTimeLabel.isHidden = true
+//                }
                 
                 self.collectionDataArray = data.suggestedFollows
                 suggestedCollectionView.reloadData()
