@@ -307,6 +307,7 @@
 		BCCD70C91CA19468002A0C07 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70C71CA19468002A0C07 /* Service.swift */; };
 		BCCD70CB1CA19555002A0C07 /* NetworkWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */; };
 		BCCD70CC1CA19555002A0C07 /* NetworkWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */; };
+		BCCFA6F11E9B860300FC5B8A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCCFA6F01E9B860300FC5B8A /* UserNotifications.framework */; };
 		BCFBD7DC1E01407E000E934A /* WhatsYourLatestEscapeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFBD7DB1E01407E000E934A /* WhatsYourLatestEscapeCell.swift */; };
 		BCFBD7DD1E01407E000E934A /* WhatsYourLatestEscapeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFBD7DB1E01407E000E934A /* WhatsYourLatestEscapeCell.swift */; };
 		BCFC92B81CE2132700AE82BC /* UserDataRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */; };
@@ -485,6 +486,8 @@
 		BCCD70C71CA19468002A0C07 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		BCCD70CA1CA19555002A0C07 /* NetworkWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkWrapper.swift; sourceTree = "<group>"; };
 		BCCD71101CA26CF4002A0C07 /* Escape-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Escape-Bridging-Header.h"; sourceTree = "<group>"; };
+		BCCFA6EF1E9B828E00FC5B8A /* Escape.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Escape.entitlements; sourceTree = "<group>"; };
+		BCCFA6F01E9B860300FC5B8A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		BCFBD7DB1E01407E000E934A /* WhatsYourLatestEscapeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsYourLatestEscapeCell.swift; sourceTree = "<group>"; };
 		BCFC92B71CE2132700AE82BC /* UserDataRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataRealm.swift; sourceTree = "<group>"; };
 		BCFE486A1CA3C1C00098160D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -497,6 +500,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCCFA6F11E9B860300FC5B8A /* UserNotifications.framework in Frameworks */,
 				BC3A81941CA5397B00FF8678 /* FBSDKShareKit.framework in Frameworks */,
 				AED7BF8EC1D30A7602FD2614 /* Pods_Escape.framework in Frameworks */,
 				BC3A81901CA5397B00FF8678 /* FBSDKCoreKit.framework in Frameworks */,
@@ -521,6 +525,7 @@
 		5143957AF50AB6AA11D43E32 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BCCFA6F01E9B860300FC5B8A /* UserNotifications.framework */,
 				BC3A818D1CA5397B00FF8678 /* FBSDKCoreKit.framework */,
 				BC3A818E1CA5397B00FF8678 /* FBSDKLoginKit.framework */,
 				BC3A818F1CA5397B00FF8678 /* FBSDKShareKit.framework */,
@@ -759,6 +764,7 @@
 		BC47ED801C9FEEC7008143C2 /* Escape */ = {
 			isa = PBXGroup;
 			children = (
+				BCCFA6EF1E9B828E00FC5B8A /* Escape.entitlements */,
 				8446C9951DD8F376008C6DED /* Custom Views */,
 				BCCD70CD1CA267AC002A0C07 /* Bridging-Headers */,
 				BC47EDC61CA0138A008143C2 /* Custom Controllers */,
@@ -1088,7 +1094,12 @@
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = GZM8S25H55;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1639,6 +1650,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Escape/Escape.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: rahulmeena@live.com (Z5FMSD54TF)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = GZM8S25H55;
@@ -1651,8 +1663,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "60c78b9d-b0a5-456a-9517-44ec8d02ad77";
-				PROVISIONING_PROFILE_SPECIFIER = "Escape Development Profile";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1665,9 +1677,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Escape/Escape.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Meena (U5T6338DFM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = GZM8S25H55;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
