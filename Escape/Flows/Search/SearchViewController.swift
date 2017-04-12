@@ -40,7 +40,7 @@ class SearchViewController: UIViewController {
         pageMenu?.moveToPage(moveToIndex)
         
         if screen == "discover"{
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelTapped))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelTapped))
         }
 
     }
@@ -67,6 +67,10 @@ class SearchViewController: UIViewController {
         searchBar.tintColor    = UIColor.themeColorBlack()
         searchBar.backgroundImage = UIImage.getImageWithColor(UIColor.clear, size: CGSize(width: 1, height: 1))
         searchBar.backgroundColor = UIColor.escapeGray()
+        if screen != "discover" {
+            
+            searchBar.showsCancelButton = true
+        }
         searchBar.searchBarStyle = .minimal
         if let searchIconImage = IonIcons.image(withIcon: ion_ios_search_strong, iconColor: UIColor.themeColorBlack(), iconSize: 28, imageSize: CGSize(width: 24, height: 24)) {
             
@@ -83,7 +87,6 @@ class SearchViewController: UIViewController {
         let leftnavButton = UIBarButtonItem(customView:searchBar)
         self.navigationItem.leftBarButtonItem = leftnavButton
         
-        searchBar.showsCancelButton = true
         
         addFirstResponder()
         
@@ -180,7 +183,9 @@ extension SearchViewController : DismissKeyboardProtocol{
 extension SearchViewController : UISearchBarDelegate{
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.searchBar.resignFirstResponder()
+        if screen != "discover" {
+            self.searchBar.resignFirstResponder()
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
