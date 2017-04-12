@@ -15,6 +15,12 @@ final class ProfileItem: Object {
     let escapeDataList = List<EscapeItem>()
     dynamic var totalItemsCount:Int = 0
     
+    var associatedStoryCard: StoryCard?
+    
+    override static func ignoredProperties() -> [String] {
+        return ["associatedStoryCard"]
+    }
+    
     func itemTypeEnumValue() -> ProfileItemType {
         return ProfileItemType(rawValue: itemType)! // Bang because itemType will always be present, without which a profile item is useless
     }

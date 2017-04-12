@@ -44,6 +44,11 @@ class SearchViewController: UIViewController {
         }
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ScreenVader.sharedVader.hideTabBar(false)
+    }
     deinit {
         ECUserDefaults.removeSearchedText()
     }
@@ -78,7 +83,7 @@ class SearchViewController: UIViewController {
         let leftnavButton = UIBarButtonItem(customView:searchBar)
         self.navigationItem.leftBarButtonItem = leftnavButton
         
-        searchBar.showsCancelButton = false
+        searchBar.showsCancelButton = true
         
         addFirstResponder()
         
@@ -173,6 +178,10 @@ extension SearchViewController : DismissKeyboardProtocol{
     }
 }
 extension SearchViewController : UISearchBarDelegate{
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.resignFirstResponder()
+    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         

@@ -11,6 +11,13 @@ import ionicons
 import Realm
 import RealmSwift
 
+
+enum CellIdentifierMyAccount : String{
+    case FBFriends = "FBFriendViewMyAccount"
+    case PlaceHolder = "PlaceHolderViewMyAccount"
+    case AddToEscape = "AddToEscapeViewMyAccount"
+}
+
 class MyProfileViewController: UIViewController {
     
     @IBOutlet weak var editProfileButton: UIButton!
@@ -29,8 +36,8 @@ class MyProfileViewController: UIViewController {
     var firstLoad:Bool = true
     var userId : String?
     
-    var listOfItemType:[ProfileListType] = [.Activity, .Movie, .TvShows, .Books]
-    var listOfTitles:[String] = ["Activity", "Movies", "Tv Shows", "Books"]
+    var listOfItemType:[ProfileListType] = [.Movie, .TvShows, .Books]
+    var listOfTitles:[String] = ["Movies", "Tv Shows", "Books"]
     var tabItems:[TabButton] = []
     var isFollow:Bool = false
     var profileItemUpdateNotification:NotificationToken?
@@ -38,6 +45,7 @@ class MyProfileViewController: UIViewController {
     fileprivate var _profileList:Results<ProfileList>?
     
     fileprivate var _otherUserProfileList:[ProfileListType:[ProfileList]] = [:]
+    
     
     var profileListData: [ProfileList] {
         get {
@@ -53,10 +61,11 @@ class MyProfileViewController: UIViewController {
                     return otherUserProfile
                 }
             } else {
-            
+                
                 lastSelectedIndex = currentSelectedIndex
                 
-                if isLoggedInUser() {
+                
+                if isLoggedInUser() && listItem != .Activity {
                     self._profileList = MyAccountDataProvider.sharedDataProvider.getProfileList(listItem, forUserId: userId)
                     profileItemUpdateNotification = _profileList!.addNotificationBlock { [weak self] (changes: RealmCollectionChange) in
                         guard let tableView = self?.tableView else { return }
@@ -83,6 +92,7 @@ class MyProfileViewController: UIViewController {
                         return otherUserProfile
                     }
                 }
+                
             }
             
             
@@ -92,7 +102,7 @@ class MyProfileViewController: UIViewController {
     }
     
     
-    var currentSelectedIndex = 1
+    var currentSelectedIndex = 0
     var lastSelectedIndex = -1
     
     var sectionLoadedOnce = false
@@ -103,10 +113,22 @@ class MyProfileViewController: UIViewController {
         }
     }
     
+    
+    var cardsTypeArray: [CellIdentifierMyAccount] = [.FBFriends, .PlaceHolder, .AddToEscape]
+    
+    func initXibs(){
+        
+        for cardType in cardsTypeArray{
+            tableView.register(UINib(nibName: cardType.rawValue, bundle: nil), forCellReuseIdentifier: cardType.rawValue)
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setVisuals()
+        initXibs()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
@@ -115,8 +137,9 @@ class MyProfileViewController: UIViewController {
         } else {
             NotificationCenter.default.addObserver(self, selector: #selector(MyProfileViewController.otherUserData(_:)), name: NSNotification.Name(rawValue: NotificationObservers.GetProfileDetailsObserver.rawValue), object: nil)
             
-            NotificationCenter.default.addObserver(self, selector: #selector(MyProfileViewController.receivedListData(_:)), name: NSNotification.Name(rawValue: NotificationObservers.OtherUserProfileListFetchObserver.rawValue), object: nil)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(MyProfileViewController.receivedListData(_:)), name: NSNotification.Name(rawValue: NotificationObservers.OtherUserProfileListFetchObserver.rawValue), object: nil)
         
     }
     
@@ -131,6 +154,10 @@ class MyProfileViewController: UIViewController {
         
         MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
         MyAccountDataProvider.sharedDataProvider.getUserDetails(userId)
+        
+        
+        tableView.estimatedRowHeight = 250
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         ScreenVader.sharedVader.hideTabBar(false)
         let listItem = listOfItemType[currentSelectedIndex]
@@ -268,14 +295,51 @@ class MyProfileViewController: UIViewController {
     
     func receivedListData(_ notification:Notification) {
         if let userInfo = notification.userInfo {
+            
+            
             if let listType = userInfo["type"] as? String, let listTypePresent = ProfileListType(rawValue: listType) {
+                
                 if let listData = userInfo["data"] as? ProfileList {
-                    self._otherUserProfileList[listTypePresent] = [listData]
+                    let userIdForData = listData.userId
+                    if let userId = self.userId, userId == userIdForData {
+                        
+                        self._otherUserProfileList[listTypePresent] = [listData]
+                        self.tableView.reloadData()
+                        
+                    } else if isLoggedInUser() && listTypePresent == .Activity {
+                        
+                        self._otherUserProfileList[listTypePresent] = [listData]
+                        self.tableView.reloadData()
+                    }
                 }
                 
-                self.tableView.reloadData()
             }
         }
+    }
+    
+    
+    
+    func configureFBFriendCell(_ tableView : UITableView , indexPath : IndexPath, data: FBFriendCard) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifierMyAccount.FBFriends.rawValue) as! FBFriendsTableViewCell
+        cell.friendItems = data
+        cell.indexPath = indexPath
+        return cell
+    }
+    
+    func configurePlaceHolderCell(_ tableView : UITableView, indexPath : IndexPath) -> UITableViewCell{
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifierMyAccount.PlaceHolder.rawValue, for: indexPath)
+        
+        return cell
+    }
+    
+    func configureAddToEscapeCell(_ tableView : UITableView, indexPath : IndexPath, data: AddToEscapeCard) -> UITableViewCell{
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifierMyAccount.AddToEscape.rawValue, for: indexPath) as! AddToEscapeTableViewCell
+        
+        cell.indexPath = indexPath
+        cell.escapeItems = data
+        return cell
     }
     
     func setVisuals() {
@@ -370,7 +434,7 @@ class MyProfileViewController: UIViewController {
     }
     
     @IBAction func editProfileButtonTapped(_ sender: AnyObject) {
-       
+        
     }
 }
 
@@ -395,7 +459,7 @@ extension MyProfileViewController: UITableViewDelegate {
         self.tabItems = []
         
         let topLineView = UIView(frame: CGRect(x: 0, y: 4, width: headerView.frame.size.width, height: 1.0))
-            topLineView.backgroundColor = UIColor.hairlineGrayColor()
+        topLineView.backgroundColor = UIColor.hairlineGrayColor()
         headerView.addSubview(topLineView)
         
         for (index,aListTitle) in listOfTitles.enumerated() {
@@ -438,6 +502,32 @@ extension MyProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let selectedProfileItem = profileItemsForSelectedTab()[indexPath.row]
+        
+        if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.userStory {
+            if let storyCard = selectedProfileItem.associatedStoryCard, let storyType = storyCard.storyType {
+                
+                switch storyType {
+                    
+                case .fbFriendFollow:
+                    return CellHeight.fbFriends.rawValue
+                    
+                case .addToEscape:
+                    return UITableViewAutomaticDimension
+                    
+                case .recommeded:
+                    return UITableViewAutomaticDimension
+                    
+                case .emptyStory:
+                    return CellHeight.placeHolder.rawValue
+                    
+                default:
+                    return 0
+                    
+                }
+                
+            }
+        }
         return 250
     }
     
@@ -452,12 +542,42 @@ extension MyProfileViewController: UITableViewDataSource {
             return cell
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "escapesSectionHorizontalidentifier") as! CustomListTableViewCell
-        cell.viewAllTapDelegate = self
-        if let cellTitle = selectedProfileItem.title {
-            cell.cellTitleLabel.text = cellTitle+" (\(selectedProfileItem.totalItemsCount))"
+        if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.userStory {
+            if let storyCard = selectedProfileItem.associatedStoryCard, let storyType = storyCard.storyType {
+                
+                switch storyType {
+                    
+                case .fbFriendFollow:
+                    if let fbCard = storyCard as? FBFriendCard {
+                        
+                        return configureFBFriendCell(tableView, indexPath: indexPath, data: fbCard)
+                    }
+                    break
+                case .addToEscape:
+                    if let addToEscapeCard = storyCard as? AddToEscapeCard {
+                        return configureAddToEscapeCell(tableView, indexPath: indexPath, data: addToEscapeCard)
+                    }
+                    break
+                case .recommeded:
+                    if let addToEscapeCard = storyCard as? AddToEscapeCard {
+                        return configureAddToEscapeCell(tableView, indexPath: indexPath, data: addToEscapeCard)
+                    }
+                default:
+                    return configurePlaceHolderCell(tableView, indexPath: indexPath)
+                }
+            }
+        } else {
+            
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "escapesSectionHorizontalidentifier") as! CustomListTableViewCell
+            cell.viewAllTapDelegate = self
+            if let cellTitle = selectedProfileItem.title {
+                cell.cellTitleLabel.text = cellTitle+" (\(selectedProfileItem.totalItemsCount))"
+            }
+            return cell
         }
-        return cell
+        
+        return configurePlaceHolderCell(tableView, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -467,6 +587,8 @@ extension MyProfileViewController: UITableViewDataSource {
         }
         tableViewCell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.row)
     }
+    
+    
     
 }
 

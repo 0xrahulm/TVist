@@ -37,6 +37,7 @@ class HomeViewController: UIViewController {
     var animateOneTime = true
     var presentToast : UIWindow?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -412,26 +412,27 @@ class MyAccountDataProvider: CommonDataProvider {
 extension MyAccountDataProvider {
     
     func updateProfileListWith(_ data: [String: AnyObject]) {
-        guard let listType = data["list_type"] as? String,
-            let _ = ProfileListType(rawValue: listType),
+        guard let listTypeStr = data["list_type"] as? String,
+            let listType = ProfileListType(rawValue: listTypeStr),
             let userId = data["user_id"] as? String,
             let listData = data["list_data"] as? [[String:AnyObject]] else {
                 return
         }
         
         
-        if let currentUser = currentUser, let currentUserId = currentUser.id, currentUserId == userId {
+        if let currentUser = currentUser, let currentUserId = currentUser.id, currentUserId == userId, listType != .Activity {
             
-            RealmDataVader.sharedVader.writeOrUpdateProfileList(userId, type: listType, listData: listData)
+            RealmDataVader.sharedVader.writeOrUpdateProfileList(userId, type: listTypeStr, listData: listData)
         } else {
             
             let profileList = ProfileList()
-            profileList.type = listType
+            profileList.type = listTypeStr
             profileList.userId = userId
             profileList.parseDataNoRealm(listData)
             
-            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.OtherUserProfileListFetchObserver.rawValue), object: nil, userInfo: ["type":listType, "data":profileList])
+            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.OtherUserProfileListFetchObserver.rawValue), object: nil, userInfo: ["type":listTypeStr, "data":profileList])
         }
+        
     }
     
     func parseUserDetails(_ dict: [String:AnyObject], userId: String?){

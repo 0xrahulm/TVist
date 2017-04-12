@@ -87,9 +87,9 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
                         like = "like"
                     }
                     
-                    self.likesLabel.text = "\(escapeItems.likesCount) \(like)"
+                  //  self.likesLabel.text = "\(escapeItems.likesCount) \(like)"
                 }else{
-                    self.likesLabel.text = ""
+                    //self.likesLabel.text = ""
                 }
                 
                 if escapeItems.commentsCount > 0{
@@ -98,9 +98,9 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
                         comment = "comment"
                     }
                     
-                    self.commentLabel.text = "\(escapeItems.commentsCount) \(comment)"
+                  //  self.commentLabel.text = "\(escapeItems.commentsCount) \(comment)"
                 }else{
-                    self.commentLabel.text = ""
+                  //  self.commentLabel.text = ""
                 }
                 
                 if escapeItems.shareCount > 0{
@@ -109,9 +109,9 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
                         comment = "share"
                     }
                     
-                    self.sharesLabel.text = "\(escapeItems.shareCount) \(comment)"
+                  //  self.sharesLabel.text = "\(escapeItems.shareCount) \(comment)"
                 }else{
-                    self.sharesLabel.text = ""
+                  //  self.sharesLabel.text = ""
                 }
                 
                 if let timeStamp = escapeItems.timestamp{
@@ -123,21 +123,21 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
                 }
                 
                 if escapeItems.isLiked{
-                    likeButton.isSelected = true
+//                    likeButton.isSelected = true
                 }else{
-                    likeButton.isSelected = false
+//                    likeButton.isSelected = false
                 }
                 
                 if escapeItems.isShared{
-                    shareButton.isSelected = true
+//                    shareButton.isSelected = true
                 }else{
-                    shareButton.isSelected = false
+//                    shareButton.isSelected = false
                 }
                 
                 if escapeItems.isCommented{
-                    commentButton.isSelected = true
+//                    commentButton.isSelected = true
                 }else{
-                    commentButton.isSelected = false
+//                    commentButton.isSelected = false
                 }
                 
                 self.collectionDataArray = escapeItems.items

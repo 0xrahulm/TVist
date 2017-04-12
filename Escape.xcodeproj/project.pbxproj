@@ -58,6 +58,12 @@
 		84B2E1671E98CB43003CF36A /* EditEscapeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E1631E98CB43003CF36A /* EditEscapeViewController.xib */; };
 		84B2E1691E99187D003CF36A /* RelatedPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2E1681E99187D003CF36A /* RelatedPeopleView.swift */; };
 		84B2E16A1E99187D003CF36A /* RelatedPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B2E1681E99187D003CF36A /* RelatedPeopleView.swift */; };
+		84B2E16F1E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E16C1E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib */; };
+		84B2E1701E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E16C1E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib */; };
+		84B2E1711E9E3D83003CF36A /* FBFriendViewMyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E16D1E9E3D83003CF36A /* FBFriendViewMyAccount.xib */; };
+		84B2E1721E9E3D83003CF36A /* FBFriendViewMyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E16D1E9E3D83003CF36A /* FBFriendViewMyAccount.xib */; };
+		84B2E1731E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E16E1E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib */; };
+		84B2E1741E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E16E1E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib */; };
 		84DD655C1DD9BF1300C35EBE /* BaseDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD655B1DD9BF1300C35EBE /* BaseDataItem.swift */; };
 		84DD655D1DD9BF1300C35EBE /* BaseDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD655B1DD9BF1300C35EBE /* BaseDataItem.swift */; };
 		84DD655F1DDB2B4000C35EBE /* CustomNavigationAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD655E1DDB2B4000C35EBE /* CustomNavigationAnimationController.swift */; };
@@ -346,6 +352,9 @@
 		84B2E1621E98CB43003CF36A /* EditEscapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditEscapeViewController.swift; sourceTree = "<group>"; };
 		84B2E1631E98CB43003CF36A /* EditEscapeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditEscapeViewController.xib; sourceTree = "<group>"; };
 		84B2E1681E99187D003CF36A /* RelatedPeopleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelatedPeopleView.swift; sourceTree = "<group>"; };
+		84B2E16C1E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddToEscapeViewMyAccount.xib; path = Xibs/AddToEscapeViewMyAccount.xib; sourceTree = "<group>"; };
+		84B2E16D1E9E3D83003CF36A /* FBFriendViewMyAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FBFriendViewMyAccount.xib; path = Xibs/FBFriendViewMyAccount.xib; sourceTree = "<group>"; };
+		84B2E16E1E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlaceHolderViewMyAccount.xib; path = Xibs/PlaceHolderViewMyAccount.xib; sourceTree = "<group>"; };
 		84DD655B1DD9BF1300C35EBE /* BaseDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseDataItem.swift; sourceTree = "<group>"; };
 		84DD655E1DDB2B4000C35EBE /* CustomNavigationAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationAnimationController.swift; sourceTree = "<group>"; };
 		84DD65611DDB470600C35EBE /* CustomInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInteractionController.swift; sourceTree = "<group>"; };
@@ -593,6 +602,7 @@
 		84B2E1601E97B9B1003CF36A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				84B2E16B1E9E3D2F003CF36A /* Xibs */,
 				84B2E15D1E97B99C003CF36A /* SimilarEscapesView.swift */,
 				84B2E1681E99187D003CF36A /* RelatedPeopleView.swift */,
 			);
@@ -608,6 +618,16 @@
 			);
 			name = EditEscape;
 			path = ../EditEscape;
+			sourceTree = "<group>";
+		};
+		84B2E16B1E9E3D2F003CF36A /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				84B2E16C1E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib */,
+				84B2E16D1E9E3D83003CF36A /* FBFriendViewMyAccount.xib */,
+				84B2E16E1E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib */,
+			);
+			name = Xibs;
 			sourceTree = "<group>";
 		};
 		AC7D7AC54D1ADD5CE158A875 /* Pods */ = {
@@ -1129,7 +1149,9 @@
 			files = (
 				BC1099701E1275C10036CA75 /* WhatsYourEscape.xib in Resources */,
 				BC10997F1E127C570036CA75 /* PlaceHolderView.xib in Resources */,
+				84B2E16F1E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib in Resources */,
 				BC4B56371D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
+				84B2E1711E9E3D83003CF36A /* FBFriendViewMyAccount.xib in Resources */,
 				BC85DBFE1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				84A484091DEDE07100DAC553 /* GenericLists.storyboard in Resources */,
 				BC1A1D021DF449A10024CC06 /* AddToEscapeViewController.xib in Resources */,
@@ -1149,6 +1171,7 @@
 				BC2A73181CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730E1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A11CA5626000FF8678 /* MainTab.storyboard in Resources */,
+				84B2E1731E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib in Resources */,
 				BC6ED7B81E4C91E600DCF838 /* SuggestedPeopleCollectionView.xib in Resources */,
 				84B2E1661E98CB43003CF36A /* EditEscapeViewController.xib in Resources */,
 				BC1099731E1276F60036CA75 /* ArticleView.xib in Resources */,
@@ -1162,7 +1185,9 @@
 			files = (
 				BC1099711E1275C10036CA75 /* WhatsYourEscape.xib in Resources */,
 				BC1099801E127C570036CA75 /* PlaceHolderView.xib in Resources */,
+				84B2E1701E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib in Resources */,
 				BC4B56381D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
+				84B2E1721E9E3D83003CF36A /* FBFriendViewMyAccount.xib in Resources */,
 				BC85DBFF1CA6D3E0002237A4 /* MyAccount.storyboard in Resources */,
 				84A4840A1DEDE07100DAC553 /* GenericLists.storyboard in Resources */,
 				BC1A1D031DF449A10024CC06 /* AddToEscapeViewController.xib in Resources */,
@@ -1182,6 +1207,7 @@
 				BC2A73191CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
 				BC2A730F1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A21CA5626000FF8678 /* MainTab.storyboard in Resources */,
+				84B2E1741E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib in Resources */,
 				BC6ED7B91E4C91E600DCF838 /* SuggestedPeopleCollectionView.xib in Resources */,
 				84B2E1671E98CB43003CF36A /* EditEscapeViewController.xib in Resources */,
 				BC1099741E1276F60036CA75 /* ArticleView.xib in Resources */,

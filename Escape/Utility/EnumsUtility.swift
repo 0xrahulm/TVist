@@ -51,6 +51,7 @@ enum ProfileItemType: Int {
     case showLoading = -1
     case escapeList = 0
     case maybeSeen = 1
+    case userStory = 2
 }
 
 enum ProfileListType: String {

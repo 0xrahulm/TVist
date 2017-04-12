@@ -8,14 +8,18 @@
 
 import UIKit
 
-class CustomDoneButton: RNLoadingButton {
+class CustomDoneButton: UIButton {
     
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.hideTextWhenLoading = false
-        self.isLoading = false
-        self.activityIndicatorAlignment = .right
+        
+        activityIndicator.hidesWhenStopped = true
+        
+        activityIndicator.center = CGPoint(x: 15, y: self.frame.size.height/2)
+        
+        self.addSubview(activityIndicator)
     }
     
     var enableButton: Bool {
@@ -26,15 +30,34 @@ class CustomDoneButton: RNLoadingButton {
             self.isEnabled = newValue
             
             if(newValue) {
-                self.alpha = 1.0
+                self.backgroundColor = UIColor.escapeBlueColor()
             } else {
-                self.alpha = 0.6
+                self.backgroundColor = UIColor.buttonGrayColor()
             }
         }
     }
     
+    var _loading: Bool = false
     
-
+    var isLoading: Bool {
+        get {
+            return self._loading
+        }
+        set {
+            self._loading = newValue
+            
+            if newValue {
+                enableButton = false
+                activityIndicator.startAnimating()
+            } else {
+                
+                enableButton = true
+                activityIndicator.stopAnimating()
+            }
+        }
+        
+    }
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
