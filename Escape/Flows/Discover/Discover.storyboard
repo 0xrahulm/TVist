@@ -24,7 +24,7 @@
         <scene sceneID="vke-Jz-aAL">
             <objects>
                 <navigationController id="kT6-6P-YD2" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dMZ-XA-j3Z">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dMZ-XA-j3Z">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -351,7 +351,7 @@
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QCd-3c-lb0">
-                                                    <rect key="frame" x="270" y="22" width="90" height="26"/>
+                                                    <rect key="frame" x="270" y="21.5" width="90" height="27"/>
                                                     <color key="backgroundColor" red="0.050980392159999999" green="0.83921568629999999" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="tzo-QD-1N8"/>
@@ -408,16 +408,22 @@
                                     <outlet property="delegate" destination="fFD-Wr-voq" id="Jn7-2a-Uv9"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="NoM-7p-EkO">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="j7A-Vx-8z3" secondAttribute="trailing" id="1qI-EI-0ZH"/>
                             <constraint firstItem="j7A-Vx-8z3" firstAttribute="leading" secondItem="EVA-gU-iWi" secondAttribute="leading" id="AYN-R2-rxF"/>
                             <constraint firstItem="43S-jk-O9h" firstAttribute="top" secondItem="j7A-Vx-8z3" secondAttribute="bottom" id="HYw-T3-ez2"/>
+                            <constraint firstItem="NoM-7p-EkO" firstAttribute="centerY" secondItem="EVA-gU-iWi" secondAttribute="centerY" id="RdT-Si-RDs"/>
+                            <constraint firstItem="NoM-7p-EkO" firstAttribute="centerX" secondItem="EVA-gU-iWi" secondAttribute="centerX" id="Uq7-Kb-uYd"/>
                             <constraint firstItem="j7A-Vx-8z3" firstAttribute="top" secondItem="XbU-pM-HPl" secondAttribute="bottom" id="vpj-Rm-B7q"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loadingView" destination="NoM-7p-EkO" id="BjS-tP-cqr"/>
                         <outlet property="tableView" destination="j7A-Vx-8z3" id="RcT-Qw-4Ye"/>
                     </connections>
                 </viewController>

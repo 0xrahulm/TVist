@@ -47,7 +47,7 @@
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xI-9X-JOt">
                                         <rect key="frame" x="125" y="0.0" width="125" height="50"/>
-                                        <state key="normal" image="tab_add_escape"/>
+                                        <state key="normal" image="tab_add_off"/>
                                         <state key="selected" image="tab_add_escape"/>
                                         <connections>
                                             <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="u3D-oO-3Yl"/>
@@ -108,6 +108,7 @@
     </scenes>
     <resources>
         <image name="tab_add_escape" width="28" height="28"/>
+        <image name="tab_add_off" width="16" height="16"/>
         <image name="tab_discover" width="28" height="28"/>
         <image name="tab_discover_on" width="28" height="28"/>
         <image name="tab_home" width="28" height="28"/>

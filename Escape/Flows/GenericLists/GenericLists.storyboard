@@ -375,16 +375,22 @@
                                     <outlet property="delegate" destination="MKd-Un-aZN" id="AaC-Ce-fgZ"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Lbp-Gb-dh5">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NtR-og-TV2" firstAttribute="leading" secondItem="m4l-uE-qg0" secondAttribute="leading" id="83O-Rf-PVJ"/>
                             <constraint firstItem="llx-R0-UTC" firstAttribute="top" secondItem="NtR-og-TV2" secondAttribute="bottom" id="FO8-UC-JYB"/>
+                            <constraint firstItem="Lbp-Gb-dh5" firstAttribute="centerY" secondItem="m4l-uE-qg0" secondAttribute="centerY" id="JUb-Rc-xXI"/>
+                            <constraint firstItem="Lbp-Gb-dh5" firstAttribute="centerX" secondItem="m4l-uE-qg0" secondAttribute="centerX" id="SVC-7e-Me3"/>
                             <constraint firstItem="NtR-og-TV2" firstAttribute="top" secondItem="peC-P2-fvD" secondAttribute="bottom" id="k8j-jJ-ZNZ"/>
                             <constraint firstAttribute="trailing" secondItem="NtR-og-TV2" secondAttribute="trailing" id="rcf-KO-vN8"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loadingView" destination="Lbp-Gb-dh5" id="McG-WV-Mh7"/>
                         <outlet property="tableView" destination="NtR-og-TV2" id="xMA-Xg-bCo"/>
                     </connections>
                 </viewController>

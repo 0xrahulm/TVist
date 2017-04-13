@@ -346,8 +346,8 @@ class MyProfileViewController: UIViewController {
         
         if isLoggedInUser() {
             
-            let settingImage = IonIcons.image(withIcon: ion_ios_settings_strong, size: 22, color: UIColor.themeColorBlack())
-            let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(MyProfileViewController.settingsTapped))
+            let settingImage = IonIcons.image(withIcon: ion_android_notifications, size: 22, color: UIColor.themeColorBlack())
+            let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(MyProfileViewController.notificationTapped))
             
             self.navigationItem.rightBarButtonItem = settingButton
             
@@ -374,6 +374,11 @@ class MyProfileViewController: UIViewController {
     
     func isLoggedInUser() -> Bool {
         return self.userId == nil
+    }
+    
+    func notificationTapped(){
+        ScreenVader.sharedVader.performScreenManagerAction(.OpenNotificationView, queryParams: nil)
+        
     }
     
     func settingsTapped() {
@@ -433,7 +438,13 @@ class MyProfileViewController: UIViewController {
         }
     }
     
+    @IBAction func escapeViewTapped(_ sender: UITapGestureRecognizer) {
+        
+        tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        
+    }
     @IBAction func editProfileButtonTapped(_ sender: AnyObject) {
+        settingsTapped()
         
     }
 }
@@ -458,7 +469,7 @@ extension MyProfileViewController: UITableViewDelegate {
         
         self.tabItems = []
         
-        let topLineView = UIView(frame: CGRect(x: 0, y: 4, width: headerView.frame.size.width, height: 1.0))
+        let topLineView = UIView(frame: CGRect(x: 0, y: 0, width: headerView.frame.size.width, height: 1.0))
         topLineView.backgroundColor = UIColor.hairlineGrayColor()
         headerView.addSubview(topLineView)
         
@@ -528,7 +539,7 @@ extension MyProfileViewController: UITableViewDataSource {
                 
             }
         }
-        return 250
+        return 270
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

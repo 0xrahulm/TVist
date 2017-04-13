@@ -17,6 +17,7 @@ class DiscoverAllViewController: UIViewController {
     var callFurther = true
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var loadingView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class DiscoverAllViewController: UIViewController {
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 120, 0)
         dataArray = []
         tableView.reloadData()
+        loadingView.startAnimating()
         
        NotificationCenter.default.addObserver(self, selector: #selector(DiscoverAllViewController.receivedNotification(_:)), name: NSNotification.Name(rawValue: NotificationObservers.DiscoverObserver.rawValue), object: nil)
         
@@ -52,6 +54,7 @@ class DiscoverAllViewController: UIViewController {
     }
     
     func receivedNotification(_ notification : Notification){
+        loadingView.stopAnimating()
         if let dict = notification.object as? [String:AnyObject]{
             if let type = dict["type"] as? String, let discoverType = DiscoverType(rawValue: type) {
                 if self.type == discoverType{

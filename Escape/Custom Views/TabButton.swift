@@ -18,8 +18,8 @@ class TabButton: UIButton {
     }
     
     func setTabTitle(_ title: String, type: ProfileListType) {
-        setAttributedTitle(SFUIAttributedText.semiBoldAttributedTextForString(title, size: 12, color: UIColor.textGrayColor()), for: UIControlState())
-        setAttributedTitle(SFUIAttributedText.semiBoldAttributedTextForString(title, size: 12, color: UIColor.escapeRedColor()), for: .selected)
+        setAttributedTitle(SFUIAttributedText.semiBoldAttributedTextForString(title, size: 13, color: UIColor.textGrayColor()), for: UIControlState())
+        setAttributedTitle(SFUIAttributedText.semiBoldAttributedTextForString(title, size: 13, color: UIColor.escapeRedColor()), for: .selected)
         
         setImage(UIImage(named: type.rawValue), for: UIControlState())
         setImage(UIImage(named: type.rawValue+"_selected"), for: .selected)

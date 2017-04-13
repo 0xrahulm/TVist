@@ -56,5 +56,6 @@ class CustomListTableViewCell: UITableViewCell {
             viewAllTapDelegate.viewAllTappedIn(self)
         }
     }
+    
 
 }

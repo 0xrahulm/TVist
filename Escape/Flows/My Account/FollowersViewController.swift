@@ -19,6 +19,7 @@ class FollowersViewController: UIViewController {
     var storyId : String? // for story linked objects
     var txtField: UITextField!
     
+    @IBOutlet weak var loadingView: UIActivityIndicatorView!
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         if let userType = queryParams["userType"]{
             self.userType = UserType(rawValue :  Int(userType as! NSNumber))
@@ -37,7 +38,7 @@ class FollowersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        loadingView.startAnimating()
         MyAccountDataProvider.sharedDataProvider.followersDelegate = self
         
         if userType == .followers {
@@ -166,7 +167,7 @@ extension FollowersViewController : UITableViewDelegate , UITableViewDataSource{
 }
 extension FollowersViewController : FollowersProtocol{
     func recievedFollowersData(_ data: [MyAccountItems], userType: UserType) {
-        
+        loadingView.stopAnimating()
         if self.userType == userType{
             dataArray = data
             tableView.reloadData()

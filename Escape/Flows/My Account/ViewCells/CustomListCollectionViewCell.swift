@@ -18,6 +18,8 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var ratingLabel: UILabel!
     
+    @IBOutlet weak var maxRatingLabel: UILabel!
+    @IBOutlet weak var ratedImage: UIImageView!
     var dataItems : EscapeItem? {
         didSet{
             if let dataItems = dataItems{
@@ -36,9 +38,20 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                     ratingLabel.text = rating
                     
                     ratingLabel.isHidden = false
+                    if maxRatingLabel != nil && ratedImage != nil{
+                        maxRatingLabel.isHidden = false
+                        ratedImage.isHidden = false
+                    }
+                   
                     
                 }else{
                     ratingLabel.isHidden = true
+                    if maxRatingLabel != nil && ratedImage != nil{
+                        maxRatingLabel.isHidden = true
+                        ratedImage.isHidden = true
+                    }
+                    
+                    
                 }
                 
             }

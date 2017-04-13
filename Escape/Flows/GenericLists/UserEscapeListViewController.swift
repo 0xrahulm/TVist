@@ -22,6 +22,7 @@ class UserEscapeListViewController: GenericListViewController {
     var listItems:[EscapeItem] = []
     
     
+    @IBOutlet weak var loadingView: UIActivityIndicatorView!
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         if let escapeTypeStr = queryParams["escapeType"] as? String, let escapeType = EscapeType(rawValue: escapeTypeStr)  {
             self.escapeType = escapeType
@@ -47,6 +48,7 @@ class UserEscapeListViewController: GenericListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadingView.startAnimating()
         
     }
     
@@ -57,6 +59,8 @@ class UserEscapeListViewController: GenericListViewController {
         
         if listItems.count == 0 {
             loadNexPage()
+        }else{
+            loadingView.stopAnimating()
         }
     }
     
@@ -91,6 +95,8 @@ class UserEscapeListViewController: GenericListViewController {
 
 extension UserEscapeListViewController: EscapeListDataProtocol {
     func receivedEscapeListData(_ escapeData: [EscapeItem], page: Int?, escapeType: String?, escapeAction: String?, userId: String?) {
+        
+        loadingView.stopAnimating()
         
         if self.userId == userId {
             

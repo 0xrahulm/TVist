@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -48,17 +48,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ET-NG-7Ap">
-                                <rect key="frame" x="10" y="87" width="105" height="14.5"/>
+                                <rect key="frame" x="10" y="87" width="105" height="14"/>
                                 <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="12"/>
                                 <color key="textColor" red="0.59607843137254901" green="0.64313725490196072" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LtH-fr-ezC">
-                                <rect key="frame" x="17.5" y="233" width="90" height="27"/>
+                                <rect key="frame" x="10" y="233" width="105" height="27"/>
                                 <color key="backgroundColor" red="0.050980392159999999" green="0.83921568629999999" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="90" id="fJP-Zl-XXH"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="12"/>
                                 <state key="normal" title="+ FOLLOW">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -77,6 +74,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="1ET-NG-7Ap" secondAttribute="trailing" constant="10" id="4kp-2r-YNo"/>
                             <constraint firstItem="1ET-NG-7Ap" firstAttribute="leading" secondItem="BJs-r5-mCK" secondAttribute="leading" constant="10" id="AQf-z1-7ni"/>
+                            <constraint firstItem="LtH-fr-ezC" firstAttribute="leading" secondItem="BJs-r5-mCK" secondAttribute="leading" constant="10" id="NsK-oj-Byj"/>
                             <constraint firstItem="LtH-fr-ezC" firstAttribute="centerX" secondItem="BJs-r5-mCK" secondAttribute="centerX" id="Qwb-VT-FQD"/>
                             <constraint firstItem="bGy-99-mvI" firstAttribute="centerX" secondItem="BJs-r5-mCK" secondAttribute="centerX" id="RpI-Ld-9yb"/>
                             <constraint firstAttribute="bottom" secondItem="LtH-fr-ezC" secondAttribute="bottom" constant="10" id="baz-NS-WR0"/>
@@ -86,6 +84,7 @@
                             <constraint firstItem="bGy-99-mvI" firstAttribute="top" secondItem="e0Y-mw-xZs" secondAttribute="bottom" constant="10" id="qeo-7g-Nwr"/>
                             <constraint firstItem="bGy-99-mvI" firstAttribute="leading" secondItem="BJs-r5-mCK" secondAttribute="leading" constant="10" id="v6v-RG-3JE"/>
                             <constraint firstItem="e0Y-mw-xZs" firstAttribute="top" secondItem="BJs-r5-mCK" secondAttribute="top" constant="10" id="voG-Yu-dBu"/>
+                            <constraint firstAttribute="trailing" secondItem="LtH-fr-ezC" secondAttribute="trailing" constant="10" id="wGm-GS-K9f"/>
                             <constraint firstItem="1ET-NG-7Ap" firstAttribute="centerX" secondItem="BJs-r5-mCK" secondAttribute="centerX" id="yFR-pd-EY4"/>
                         </constraints>
                     </view>

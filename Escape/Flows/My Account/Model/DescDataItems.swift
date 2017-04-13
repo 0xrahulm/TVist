@@ -14,6 +14,7 @@ class DescDataItems: NSObject {
     var name: String?
     var subtitle: String?
     var image: String?
+    var backDropImage : String?
     var desc: String?
     var releaseYear: String?
     var rating: NSNumber?
@@ -43,6 +44,7 @@ class DescDataItems: NSObject {
                 self.id = dict["id"] as? String
                 self.subtitle = dict["subtitle"] as? String
                 self.image = dict["poster_image"] as? String
+                self.backDropImage = dict["backdrop_image"] as? String
                 self.desc = dict["description"] as? String
                 self.releaseYear = dict["release_year"] as? String
                 self.escapeType = dict["escape_type"] as? String

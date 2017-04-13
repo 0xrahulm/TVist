@@ -80,8 +80,8 @@ class MyAccountViewController: UIViewController{
     
     
     func setVisuals(){
-        let settingImage = IonIcons.image(withIcon: ion_ios_settings_strong, size: 22, color: UIColor.themeColorBlack())
-        let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(MyAccountViewController.settingTapped))
+        let settingImage = IonIcons.image(withIcon: ion_android_notifications, size: 22, color: UIColor.themeColorBlack())
+        let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(MyAccountViewController.notificationTapped))
         
         self.navigationItem.rightBarButtonItem = settingButton
         editProfileButton.layer.borderColor = UIColor.textGrayColor().cgColor
@@ -95,6 +95,10 @@ class MyAccountViewController: UIViewController{
                 editProfileButton.unfollowViewWithAnimate(false)
             }
         }
+    }
+    
+    func notificationTapped(){
+        
     }
     
     func settingTapped(){
@@ -232,6 +236,8 @@ class MyAccountViewController: UIViewController{
                 editProfileButton.followViewWithAnimate(true)
                 UserDataProvider.sharedDataProvider.followUser(userId)
             }
+        }else{
+            settingTapped()
         }
     }
     

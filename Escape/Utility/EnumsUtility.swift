@@ -25,6 +25,7 @@ enum ScreenManagerAction : String {
     case OpenUserEscapesList = "UserEscapeList"
     case OpenFriendsView = "OpenFriendsView"
     case OpenSingleStoryView = "story"
+    case OpenNotificationView = "openNotificationView"
 }
 
 enum StoryBoardIdentifier : String{

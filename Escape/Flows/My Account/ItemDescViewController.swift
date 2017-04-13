@@ -113,9 +113,9 @@ class ItemDescViewController: UIViewController {
     
     func updateButtonStatus() {
         if escapeAlreadyAdded {
-            self.addEditEscapeButton.setTitle("...", for: .normal)
+            self.addEditEscapeButton.setTitle("Edit", for: .normal)
         } else {
-            self.addEditEscapeButton.setTitle("+", for: .normal)
+            self.addEditEscapeButton.setTitle("+ Add", for: .normal)
         }
     }
     

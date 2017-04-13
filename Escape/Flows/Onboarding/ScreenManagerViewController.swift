@@ -304,6 +304,9 @@ extension ScreenManagerViewController{
             openSingleStory(params)
             break
             
+        case .OpenNotificationView:
+            openNotificationVC()
+            
         default:
             break
         }
@@ -373,6 +376,9 @@ extension ScreenManagerViewController{
     
     func openSingleStory(_ params : [String:Any]?){
          pushViewControllerOf(.Home, viewControllerIdentifier: "singleStoryVC", queryParams: params)
+    }
+    func openNotificationVC(){
+        pushViewControllerOf(.Notifications, viewControllerIdentifier: "notificationVC", queryParams: nil)
     }
     func presentNoNetworkPopUP(){
         
