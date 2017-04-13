@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class MainTabBarViewController: UITabBarController {
     
 
@@ -15,14 +16,12 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
         
         setTabBarAppearance()
-        
 
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         appearTabBar()
-        
     }
     
     func setTabBarAppearance(){

@@ -6,6 +6,7 @@
 //  Copyright © 2016 EscapeApp. All rights reserved.
 //
 
+import UserNotifications
 import UIKit
 
 enum EscapeTabs:Int {
@@ -79,6 +80,25 @@ class CustomTabBarController: UIViewController {
         self.tabBarView.layer.shadowPath = UIBezierPath(rect: self.tabBarView.bounds).cgPath
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        getNotificationPermission()
+    }
+    
+    func getNotificationPermission() {
+        
+        // iOS 10 support
+        if #available(iOS 10, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+            // iOS 9 support
+        else if #available(iOS 9, *) {
+            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+    }
     
     
     func setupViewControllers() {

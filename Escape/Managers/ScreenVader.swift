@@ -14,13 +14,16 @@ class ScreenVader: NSObject {
     
     var screenManagerVC : ScreenManagerViewController?
     
+    var pendingScreenManagerAction: ScreenManagerAction?
+    var pendingQueryParams: [String: Any]?
+    
     func performScreenManagerAction(_ action: ScreenManagerAction, queryParams: [String:Any]?) {
         
         if screenManagerVC != nil {
             screenManagerVC!.performScreenManagerAction(action, params: queryParams)
         } else {
-            //self.pendingScreenManagerAction = action
-            //self.pendingQueryParams = queryParams
+            self.pendingScreenManagerAction = action
+            self.pendingQueryParams = queryParams
         }
     }
     
@@ -28,8 +31,7 @@ class ScreenVader: NSObject {
         if screenManagerVC != nil {
             screenManagerVC!.switchTabForAction(action)
         } else {
-            //self.pendingScreenManagerAction = action
-            //self.pendingQueryParams = queryParams
+            self.pendingScreenManagerAction = action
         }
     }
     func performLogout(){
@@ -59,11 +61,23 @@ class ScreenVader: NSObject {
     
     func processDeepLink(_ deepLinkString : String){
         if let deepLinkUrl = URL(string: deepLinkString) {
-            processDeepLinkUrl(deepLinkUrl)
+            processDeepLinkUrl(deepLinkUrl, shouldAddToPending: false)
         }
     }
     
-    func processDeepLinkUrl(_ deepLinkUrl: URL) {
+    func showAlert(alert: UIAlertController) {
+        if let screenManagerVC = screenManagerVC {
+            screenManagerVC.showAlert(alert: alert)
+        }
+    }
+    
+    func processDeepLink(_ deepLinkString : String, shouldAddToPending: Bool){
+        if let deepLinkUrl = URL(string: deepLinkString) {
+            processDeepLinkUrl(deepLinkUrl, shouldAddToPending: shouldAddToPending)
+        }
+    }
+    
+    func processDeepLinkUrl(_ deepLinkUrl: URL, shouldAddToPending: Bool) {
         let pathString = deepLinkUrl.path
         
         if pathString.characters.count > 0 {
@@ -77,7 +91,12 @@ class ScreenVader: NSObject {
                         
                         let deepLinkQueryParams : [String:Any]? = getQueryParamsForString(deepLinkUrl.query)
                         
-                        performScreenManagerAction(screenManagerAction, queryParams: deepLinkQueryParams)
+                        if shouldAddToPending {
+                            self.pendingScreenManagerAction = screenManagerAction
+                            self.pendingQueryParams = deepLinkQueryParams
+                        } else {
+                            performScreenManagerAction(screenManagerAction, queryParams: deepLinkQueryParams)
+                        }
                 
                     }
                 }

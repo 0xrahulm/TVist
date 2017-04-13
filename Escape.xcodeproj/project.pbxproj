@@ -212,9 +212,7 @@
 		BC3A81A91CA5753000FF8678 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81A81CA5753000FF8678 /* MainTabBarViewController.swift */; };
 		BC3A81AA1CA5753000FF8678 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3A81A81CA5753000FF8678 /* MainTabBarViewController.swift */; };
 		BC47ED821C9FEEC7008143C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED811C9FEEC7008143C2 /* AppDelegate.swift */; };
-		BC47ED8A1C9FEEC8008143C2 /* Escape.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED881C9FEEC8008143C2 /* Escape.xcdatamodeld */; };
 		BC47ED8F1C9FEEC8008143C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC47ED8D1C9FEEC8008143C2 /* LaunchScreen.storyboard */; };
-		BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED881C9FEEC8008143C2 /* Escape.xcdatamodeld */; };
 		BC47ED9A1C9FF233008143C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47ED811C9FEEC7008143C2 /* AppDelegate.swift */; };
 		BC47ED9D1C9FF233008143C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC47ED8D1C9FEEC8008143C2 /* LaunchScreen.storyboard */; };
 		BC47EDB91CA00333008143C2 /* ScreenVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47EDB81CA00333008143C2 /* ScreenVader.swift */; };
@@ -433,7 +431,6 @@
 		BC3A81A81CA5753000FF8678 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		BC47ED7E1C9FEEC7008143C2 /* Escape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Escape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC47ED811C9FEEC7008143C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BC47ED891C9FEEC8008143C2 /* Escape.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Escape.xcdatamodel; sourceTree = "<group>"; };
 		BC47ED8E1C9FEEC8008143C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC47ED901C9FEEC8008143C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC47EDA31C9FF233008143C2 /* Escape copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Escape copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -795,7 +792,6 @@
 				BC47ED811C9FEEC7008143C2 /* AppDelegate.swift */,
 				BC47ED8D1C9FEEC8008143C2 /* LaunchScreen.storyboard */,
 				BC47ED901C9FEEC8008143C2 /* Info.plist */,
-				BC47ED881C9FEEC8008143C2 /* Escape.xcdatamodeld */,
 			);
 			path = Escape;
 			sourceTree = "<group>";
@@ -1114,7 +1110,7 @@
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = GZM8S25H55;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -1360,7 +1356,6 @@
 				BC1842841D535243003CC19A /* FBFriendsTableViewCell.swift in Sources */,
 				84DD65651DDB47F600C35EBE /* Logger.swift in Sources */,
 				BC5188361D8D26DA00A85E61 /* SearchTableViewCell.swift in Sources */,
-				BC47ED8A1C9FEEC8008143C2 /* Escape.xcdatamodeld in Sources */,
 				BC0BBBE11CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
 				BC2A73101CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */,
 				84DD655C1DD9BF1300C35EBE /* BaseDataItem.swift in Sources */,
@@ -1491,7 +1486,6 @@
 				BC1842851D535243003CC19A /* FBFriendsTableViewCell.swift in Sources */,
 				84DD65661DDB47F600C35EBE /* Logger.swift in Sources */,
 				BC5188371D8D26DA00A85E61 /* SearchTableViewCell.swift in Sources */,
-				BC47ED991C9FF233008143C2 /* Escape.xcdatamodeld in Sources */,
 				BC0BBBE21CF1BC1300B03A93 /* DescDataItems.swift in Sources */,
 				BC2A73111CCBF84F007E5DFB /* OnBoardingInterestViewController.swift in Sources */,
 				84DD655D1DD9BF1300C35EBE /* BaseDataItem.swift in Sources */,
@@ -1689,8 +1683,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "5145397e-c7be-4441-8927-4ad231b16e7e";
+				PROVISIONING_PROFILE_SPECIFIER = "Escape Development Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1706,7 +1700,7 @@
 				CODE_SIGN_ENTITLEMENTS = Escape/Escape.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Meena (U5T6338DFM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = GZM8S25H55;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1716,6 +1710,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -1791,19 +1786,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		BC47ED881C9FEEC8008143C2 /* Escape.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				BC47ED891C9FEEC8008143C2 /* Escape.xcdatamodel */,
-			);
-			currentVersion = BC47ED891C9FEEC8008143C2 /* Escape.xcdatamodel */;
-			path = Escape.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = BC47ED761C9FEEC7008143C2 /* Project object */;
 }

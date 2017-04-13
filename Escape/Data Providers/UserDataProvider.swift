@@ -103,6 +103,14 @@ class UserDataProvider: CommonDataProvider {
         ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .AddEscapes, params: params, delegate: self)
     }
     
+    
+    func updateDeviceTokenIfRequired(pushToken: String) {
+        let storedPushToken = LocalStorageVader.sharedVader.valueForStoredKey(.PushToken) as? String ?? ""
+        if storedPushToken != pushToken {
+            ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .UpdatePushToken, params: ["push_token":pushToken], delegate: self)
+        }
+    }
+    
     func followUser(_ id : String){
         var params : [String:Any] = [:]
         params["user_id"] = id
@@ -151,6 +159,11 @@ class UserDataProvider: CommonDataProvider {
                 }
                 break
                 
+            case .UpdatePushToken:
+                if let params = service.parameters, let pushToken = params["push_token"] as? String {
+                    LocalStorageVader.sharedVader.storeValueInKey(.PushToken, value: pushToken)
+                }
+                break
             case .AddEscapes:
                 print("Escape Added")
                 break

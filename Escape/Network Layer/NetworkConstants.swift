@@ -41,6 +41,7 @@ enum SubServiceType : String {
     case FollowUser         =  "follow_user"
     case UnfollowUser       =  "unfollow_user"
     case PostRecommend      =  "users/recommendation"
+    case UpdatePushToken    =  "users/push_token_update"
     
     //Discover
     case GetDiscoverItems = "lets_discover"

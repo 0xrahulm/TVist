@@ -10,7 +10,7 @@ import UIKit
 
 class NotificationItem: NSObject {
     
-    var text :      String?
+    var body :      String?
     var deepLink :  String?
     var timestamp:  NSNumber?
     
@@ -20,16 +20,16 @@ class NotificationItem: NSObject {
         super.init()
         parseData(data)
     }
-    init(text : String?,deepLink :  String?, timestamp:  NSNumber?) {
-        self.text = text
+    init(body: String?,deepLink :  String?, timestamp:  NSNumber?) {
+        self.body = body
         self.deepLink = deepLink
         self.timestamp = timestamp
     }
     
     func parseData(_ data: [[String:AnyObject]]) {
         for dict in data{
-            if let text = dict["text"] as? String{
-                self.items.append(NotificationItem(text : text, deepLink : dict["deeplink"] as? String , timestamp : dict["time"] as? NSNumber))
+            if let body = dict["body"] as? String{
+                self.items.append(NotificationItem(body: body, deepLink : dict["deeplink"] as? String , timestamp : dict["time"] as? NSNumber))
             }
         }
     }

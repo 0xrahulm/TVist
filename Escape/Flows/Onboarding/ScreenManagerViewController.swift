@@ -60,7 +60,16 @@ class ScreenManagerViewController: UIViewController {
                 
             }
             
-            present(currentPresentedViewController, animated: false, completion: nil)
+            present(currentPresentedViewController, animated: false, completion: {
+                if let pendingAction = ScreenVader.sharedVader.pendingScreenManagerAction, storyBoardIdentifier == .MainTab {
+                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                        appDelegate.initializedOnce = true
+                    }
+                    self.performScreenManagerAction(pendingAction, params: ScreenVader.sharedVader.pendingQueryParams)
+                    ScreenVader.sharedVader.pendingScreenManagerAction = nil
+                    ScreenVader.sharedVader.pendingQueryParams = nil
+                }
+            })
             
             if storyBoardIdentifier == .Onboarding{
                 presentedViewControllers = []
@@ -192,6 +201,10 @@ class ScreenManagerViewController: UIViewController {
         if let mainTabVC = currentPresentedViewController as? CustomTabBarController {
             mainTabVC.hideTabBar(hide)
         }
+    }
+    
+    func showAlert(alert: UIAlertController) {
+        currentPresentedViewController.present(alert, animated: true, completion: nil)
     }
     
     func changeStatusBarPreference(_ shouldBeBlack: Bool) {

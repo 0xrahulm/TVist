@@ -48,7 +48,7 @@ extension NotificationViewController : UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "notificationCellIdentifier", for: indexPath) as! NotificationTableViewCell
         let data = dataArray[indexPath.row]
-        if let text = data.text{
+        if let text = data.body{
             cell.titleLabel.text = text
         }else{
             cell.titleLabel.text = ""

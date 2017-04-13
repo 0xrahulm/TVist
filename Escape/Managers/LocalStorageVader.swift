@@ -10,6 +10,7 @@ import UIKit
 
 enum LocalStorageKey:String {
     case InterestsSelected = "InterestsSelected"
+    case PushToken = "PushToken"
 }
 
 class LocalStorageVader: NSObject {
