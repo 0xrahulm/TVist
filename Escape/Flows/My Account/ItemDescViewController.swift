@@ -92,7 +92,7 @@ class ItemDescViewController: UIViewController {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        
+        addEditEscapeButton.isHidden = true
         MyAccountDataProvider.sharedDataProvider.itemDescDelegate = self
         
         if let escapeItem = self.escapeItem {
@@ -245,7 +245,7 @@ class ItemDescViewController: UIViewController {
             escapeAlreadyAdded  = descData.isActed
             
             setVisuals()
-            
+            addEditEscapeButton.isHidden = false
             updateButtonStatus()
         }
         
