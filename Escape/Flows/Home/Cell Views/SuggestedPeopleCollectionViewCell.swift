@@ -15,6 +15,8 @@ class SuggestedPeopleCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var outerView: UIView!
     
+    var isFollow: Bool = false
+    var userId: String?
     var data : MyAccountItems?{
         didSet{
             if let data = data{
@@ -31,6 +33,15 @@ class SuggestedPeopleCollectionViewCell: UICollectionViewCell {
                 self.outerView.layer.borderWidth = 1
                 self.outerView.layer.borderColor = UIColor.placeholderColor().cgColor
                 self.outerView.layer.cornerRadius = 5
+                
+                self.isFollow = data.isFollow
+                self.userId = data.id
+                
+                if data.isFollow {
+                    followButton.followViewWithAnimate(false)
+                }else{
+                    followButton.unfollowViewWithAnimate(false)
+                }
             }
         }
     }
@@ -38,6 +49,18 @@ class SuggestedPeopleCollectionViewCell: UICollectionViewCell {
     
     
     @IBAction func followButtonTapped(_ sender: UIButton) {
+        if let userId = self.userId {
+            
+            if isFollow {
+                followButton.unfollowViewWithAnimate(true)
+                isFollow = false
+                UserDataProvider.sharedDataProvider.unfollowUser(userId)
+            } else {
+                followButton.followViewWithAnimate(true)
+                isFollow = true
+                UserDataProvider.sharedDataProvider.followUser(userId)
+            }
+        }
     }
     
 }

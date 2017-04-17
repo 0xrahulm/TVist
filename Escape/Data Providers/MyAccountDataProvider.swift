@@ -32,12 +32,12 @@ protocol EscapeListDataProtocol: class {
 }
 
 protocol SimilarEscapesProtocol:class {
-    func receivedSimilarEscapes(_ escapeData: [EscapeItem])
+    func receivedSimilarEscapes(_ escapeData: [EscapeItem], page: Int?)
     func failedToReceivedData()
 }
 
 protocol RelatedPeopleProtocol:class {
-    func receivedRelatedPeople(_ relatedPeople: [MyAccountItems])
+    func receivedRelatedPeople(_ relatedPeople: [MyAccountItems], page: Int?)
     func failedToReceivedData()
 }
 
@@ -238,14 +238,14 @@ class MyAccountDataProvider: CommonDataProvider {
                 break
                 
             case .GetSimilarEscape:
-                if let data = service.outPutResponse as? [[String:Any]] {
-                    self.parseSimilarEscapeData(data: data)
+                if let data = service.outPutResponse as? [[String:Any]], let params = service.parameters {
+                    self.parseSimilarEscapeData(data: data, page: params["page"] as? Int)
                 }
                 break
                 
             case .GetRelatedPeople:
-                if let data = service.outPutResponse as? [[String:Any]] {
-                    self.parseRelatedPeopleData(data: data)
+                if let data = service.outPutResponse as? [[String:Any]], let params = service.parameters {
+                    self.parseRelatedPeopleData(data: data, page: params["page"] as? Int)
                 }
                 break
                 
@@ -455,7 +455,7 @@ extension MyAccountDataProvider {
     }
     
     
-    func parseRelatedPeopleData(data: [[String:Any]]) {
+    func parseRelatedPeopleData(data: [[String:Any]], page: Int?) {
         var dataArray:[MyAccountItems] = []
         
         for eachItem in data {
@@ -469,12 +469,12 @@ extension MyAccountDataProvider {
         
         
         if let delegate = self.relatedPeopleDelegate {
-            delegate.receivedRelatedPeople(dataArray)
+            delegate.receivedRelatedPeople(dataArray, page: page)
         }
     }
     
     
-    func parseSimilarEscapeData(data: [[String:Any]]) {
+    func parseSimilarEscapeData(data: [[String:Any]], page: Int?) {
         var dataArray:[EscapeItem] = []
         
         for eachItem in data {
@@ -489,7 +489,7 @@ extension MyAccountDataProvider {
         
         
         if let delegate = self.similarEscapesDelegate {
-            delegate.receivedSimilarEscapes(dataArray)
+            delegate.receivedSimilarEscapes(dataArray, page: page)
         }
     }
     
@@ -582,21 +582,29 @@ extension MyAccountDataProvider {
     }
     
     
-    func getRelatedPeople(escapeId: String) {
+    func getRelatedPeople(escapeId: String, page: Int?) {
         
         var params : [String:Any] = [:]
         params["escape_id"] = escapeId
         
+        if let page = page {
+            params["page"] = page
+        }
+        
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetRelatedPeople, params: params, delegate: self)
     }
     
-    func getSimilarEscapes(escapeId: String, escapeType: EscapeType?) {
+    func getSimilarEscapes(escapeId: String, escapeType: EscapeType?, page: Int?) {
         
         var params : [String:Any] = [:]
         params["escape_id"] = escapeId
         
         if let escapeType = escapeType {
             params["escape_type"] = escapeType.rawValue
+        }
+        
+        if let page = page {
+            params["page"] = page
         }
         
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSimilarEscape, params: params, delegate: self)

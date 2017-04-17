@@ -23,6 +23,7 @@ class SimilarEscapesView: UIView {
     weak var viewAllTapDelegate: SimilarEscapesViewAllTapProtocol?
     
     @IBAction func viewAllTapped(sender: UIButton) {
+        
         if let delegate = self.viewAllTapDelegate {
             delegate.viewAllTappedIn()
         }
@@ -31,7 +32,7 @@ class SimilarEscapesView: UIView {
     func getSimilarEscapesData(escapeId: String, escapeType: EscapeType?) {
         activityIndicator.startAnimating()
         MyAccountDataProvider.sharedDataProvider.similarEscapesDelegate = self
-        MyAccountDataProvider.sharedDataProvider.getSimilarEscapes(escapeId: escapeId, escapeType: escapeType)
+        MyAccountDataProvider.sharedDataProvider.getSimilarEscapes(escapeId: escapeId, escapeType: escapeType, page: nil)
         self.isHidden = false
     }
     
@@ -47,7 +48,7 @@ class SimilarEscapesView: UIView {
 }
 
 extension SimilarEscapesView: SimilarEscapesProtocol {
-    func receivedSimilarEscapes(_ escapeData: [EscapeItem]) {
+    func receivedSimilarEscapes(_ escapeData: [EscapeItem], page: Int?) {
         self.similarEscapes = escapeData
         self.collectionView.reloadData()
         activityIndicator.stopAnimating()

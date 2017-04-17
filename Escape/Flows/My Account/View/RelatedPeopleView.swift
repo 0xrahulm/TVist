@@ -10,7 +10,7 @@ import UIKit
 
 protocol RelatedPeopleViewAllTapProtocol:class {
     
-    func viewAllTappedIn()
+    func viewAllTappedInRelatedPeople()
 }
 
 class RelatedPeopleView: UIView {
@@ -19,7 +19,7 @@ class RelatedPeopleView: UIView {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var collectionDataArray : [MyAccountItems] = []
     
-    weak var viewAllTapDelegate: SimilarEscapesViewAllTapProtocol?
+    weak var viewAllTapDelegate: RelatedPeopleViewAllTapProtocol?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -29,7 +29,7 @@ class RelatedPeopleView: UIView {
     
     @IBAction func viewAllTapped(sender: UIButton) {
         if let delegate = self.viewAllTapDelegate {
-            delegate.viewAllTappedIn()
+            delegate.viewAllTappedInRelatedPeople()
         }
     }
     
@@ -37,14 +37,14 @@ class RelatedPeopleView: UIView {
     func getRelatedPeopleData(escapeId: String) {
         activityIndicator.startAnimating()
         MyAccountDataProvider.sharedDataProvider.relatedPeopleDelegate = self
-        MyAccountDataProvider.sharedDataProvider.getRelatedPeople(escapeId: escapeId)
+        MyAccountDataProvider.sharedDataProvider.getRelatedPeople(escapeId: escapeId, page: nil)
         self.isHidden = false
     }
 
 }
 
 extension RelatedPeopleView: RelatedPeopleProtocol {
-    func receivedRelatedPeople(_ relatedPeople: [MyAccountItems]) {
+    func receivedRelatedPeople(_ relatedPeople: [MyAccountItems], page: Int?) {
         self.collectionDataArray = relatedPeople
         self.collectionView.reloadData()
         self.activityIndicator.stopAnimating()

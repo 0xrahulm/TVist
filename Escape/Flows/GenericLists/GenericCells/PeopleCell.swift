@@ -21,6 +21,33 @@ class PeopleCell: NormalCell {
     var indexPath : IndexPath?
     
     weak var followButtonDelegate : FollowerButtonProtocol?
+    
+    
+    var accountItem: MyAccountItems? {
+        didSet {
+            attachData()
+        }
+    }
+    
+    func attachData() {
+        if let accountItem = self.accountItem {
+            fullNameLabel.text = "\(accountItem.firstName) \(accountItem.lastName)"
+            profilePictureView.downloadImageWithUrl(accountItem.profilePicture, placeHolder: UIImage(named: "profile_placeholder"))
+            
+            followersCountLabel.text = "\(accountItem.followers.intValue) Followers"
+            
+            if let id = self.accountItem?.id {
+                self.userId = id // remove optional from here
+            }
+            self.isFollow = accountItem.isFollow
+            
+            if accountItem.isFollow {
+                followUnfollowButton.followViewWithAnimate(false)
+            }else{
+                followUnfollowButton.unfollowViewWithAnimate(false)
+            }
+        }
+    }
 
     @IBAction func followButtonClicked(_ sender: AnyObject) {
         

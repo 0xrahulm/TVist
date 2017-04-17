@@ -317,9 +317,15 @@ extension ScreenManagerViewController{
             openSingleStory(params)
             break
             
+        case .OpenSimilarEscapesView:
+            openSimilarEscapesView(params)
+            break
+        case .OpenRelatedPeopleView:
+            openRelatedPeopleView(params)
+            break
         case .OpenNotificationView:
             openNotificationVC()
-            
+            break
         default:
             break
         }
@@ -385,6 +391,14 @@ extension ScreenManagerViewController{
     func openFriendsView(_ params : [String:Any]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "friendsVC", queryParams: params)
         
+    }
+    
+    func openSimilarEscapesView(_ params: [String:Any]?) {
+        pushViewControllerOf(.GenericLists, viewControllerIdentifier: "similarEscapesVC", queryParams: params)
+    }
+    
+    func openRelatedPeopleView(_ params: [String:Any]?) {
+        pushViewControllerOf(.GenericLists, viewControllerIdentifier: "RelatedPeopleVC", queryParams: params)
     }
     
     func openSingleStory(_ params : [String:Any]?){

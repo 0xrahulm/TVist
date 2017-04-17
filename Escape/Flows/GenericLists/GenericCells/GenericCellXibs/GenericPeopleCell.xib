@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-UI-Display-Regular.ttf">
+            <string>SFUIDisplay-Regular</string>
+        </array>
+        <array key="SF-UI-Display-Semibold.ttf">
+            <string>SFUIDisplay-Semibold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="GenericPeopleCell" rowHeight="70" id="6yU-Hb-KoO" customClass="PeopleCell" customModule="Escape" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6yU-Hb-KoO" id="U7Q-4F-etw">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78y-cD-zGh">
+                        <rect key="frame" x="65" y="12.5" width="200" height="18"/>
+                        <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="15"/>
+                        <color key="textColor" red="0.078431372550000003" green="0.18039215689999999" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="560-x9-MEl">
+                        <rect key="frame" x="65" y="34" width="200" height="17"/>
+                        <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="14"/>
+                        <color key="textColor" red="0.59607843140000005" green="0.64313725489999995" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="e0R-d7-wH2">
+                        <rect key="frame" x="10" y="12.5" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="IzA-i2-7vW"/>
+                            <constraint firstAttribute="width" constant="45" id="dKV-qU-Dro"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <real key="value" value="22.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4C-YX-b1a">
+                        <rect key="frame" x="60" y="69" width="315" height="1"/>
+                        <color key="backgroundColor" red="0.70196078429999997" green="0.70196078429999997" blue="0.70196078429999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="eAB-eO-MFr"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r5y-6N-oxd">
+                        <rect key="frame" x="275" y="20.5" width="85" height="29"/>
+                        <color key="backgroundColor" red="0.050980392159999999" green="0.83921568629999999" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="85" id="esF-J3-J5e"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="14"/>
+                        <state key="normal" title="FOLLOW">
+                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="followButtonClicked:" destination="6yU-Hb-KoO" eventType="touchUpInside" id="MbG-bK-cnJ"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="F4C-YX-b1a" firstAttribute="leading" secondItem="560-x9-MEl" secondAttribute="leading" constant="-5" id="9ug-mp-a1i"/>
+                    <constraint firstItem="e0R-d7-wH2" firstAttribute="leading" secondItem="U7Q-4F-etw" secondAttribute="leadingMargin" constant="-87" id="F2G-hW-kRQ"/>
+                    <constraint firstItem="e0R-d7-wH2" firstAttribute="leading" secondItem="U7Q-4F-etw" secondAttribute="leading" constant="10" id="ISI-GO-WUY"/>
+                    <constraint firstItem="r5y-6N-oxd" firstAttribute="leading" secondItem="560-x9-MEl" secondAttribute="trailing" constant="10" id="IdN-MW-urS"/>
+                    <constraint firstItem="F4C-YX-b1a" firstAttribute="leading" secondItem="U7Q-4F-etw" secondAttribute="leading" id="JFc-HP-5wi"/>
+                    <constraint firstItem="78y-cD-zGh" firstAttribute="top" secondItem="e0R-d7-wH2" secondAttribute="top" id="Q1n-TZ-PfV"/>
+                    <constraint firstItem="r5y-6N-oxd" firstAttribute="leading" secondItem="78y-cD-zGh" secondAttribute="trailing" constant="10" id="a3T-7M-qio"/>
+                    <constraint firstAttribute="bottom" secondItem="F4C-YX-b1a" secondAttribute="bottom" id="ajo-ue-gId"/>
+                    <constraint firstAttribute="trailing" secondItem="F4C-YX-b1a" secondAttribute="trailing" id="fgs-Wq-kjO"/>
+                    <constraint firstItem="78y-cD-zGh" firstAttribute="leading" secondItem="e0R-d7-wH2" secondAttribute="trailing" constant="10" id="hNC-l2-ZSB"/>
+                    <constraint firstItem="e0R-d7-wH2" firstAttribute="centerY" secondItem="U7Q-4F-etw" secondAttribute="centerY" id="hS7-tb-jLN"/>
+                    <constraint firstAttribute="trailing" secondItem="r5y-6N-oxd" secondAttribute="trailing" constant="15" id="kRD-yC-kot"/>
+                    <constraint firstItem="560-x9-MEl" firstAttribute="top" secondItem="78y-cD-zGh" secondAttribute="bottom" constant="3.5" id="myw-yH-QF6"/>
+                    <constraint firstItem="r5y-6N-oxd" firstAttribute="centerY" secondItem="U7Q-4F-etw" secondAttribute="centerY" id="mz2-bC-pFF"/>
+                    <constraint firstItem="560-x9-MEl" firstAttribute="leading" secondItem="78y-cD-zGh" secondAttribute="leading" id="ytN-sk-Mzo"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="F2G-hW-kRQ"/>
+                        <exclude reference="JFc-HP-5wi"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="followUnfollowButton" destination="r5y-6N-oxd" id="laA-lh-7Wy"/>
+                <outlet property="followersCountLabel" destination="560-x9-MEl" id="Nhe-9W-M4v"/>
+                <outlet property="fullNameLabel" destination="78y-cD-zGh" id="fHy-Qa-OHO"/>
+                <outlet property="hairLineHeightConstraint" destination="eAB-eO-MFr" id="Bgh-6o-60d"/>
+                <outlet property="profilePictureView" destination="e0R-d7-wH2" id="Uc0-R1-bbK"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

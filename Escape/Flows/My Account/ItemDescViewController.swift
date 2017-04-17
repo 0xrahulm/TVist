@@ -108,6 +108,8 @@ class ItemDescViewController: UIViewController {
         }
         
         updateButtonStatus()
+        self.similarEscapesView.viewAllTapDelegate = self
+        self.relatedPeopleView.viewAllTapDelegate = self
         
     }
     
@@ -439,5 +441,23 @@ extension ItemDescViewController: UIScrollViewDelegate {
         headerView.layer.transform = headerTransform
         itemImage.layer.transform = imageTransform
         
+    }
+}
+
+extension ItemDescViewController: RelatedPeopleViewAllTapProtocol {
+    func viewAllTappedInRelatedPeople() {
+        if let escapeId = self.escapeId, let escapeType = self.escapeType {
+            
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenRelatedPeopleView, queryParams: ["escapeId": escapeId, "escapeType":escapeType])
+        }
+    }
+}
+
+extension ItemDescViewController: SimilarEscapesViewAllTapProtocol {
+    func viewAllTappedIn() {
+        if let escapeId = self.escapeId, let escapeType = self.escapeType {
+            
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenSimilarEscapesView, queryParams: ["escapeId": escapeId, "escapeType":escapeType])
+        }
     }
 }

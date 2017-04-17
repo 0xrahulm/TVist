@@ -10,15 +10,30 @@ import UIKit
 
 enum GenericCellIdentifier:String {
     case NormalCell="GenericCellIdentifier"
-    case ActivityIndicatorCell="GenericActivityIndicatorCellIdentifier"
-    case EscapeCell="GenericEscapeCellIdentifier"
-    case TaggedEscapeCell="TaggedEscapeCellIdentifier"
-    case PeopleCell="GenericPeopleCellIdentifier"
+    case ActivityIndicatorCell="GenericActivityIndicatorCell"
+    case EscapeCell="GenericEscapeCell"
+    case TaggedEscapeCell="TaggedEscapeCell"
+    case PeopleCell="GenericPeopleCell"
 }
 
 class GenericListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    var registerableCells: [GenericCellIdentifier] = [.ActivityIndicatorCell, .EscapeCell, .TaggedEscapeCell, .PeopleCell]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initXibs()
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+    }
+    
+    
+    func initXibs() {
+        for genericCell in registerableCells {
+            tableView.register(UINib(nibName: genericCell.rawValue, bundle: nil), forCellReuseIdentifier: genericCell.rawValue)
+        }
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

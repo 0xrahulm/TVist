@@ -25,6 +25,8 @@ enum ScreenManagerAction : String {
     case OpenUserEscapesList = "UserEscapeList"
     case OpenFriendsView = "OpenFriendsView"
     case OpenSingleStoryView = "story"
+    case OpenSimilarEscapesView = "OpenSimilarEscapesView"
+    case OpenRelatedPeopleView = "OpenRelatedPeopleView"
     case OpenNotificationView = "openNotificationView"
 }
 
