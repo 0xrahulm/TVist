@@ -46,6 +46,9 @@ class DescDataItems: NSObject {
                 self.image = dict["poster_image"] as? String
                 self.backDropImage = dict["backdrop_image"] as? String
                 self.desc = dict["description"] as? String
+                if let cleanDescription = dict["clean_description"] as? String {
+                    self.desc = cleanDescription
+                }
                 self.releaseYear = dict["release_year"] as? String
                 self.escapeType = dict["escape_type"] as? String
                 

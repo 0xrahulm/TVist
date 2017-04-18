@@ -199,6 +199,10 @@ class ItemDescViewController: UIViewController {
                 itemImage.downloadImageWithUrl(image, placeHolder: UIImage(named: "movie_placeholder"))
             }
             
+            if let backdropImage = descData.backDropImage {
+                headerImage.downloadImageWithUrl(backdropImage, placeHolder: UIImage(named: "movie_placeholder"))
+            }
+            
             if let runtime = descData.runtime{
                 runTimeLabel.text = runtime
             }

@@ -11,9 +11,11 @@ import UIKit
 class PageContentViewController: UIViewController {
 
     @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var label: UILabel!
     
     var pageIndex : Int?
     var imageFile : String?
+    var text: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +25,7 @@ class PageContentViewController: UIViewController {
                 self.image.image = foundImage
             }
         }
-        
+        self.label.text = self.text
         
         // Do any additional setup after loading the view.
     }

@@ -23,7 +23,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb569114529926926</string>
+				<string>fb567428680095511</string>
 				<string>escape</string>
 			</array>
 			<key>CFBundleURLName</key>
@@ -33,7 +33,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>569114529926926</string>
+	<string>567428680095511</string>
 	<key>FacebookDisplayName</key>
 	<string>Escape_Staging</string>
 	<key>LSApplicationQueriesSchemes</key>

@@ -15,6 +15,9 @@
         <array key="SF-UI-Display-Regular.ttf">
             <string>SFUIDisplay-Regular</string>
         </array>
+        <array key="SF-UI-Display-Semibold.ttf">
+            <string>SFUIDisplay-Semibold</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Custom Navigation View Controller-->
@@ -45,20 +48,11 @@
                     <view key="view" contentMode="scaleToFill" id="rpx-Jr-hWO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="4AX-R2-WkZ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="4AX-R2-WkZ" secondAttribute="bottom" id="33D-3e-ePV"/>
-                            <constraint firstItem="4AX-R2-WkZ" firstAttribute="leading" secondItem="rpx-Jr-hWO" secondAttribute="leading" id="sGJ-ej-4o9"/>
-                            <constraint firstAttribute="trailing" secondItem="4AX-R2-WkZ" secondAttribute="trailing" id="uHf-vO-fhs"/>
-                            <constraint firstItem="4AX-R2-WkZ" firstAttribute="top" secondItem="rpx-Jr-hWO" secondAttribute="topMargin" id="uKC-Eq-tyv"/>
-                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="CQi-BJ-GY9"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <segue destination="IgW-6w-mS0" kind="show" id="mYu-sd-0ZQ"/>
                         <segue destination="VTK-T7-bo6" kind="show" identifier="showInterestsSegue" animates="NO" id="mw8-LA-UbT"/>
@@ -77,36 +71,54 @@
             <point key="canvasLocation" x="201" y="1177"/>
         </scene>
         <!--Page Content View Controller-->
-        <scene sceneID="cGa-jJ-GLk">
+        <scene sceneID="35V-Cw-Ovu">
             <objects>
-                <viewController storyboardIdentifier="PageContentVC" id="kcK-Gg-Aq9" customClass="PageContentViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PageContentVC" id="Cw3-Bi-QwB" customClass="PageContentViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oCo-jS-ZKL"/>
-                        <viewControllerLayoutGuide type="bottom" id="0jf-nM-zKr"/>
+                        <viewControllerLayoutGuide type="top" id="VsI-MA-O38"/>
+                        <viewControllerLayoutGuide type="bottom" id="hCd-1A-MHz"/>
                     </layoutGuides>
-                    <view key="view" alpha="0.0" contentMode="scaleToFill" id="8ac-U4-kEa">
+                    <view key="view" contentMode="scaleToFill" id="Wbd-pY-kMl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Vf-uv-hMO">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="yta-pd-SKI">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Roc-cr-KVr">
+                                <rect key="frame" x="0.0" y="98" width="375" height="429"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Share your favourites with your friends &amp; followers" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TcS-Xj-Lnc">
+                                <rect key="frame" x="26" y="40" width="323" height="48"/>
+                                <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="20"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="0Vf-uv-hMO" firstAttribute="leading" secondItem="8ac-U4-kEa" secondAttribute="leading" id="Fja-de-clf"/>
-                            <constraint firstItem="0Vf-uv-hMO" firstAttribute="top" secondItem="oCo-jS-ZKL" secondAttribute="bottom" constant="-20" id="Zqo-2H-lu9"/>
-                            <constraint firstItem="0jf-nM-zKr" firstAttribute="top" secondItem="0Vf-uv-hMO" secondAttribute="bottom" id="nZW-vO-n4m"/>
-                            <constraint firstAttribute="trailing" secondItem="0Vf-uv-hMO" secondAttribute="trailing" id="s2G-lm-HX2"/>
+                            <constraint firstItem="yta-pd-SKI" firstAttribute="top" secondItem="Wbd-pY-kMl" secondAttribute="topMargin" id="4SM-hi-PTP"/>
+                            <constraint firstItem="hCd-1A-MHz" firstAttribute="top" secondItem="Roc-cr-KVr" secondAttribute="bottom" constant="140" id="66Z-nP-uqw"/>
+                            <constraint firstItem="yta-pd-SKI" firstAttribute="leading" secondItem="Wbd-pY-kMl" secondAttribute="leading" id="Bl2-xt-Yb5"/>
+                            <constraint firstItem="TcS-Xj-Lnc" firstAttribute="top" secondItem="VsI-MA-O38" secondAttribute="bottom" constant="20" id="Duv-yD-RRp"/>
+                            <constraint firstItem="Roc-cr-KVr" firstAttribute="top" secondItem="TcS-Xj-Lnc" secondAttribute="bottom" constant="10" id="QJr-se-aKJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TcS-Xj-Lnc" secondAttribute="trailing" constant="10" id="Z5b-wa-Mpa"/>
+                            <constraint firstItem="TcS-Xj-Lnc" firstAttribute="leading" secondItem="Wbd-pY-kMl" secondAttribute="leadingMargin" constant="10" id="bkD-VC-NHl"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="yta-pd-SKI" secondAttribute="bottom" id="kxz-nx-T6w"/>
+                            <constraint firstItem="Roc-cr-KVr" firstAttribute="leading" secondItem="Wbd-pY-kMl" secondAttribute="leading" id="uYM-Qu-kGF"/>
+                            <constraint firstAttribute="trailing" secondItem="Roc-cr-KVr" secondAttribute="trailing" id="v8z-dx-6Ti"/>
+                            <constraint firstAttribute="trailing" secondItem="yta-pd-SKI" secondAttribute="trailing" id="vd8-Al-SMw"/>
                         </constraints>
                     </view>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
-                        <outlet property="image" destination="0Vf-uv-hMO" id="Z4R-oH-Bxs"/>
+                        <outlet property="image" destination="Roc-cr-KVr" id="QOc-am-zS6"/>
+                        <outlet property="label" destination="TcS-Xj-Lnc" id="WAN-9e-y7W"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bAq-h8-tpa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TuM-AQ-ax7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="878" y="1176"/>
+            <point key="canvasLocation" x="870" y="1176"/>
         </scene>
         <!--Select Interests-->
         <scene sceneID="sl2-mk-x5J">
@@ -208,11 +220,11 @@
                         <viewControllerLayoutGuide type="bottom" id="VLJ-os-3Mn"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Yfl-Rm-ffr">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MK1-aq-o1m" customClass="TPKeyboardAvoidingScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dt-Wp-eoq" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
@@ -553,7 +565,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Sl-wb-TCj" customClass="CustomDoneButton" customModule="Escape" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="553" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <color key="backgroundColor" red="0.050980392156862744" green="0.83921568627450982" blue="0.792156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="U5u-kR-SmC"/>
@@ -617,7 +629,7 @@
         <image name="password_icon" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GZP-FQ-rDR"/>
+        <segue reference="mw8-LA-UbT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.050980392159999999" green="0.83921568629999999" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
