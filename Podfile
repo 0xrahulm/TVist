@@ -8,6 +8,11 @@ def escape_pods
     pod 'Locksmith', '~> 3'
     pod 'ionicons'
     pod 'RealmSwift'
+    pod 'AWSS3'
+    pod 'Flurry-iOS-SDK/FlurrySDK'
+    pod 'AWSCognito'
+    pod 'Fabric'
+    pod 'Crashlytics'
 end
 
 target 'Escape' do

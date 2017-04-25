@@ -16,6 +16,7 @@ enum CellIdentifierMyAccount : String{
     case FBFriends = "FBFriendViewMyAccount"
     case PlaceHolder = "PlaceHolderViewMyAccount"
     case AddToEscape = "AddToEscapeViewMyAccount"
+    case DiscoverNow = "DiscoverNowViewMyAccount"
 }
 
 class MyProfileViewController: UIViewController {
@@ -41,6 +42,7 @@ class MyProfileViewController: UIViewController {
     var tabItems:[TabButton] = []
     var isFollow:Bool = false
     var profileItemUpdateNotification:NotificationToken?
+    var reload:Bool = true
     
     fileprivate var _profileList:Results<ProfileList>?
     
@@ -84,6 +86,7 @@ class MyProfileViewController: UIViewController {
                         }
                     }
                     if let _profileList = self._profileList {
+                        
                         return Array(_profileList)
                     }
                 } else {
@@ -114,9 +117,9 @@ class MyProfileViewController: UIViewController {
     }
     
     
-    var cardsTypeArray: [CellIdentifierMyAccount] = [.FBFriends, .PlaceHolder, .AddToEscape]
+    var cardsTypeArray: [CellIdentifierMyAccount] = [.FBFriends, .PlaceHolder, .AddToEscape, .DiscoverNow]
     
-    func initXibs(){
+    func initXibs() {
         
         for cardType in cardsTypeArray{
             tableView.register(UINib(nibName: cardType.rawValue, bundle: nil), forCellReuseIdentifier: cardType.rawValue)
@@ -152,9 +155,12 @@ class MyProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
-        MyAccountDataProvider.sharedDataProvider.getUserDetails(userId)
+        if reload {
+            MyAccountDataProvider.sharedDataProvider.myAccountDetailsDelegate = self
+            MyAccountDataProvider.sharedDataProvider.getUserDetails(userId)
+        }
         
+        self.reload = true
         
         tableView.estimatedRowHeight = 250
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -382,7 +388,7 @@ class MyProfileViewController: UIViewController {
     }
     
     func settingsTapped() {
-        ScreenVader.sharedVader.performScreenManagerAction(.MyAccountSetting, queryParams: nil)
+        ScreenVader.sharedVader.performScreenManagerAction(.MyAccountSetting, queryParams: ["delegate": self])
     }
     
     func didSelectATab(_ sender: AnyObject) {
@@ -503,6 +509,13 @@ extension MyProfileViewController: UITableViewDelegate {
     }
 }
 
+extension MyProfileViewController: ProfileImageChangeProtocol {
+    func didChangeProfilePic(image: UIImage) {
+        self.reload = false
+        self.profileImage.image = image
+    }
+}
+
 extension MyProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -514,6 +527,10 @@ extension MyProfileViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let selectedProfileItem = profileItemsForSelectedTab()[indexPath.row]
+        
+        if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.showDiscoverNow {
+            return 200
+        }
         
         if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.userStory {
             if let storyCard = selectedProfileItem.associatedStoryCard, let storyType = storyCard.storyType {
@@ -550,6 +567,12 @@ extension MyProfileViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CustomLoadingTableViewCellIdentifier") as! CustomLoadingTableViewCell
             
             cell.activityIndicator.startAnimating()
+            return cell
+        }
+        
+        if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.showDiscoverNow {
+            let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifierMyAccount.DiscoverNow.rawValue, for: indexPath) as! DiscoverNowViewMyAccountTableViewCell
+            cell.message.text = selectedProfileItem.title
             return cell
         }
         

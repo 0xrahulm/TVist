@@ -117,8 +117,8 @@
                             <constraint firstItem="zZ1-iU-4ZX" firstAttribute="top" secondItem="Rs5-Jj-BU9" secondAttribute="top" id="zNi-lz-xHf"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62S-9e-UnT">
-                        <rect key="frame" x="316" y="10" width="44" height="33"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62S-9e-UnT">
+                        <rect key="frame" x="317" y="12" width="48" height="28"/>
                         <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="13"/>
                         <state key="normal" title="SEE ALL">
                             <color key="titleColor" red="0.95294117647058818" green="0.14117647058823529" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

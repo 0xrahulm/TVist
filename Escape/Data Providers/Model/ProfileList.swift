@@ -65,6 +65,14 @@ final class ProfileList: Object {
                         continue
                     }
                 }
+            } else if itemType == ProfileItemType.showDiscoverNow.rawValue {
+                
+                profileItem.title =  eachItem["title"] as? String
+                
+                if let total_count = eachItem["total_items_count"] as? NSNumber {
+                    profileItem.totalItemsCount = total_count.intValue
+                }
+                    
             } else {
                 
                 profileItem.title =  eachItem["title"] as? String

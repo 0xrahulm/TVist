@@ -48,6 +48,14 @@ class LoginPageViewController: UIViewController {
             !LocalStorageVader.sharedVader.flagValueForKey(.InterestsSelected)) {
             openInteresetVC()
         }
+        
+        AnalyticsVader.sharedVader.onboardingStarted()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        AnalyticsVader.sharedVader.onboardingFinished()
     }
     
     
@@ -61,7 +69,6 @@ class LoginPageViewController: UIViewController {
         setPageDots()
         setFBbutton()
         setEmailButton()
-        
         
         
     }
@@ -161,7 +168,7 @@ class LoginPageViewController: UIViewController {
     
     func fbLoginButtonTapped(){
         
-        
+        AnalyticsVader.sharedVader.continueWtihFBTapped(screenName: "Carousel")
         let fbLoginManager : FBSDKLoginManager =  FBSDKLoginManager()
         let fbPermission = ["user_likes" , "user_friends" , "public_profile" , "email"]
         
@@ -194,6 +201,8 @@ class LoginPageViewController: UIViewController {
     
     func emailLoginButtonTapped(){
         
+        AnalyticsVader.sharedVader.basicEvents(eventName: .continueWithEmail)
+        
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "EmailLoginVC") as! EmailLoginViewController
         self.navigationController?.pushViewController(vc, animated: true)
         
@@ -211,6 +220,13 @@ class LoginPageViewController: UIViewController {
 }
 
 extension LoginPageViewController : LoginProtocol{
+    func signInSuccessfull(_ data: [String : AnyObject], type: LoginTypeEnum, subServiceType: SubServiceType) {
+        
+        if type == .Facebook{
+            ScreenVader.sharedVader.loginActionAfterDelay()
+        }
+    }
+
     func signInError(_ data: Any?) {
         
         if let data = data as? [String:AnyObject]{
@@ -222,14 +238,6 @@ extension LoginPageViewController : LoginProtocol{
         }else{
             self.loadErrorPopUp("Something went wrong, please try after some time")
         }
-    }
-    
-    func signInSuccessfull(_ data : [String:AnyObject] , type : LoginTypeEnum){
-        
-        if type == .Facebook{
-            ScreenVader.sharedVader.performScreenManagerAction(.MainTab, queryParams: nil)
-        }
-        
     }
 }
 

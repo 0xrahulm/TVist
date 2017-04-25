@@ -90,6 +90,7 @@ class SearchAllViewController: UIViewController {
         }
     }
     func searchCall(_ text : String){
+        AnalyticsVader.sharedVader.searchOccurred(searchType: type.rawValue, searchTerm: text)
         DiscoverDataProvider.shareDataProvider.getSearchItems(text, searchType: type, limit: 10, page: currentPage)
     }
     

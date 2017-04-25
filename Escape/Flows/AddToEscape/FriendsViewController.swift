@@ -19,10 +19,12 @@ class FriendsViewController: UIViewController {
     var selectedDict : [String:Bool] = [:]
     var selectedIds : [String] = []
     weak var freindsDelegate : FriendsProtocol?
-
+    
     @IBOutlet weak var doneButton: CustomDoneButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    @IBOutlet weak var noFriendsView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +34,8 @@ class FriendsViewController: UIViewController {
         MyAccountDataProvider.sharedDataProvider.getUserFriends()
         addCancelButton()
         setupSearchBar()
-
         
+        noFriendsView.isHidden = true
     }
     
     @IBAction func doneTapped(_ sender: UIButton) {
@@ -48,6 +50,15 @@ class FriendsViewController: UIViewController {
         searchBar.delegate = self
         searchBar.setGreyAppearance(self.view.frame.size.width-90, height: 30.0, clearColor : false)
         
+    }
+    
+    @IBAction func inviteFriendsTapped(sender: UIButton) {
+        let text:String = "Check out Escape, it makes it easy to recommend new Movies, Books & TV Shows to each other. Download now: http://appurl.io/j1q73s0r"
+        
+        let activityController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        
+        activityController.popoverPresentationController?.sourceView = self.view
+        self.present(activityController, animated: true, completion: nil)
     }
     
     func addCancelButton(){
@@ -80,8 +91,8 @@ class FriendsViewController: UIViewController {
         }
         
     }
-
-
+    
+    
 }
 extension FriendsViewController : UITableViewDelegate , UITableViewDataSource{
     
@@ -142,7 +153,7 @@ extension FriendsViewController : UITableViewDelegate , UITableViewDataSource{
                 cell.friendsCheckImage.image = UIImage(named: "unselect")
             }
         }
-
+        
         return cell
         
     }
@@ -150,9 +161,12 @@ extension FriendsViewController : UITableViewDelegate , UITableViewDataSource{
 extension FriendsViewController : FollowersProtocol{
     func recievedFollowersData(_ data: [MyAccountItems], userType: UserType) {
         
-            dataArray = data
-            searchDataArray = data
-            tableView.reloadData()
+        if data.count == 0 {
+            self.noFriendsView.visibleWithAnimation()
+        }
+        dataArray = data
+        searchDataArray = data
+        tableView.reloadData()
     }
     
     func error() {
@@ -178,21 +192,21 @@ extension FriendsViewController : UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-            searchDataArray = []
-            searchDataArray.append(contentsOf: dataArray.filter({ (item) -> Bool in
-                let tmp = item
-                let str = tmp.firstName
-                let range = str.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-                    
-                return range != nil
-                
-            }))
+        searchDataArray = []
+        searchDataArray.append(contentsOf: dataArray.filter({ (item) -> Bool in
+            let tmp = item
+            let str = tmp.firstName
+            let range = str.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
             
-            if searchText == ""{
-                searchDataArray.append(contentsOf: dataArray)
-                searchBar.resignFirstResponder()
-            }
-
+            return range != nil
+            
+        }))
+        
+        if searchText == ""{
+            searchDataArray.append(contentsOf: dataArray)
+            searchBar.resignFirstResponder()
+        }
+        
         self.tableView.reloadData()
     }
     

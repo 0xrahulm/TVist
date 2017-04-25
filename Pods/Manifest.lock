@@ -2,6 +2,15 @@ PODS:
   - Alamofire (4.4.0)
   - AlamofireImage (3.2.0):
     - Alamofire (~> 4.1)
+  - AWSCognito (2.5.2):
+    - AWSCore (= 2.5.2)
+  - AWSCore (2.5.2)
+  - AWSS3 (2.5.2):
+    - AWSCore (= 2.5.2)
+  - Crashlytics (3.8.4):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.11)
+  - Flurry-iOS-SDK/FlurrySDK (7.10.0)
   - ionicons (2.0.3)
   - Locksmith (3.0.0)
   - Realm (2.5.0):
@@ -14,6 +23,11 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4)
   - AlamofireImage (~> 3)
+  - AWSCognito
+  - AWSS3
+  - Crashlytics
+  - Fabric
+  - Flurry-iOS-SDK/FlurrySDK
   - ionicons
   - Locksmith (~> 3)
   - RealmSwift
@@ -22,12 +36,18 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  AWSCognito: a29c52e3a3d4988f01b449c8b229a51b73d1c1bf
+  AWSCore: b2fe455c2c7d6653521238c5b0b0ddb67ec4f063
+  AWSS3: 1f53d780bae0a5949f11da99520c14684bc90af0
+  Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
+  Flurry-iOS-SDK: e6975df9e57010d582bf9bed0f6312553cf24bc2
   ionicons: ec1e86e6c3316bd9942a7f024080dd75c70dd6a5
   Locksmith: 310b4cc5031af5728bf4db5d4de547a5100c6a3b
   Realm: 62abce501668580092d2be9b6ba7324a3d5f906a
   RealmSwift: 9f1a8f624f2f153410115c2cb7d486be9976565d
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 2e525373d10863a48d87129002fbd719aec57dea
+PODFILE CHECKSUM: d167dd0e6fc53000abd6678b4d47a2ebb02b2857
 
 COCOAPODS: 1.2.0

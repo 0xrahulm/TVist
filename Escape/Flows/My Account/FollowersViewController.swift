@@ -70,9 +70,9 @@ class FollowersViewController: UIViewController {
         txtField = textField
     }
     
-    func postRecommend(_ friendId : String){
+    func postRecommend(_ friendIds : [String]){
         if let escapeId = escapeId {
-            MyAccountDataProvider.sharedDataProvider.postRecommend([escapeId], friendId: [friendId], message: txtField.text)
+            MyAccountDataProvider.sharedDataProvider.postRecommend([escapeId], friendId: friendIds, message: "New Recommendation for you")
         }
         
         self.navigationController?.popViewController(animated: true)
@@ -85,7 +85,7 @@ class FollowersViewController: UIViewController {
         alert.addTextField(configurationHandler: configurationTextField)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler:{ (UIAlertAction) in
-            self.postRecommend(id)
+            self.postRecommend([id])
         }))
         self.present(alert, animated: true, completion: {
             print("completion block")

@@ -10,6 +10,11 @@ import UIKit
 import CoreData
 import FBSDKCoreKit
 import UserNotifications
+import Flurry_iOS_SDK
+import Fabric
+import Crashlytics
+import AWSCognito
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,10 +36,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         initializeScreenManager()
+        Flurry.startSession("6J48C63N4JPPPNBMTRX4", withOptions: launchOptions)
+        
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         setGlobalAppearance()
+        Fabric.with([Crashlytics.self, AWSCognito.self])
         
         return true
     }

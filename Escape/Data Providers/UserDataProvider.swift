@@ -37,7 +37,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 protocol LoginProtocol : class{
     
-    func signInSuccessfull(_ data : [String:AnyObject] , type : LoginTypeEnum)
+    func signInSuccessfull(_ data : [String:AnyObject] , type : LoginTypeEnum, subServiceType: SubServiceType)
     func signInError(_ data : Any?)
 }
 
@@ -144,12 +144,12 @@ class UserDataProvider: CommonDataProvider {
                 
             case .EmailSignUp:
                 if let data = service.outPutResponse as? [String:AnyObject]{
-                    self.parseEmailSignInUserData(data)
+                    self.parseEmailSignInUserData(data, subServiceType: subServiceType)
                 }
                 break
             case .EmailSigIn:
                 if let data = service.outPutResponse as? [String:AnyObject]{
-                    self.parseEmailSignInUserData(data)
+                    self.parseEmailSignInUserData(data, subServiceType: subServiceType)
                 }
                 break
                 
@@ -270,7 +270,7 @@ extension UserDataProvider{
             LocalStorageVader.sharedVader.setFlagForKey(.InterestsSelected)
             
             if self.fbLoginDelegate != nil{
-                self.fbLoginDelegate?.signInSuccessfull(dict, type: .Facebook)
+                self.fbLoginDelegate?.signInSuccessfull(dict, type: .Facebook, subServiceType: .FBSignIn)
             }
             
             
@@ -278,14 +278,14 @@ extension UserDataProvider{
         
     }
     
-    func parseEmailSignInUserData(_ dict : [String : AnyObject]){
+    func parseEmailSignInUserData(_ dict : [String : AnyObject], subServiceType: SubServiceType){
         
         ECUserDefaults.setLoggedIn(true)
         
         if let token = JSON(dict)["auth_token"].string{
             DeviceID.saveXauth(token)
             if self.emailLoginDelegate != nil{
-                self.emailLoginDelegate?.signInSuccessfull(dict , type: .Email)
+                self.emailLoginDelegate?.signInSuccessfull(dict , type: .Email, subServiceType: subServiceType)
             }
         }
     }

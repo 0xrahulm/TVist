@@ -104,15 +104,6 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
         openAllUsers()
     }
     
-    func handletitleTapGesture(_ sender: UITapGestureRecognizer) {
-        if let storyId = storyId{
-            HomeDataProvider.sharedDataProvider.followAllFriends(storyId)
-        }
-        
-        if let delegate = removeFbCardDelegate, let indexPath = indexPath{
-            delegate.removeFBCard(indexPath)
-        }
-    }
     
     func handleTapGesture(_ sender: UITapGestureRecognizer) {
         openAllUsers()
@@ -121,6 +112,15 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
     func openAllUsers(){
         if let storyId = storyId{
             ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.fbFriends.rawValue, "story_id" : storyId])
+        }
+    }
+    func handletitleTapGesture(_ sender: UITapGestureRecognizer) {
+        if let storyId = storyId{
+            HomeDataProvider.sharedDataProvider.followAllFriends(storyId)
+        }
+        
+        if let delegate = removeFbCardDelegate, let indexPath = indexPath{
+            delegate.removeFBCard(indexPath)
         }
     }
 

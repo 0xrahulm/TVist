@@ -27,6 +27,8 @@ class DiscoverAllViewController: UIViewController {
         tableView.reloadData()
         loadingView.startAnimating()
         
+        tableView.register(UINib(nibName: CellIdentifier.FBFriends.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.FBFriends.rawValue)
+        
        NotificationCenter.default.addObserver(self, selector: #selector(DiscoverAllViewController.receivedNotification(_:)), name: NSNotification.Name(rawValue: NotificationObservers.DiscoverObserver.rawValue), object: nil)
         
     }
@@ -79,6 +81,9 @@ extension DiscoverAllViewController : UITableViewDelegate{
         if dataArray[indexPath.row].discoverType == .People{
             return 70
         }
+        if dataArray[indexPath.row].discoverType == .Story {
+            return 200
+        }
         return 130
     }
     
@@ -118,6 +123,16 @@ extension DiscoverAllViewController : UITableViewDelegate{
     }
 }
 
+extension DiscoverAllViewController: RemoveFbCardProtocol {
+    func removeFBCard(_ indexPath: IndexPath) {
+        
+        if dataArray.count > indexPath.row{
+            dataArray.remove(at: indexPath.row)
+        }
+        tableView.deleteRows(at: [indexPath], with: .right)
+    }
+}
+
 extension DiscoverAllViewController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -128,10 +143,23 @@ extension DiscoverAllViewController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell : DiscoverEscapeTableViewCell!
+        
         
         let data = dataArray[indexPath.row]
         
+        if let discoveryType = data.discoverType {
+            if discoveryType == .Story {
+                if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.FBFriends.rawValue, for: indexPath) as? FBFriendsTableViewCell {
+                    cell.indexPath = indexPath
+                    cell.removeFbCardDelegate = self
+                    cell.friendItems = data.fbFriendCard
+                    return cell
+                }
+                
+            }
+        }
+        
+        var cell : DiscoverEscapeTableViewCell!
         if indexPath.row == dataArray.count - 1 && callFurther{
             cell = tableView.dequeueReusableCell(withIdentifier: "loadingViewCellIdentifier") as! DiscoverEscapeTableViewCell
             cell.loadingView.startAnimating()

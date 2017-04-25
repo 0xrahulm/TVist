@@ -15,27 +15,41 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.escape-app.Escape</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb567428680095511</string>
 				<string>escape</string>
 			</array>
-			<key>CFBundleURLName</key>
-			<string>com.escape-app.Escape</string>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>0.1.1</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>c48d937d2323a166e56e01a0509f77355cc292e2</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>FacebookAppID</key>
 	<string>567428680095511</string>
 	<key>FacebookDisplayName</key>
-	<string>Escape_Staging</string>
+	<string>Escape</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -50,6 +64,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Need Camera access in order to set your Profile Picture.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need Photo Library access in order to set your Profile Picture.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SF-UI-Display-Light.ttf</string>

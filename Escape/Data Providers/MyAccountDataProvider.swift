@@ -101,6 +101,10 @@ class MyAccountDataProvider: CommonDataProvider {
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserEscapes, params: params, delegate: self)
     }
     
+    func updateProfilePicture(pictureName: String) {
+        ServiceCall(.put, serviceType: .ServiceTypePrivateApi, subServiceType: .PutProfilePicture, params: ["picture_name":pictureName], delegate: self)
+    }
+    
     func removeEscape(escapeId: String) {
         ServiceCall(.delete, serviceType: .ServiceTypePrivateApi, subServiceType: .DeleteEscape, params: ["escape_id":escapeId], delegate: self)
     }

@@ -59,10 +59,12 @@ class OnBoardingInterestViewController: UIViewController {
                 }
             }
         }
-        if self.selectedInterests.count > 2 {
+        let countOfInterests = self.selectedInterests.count
+        if countOfInterests > 2 {
             LocalStorageVader.sharedVader.setFlagForKey(.InterestsSelected)
             UserDataProvider.sharedDataProvider.postInterest(selectedInterests)
-            ScreenVader.sharedVader.performScreenManagerAction(.MainTab, queryParams: nil)
+            AnalyticsVader.sharedVader.interestsSelected(totalCount: countOfInterests)
+            ScreenVader.sharedVader.loginActionAfterDelay()
         } else {
             loadErrorPopUp("Please select atleast 3 interests to proceed.")
         }

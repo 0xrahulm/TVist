@@ -20,6 +20,16 @@
 		8446C9941DD8E4B8008C6DED /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9921DD8E4B7008C6DED /* MyProfileViewController.swift */; };
 		8446C9971DD8F430008C6DED /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9961DD8F430008C6DED /* TabButton.swift */; };
 		8446C9981DD8F430008C6DED /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9961DD8F430008C6DED /* TabButton.swift */; };
+		84518BC01EA66F4100DB59FD /* AnalyticsVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84518BBF1EA66F4100DB59FD /* AnalyticsVader.swift */; };
+		84518BC11EA66F4100DB59FD /* AnalyticsVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84518BBF1EA66F4100DB59FD /* AnalyticsVader.swift */; };
+		84518BC31EA6BAC100DB59FD /* DiscoverNowViewMyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84518BC21EA6BAC100DB59FD /* DiscoverNowViewMyAccount.xib */; };
+		84518BC41EA6BAC100DB59FD /* DiscoverNowViewMyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84518BC21EA6BAC100DB59FD /* DiscoverNowViewMyAccount.xib */; };
+		84518BC61EA6C0FE00DB59FD /* DiscoverNowViewMyAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84518BC51EA6C0FE00DB59FD /* DiscoverNowViewMyAccountTableViewCell.swift */; };
+		84518BC71EA6C0FE00DB59FD /* DiscoverNowViewMyAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84518BC51EA6C0FE00DB59FD /* DiscoverNowViewMyAccountTableViewCell.swift */; };
+		84518BCE1EA7774900DB59FD /* FollowFacebookFriendsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84518BCC1EA7774900DB59FD /* FollowFacebookFriendsPopup.swift */; };
+		84518BCF1EA7774900DB59FD /* FollowFacebookFriendsPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84518BCC1EA7774900DB59FD /* FollowFacebookFriendsPopup.swift */; };
+		84518BD01EA7774900DB59FD /* FollowFacebookFriendsPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84518BCD1EA7774900DB59FD /* FollowFacebookFriendsPopup.xib */; };
+		84518BD11EA7774900DB59FD /* FollowFacebookFriendsPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84518BCD1EA7774900DB59FD /* FollowFacebookFriendsPopup.xib */; };
 		845FA4D01EA0B7B600357FCD /* GenericAllItemsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845FA4CF1EA0B7B600357FCD /* GenericAllItemsListViewController.swift */; };
 		845FA4D11EA0B7B600357FCD /* GenericAllItemsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845FA4CF1EA0B7B600357FCD /* GenericAllItemsListViewController.swift */; };
 		845FA4D41EA0E1E100357FCD /* GenericActivityIndicatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845FA4D31EA0E1E100357FCD /* GenericActivityIndicatorCell.xib */; };
@@ -345,6 +355,11 @@
 		8423A5AE1E504FF00078FAC1 /* FollowersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersTableViewCell.swift; sourceTree = "<group>"; };
 		8446C9921DD8E4B7008C6DED /* MyProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		8446C9961DD8F430008C6DED /* TabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
+		84518BBF1EA66F4100DB59FD /* AnalyticsVader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsVader.swift; sourceTree = "<group>"; };
+		84518BC21EA6BAC100DB59FD /* DiscoverNowViewMyAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DiscoverNowViewMyAccount.xib; path = Xibs/DiscoverNowViewMyAccount.xib; sourceTree = "<group>"; };
+		84518BC51EA6C0FE00DB59FD /* DiscoverNowViewMyAccountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverNowViewMyAccountTableViewCell.swift; sourceTree = "<group>"; };
+		84518BCC1EA7774900DB59FD /* FollowFacebookFriendsPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowFacebookFriendsPopup.swift; sourceTree = "<group>"; };
+		84518BCD1EA7774900DB59FD /* FollowFacebookFriendsPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FollowFacebookFriendsPopup.xib; sourceTree = "<group>"; };
 		845FA4CF1EA0B7B600357FCD /* GenericAllItemsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericAllItemsListViewController.swift; sourceTree = "<group>"; };
 		845FA4D31EA0E1E100357FCD /* GenericActivityIndicatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GenericActivityIndicatorCell.xib; sourceTree = "<group>"; };
 		845FA4D61EA0E27100357FCD /* GenericPeopleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GenericPeopleCell.xib; sourceTree = "<group>"; };
@@ -569,6 +584,7 @@
 				8423A5AC1E504FF00078FAC1 /* CustomListTableViewCell.swift */,
 				8423A5AD1E504FF00078FAC1 /* CustomLoadingTableViewCell.swift */,
 				8423A5AE1E504FF00078FAC1 /* FollowersTableViewCell.swift */,
+				84518BC51EA6C0FE00DB59FD /* DiscoverNowViewMyAccountTableViewCell.swift */,
 			);
 			path = ViewCells;
 			sourceTree = "<group>";
@@ -579,6 +595,16 @@
 				8446C9961DD8F430008C6DED /* TabButton.swift */,
 			);
 			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		84518BC81EA776CC00DB59FD /* FacebookFriends */ = {
+			isa = PBXGroup;
+			children = (
+				84518BCC1EA7774900DB59FD /* FollowFacebookFriendsPopup.swift */,
+				84518BCD1EA7774900DB59FD /* FollowFacebookFriendsPopup.xib */,
+			);
+			name = FacebookFriends;
+			path = ../FacebookFriends;
 			sourceTree = "<group>";
 		};
 		845FA4D21EA0E10500357FCD /* GenericCellXibs */ = {
@@ -656,6 +682,7 @@
 		84B2E16B1E9E3D2F003CF36A /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				84518BC21EA6BAC100DB59FD /* DiscoverNowViewMyAccount.xib */,
 				84B2E16C1E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib */,
 				84B2E16D1E9E3D83003CF36A /* FBFriendViewMyAccount.xib */,
 				84B2E16E1E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib */,
@@ -861,6 +888,7 @@
 		BC47EDAA1C9FFE36008143C2 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				84518BC81EA776CC00DB59FD /* FacebookFriends */,
 				84B2E1611E98CB10003CF36A /* EditEscape */,
 				BC1A1CF71DF442CE0024CC06 /* AddToEscape */,
 				84A484041DEDDFA700DAC553 /* GenericLists */,
@@ -905,6 +933,7 @@
 				84A0FA891DBC02AF0072A36A /* LocalStorageVader.swift */,
 				84DD65671DDB49EC00C35EBE /* ChiefVader.swift */,
 				84E845141DE5D8C700DCB9D9 /* RealmDataVader.swift */,
+				84518BBF1EA66F4100DB59FD /* AnalyticsVader.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1102,6 +1131,7 @@
 				BC47ED7C1C9FEEC7008143C2 /* Resources */,
 				0B2D9972497495D9F9AD710C /* [CP] Embed Pods Frameworks */,
 				A6B862C66285002AA74EE728 /* [CP] Copy Pods Resources */,
+				845957061EA8FF5F0031441D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1203,6 +1233,7 @@
 				84A0FA911DBCADB50072A36A /* Notifications.storyboard in Resources */,
 				BC47ED8F1C9FEEC8008143C2 /* LaunchScreen.storyboard in Resources */,
 				BC2A73181CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
+				84518BC31EA6BAC100DB59FD /* DiscoverNowViewMyAccount.xib in Resources */,
 				BC2A730E1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A11CA5626000FF8678 /* MainTab.storyboard in Resources */,
 				845FA4D71EA0E27100357FCD /* GenericPeopleCell.xib in Resources */,
@@ -1212,6 +1243,7 @@
 				84B2E1661E98CB43003CF36A /* EditEscapeViewController.xib in Resources */,
 				BC1099731E1276F60036CA75 /* ArticleView.xib in Resources */,
 				BCB7B4AE1CA17378002147FA /* SF-UI-Display-Light.ttf in Resources */,
+				84518BD01EA7774900DB59FD /* FollowFacebookFriendsPopup.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1243,6 +1275,7 @@
 				84A0FA921DBCADB50072A36A /* Notifications.storyboard in Resources */,
 				BC47ED9D1C9FF233008143C2 /* LaunchScreen.storyboard in Resources */,
 				BC2A73191CCBF84F007E5DFB /* ScreenManger.storyboard in Resources */,
+				84518BC41EA6BAC100DB59FD /* DiscoverNowViewMyAccount.xib in Resources */,
 				BC2A730F1CCBF84F007E5DFB /* Onboarding.storyboard in Resources */,
 				BC3A81A21CA5626000FF8678 /* MainTab.storyboard in Resources */,
 				845FA4D81EA0E27100357FCD /* GenericPeopleCell.xib in Resources */,
@@ -1252,6 +1285,7 @@
 				84B2E1671E98CB43003CF36A /* EditEscapeViewController.xib in Resources */,
 				BC1099741E1276F60036CA75 /* ArticleView.xib in Resources */,
 				BCB7B4AF1CA17378002147FA /* SF-UI-Display-Light.ttf in Resources */,
+				84518BD11EA7774900DB59FD /* FollowFacebookFriendsPopup.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1333,6 +1367,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Escape copy/Pods-Escape copy-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		845957061EA8FF5F0031441D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" c48d937d2323a166e56e01a0509f77355cc292e2 91e127ddc5b99ecf814be0d7c17b620f8defdb84970f916f013203128fa64236";
+		};
 		A6B862C66285002AA74EE728 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1364,6 +1411,7 @@
 				BC1A1D051DF4779E0024CC06 /* FriendsViewController.swift in Sources */,
 				BCB7B4971CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BC5188331D8D229900A85E61 /* SearchItems.swift in Sources */,
+				84518BC01EA66F4100DB59FD /* AnalyticsVader.swift in Sources */,
 				BC1A1CFF1DF449930024CC06 /* AddToEscapeViewController.swift in Sources */,
 				BC4F45641CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC0BBBE41CF1D08F00B03A93 /* UIView+Utility.swift in Sources */,
@@ -1396,6 +1444,7 @@
 				BC38DC691D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
 				84B2E15B1E91198B003CF36A /* RNLoadingButton.swift in Sources */,
 				BCCD70C81CA19468002A0C07 /* Service.swift in Sources */,
+				84518BC61EA6C0FE00DB59FD /* DiscoverNowViewMyAccountTableViewCell.swift in Sources */,
 				BC18426D1D51F420003CC19A /* HomeViewController.swift in Sources */,
 				84E845151DE5D8C700DCB9D9 /* RealmDataVader.swift in Sources */,
 				BC1842841D535243003CC19A /* FBFriendsTableViewCell.swift in Sources */,
@@ -1420,6 +1469,7 @@
 				BC14BAD31CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */,
 				84AA1DCC1EA3A55100DEF996 /* SimilarEscapesViewController.swift in Sources */,
 				BC2485561CDC900800DC7077 /* MyAccountItems.swift in Sources */,
+				84518BCE1EA7774900DB59FD /* FollowFacebookFriendsPopup.swift in Sources */,
 				BC4F45611CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BCACE8751D55191F00FAF262 /* AddToEscapeTableViewCell.swift in Sources */,
 				BCFBD7DC1E01407E000E934A /* WhatsYourLatestEscapeCell.swift in Sources */,
@@ -1497,6 +1547,7 @@
 				BC1A1D061DF4779E0024CC06 /* FriendsViewController.swift in Sources */,
 				BCB7B4981CA0F077002147FA /* NetworkConstants.swift in Sources */,
 				BC5188341D8D229900A85E61 /* SearchItems.swift in Sources */,
+				84518BC11EA66F4100DB59FD /* AnalyticsVader.swift in Sources */,
 				BC1A1D001DF449930024CC06 /* AddToEscapeViewController.swift in Sources */,
 				BC4F45651CDE1EF000A65A63 /* CustomListViewController.swift in Sources */,
 				BC0BBBE51CF1D08F00B03A93 /* UIView+Utility.swift in Sources */,
@@ -1529,6 +1580,7 @@
 				BC38DC6A1D30C01700290717 /* CustomPopupPresentationController.swift in Sources */,
 				84B2E15C1E91198B003CF36A /* RNLoadingButton.swift in Sources */,
 				BCCD70C91CA19468002A0C07 /* Service.swift in Sources */,
+				84518BC71EA6C0FE00DB59FD /* DiscoverNowViewMyAccountTableViewCell.swift in Sources */,
 				BC18426E1D51F420003CC19A /* HomeViewController.swift in Sources */,
 				84E845161DE5D8C700DCB9D9 /* RealmDataVader.swift in Sources */,
 				BC1842851D535243003CC19A /* FBFriendsTableViewCell.swift in Sources */,
@@ -1553,6 +1605,7 @@
 				BC14BAD41CFF0F7C00B7E546 /* DiscoverEscapeTableViewCell.swift in Sources */,
 				84AA1DCD1EA3A55100DEF996 /* SimilarEscapesViewController.swift in Sources */,
 				BC2485571CDC900800DC7077 /* MyAccountItems.swift in Sources */,
+				84518BCF1EA7774900DB59FD /* FollowFacebookFriendsPopup.swift in Sources */,
 				BC4F45621CDE029F00A65A63 /* Utilities.swift in Sources */,
 				BCACE8761D55191F00FAF262 /* AddToEscapeTableViewCell.swift in Sources */,
 				BCFBD7DD1E01407E000E934A /* WhatsYourLatestEscapeCell.swift in Sources */,
@@ -1738,6 +1791,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1749,8 +1803,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Escape/Escape.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Meena (U5T6338DFM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = GZM8S25H55;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1760,9 +1814,11 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "07c63649-4fff-45ee-84a5-11c91bae8bfd";
+				PROVISIONING_PROFILE_SPECIFIER = "Escape Production";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

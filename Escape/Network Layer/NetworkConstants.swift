@@ -28,6 +28,7 @@ enum SubServiceType : String {
     case GetProfileList     =  "profile/list"
     case GetEscapeAction    =  "user/escapes/action"
     case GetUserEscapes     =  "user/escapes"
+    case PutProfilePicture     =  "user/picture"
     case DeleteEscape       =  "user/escapes/remove"
     case UpdateEscape       =  "user/escapes/update"
     case LogoutUser         =  "logout"

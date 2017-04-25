@@ -27,6 +27,14 @@ class ScreenVader: NSObject {
         }
     }
     
+    func loginActionAfterDelay() {
+        perform(#selector(ScreenVader.loginAction), with: nil, afterDelay: 3.0)
+    }
+    
+    func loginAction() {
+        performScreenManagerAction(.MainTab, queryParams: nil)
+    }
+    
     func switchMainTab(_ action : ScreenManagerAction){
         if screenManagerVC != nil {
             screenManagerVC!.switchTabForAction(action)
@@ -58,6 +66,7 @@ class ScreenVader: NSObject {
             screenManagerVC.changeStatusBarPreference(shouldBeBlack)
         }
     }
+    
     
     func processDeepLink(_ deepLinkString : String){
         if let deepLinkUrl = URL(string: deepLinkString) {

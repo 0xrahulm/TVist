@@ -49,6 +49,7 @@ class SearchViewController: UIViewController {
         super.viewWillAppear(animated)
         ScreenVader.sharedVader.hideTabBar(false)
     }
+    
     deinit {
         ECUserDefaults.removeSearchedText()
     }

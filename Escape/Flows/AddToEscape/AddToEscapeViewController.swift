@@ -57,6 +57,14 @@ class AddToEscapeViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let id = self.id, let type = self.type {
+            AnalyticsVader.sharedVader.addToEscapeOpened(escapeName: self.name, escapeId: id, escapeType: type)
+        }
+    }
+    
     func addDoneButtonOnKeyboard()
     {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
@@ -259,6 +267,11 @@ class AddToEscapeViewController: UIViewController {
     @IBAction func doneButtonTapped(_ sender: AnyObject) {
         
         if let id = id {
+            
+            if let type = self.type {
+                AnalyticsVader.sharedVader.addToEscapeDone(escapeName: self.name, escapeId: id, escapeType: type, escapeAction: currentSelectedView.rawValue)
+            }
+            
             UserDataProvider.sharedDataProvider.addToEscape(id, action: currentSelectedView, status : textView.text,friendsId :  friendsIds, shareFB : shareFBSwitch.state.rawValue)
         }
         

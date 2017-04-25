@@ -11,7 +11,8 @@ import Foundation
 enum ScreenManagerAction : String {
     case MainTab = "MainTab"
     case HomeTab = "Home"
-    case DiscoverTab = "Discover"
+    case DiscoverTab = "DiscoverTab"
+    case SearchTab = "SearchTab"
     case MyAccountTab = "MyAccount"
     case MyAccountSetting = "MyAccountSetting"
     case OpenItemDescription = "item"
@@ -55,6 +56,7 @@ enum ProfileItemType: Int {
     case escapeList = 0
     case maybeSeen = 1
     case userStory = 2
+    case showDiscoverNow = 3
 }
 
 enum ProfileListType: String {
@@ -76,6 +78,7 @@ enum DiscoverType : String{
     case Movie = "movie"
     case TvShows = "tv_show"
     case Books = "book"
+    case Story = "story"
 }
 
 enum EscapeCreatorType : String{
@@ -143,4 +146,23 @@ enum OptionsType : String{
     case Delete = "Delete"
     case Recommend = "Recommend to friend"
     case Add = "Add to your escape"
+}
+
+enum EventName:String {
+    case onboardingScreen = "Onboarding_Screen"
+    case continueWithFB = "Conitnue_With_Facebook_Tapped"
+    case continueWithEmail = "Continue_With_Email_Tapped"
+    case signInTabTapped = "Sign_In_Tab_Tapped"
+    case signUpTabTapped = "Sign_Up_Tab_Tapped"
+    case doneButtonOnEmailLogin = "Done_Button_On_Email_Login"
+    case interestsSelected = "Interests_Selection_Done"
+    case DiscoverTabTapped = "Discover_Tab_Tapped"
+    case SearchTabTapped = "Search_Tab_Tapped"
+    case MyAccountTabTapped = "MyAccount_Tab_Tapped"
+    case SearchOnDiscoverTapped = "Search_On_Discover_Tapped"
+    case EscapeDescriptionOpened = "Escape_Description_Opened"
+    case AddToEscapeOpened = "Add_To_Escape_Opened"
+    case AddToEscapeDone = "Add_To_Escape_Done"
+    case ShareWithFriendsTapped = "Share_With_Friends_Tapped"
+    case SearchOccurred = "Search_Occurred"
 }

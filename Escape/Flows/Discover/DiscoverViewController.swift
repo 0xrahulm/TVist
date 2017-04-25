@@ -106,8 +106,8 @@ class DiscoverViewController: UIViewController {
     }
     
     func didTapGoToRight() {
+        AnalyticsVader.sharedVader.basicEvents(eventName: .SearchOnDiscoverTapped)
         ScreenVader.sharedVader.performScreenManagerAction(.OpenSearchView, queryParams: ["screen" : "discover"])
-       
     }
     
     // MARK: - Container View Controller

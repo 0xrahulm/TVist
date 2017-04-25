@@ -132,6 +132,23 @@ class ItemDescViewController: UIViewController {
         if let escapeItem = escapeItem {
             setEscapeDetails(escapeItem.name, subtitle: nil, year: escapeItem.year, image:escapeItem.posterImage, rating: escapeItem.rating)
         }
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let escapeId = self.escapeId, let escapeName = self.escapeName, let escapeType = self.escapeType {
+            AnalyticsVader.sharedVader.itemDescriptionOpened(escapeName: escapeName, escapeId: escapeId, escapeType: escapeType.rawValue)
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if let escapeId = self.escapeId, let escapeName = self.escapeName, let escapeType = self.escapeType {
+            AnalyticsVader.sharedVader.itemDescriptionClosed(escapeName: escapeName, escapeId: escapeId, escapeType: escapeType.rawValue)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -292,10 +309,28 @@ class ItemDescViewController: UIViewController {
         }
     }
     
+    
+    func postRecommend(_ friendIds : [String]){
+        if let escapeId = escapeId {
+            MyAccountDataProvider.sharedDataProvider.postRecommend([escapeId], friendId: friendIds, message: "New Recommendation for you")
+        }
+    }
+    
     @IBAction func recommendToFriendsTapped(_ sender: AnyObject) {
         
-        if let escapeId = self.escapeId {
-            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.friends.rawValue, "escape_id" : escapeId])
+        if let _ = self.escapeId {
+            
+            if let escapeId = self.escapeId, let escapeName = self.escapeName, let escapeType = self.escapeType {
+                AnalyticsVader.sharedVader.shareWithFriendsTapped(escapeName: escapeName, escapeId: escapeId, escapeType: escapeType.rawValue)
+            }
+            
+            let storyBoard = UIStoryboard(name: "MyAccount", bundle: nil)
+            let vc = storyBoard.instantiateViewController(withIdentifier: "friendsVC") as! CustomNavigationViewController
+            let rootVC = vc.viewControllers[0] as! FriendsViewController
+            
+            rootVC.freindsDelegate = self
+            
+            self.present(vc, animated: true, completion: nil)
         }
     }
     
@@ -445,6 +480,12 @@ extension ItemDescViewController: UIScrollViewDelegate {
         headerView.layer.transform = headerTransform
         itemImage.layer.transform = imageTransform
         
+    }
+}
+
+extension ItemDescViewController: FriendsProtocol {
+    func taggedFriendIds(_ ids : [String]) {
+        postRecommend(ids)
     }
 }
 

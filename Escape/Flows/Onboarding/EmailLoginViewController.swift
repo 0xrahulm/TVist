@@ -127,6 +127,7 @@ class EmailLoginViewController: UIViewController {
             self.signInSceneXConstraint.constant = 600
             
             determineSignUpButtonState()
+            AnalyticsVader.sharedVader.basicEvents(eventName: .signUpTabTapped)
         }
         
         if segmentController.selectedSegmentIndex == SegmentTab.signIn.rawValue {
@@ -134,6 +135,7 @@ class EmailLoginViewController: UIViewController {
             self.signUpSceneXConstraint.constant = -600
             
             determineSignInButtonState()
+            AnalyticsVader.sharedVader.basicEvents(eventName: .signInTabTapped)
         }
         
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1, options: [], animations: {
@@ -166,6 +168,8 @@ class EmailLoginViewController: UIViewController {
     }
     
     @IBAction func doneButtonTappedWithSender(_ sender: AnyObject) {
+        
+        AnalyticsVader.sharedVader.basicEvents(eventName: .doneButtonOnEmailLogin)
         
         if segmentController.selectedSegmentIndex == SegmentTab.signUp.rawValue {
             
@@ -220,6 +224,8 @@ class EmailLoginViewController: UIViewController {
     }
     
     @IBAction func fbLoginTapped(_ sender: AnyObject) {
+        
+        AnalyticsVader.sharedVader.continueWtihFBTapped(screenName: "Email")
         
         let fbLoginManager : FBSDKLoginManager =  FBSDKLoginManager()
         let fbPermission = ["user_likes" , "user_friends" , "public_profile" , "email"]
@@ -308,13 +314,13 @@ extension EmailLoginViewController : LoginProtocol {
         
     }
     
-    func signInSuccessfull(_ data : [String:AnyObject] , type : LoginTypeEnum){
+    func signInSuccessfull(_ data : [String:AnyObject] , type : LoginTypeEnum, subServiceType: SubServiceType){
         
-        if type == .Email {
+        if type == .Email && subServiceType == .EmailSignUp {
             openInteresetVC()
-        } else if type == .Facebook {
-            ScreenVader.sharedVader.performScreenManagerAction(.MainTab, queryParams: nil)
+            return
         }
+        ScreenVader.sharedVader.loginActionAfterDelay()
         
     }
 }

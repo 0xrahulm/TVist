@@ -261,13 +261,19 @@ extension ScreenManagerViewController{
             return
         }
         switch action{
-            
         case .MainTab:
             openMainTab()
             break
             
+        case .DiscoverTab:
+            fallthrough
+        case .SearchTab:
+            fallthrough
+        case .MyAccountTab:
+            switchTabForAction(action)
+            break
         case .MyAccountSetting:
-            openMyAccountSetting()
+            openMyAccountSetting(params)
             break
             
         case .OpenItemDescription:
@@ -341,8 +347,8 @@ extension ScreenManagerViewController{
         ECUserDefaults.setLoggedIn(false)
         
     }
-    func openMyAccountSetting(){
-        pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountSettingVC", queryParams: nil)
+    func openMyAccountSetting(_ params : [String:Any]?){
+        pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountSettingVC", queryParams: params)
     }
     func openItemDesc(_ params : [String:Any]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "itemDescVC", queryParams: params)
