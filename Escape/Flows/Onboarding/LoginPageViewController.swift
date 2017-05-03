@@ -15,11 +15,10 @@ class LoginPageViewController: UIViewController {
     var pageViewController : UIPageViewController!
     var pageController : UIPageControl!
     
-    fileprivate let onBoardingImages:[String] = ["Promo_1",
-                                        "Promo_2",
-                                        "Promo_3", "Promo_4"];
+    fileprivate let onBoardingImages:[String] = ["Promo_4", "Promo_1",
+                                        "Promo_2"];
     
-    let onboardingStrings:[String] = ["Beautifully organise your favourite Movies, Tv Shows & Books", "Quickly search & add Escape's to your Dock on the go.", "Discover new Movies, Tv Shows & Books specific to your taste", "Share your favourites with friends & followers"]
+    let onboardingStrings:[String] = ["Share your favourites with friends & followers", "Beautifully organise your favourite Movies, Tv Shows & Books", "Discover new Movies, Tv Shows & Books specific to your taste"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,6 +18,8 @@ class SimilarEscapesView: UIView {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var similarViewTitle: UILabel!
+    
     var similarEscapes:[EscapeItem] = []
     
     weak var viewAllTapDelegate: SimilarEscapesViewAllTapProtocol?
@@ -36,6 +38,9 @@ class SimilarEscapesView: UIView {
         self.isHidden = false
     }
     
+    func updateTitle(title: String) {
+        self.similarViewTitle.text = title
+    }
     
     /*
     // Only override draw() if you perform custom drawing.

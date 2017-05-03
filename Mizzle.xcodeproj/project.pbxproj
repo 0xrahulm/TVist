@@ -88,6 +88,10 @@
 		84B2E1721E9E3D83003CF36A /* FBFriendViewMyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E16D1E9E3D83003CF36A /* FBFriendViewMyAccount.xib */; };
 		84B2E1731E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E16E1E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib */; };
 		84B2E1741E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E16E1E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib */; };
+		84BE28F21EB4CDDF005BFB76 /* cert.crt in Resources */ = {isa = PBXBuildFile; fileRef = 84BE28F11EB4CDDF005BFB76 /* cert.crt */; };
+		84BE28F31EB4CDDF005BFB76 /* cert.crt in Resources */ = {isa = PBXBuildFile; fileRef = 84BE28F11EB4CDDF005BFB76 /* cert.crt */; };
+		84BE28F51EB4CFF7005BFB76 /* chain.crt in Resources */ = {isa = PBXBuildFile; fileRef = 84BE28F41EB4CFF7005BFB76 /* chain.crt */; };
+		84BE28F61EB4CFF7005BFB76 /* chain.crt in Resources */ = {isa = PBXBuildFile; fileRef = 84BE28F41EB4CFF7005BFB76 /* chain.crt */; };
 		84DD655C1DD9BF1300C35EBE /* BaseDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD655B1DD9BF1300C35EBE /* BaseDataItem.swift */; };
 		84DD655D1DD9BF1300C35EBE /* BaseDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD655B1DD9BF1300C35EBE /* BaseDataItem.swift */; };
 		84DD655F1DDB2B4000C35EBE /* CustomNavigationAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD655E1DDB2B4000C35EBE /* CustomNavigationAnimationController.swift */; };
@@ -389,6 +393,8 @@
 		84B2E16C1E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddToEscapeViewMyAccount.xib; path = Xibs/AddToEscapeViewMyAccount.xib; sourceTree = "<group>"; };
 		84B2E16D1E9E3D83003CF36A /* FBFriendViewMyAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FBFriendViewMyAccount.xib; path = Xibs/FBFriendViewMyAccount.xib; sourceTree = "<group>"; };
 		84B2E16E1E9E3D83003CF36A /* PlaceHolderViewMyAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlaceHolderViewMyAccount.xib; path = Xibs/PlaceHolderViewMyAccount.xib; sourceTree = "<group>"; };
+		84BE28F11EB4CDDF005BFB76 /* cert.crt */ = {isa = PBXFileReference; lastKnownFileType = file; name = cert.crt; path = Resources/cert.crt; sourceTree = "<group>"; };
+		84BE28F41EB4CFF7005BFB76 /* chain.crt */ = {isa = PBXFileReference; lastKnownFileType = file; name = chain.crt; path = Resources/chain.crt; sourceTree = "<group>"; };
 		84DD655B1DD9BF1300C35EBE /* BaseDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseDataItem.swift; sourceTree = "<group>"; };
 		84DD655E1DDB2B4000C35EBE /* CustomNavigationAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationAnimationController.swift; sourceTree = "<group>"; };
 		84DD65611DDB470600C35EBE /* CustomInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInteractionController.swift; sourceTree = "<group>"; };
@@ -465,11 +471,11 @@
 		BC3A818F1CA5397B00FF8678 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		BC3A81A01CA5626000FF8678 /* MainTab.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainTab.storyboard; sourceTree = "<group>"; };
 		BC3A81A81CA5753000FF8678 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
-		BC47ED7E1C9FEEC7008143C2 /* Escape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Escape.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC47ED7E1C9FEEC7008143C2 /* Mizzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mizzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC47ED811C9FEEC7008143C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC47ED8E1C9FEEC8008143C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC47ED901C9FEEC8008143C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BC47EDA31C9FF233008143C2 /* Escape copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Escape copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC47EDA31C9FF233008143C2 /* Mizzle copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mizzle copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC47EDA41C9FF233008143C2 /* Escape copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Escape copy-Info.plist"; path = "/Users/ankit/projects/EscapeApp/Escape/Escape copy-Info.plist"; sourceTree = "<absolute>"; };
 		BC47EDB81CA00333008143C2 /* ScreenVader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenVader.swift; sourceTree = "<group>"; };
 		BC47EDC01CA00F60008143C2 /* UserDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataProvider.swift; sourceTree = "<group>"; };
@@ -835,8 +841,8 @@
 		BC47ED7F1C9FEEC7008143C2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BC47ED7E1C9FEEC7008143C2 /* Escape.app */,
-				BC47EDA31C9FF233008143C2 /* Escape copy.app */,
+				BC47ED7E1C9FEEC7008143C2 /* Mizzle.app */,
+				BC47EDA31C9FF233008143C2 /* Mizzle copy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1069,6 +1075,8 @@
 		BCB7B4A21CA16FAB002147FA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				84BE28F41EB4CFF7005BFB76 /* chain.crt */,
+				84BE28F11EB4CDDF005BFB76 /* cert.crt */,
 				BCB7B4A81CA17378002147FA /* Fonts */,
 				BCFE486A1CA3C1C00098160D /* Images.xcassets */,
 			);
@@ -1121,9 +1129,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BC47ED7D1C9FEEC7008143C2 /* Escape */ = {
+		BC47ED7D1C9FEEC7008143C2 /* Mizzle */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC47ED931C9FEEC8008143C2 /* Build configuration list for PBXNativeTarget "Escape" */;
+			buildConfigurationList = BC47ED931C9FEEC8008143C2 /* Build configuration list for PBXNativeTarget "Mizzle" */;
 			buildPhases = (
 				56F21F4F72B6A36FF9FC614D /* [CP] Check Pods Manifest.lock */,
 				BC47ED7A1C9FEEC7008143C2 /* Sources */,
@@ -1137,14 +1145,14 @@
 			);
 			dependencies = (
 			);
-			name = Escape;
+			name = Mizzle;
 			productName = Escape;
-			productReference = BC47ED7E1C9FEEC7008143C2 /* Escape.app */;
+			productReference = BC47ED7E1C9FEEC7008143C2 /* Mizzle.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BC47ED961C9FF233008143C2 /* Escape copy */ = {
+		BC47ED961C9FF233008143C2 /* Mizzle copy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC47EDA01C9FF233008143C2 /* Build configuration list for PBXNativeTarget "Escape copy" */;
+			buildConfigurationList = BC47EDA01C9FF233008143C2 /* Build configuration list for PBXNativeTarget "Mizzle copy" */;
 			buildPhases = (
 				047B747CF6908E0B71015E62 /* [CP] Check Pods Manifest.lock */,
 				BC47ED971C9FF233008143C2 /* Sources */,
@@ -1157,9 +1165,9 @@
 			);
 			dependencies = (
 			);
-			name = "Escape copy";
+			name = "Mizzle copy";
 			productName = Escape;
-			productReference = BC47EDA31C9FF233008143C2 /* Escape copy.app */;
+			productReference = BC47EDA31C9FF233008143C2 /* Mizzle copy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1170,7 +1178,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = EscapeApp;
+				ORGANIZATIONNAME = "Ardour Labs";
 				TargetAttributes = {
 					BC47ED7D1C9FEEC7008143C2 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -1185,7 +1193,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BC47ED791C9FEEC7008143C2 /* Build configuration list for PBXProject "Escape" */;
+			buildConfigurationList = BC47ED791C9FEEC7008143C2 /* Build configuration list for PBXProject "Mizzle" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1198,8 +1206,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BC47ED7D1C9FEEC7008143C2 /* Escape */,
-				BC47ED961C9FF233008143C2 /* Escape copy */,
+				BC47ED7D1C9FEEC7008143C2 /* Mizzle */,
+				BC47ED961C9FF233008143C2 /* Mizzle copy */,
 			);
 		};
 /* End PBXProject section */
@@ -1212,6 +1220,7 @@
 				845FA4D41EA0E1E100357FCD /* GenericActivityIndicatorCell.xib in Resources */,
 				BC1099701E1275C10036CA75 /* WhatsYourEscape.xib in Resources */,
 				BC10997F1E127C570036CA75 /* PlaceHolderView.xib in Resources */,
+				84BE28F21EB4CDDF005BFB76 /* cert.crt in Resources */,
 				84B2E16F1E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib in Resources */,
 				BC4B56371D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
 				84B2E1711E9E3D83003CF36A /* FBFriendViewMyAccount.xib in Resources */,
@@ -1224,6 +1233,7 @@
 				BC5188291D8C688600A85E61 /* Search.storyboard in Resources */,
 				BC1099761E1277F90036CA75 /* FBFriendView.xib in Resources */,
 				BCFE486B1CA3C1C00098160D /* Images.xcassets in Resources */,
+				84BE28F51EB4CFF7005BFB76 /* chain.crt in Resources */,
 				BC10997C1E127AF10036CA75 /* EscapeCollectionView.xib in Resources */,
 				BCB7B4B01CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BC6ED7B21E4C903800DCF838 /* SuggestedFollows.xib in Resources */,
@@ -1254,6 +1264,7 @@
 				845FA4D51EA0E1E100357FCD /* GenericActivityIndicatorCell.xib in Resources */,
 				BC1099711E1275C10036CA75 /* WhatsYourEscape.xib in Resources */,
 				BC1099801E127C570036CA75 /* PlaceHolderView.xib in Resources */,
+				84BE28F31EB4CDDF005BFB76 /* cert.crt in Resources */,
 				84B2E1701E9E3D83003CF36A /* AddToEscapeViewMyAccount.xib in Resources */,
 				BC4B56381D6DE0AE008BF1F6 /* NoNetworkView.xib in Resources */,
 				84B2E1721E9E3D83003CF36A /* FBFriendViewMyAccount.xib in Resources */,
@@ -1266,6 +1277,7 @@
 				BC51882A1D8C688600A85E61 /* Search.storyboard in Resources */,
 				BC1099771E1277F90036CA75 /* FBFriendView.xib in Resources */,
 				BCFE486C1CA3C1C00098160D /* Images.xcassets in Resources */,
+				84BE28F61EB4CFF7005BFB76 /* chain.crt in Resources */,
 				BC10997D1E127AF10036CA75 /* EscapeCollectionView.xib in Resources */,
 				BCB7B4B11CA17378002147FA /* SF-UI-Display-Medium.ttf in Resources */,
 				BC6ED7B31E4C903800DCF838 /* SuggestedFollows.xib in Resources */,
@@ -1784,14 +1796,14 @@
 				INFOPLIST_FILE = Escape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ardourlabs.Mizzle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5145397e-c7be-4441-8927-4ad231b16e7e";
-				PROVISIONING_PROFILE_SPECIFIER = "Escape Development Profile";
+				PROVISIONING_PROFILE = "d6930c22-c34f-4e32-89f5-87535a29b1a5";
+				PROVISIONING_PROFILE_SPECIFIER = "Mizzle iOS Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1812,13 +1824,13 @@
 				INFOPLIST_FILE = Escape/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.escape-app.Escape";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ardourlabs.Mizzle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "07c63649-4fff-45ee-84a5-11c91bae8bfd";
-				PROVISIONING_PROFILE_SPECIFIER = "Escape Production";
+				PROVISIONING_PROFILE = "5bd1e383-9717-4eb5-84e6-49f77d69f2f6";
+				PROVISIONING_PROFILE_SPECIFIER = "Mizzle Appstore Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1864,7 +1876,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BC47ED791C9FEEC7008143C2 /* Build configuration list for PBXProject "Escape" */ = {
+		BC47ED791C9FEEC7008143C2 /* Build configuration list for PBXProject "Mizzle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC47ED911C9FEEC8008143C2 /* Debug */,
@@ -1873,7 +1885,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC47ED931C9FEEC8008143C2 /* Build configuration list for PBXNativeTarget "Escape" */ = {
+		BC47ED931C9FEEC8008143C2 /* Build configuration list for PBXNativeTarget "Mizzle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC47ED941C9FEEC8008143C2 /* Debug */,
@@ -1882,7 +1894,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC47EDA01C9FF233008143C2 /* Build configuration list for PBXNativeTarget "Escape copy" */ = {
+		BC47EDA01C9FF233008143C2 /* Build configuration list for PBXNativeTarget "Mizzle copy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC47EDA11C9FF233008143C2 /* Debug */,

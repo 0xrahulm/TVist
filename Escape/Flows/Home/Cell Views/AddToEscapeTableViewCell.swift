@@ -199,7 +199,7 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
         }
         
         let nameString = NSMutableAttributedString(attributedString: SFUIAttributedText.mediumAttributedTextForString("\(creatorName) ", size: 15, color: UIColor.textBlackColor()))
-        nameString.setAsLink(creatorName, linkURL: "escape://escape/user?user_id=\(creatorId)")
+        nameString.setAsLink(creatorName, linkURL: "mizzle://mizzle/user?user_id=\(creatorId)")
         attributedString.append(nameString)
         
         
@@ -210,7 +210,7 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
         if escapeItems.items.count == 1{
             if let name = escapeItems.items[0].name, let id = escapeItems.items[0].id{
                 let escapeString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
-                escapeString.setAsLink(name, linkURL: "escape://escape/item?escape_id=\(id)")
+                escapeString.setAsLink(name, linkURL: "mizzle://mizzle/item?escape_id=\(id)")
                 attributedString.append(escapeString)
                 
             }
@@ -218,7 +218,7 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
             
             if let name = escapeItems.items[0].name, let id = escapeItems.items[0].id{
                 let escapeString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
-                escapeString.setAsLink(name, linkURL: "escape://escape/item?escape_id=\(id)")
+                escapeString.setAsLink(name, linkURL: "mizzle://mizzle/item?escape_id=\(id)")
                 attributedString.append(escapeString)
                 
             }
@@ -228,14 +228,14 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
             
             if let name = escapeItems.items[1].name, let id = escapeItems.items[1].id{
                 let escapeString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
-                escapeString.setAsLink(name, linkURL: "escape://escape/item?escape_id=\(id)")
+                escapeString.setAsLink(name, linkURL: "mizzle://mizzle/item?escape_id=\(id)")
                 attributedString.append(escapeString)
                 
             }
         }else if escapeItems.items.count > 2{
             if let name = escapeItems.items[0].name, let id = escapeItems.items[0].id{
                 let escapeString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
-                escapeString.setAsLink(name, linkURL: "escape://escape/item?escape_id=\(id)")
+                escapeString.setAsLink(name, linkURL: "mizzle://mizzle/item?escape_id=\(id)")
                 attributedString.append(escapeString)
                 
             }
@@ -254,13 +254,13 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
             
             if escapeItems.items.count > 3{
                 let prepositionString3 = NSMutableAttributedString(attributedString:SFUIAttributedText.regularAttributedTextForString("\(escapeItems.items.count-2) others", size: 14, color: UIColor.textBlackColor()))
-                prepositionString3.setAsLink("\(escapeItems.items.count-2) others", linkURL: "escape://openListingItems")
+                prepositionString3.setAsLink("\(escapeItems.items.count-2) others", linkURL: "mizzle://mizzle/openListingItems")
                 attributedString.append(prepositionString3)
                 
             }else{
                 
                 let prepositionString4 = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("1 other", size: 14, color: UIColor.textBlackColor()))
-                prepositionString4.setAsLink("1 other", linkURL: "escape://escape/user?user_id=\(escapeItems.items[2].id)")
+                prepositionString4.setAsLink("1 other", linkURL: "mizzle://mizzle/user?user_id=\(escapeItems.items[2].id)")
                 attributedString.append(prepositionString4)
                 
             }
@@ -275,7 +275,7 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
         if escapeItems.recommededUsers.count == 1{
             if let name = escapeItems.recommededUsers[0].name, let id = escapeItems.recommededUsers[0].id{
                 let friendsString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
-                friendsString.setAsLink(name, linkURL: "escape://escape/user?user_id=\(id)")
+                friendsString.setAsLink(name, linkURL: "mizzle://mizzle/user?user_id=\(id)")
                 attributedString.append(friendsString)
                 
             }
@@ -293,14 +293,14 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
             
             if let name = escapeItems.recommededUsers[1].name, let id = escapeItems.recommededUsers[1].id{
                 let friendsString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
-                friendsString.setAsLink(name, linkURL: "escape://escape/user?user_id=\(id)")
+                friendsString.setAsLink(name, linkURL: "mizzle://mizzle/user?user_id=\(id)")
                 attributedString.append(friendsString)
                 
             }
         }else if escapeItems.recommededUsers.count > 2{
             if let name = escapeItems.recommededUsers[0].name, let id = escapeItems.recommededUsers[0].id{
                 let friendsString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
-                friendsString.setAsLink(name, linkURL: "escape://escape/user?user_id=\(id)")
+                friendsString.setAsLink(name, linkURL: "mizzle://mizzle/user?user_id=\(id)")
                 attributedString.append(friendsString)
                 
             }
@@ -309,7 +309,7 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
             
             if let name = escapeItems.recommededUsers[1].name, let id = escapeItems.recommededUsers[1].id{
                 let friendsString = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("\(name) ", size: 14, color: UIColor.textBlackColor()))
-                friendsString.setAsLink(name, linkURL: "escape://escape/user?user_id=\(id)")
+                friendsString.setAsLink(name, linkURL: "mizzle://mizzle/user?user_id=\(id)")
                 attributedString.append(friendsString)
                 
             }
@@ -319,13 +319,13 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
             
             if escapeItems.recommededUsers.count > 3{
                 let prepositionString3 = NSMutableAttributedString(attributedString:SFUIAttributedText.regularAttributedTextForString("\(escapeItems.recommededUsers.count-2) others", size: 14, color: UIColor.textBlackColor()))
-                prepositionString3.setAsLink("\(escapeItems.recommededUsers.count-2) others", linkURL: "escape://openListingFriends")
+                prepositionString3.setAsLink("\(escapeItems.recommededUsers.count-2) others", linkURL: "mizzle://mizzle/openListingFriends")
                 attributedString.append(prepositionString3)
                 
             }else{
                 
                 let prepositionString4 = NSMutableAttributedString(attributedString: SFUIAttributedText.regularAttributedTextForString("1 other", size: 14, color: UIColor.textBlackColor()))
-                prepositionString4.setAsLink("1 other", linkURL: "escape://escape/user?user_id=\(escapeItems.recommededUsers[2].id)")
+                prepositionString4.setAsLink("1 other", linkURL: "mizzle://mizzle/user?user_id=\(escapeItems.recommededUsers[2].id)")
                 attributedString.append(prepositionString4)
                 
             }

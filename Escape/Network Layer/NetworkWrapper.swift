@@ -17,6 +17,7 @@ protocol NetworkWrapperProtocol : class {
 class NetworkWrapper: NSObject {
     
     var activeRequest : [Request] = []
+    var sessionManager: SessionManager!
     
     func serverCall(_ service : Service){
         
@@ -29,10 +30,28 @@ class NetworkWrapper: NSObject {
                 encoding = URLEncoding.default
             }
             
-            let currentRequest = Alamofire.request(service.finalURL, method: service.method, parameters: service.parameters, encoding: encoding, headers: appHeaders())
+            if sessionManager == nil {
+                
+                
+                let certs = ServerTrustPolicy.certificates()
+                
+                let trustPolicies:[String : ServerTrustPolicy] = [
+                    "api.mizzleapp.com": .pinCertificates(
+                        certificates: certs,
+                        validateCertificateChain: true,
+                        validateHost: true
+                    )
+                ]
+                
+                sessionManager = SessionManager(configuration: URLSessionConfiguration.default, delegate: SessionDelegate(), serverTrustPolicyManager: ServerTrustPolicyManager(policies: trustPolicies))
+            }
             
             
-            currentRequest.responseJSON(completionHandler: { (response) in
+            
+            let currentRequest = sessionManager.request(service.finalURL, method: service.method, parameters: service.parameters, encoding: encoding, headers: appHeaders())
+            
+            
+            currentRequest.validate().responseJSON(completionHandler: { (response) in
                 
                 self.recievedServerResponse(service, response: response)
             })
@@ -54,7 +73,7 @@ class NetworkWrapper: NSObject {
                             request.cancel()
                         }
                     }
-                   
+                    
                 }
             }
         }
@@ -71,23 +90,24 @@ class NetworkWrapper: NSObject {
             service.failedCount = 0
             
             if service.responderDelegate != nil{
-                if let responseCode = response.response {
-                    print("Status from : \(service.finalURL) \(responseCode.statusCode)")
-                    if responseCode.statusCode >= 400 {
-                        service.errorMessage = response.result.value
-                        service.errorCode = response.response?.statusCode
-                        service.responderDelegate!.serivceFinishedWithError(service)
-                        
-                    }else{
-                        service.outPutResponse = response.result.value
-                        service.responderDelegate!.serviceFinishedSucessfully(service)
-                    }
+                
+                
+                if response.result.isSuccess {
+                    service.outPutResponse = response.result.value
+                    service.responderDelegate!.serviceFinishedSucessfully(service)
+                }else{
+                    printError(error: response.error)
+                    service.errorMessage = response.result.value
+                    service.errorCode = response.response?.statusCode
+                    service.responderDelegate!.serivceFinishedWithError(service)
                 }
+                
             }
             
             break;
-            
         case .failure(_):
+            
+            printError(error: response.error)
             service.errorMessage = response.result.value
             service.errorCode = response.response?.statusCode
             
@@ -97,6 +117,44 @@ class NetworkWrapper: NSObject {
             break;
         }
         
+    }
+    
+    func printError(error: Error?) {
+        if let error = error as? AFError {
+            switch error {
+            case .invalidURL(let url):
+                print("Invalid URL: \(url) - \(error.localizedDescription)")
+            case .parameterEncodingFailed(let reason):
+                print("Parameter encoding failed: \(error.localizedDescription)")
+                print("Failure Reason: \(reason)")
+            case .multipartEncodingFailed(let reason):
+                print("Multipart encoding failed: \(error.localizedDescription)")
+                print("Failure Reason: \(reason)")
+            case .responseValidationFailed(let reason):
+                print("Response validation failed: \(error.localizedDescription)")
+                print("Failure Reason: \(reason)")
+                
+                switch reason {
+                case .dataFileNil, .dataFileReadFailed:
+                    print("Downloaded file could not be read")
+                case .missingContentType(let acceptableContentTypes):
+                    print("Content Type Missing: \(acceptableContentTypes)")
+                case .unacceptableContentType(let acceptableContentTypes, let responseContentType):
+                    print("Response content type: \(responseContentType) was unacceptable: \(acceptableContentTypes)")
+                case .unacceptableStatusCode(let code):
+                    print("Response status code was unacceptable: \(code)")
+                }
+            case .responseSerializationFailed(let reason):
+                print("Response serialization failed: \(error.localizedDescription)")
+                print("Failure Reason: \(reason)")
+            }
+            
+            print("Underlying error: \(String(describing: error.underlyingError))")
+        } else if let error = error as? URLError {
+            print("URLError occurred: \(error)")
+        } else {
+            print("Unknown error: \(String(describing: error))")
+        }
     }
     
     func isNetworkAvailable() -> Bool{
@@ -119,6 +177,7 @@ class NetworkWrapper: NSObject {
         headers["X-DEVICE-TYPE"] = UIDevice.current.modelName
         headers["X-OS-TYPE"] = "iOS"
         headers["Accept"] = "application/version.v1"
+        headers["Accept"] = "application/json"
         
         print("Device id :\(DeviceID.getDeviceID())")
         return headers

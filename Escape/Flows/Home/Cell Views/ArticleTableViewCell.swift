@@ -37,7 +37,7 @@ class ArticleTableViewCell: BaseStoryTableViewCell {
                 if let name = escapeItems.creatorName{
                     self.titleLabel.text = name
                 }else{
-                    self.titleLabel.text = "Escape"
+                    self.titleLabel.text = "Mizzle"
                 }
                 
                 if let image = escapeItems.creatorImage{

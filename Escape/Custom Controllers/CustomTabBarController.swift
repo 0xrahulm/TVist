@@ -10,7 +10,7 @@ import UserNotifications
 import UIKit
 
 enum EscapeTabs:Int {
-    case discover=0, search, myAccount
+    case myAccount=0, search, discover
 }
 
 class CustomTabBarController: UIViewController {
@@ -108,7 +108,7 @@ class CustomTabBarController: UIViewController {
         //let notificationsViewController = initialViewControllerFor(.Notifications) as! CustomNavigationViewController
         let myAccountViewController = initialViewControllerFor(.MyAccount) as! CustomNavigationViewController
         
-        viewControllers = [discoverViewController, searchViewController, myAccountViewController]
+        viewControllers = [myAccountViewController, searchViewController, discoverViewController]
         
     }
     

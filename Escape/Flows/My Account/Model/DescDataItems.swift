@@ -61,6 +61,9 @@ class DescDataItems: NSObject {
                 }
                 
                 self.runtime = dict["run_time"] as? String
+                if let pagesCount = dict["page_count"] as? Int {
+                    self.runtime = String(pagesCount)+" pages"
+                }
                 self.cast = dict["cast"] as? String
                 
                 if let createdBy = dict["created_by"] as? String{

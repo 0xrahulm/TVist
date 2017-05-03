@@ -31,6 +31,9 @@ class ItemDescViewController: UIViewController {
     @IBOutlet weak var castDetailLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    @IBOutlet weak var runTimeImage: UIImageView!
+    @IBOutlet weak var readMoreButton: UIButton!
+    
     var escapeId:String?
     var escapeType:EscapeType?
     var imageUri: String?
@@ -133,6 +136,23 @@ class ItemDescViewController: UIViewController {
             setEscapeDetails(escapeItem.name, subtitle: nil, year: escapeItem.year, image:escapeItem.posterImage, rating: escapeItem.rating)
         }
         
+        if let escapeType = self.escapeType {
+            if escapeType == .Books {
+                self.runTimeImage.image = UIImage(named: "pages_count")
+                self.similarEscapesView.updateTitle(title: "Similar Books")
+            }
+            
+            if escapeType == .Movie {
+                self.similarEscapesView.updateTitle(title: "Similar Movies")
+            }
+            
+            if escapeType == .TvShows {
+                self.similarEscapesView.updateTitle(title: "Similar Tv Shows")
+            }
+        }
+        
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -142,6 +162,8 @@ class ItemDescViewController: UIViewController {
             AnalyticsVader.sharedVader.itemDescriptionOpened(escapeName: escapeName, escapeId: escapeId, escapeType: escapeType.rawValue)
         }
     }
+    
+    
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -261,6 +283,9 @@ class ItemDescViewController: UIViewController {
             }
             if let desc = descData.desc{
                 descriptionLabel.text = desc
+                if desc.characters.count > 60 {
+                    self.readMoreButton.visibleWithAnimation()
+                }
             }
             
             escapeAlreadyAdded  = descData.isActed
@@ -287,6 +312,12 @@ class ItemDescViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func readMoreButtonTap(_ sender: UIButton) {
+        self.descriptionLabel.numberOfLines = 0
+        self.readMoreButton.setTitle("", for: .normal)
+        self.readMoreButton.hideWithAnimationAndRemoveView(false)
+        self.view.layoutIfNeeded()
+    }
     
     @IBAction func addEscapeTapped(_ sender: AnyObject) {
         

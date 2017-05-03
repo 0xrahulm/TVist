@@ -72,11 +72,18 @@ class RealmDataVader: NSObject {
     }
     
     
-    func writeToRealm(_ object: Object) {
-        DispatchQueue.global(qos: .userInitiated).async {[unowned self]
-            () -> Void in
+    func writeToRealm(_ object: Object, background: Bool) {
+        if background {
+            
+            DispatchQueue.global(qos: .userInitiated).async {[unowned self]
+                () -> Void in
+                try! self.realm.write({
+                    self.realm.add(object)
+                })
+            }
+        } else {
             try! self.realm.write({
-                self.realm.add(object)
+                self.realm.add(object, update: true)
             })
         }
     }

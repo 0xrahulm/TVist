@@ -267,6 +267,13 @@ extension UserDataProvider{
         if let token = JSON(dict)["auth_token"].string{
             DeviceID.saveXauth(token)
             
+            if let user = dict["user"] as? [String:Any] {
+                if let _ = user["id"] as? String {
+                    let parsedUserData = MyAccountItems(dict: user, userType: nil)
+                    MyAccountDataProvider.sharedDataProvider.saveUserDataToRealm(parsedUserData)
+                }
+            }
+            
             LocalStorageVader.sharedVader.setFlagForKey(.InterestsSelected)
             
             if self.fbLoginDelegate != nil{
@@ -284,6 +291,14 @@ extension UserDataProvider{
         
         if let token = JSON(dict)["auth_token"].string{
             DeviceID.saveXauth(token)
+            
+            if let user = dict["user"] as? [String:Any] {
+                if let _ = user["id"] as? String {
+                    let parsedUserData = MyAccountItems(dict: user, userType: nil)
+                    MyAccountDataProvider.sharedDataProvider.saveUserDataToRealm(parsedUserData)
+                }
+            }
+            
             if self.emailLoginDelegate != nil{
                 self.emailLoginDelegate?.signInSuccessfull(dict , type: .Email, subServiceType: subServiceType)
             }

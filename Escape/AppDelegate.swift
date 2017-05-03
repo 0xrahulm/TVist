@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if let scheme = url.scheme, scheme == "escape" {
+        if let scheme = url.scheme, scheme == "mizzle" {
             ScreenVader.sharedVader.processDeepLink(url.absoluteString, shouldAddToPending: !self.initializedOnce)
         }
         

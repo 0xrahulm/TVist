@@ -22,7 +22,7 @@ class SuggestedFollowsTableViewCell: BaseStoryTableViewCell {
         didSet{
             suggestedCollectionView.register(UINib(nibName: CellIdentifier.SuggestedPeopleCollection.rawValue, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.SuggestedPeopleCollection.rawValue)
             if let data = data{
-                let nameString = NSMutableAttributedString(attributedString: SFUIAttributedText.mediumAttributedTextForString("Escape", size: 15, color: UIColor.textBlackColor()))
+                let nameString = NSMutableAttributedString(attributedString: SFUIAttributedText.mediumAttributedTextForString("Mizzle", size: 15, color: UIColor.textBlackColor()))
                 
 //                titleTextView.attributedText = nameString
 //                

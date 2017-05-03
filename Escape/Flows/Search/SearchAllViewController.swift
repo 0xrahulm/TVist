@@ -70,12 +70,12 @@ class SearchAllViewController: UIViewController {
     func searchQuery(){
         
         if let queryText = ECUserDefaults.getSearchedText(){
-            if queryText.characters.count < 3{
+            if queryText.characters.count < 3 {
                 
                 dataArray = []
                 tableView.reloadDataAnimated()
                 
-            }else{
+            } else {
                 if currentPage == 1{
                     dataArray = []
                     dataArray.append(SearchItems(searchType: .Blank))
@@ -83,7 +83,7 @@ class SearchAllViewController: UIViewController {
                     
                     _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(SearchAllViewController.validateSearch(_:)), userInfo: queryText, repeats: false)
                     
-                }else{
+                } else {
                     searchCall(queryText)
                 }
             }
@@ -95,7 +95,7 @@ class SearchAllViewController: UIViewController {
     }
     
     func recievedSearchedText(_ notification : Notification){
-        if let dict = notification.object as? [String:AnyObject]{
+        if let dict = notification.object as? [String:AnyObject] {
             if let text = dict["searchText"] as? String{
                 self.searchedText = text
                 currentPage = 1

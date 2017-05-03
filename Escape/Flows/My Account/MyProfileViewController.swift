@@ -138,6 +138,7 @@ class MyProfileViewController: UIViewController {
         if isLoggedInUser() {
             fetchDataFromRealm()
         } else {
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.UserProfileOpened)
             NotificationCenter.default.addObserver(self, selector: #selector(MyProfileViewController.otherUserData(_:)), name: NSNotification.Name(rawValue: NotificationObservers.GetProfileDetailsObserver.rawValue), object: nil)
             
         }

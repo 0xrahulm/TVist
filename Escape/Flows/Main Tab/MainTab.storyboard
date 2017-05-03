@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BnE-TS-YbO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BnE-TS-YbO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,7 +12,7 @@
         <!--Custom Tab Bar Controller-->
         <scene sceneID="e1q-WX-x0O">
             <objects>
-                <viewController id="BnE-TS-YbO" customClass="CustomTabBarController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BnE-TS-YbO" customClass="CustomTabBarController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6nh-cg-gP6"/>
                         <viewControllerLayoutGuide type="bottom" id="08z-wy-RCt"/>
@@ -39,24 +39,24 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aQ-Vz-HXD">
                                         <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
-                                        <state key="normal" image="tab_discover"/>
-                                        <state key="selected" image="tab_discover_on"/>
+                                        <state key="normal" image="tab_profile"/>
+                                        <state key="selected" image="tab_profile_on"/>
                                         <connections>
                                             <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="cj1-S9-DyN"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xI-9X-JOt">
                                         <rect key="frame" x="125" y="0.0" width="125" height="50"/>
-                                        <state key="normal" image="tab_add_off"/>
-                                        <state key="selected" image="tab_add_escape"/>
+                                        <state key="normal" image="tab_search"/>
+                                        <state key="selected" image="tab_search_on"/>
                                         <connections>
                                             <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="u3D-oO-3Yl"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsF-bH-2VK">
                                         <rect key="frame" x="250" y="0.0" width="125" height="50"/>
-                                        <state key="normal" image="tab_profile"/>
-                                        <state key="selected" image="tab_profile_on"/>
+                                        <state key="normal" image="tab_discover"/>
+                                        <state key="selected" image="tab_discover_on"/>
                                         <connections>
                                             <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="HGh-Yw-0ET"/>
                                         </connections>
@@ -93,10 +93,10 @@
                     </view>
                     <connections>
                         <outlet property="contentView" destination="mO4-Eg-2E4" id="KPB-KE-iiy"/>
-                        <outlet property="discoverButton" destination="0aQ-Vz-HXD" id="wQY-6X-ho3"/>
+                        <outlet property="discoverButton" destination="WsF-bH-2VK" id="0Io-GL-gTB"/>
                         <outlet property="homeButton" destination="Kdd-9f-m2J" id="PkV-qa-51W"/>
-                        <outlet property="myAccountButton" destination="WsF-bH-2VK" id="Tzb-xe-Z9r"/>
-                        <outlet property="notificationsButton" destination="2xI-9X-JOt" id="Th0-6C-0Af"/>
+                        <outlet property="myAccountButton" destination="0aQ-Vz-HXD" id="3GW-9Q-xER"/>
+                        <outlet property="notificationsButton" destination="2xI-9X-JOt" id="hlV-cW-4NE"/>
                         <outlet property="tabBarBottomConstraint" destination="dp4-vC-mFm" id="4MO-BZ-NNm"/>
                         <outlet property="tabBarView" destination="JhV-cx-SHl" id="epr-hM-x6K"/>
                     </connections>
@@ -107,13 +107,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tab_add_escape" width="28" height="28"/>
-        <image name="tab_add_off" width="16" height="16"/>
         <image name="tab_discover" width="28" height="28"/>
         <image name="tab_discover_on" width="28" height="28"/>
         <image name="tab_home" width="28" height="28"/>
         <image name="tab_home_on" width="28" height="28"/>
         <image name="tab_profile" width="28" height="28"/>
         <image name="tab_profile_on" width="28" height="28"/>
+        <image name="tab_search" width="16" height="16"/>
+        <image name="tab_search_on" width="16" height="16"/>
     </resources>
 </document>

@@ -22,7 +22,7 @@ class AddToEscapeCard: StoryCard {
         
         if let objData = self.storyData{
             for data in objData{
-                if let dataDict = data as? [String:AnyObject]{
+                if let dataDict = data as? [String:AnyObject] {
                     self.items.append(EscapeDataItems(dict: dataDict))
                     
                 }

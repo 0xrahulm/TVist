@@ -28,7 +28,7 @@ class ScreenVader: NSObject {
     }
     
     func loginActionAfterDelay() {
-        perform(#selector(ScreenVader.loginAction), with: nil, afterDelay: 3.0)
+        perform(#selector(ScreenVader.loginAction), with: nil, afterDelay: 1.0)
     }
     
     func loginAction() {

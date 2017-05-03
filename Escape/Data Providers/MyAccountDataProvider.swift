@@ -651,14 +651,9 @@ extension MyAccountDataProvider{
             userData.following = Int(userItem.following)
             
             userData.escape_count = userItem.escapes_count.intValue
-            
-            
+        
+            RealmDataVader.sharedVader.writeToRealm(userData, background: false)
             self.currentUser = userData
-            
-            let uiRealm  = try! Realm()
-            try! uiRealm.write({
-                uiRealm.add(userData , update: true)
-            })
         }
     }
     
@@ -693,7 +688,7 @@ extension MyAccountDataProvider{
                         
                         let uiRealm = try! Realm()
                         try! uiRealm.write({
-                            uiRealm.add(escapeData ,update: true)
+                            uiRealm.add(escapeData, update: true)
                             self.currentUser?.escapeList.append(escapeData)
                         })
                         

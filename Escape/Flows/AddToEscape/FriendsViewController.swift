@@ -53,7 +53,7 @@ class FriendsViewController: UIViewController {
     }
     
     @IBAction func inviteFriendsTapped(sender: UIButton) {
-        let text:String = "Check out Escape, it makes it easy to recommend new Movies, Books & TV Shows to each other. Download now: http://appurl.io/j1q73s0r"
+        let text:String = "Check out Mizzle, it makes it easy to recommend new Movies, Books & TV Shows to each other. Download now: http://appurl.io/j27havwa"
         
         let activityController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         

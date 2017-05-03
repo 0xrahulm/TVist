@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Escape.xcodeproj">
+      location = "group:/Users/wasenhorn/workspace/Escape/escapeappios/Mizzle.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

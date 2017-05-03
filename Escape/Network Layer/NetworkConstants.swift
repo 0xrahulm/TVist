@@ -10,7 +10,7 @@ import UIKit
 
 enum ServiceType : String {
     //case ServiceTypePrivateApi="http://api.escape-app.com/api/"
-    case ServiceTypePrivateApi="http://api.escape-app.com/api/"
+    case ServiceTypePrivateApi="https://api.mizzleapp.com/api/"
 }
 
 enum SubServiceType : String {

@@ -165,4 +165,5 @@ enum EventName:String {
     case AddToEscapeDone = "Add_To_Escape_Done"
     case ShareWithFriendsTapped = "Share_With_Friends_Tapped"
     case SearchOccurred = "Search_Occurred"
+    case UserProfileOpened = "User_Profile_Opened"
 }
