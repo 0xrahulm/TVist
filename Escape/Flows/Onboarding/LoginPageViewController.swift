@@ -169,12 +169,16 @@ class LoginPageViewController: UIViewController {
         
         AnalyticsVader.sharedVader.continueWtihFBTapped(screenName: "Carousel")
         let fbLoginManager : FBSDKLoginManager =  FBSDKLoginManager()
+        fbLoginManager.loginBehavior = .systemAccount
         let fbPermission = ["user_likes" , "user_friends" , "public_profile" , "email"]
         
         fbLoginManager.logIn(withReadPermissions: fbPermission, from: self) { (result, error) in
             if error == nil{
                 
                 if let fbLoginResult = result {
+                    if fbLoginResult.isCancelled {
+                        AnalyticsVader.sharedVader.fbLoginFailure(reason: "User Cancelled")
+                    }
                     if let _ = fbLoginResult.grantedPermissions{
                         if fbLoginResult.grantedPermissions.contains("public_profile"){
                             
@@ -194,6 +198,10 @@ class LoginPageViewController: UIViewController {
                     }
                 }
                 
+            } else {
+                if let error = error {
+                    AnalyticsVader.sharedVader.fbLoginFailure(reason: error.localizedDescription)
+                }
             }
         }
     }
@@ -211,7 +219,7 @@ class LoginPageViewController: UIViewController {
         let alert = UIAlertController(title: "Error", message: str, preferredStyle: UIAlertControllerStyle.alert)
         
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-        
+        AnalyticsVader.sharedVader.fbLoginFailure(reason: str)
         
         alert.view.tintColor = UIColor.escapeRedColor()
         self.present(alert, animated: true, completion: nil)
@@ -228,7 +236,7 @@ extension LoginPageViewController : LoginProtocol{
 
     func signInError(_ data: Any?) {
         
-        if let data = data as? [String:AnyObject]{
+        if let data = data as? [String:Any]{
             
             if let error = data["error"] as? String{
                 self.loadErrorPopUp(error)

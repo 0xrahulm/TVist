@@ -10,7 +10,11 @@ import UIKit
 import ionicons
 import Realm
 import RealmSwift
+import Messages
+import MessageUI
 
+
+let kReferText = "Suggest me a Movie, Book or a Tv Show you think I might like? Use Mizzle App to send me Suggestions: http://appurl.io/j27havwa"
 
 enum CellIdentifierMyAccount : String{
     case FBFriends = "FBFriendViewMyAccount"
@@ -454,9 +458,48 @@ class MyProfileViewController: UIViewController {
         settingsTapped()
         
     }
+    
 }
 
+extension MyProfileViewController: MFMessageComposeViewControllerDelegate {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}
 
+extension MyProfileViewController: DiscoverNowAskFriendsProtocol {
+    func didTapiMessage() {
+        
+        let composeVC = MFMessageComposeViewController()
+        
+        composeVC.body = kReferText
+        composeVC.messageComposeDelegate = self
+        self.present(composeVC, animated: true, completion: nil)
+    }
+    
+    func didTapWhatsapp() {
+        
+        let url = "whatsapp://send?text=\(kReferText)"
+        
+        if let urlString = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) {
+            if let appUrl = URL(string: urlString) {
+                
+                if UIApplication.shared.canOpenURL(appUrl) {
+                    UIApplication.shared.openURL(appUrl)
+                }
+            }
+        }
+        
+    }
+    
+    func didTapMessanger() {
+        
+        let activityController = UIActivityViewController(activityItems: [kReferText], applicationActivities: nil)
+        
+        activityController.popoverPresentationController?.sourceView = self.view
+        self.present(activityController, animated: true, completion: nil)
+    }
+}
 extension MyProfileViewController : MyAccountDetailsProtocol {
     func recievedUserDetails() {
         fetchDataFromRealm()
@@ -530,7 +573,7 @@ extension MyProfileViewController: UITableViewDataSource {
         let selectedProfileItem = profileItemsForSelectedTab()[indexPath.row]
         
         if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.showDiscoverNow {
-            return 200
+            return 360
         }
         
         if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.userStory {
@@ -574,6 +617,7 @@ extension MyProfileViewController: UITableViewDataSource {
         if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.showDiscoverNow {
             let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifierMyAccount.DiscoverNow.rawValue, for: indexPath) as! DiscoverNowViewMyAccountTableViewCell
             cell.message.text = selectedProfileItem.title
+            cell.tapDelegate = self
             return cell
         }
         

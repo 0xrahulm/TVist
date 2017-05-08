@@ -51,7 +51,7 @@ class NetworkWrapper: NSObject {
             let currentRequest = sessionManager.request(service.finalURL, method: service.method, parameters: service.parameters, encoding: encoding, headers: appHeaders())
             
             
-            currentRequest.validate().responseJSON(completionHandler: { (response) in
+            currentRequest.responseJSON(completionHandler: { (response) in
                 
                 self.recievedServerResponse(service, response: response)
             })
@@ -91,10 +91,23 @@ class NetworkWrapper: NSObject {
             
             if service.responderDelegate != nil{
                 
-                
                 if response.result.isSuccess {
-                    service.outPutResponse = response.result.value
-                    service.responderDelegate!.serviceFinishedSucessfully(service)
+                    
+                    if let responseData = response.response {
+                        if responseData.statusCode >= 200 || responseData.statusCode < 300 {
+                            
+                            service.outPutResponse = response.result.value
+                            service.responderDelegate!.serviceFinishedSucessfully(service)
+                        } else {
+                            service.errorMessage = response.result.value
+                            service.outPutResponse = response.result.value
+                            service.errorCode = responseData.statusCode
+                            
+                            if service.responderDelegate != nil{
+                                service.responderDelegate!.serivceFinishedWithError(service)
+                            }
+                        }
+                    }
                 }else{
                     printError(error: response.error)
                     service.errorMessage = response.result.value

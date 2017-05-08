@@ -56,4 +56,14 @@ class AnalyticsVader: NSObject {
     func searchOccurred(searchType: String, searchTerm: String) {
         Flurry.logEvent(EventName.SearchOccurred.rawValue, withParameters: ["search_type": searchType, "search_term":searchTerm])
     }
+    
+    func fbLoginFailure(reason:String) {
+        Flurry.logEvent(EventName.facebookLoginFailure.rawValue, withParameters: ["reason": reason])
+    }
+    
+    func emailLoginIssue(reason: String) {
+        Flurry.logEvent(EventName.emailLoginErrorPopup.rawValue, withParameters: ["reason": reason])
+    }
+    
+
 }

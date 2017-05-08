@@ -78,6 +78,7 @@ class MyAccountDataProvider: CommonDataProvider {
         if let userId = userId{
             params["user_id"] = userId
         }
+        
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserDetails, params: params, delegate: self)
     }
     

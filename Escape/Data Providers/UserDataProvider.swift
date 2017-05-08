@@ -262,9 +262,10 @@ class UserDataProvider: CommonDataProvider {
 extension UserDataProvider{
     func parseFBUserData(_ dict : [String : AnyObject]){
         
-        ECUserDefaults.setLoggedIn(true)
         
         if let token = JSON(dict)["auth_token"].string{
+            ECUserDefaults.setLoggedIn(true)
+            
             DeviceID.saveXauth(token)
             
             if let user = dict["user"] as? [String:Any] {
@@ -283,13 +284,21 @@ extension UserDataProvider{
             
         }
         
+        if let _ = dict["error"] as? String {
+            
+            if self.fbLoginDelegate != nil {
+                self.fbLoginDelegate?.signInError(dict)
+            }
+        }
+        
     }
     
     func parseEmailSignInUserData(_ dict : [String : AnyObject], subServiceType: SubServiceType){
         
-        ECUserDefaults.setLoggedIn(true)
+        
         
         if let token = JSON(dict)["auth_token"].string{
+            ECUserDefaults.setLoggedIn(true)
             DeviceID.saveXauth(token)
             
             if let user = dict["user"] as? [String:Any] {
@@ -301,6 +310,14 @@ extension UserDataProvider{
             
             if self.emailLoginDelegate != nil{
                 self.emailLoginDelegate?.signInSuccessfull(dict , type: .Email, subServiceType: subServiceType)
+            }
+        }
+        
+        
+        if let _ = dict["error"] as? String {
+            
+            if self.emailLoginDelegate != nil {
+                self.emailLoginDelegate?.signInError(dict)
             }
         }
     }

@@ -98,6 +98,9 @@ class EmailLoginViewController: UIViewController {
     }
     
     func loadErrorPopUp(_ str : String){
+        
+        AnalyticsVader.sharedVader.emailLoginIssue(reason: str)
+        
         let alert = UIAlertController(title: "Error", message: str, preferredStyle: UIAlertControllerStyle.alert)
         
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
@@ -125,16 +128,22 @@ class EmailLoginViewController: UIViewController {
         if segmentController.selectedSegmentIndex == SegmentTab.signUp.rawValue {
             self.signUpSceneXConstraint.constant = 0
             self.signInSceneXConstraint.constant = 600
-            
-            determineSignUpButtonState()
+            var str = ""
+            if let passwordText = self.passwordSignUp.textField.text {
+                str = passwordText
+            }
+            determineSignUpButtonState(newString: str)
             AnalyticsVader.sharedVader.basicEvents(eventName: .signUpTabTapped)
         }
         
         if segmentController.selectedSegmentIndex == SegmentTab.signIn.rawValue {
             self.signInSceneXConstraint.constant = 0
             self.signUpSceneXConstraint.constant = -600
-            
-            determineSignInButtonState()
+            var str = ""
+            if let passwordText = self.passwordSignIn.textField.text {
+                str = passwordText
+            }
+            determineSignInButtonState(newString: str)
             AnalyticsVader.sharedVader.basicEvents(eventName: .signInTabTapped)
         }
         
@@ -169,11 +178,11 @@ class EmailLoginViewController: UIViewController {
     
     @IBAction func doneButtonTappedWithSender(_ sender: AnyObject) {
         
-        AnalyticsVader.sharedVader.basicEvents(eventName: .doneButtonOnEmailLogin)
+        
         
         if segmentController.selectedSegmentIndex == SegmentTab.signUp.rawValue {
             
-            
+            AnalyticsVader.sharedVader.basicEvents(eventName: .doneButtonOnEmailSignup)
             if fullNameSignUp.textField.text == "" {
                 loadErrorPopUp("Please enter your full name")
                 return
@@ -206,7 +215,7 @@ class EmailLoginViewController: UIViewController {
         
         
         if segmentController.selectedSegmentIndex == SegmentTab.signIn.rawValue {
-            
+            AnalyticsVader.sharedVader.basicEvents(eventName: .doneButtonOnEmailLogin)
             if emailSignIn.textField.text == "" {
                 loadErrorPopUp("Enter your email address")
                 return
@@ -236,6 +245,9 @@ class EmailLoginViewController: UIViewController {
                     return
                 }
                 let fbLoginResult : FBSDKLoginManagerLoginResult = result
+                if fbLoginResult.isCancelled {
+                    AnalyticsVader.sharedVader.fbLoginFailure(reason: "User Cancelled")
+                }
                 if let _ = fbLoginResult.grantedPermissions {
                     if fbLoginResult.grantedPermissions.contains("public_profile"){
                         
@@ -253,20 +265,24 @@ class EmailLoginViewController: UIViewController {
                     }
                     
                 }
+            } else {
+                if let error = error {
+                    AnalyticsVader.sharedVader.fbLoginFailure(reason: error.localizedDescription)
+                }
             }
         }
     }
     
-    func determineSignUpButtonState() {
-        if self.fullNameSignUp.textField.text?.characters.count > 0 && self.emailSignUp.textField.text?.characters.count > 0 && self.passwordSignUp.textField.text?.characters.count > 0 {
+    func determineSignUpButtonState(newString: String) {
+        if self.fullNameSignUp.textField.text?.characters.count > 0 && self.emailSignUp.textField.text?.characters.count > 0 && newString.characters.count > 0 {
             doneButton.enableButton = true
         } else {
             doneButton.enableButton = false
         }
     }
     
-    func determineSignInButtonState() {
-        if self.emailSignIn.textField.text?.characters.count > 0 && self.passwordSignIn.textField.text?.characters.count > 0 {
+    func determineSignInButtonState(newString: String) {
+        if self.emailSignIn.textField.text?.characters.count > 0 && newString.characters.count > 0 {
             doneButton.enableButton = true
         } else {
             doneButton.enableButton = false
@@ -284,14 +300,16 @@ class EmailLoginViewController: UIViewController {
 
 extension EmailLoginViewController: HighlightableTextViewProtocol {
     func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        let textFieldText: NSString = (textField.text ?? "") as NSString
+        let txtAfterUpdate = textFieldText.replacingCharacters(in: range, with: string)
         
         if segmentController.selectedSegmentIndex == SegmentTab.signUp.rawValue {
-            determineSignUpButtonState()
+            determineSignUpButtonState(newString: txtAfterUpdate)
         }
         
         
         if segmentController.selectedSegmentIndex == SegmentTab.signIn.rawValue {
-            determineSignInButtonState()
+            determineSignInButtonState(newString: txtAfterUpdate)
         }
         
         return true
@@ -302,7 +320,7 @@ extension EmailLoginViewController : LoginProtocol {
     
     func signInError(_ data : Any?){
         
-        if let data = data as? [String:AnyObject]{
+        if let data = data as? [String:Any]{
             
             if let error = data["error"] as? String{
                 self.loadErrorPopUp(error)
@@ -311,7 +329,8 @@ extension EmailLoginViewController : LoginProtocol {
         }else{
             self.loadErrorPopUp("Something went wrong, please try after some time")
         }
-        
+        self.doneButton.isLoading = false
+        self.doneButton.isEnabled = true
     }
     
     func signInSuccessfull(_ data : [String:AnyObject] , type : LoginTypeEnum, subServiceType: SubServiceType){
