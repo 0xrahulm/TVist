@@ -14,42 +14,43 @@ class ECUserDefaults: NSObject {
     static let kCurrentUserId = "currentUserIdKey"
     static let kSearchText = "kSearchTextKey"
     
+    
     class func isLoggedIn()-> Bool{
-        let defaults = UserDefaults.standard
+        let defaults = LocalStorageVader.sharedVader.defaultStorage()
         return defaults.bool(forKey: kLoggedIn)
     }
     
     class func setLoggedIn(_ value : Bool){
-        
-        let defaults = UserDefaults.standard
+        let defaults = LocalStorageVader.sharedVader.defaultStorage()
         defaults.set(value, forKey: kLoggedIn)
         
     }
     
     class func getCurrentUserId() -> String?{
-        let defaults = UserDefaults.standard
+        let defaults = LocalStorageVader.sharedVader.defaultStorage()
         return defaults.value(forKey: kCurrentUserId) as? String
     }
     class func setCurrentUserId(_ id : String){
-        let defaults = UserDefaults.standard
+        let defaults = LocalStorageVader.sharedVader.defaultStorage()
         defaults.setValue(id, forKey: kCurrentUserId)
     }
     
     class func getSearchedText() -> String?{
-        let defaults = UserDefaults.standard
+        let defaults = LocalStorageVader.sharedVader.defaultStorage()
         return defaults.value(forKey: kSearchText) as? String
     }
     class func setSearchedText(_ id : String){
-        let defaults = UserDefaults.standard
+        let defaults = LocalStorageVader.sharedVader.defaultStorage()
         defaults.setValue(id, forKey: kSearchText)
     }
     class func removeSearchedText(){
-        UserDefaults.standard.removeObject(forKey: kSearchText)
+        let defaults = LocalStorageVader.sharedVader.defaultStorage()
+        defaults.removeObject(forKey: kSearchText)
     }
     
     //Remove keys
     class func removeLoggedInKeys(){
-        let defaults = UserDefaults.standard
+        let defaults = LocalStorageVader.sharedVader.defaultStorage()
         
         defaults.removeObject(forKey: kLoggedIn)
         defaults.removeObject(forKey: kCurrentUserId)

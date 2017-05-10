@@ -61,7 +61,7 @@ class CustomListViewController: UIViewController {
             let userDataPredicate = NSPredicate(format: "userId == %@ AND escapeType == %@", currentUserId, escapeType)
             
             do{
-                let escapeData = try Realm().objects(UserEscapeData).filter(userDataPredicate)
+                let escapeData = try Realm().objects(UserEscapeData.self).filter(userDataPredicate)
                 
                 var dataArray : [MyAccountEscapeItem] = []
                 

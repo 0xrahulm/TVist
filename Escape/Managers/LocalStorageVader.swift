@@ -8,6 +8,8 @@
 
 import UIKit
 
+let kMizzleAppGroupName = "group.com.ardourlabs.mizzle"
+
 enum LocalStorageKey:String {
     case InterestsSelected = "InterestsSelected"
     case PushToken = "PushToken"
@@ -16,12 +18,22 @@ enum LocalStorageKey:String {
 class LocalStorageVader: NSObject {
     static let sharedVader = LocalStorageVader()
     
+    
+    func defaultStorage() -> UserDefaults {
+        
+        if let groupUserDefault = UserDefaults(suiteName: kMizzleAppGroupName) {
+            return groupUserDefault
+        }
+        
+        return UserDefaults.standard
+    }
+    
     func storeValueInKey(_ storageKey:LocalStorageKey, value: Any) {
-        UserDefaults.standard.set(value, forKey: storageKey.rawValue)
+        defaultStorage().set(value, forKey: storageKey.rawValue)
     }
     
     func valueForStoredKey(_ storageKey:LocalStorageKey) -> Any? {
-        return UserDefaults.standard.value(forKey: storageKey.rawValue)
+        return defaultStorage().value(forKey: storageKey.rawValue)
     }
     
     func flagValueForKey(_ storageKey:LocalStorageKey) -> Bool {
@@ -43,7 +55,7 @@ class LocalStorageVader: NSObject {
     }
     
     func removeValueForKey(_ storageKey:LocalStorageKey) {
-        UserDefaults.standard.removeObject(forKey: storageKey.rawValue)
+        defaultStorage().removeObject(forKey: storageKey.rawValue)
     }
 }
 

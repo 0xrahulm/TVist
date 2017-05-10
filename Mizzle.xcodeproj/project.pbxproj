@@ -40,6 +40,11 @@
 		845FA4DB1EA0E28100357FCD /* GenericEscapeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845FA4D91EA0E28100357FCD /* GenericEscapeCell.xib */; };
 		845FA4DD1EA0E28C00357FCD /* GenericTaggedEscapeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845FA4DC1EA0E28C00357FCD /* GenericTaggedEscapeCell.xib */; };
 		845FA4DE1EA0E28C00357FCD /* GenericTaggedEscapeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845FA4DC1EA0E28C00357FCD /* GenericTaggedEscapeCell.xib */; };
+		8471653E1EC30B02004B0A53 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8471653D1EC30B02004B0A53 /* Messages.framework */; };
+		847165411EC30B02004B0A53 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847165401EC30B02004B0A53 /* MessagesViewController.swift */; };
+		847165441EC30B02004B0A53 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847165421EC30B02004B0A53 /* MainInterface.storyboard */; };
+		847165461EC30B02004B0A53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847165451EC30B02004B0A53 /* Assets.xcassets */; };
+		8471654A1EC30B02004B0A53 /* MizzleAsk.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8471653C1EC30B02004B0A53 /* MizzleAsk.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84A0FA871DBBF77F0072A36A /* CustomDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA861DBBF77F0072A36A /* CustomDoneButton.swift */; };
 		84A0FA881DBBF77F0072A36A /* CustomDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA861DBBF77F0072A36A /* CustomDoneButton.swift */; };
 		84A0FA8A1DBC02AF0072A36A /* LocalStorageVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA891DBC02AF0072A36A /* LocalStorageVader.swift */; };
@@ -350,6 +355,30 @@
 		BCFE486F1CA400C60098160D /* NetworkAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE486D1CA400C60098160D /* NetworkAvailability.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		847165481EC30B02004B0A53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC47ED761C9FEEC7008143C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8471653B1EC30B02004B0A53;
+			remoteInfo = MizzleAsk;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8471654E1EC30B02004B0A53 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8471654A1EC30B02004B0A53 /* MizzleAsk.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2C62520A88D62EF2777735A0 /* Pods-Escape copy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escape copy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Escape copy/Pods-Escape copy.debug.xcconfig"; sourceTree = "<group>"; };
 		7DDAD66427A6544E6402FADF /* Pods_Escape.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escape.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -369,6 +398,13 @@
 		845FA4D61EA0E27100357FCD /* GenericPeopleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GenericPeopleCell.xib; sourceTree = "<group>"; };
 		845FA4D91EA0E28100357FCD /* GenericEscapeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GenericEscapeCell.xib; sourceTree = "<group>"; };
 		845FA4DC1EA0E28C00357FCD /* GenericTaggedEscapeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GenericTaggedEscapeCell.xib; sourceTree = "<group>"; };
+		8471653C1EC30B02004B0A53 /* MizzleAsk.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MizzleAsk.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8471653D1EC30B02004B0A53 /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
+		847165401EC30B02004B0A53 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		847165431EC30B02004B0A53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		847165451EC30B02004B0A53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		847165471EC30B02004B0A53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8471654F1EC30B1B004B0A53 /* MizzleAsk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MizzleAsk.entitlements; sourceTree = "<group>"; };
 		84A0FA861DBBF77F0072A36A /* CustomDoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDoneButton.swift; sourceTree = "<group>"; };
 		84A0FA891DBC02AF0072A36A /* LocalStorageVader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageVader.swift; sourceTree = "<group>"; };
 		84A0FA8C1DBCA3CA0072A36A /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
@@ -544,6 +580,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		847165391EC30B02004B0A53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8471653E1EC30B02004B0A53 /* Messages.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC47ED7B1C9FEEC7008143C2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -579,6 +623,7 @@
 				BC3A818F1CA5397B00FF8678 /* FBSDKShareKit.framework */,
 				7DDAD66427A6544E6402FADF /* Pods_Escape.framework */,
 				98C08B4600E257F0C862D199 /* Pods_Escape_copy.framework */,
+				8471653D1EC30B02004B0A53 /* Messages.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -622,6 +667,18 @@
 				845FA4DC1EA0E28C00357FCD /* GenericTaggedEscapeCell.xib */,
 			);
 			path = GenericCellXibs;
+			sourceTree = "<group>";
+		};
+		8471653F1EC30B02004B0A53 /* MizzleAsk */ = {
+			isa = PBXGroup;
+			children = (
+				8471654F1EC30B1B004B0A53 /* MizzleAsk.entitlements */,
+				847165401EC30B02004B0A53 /* MessagesViewController.swift */,
+				847165421EC30B02004B0A53 /* MainInterface.storyboard */,
+				847165451EC30B02004B0A53 /* Assets.xcassets */,
+				847165471EC30B02004B0A53 /* Info.plist */,
+			);
+			path = MizzleAsk;
 			sourceTree = "<group>";
 		};
 		84A0FA8F1DBCAD6D0072A36A /* Notifications */ = {
@@ -828,6 +885,7 @@
 			isa = PBXGroup;
 			children = (
 				BC47ED801C9FEEC7008143C2 /* Escape */,
+				8471653F1EC30B02004B0A53 /* MizzleAsk */,
 				BC47ED7F1C9FEEC7008143C2 /* Products */,
 				BC47EDBF1CA006AE008143C2 /* Common Models */,
 				BC47EDAD1C9FFFDC008143C2 /* Utility */,
@@ -843,6 +901,7 @@
 			children = (
 				BC47ED7E1C9FEEC7008143C2 /* Mizzle.app */,
 				BC47EDA31C9FF233008143C2 /* Mizzle copy.app */,
+				8471653C1EC30B02004B0A53 /* MizzleAsk.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1129,6 +1188,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8471653B1EC30B02004B0A53 /* MizzleAsk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8471654B1EC30B02004B0A53 /* Build configuration list for PBXNativeTarget "MizzleAsk" */;
+			buildPhases = (
+				847165381EC30B02004B0A53 /* Sources */,
+				847165391EC30B02004B0A53 /* Frameworks */,
+				8471653A1EC30B02004B0A53 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MizzleAsk;
+			productName = MizzleAsk;
+			productReference = 8471653C1EC30B02004B0A53 /* MizzleAsk.appex */;
+			productType = "com.apple.product-type.app-extension.messages";
+		};
 		BC47ED7D1C9FEEC7008143C2 /* Mizzle */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC47ED931C9FEEC8008143C2 /* Build configuration list for PBXNativeTarget "Mizzle" */;
@@ -1140,10 +1216,12 @@
 				0B2D9972497495D9F9AD710C /* [CP] Embed Pods Frameworks */,
 				A6B862C66285002AA74EE728 /* [CP] Copy Pods Resources */,
 				845957061EA8FF5F0031441D /* ShellScript */,
+				8471654E1EC30B02004B0A53 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				847165491EC30B02004B0A53 /* PBXTargetDependency */,
 			);
 			name = Mizzle;
 			productName = Escape;
@@ -1176,16 +1254,29 @@
 		BC47ED761C9FEEC7008143C2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Ardour Labs";
 				TargetAttributes = {
+					8471653B1EC30B02004B0A53 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = GZM8S25H55;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					BC47ED7D1C9FEEC7008143C2 = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = GZM8S25H55;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -1208,11 +1299,21 @@
 			targets = (
 				BC47ED7D1C9FEEC7008143C2 /* Mizzle */,
 				BC47ED961C9FF233008143C2 /* Mizzle copy */,
+				8471653B1EC30B02004B0A53 /* MizzleAsk */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8471653A1EC30B02004B0A53 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				847165461EC30B02004B0A53 /* Assets.xcassets in Resources */,
+				847165441EC30B02004B0A53 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC47ED7C1C9FEEC7008143C2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1410,6 +1511,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		847165381EC30B02004B0A53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				847165411EC30B02004B0A53 /* MessagesViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC47ED7A1C9FEEC7008143C2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1684,7 +1793,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		847165491EC30B02004B0A53 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8471653B1EC30B02004B0A53 /* MizzleAsk */;
+			targetProxy = 847165481EC30B02004B0A53 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		847165421EC30B02004B0A53 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				847165431EC30B02004B0A53 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		BC47ED8D1C9FEEC8008143C2 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1696,6 +1821,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8471654C1EC30B02004B0A53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_ENTITLEMENTS = MizzleAsk/MizzleAsk.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: rahulmeena@live.com (Z5FMSD54TF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = GZM8S25H55;
+				INFOPLIST_FILE = MizzleAsk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ardourlabs.Mizzle.MizzleAsk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		8471654D1EC30B02004B0A53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_ENTITLEMENTS = MizzleAsk/MizzleAsk.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Meena (U5T6338DFM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = GZM8S25H55;
+				INFOPLIST_FILE = MizzleAsk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ardourlabs.Mizzle.MizzleAsk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		BC47ED911C9FEEC8008143C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1783,6 +1956,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F69DBC530D1D5B690731DBA4 /* Pods-Escape.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Escape/Escape.entitlements;
@@ -1798,12 +1972,12 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ardourlabs.Mizzle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d6930c22-c34f-4e32-89f5-87535a29b1a5";
+				PROVISIONING_PROFILE = "580c7da0-1a18-478f-b872-ef40440a5ec4";
 				PROVISIONING_PROFILE_SPECIFIER = "Mizzle iOS Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1811,6 +1985,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8726EB99D692F7FE33628154 /* Pods-Escape.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Escape/Escape.entitlements;
@@ -1830,7 +2005,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Mizzle Appstore Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "Escape/Bridging-Headers/Escape-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1876,6 +2051,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8471654B1EC30B02004B0A53 /* Build configuration list for PBXNativeTarget "MizzleAsk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8471654C1EC30B02004B0A53 /* Debug */,
+				8471654D1EC30B02004B0A53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		BC47ED791C9FEEC7008143C2 /* Build configuration list for PBXProject "Mizzle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
