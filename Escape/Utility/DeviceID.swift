@@ -44,7 +44,7 @@ class DeviceID: NSObject {
     class func getXauth()->String?{
         
         if ECUserDefaults.isLoggedIn(){
-            if let authDict = Locksmith.loadDataForUserAccount(userAccount: kEscapeXauthModel){
+            if let authDict = Locksmith.loadDataForUserAccount(userAccount: kEscapeXauthModel, inService: kMizzleAppGroupName){
                 if let auth = authDict["X-Auth"] as? String{
                     return auth
                 }
@@ -57,14 +57,14 @@ class DeviceID: NSObject {
     }
     class func saveXauth(_ token : String){
         
-        if let authDict = Locksmith.loadDataForUserAccount(userAccount: kEscapeXauthModel){
+        if let authDict = Locksmith.loadDataForUserAccount(userAccount: kEscapeXauthModel, inService: kMizzleAppGroupName){
             if let _ = authDict[kEscapeXauthkeys] as? String{
-                try! Locksmith.updateData(data: [kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
+                try! Locksmith.updateData(data: [kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel, inService: kMizzleAppGroupName)
             }else{
-                try! Locksmith.saveData(data: [kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
+                try! Locksmith.saveData(data: [kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel, inService: kMizzleAppGroupName)
             }
         }else{
-            try! Locksmith.saveData(data: [kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel)
+            try! Locksmith.saveData(data: [kEscapeXauthkeys : token], forUserAccount: kEscapeXauthModel, inService: kMizzleAppGroupName)
         }
         
     }

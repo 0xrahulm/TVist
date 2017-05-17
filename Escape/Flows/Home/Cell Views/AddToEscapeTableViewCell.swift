@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ionicons
 
 protocol HomeCommentProtocol : class {
     func commentTapped(_ indexPath : IndexPath)

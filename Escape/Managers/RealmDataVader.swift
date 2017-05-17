@@ -27,6 +27,11 @@ class RealmDataVader: NSObject {
     }
     
     func fileUrlForRealmWithCofiguration(_ config:Realm.Configuration) -> URL? {
+        if let fileUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: kMizzleAppGroupName) {
+            let databasePath = fileUrl.appendingPathComponent("mizzle.rl")
+            return databasePath
+        }
+        
         return config.fileURL?.deletingLastPathComponent().appendingPathComponent("escape.rl")
     }
     

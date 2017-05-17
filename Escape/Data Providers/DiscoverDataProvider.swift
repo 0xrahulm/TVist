@@ -121,6 +121,7 @@ extension DiscoverDataProvider{
             
         }
     }
+    
     func parseSearchedData(_ data : [AnyObject], searchType : String, queryText : String, page : Int?){
         var searchedItems : SearchItems?
         var tempPage = 0

@@ -11,5 +11,5 @@ import UIKit
 class ChiefVader: NSObject {
     static let sharedVader = ChiefVader()
     
-    var isDebugMode = false
+    var isDebugMode = true
 }

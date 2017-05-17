@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ionicons
 
 class SearchViewController: UIViewController {
     

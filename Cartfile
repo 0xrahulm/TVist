@@ -1,0 +1,6 @@
+github "Alamofire/Alamofire" ~> 4.4
+github "aws/aws-sdk-ios" ~> 2.5.2
+github "Alamofire/AlamofireImage" ~> 3.2
+github "realm/realm-cocoa" ~> 2.5
+github "matthewpalmer/Locksmith"
+github "mixpanel/mixpanel-iphone"

@@ -1,30 +1,21 @@
 
 platform :ios, "9.0"
 
-def escape_pods
-    pod 'Alamofire', '~> 4'
-    pod 'AlamofireImage', '~> 3'
-    pod 'SwiftyJSON', '~> 3'
-    pod 'Locksmith', '~> 3'
-    pod 'ionicons'
-    pod 'RealmSwift'
-    pod 'AWSS3'
+def mizzle_pods
     pod 'Flurry-iOS-SDK/FlurrySDK'
-    pod 'AWSCognito'
     pod 'Fabric'
     pod 'Crashlytics'
 end
 
-target 'Escape' do
+target 'Mizzle' do
     
     use_frameworks!
-    escape_pods
-    
+    mizzle_pods
 end
 
-target 'Escape copy' do
+target 'Mizzle copy' do
     use_frameworks!
-    escape_pods
+    mizzle_pods
 end
 
 post_install do |installer|

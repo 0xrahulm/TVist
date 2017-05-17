@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import SwiftyJSON
+
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -263,7 +263,7 @@ extension UserDataProvider{
     func parseFBUserData(_ dict : [String : AnyObject]){
         
         
-        if let token = JSON(dict)["auth_token"].string{
+        if let token = dict["auth_token"] as? String {
             ECUserDefaults.setLoggedIn(true)
             
             DeviceID.saveXauth(token)
@@ -296,8 +296,7 @@ extension UserDataProvider{
     func parseEmailSignInUserData(_ dict : [String : AnyObject], subServiceType: SubServiceType){
         
         
-        
-        if let token = JSON(dict)["auth_token"].string{
+        if let token = dict["auth_token"] as? String {
             ECUserDefaults.setLoggedIn(true)
             DeviceID.saveXauth(token)
             

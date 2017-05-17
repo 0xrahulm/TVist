@@ -6,5 +6,9 @@
 	<array>
 		<string>group.com.ardourlabs.mizzle</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)group.com.ardourlabs.mizzle</string>
+	</array>
 </dict>
 </plist>

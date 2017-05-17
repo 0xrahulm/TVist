@@ -49,9 +49,8 @@ class SearchItems: NSObject {
             for dict in dataArray{
                 if let id = dict["id"] as? String,
                     let name = dict["name"] as? String,
-                    let searchType = dict["search_type"] as? String,
-                    let isAddedOrFollow = dict["is_acted"] as? Bool{
-                    
+                    let searchType = dict["search_type"] as? String {
+                    let isAddedOrFollow = dict["is_acted"] as? Bool ?? false
                     searchDataArray.append(SearchItems(id: id, name: name, image: dict["picture"] as? String, director: dict["creator"] as? String, searchType: SearchType(rawValue:searchType), isAddedOrFollow: isAddedOrFollow))
    
                 }
@@ -60,6 +59,13 @@ class SearchItems: NSObject {
         }
         
         self.searchData = searchDataArray
+    }
+    
+    func getItemDeeplink() -> URL? {
+        if let itemId = self.id, let type = self.searchType {
+            return URL(string: "mizzle://mizzle/item?id=\(itemId)&escape_type=\(type.rawValue)")
+        }
+        return nil
     }
 
 }

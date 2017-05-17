@@ -1,0 +1,6 @@
+framework module Pods_Mizzle_copy {
+  umbrella header "Pods-Mizzle copy-umbrella.h"
+
+  export *
+  module * { export * }
+}

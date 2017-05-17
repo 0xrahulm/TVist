@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ionicons
 import Realm
 import RealmSwift
 import Messages
@@ -451,7 +450,10 @@ class MyProfileViewController: UIViewController {
     
     @IBAction func escapeViewTapped(_ sender: UITapGestureRecognizer) {
         
-        tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        if let tableHeader = tableView.tableHeaderView {
+            
+            tableView.setContentOffset(CGPoint(x: 0, y: tableHeader.frame.size.height), animated: true)
+        }
         
     }
     @IBAction func editProfileButtonTapped(_ sender: AnyObject) {

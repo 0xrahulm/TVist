@@ -6,7 +6,8 @@
 //  Copyright © 2016 EscapeApp. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
 
 func suffixNumber(_ number:NSNumber) -> String {
     

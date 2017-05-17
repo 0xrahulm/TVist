@@ -32,7 +32,8 @@ enum SubServiceType : String {
     case DeleteEscape       =  "user/escapes/remove"
     case UpdateEscape       =  "user/escapes/update"
     case LogoutUser         =  "logout"
-    case GetItemDesc        =  "escapes/detail"
+    case GetItemDesc
+        =  "escapes/detail"
     case GetSimilarEscape   =  "escapes/similar"
     case GetRelatedPeople   =  "escapes/people"
     case GetFollowers       =  "get_user_followers"
@@ -63,6 +64,7 @@ enum SubServiceType : String {
     
     //Search
     case GetSearchItems = "search"
+    case GetSearchItemsNoAuth = "search/no_auth"
     
     //Notification
     case GetNotification = "user/notifications"

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ionicons
 import RealmSwift
 
 class MyAccountViewController: UIViewController{
