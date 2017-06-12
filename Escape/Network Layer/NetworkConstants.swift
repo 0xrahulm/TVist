@@ -10,11 +10,13 @@ import UIKit
 
 enum ServiceType : String {
     //case ServiceTypePrivateApi="http://api.escape-app.com/api/"
-    case ServiceTypePrivateApi="https://api.mizzleapp.com/api/"
+    case ServiceTypePrivateApi="http://192.168.225.184:3000/api/"
 }
 
 enum SubServiceType : String {
 
+    // Session
+    case GuestSession   = "guest_session"
     //Sign in
     case GetUsers       = "users/"
     case FBSignIn       = "signin_with_facebook"
@@ -28,12 +30,11 @@ enum SubServiceType : String {
     case GetProfileList     =  "profile/list"
     case GetEscapeAction    =  "user/escapes/action"
     case GetUserEscapes     =  "user/escapes"
-    case PutProfilePicture     =  "user/picture"
+    case PutProfilePicture  =  "user/picture"
     case DeleteEscape       =  "user/escapes/remove"
     case UpdateEscape       =  "user/escapes/update"
     case LogoutUser         =  "logout"
-    case GetItemDesc
-        =  "escapes/detail"
+    case GetItemDesc        =  "escapes/detail"
     case GetSimilarEscape   =  "escapes/similar"
     case GetRelatedPeople   =  "escapes/people"
     case GetFollowers       =  "get_user_followers"

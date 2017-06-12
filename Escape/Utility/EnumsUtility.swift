@@ -160,6 +160,7 @@ enum EventName:String {
     case doneButtonOnEmailSignup = "Done_Button_On_Email_Signup"
     case interestsSelected = "Interests_Selection_Done"
     case DiscoverTabTapped = "Discover_Tab_Tapped"
+    case HomeTabTapped = "Home_Tab_Tapped"
     case SearchTabTapped = "Search_Tab_Tapped"
     case MyAccountTabTapped = "MyAccount_Tab_Tapped"
     case SearchOnDiscoverTapped = "Search_On_Discover_Tapped"

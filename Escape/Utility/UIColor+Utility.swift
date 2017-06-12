@@ -45,6 +45,9 @@ extension UIColor{
         return UIColor.colorWithHexString("#F3244B")
     }
     
+    class func mizzleBlackColor() -> UIColor {
+        return UIColor.colorWithHexString("#2C3E50")
+    }
     class func escapeGray() -> UIColor {
         return UIColor.colorWithHexString("#f7f7f7")
     }

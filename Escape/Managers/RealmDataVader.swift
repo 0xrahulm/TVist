@@ -115,12 +115,11 @@ class RealmDataVader: NSObject {
                 profileList.userId = userId
                 profileList.type   = type
                 
-                
-                try! _realm.write({
-                    
-                    profileList.parseDataList(listData, _realm: _realm)
-                    _realm.add(profileList)
-                })
+//                try! _realm.write({
+//                    
+//                    profileList.parseDataList(listData, _realm: _realm)
+//                    _realm.add(profileList)
+//                })
             }
             
         }

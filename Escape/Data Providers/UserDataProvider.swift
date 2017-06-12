@@ -62,12 +62,9 @@ class UserDataProvider: CommonDataProvider {
     func getSecurityToken(){
         
        //ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUsers, params: nil, delegate: self)
-      
     }
     func postFBtoken(_ token : String , expires_in : TimeInterval){
-    
         ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .FBSignIn, params: ["facebook_token" : token , "expires_in" : expires_in], delegate: self)
-        
     }
     
     func registerUserWithEmail(_ name : String , email : String , password : String){
@@ -238,7 +235,7 @@ class UserDataProvider: CommonDataProvider {
                 break;
                 
             case .UnfollowUser:
-                print("Error in User UNfollow")
+                print("Error in User Unfollow")
                 break
                 
             case .GetNotification:

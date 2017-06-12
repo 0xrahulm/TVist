@@ -28,33 +28,32 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JhV-cx-SHl">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kdd-9f-m2J">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kdd-9f-m2J">
                                         <rect key="frame" x="0.0" y="0.0" width="94" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="tab_home"/>
                                         <state key="selected" image="tab_home_on"/>
                                         <connections>
                                             <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="FMm-12-0C6"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aQ-Vz-HXD">
-                                        <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aQ-Vz-HXD">
+                                        <rect key="frame" x="94" y="0.0" width="93.5" height="50"/>
                                         <state key="normal" image="tab_profile"/>
                                         <state key="selected" image="tab_profile_on"/>
                                         <connections>
                                             <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="cj1-S9-DyN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xI-9X-JOt">
-                                        <rect key="frame" x="125" y="0.0" width="125" height="50"/>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xI-9X-JOt">
+                                        <rect key="frame" x="187.5" y="0.0" width="94" height="50"/>
                                         <state key="normal" image="tab_search"/>
                                         <state key="selected" image="tab_search_on"/>
                                         <connections>
                                             <action selector="tappedOnTabWithSender:" destination="BnE-TS-YbO" eventType="touchUpInside" id="u3D-oO-3Yl"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsF-bH-2VK">
-                                        <rect key="frame" x="250" y="0.0" width="125" height="50"/>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsF-bH-2VK">
+                                        <rect key="frame" x="281.5" y="0.0" width="93.5" height="50"/>
                                         <state key="normal" image="tab_discover"/>
                                         <state key="selected" image="tab_discover_on"/>
                                         <connections>
@@ -66,17 +65,21 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="0aQ-Vz-HXD" secondAttribute="bottom" id="5Eq-SX-16K"/>
                                     <constraint firstAttribute="trailing" secondItem="WsF-bH-2VK" secondAttribute="trailing" id="6SL-8E-Yqu"/>
+                                    <constraint firstItem="0aQ-Vz-HXD" firstAttribute="width" secondItem="Kdd-9f-m2J" secondAttribute="width" id="BK4-nR-KyH"/>
                                     <constraint firstItem="2xI-9X-JOt" firstAttribute="leading" secondItem="0aQ-Vz-HXD" secondAttribute="trailing" id="CDh-bp-85I"/>
                                     <constraint firstItem="WsF-bH-2VK" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="Dlz-F9-Tka"/>
                                     <constraint firstAttribute="bottom" secondItem="2xI-9X-JOt" secondAttribute="bottom" id="EfS-tJ-6pj"/>
                                     <constraint firstItem="WsF-bH-2VK" firstAttribute="width" secondItem="0aQ-Vz-HXD" secondAttribute="width" id="J2f-0O-b79"/>
                                     <constraint firstAttribute="height" constant="50" id="Jxl-Rh-EPZ"/>
                                     <constraint firstItem="0aQ-Vz-HXD" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="Ofn-Mt-E2N"/>
+                                    <constraint firstItem="Kdd-9f-m2J" firstAttribute="leading" secondItem="JhV-cx-SHl" secondAttribute="leading" id="Rz2-65-DBl"/>
                                     <constraint firstItem="WsF-bH-2VK" firstAttribute="leading" secondItem="2xI-9X-JOt" secondAttribute="trailing" id="WAC-UF-kWT"/>
                                     <constraint firstAttribute="bottom" secondItem="WsF-bH-2VK" secondAttribute="bottom" id="XiK-JO-uy2"/>
-                                    <constraint firstItem="0aQ-Vz-HXD" firstAttribute="leading" secondItem="JhV-cx-SHl" secondAttribute="leading" id="ZS7-7p-uBc"/>
+                                    <constraint firstItem="Kdd-9f-m2J" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="gSx-dW-h8C"/>
+                                    <constraint firstItem="0aQ-Vz-HXD" firstAttribute="leading" secondItem="Kdd-9f-m2J" secondAttribute="trailing" id="o1y-yt-qGD"/>
                                     <constraint firstItem="0aQ-Vz-HXD" firstAttribute="width" secondItem="2xI-9X-JOt" secondAttribute="width" id="rzw-Tp-LUa"/>
                                     <constraint firstItem="2xI-9X-JOt" firstAttribute="top" secondItem="JhV-cx-SHl" secondAttribute="top" id="utd-ef-Je8"/>
+                                    <constraint firstAttribute="bottom" secondItem="Kdd-9f-m2J" secondAttribute="bottom" id="zNy-Nm-HRx"/>
                                 </constraints>
                             </view>
                         </subviews>
