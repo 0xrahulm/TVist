@@ -32,6 +32,13 @@ extension UIColor{
         
         return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
     }
+    class func defaultTintColor() -> UIColor {
+        return UIColor.colorWithHexString("#FF2D55")
+    }
+    
+    class func defaultCTAColor() -> UIColor {
+        return UIColor.colorWithHexString("#2C3E50")
+    }
     
     class func escapeBlueColor() -> UIColor{
         return UIColor.colorWithHexString("#0DD6CA")

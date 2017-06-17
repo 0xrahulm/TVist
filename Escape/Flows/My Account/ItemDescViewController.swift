@@ -12,9 +12,10 @@ class ItemDescViewController: UIViewController {
     
     @IBOutlet weak var itemImage: UIImageView!
     
+    @IBOutlet weak var ovalImage: UIImageView!
+    
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var visualEffectsLayer: UIVisualEffectView!
     @IBOutlet weak var similarEscapesView: SimilarEscapesView!
     @IBOutlet weak var relatedPeopleView: RelatedPeopleView!
     
@@ -25,6 +26,7 @@ class ItemDescViewController: UIViewController {
     @IBOutlet weak var ratingLabel:     UILabel!
     @IBOutlet weak var runTimeLabel:    UILabel!
     @IBOutlet weak var creatorTypeLabel: UILabel!
+    
     @IBOutlet weak var creatorLabel: UILabel!
     @IBOutlet weak var castLabel: UILabel!
     @IBOutlet weak var castDetailLabel: UILabel!
@@ -32,6 +34,7 @@ class ItemDescViewController: UIViewController {
     
     @IBOutlet weak var runTimeImage: UIImageView!
     @IBOutlet weak var readMoreButton: UIButton!
+    
     
     var escapeId:String?
     var escapeType:EscapeType?
@@ -113,6 +116,8 @@ class ItemDescViewController: UIViewController {
         self.similarEscapesView.viewAllTapDelegate = self
         self.relatedPeopleView.viewAllTapDelegate = self
         
+        
+        
     }
     
     func updateButtonStatus() {
@@ -130,6 +135,8 @@ class ItemDescViewController: UIViewController {
         
         setNeedsStatusBarAppearanceUpdate()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        
         
         if let escapeItem = escapeItem {
             setEscapeDetails(escapeItem.name, subtitle: nil, year: escapeItem.year, image:escapeItem.posterImage, rating: escapeItem.rating)
@@ -150,6 +157,7 @@ class ItemDescViewController: UIViewController {
             }
         }
         
+        self.view.layoutIfNeeded()
         
         
     }
@@ -177,8 +185,6 @@ class ItemDescViewController: UIViewController {
         ScreenVader.sharedVader.changeStatusBarPreference(true)
         
         setNeedsStatusBarAppearanceUpdate()
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func setVisuals(){
@@ -206,7 +212,6 @@ class ItemDescViewController: UIViewController {
         if let image = image {
             itemImage.downloadImageWithUrl(image , placeHolder: UIImage(named: "movie_placeholder"))
             
-            headerImage.downloadImageWithUrl(image, placeHolder: nil)
             
         }
         
@@ -214,6 +219,10 @@ class ItemDescViewController: UIViewController {
             ratingLabel.text = "\(rating)"
         }
         
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     func fillData(_ descData : DescDataItems?){
@@ -238,7 +247,7 @@ class ItemDescViewController: UIViewController {
             }
             
             if let backdropImage = descData.backDropImage {
-                headerImage.downloadImageWithUrl(backdropImage, placeHolder: UIImage(named: "movie_placeholder"))
+                headerImage.downloadImageWithUrl(backdropImage, placeHolder: nil)
             }
             
             if let runtime = descData.runtime{
@@ -469,39 +478,41 @@ extension ItemDescViewController: UIScrollViewDelegate {
             
             // Header -----------
             
-            headerTransform = CATransform3DTranslate(headerTransform, 0, max(-offset_HeaderStop, -offset), 0)
+//            headerTransform = CATransform3DTranslate(headerTransform, 0, max(-offset_HeaderStop, -offset), 0)
             
             //  ------------ Label
             
             let labelTransform = CATransform3DMakeTranslation(0, max(-distance_W_LabelHeader, offset_B_LabelHeader - offset), 0)
-            headerLabel.layer.transform = labelTransform
+//            headerLabel.layer.transform = labelTransform
             
             //  ------------ Blur
             let blurOffset = offset/offset_HeaderStop
             if offset > 0 && blurOffset < 1.01 {
-                visualEffectsLayer.alpha = max(0.7, blurOffset)
+                //visualEffectsLayer.alpha = max(0.7, blurOffset)
             }
             
             // Avatar -----------
             
             let avatarScaleFactor = (min(offset_HeaderStop, offset)) / itemImage.bounds.height / 1.8 // Slow down the animation
             let avatarSizeVariation = ((itemImage.bounds.height * (1.0 + avatarScaleFactor)) - itemImage.bounds.height) / 2.0
-            imageTransform = CATransform3DTranslate(imageTransform, 0, avatarSizeVariation, 0)
-            imageTransform = CATransform3DScale(imageTransform, 1.0 - avatarScaleFactor, 1.0 - avatarScaleFactor, 0)
+//            imageTransform = CATransform3DTranslate(imageTransform, 0, avatarSizeVariation, 0)
+//            imageTransform = CATransform3DScale(imageTransform, 1.0 - avatarScaleFactor, 1.0 - avatarScaleFactor, 0)
             
-            if offset <= offset_HeaderStop {
-                
-                if itemImage.layer.zPosition < headerView.layer.zPosition{
-                    headerView.layer.zPosition = 0
-                    headerLabel.layer.zPosition = 0
-                }
-                
-            }else {
-                if itemImage.layer.zPosition >= headerView.layer.zPosition{
-                    headerView.layer.zPosition = 1
-                    headerLabel.layer.zPosition = 2
-                }
-            }
+//            if offset <= offset_HeaderStop {
+//                
+//                if itemImage.layer.zPosition < headerView.layer.zPosition{
+//                    headerView.layer.zPosition = 0
+//                    headerLabel.layer.zPosition = 0
+//                    ovalImage.layer.zPosition = 0
+//                }
+//                
+//            }else {
+//                if itemImage.layer.zPosition >= headerView.layer.zPosition{
+//                    headerView.layer.zPosition = 1
+//                    ovalImage.layer.zPosition = 1
+//                    headerLabel.layer.zPosition = 2
+//                }
+//            }
         }
         
         

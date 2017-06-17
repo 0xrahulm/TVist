@@ -82,9 +82,9 @@ class ScreenManagerViewController: UIViewController {
     fileprivate func pushInitialViewControllerOf(_ storyBoardIdentifier : StoryBoardIdentifier , queryParams : [String:AnyObject]?){
         
         if currentPresentedViewController != nil{
-            if currentPresentedViewController is CustomTabBarController {
-                let mainTabVC = currentPresentedViewController as! CustomTabBarController
-                if let customNavVC = mainTabVC.activeViewController as? CustomNavigationViewController{
+            if currentPresentedViewController is MainTabBarViewController {
+                let mainTabVC = currentPresentedViewController as! MainTabBarViewController
+                if let customNavVC = mainTabVC.getSelectedTabViewController() as? CustomNavigationViewController{
                     
                     self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
                     if let vc = initialViewControllerFor(storyBoardIdentifier){
@@ -112,9 +112,9 @@ class ScreenManagerViewController: UIViewController {
     fileprivate func pushViewControllerOf(_ storyBoardIdentifier : StoryBoardIdentifier,viewControllerIdentifier : String , queryParams : [String:Any]?){
         
         if currentPresentedViewController != nil{
-            if currentPresentedViewController is CustomTabBarController {
-                let mainTabVC = currentPresentedViewController as! CustomTabBarController
-                if let customNavVC = mainTabVC.activeViewController as? CustomNavigationViewController{
+            if currentPresentedViewController is MainTabBarViewController {
+                let mainTabVC = currentPresentedViewController as! MainTabBarViewController
+                if let customNavVC = mainTabVC.getSelectedTabViewController() as? CustomNavigationViewController{
                     
                     self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
                     
@@ -183,8 +183,8 @@ class ScreenManagerViewController: UIViewController {
     
     func getTopViewController() -> UIViewController {
         if currentPresentedViewController != nil {
-            if let mainTabVC  = currentPresentedViewController as? CustomTabBarController {
-                if let selectedNav = mainTabVC.activeViewController as? CustomNavigationViewController {
+            if let mainTabVC  = currentPresentedViewController as? MainTabBarViewController {
+                if let selectedNav = mainTabVC.getSelectedTabViewController() as? CustomNavigationViewController {
                     return selectedNav.topViewController!
                 }
             }
@@ -198,8 +198,8 @@ class ScreenManagerViewController: UIViewController {
     }
     
     func hideTabBar(_ hide: Bool) {
-        if let mainTabVC = currentPresentedViewController as? CustomTabBarController {
-            mainTabVC.hideTabBar(hide)
+        if let mainTabVC = currentPresentedViewController as? MainTabBarViewController {
+            mainTabVC.tabBar.isHidden = hide
         }
     }
     
@@ -208,7 +208,7 @@ class ScreenManagerViewController: UIViewController {
     }
     
     func changeStatusBarPreference(_ shouldBeBlack: Bool) {
-        if let mainTabVC = currentPresentedViewController as? CustomTabBarController {
+        if let mainTabVC = currentPresentedViewController as? MainTabBarViewController {
             mainTabVC.shouldBeBlack = shouldBeBlack
         }
     }
@@ -234,20 +234,20 @@ extension ScreenManagerViewController{
     
     func switchTabForAction(_ action : ScreenManagerAction){
         
-        if let mainTAbVC = currentPresentedViewController as? CustomTabBarController {
+        if let mainTAbVC = currentPresentedViewController as? MainTabBarViewController {
             switch action {
             case .HomeTab:
-                //mainTAbVC.setTabIndexActive(EscapeTabs.home.rawValue)
+                mainTAbVC.selectedIndex = MainTabIndex.Guide.index
                 break
             case .DiscoverTab:
-                mainTAbVC.setTabIndexActive(EscapeTabs.discover.rawValue)
+                mainTAbVC.selectedIndex = MainTabIndex.Guide.index
                 break
                 
             case .MyAccountTab:
-                mainTAbVC.setTabIndexActive(EscapeTabs.myAccount.rawValue)
+                mainTAbVC.selectedIndex = MainTabIndex.Guide.index
                 break
             default:
-                mainTAbVC.setTabIndexActive(EscapeTabs.search.rawValue)
+                mainTAbVC.selectedIndex = MainTabIndex.Guide.index
                 break
             }
         }
@@ -351,7 +351,23 @@ extension ScreenManagerViewController{
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountSettingVC", queryParams: params)
     }
     func openItemDesc(_ params : [String:Any]?){
-        pushViewControllerOf(.MyAccount, viewControllerIdentifier: "itemDescVC", queryParams: params)
+        var escapeType = ""
+        if let params = params {
+            
+            if let escapeItem = params["escapeItem"] as? EscapeItem {
+                escapeType = escapeItem.escapeType
+            }
+            
+            if let escapeTypeVal = params["escape_type"] as? String {
+                escapeType = escapeTypeVal
+            }
+        }
+        if escapeType == EscapeType.Books.rawValue {
+            
+            pushViewControllerOf(.MyAccount, viewControllerIdentifier: "itemDescVC", queryParams: params)
+        } else {
+            pushViewControllerOf(.TvGuide, viewControllerIdentifier: "itemDescVC", queryParams: params)
+        }
     }
     func openFollower(_ params : [String:Any]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "FollowersVC", queryParams: params)

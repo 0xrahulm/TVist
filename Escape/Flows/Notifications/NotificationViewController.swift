@@ -18,7 +18,7 @@ class NotificationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Notifications"
+        self.title = "Tracker"
         
         UserDataProvider.sharedDataProvider.notificationDelegate = self
         UserDataProvider.sharedDataProvider.getNotification()

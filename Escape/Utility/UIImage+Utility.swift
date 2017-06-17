@@ -36,7 +36,8 @@ extension UIImageView{
         
         if let str = str{
             if let url = URL(string: str){
-                self.af_setImage(withURL: url)
+                
+                self.af_setImage(withURL: url, placeholderImage: placeHolder, filter: nil, progress: nil, progressQueue: DispatchQueue.global(), imageTransition: UIImageView.ImageTransition.crossDissolve(0.35), runImageTransitionIfCached: false, completion: nil)
             }
         }
         

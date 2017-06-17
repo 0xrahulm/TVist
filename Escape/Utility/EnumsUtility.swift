@@ -36,6 +36,7 @@ enum StoryBoardIdentifier : String{
     case MainTab = "MainTab"
     case MyAccount = "MyAccount"
     case Discover = "Discover"
+    case TvGuide = "TvGuide"
     case Home = "Home"
     case Notifications = "Notifications"
     case Search = "Search"
@@ -64,6 +65,21 @@ enum ProfileListType: String {
     case Movie = "movie"
     case TvShows = "tv_show"
     case Books = "book"
+}
+
+enum GuideListType:String {
+    case All="all"
+    case Television="tv_show"
+    case Movie="movie"
+}
+
+
+enum GuideItemType: Int {
+    case showLoading = -1
+    case escapeList = 0
+    case maybeSeen = 1
+    case userStory = 2
+    case showDiscoverNow = 3
 }
 
 enum EscapeType: String {
@@ -112,7 +128,7 @@ enum UserType : Int{
 enum EscapeAddActions: String {
     case Watched = "Watched"
     case ToWatch = "To Watch"
-    case Watching = "Watching"
+    case Watching = "Tracking"
     case Read = "Read"
     case ToRead = "To Read"
     case Reading = "Reading"
@@ -125,7 +141,8 @@ enum NotificationObservers: String {
     case SearchQueryObserver = "SearchQueryObserver"
     case GetProfileDetailsObserver = "GetProfileDetailsObserver"
     case OtherUserProfileListFetchObserver = "OtherUserProfileListFetchObserver" 
-    case HomeTappedObserver =  "HomeTappedObserver" 
+    case HomeTappedObserver =  "HomeTappedObserver"
+    case TvGuideDataObserver = "TvGuideDataObserver" 
 }
 enum StoryType : NSNumber {
     case emptyStory = -1

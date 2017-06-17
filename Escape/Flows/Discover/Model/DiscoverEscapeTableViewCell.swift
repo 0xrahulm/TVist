@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 protocol RemoveAddedEscapeCellProtocol : class {
     func removeAtIndex(_ indexPath : IndexPath)
 }
@@ -83,6 +84,9 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
                 attributedString.append(directorString)
                 
                 creatorType.attributedText = attributedString
+                
+                ctaButton.setTitle(nil, for: .normal)
+                ctaButton.setImage(IonIcons.image(withIcon: ion_pinpoint, size: 25, color: UIColor.white), for: .normal)
                 
             }
             

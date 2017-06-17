@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kT6-6P-YD2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kT6-6P-YD2">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,11 +20,11 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Custom Navigation View Controller-->
+        <!--Top Charts-->
         <scene sceneID="vke-Jz-aAL">
             <objects>
-                <navigationController id="kT6-6P-YD2" customClass="CustomNavigationViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dMZ-XA-j3Z">
+                <navigationController title="Top Charts" id="kT6-6P-YD2" customClass="CustomNavigationViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dMZ-XA-j3Z">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -39,7 +39,7 @@
         <!--Discover View Controller-->
         <scene sceneID="6dU-5X-xER">
             <objects>
-                <viewController storyboardIdentifier="Discover" id="8sq-du-axd" customClass="DiscoverViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Discover" id="8sq-du-axd" customClass="DiscoverViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DB0-lU-ly2"/>
                         <viewControllerLayoutGuide type="bottom" id="Zz9-t4-SeS"/>
@@ -72,7 +72,7 @@
         <!--Discover All View Controller-->
         <scene sceneID="hV3-Df-WYd">
             <objects>
-                <viewController storyboardIdentifier="DiscoverAllVC" id="fFD-Wr-voq" customClass="DiscoverAllViewController" customModule="Escape" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DiscoverAllVC" id="fFD-Wr-voq" customClass="DiscoverAllViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XbU-pM-HPl"/>
                         <viewControllerLayoutGuide type="bottom" id="43S-jk-O9h"/>
@@ -85,7 +85,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingViewCellIdentifier" rowHeight="30" id="3Np-Z1-YfR" customClass="DiscoverEscapeTableViewCell" customModule="Escape" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingViewCellIdentifier" rowHeight="30" id="3Np-Z1-YfR" customClass="DiscoverEscapeTableViewCell" customModule="Mizzle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Np-Z1-YfR" id="hQh-LS-Dxb">
@@ -105,7 +105,7 @@
                                             <outlet property="loadingView" destination="ZES-ui-CGv" id="5wr-Y5-PAd"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="discoverEscapeCellIdentifier" rowHeight="130" id="Imd-KU-aVH" customClass="DiscoverEscapeTableViewCell" customModule="Escape" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="discoverEscapeCellIdentifier" rowHeight="130" id="Imd-KU-aVH" customClass="DiscoverEscapeTableViewCell" customModule="Mizzle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="58" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Imd-KU-aVH" id="QmB-aV-y0R">
@@ -140,7 +140,6 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="22"/>
                                                     <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="3"/>
-                                                    <state key="normal" title="+"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="18"/>
@@ -205,7 +204,7 @@
                                             <outlet property="titleLabel" destination="43E-Vg-QRO" id="aZ6-sv-LaQ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="discoverEscapeWithTagCellIdentifier" rowHeight="130" id="TDm-36-tVM" customClass="DiscoverEscapeTableViewCell" customModule="Escape" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="discoverEscapeWithTagCellIdentifier" rowHeight="130" id="TDm-36-tVM" customClass="DiscoverEscapeTableViewCell" customModule="Mizzle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="188" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TDm-36-tVM" id="3HI-PJ-RV0">
@@ -311,7 +310,7 @@
                                             <outlet property="titleLabel" destination="q1M-eG-Ql4" id="JNU-ke-Ge1"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="followCellIdentifier" rowHeight="70" id="KHh-fg-JJX" customClass="DiscoverEscapeTableViewCell" customModule="Escape" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="followCellIdentifier" rowHeight="70" id="KHh-fg-JJX" customClass="DiscoverEscapeTableViewCell" customModule="Mizzle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="318" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KHh-fg-JJX" id="gj9-0j-rrx">

@@ -10,7 +10,7 @@ import UIKit
 
 enum ServiceType : String {
     //case ServiceTypePrivateApi="http://api.escape-app.com/api/"
-    case ServiceTypePrivateApi="http://192.168.225.184:3000/api/"
+    case ServiceTypePrivateApi="https://a1083c41.ngrok.io/api/"
 }
 
 enum SubServiceType : String {
@@ -48,6 +48,10 @@ enum SubServiceType : String {
     
     //Discover
     case GetDiscoverItems = "lets_discover"
+    
+    
+    //TV Guide
+    case GetGuideList     =  "guide/list"
     
     //Home
     case GetUserStory       =  "get_user_stories"

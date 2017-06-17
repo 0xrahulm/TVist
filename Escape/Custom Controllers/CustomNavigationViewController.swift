@@ -8,10 +8,22 @@
 
 import UIKit
 
+
+let kDefaultIconSize:CGFloat = 30
+
 class CustomNavigationViewController: UINavigationController, UINavigationControllerDelegate {
 
     let customNavigationAnimationController = CustomNavigationAnimationController()
     let customInteractionController = CustomInteractionController()
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        if let title = self.title {
+            tabViewSetupWithTitle(title: title)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +41,41 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    
+    func tabViewSetupWithTitle(title: String) {
+        var normalImage:String = ion_ios_paper_outline
+        var selectedImage:String = ion_ios_paper
+        
+        if title == "Guide" {
+            // nothing to do
+        } else if title == "Search" {
+            selectedImage = ion_ios_search
+            normalImage = ion_ios_search
+        } else if title == "Top Charts" {
+            selectedImage = ion_ios_list
+            normalImage = ion_ios_list_outline
+        } else if title == "Tracker" {
+            selectedImage = ion_ios_timer_outline
+            normalImage = ion_ios_timer_outline
+        } else if title == "Watchlist" {
+            selectedImage = ion_navicon
+            normalImage = ion_navicon
+        }
+        
+        tabBarItem.image = IonIcons.image(withIcon: normalImage, size: kDefaultIconSize, color: UIColor.buttonGrayColor())
+        tabBarItem.selectedImage = IonIcons.image(withIcon: selectedImage, size: kDefaultIconSize, color: UIColor.defaultTintColor())
+        
+        tabBarItem.setTitleTextAttributes(SFUIAttributedText.regularAttributesForSize(12, color: UIColor.buttonGrayColor()), for: .normal)
+        tabBarItem.setTitleTextAttributes(SFUIAttributedText.regularAttributesForSize(12, color: UIColor.defaultTintColor()), for: .selected)
+        
+    }
    
     func setAppearnce(){
         
         self.navigationBar.barTintColor = UIColor.escapeGray()
-        self.navigationBar.tintColor = UIColor.themeColorBlack()
+        self.navigationBar.tintColor = UIColor.defaultCTAColor()
         self.navigationBar.isTranslucent = false
         
         self.navigationBar.titleTextAttributes = SFUIAttributedText.regularAttributesForSize(17.0, color: UIColor.themeColorBlack())

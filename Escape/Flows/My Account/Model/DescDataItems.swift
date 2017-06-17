@@ -60,6 +60,10 @@ class DescDataItems: NSObject {
                     self.rating = rating
                 }
                 
+                if let rating = dict["imdb_rating"] as? NSNumber{
+                    self.rating = rating
+                }
+                
                 self.runtime = dict["run_time"] as? String
                 if let pagesCount = dict["page_count"] as? Int {
                     self.runtime = String(pagesCount)+" pages"

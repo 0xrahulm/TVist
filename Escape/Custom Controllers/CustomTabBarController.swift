@@ -105,7 +105,7 @@ class CustomTabBarController: UIViewController {
         
         let searchViewController = initialViewControllerFor(.Search) as! CustomNavigationViewController
         let discoverViewController = initialViewControllerFor(.Discover) as! CustomNavigationViewController
-        let homeViewController = initialViewControllerFor(.Home) as! CustomNavigationViewController
+        let homeViewController = initialViewControllerFor(.TvGuide) as! CustomNavigationViewController
 //        let notificationsViewController = initialViewControllerFor(.Notifications) as! CustomNavigationViewController
         let myAccountViewController = initialViewControllerFor(.MyAccount) as! CustomNavigationViewController
         

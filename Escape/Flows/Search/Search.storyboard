@@ -406,12 +406,12 @@
             </objects>
             <point key="canvasLocation" x="1510" y="90"/>
         </scene>
-        <!--Custom Navigation View Controller-->
+        <!--Search-->
         <scene sceneID="bWI-5w-sVd">
             <objects>
-                <navigationController storyboardIdentifier="searchVC" automaticallyAdjustsScrollViewInsets="NO" id="7gS-9J-yvY" customClass="CustomNavigationViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="searchVC" title="Search" automaticallyAdjustsScrollViewInsets="NO" id="7gS-9J-yvY" customClass="CustomNavigationViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="scc-R4-YZE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="scc-R4-YZE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -8,20 +8,111 @@
 
 import UIKit
 
+let kMainTabsCount = 5
+enum MainTabIndex {
+    case Guide, Tracker, TopCharts, Search, Watchlist
+    
+    var index:Int {
+        
+        switch self {
+        case .Guide:
+            return 0
+        case .Tracker:
+            return 1
+        case .TopCharts:
+            return 2
+        case .Search:
+            return 3
+        case .Watchlist:
+            return 4
+        }
+    }
+    
+}
+
+
 
 class MainTabBarViewController: UITabBarController {
     
+    var shouldBeBlack = true
+    
+    func getMainTabForIndex(index:Int) -> MainTabIndex? {
+        if MainTabIndex.Guide.index == index {
+            return .Guide
+        }
+        if MainTabIndex.Tracker.index == index {
+            return .Tracker
+        }
+        if MainTabIndex.TopCharts.index == index {
+            return .TopCharts
+        }
+        if MainTabIndex.Search.index == index {
+            return .Search
+        }
+        if MainTabIndex.Watchlist.index == index {
+            return .Watchlist
+        }
+        
+        
+        return nil
+    }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        UITabBar.appearance().shadowImage = UIImage()
+        
+        setupViewControllers()
+    }
+    
+    
+    private func setupViewControllers() {
+        
+        
+        let searchViewController = initialViewControllerFor(.Search) as! CustomNavigationViewController
+        let discoverViewController = initialViewControllerFor(.Discover) as! CustomNavigationViewController
+        let homeViewController = initialViewControllerFor(.TvGuide) as! CustomNavigationViewController
+        let notificationsViewController = initialViewControllerFor(.Notifications) as! CustomNavigationViewController
+        let myAccountViewController = initialViewControllerFor(.MyAccount) as! CustomNavigationViewController
+        
+        
+        var orderedViewControllers:[UIViewController] = Array<UIViewController>(repeating: UIViewController(),count: kMainTabsCount)
+        
+        orderedViewControllers[MainTabIndex.Guide.index] = homeViewController
+        orderedViewControllers[MainTabIndex.Tracker.index] = notificationsViewController
+        orderedViewControllers[MainTabIndex.TopCharts.index] = discoverViewController
+        orderedViewControllers[MainTabIndex.Search.index] = searchViewController
+        orderedViewControllers[MainTabIndex.Watchlist.index] = myAccountViewController
+        
+        self.viewControllers = orderedViewControllers
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setTabBarAppearance()
-
-        // Do any additional setup after loading the view.
+        
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        appearTabBar()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        apparateTabBar()
+    }
+    
+    func apparateTabBar() {
+        var tabBarFrame = self.tabBar.frame
+        tabBarFrame.origin.y = view.bounds.height
+    }
+    
+    
+    func getSelectedTabViewController() -> UIViewController {
+        return self.viewControllers![self.selectedIndex]
+    }
+    
+    fileprivate func initialViewControllerFor(_ storyboardId: StoryBoardIdentifier) -> UIViewController? {
+        return UIStoryboard(name: storyboardId.rawValue, bundle: nil).instantiateInitialViewController()
     }
     
     func setTabBarAppearance(){
@@ -33,21 +124,6 @@ class MainTabBarViewController: UITabBarController {
         self.tabBar.layer.shadowPath = UIBezierPath(rect: self.tabBar.bounds).cgPath
         
         self.tabBar.tintColor = UIColor.escapeBlueColor()
-        
-        if let tabItems = self.tabBar.items {
-            let tabItem1 = tabItems[0] as UITabBarItem
-            let tabItem2 = tabItems[1] as UITabBarItem
-            let tabItem3 = tabItems[2] as UITabBarItem
-            //let tabItem4 = tabItems[3] as UITabBarItem
-            //tabItem1.title = "Home"
-            tabItem1.title = "Discover"
-            tabItem2.title = "Search"
-            tabItem3.title = "My Account"
-        }
-    }
-    func appearTabBar() {
-        var tabBarFrame = self.tabBar.frame
-        tabBarFrame.origin.y = view.bounds.height
     }
 
 
@@ -56,6 +132,13 @@ class MainTabBarViewController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        if shouldBeBlack {
+            return .default
+        }
+        return .lightContent
+    }
+
 
 
 }

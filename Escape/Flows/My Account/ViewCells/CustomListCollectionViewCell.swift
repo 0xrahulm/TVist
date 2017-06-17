@@ -18,6 +18,8 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var ratingLabel: UILabel!
     
+    @IBOutlet weak var ctaButton: UIButton!
+    
     @IBOutlet weak var maxRatingLabel: UILabel!
     @IBOutlet weak var ratedImage: UIImageView!
     var dataItems : EscapeItem? {
@@ -26,11 +28,20 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 titleLabel.text = dataItems.name
                 itemImage.downloadImageWithUrl(dataItems.posterImage, placeHolder: UIImage(named: "movie_placeholder"))
                 let year = dataItems.year
+                
+                if ctaButton != nil {
+                    
+                    ctaButton.setImage(IonIcons.image(withIcon: ion_android_time, size: 20, color: UIColor.white), for: .normal)
+                    ctaButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.white), for: .selected)
+                }
+                
+                
+                
                 if year.characters.count > 0 {
-                    yearLabel.text = year
-                    yearLabel.isHidden = false
+
+//                    yearLabel.isHidden = false
                 }else{
-                    yearLabel.isHidden = true
+//                    yearLabel.isHidden = true
                 }
                 let rating = dataItems.rating
                 if rating.characters.count > 0 {
@@ -55,6 +66,23 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 }
                 
             }
+        }
+    }
+    
+    
+    @IBAction func trackButtonTapped(sender: UIButton) {
+        toggleButtonState()
+    }
+    
+    func toggleButtonState() {
+        ctaButton.popButtonAnimate()
+        let newState = !ctaButton.isSelected
+        ctaButton.isSelected = newState
+        if newState {
+            ctaButton.backgroundColor = UIColor.defaultCTAColor()
+        } else {
+            ctaButton.backgroundColor = UIColor.defaultTintColor()
+            
         }
     }
     
