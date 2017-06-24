@@ -131,23 +131,23 @@ class CustomTabBarController: UIViewController {
             var eventName:EventName!
             switch selectedTab {
             case .search:
-                eventName = .SearchTabTapped
+                
                 notificationsButton.isSelected = true
-                NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.HomeTappedObserver.rawValue), object: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.HomeClickObserver.rawValue), object: nil)
                 break
             case .discover:
-                eventName = .DiscoverTabTapped
+                
                 discoverButton.isSelected = true
                 break
             case .home:
                 homeButton.isSelected = true
-                eventName = .HomeTabTapped
+                
                 break
 //            case .notifications:
 //                notificationsButton.isSelected = true
 //                break
             case .myAccount:
-                eventName = .MyAccountTabTapped
+                
                 myAccountButton.isSelected = true
                 break
             }

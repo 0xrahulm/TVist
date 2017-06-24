@@ -28,6 +28,14 @@ class DescDataItems: NSObject {
     var generes: [String] = []
     var isActed = false
     
+    var isTracking: Bool = false
+    var inWatchlist: Bool = false
+    var isAlreadySeen: Bool = false
+    
+    var imdbId: String?
+    
+    var streamingOptions: [StreamingOption] = []
+    
     init(dict: [String:AnyObject]) {
         super.init()
         
@@ -64,6 +72,10 @@ class DescDataItems: NSObject {
                     self.rating = rating
                 }
                 
+                if let imdbID = dict["imdb_id"] as? String {
+                    self.imdbId = imdbID
+                }
+                
                 self.runtime = dict["run_time"] as? String
                 if let pagesCount = dict["page_count"] as? Int {
                     self.runtime = String(pagesCount)+" pages"
@@ -77,12 +89,29 @@ class DescDataItems: NSObject {
                 if let generes = dict["genres"] as? [String]{
                     self.generes = generes
                 }
+                
+                if let streamingOptionsData = dict["streaming_options"] as? [[String:AnyObject]] {
+                    for eachOption in streamingOptionsData {
+                        if let streamingOption = StreamingOption.parseStreamingOptionData(data: eachOption) {
+                            self.streamingOptions.append(streamingOption)
+                        }
+                    }
+                }
             }
         }
         if let acted = data["is_acted"] as? Bool{
             self.isActed = acted
+            self.inWatchlist = acted
+            if let action = data["action"] as? String {
+                if action == EscapeAddActions.Watched.rawValue {
+                    self.isAlreadySeen = true
+                }
+            }
         }
         
+        if let tracking = data["is_tracking"] as? Bool {
+            self.isTracking = tracking
+        }
         
     }
 }

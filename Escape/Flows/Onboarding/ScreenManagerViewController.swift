@@ -22,7 +22,7 @@ class ScreenManagerViewController: UIViewController {
         
         currentPresentedViewController = self
         ScreenVader.sharedVader.screenManagerVC = self
-        UserDataProvider.sharedDataProvider.getSecurityToken()
+        
         
         presentedViewControllers.append(self)
         
@@ -36,15 +36,15 @@ class ScreenManagerViewController: UIViewController {
     }
     
     fileprivate func initialViewBootUp() {
-        if (ECUserDefaults.isLoggedIn() &&
-            LocalStorageVader.sharedVader.flagValueForKey(.InterestsSelected)) {
+        if (ECUserDefaults.isLoggedIn()) {
             
             // Get user details early on so the data is available before 
             MyAccountDataProvider.sharedDataProvider.getUserDetails(nil)
             
             presentRootViewControllerOf(.MainTab, queryParams: nil)
         } else {
-            presentRootViewControllerOf(.Onboarding, queryParams: nil)
+            UserDataProvider.sharedDataProvider.deviceSessionDelegate = self
+            UserDataProvider.sharedDataProvider.getDeviceSession()
         }
     }
     
@@ -230,21 +230,36 @@ class ScreenManagerViewController: UIViewController {
     }
 }
 
+extension ScreenManagerViewController: DeviceSessionProtocol {
+    func guestUserLoggedIn() {
+        initialViewBootUp()
+    }
+    
+    func userAlreadyExists(registeredUsers: [MyAccountItems]) {
+        presentRootViewControllerOf(.Onboarding, queryParams: nil)
+    }
+}
+
 extension ScreenManagerViewController{
     
     func switchTabForAction(_ action : ScreenManagerAction){
         
         if let mainTAbVC = currentPresentedViewController as? MainTabBarViewController {
             switch action {
-            case .HomeTab:
+            case .GuideTab:
                 mainTAbVC.selectedIndex = MainTabIndex.Guide.index
                 break
-            case .DiscoverTab:
-                mainTAbVC.selectedIndex = MainTabIndex.Guide.index
+            case .TopChartsTab:
+                mainTAbVC.selectedIndex = MainTabIndex.TopCharts.index
                 break
-                
-            case .MyAccountTab:
-                mainTAbVC.selectedIndex = MainTabIndex.Guide.index
+            case .TrackerTab:
+                mainTAbVC.selectedIndex = MainTabIndex.Tracker.index
+                break
+            case .SearchTab:
+                mainTAbVC.selectedIndex = MainTabIndex.Search.index
+                break
+            case .WatchlistTab:
+                mainTAbVC.selectedIndex = MainTabIndex.Watchlist.index
                 break
             default:
                 mainTAbVC.selectedIndex = MainTabIndex.Guide.index
@@ -260,16 +275,21 @@ extension ScreenManagerViewController{
             // do pending action here
             return
         }
-        switch action{
+        switch action {
         case .MainTab:
             openMainTab()
             break
             
-        case .DiscoverTab:
+        case .GuideTab:
+            fallthrough
+            
+        case .TrackerTab:
+            fallthrough
+        case .TopChartsTab:
             fallthrough
         case .SearchTab:
             fallthrough
-        case .MyAccountTab:
+        case .WatchlistTab:
             switchTabForAction(action)
             break
         case .MyAccountSetting:
@@ -314,7 +334,9 @@ extension ScreenManagerViewController{
                 openUserEscapeListViewController(params)
             }
             break
-            
+        case .OpenSignupView:
+            openSignupView()
+            break
         case .OpenFriendsView:
             openFriendsView(params)
             break
@@ -332,9 +354,16 @@ extension ScreenManagerViewController{
         case .OpenNotificationView:
             openNotificationVC()
             break
+        case .OpenGuideListView:
+            openGuideListView(params: params)
+            break
         default:
             break
         }
+    }
+    
+    func openGuideListView(params: [String:Any]?) {
+        pushViewControllerOf(.TvGuide, viewControllerIdentifier: "guideListView", queryParams: params)
     }
     
     func openMainTab(){
@@ -346,6 +375,16 @@ extension ScreenManagerViewController{
         currentPresentedViewController?.dismiss(animated: true, completion: nil)
         ECUserDefaults.setLoggedIn(false)
         
+    }
+    
+    func dismissAllPresented() {
+        for controller in presentedViewControllers.reversed() {
+            if controller is ScreenManagerViewController {
+                
+            } else {
+                controller.dismiss(animated: false, completion: nil)
+            }
+        }
     }
     func openMyAccountSetting(_ params : [String:Any]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountSettingVC", queryParams: params)
@@ -390,6 +429,10 @@ extension ScreenManagerViewController{
             presentPopUpViewWithNib(addToEscapePopup)
             
         }
+    }
+    
+    func openSignupView() {
+        presentViewControllerOf(.Onboarding, viewControllerIdentifier: "signupVC", queryParams: ["screen":"popup"])
     }
     
     func openEditEscapePopup(_ params: [String:Any]?) {
@@ -462,7 +505,7 @@ extension ScreenManagerViewController{
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
 }
 

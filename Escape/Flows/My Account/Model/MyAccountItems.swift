@@ -9,6 +9,8 @@
 import UIKit
 
 
+
+
 class MyAccountItems: NSObject {
     
     var id :            String?
@@ -20,9 +22,12 @@ class MyAccountItems: NSObject {
     var followers:      NSNumber = 0
     var following:      NSNumber = 0
     var escapes_count:  NSNumber = 0
+    var trackingsCount:  NSNumber = 0
+    var userType: String = "g"
+    var loggedInUsing:LoggedInUsing = .Guest
     var isFollow = false
     
-    init(id : String?,firstName : String,lastName : String,email :String?,gender :        Gender?,profilePicture :String?,followers :NSNumber,following :NSNumber,escapes_count : NSNumber?) {
+    init(id : String?,firstName : String,lastName : String,email :String?,gender: Gender?,profilePicture :String?,followers :NSNumber,following :NSNumber,escapes_count : NSNumber?) {
         
         self.id = id
         self.firstName = firstName
@@ -90,6 +95,18 @@ class MyAccountItems: NSObject {
         
         if let isFollow = profileDetails["is_following"] as? Bool{
             self.isFollow = isFollow
+        }
+        
+        if let loggedInUsing = profileDetails["logged_in_using"] as? Int, let loggedInUsingVal = LoggedInUsing(rawValue: loggedInUsing) {
+            self.loggedInUsing = loggedInUsingVal
+        }
+        
+        if let trackingsCount = profileDetails["trackings_count"] as? NSNumber {
+            self.trackingsCount = trackingsCount
+        }
+        
+        if let userType = profileDetails["type"] as? String {
+            self.userType = userType
         }
     }
 }

@@ -23,12 +23,12 @@ class DiscoverViewController: UIViewController {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        let searchImage = IonIcons.image(withIcon: ion_ios_search, size: 30, color: UIColor.themeColorBlack())
-        
-        //let addImage = IonIcons.imageWithIcon(ion_ios_personadd, size: 30, color: UIColor.themeColorBlack())
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: searchImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
-        
+//        let searchImage = IonIcons.image(withIcon: ion_ios_search, size: 30, color: UIColor.themeColorBlack())
+//        
+//        //let addImage = IonIcons.imageWithIcon(ion_ios_personadd, size: 30, color: UIColor.themeColorBlack())
+//        
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: searchImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(DiscoverViewController.didTapGoToRight))
+//        
         //self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: addImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DiscoverViewController.didTapGoToLeft))
         
         
@@ -39,6 +39,7 @@ class DiscoverViewController: UIViewController {
         super.viewWillAppear(animated)
         
         ScreenVader.sharedVader.hideTabBar(false)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,10 +53,9 @@ class DiscoverViewController: UIViewController {
         // Initialize view controllers to display and place in array
        
         addVcFor(.All, title: "ALL")
-        addVcFor(.Movie, title: "MOVIES")
+        
         addVcFor(.TvShows, title: "TV SHOWS")
-        addVcFor(.Books, title: "BOOKS")
-        addVcFor(.People, title: "PEOPLE")
+        addVcFor(.Movie, title: "MOVIES")
         
         // Customize menu (Optional)
         let parameters: [CAPSPageMenuOption] = [
@@ -77,7 +77,7 @@ class DiscoverViewController: UIViewController {
         
         self.addChildViewController(pageMenu!)
         self.view.addSubview(pageMenu!.view)
-        
+        pageMenu!.delegate = self
         pageMenu!.didMove(toParentViewController: self)
         
     }
@@ -105,7 +105,7 @@ class DiscoverViewController: UIViewController {
     }
     
     func didTapGoToRight() {
-        AnalyticsVader.sharedVader.basicEvents(eventName: .SearchOnDiscoverTapped)
+        
         ScreenVader.sharedVader.performScreenManagerAction(.OpenSearchView, queryParams: ["screen" : "discover"])
     }
     
@@ -118,6 +118,15 @@ class DiscoverViewController: UIViewController {
         return true
     }
     
+}
+
+extension DiscoverViewController: CAPSPageMenuDelegate {
+    func didMoveToPage(_ controller: UIViewController, index: Int) {
+        if let title = controller.title {
+            
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.TopCharts_Segment_Click, properties: ["Tab Name": title])
+        }
+    }
 }
 
 

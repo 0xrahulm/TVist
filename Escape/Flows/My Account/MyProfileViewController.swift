@@ -24,24 +24,26 @@ enum CellIdentifierMyAccount : String{
 
 class MyProfileViewController: UIViewController {
     
-    @IBOutlet weak var editProfileButton: UIButton!
-    @IBOutlet weak var followUnfollowButton: UIButton!
+//    @IBOutlet weak var editProfileButton: UIButton!
+//    @IBOutlet weak var followUnfollowButton: UIButton!
     
-    @IBOutlet weak var profileImage: UIImageView!
-    
-    @IBOutlet weak var escapeCount:     UILabel!
-    @IBOutlet weak var followerCount:   UILabel!
-    @IBOutlet weak var followingCount:  UILabel!
+//    @IBOutlet weak var profileImage: UIImageView!
+//    
+//    @IBOutlet weak var escapeCount:     UILabel!
+//    @IBOutlet weak var followerCount:   UILabel!
+//    @IBOutlet weak var followingCount:  UILabel!
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var userDetailView: UserDetailView!
     
     let kHeightOfSegmentedControl:CGFloat = 60.0
     
     var firstLoad:Bool = true
     var userId : String?
     
-    var listOfItemType:[ProfileListType] = [.Movie, .TvShows, .Books]
-    var listOfTitles:[String] = ["Movies", "Tv Shows", "Books"]
+    var listOfItemType:[ProfileListType] = [.Movie, .TvShows]
+    var listOfTitles:[String] = ["Movies", "Tv Shows"]
     var tabItems:[TabButton] = []
     var isFollow:Bool = false
     var profileItemUpdateNotification:NotificationToken?
@@ -129,10 +131,10 @@ class MyProfileViewController: UIViewController {
         }
         
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        userDetailView.viewType = "Watchlist"
         setVisuals()
         initXibs()
         
@@ -142,7 +144,7 @@ class MyProfileViewController: UIViewController {
             fetchDataFromRealm()
         } else {
             AnalyticsVader.sharedVader.basicEvents(eventName: EventName.UserProfileOpened)
-            NotificationCenter.default.addObserver(self, selector: #selector(MyProfileViewController.otherUserData(_:)), name: NSNotification.Name(rawValue: NotificationObservers.GetProfileDetailsObserver.rawValue), object: nil)
+//            NotificationCenter.default.addObserver(self, selector: #selector(MyProfileViewController.otherUserData(_:)), name: NSNotification.Name(rawValue: NotificationObservers.GetProfileDetailsObserver.rawValue), object: nil)
             
         }
         
@@ -263,45 +265,45 @@ class MyProfileViewController: UIViewController {
     func fetchDataFromRealm() {
         
         if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
-            pushUpUserData(user.firstName, lastName: user.lastName, profilePicture: user.profilePicture, followers: user.followers, following: user.following, escapesCount: user.escape_count)
+//            pushUpUserData(user.firstName, lastName: user.lastName, profilePicture: user.profilePicture, followers: user.followers, following: user.following, escapesCount: user.escape_count)
         }
         
     }
     
     
-    func pushUpUserData(_ firstName: String, lastName: String?, profilePicture: String?, followers:Int, following: Int, escapesCount: Int) {
-        if let lastName = lastName, lastName.characters.count > 0 {
-            self.navigationItem.title = "\(firstName) \(lastName)"
-        } else {
-            self.navigationItem.title = firstName
-        }
-        
-        profileImage.downloadImageWithUrl(profilePicture, placeHolder: UIImage(named: "profile_placeholder"))
-        
-        followerCount.text = "\(followers)"
-        
-        followingCount.text = "\(following)"
-        
-        
-        escapeCount.text = "\(escapesCount)"
-    }
+//    func pushUpUserData(_ firstName: String, lastName: String?, profilePicture: String?, followers:Int, following: Int, escapesCount: Int) {
+//        if let lastName = lastName, lastName.characters.count > 0 {
+//            self.navigationItem.title = "\(firstName) \(lastName)"
+//        } else {
+//            self.navigationItem.title = firstName
+//        }
+//        
+//        profileImage.downloadImageWithUrl(profilePicture, placeHolder: UIImage(named: "profile_placeholder"))
+//        
+//        followerCount.text = "\(followers)"
+//        
+//        followingCount.text = "\(following)"
+//        
+//        
+//        escapeCount.text = "\(escapesCount)"
+//    }
     
-    func otherUserData(_ notification: Notification) {
-        if let userInfo = notification.userInfo, let userData = userInfo["userData"] as? MyAccountItems {
-            if let userId = userId, let userDataId = userData.id {
-                if userId == userDataId {
-                    pushUpUserData(userData.firstName, lastName: userData.lastName, profilePicture: userData.profilePicture, followers: userData.followers.intValue, following: userData.following.intValue, escapesCount: userData.escapes_count.intValue)
-                    self.isFollow = userData.isFollow
-                    if self.isFollow {
-                        self.followUnfollowButton.followViewWithAnimate(false)
-                    } else {
-                        self.followUnfollowButton.unfollowViewWithAnimate(false)
-                    }
-                }
-            }
-            
-        }
-    }
+//    func otherUserData(_ notification: Notification) {
+//        if let userInfo = notification.userInfo, let userData = userInfo["userData"] as? MyAccountItems {
+//            if let userId = userId, let userDataId = userData.id {
+//                if userId == userDataId {
+//                    pushUpUserData(userData.firstName, lastName: userData.lastName, profilePicture: userData.profilePicture, followers: userData.followers.intValue, following: userData.following.intValue, escapesCount: userData.escapes_count.intValue)
+//                    self.isFollow = userData.isFollow
+//                    if self.isFollow {
+////                        self.followUnfollowButton.followViewWithAnimate(false)
+//                    } else {
+////                        self.followUnfollowButton.unfollowViewWithAnimate(false)
+//                    }
+//                }
+//            }
+//            
+//        }
+//    }
     
     func receivedListData(_ notification:Notification) {
         if let userInfo = notification.userInfo {
@@ -361,20 +363,20 @@ class MyProfileViewController: UIViewController {
             
             self.navigationItem.rightBarButtonItem = settingButton
             
-            editProfileButton.isHidden = false
-            followUnfollowButton.isHidden = true
-            
-            editProfileButton.layer.borderColor = UIColor.textGrayColor().cgColor
-            editProfileButton.layer.borderWidth = 1.0
-            editProfileButton.layer.cornerRadius = 4.0
+//            editProfileButton.isHidden = false
+//            followUnfollowButton.isHidden = true
+//            
+//            editProfileButton.layer.borderColor = UIColor.textGrayColor().cgColor
+//            editProfileButton.layer.borderWidth = 1.0
+//            editProfileButton.layer.cornerRadius = 4.0
             
         } else {
             
-            editProfileButton.isHidden = true
-            followUnfollowButton.isHidden = false
-            
-            followUnfollowButton.layer.cornerRadius = 4.0
-            self.followUnfollowButton.disableButton(false)
+//            editProfileButton.isHidden = true
+//            followUnfollowButton.isHidden = false
+//            
+//            followUnfollowButton.layer.cornerRadius = 4.0
+//            self.followUnfollowButton.disableButton(false)
             
         }
         
@@ -423,12 +425,12 @@ class MyProfileViewController: UIViewController {
         if let userId = userId {
             if isFollow {
                 isFollow = false
-                self.followUnfollowButton.unfollowViewWithAnimate(true)
+//                self.followUnfollowButton.unfollowViewWithAnimate(true)
                 UserDataProvider.sharedDataProvider.unfollowUser(userId)
                 
             }else{
                 isFollow = true
-                self.followUnfollowButton.followViewWithAnimate(true)
+//                self.followUnfollowButton.followViewWithAnimate(true)
                 UserDataProvider.sharedDataProvider.followUser(userId)
             }
         }
@@ -558,7 +560,7 @@ extension MyProfileViewController: UITableViewDelegate {
 extension MyProfileViewController: ProfileImageChangeProtocol {
     func didChangeProfilePic(image: UIImage) {
         self.reload = false
-        self.profileImage.image = image
+//        self.profileImage.image = image
     }
 }
 
@@ -732,6 +734,12 @@ extension MyProfileViewController: ViewAllTapProtocol {
                 let escapeType = selectedProfileList.type
                 queryParams["escapeType"] = escapeType
                 queryParams["escapeAction"] = escapeAction
+                
+                if escapeAction == EscapeAddActions.ToWatch.rawValue {
+                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ViewAllWatchlist)
+                } else if escapeAction == EscapeAddActions.Watched.rawValue {
+                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ViewAllSeen)
+                }
                 
                 if let userId = userId {
                     queryParams["userId"] = userId

@@ -60,9 +60,13 @@ class EmailLoginViewController: UIViewController {
     
     let defaultMarginForViews:CGFloat = 15
     
+    var emailSignInDefault: String?
+    
     enum SegmentTab:Int {
         case signUp=0, signIn=1
     }
+    
+    var screen: String = "original"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,11 +83,32 @@ class EmailLoginViewController: UIViewController {
         self.emailSignIn.delegate = self
         self.passwordSignIn.delegate = self
         
+        if let emailSignInDefault = emailSignInDefault {
+            self.segmentController.selectedSegmentIndex = 1
+            segmentChanged(UISegmentedControl())
+            self.emailSignIn.textField.text = emailSignInDefault
+            self.passwordSignIn.textField.becomeFirstResponder()
+        }
+        
+        if screen == "popup" {
+            self.title = "Authenticate"
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(EmailLoginViewController.closeButton))
+        }
+        
+    }
+    
+    override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
+        super.setObjectsWithQueryParameters(queryParams)
+        if let screen = queryParams["screen"] as? String {
+            self.screen = screen
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,6 +120,10 @@ class EmailLoginViewController: UIViewController {
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(EmailLoginViewController.keyboardWillDisappear(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func closeButton() {
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     func loadErrorPopUp(_ str : String){
@@ -133,7 +162,7 @@ class EmailLoginViewController: UIViewController {
                 str = passwordText
             }
             determineSignUpButtonState(newString: str)
-            AnalyticsVader.sharedVader.basicEvents(eventName: .signUpTabTapped)
+            AnalyticsVader.sharedVader.basicEvents(eventName: .signUpTabClick)
         }
         
         if segmentController.selectedSegmentIndex == SegmentTab.signIn.rawValue {
@@ -144,7 +173,7 @@ class EmailLoginViewController: UIViewController {
                 str = passwordText
             }
             determineSignInButtonState(newString: str)
-            AnalyticsVader.sharedVader.basicEvents(eventName: .signInTabTapped)
+            AnalyticsVader.sharedVader.basicEvents(eventName: .signInTabClick)
         }
         
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1, options: [], animations: {
@@ -336,8 +365,8 @@ extension EmailLoginViewController : LoginProtocol {
     func signInSuccessfull(_ data : [String:AnyObject] , type : LoginTypeEnum, subServiceType: SubServiceType){
         
         if type == .Email && subServiceType == .EmailSignUp {
-            openInteresetVC()
-            return
+//            openInteresetVC()
+//            return
         }
         ScreenVader.sharedVader.loginActionAfterDelay()
         

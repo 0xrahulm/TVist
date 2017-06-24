@@ -24,6 +24,7 @@ class SearchAllViewController: UIViewController {
     var callFurther = true
     var callOnce = true
     
+    var searchPosition: String = "Guide"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,7 +118,13 @@ class SearchAllViewController: UIViewController {
                 if let searchedText = ECUserDefaults.getSearchedText(){
                     if self.type == searchType && queryText == searchedText{
                         if let data = dict["data"] as? [SearchItems]{
-                            
+                            if data.count == 0 {
+                                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchInvalid, properties: ["Position":searchPosition])
+                            } else {
+                                if let page = dict["page"] as? Int {
+                                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ItemsShown, properties: ["Position":searchPosition, "page":"\(page)"])
+                                }
+                            }
                             self.dataArray.append(contentsOf: data)
                             if data.count < 10{
                                 callFurther = false
@@ -176,6 +183,8 @@ extension SearchAllViewController : UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         
         if dataArray.count > 0{
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchItemClick, properties: ["Position":searchPosition])
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.OpenedDescriptionSearchedItem, properties: ["Position":searchPosition])
             
             let data = dataArray[indexPath.row]
             let id = data.id
@@ -198,6 +207,7 @@ extension SearchAllViewController : UITableViewDelegate{
                 params["image"] = image
             }
             if escapeType == .Movie || escapeType == .TvShows || escapeType == .Books{
+
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
             }else if escapeType == .User{
                 if let id  = data.id{
@@ -238,6 +248,7 @@ extension SearchAllViewController : UITableViewDataSource{
                 }
                 cell = tableView.dequeueReusableCell(withIdentifier: discoverCellIdentifier) as! SearchTableViewCell
                 cell.data = data
+                cell.searchPosition = searchPosition
                 cell.indexPath = indexPath
                 
             }else if data.searchType == .User{

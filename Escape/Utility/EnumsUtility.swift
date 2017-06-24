@@ -9,11 +9,12 @@
 import Foundation
 
 enum ScreenManagerAction : String {
-    case MainTab = "MainTab"
-    case HomeTab = "Home"
-    case DiscoverTab = "DiscoverTab"
+    case GuideTab = "GuideTab"
+    case TrackerTab = "TrackerTab"
+    case TopChartsTab = "TopChartsTab"
     case SearchTab = "SearchTab"
-    case MyAccountTab = "MyAccount"
+    case WatchlistTab = "WatchlistTab"
+    case MainTab = "MainTab"
     case MyAccountSetting = "MyAccountSetting"
     case OpenItemDescription = "item"
     case OpenFollowers = "OpenFollowers"
@@ -29,6 +30,8 @@ enum ScreenManagerAction : String {
     case OpenSimilarEscapesView = "OpenSimilarEscapesView"
     case OpenRelatedPeopleView = "OpenRelatedPeopleView"
     case OpenNotificationView = "openNotificationView"
+    case OpenSignupView = "openSignupView"
+    case OpenGuideListView = "OpenGuideListView"
 }
 
 enum StoryBoardIdentifier : String{
@@ -39,6 +42,7 @@ enum StoryBoardIdentifier : String{
     case TvGuide = "TvGuide"
     case Home = "Home"
     case Notifications = "Notifications"
+    case Tracker = "Tracker"
     case Search = "Search"
     case AddToEscape = "AddToEscape"
     case GenericLists = "GenericLists"
@@ -98,9 +102,9 @@ enum DiscoverType : String{
 }
 
 enum EscapeCreatorType : String{
-    case Movie = "Director"
-    case TvShows = "Creator"
-    case Books = "Author"
+    case Movie = "Directed by"
+    case TvShows = "Created by"
+    case Books = "Authored by"
 }
 
 enum SearchType : String{
@@ -141,8 +145,9 @@ enum NotificationObservers: String {
     case SearchQueryObserver = "SearchQueryObserver"
     case GetProfileDetailsObserver = "GetProfileDetailsObserver"
     case OtherUserProfileListFetchObserver = "OtherUserProfileListFetchObserver" 
-    case HomeTappedObserver =  "HomeTappedObserver"
-    case TvGuideDataObserver = "TvGuideDataObserver" 
+    case HomeClickObserver =  "HomeClickObserver"
+    case TvGuideDataObserver = "TvGuideDataObserver"
+    case TvGuideItemDataObserver = "kGuideItemDataNotification"
 }
 enum StoryType : NSNumber {
     case emptyStory = -1
@@ -167,29 +172,78 @@ enum OptionsType : String{
 
 enum EventName:String {
     case onboardingScreen = "Onboarding_Screen"
-    case continueWithFB = "Conitnue_With_Facebook_Tapped"
-    case continueWithEmail = "Continue_With_Email_Tapped"
+    case continueWithFB = "Conitnue_With_Facebook_Click"
+    case continueWithEmail = "Continue_With_Email_Click"
     case facebookLoginFailure = "Facebook_Login_Failure"
     case emailLoginErrorPopup = "Error_Popup_Shown"
-    case signInTabTapped = "Sign_In_Tab_Tapped"
-    case signUpTabTapped = "Sign_Up_Tab_Tapped"
+    case signInTabClick = "Sign_In_Tab_Click"
+    case signUpTabClick = "Sign_Up_Tab_Click"
     case doneButtonOnEmailLogin = "Done_Button_On_Email_Login"
     case doneButtonOnEmailSignup = "Done_Button_On_Email_Signup"
     case interestsSelected = "Interests_Selection_Done"
-    case DiscoverTabTapped = "Discover_Tab_Tapped"
-    case HomeTabTapped = "Home_Tab_Tapped"
-    case SearchTabTapped = "Search_Tab_Tapped"
-    case MyAccountTabTapped = "MyAccount_Tab_Tapped"
-    case SearchOnDiscoverTapped = "Search_On_Discover_Tapped"
-    case EscapeDescriptionOpened = "Escape_Description_Opened"
+    
+    case SearchOnDiscoverClick = "Search_On_Discover_Click"
+    
     case AddToEscapeOpened = "Add_To_Escape_Opened"
     case AddToEscapeDone = "Add_To_Escape_Done"
-    case ShareWithFriendsTapped = "Share_With_Friends_Tapped"
-    case SearchOccurred = "Search_Occurred"
+    case ShareWithFriendsClick = "Share_With_Friends_Click"
+    
     case UserProfileOpened = "User_Profile_Opened"
-    case emptyStateWhatsappTapped = "Empty_State_Whatsapp_Tapped"
-    case emptyStateiMessageTapped = "Empty_State_iMessage_Tapped"
-    case emptyStateMessengerTapped = "Empty_State_Messenger_Tapped"
-    case emptyStateSearchTapped = "Empty_State_Search_Tapped"
-    case emptyStateDiscoverTapped = "Empty_State_Discover_Tapped"
+    case emptyStateWhatsappClick = "Empty_State_Whatsapp_Click"
+    case emptyStateiMessageClick = "Empty_State_iMessage_Click"
+    case emptyStateMessengerClick = "Empty_State_Messenger_Click"
+    case emptyStateSearchClick = "Empty_State_Search_Click"
+    case emptyStateDiscoverClick = "Empty_State_Discover_Click"
+    
+    //TV guide
+    case HomePageOpened = "Home_Screen_Opened"
+    case GuideSegmentClick = "Guide_Segment_Click"
+    case TrackButtonClick = "Added_To_Tracker"
+    case UndoTrack = "Undo_Track"
+    case GuideScreenScroll = "Guide_Screen_Scroll"
+    
+    case SearchClick = "Search_Click"
+    case SearchCancelled = "Search_Cancelled"
+    case SearchOccurred = "Item_Searched"
+    case ItemsShown = "Items_Shown"
+    case SearchItemClick = "Search_Item_Click"
+    case TrackSearchedItem = "Track_Searched_Item"
+    case OpenedDescriptionSearchedItem = "Opened_Description_Searched_Item"
+    case SearchInvalid = "Search_Invalid"
+    case GuideItemClick = "Guide_Item_Click"
+    
+    case GuideViewAllClick = "Guide_View_All_Click"
+    
+    case ItemDescriptionOpened = "Item_Description_Opened"
+    
+    
+    case TrackerTabClick = "Tracker_Tab_Click"
+    case OpenTrackedItem = "Open_Tracked_Item"
+    case TopChartsTabClick = "Top_Charts_Tab_Click"
+    
+    case GuideTabClick = "Guide_Tab_Click"
+    case SearchTabClick = "Search_Tab_Click"
+    case WatchlistTabClick = "Watchlist_Tab_Click"
+    case SignUpNowClick = "SignUp_Now_Click"
+    
+    case ViewAllSeen = "ViewAll_Seen"
+    
+    case ViewAllWatchlist = "ViewAll_Watchlist"
+    case TopCharts_Segment_Click = "TopCharts_Segment_Click"
+    case TopCharts_Item_Click = "TopCharts_Item_Click"
+    
+    case AddedToSeen = "Added_To_Seen"
+    case AddedToWatchlist = "Added_To_Watchlist"
+    
+    case UndoSeen = "Undo_Seen"
+    case UndoWatchlist = "Undo_Watchlist"
+    
+    //Details Page
+    
+    case DetailsPageSegmentClick = "Details_Page_Segment_Click"
+    
+    case SeeAirtimesClick = "Item_AirTime"
+    case SeeImdbDetailsClick = "IMDb_Details"
+    
+    case WhereToStreamClick = "Where_To_Stream_Click"
 }

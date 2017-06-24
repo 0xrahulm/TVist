@@ -22,6 +22,7 @@ class PeopleCell: NormalCell {
     
     weak var followButtonDelegate : FollowerButtonProtocol?
     
+    var loggable:Bool = false
     
     var accountItem: MyAccountItems? {
         didSet {
@@ -39,12 +40,24 @@ class PeopleCell: NormalCell {
             if let id = self.accountItem?.id {
                 self.userId = id // remove optional from here
             }
-            self.isFollow = accountItem.isFollow
-            
-            if accountItem.isFollow {
-                followUnfollowButton.followViewWithAnimate(false)
-            }else{
-                followUnfollowButton.unfollowViewWithAnimate(false)
+            if !self.loggable {
+                
+                self.isFollow = accountItem.isFollow
+                
+                if accountItem.isFollow {
+                    followUnfollowButton.followViewWithAnimate(false)
+                }else{
+                    followUnfollowButton.unfollowViewWithAnimate(false)
+                }
+            } else {
+                followUnfollowButton.isHidden = true
+                if accountItem.loggedInUsing == .Email {
+                    followersCountLabel.text = "Tap to login with password"
+                } else if accountItem.loggedInUsing == .Facebook {
+                    followersCountLabel.text = "Tap to login using facebook"
+                } else if accountItem.loggedInUsing == .Guest {
+                    followersCountLabel.text = "Tap to create a new user"
+                }
             }
         }
     }

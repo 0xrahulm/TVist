@@ -44,6 +44,13 @@ final class ProfileItem: Object {
             }
             
             let escapeItem = EscapeItem.addOrEditEscapeItem(id, name: name, escapeType: escapeType, posterImage: eachEscapeData["poster_image"] as? String, year: eachEscapeData["year"] as? String, rating: eachEscapeData["rating"] as? NSNumber, subTitle: eachEscapeData["subtitle"] as? String, createdBy: eachEscapeData["creator"] as? String, _realm: nil)
+            
+            if let isTracking = eachEscapeData["is_tracking"] as? Bool {
+                escapeItem.isTracking = isTracking
+            }
+            if let hasActed = eachEscapeData["is_acted"] as? Bool {
+                escapeItem.hasActed = hasActed
+            }
             escapeDataList.append(escapeItem)
             
         }

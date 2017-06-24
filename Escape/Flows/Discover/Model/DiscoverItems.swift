@@ -21,9 +21,10 @@ class DiscoverItems: NSObject {
     var rating : NSNumber?
     var discoverData : [DiscoverItems] = []
     var isFollow = false
+    var isTracking = false
     var fbFriendCard: FBFriendCard?
     
-    init(id : String?,name : String?,image : String?,director : String?, followers : NSNumber?, year : String? , subtitle : String? , discoverType : DiscoverType? , rating : NSNumber?, isFollow : Bool) {
+    init(id : String?,name : String?,image : String?,director : String?, followers : NSNumber?, year : String? , subtitle : String? , discoverType : DiscoverType? , rating : NSNumber?, isFollow : Bool, isTracking: Bool) {
         
         self.id = id
         self.name = name
@@ -34,6 +35,7 @@ class DiscoverItems: NSObject {
         self.subtitle = subtitle
         self.discoverType = discoverType
         self.rating = rating
+        self.isTracking = isTracking
         self.isFollow = isFollow
        
     }
@@ -61,8 +63,10 @@ class DiscoverItems: NSObject {
                         if let name = dict["name"] as? String {
                             if let image = dict["poster_image"] as? String {
                                 if let discoverType = dict["escape_type"] as? String {
-                                    
-                                    discoverDataArray.append(DiscoverItems(id: id, name: name, image: image, director: dict["creator"] as? String, followers: dict["followers"] as? NSNumber, year: dict["year"] as? String, subtitle: dict["subtitle"] as? String, discoverType: DiscoverType(rawValue: discoverType), rating: dict["escape_rating"] as? NSNumber, isFollow : false))
+                                    if let isTracking = dict["is_tracking"] as? Bool {
+                                        
+                                        discoverDataArray.append(DiscoverItems(id: id, name: name, image: image, director: dict["creator"] as? String, followers: dict["followers"] as? NSNumber, year: dict["year"] as? String, subtitle: dict["subtitle"] as? String, discoverType: DiscoverType(rawValue: discoverType), rating: dict["escape_rating"] as? NSNumber, isFollow : false, isTracking: isTracking))
+                                    }
                                     
                                 }
                                 
@@ -74,7 +78,7 @@ class DiscoverItems: NSObject {
                             }
                             if let image = dict["profile_picture"] as? String {
                                 if let isfollow  = dict["is_following"] as? Bool {
-                                    discoverDataArray.append(DiscoverItems(id: id, name: fullName, image: image, director: nil, followers: dict["followers_count"] as? NSNumber, year: nil, subtitle: nil, discoverType: .People, rating: nil, isFollow : isfollow))
+//                                    discoverDataArray.append(DiscoverItems(id: id, name: fullName, image: image, director: nil, followers: dict["followers_count"] as? NSNumber, year: nil, subtitle: nil, discoverType: .People, rating: nil, isFollow : isfollow))
                                 }
                             }
                             

@@ -28,7 +28,6 @@ class GenericListViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.dataSource = self
     }
     
-    
     func initXibs() {
         for genericCell in registerableCells {
             tableView.register(UINib(nibName: genericCell.rawValue, bundle: nil), forCellReuseIdentifier: genericCell.rawValue)

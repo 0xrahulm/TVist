@@ -14,21 +14,28 @@ class GenericAllItemsListViewController: GenericListViewController {
     
     var fetchingData = false
     var fullDataLoaded = false
+    var resetFlag:Bool = false
     
-    var listItems:[NSObject] = []
+    var shouldHideTabBar = false
+    
+    var listItems:[AnyObject] = []
     
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
     
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         super.setObjectsWithQueryParameters(queryParams)
         
-        if let prefillItems = queryParams["prefillItems"] as? [NSObject], prefillItems.count > 0 {
-            nextPage = 2
-            if prefillItems.count < DataConstants.kDefaultFetchSize {
-                fullDataLoaded = true
-            }
-            listItems = prefillItems
+        if let prefillItems = queryParams["prefillItems"] as? [AnyObject], prefillItems.count > 0 {
+            setPrefillItems(prefillItems: prefillItems)
         }
+    }
+    
+    func setPrefillItems(prefillItems: [AnyObject]) {
+        nextPage = 2
+        if prefillItems.count < DataConstants.kDefaultFetchSize {
+            fullDataLoaded = true
+        }
+        listItems = prefillItems
     }
     
     override func viewDidLoad() {
@@ -36,12 +43,14 @@ class GenericAllItemsListViewController: GenericListViewController {
         
         loadingView.startAnimating()
         
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        ScreenVader.sharedVader.hideTabBar(true)
+        ScreenVader.sharedVader.hideTabBar(shouldHideTabBar)
         
         if listItems.count == 0 {
             loadNexPage()
@@ -61,6 +70,19 @@ class GenericAllItemsListViewController: GenericListViewController {
         //Override in child class
     }
     
+    func itemTapEvent(itemName: String) {
+        // Override in child class
+    }
+    
+    func reset() {
+        nextPage = 1
+        fetchingData = false
+        fullDataLoaded = false
+        resetFlag = true
+        
+        self.loadingView.startAnimating()
+        fetchRequest()
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > ((scrollView.frame.height - scrollView.contentSize.height)*0.80) {
@@ -75,26 +97,32 @@ class GenericAllItemsListViewController: GenericListViewController {
     
     override func listItemAtIndexPath(_ indexPath: IndexPath) -> NormalCell {
         
+        
+        
         if let escapeItem = listItems[indexPath.row] as? EscapeItem {
             
             let escapeCell = tableView.dequeueReusableCell(withIdentifier: GenericCellIdentifier.EscapeCell.rawValue, for: indexPath) as! EscapeCell
             escapeCell.escapeItem = escapeItem
+            escapeCell.selectionStyle = .none
             return escapeCell
         }
         
         if let peopleItem = listItems[indexPath.row] as? MyAccountItems {
             let peopleCell = tableView.dequeueReusableCell(withIdentifier: GenericCellIdentifier.PeopleCell.rawValue, for: indexPath) as! PeopleCell
             peopleCell.accountItem = peopleItem
+            peopleCell.selectionStyle = .none
             return peopleCell
         }
         
         return NormalCell()
     }
     
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         
         if let _ = listItems[indexPath.row] as? EscapeItem {
-            return 130
+            return 180
         }
         
         if let _ = listItems[indexPath.row] as? MyAccountItems {
@@ -111,15 +139,8 @@ class GenericAllItemsListViewController: GenericListViewController {
             if let data = listItems[indexPath.row] as? EscapeItem {
                 
                 var params : [String:Any] = [:]
-                
-                params["id"] = data.id
-                
-                params["escape_type"] = data.escapeType
-                params["name"] = data.name
-                
-                if let image = data.posterImage {
-                    params["image"] = image
-                }
+                params["escapeItem"] = data
+                itemTapEvent(itemName: data.name)
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
             }
             
@@ -132,7 +153,7 @@ class GenericAllItemsListViewController: GenericListViewController {
         }
     }
 
-    func appendDataToBeListed(appendableData: [NSObject], page: Int?) {
+    func appendDataToBeListed(appendableData: [AnyObject], page: Int?) {
         
         loadingView.stopAnimating()
         
@@ -141,6 +162,11 @@ class GenericAllItemsListViewController: GenericListViewController {
             nextPage += 1
             if appendableData.count < DataConstants.kDefaultFetchSize {
                 fullDataLoaded = true
+            }
+            
+            if resetFlag {
+                resetFlag = false
+                listItems = []
             }
             
             listItems.append(contentsOf: appendableData)

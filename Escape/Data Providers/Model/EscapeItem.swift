@@ -21,8 +21,14 @@ final class EscapeItem: Object {
     dynamic var createdBy:String?
     dynamic var hasActed = false
     
+    var isTracking:Bool = false
+    
     override static func primaryKey() -> String? {
         return "id"
+    }
+    
+    override static func ignoredProperties() -> [String] {
+        return ["isTracking"]
     }
     
     class func addOrEditEscapeItem(_ id: String, name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?, _realm: Realm?) -> EscapeItem {

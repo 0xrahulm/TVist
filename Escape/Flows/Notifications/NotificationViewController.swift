@@ -18,7 +18,7 @@ class NotificationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Tracker"
+        self.title = "Notifications"
         
         UserDataProvider.sharedDataProvider.notificationDelegate = self
         UserDataProvider.sharedDataProvider.getNotification()
@@ -62,6 +62,7 @@ extension NotificationViewController : UITableViewDataSource{
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }

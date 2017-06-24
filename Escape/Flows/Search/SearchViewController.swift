@@ -13,11 +13,15 @@ class SearchViewController: UIViewController {
     var searchBar:UISearchBar =     UISearchBar()
     var pageMenu : CAPSPageMenu?
     
+    @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet weak var segmentedTab: UISegmentedControl!
+    
     var controllerArray : [UIViewController] = []
     var searchedText : String = ""
     var moveToIndex = 0
     var screen = ""
-    
+    var loadedOnce: Bool = false
     static let sharedInstance = SearchViewController()
     
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
@@ -32,21 +36,32 @@ class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        ECUserDefaults.removeSearchedText()
-        setupSearchBar()
-        configureVCs()
-        pageMenu?.moveToPage(moveToIndex)
-        
-        if screen == "discover"{
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelTapped))
-        }
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ScreenVader.sharedVader.hideTabBar(false)
+        
+        if !loadedOnce {
+            
+            
+            ECUserDefaults.removeSearchedText()
+            setupSearchBar()
+            configureVCs()
+            pageMenu?.moveToPage(moveToIndex)
+            
+            if screen == "discover"{
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelTapped))
+            }
+            loadedOnce = true
+        }
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     deinit {
@@ -99,6 +114,7 @@ class SearchViewController: UIViewController {
     }
 
     func cancelTapped() {
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchCancelled, properties: ["Position": "Guide"])
         if let navController = self.navigationController{
             navController.dismiss(animated: true, completion: nil)
         }
@@ -119,15 +135,14 @@ class SearchViewController: UIViewController {
     }
     func doneTapped(){
         self.searchBar.resignFirstResponder()
+        
     }
     
     func configureVCs(){
         
         addVcFor(.All, title: "ALL")
-        addVcFor(.Movie, title: "MOVIES")
         addVcFor(.TvShows, title: "TV SHOWS")
-        addVcFor(.Books, title: "BOOKS")
-        addVcFor(.User, title: "PEOPLE")
+        addVcFor(.Movie, title: "MOVIES")
         
         // Customize menu
         let parameters: [CAPSPageMenuOption] = [
@@ -142,14 +157,16 @@ class SearchViewController: UIViewController {
             .centerMenuItems(true),
             .selectedMenuItemLabelColor(UIColor.themeColorBlack()),
             .unselectedMenuItemLabelColor(UIColor.textGrayColor()),
-            .selectionIndicatorHeight(1.5)
+            .selectionIndicatorHeight(1.5),
+            .hideTopMenuBar(true)
         ]
         
         
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.width, height: self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRect(x: 0.0, y: 0.0, width: self.containerView.frame.width, height: self.containerView.frame.height), pageMenuOptions: parameters)
+        pageMenu?.delegate = self
         
         self.addChildViewController(pageMenu!)
-        self.view.addSubview(pageMenu!.view)
+        self.containerView.addSubview(pageMenu!.view)
         
         pageMenu!.didMove(toParentViewController: self)
         
@@ -159,6 +176,11 @@ class SearchViewController: UIViewController {
         let controller = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "searchAllVC") as? SearchAllViewController
         controller!.title = title
         controller!.type = type
+        if screen == "discover" {
+            controller!.searchPosition = "Guide"
+        } else {
+            controller!.searchPosition = "Search Tab"
+        }
         controller!.dismissKeyboardDelegate = self
         controllerArray.append(controller!)
         
@@ -172,8 +194,25 @@ class SearchViewController: UIViewController {
         return true
     }
     
+    func bringToTopWithIndex(index: Int) {
+        self.pageMenu?.moveToPage(index)
+    }
+
+    @IBAction func segmentValueChanged(sender: UISegmentedControl) {
+        bringToTopWithIndex(index: sender.selectedSegmentIndex)
+    }
+    
+}
 
 
+extension SearchViewController: CAPSPageMenuDelegate {
+    func didMoveToPage(_ controller: UIViewController, index: Int) {
+        // Blank for now
+    }
+    
+    func willMoveToPage(_ controller: UIViewController, index: Int) {
+        self.segmentedTab.selectedSegmentIndex = index
+    }
 }
 extension SearchViewController : DismissKeyboardProtocol{
     func dismissKeyBoard(){
@@ -186,6 +225,8 @@ extension SearchViewController : UISearchBarDelegate{
         if screen != "discover" {
             self.searchBar.resignFirstResponder()
         }
+        
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchCancelled, properties: ["Position": "Search Tab"])
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -199,6 +240,7 @@ extension SearchViewController : UISearchBarDelegate{
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchClick, properties: ["Position": "Search Tab"])
         self.searchBar.resignFirstResponder()
     }
     

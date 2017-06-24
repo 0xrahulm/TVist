@@ -1,19 +1,25 @@
 PODS:
+  - AppsFlyerFramework (4.7.3)
   - Crashlytics (3.8.4):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.11)
   - Flurry-iOS-SDK/FlurrySDK (7.10.0)
+  - SpaceView (1.0.5)
 
 DEPENDENCIES:
+  - AppsFlyerFramework
   - Crashlytics
   - Fabric
   - Flurry-iOS-SDK/FlurrySDK
+  - SpaceView
 
 SPEC CHECKSUMS:
+  AppsFlyerFramework: 9fa9573694442efe4f69a0d2ecbddd1b337904a1
   Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   Flurry-iOS-SDK: e6975df9e57010d582bf9bed0f6312553cf24bc2
+  SpaceView: 1619ebbb5162f4f3547a4cb383bea479a54fa76c
 
-PODFILE CHECKSUM: 013761dccc62c13fd392470f8314b8fa3c1e18a7
+PODFILE CHECKSUM: 983483db1515e6c086b822432b7fe48b35f405d1
 
 COCOAPODS: 1.2.0

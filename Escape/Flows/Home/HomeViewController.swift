@@ -74,10 +74,10 @@ class HomeViewController: UIViewController {
     }
     
     func initNotificationObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.receivedNotification(_:)), name:NSNotification.Name(rawValue: NotificationObservers.HomeTappedObserver.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.receivedNotification(_:)), name:NSNotification.Name(rawValue: NotificationObservers.HomeClickObserver.rawValue), object: nil)
     }
     deinit{
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NotificationObservers.HomeTappedObserver.rawValue), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NotificationObservers.HomeClickObserver.rawValue), object: nil)
     }
     func receivedNotification(_ notification : Notification){
            //tableView.setContentOffset(CGPointZero, animated:true)

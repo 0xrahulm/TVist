@@ -29,22 +29,32 @@ class SFUIAttributedText: NSObject {
         return NSAttributedString(string: string, attributes: mediumAttributesForSize(size, color: color))
     }
     
+    class func getMediumFont(size: CGFloat) -> UIFont {
+        return UIFont(name: "SFUIDisplay-Medium", size: size)!
+    }
+    
     class func mediumAttributesForSize(_ size: CGFloat, color: UIColor) -> Dictionary<String, AnyObject> {
         
-        let font = UIFont(name: "SFUIDisplay-Medium", size: size)!
+        let font = getMediumFont(size: size)
         let attributes:[String:AnyObject] = [NSForegroundColorAttributeName: color, NSFontAttributeName: font]
         
         return attributes
     }
     
     //SF UI Display Regular
+    
+    
+    class func getRegularFont(size: CGFloat) -> UIFont {
+        return UIFont(name: "SFUIDisplay-Regular", size: size)!
+    }
+    
     class func regularAttributedTextForString(_ string: String, size: CGFloat, color: UIColor) -> NSAttributedString {
         return NSAttributedString(string: string, attributes: regularAttributesForSize(size, color: color))
     }
     
     class func regularAttributesForSize(_ size: CGFloat, color: UIColor) -> Dictionary<String, AnyObject> {
         
-        let font = UIFont(name: "SFUIDisplay-Regular", size: size)!
+        let font = getRegularFont(size: size)
         let attributes:[String:AnyObject] = [NSForegroundColorAttributeName: color, NSFontAttributeName: font]
         
         return attributes

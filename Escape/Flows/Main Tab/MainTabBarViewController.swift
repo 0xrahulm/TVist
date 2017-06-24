@@ -32,7 +32,7 @@ enum MainTabIndex {
 
 
 
-class MainTabBarViewController: UITabBarController {
+class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
     
     var shouldBeBlack = true
     
@@ -73,14 +73,14 @@ class MainTabBarViewController: UITabBarController {
         let searchViewController = initialViewControllerFor(.Search) as! CustomNavigationViewController
         let discoverViewController = initialViewControllerFor(.Discover) as! CustomNavigationViewController
         let homeViewController = initialViewControllerFor(.TvGuide) as! CustomNavigationViewController
-        let notificationsViewController = initialViewControllerFor(.Notifications) as! CustomNavigationViewController
+        let trackerViewController = initialViewControllerFor(.Tracker) as! CustomNavigationViewController
         let myAccountViewController = initialViewControllerFor(.MyAccount) as! CustomNavigationViewController
         
         
         var orderedViewControllers:[UIViewController] = Array<UIViewController>(repeating: UIViewController(),count: kMainTabsCount)
         
         orderedViewControllers[MainTabIndex.Guide.index] = homeViewController
-        orderedViewControllers[MainTabIndex.Tracker.index] = notificationsViewController
+        orderedViewControllers[MainTabIndex.Tracker.index] = trackerViewController
         orderedViewControllers[MainTabIndex.TopCharts.index] = discoverViewController
         orderedViewControllers[MainTabIndex.Search.index] = searchViewController
         orderedViewControllers[MainTabIndex.Watchlist.index] = myAccountViewController
@@ -92,7 +92,7 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
         
         setTabBarAppearance()
-        
+        self.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -138,7 +138,35 @@ class MainTabBarViewController: UITabBarController {
         }
         return .lightContent
     }
-
+    
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if let tabItems = tabBar.items {
+            if let index = tabItems.index(of: item) {
+                
+                if let getItem = getMainTabForIndex(index: index) {
+                    switch getItem {
+                    case .Guide:
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .GuideTabClick)
+                        break
+                    case .Search:
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .SearchTabClick)
+                        break
+                    case .TopCharts:
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .TopChartsTabClick)
+                        break
+                    case .Tracker:
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .TrackerTabClick)
+                        break
+                    case .Watchlist:
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .WatchlistTabClick)
+                        break
+                    }
+                }
+                
+            }
+        }
+    }
 
 
 }

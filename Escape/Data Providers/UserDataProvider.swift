@@ -50,6 +50,11 @@ protocol NotificationProtocol : class {
     func error()
 }
 
+protocol DeviceSessionProtocol: class {
+    func guestUserLoggedIn()
+    func userAlreadyExists(registeredUsers: [MyAccountItems])
+}
+
 class UserDataProvider: CommonDataProvider {
     
     static let sharedDataProvider  = UserDataProvider()
@@ -59,22 +64,26 @@ class UserDataProvider: CommonDataProvider {
     weak var interestDelegate:     InterestProtocol?
     weak var notificationDelegate : NotificationProtocol?
     
-    func getSecurityToken(){
+    weak var deviceSessionDelegate: DeviceSessionProtocol?
+    
+    var temporaryStoredUsers:[MyAccountItems] = []
+    
+    func getDeviceSession() {
         
-       //ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUsers, params: nil, delegate: self)
+       ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .DeviceSession, params: ["device_info": UIDevice.current.modelName], delegate: self)
     }
     func postFBtoken(_ token : String , expires_in : TimeInterval){
-        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .FBSignIn, params: ["facebook_token" : token , "expires_in" : expires_in], delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .FBSignIn, params: ["facebook_token" : token , "expires_in" : expires_in, "device_info": UIDevice.current.modelName], delegate: self)
     }
     
     func registerUserWithEmail(_ name : String , email : String , password : String){
         
-        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSignUp, params: ["full_name":name , "email":email , "password":password], delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSignUp, params: ["full_name":name , "email":email , "password":password, "device_info": UIDevice.current.modelName], delegate: self)
     }
     
     func signInWithEmail(_ email : String, password : String){
         
-        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSigIn, params: ["email":email , "password":password], delegate: self)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSigIn, params: ["email":email , "password":password, "device_info": UIDevice.current.modelName], delegate: self)
         
     }
     
@@ -173,6 +182,12 @@ class UserDataProvider: CommonDataProvider {
                 print("User UNfollowed")
                 break
                 
+            case .DeviceSession:
+                if let data = service.outPutResponse as? [String:AnyObject] {
+                    parseDeviceSessionData(data: data)
+                }
+                break
+                
             case .GetNotification:
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
                     self.parseNotification(data)
@@ -257,6 +272,41 @@ class UserDataProvider: CommonDataProvider {
 // MARK: - Parsing
 
 extension UserDataProvider{
+    
+    func parseDeviceSessionData(data: [String:AnyObject]) {
+        
+        if let token = data["auth_token"] as? String {
+            ECUserDefaults.setLoggedIn(true)
+            
+            DeviceID.saveXauth(token)
+            
+            if let user = data["user"] as? [String:Any] {
+                if let _ = user["id"] as? String {
+                    let parsedUserData = MyAccountItems(dict: user, userType: nil)
+                    MyAccountDataProvider.sharedDataProvider.saveUserDataToRealm(parsedUserData)
+                }
+            }
+            
+            if let deviceSessionDelegate = self.deviceSessionDelegate {
+                deviceSessionDelegate.guestUserLoggedIn()
+            }
+            
+        } else {
+            if let registeredUsers = data["registered_users"] as? [[String:AnyObject]] {
+                var regUsers:[MyAccountItems] = []
+                for eachUser in registeredUsers {
+                    regUsers.append(MyAccountItems(dict: eachUser, userType: nil))
+                }
+                
+                if let deviceSessionDelegate = self.deviceSessionDelegate {
+                    self.temporaryStoredUsers = regUsers
+                    deviceSessionDelegate.userAlreadyExists(registeredUsers: regUsers)
+                }
+                
+            }
+        }
+    }
+    
     func parseFBUserData(_ dict : [String : AnyObject]){
         
         

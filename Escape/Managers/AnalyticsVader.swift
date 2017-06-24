@@ -8,62 +8,98 @@
 
 import UIKit
 import Flurry_iOS_SDK
+import Mixpanel
 
 class AnalyticsVader: NSObject {
     
     static let sharedVader = AnalyticsVader()
     
+    override init() {
+        super.init()
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser, let userId = user.id {
+            Mixpanel.mainInstance().identify(distinctId: userId)
+            Mixpanel.mainInstance().people.set(property: "userType", to: user.userType)
+        }
+    }
+    
     func onboardingStarted() {
-        Flurry.logEvent(EventName.onboardingScreen.rawValue, timed: true)
+        timedEventStart(eventName: EventName.onboardingScreen)
     }
     
     func onboardingFinished() {
-        Flurry.endTimedEvent(EventName.onboardingScreen.rawValue, withParameters:[:])
+        timedEventEnd(eventName: EventName.onboardingScreen)
     }
     
     func continueWtihFBTapped(screenName: String) {
-        Flurry.logEvent(EventName.continueWithFB.rawValue, withParameters: ["screen_name":screenName])
+        sendEvent(eventName: EventName.continueWithFB.rawValue, properties: ["screen_name":screenName])
     }
     
     func basicEvents(eventName: EventName) {
-        Flurry.logEvent(eventName.rawValue)
+        basicEvents(eventName: eventName, properties: nil)
+    }
+    
+    func basicEvents(eventName: EventName, properties: [String:String]?) {
+        sendEvent(eventName: eventName.rawValue, properties: properties)
     }
     
     func addToEscapeOpened(escapeName: String, escapeId: String, escapeType: String) {
-        Flurry.logEvent(EventName.AddToEscapeOpened.rawValue, withParameters: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType])
+        sendEvent(eventName: EventName.AddToEscapeOpened.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType])
     }
     
     func addToEscapeDone(escapeName: String, escapeId: String, escapeType: String, escapeAction: String) {
-        Flurry.logEvent(EventName.AddToEscapeDone.rawValue, withParameters: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType, "escape_action": escapeAction])
+        sendEvent(eventName: EventName.AddToEscapeDone.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType, "escape_action": escapeAction])
     }
     
     func itemDescriptionOpened(escapeName: String, escapeId: String, escapeType: String) {
-        Flurry.logEvent(EventName.EscapeDescriptionOpened.rawValue, withParameters: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType], timed: true)
+        timedEventStart(eventName: EventName.ItemDescriptionOpened)
+    }
+    
+    func trackButtonClicked(escapeName: String, escapeId: String, escapeType: String, position: String) {
+        sendEvent(eventName: EventName.TrackButtonClick.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType, "position": position])
+    }
+    
+    func undoTrack(escapeName: String, escapeId: String, escapeType: String, position: String) {
+        sendEvent(eventName: EventName.UndoTrack.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType, "position": position])
     }
     
     func itemDescriptionClosed(escapeName: String, escapeId: String, escapeType: String) {
-        Flurry.endTimedEvent(EventName.onboardingScreen.rawValue, withParameters:["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType])
+        timedEventEnd(eventName: EventName.ItemDescriptionOpened, parameters: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType])
     }
     
     func shareWithFriendsTapped(escapeName: String, escapeId: String, escapeType: String) {
-        Flurry.logEvent(EventName.ShareWithFriendsTapped.rawValue, withParameters: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType])
+        sendEvent(eventName: EventName.ShareWithFriendsClick.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType])
     }
     
     func interestsSelected(totalCount: Int) {
-        Flurry.logEvent(EventName.interestsSelected.rawValue, withParameters: ["total_selected":totalCount])
+        sendEvent(eventName: EventName.interestsSelected.rawValue, properties: ["total_selected":"\(totalCount)"])
     }
     
     func searchOccurred(searchType: String, searchTerm: String) {
-        Flurry.logEvent(EventName.SearchOccurred.rawValue, withParameters: ["search_type": searchType, "search_term":searchTerm])
+        sendEvent(eventName: EventName.SearchOccurred.rawValue, properties: ["search_type": searchType, "search_term":searchTerm])
     }
     
     func fbLoginFailure(reason:String) {
-        Flurry.logEvent(EventName.facebookLoginFailure.rawValue, withParameters: ["reason": reason])
+        sendEvent(eventName: EventName.facebookLoginFailure.rawValue, properties: ["reason": reason])
     }
     
     func emailLoginIssue(reason: String) {
-        Flurry.logEvent(EventName.emailLoginErrorPopup.rawValue, withParameters: ["reason": reason])
+        sendEvent(eventName: EventName.emailLoginErrorPopup.rawValue, properties: ["reason": reason])
+    }
+
+    private
+    
+    func timedEventStart(eventName:EventName) {
+        Flurry.logEvent(eventName.rawValue, timed: true)
+        Mixpanel.mainInstance().time(event: eventName.rawValue)
     }
     
-
+    func timedEventEnd(eventName: EventName, parameters:[String:String]=[:]) {
+        Flurry.endTimedEvent(eventName.rawValue, withParameters: parameters)
+        Mixpanel.mainInstance().track(event: eventName.rawValue, properties: parameters)
+    }
+    
+    func sendEvent(eventName: String, properties: [String:String]?) {
+        Flurry.logEvent(eventName, withParameters: properties)
+        Mixpanel.mainInstance().track(event: eventName, properties: properties)
+    }
 }

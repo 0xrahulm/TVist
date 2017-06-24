@@ -42,6 +42,7 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
     
     var userId = ""
     var isFollow = false
+    var isTracking = false
     
     var indexPath : IndexPath!
     
@@ -61,14 +62,14 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
                     directorByStr = director
                     
                 }
-                
+                self.selectionStyle = .none
                 var directedByStr = ""
                 if data.discoverType == .Movie{
-                    directedByStr = EscapeCreatorType.Movie.rawValue+":"
+                    directedByStr = EscapeCreatorType.Movie.rawValue+" "
                 }else if data.discoverType == .Books{
-                    directedByStr = EscapeCreatorType.Books.rawValue+":"
+                    directedByStr = EscapeCreatorType.Books.rawValue+" "
                 }else if data.discoverType == .TvShows{
-                    directedByStr = EscapeCreatorType.TvShows.rawValue+":"
+                    directedByStr = EscapeCreatorType.TvShows.rawValue+" "
                 }
                 
                 if let escapeTypeTag = escapeTypeTag, let discoveryType = data.discoverType {
@@ -86,10 +87,76 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
                 creatorType.attributedText = attributedString
                 
                 ctaButton.setTitle(nil, for: .normal)
-                ctaButton.setImage(IonIcons.image(withIcon: ion_pinpoint, size: 25, color: UIColor.white), for: .normal)
                 
+                ctaButton.setImage(IonIcons.image(withIcon: ion_android_time, size: 22, color: UIColor.white), for: .normal)
+                ctaButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 22, color: UIColor.white), for: .selected)
+                
+                self.isTracking = data.isTracking
+                updateTrackButton(newState: self.isTracking)
             }
             
+        }
+    }
+    
+    
+    
+    func toggleButtonState() {
+        ctaButton.popButtonAnimate()
+        let newState = !ctaButton.isSelected
+        if !newState {
+            if let itemName = data?.name {
+                
+                let alert = UIAlertController(title: "Are you sure?", message: "Tracking for \(itemName) is already setup, would you like to remove it?", preferredStyle: .alert)
+                
+                
+                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
+                    
+                    
+                    if let item = self.data {
+                        item.isTracking = newState
+                        if let itemId = item.id {
+                            if let escapeType = item.discoverType {
+                                
+                                AnalyticsVader.sharedVader.undoTrack(escapeName: itemName, escapeId: itemId, escapeType: escapeType.rawValue, position: "Top Charts")
+                            }
+                            TrackingDataProvider.shared.removeTrackingFor(escapeId: itemId)
+                        }
+                        self.updateTrackButton(newState: newState)
+                    }
+                })
+                
+                alert.addAction(removeAction)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                
+                alert.addAction(cancelAction)
+                
+                ScreenVader.sharedVader.showAlert(alert: alert)
+            }
+        } else {
+            if let item = data {
+                item.isTracking = newState
+                if let itemId = item.id {
+                    if let itemName = data?.name {
+                        
+                        if let escapeType = item.discoverType {
+                            AnalyticsVader.sharedVader.trackButtonClicked(escapeName: itemName, escapeId: itemId, escapeType: escapeType.rawValue, position: "Top Charts")
+                        }
+                    }
+                    TrackingDataProvider.shared.addTrackingFor(escapeId: itemId)
+                }
+                updateTrackButton(newState: newState)
+            }
+        }
+    }
+    
+    func updateTrackButton(newState: Bool) {
+        
+        ctaButton.isSelected = newState
+        if newState {
+            ctaButton.backgroundColor = UIColor.defaultCTAColor()
+        } else {
+            ctaButton.backgroundColor = UIColor.defaultTintColor()
         }
     }
     
@@ -129,19 +196,7 @@ class DiscoverEscapeTableViewCell: UITableViewCell {
     }
     
     @IBAction func addButtonClicked(_ sender: AnyObject) {
-        
-        if let data = data{
-            
-            let obj = AddToEscapeViewController()
-            obj.addToEscapeDoneDelegate = self
-            if let delegate = obj.addToEscapeDoneDelegate{
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: ["data" : data, "delegate" : delegate])
-            }
-        }
-        
-        if let button = sender as? UIButton {
-            button.popButtonAnimate()
-        }
+        toggleButtonState()
     }
     
     @IBAction func followButtonClicked(_ sender: AnyObject) {

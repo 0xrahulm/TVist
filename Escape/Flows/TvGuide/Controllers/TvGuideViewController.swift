@@ -21,6 +21,8 @@ class TvGuideViewController: UIViewController {
     var listControllers: [TvGuideChildViewController] = []
     var pageMenu : CAPSPageMenu?
     
+    var loadedOnce:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,10 +33,18 @@ class TvGuideViewController: UIViewController {
             addChildVC(type: eachItem)
         }
         
-        setupPageMenu()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        pageMenu!.moveToPage(1)
-        
+        if !loadedOnce {
+            loadedOnce = true
+            self.view.layoutIfNeeded()
+            setupPageMenu()
+            
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomePageOpened)
+        }
     }
     
     func setupSearchBar(){
@@ -83,7 +93,19 @@ class TvGuideViewController: UIViewController {
     }
     
     @IBAction func segmentValueChanged(sender: UISegmentedControl) {
+        if let titleItem = titleForItem[listOfItemType[sender.selectedSegmentIndex]] {
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideSegmentClick, properties: ["Selected Tab":titleItem])
+        }
         bringToTopWithIndex(index: sender.selectedSegmentIndex)
+    }
+    
+    @IBAction func tappedOnSearchBar(sender: UITapGestureRecognizer) {
+        
+        if let titleItem = titleForItem[listOfItemType[self.segmentedControl.selectedSegmentIndex]] {
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchClick, properties: ["Selected Tab": titleItem, "Position":"Guide"])
+        }
+        
+        ScreenVader.sharedVader.performScreenManagerAction(.OpenSearchView, queryParams: ["screen":"discover", "moveToIndex":self.segmentedControl.selectedSegmentIndex])
     }
 
 }

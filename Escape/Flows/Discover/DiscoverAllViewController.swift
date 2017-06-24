@@ -112,6 +112,11 @@ extension DiscoverAllViewController : UITableViewDelegate{
             if let image = image{
                 params["image"] = image
             }
+            
+            if let id = id,let name = name,let escapeType = escapeType {
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.TopCharts_Item_Click, properties: ["escape_name": name, "escape_id":id, "escape_type": escapeType.rawValue])
+            }
+            
             if data.discoverType == .Movie || data.discoverType == .TvShows || data.discoverType == .Books{
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
             }else if data.discoverType == .People{

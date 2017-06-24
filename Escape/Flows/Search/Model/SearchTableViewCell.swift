@@ -22,7 +22,7 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var itemSubtitleLabel: UILabel!
-    @IBOutlet weak var addToEscapeButton: UIButton!
+    @IBOutlet weak var trackButton: UIButton!
     
     @IBOutlet weak var creatorType: UILabel!
     @IBOutlet weak var followButton: UIButton!
@@ -33,6 +33,7 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var hairlineHeightConstraint: NSLayoutConstraint!
     
     var userId = ""
+    var searchPosition = "Guide"
     var isFollow = false
     var indexPath : IndexPath!
     
@@ -59,15 +60,15 @@ class SearchTableViewCell: UITableViewCell {
                 }
                 
                 self.userHasActed = data.isAddedOrFollow
-                updateAddEditButtonStatus()
+                self.selectionStyle = .none
                 
                 var directedByStr = ""
                 if data.searchType == .Movie {
-                    directedByStr = EscapeCreatorType.Movie.rawValue+":"
+                    directedByStr = EscapeCreatorType.Movie.rawValue+" "
                 } else if data.searchType == .Books {
-                   directedByStr = EscapeCreatorType.Books.rawValue+":"
+                   directedByStr = EscapeCreatorType.Books.rawValue+" "
                 } else if data.searchType == .TvShows {
-                    directedByStr = EscapeCreatorType.TvShows.rawValue+":"
+                    directedByStr = EscapeCreatorType.TvShows.rawValue+" "
                 }
                 
                 let directedByString = SFUIAttributedText.regularAttributedTextForString("\(directedByStr)  ", size: 13, color: UIColor.textGrayColor())
@@ -80,6 +81,12 @@ class SearchTableViewCell: UITableViewCell {
                 creatorType.attributedText = attributedString
                 
                 
+                trackButton.setTitle(nil, for: .normal)
+                
+                trackButton.setImage(IonIcons.image(withIcon: ion_android_time, size: 25, color: UIColor.white), for: .normal)
+                trackButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 25, color: UIColor.white), for: .selected)
+                
+                updateTrackButton(newState: self.userHasActed)
                 
                 if let escapeTypeTag = escapeTypeTag, let searchType = data.searchType {
                     escapeTypeTag.image = UIImage(named: "\(searchType.rawValue)_tag")
@@ -88,12 +95,14 @@ class SearchTableViewCell: UITableViewCell {
         }
     }
     
-    func updateAddEditButtonStatus() {
+    
+    func updateTrackButton(newState: Bool) {
         
-        if self.userHasActed {
-            addToEscapeButton.setTitle("...", for: .normal)
-        }else{
-            addToEscapeButton.setTitle("+", for: .normal)
+        trackButton.isSelected = newState
+        if newState {
+            trackButton.backgroundColor = UIColor.defaultCTAColor()
+        } else {
+            trackButton.backgroundColor = UIColor.defaultTintColor()
         }
     }
     
@@ -116,26 +125,71 @@ class SearchTableViewCell: UITableViewCell {
     }
     
     @IBAction func addToEscapeButtonClicked(_ sender: AnyObject) {
-        
-        if let data = data, let escapeId = data.id, let searchType = data.searchType, let escapeName = data.name {
-            
-            var paramsToPass: [String:Any] = ["escape_id" : escapeId, "escape_type":searchType.rawValue, "escape_name": escapeName, "delegate" : self]
-            
-            if let createdBy = data.director {
-                paramsToPass["createdBy"] = createdBy
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.TrackSearchedItem, properties: ["Position":searchPosition])
+        toggleButtonState()
+//        if let data = data, let escapeId = data.id, let searchType = data.searchType, let escapeName = data.name {
+//            
+//            var paramsToPass: [String:Any] = ["escape_id" : escapeId, "escape_type":searchType.rawValue, "escape_name": escapeName, "delegate" : self]
+//            
+//            if let createdBy = data.director {
+//                paramsToPass["createdBy"] = createdBy
+//            }
+//            
+//            if let imageUri = data.image {
+//                paramsToPass["escape_image"] = imageUri
+//            }
+//            
+//            if self.userHasActed {
+//                ScreenVader.sharedVader.performScreenManagerAction(.OpenEditEscapePopUp, queryParams: paramsToPass)
+//            } else {
+//                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: paramsToPass)
+//            }
+//        }
+    }
+    
+    
+    func toggleButtonState() {
+        trackButton.popButtonAnimate()
+        let newState = !trackButton.isSelected
+        if !newState {
+            if let itemName = data?.name {
+                
+                let alert = UIAlertController(title: "Are you sure?", message: "Tracking for \(itemName) is already setup, would you like to remove it?", preferredStyle: .alert)
+                
+                
+                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
+                    
+                    
+                    if let item = self.data {
+                        item.isAddedOrFollow = newState
+                        if let itemId = item.id {
+                            
+                            TrackingDataProvider.shared.removeTrackingFor(escapeId: itemId)
+                        }
+                        self.updateTrackButton(newState: newState)
+                    }
+                })
+                
+                alert.addAction(removeAction)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                
+                alert.addAction(cancelAction)
+                
+                ScreenVader.sharedVader.showAlert(alert: alert)
             }
-            
-            if let imageUri = data.image {
-                paramsToPass["escape_image"] = imageUri
-            }
-            
-            if self.userHasActed {
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenEditEscapePopUp, queryParams: paramsToPass)
-            } else {
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: paramsToPass)
+        } else {
+            if let item = data {
+                item.isAddedOrFollow = newState
+                if let itemId = item.id {
+                    
+                    TrackingDataProvider.shared.addTrackingFor(escapeId: itemId)
+                }
+                updateTrackButton(newState: newState)
             }
         }
     }
+    
     
     @IBAction func userFollowButtonClicked(_ sender: AnyObject) {
         
@@ -168,12 +222,12 @@ class SearchTableViewCell: UITableViewCell {
 extension SearchTableViewCell : AddToEscapeDoneProtocol{
     func doneButtonTapped() {
         self.userHasActed = true
-        updateAddEditButtonStatus()
+        updateTrackButton(newState: self.userHasActed)
     }
 }
 extension SearchTableViewCell : EditEscapeProtocol{
     func didDeleteEscape() {
         self.userHasActed = false
-        updateAddEditButtonStatus()
+        updateTrackButton(newState: self.userHasActed)
     }
 }

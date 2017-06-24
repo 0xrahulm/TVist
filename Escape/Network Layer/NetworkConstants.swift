@@ -9,14 +9,15 @@
 import UIKit
 
 enum ServiceType : String {
-    //case ServiceTypePrivateApi="http://api.escape-app.com/api/"
-    case ServiceTypePrivateApi="https://a1083c41.ngrok.io/api/"
+    case ServiceTypePrivateApi="https://api.mizzleapp.com/api/"
+//    case ServiceTypePrivateApi="http://6e405174.ngrok.io/api/"
+    
 }
 
 enum SubServiceType : String {
 
     // Session
-    case GuestSession   = "guest_session"
+    case DeviceSession   = "device_session"
     //Sign in
     case GetUsers       = "users/"
     case FBSignIn       = "signin_with_facebook"
@@ -52,6 +53,7 @@ enum SubServiceType : String {
     
     //TV Guide
     case GetGuideList     =  "guide/list"
+    case GetGuideItem     =  "guide/item"
     
     //Home
     case GetUserStory       =  "get_user_stories"
@@ -74,7 +76,9 @@ enum SubServiceType : String {
     //Notification
     case GetNotification = "user/notifications"
     
-    
+    //Tracking
+    case UserTrackings = "user/trackings"
+    case RemoveUserTracking = "user/trackings/remove"
     
     
 }

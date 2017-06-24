@@ -23,6 +23,8 @@ class UserData: Object {
     dynamic var books_count =           0
     dynamic var tvShows_count =         0
     dynamic var escape_count =          0
+    dynamic var track_count =           0
+    dynamic var userType:String  = "g"
     
     let escapeList = List<UserEscapeData>()
     

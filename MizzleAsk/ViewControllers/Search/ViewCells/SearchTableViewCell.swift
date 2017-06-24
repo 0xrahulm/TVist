@@ -63,11 +63,11 @@ class SearchTableViewCell: UITableViewCell {
                 
                 var directedByStr = ""
                 if data.searchType == .Movie {
-                    directedByStr = EscapeCreatorType.Movie.rawValue+":"
+                    directedByStr = EscapeCreatorType.Movie.rawValue+" "
                 } else if data.searchType == .Books {
-                   directedByStr = EscapeCreatorType.Books.rawValue+":"
+                   directedByStr = EscapeCreatorType.Books.rawValue+" "
                 } else if data.searchType == .TvShows {
-                    directedByStr = EscapeCreatorType.TvShows.rawValue+":"
+                    directedByStr = EscapeCreatorType.TvShows.rawValue+" "
                 }
                 
                 let directedByString = SFUIAttributedText.regularAttributedTextForString("\(directedByStr)  ", size: 13, color: UIColor.textGrayColor())

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PrimaryCTATapProtocol: class {
+    func didTapOnPrimaryCTA(collectionView: UICollectionView, cell: UICollectionViewCell)
+}
+
 class CustomListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -22,6 +26,11 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var maxRatingLabel: UILabel!
     @IBOutlet weak var ratedImage: UIImageView!
+    
+    weak var primaryCTADelegate: PrimaryCTATapProtocol?
+    
+    weak var parentCollectionView: UICollectionView?
+    
     var dataItems : EscapeItem? {
         didSet{
             if let dataItems = dataItems{
@@ -64,28 +73,71 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                     
                     
                 }
-                
+                if ctaButton != nil {
+                    updateTrackButton(newState: dataItems.isTracking)
+                }
             }
         }
     }
     
     
     @IBAction func trackButtonTapped(sender: UIButton) {
+        
         toggleButtonState()
     }
     
     func toggleButtonState() {
         ctaButton.popButtonAnimate()
         let newState = !ctaButton.isSelected
+        if !newState {
+            if let itemName = dataItems?.name {
+                
+                let alert = UIAlertController(title: "Are you sure?", message: "Tracking for \(itemName) is already setup, would you like to remove it?", preferredStyle: .alert)
+                
+                
+                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
+                    
+                    
+                    if let item = self.dataItems {
+                        item.isTracking = newState
+                        AnalyticsVader.sharedVader.undoTrack(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: "Guide")
+                        TrackingDataProvider.shared.removeTrackingFor(escapeId: item.id)
+                        self.updateTrackButton(newState: newState)
+                    }
+                })
+                
+                alert.addAction(removeAction)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                
+                alert.addAction(cancelAction)
+                
+                ScreenVader.sharedVader.showAlert(alert: alert)
+            }
+        } else {
+            if let item = dataItems {
+                item.isTracking = newState
+                TrackingDataProvider.shared.addTrackingFor(escapeId: item.id)
+                
+                AnalyticsVader.sharedVader.trackButtonClicked(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: "Guide")
+                
+                updateTrackButton(newState: newState)
+                if let primaryCTADelegate = self.primaryCTADelegate, let collectionView = self.parentCollectionView {
+                    primaryCTADelegate.didTapOnPrimaryCTA(collectionView: collectionView, cell: self)
+                }
+            }
+        }
+    }
+    
+    func updateTrackButton(newState: Bool) {
+        
         ctaButton.isSelected = newState
         if newState {
             ctaButton.backgroundColor = UIColor.defaultCTAColor()
         } else {
             ctaButton.backgroundColor = UIColor.defaultTintColor()
-            
         }
     }
-    
     
     func popTheImage() {
         

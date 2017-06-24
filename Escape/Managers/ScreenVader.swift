@@ -28,11 +28,13 @@ class ScreenVader: NSObject {
     }
     
     func loginActionAfterDelay() {
-        perform(#selector(ScreenVader.loginAction), with: nil, afterDelay: 1.0)
+        perform(#selector(ScreenVader.loginAction), with: nil, afterDelay: 0.2)
     }
     
     func loginAction() {
-        performScreenManagerAction(.MainTab, queryParams: nil)
+        if let screenManagerVC = screenManagerVC {
+            screenManagerVC.dismissAllPresented()
+        }
     }
     
     func switchMainTab(_ action : ScreenManagerAction){

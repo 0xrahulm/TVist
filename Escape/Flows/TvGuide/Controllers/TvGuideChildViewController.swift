@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SpaceView
 
 class TvGuideChildViewController: UIViewController {
     
@@ -15,8 +16,14 @@ class TvGuideChildViewController: UIViewController {
     var listType: GuideListType = .Television
     
     var guideItems:[GuideItem] = []
+
     
     var cardsTypeArray: [CellIdentifierMyAccount] = [.FBFriends, .PlaceHolder, .AddToEscape, .DiscoverNow]
+    
+    
+    // For Analytics
+    let letters = (0..<26).map({Character(UnicodeScalar("a".unicodeScalars.first!.value + $0)!)})
+    
     
     func initXibs() {
         
@@ -92,6 +99,22 @@ class TvGuideChildViewController: UIViewController {
 
 extension TvGuideChildViewController: UITableViewDelegate {
     
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let percentageScroll:CGFloat = ((scrollView.contentOffset.y+scrollView.frame.size.height)/scrollView.contentSize.height)*100
+        
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:".1f",percentageScroll), "Segment Tab": listType.rawValue])
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            
+            let percentageScroll:CGFloat = ((scrollView.contentOffset.y+scrollView.frame.size.height)/scrollView.contentSize.height)*100
+            
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:".1f",percentageScroll), "Segment Tab": listType.rawValue])
+            
+        }
+    }
 }
 
 extension TvGuideChildViewController: UITableViewDataSource {
@@ -225,6 +248,9 @@ extension TvGuideChildViewController : UICollectionViewDelegate , UICollectionVi
                 
                 params["escapeItem"] = data[indexPath.row]
                 
+                
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideItemClick, properties: ["Grid":"\(letters[indexPath.row])_\(collectionView.tag+1)"])
+                
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
             }
             
@@ -243,13 +269,33 @@ extension TvGuideChildViewController : UICollectionViewDelegate , UICollectionVi
         
         let item = guideItems[collectionView.tag].escapeDataList
         cell.dataItems = item[indexPath.row]
-        
+        cell.primaryCTADelegate = self
+        cell.parentCollectionView = collectionView
         return cell
+    }
+}
+
+extension TvGuideChildViewController: PrimaryCTATapProtocol {
+    func didTapOnPrimaryCTA(collectionView: UICollectionView, cell: UICollectionViewCell) {
+        if let columnIndex = collectionView.indexPath(for: cell) {
+            
+            let item = guideItems[collectionView.tag].escapeDataList[columnIndex.row]
+            
+            if !TrackingDataProvider.shared.dopamineShotShown {
+                TrackingDataProvider.shared.dopamineShotShown = true
+                self.showSpace(title: "\(item.name)", description: "Awesome! you'll now receive notifications for Airtimes, News, Trailers, etc.", spaceOptions: [.spaceStyle(style: .success), .titleFont(font: SFUIAttributedText.getMediumFont(size: 13)), .spaceHideTimer(timer: 3.2), .spaceHeight(height: 80), .spacePosition(position: .top), .descriptionFont(font: SFUIAttributedText.getRegularFont(size: 15))])
+            }
+        }
     }
 }
 
 extension TvGuideChildViewController: ViewAllTapProtocol {
     func viewAllTappedIn(_ cell: UITableViewCell) {
-        
+        if let indexPath = self.tableView.indexPath(for: cell) {
+            let item = guideItems[indexPath.row]
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenGuideListView, queryParams: ["guideItem":item])
+            
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideViewAllClick, properties: ["Row":"\(indexPath.row+1)"])
+        }
     }
 }

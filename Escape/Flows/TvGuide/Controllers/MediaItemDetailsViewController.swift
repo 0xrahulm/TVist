@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SafariServices
 
-class MediaItemDetailsViewController: UIViewController {
+class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
     
     @IBOutlet weak var itemImage: UIImageView!
     
@@ -28,6 +29,7 @@ class MediaItemDetailsViewController: UIViewController {
     @IBOutlet weak var yearLabel:       UILabel!
     @IBOutlet weak var ratingLabel:     UILabel!
     
+    @IBOutlet weak var genreLabel: UILabel!
     
     @IBOutlet weak var infoView: MediaInfoView!
     @IBOutlet weak var viewingOptions: ViewingOptionsView!
@@ -44,7 +46,10 @@ class MediaItemDetailsViewController: UIViewController {
     var imageUri: String?
     var escapeName: String?
     var createdBy: String?
+    var imdbId: String?
     
+    var isTracking: Bool    = false
+    var isAlreadySeen: Bool = false
     
     
     let offset_HeaderStop:CGFloat = 100.0 // At this offset the Header stops its transformations
@@ -121,7 +126,7 @@ class MediaItemDetailsViewController: UIViewController {
         
         self.similarEscapesView.viewAllTapDelegate = self
 //        self.relatedPeopleView.viewAllTapDelegate = self
-        
+        self.viewingOptions.streamingDelegate = self
         
         if trackButton != nil {
             
@@ -134,14 +139,15 @@ class MediaItemDetailsViewController: UIViewController {
         if seenButton != nil {
             
             seenButton.setImage(IonIcons.image(withIcon: ion_android_done, size: 20, color: UIColor.defaultTintColor()), for: .normal)
-            seenButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.defaultTintColor()), for: .selected)
+            seenButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.white), for: .selected)
         }
         
         
         if watchlistButton != nil {
             
             watchlistButton.setImage(IonIcons.image(withIcon: ion_android_add, size: 20, color: UIColor.defaultTintColor()), for: .normal)
-            watchlistButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.defaultTintColor()), for: .selected)
+            watchlistButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.white), for: .selected)
+            
         }
         
         
@@ -152,11 +158,10 @@ class MediaItemDetailsViewController: UIViewController {
     }
     
     func updateButtonStatus() {
-        if escapeAlreadyAdded {
-            
-        } else {
-            
-        }
+        updateWatchlistButton(newState: escapeAlreadyAdded)
+        updateAlreadySeenButton(newState: isAlreadySeen)
+        updateTrackButton(newState: isTracking)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -171,6 +176,8 @@ class MediaItemDetailsViewController: UIViewController {
         
         if let escapeItem = escapeItem {
             setEscapeDetails(escapeItem.name, subtitle: nil, year: escapeItem.year, image:escapeItem.posterImage, rating: escapeItem.rating)
+            updateTrackButton(newState: escapeItem.isTracking)
+            updateWatchlistButton(newState: escapeItem.hasActed)
         }
         
         if let escapeType = self.escapeType {
@@ -194,6 +201,8 @@ class MediaItemDetailsViewController: UIViewController {
         if let escapeId = self.escapeId, let escapeName = self.escapeName, let escapeType = self.escapeType {
             AnalyticsVader.sharedVader.itemDescriptionOpened(escapeName: escapeName, escapeId: escapeId, escapeType: escapeType.rawValue)
         }
+        
+        
     }
     
     
@@ -260,7 +269,7 @@ class MediaItemDetailsViewController: UIViewController {
         } else {
             itemTitle.text = name
         }
-        
+        genreLabel.text = "..."
         headerLabel.text = name
         
         if let yearText = year {
@@ -309,6 +318,8 @@ class MediaItemDetailsViewController: UIViewController {
                 headerImage.downloadImageWithUrl(backdropImage, placeHolder: nil)
             }
             
+            self.imdbId = descData.imdbId
+            
             if let runtime = descData.runtime{
                 self.infoView.runTimeLabel.text = runtime
             }
@@ -341,10 +352,11 @@ class MediaItemDetailsViewController: UIViewController {
                     if i == 0{
                         gerenes = gerenes + gen
                     }else{
-                        gerenes = gerenes + ", \(gen)"
+                        gerenes = gerenes + " | \(gen)"
                     }
                     i = i + 1
                 }
+                self.genreLabel.text = gerenes
                 //                generesLabel.attributedText = getString("Generes", str: gerenes)
                 
             }
@@ -355,11 +367,14 @@ class MediaItemDetailsViewController: UIViewController {
                 }
             }
             
-            escapeAlreadyAdded  = descData.isActed
+            self.escapeAlreadyAdded = descData.inWatchlist
+            self.isAlreadySeen = descData.isAlreadySeen
+            self.isTracking = descData.isTracking
             
             setVisuals()
             
             updateButtonStatus()
+            self.viewingOptions.updateStreamingData(streamingOptions: descData.streamingOptions)
         }
         
     }
@@ -412,6 +427,103 @@ class MediaItemDetailsViewController: UIViewController {
         }
     }
     
+    @IBAction func alreadySeenButtonTapped(sender: UIButton) {
+        toggleAlreadySeenButton()
+    }
+    
+    @IBAction func watchlistButtonTapped(sender: UIButton) {
+        toggleWatchlistButton()
+    }
+    
+    func toggleAlreadySeenButton() {
+        
+        seenButton.popButtonAnimate()
+        let newState = !seenButton.isSelected
+        
+        if !newState {
+            
+            if let itemName = escapeName {
+                
+                let alert = UIAlertController(title: "Are you sure?", message: "\(itemName) is currently in your watchlist, would you like to remove it?", preferredStyle: .alert)
+                
+                
+                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
+                    
+                    self.isAlreadySeen = newState
+                    if let escapeId = self.escapeId {
+                        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.UndoSeen, properties: ["itemName": itemName, "itemId": escapeId])
+                        MyAccountDataProvider.sharedDataProvider.removeEscape(escapeId: escapeId)
+                    }
+                    self.updateAlreadySeenButton(newState: newState)
+                    
+                })
+                
+                alert.addAction(removeAction)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                
+                alert.addAction(cancelAction)
+                
+                ScreenVader.sharedVader.showAlert(alert: alert)
+            }
+        } else {
+            self.isAlreadySeen = newState
+            if let escapeId = self.escapeId {
+                
+                if let itemName = escapeName {
+                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.AddedToSeen, properties: ["itemName": itemName, "itemId": escapeId])
+                }
+                UserDataProvider.sharedDataProvider.addToEscape(escapeId, action: EscapeAddActions.Watched, status: "", friendsId: [], shareFB: 1)
+            }
+            
+            updateAlreadySeenButton(newState:newState)
+        }
+    }
+    
+    func toggleWatchlistButton() {
+        watchlistButton.popButtonAnimate()
+        let newState = !watchlistButton.isSelected
+        
+        if !newState {
+            
+            if let itemName = escapeName {
+                
+                let alert = UIAlertController(title: "Are you sure?", message: "\(itemName) is currently in your watchlist, would you like to remove it?", preferredStyle: .alert)
+                
+                
+                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
+                    
+                    self.escapeAlreadyAdded = newState
+                    if let escapeId = self.escapeId {
+                        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.UndoWatchlist, properties: ["itemName": itemName, "itemId": escapeId])
+                        MyAccountDataProvider.sharedDataProvider.removeEscape(escapeId: escapeId)
+                    }
+                    self.updateWatchlistButton(newState: newState)
+                    
+                })
+                
+                alert.addAction(removeAction)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                
+                alert.addAction(cancelAction)
+                
+                ScreenVader.sharedVader.showAlert(alert: alert)
+            }
+        } else {
+            self.escapeAlreadyAdded = newState
+            if let escapeId = self.escapeId {
+                
+                if let itemName = escapeName {
+                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.AddedToWatchlist, properties: ["itemName": itemName, "itemId": escapeId])
+                }
+                UserDataProvider.sharedDataProvider.addToEscape(escapeId, action: EscapeAddActions.ToWatch, status: "", friendsId: [], shareFB: 1)
+            }
+            
+            updateWatchlistButton(newState: newState)
+        }
+    }
+    
     
     @IBAction func trackButtonTapped(sender: UIButton) {
         toggleButtonState()
@@ -420,12 +532,119 @@ class MediaItemDetailsViewController: UIViewController {
     func toggleButtonState() {
         trackButton.popButtonAnimate()
         let newState = !trackButton.isSelected
+        if !newState {
+            if let itemName = escapeName {
+                
+                let alert = UIAlertController(title: "Are you sure?", message: "Tracking for \(itemName) is already setup, would you like to remove it?", preferredStyle: .alert)
+                
+                
+                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
+                    
+                    self.isTracking = newState
+                    if let escapeId = self.escapeId {
+                        
+                        if let escapeName = self.escapeName, let escapeType = self.escapeType {
+                            AnalyticsVader.sharedVader.undoTrack(escapeName: escapeName, escapeId: escapeId, escapeType: escapeType.rawValue, position: "Item Details Page")
+                        }
+                        TrackingDataProvider.shared.removeTrackingFor(escapeId: escapeId)
+                    }
+                    self.updateTrackButton(newState: newState)
+                    
+                })
+                
+                alert.addAction(removeAction)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                
+                alert.addAction(cancelAction)
+                
+                ScreenVader.sharedVader.showAlert(alert: alert)
+            }
+        } else {
+            self.isTracking = newState
+            
+            if let escapeId = self.escapeId {
+                
+                if let escapeName = self.escapeName, let escapeType = self.escapeType {
+                    AnalyticsVader.sharedVader.trackButtonClicked(escapeName: escapeName, escapeId: escapeId, escapeType: escapeType.rawValue, position: "Item Details Page")
+                }
+                TrackingDataProvider.shared.addTrackingFor(escapeId: escapeId)
+            }
+            updateTrackButton(newState: newState)
+            
+        }
+    }
+    
+    
+    func updateTrackButton(newState: Bool) {
+        
         trackButton.isSelected = newState
         if newState {
             trackButton.backgroundColor = UIColor.defaultCTAColor()
+            
         } else {
             trackButton.backgroundColor = UIColor.defaultTintColor()
+        }
+    }
+    
+    
+    
+    func updateWatchlistButton(newState: Bool) {
+        
+        watchlistButton.isSelected = newState
+        if newState {
+            watchlistButton.backgroundColor = UIColor.defaultTintColor()
+        } else {
+            watchlistButton.backgroundColor = UIColor.white
+        }
+    }
+    
+    
+    
+    func updateAlreadySeenButton(newState: Bool) {
+        
+        seenButton.isSelected = newState
+        if newState {
+            seenButton.backgroundColor = UIColor.defaultTintColor()
+        } else {
+            seenButton.backgroundColor = UIColor.white
+        }
+    }
+    
+    func didTapOnStreamingOption(streamingOption: StreamingOption) {
+        if let name = streamingOption.name {
             
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.WhereToStreamClick, properties: ["Service": name])
+        }
+        
+        if let link = streamingOption.link {
+            
+            if let url = URL(string: link) {
+                let safari = SFSafariViewController(url: url)
+                self.present(safari, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @IBAction func seeImdbDetailsTapped(_ sender: AnyObject) {
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SeeImdbDetailsClick)
+        
+        if let imdbId = self.imdbId {
+            if let url = URL(string: "http://www.imdb.com/title/\(imdbId)") {
+            
+                let safari = SFSafariViewController(url: url)
+                self.present(safari, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @IBAction func seeAirtimesTapped(_ sender: AnyObject) {
+        
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SeeAirtimesClick)
+        if let url = URL(string: "http://www.tvguide.com/listings/") {
+            
+            let safari = SFSafariViewController(url: url)
+            self.present(safari, animated: true, completion: nil)
         }
     }
     
@@ -480,6 +699,13 @@ extension MediaItemDetailsViewController: WBSegmentControlDelegate {
         if newIndex == 3 {
             if let id = self.escapeId {
                 self.similarEscapesView.getSimilarEscapesData(escapeId: id, escapeType: self.escapeType)
+            }
+        }
+        
+        if let escapeType = self.escapeType, let escapeName = self.escapeName {
+            
+            if let selectedSegment = segmentControl.segments[newIndex] as? TextSegment {
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.DetailsPageSegmentClick, properties: ["Tab Name": selectedSegment.text, "escape_name":escapeName, "escape_type":escapeType.rawValue])
             }
         }
         toggleViewAtIndex(selectedIndex: newIndex)

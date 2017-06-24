@@ -25,7 +25,6 @@ class EscapeCollectionViewCell: UICollectionViewCell {
                 
                 if let image = data.image{
                     escapeImage.downloadImageWithUrl(image , placeHolder: UIImage(named: "movie_placeholder"))
-                    
                 }else{
                     escapeImage.image =  UIImage(named: "movie_placeholder")
                 }

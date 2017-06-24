@@ -11,12 +11,13 @@ import UIKit
 class EscapeCell: NormalCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var creatorTypeLabel: UILabel!
     @IBOutlet weak var creatorNameLabel: UILabel!
+    @IBOutlet weak var ratingLabel:UILabel!
     
-    @IBOutlet weak var addEditButton: UIButton!
+    @IBOutlet weak var trackButton: UIButton!
+    
     
     var userHasActed:Bool = false
     
@@ -36,7 +37,6 @@ class EscapeCell: NormalCell {
                 escapeTitleStr += " (\(year))"
             }
             titleLabel.text = escapeTitleStr
-            subtitleLabel.text = escapeItem.subTitle
             
             posterImageView.downloadImageWithUrl(escapeItem.posterImage, placeHolder: UIImage(named: "movie_placeholder"))
             
@@ -48,23 +48,96 @@ class EscapeCell: NormalCell {
             }
             
             if escapeItem.escapeTypeVal() == .Movie{
-                creatorTypeLabel.text = EscapeCreatorType.Movie.rawValue+":"
+                creatorTypeLabel.text = EscapeCreatorType.Movie.rawValue
             }else if escapeItem.escapeTypeVal() == .Books{
-                creatorTypeLabel.text = EscapeCreatorType.Books.rawValue+":"
+                creatorTypeLabel.text = EscapeCreatorType.Books.rawValue
             }else if escapeItem.escapeTypeVal() == .TvShows{
-                creatorTypeLabel.text = EscapeCreatorType.TvShows.rawValue+":"
+                creatorTypeLabel.text = EscapeCreatorType.TvShows.rawValue
             }
             
+            self.ratingLabel.text = escapeItem.rating
+            
             self.userHasActed = escapeItem.hasActed
+            
+            if trackButton != nil {
+                
+                trackButton.setImage(IonIcons.image(withIcon: ion_android_time, size: 20, color: UIColor.white), for: .normal)
+                trackButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.white), for: .selected)
+            }
+            
+
+            
+            if trackButton != nil {
+                updateTrackButton(newState: escapeItem.isTracking)
+            }
+            
             updateAddEditButton()
+            
+        }
+    }
+    
+    
+    
+    @IBAction func trackButtonTapped(sender: UIButton) {
+        
+        toggleButtonState()
+    }
+    
+    func toggleButtonState() {
+        trackButton.popButtonAnimate()
+        let newState = !trackButton.isSelected
+        if !newState {
+            if let itemName = escapeItem?.name {
+                
+                let alert = UIAlertController(title: "Are you sure?", message: "Tracking for \(itemName) is already setup, would you like to remove it?", preferredStyle: .alert)
+                
+                
+                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
+                    
+                    
+                    if let item = self.escapeItem {
+                        item.isTracking = newState
+                        
+                        AnalyticsVader.sharedVader.undoTrack(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: "Generic")
+                        
+                        TrackingDataProvider.shared.removeTrackingFor(escapeId: item.id)
+                        self.updateTrackButton(newState: newState)
+                    }
+                })
+                
+                alert.addAction(removeAction)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                
+                alert.addAction(cancelAction)
+                
+                ScreenVader.sharedVader.showAlert(alert: alert)
+            }
+        } else {
+            if let item = escapeItem {
+                item.isTracking = newState
+                AnalyticsVader.sharedVader.trackButtonClicked(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: "Generic")
+                TrackingDataProvider.shared.addTrackingFor(escapeId: item.id)
+                updateTrackButton(newState: newState)
+            }
+        }
+    }
+    
+    func updateTrackButton(newState: Bool) {
+        
+        trackButton.isSelected = newState
+        if newState {
+            trackButton.backgroundColor = UIColor.defaultCTAColor()
+        } else {
+            trackButton.backgroundColor = UIColor.defaultTintColor()
         }
     }
     
     func updateAddEditButton() {
         if self.userHasActed {
-            self.addEditButton.setTitle("...", for: .normal)
+            
         } else {
-            self.addEditButton.setTitle("+", for: .normal)
+            
         }
     }
     

@@ -14,10 +14,11 @@ import Flurry_iOS_SDK
 import Fabric
 import Crashlytics
 import AWSCognito
-
+import AppsFlyerLib
+import Mixpanel
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate {
 
     var window: UIWindow?
 
@@ -44,7 +45,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setGlobalAppearance()
         Fabric.with([Crashlytics.self, AWSCognito.self])
         
+        AppsFlyerTracker.shared().appleAppID = "1232203457"
+        AppsFlyerTracker.shared().appsFlyerDevKey = "tGbrHn3epJ6ZtihdgK2xhY"
+        AppsFlyerTracker.shared().delegate = self
+    
+        
+        ACTConversionReporter.report(withConversionID: "852994885", label: "2FT0CIvFsHIQxdbelgM", value: "60.00", isRepeatable: false)
+        Mixpanel.initialize(token: "db252e600c2b8e71225d9956f7d715f9")
+        
+        
         return true
+    }
+    
+    func onConversionDataReceived(_ installData: [AnyHashable : Any]!) {
+        if let status = installData["af_status"] as? String {
+            if status == "Non-organic" {
+                var superProperties:Properties = [:]
+                if let sourceID = installData["media_source"] as? MixpanelType  {
+                    superProperties["media_source"] = sourceID
+                }
+                
+                if let campaign = installData["campaign"] as? MixpanelType {
+                    superProperties["campaign"] = campaign
+                }
+                if let keywords = installData["af_keywords"] as? MixpanelType {
+                    superProperties["keywords"] = keywords
+                }
+                
+                Mixpanel.mainInstance().registerSuperProperties(superProperties)
+            } else if status == "Organic" {
+                var superProperties:Properties = [:]
+                superProperties["campaign"] = "organic"
+                superProperties["media_source"] = "organic"
+                Mixpanel.mainInstance().registerSuperProperties(superProperties)
+            }
+        }
+        
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -85,6 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         FBSDKAppEvents.activateApp()
+        AppsFlyerTracker.shared().trackAppLaunch()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

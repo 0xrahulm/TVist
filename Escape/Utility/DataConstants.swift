@@ -8,7 +8,13 @@
 
 import UIKit
 
+enum LoggedInUsing: Int {
+    case Facebook = 1, Email = 2, Guest = 3
+}
+
 class DataConstants: NSObject {
     
     static let kDefaultFetchSize = 10 // This can only be changed, if changed on server
+    
+    
 }

@@ -20,6 +20,18 @@ class TvGuideDataProvider: CommonDataProvider {
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetGuideList, params: ["list_type":listType.rawValue], delegate: self)
     }
     
+    func fetchGuideItem(itemId: String, pageNo: Int?) {
+        
+        var params:[String:Any] = ["item_id": itemId]
+        
+        if let pageNo = pageNo {
+            params["page"] = pageNo
+        }
+        
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetGuideItem, params: params, delegate: self)
+    }
+    
+    
     override func serviceSuccessfull(_ service: Service) {
         
         if let subServiceType = service.subServiveType{
@@ -27,6 +39,11 @@ class TvGuideDataProvider: CommonDataProvider {
             switch subServiceType {
             case .GetGuideList:
                 parseGuideListData(guideData: service.outPutResponse as? [String:AnyObject])
+                break
+            case .GetGuideItem:
+                if let params = service.parameters {
+                    parseGuideItemData(guideItemData: service.outPutResponse as? [String:AnyObject], page: params["page"] as? Int)
+                }
                 break
             default: break
             }
@@ -70,6 +87,18 @@ class TvGuideDataProvider: CommonDataProvider {
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.TvGuideDataObserver.rawValue), object: nil, userInfo: ["type":listTypeStr, "data":guideList])
         
+        
+    }
+    
+    func parseGuideItemData(guideItemData: [String:AnyObject]?, page: Int?) {
+        guard let guideItemData = guideItemData, let page = page else {
+            return
+        }
+        
+        if let guideItem = GuideItem.createGuideItem(itemData: guideItemData) {
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.TvGuideItemDataObserver.rawValue), object: nil, userInfo: ["page":page, "item":guideItem])
+        }
         
     }
     

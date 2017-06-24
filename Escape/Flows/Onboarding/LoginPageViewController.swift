@@ -43,8 +43,7 @@ class LoginPageViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if (ECUserDefaults.isLoggedIn() &&
-            !LocalStorageVader.sharedVader.flagValueForKey(.InterestsSelected)) {
+        if (ECUserDefaults.isLoggedIn()) {
             openInteresetVC()
         }
         

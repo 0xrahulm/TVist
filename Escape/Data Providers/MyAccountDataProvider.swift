@@ -649,7 +649,8 @@ extension MyAccountDataProvider{
             userData.followers = Int(userItem.followers)
             
             userData.following = Int(userItem.following)
-            
+            userData.track_count = Int(userItem.trackingsCount)
+            userData.userType = userItem.userType
             userData.escape_count = userItem.escapes_count.intValue
         
             RealmDataVader.sharedVader.writeToRealm(userData, background: false)
