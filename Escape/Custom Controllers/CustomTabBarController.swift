@@ -128,7 +128,7 @@ class CustomTabBarController: UIViewController {
             notificationsButton.isSelected = false
             myAccountButton.isSelected = false
             
-            var eventName:EventName!
+            
             switch selectedTab {
             case .search:
                 
@@ -152,7 +152,7 @@ class CustomTabBarController: UIViewController {
                 break
             }
             
-            AnalyticsVader.sharedVader.basicEvents(eventName: eventName)
+//            AnalyticsVader.sharedVader.basicEvents(eventName: eventName)
         }
         
     }

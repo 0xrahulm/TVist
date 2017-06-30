@@ -620,6 +620,10 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
         if let link = streamingOption.link {
             
             if let url = URL(string: link) {
+                if let scheme = url.scheme, scheme == "itms" {
+                    UIApplication.shared.openURL(url)
+                    return
+                }
                 let safari = SFSafariViewController(url: url)
                 self.present(safari, animated: true, completion: nil)
             }

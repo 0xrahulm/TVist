@@ -14,8 +14,11 @@ class TvGuideChildViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var listType: GuideListType = .Television
+    var titleForItem: [GuideListType: String] = [.All:"All", .Television: "Television", .Movie: "Movies"]
     
     var guideItems:[GuideItem] = []
+    
+    var lastScrollValue:CGFloat = 0.0
 
     
     var cardsTypeArray: [CellIdentifierMyAccount] = [.FBFriends, .PlaceHolder, .AddToEscape, .DiscoverNow]
@@ -103,7 +106,11 @@ extension TvGuideChildViewController: UITableViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let percentageScroll:CGFloat = ((scrollView.contentOffset.y+scrollView.frame.size.height)/scrollView.contentSize.height)*100
         
-        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:".1f",percentageScroll), "Segment Tab": listType.rawValue])
+        if self.lastScrollValue != percentageScroll {
+            
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "Segment Tab": titleForItem[listType]!])
+            self.lastScrollValue = percentageScroll
+        }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -111,7 +118,10 @@ extension TvGuideChildViewController: UITableViewDelegate {
             
             let percentageScroll:CGFloat = ((scrollView.contentOffset.y+scrollView.frame.size.height)/scrollView.contentSize.height)*100
             
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:".1f",percentageScroll), "Segment Tab": listType.rawValue])
+            if self.lastScrollValue != percentageScroll {
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "Segment Tab": titleForItem[listType]!])
+                self.lastScrollValue = percentageScroll
+            }
             
         }
     }

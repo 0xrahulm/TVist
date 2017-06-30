@@ -30,7 +30,7 @@ class GuideListViewController: GenericAllItemsListViewController {
         // Do any additional setup after loading the view.
         self.title = guideItem?.title
         
-        NotificationCenter.default.addObserver(self, selector: #selector(GuideListViewController.receivedData(notification:)), name: Notification.Name(rawValue:kTrackingDataNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GuideListViewController.receivedData(notification:)), name: Notification.Name(rawValue:NotificationObservers.TvGuideItemDataObserver.rawValue), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {

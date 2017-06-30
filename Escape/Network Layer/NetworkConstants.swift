@@ -9,8 +9,8 @@
 import UIKit
 
 enum ServiceType : String {
-    case ServiceTypePrivateApi="https://api.mizzleapp.com/api/"
-//    case ServiceTypePrivateApi="http://6e405174.ngrok.io/api/"
+//    case ServiceTypePrivateApi="https://api.mizzleapp.com/api/"
+    case ServiceTypePrivateApi="http://04bb61e2.ngrok.io/api/"
     
 }
 
@@ -70,7 +70,7 @@ enum SubServiceType : String {
     
     
     //Search
-    case GetSearchItems = "search"
+    case GetSearchItems = "search_v2"
     case GetSearchItemsNoAuth = "search/no_auth"
     
     //Notification

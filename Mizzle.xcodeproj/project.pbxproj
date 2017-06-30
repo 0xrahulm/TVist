@@ -2497,6 +2497,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Escape/ConversionTracking",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ardourlabs.Mizzle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "dfa9860f-48b3-4680-935e-95750ce11423";
@@ -2531,6 +2532,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Escape/ConversionTracking",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DRELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ardourlabs.Mizzle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "b1e84294-1691-44d1-8146-bf29cee84c72";

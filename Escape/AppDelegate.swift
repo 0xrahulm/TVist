@@ -49,9 +49,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate 
         AppsFlyerTracker.shared().appsFlyerDevKey = "tGbrHn3epJ6ZtihdgK2xhY"
         AppsFlyerTracker.shared().delegate = self
     
+        //STAGING TOKENS
+        var mixPanelToken = "eb64f6d436ffe1c7300fb55608da3848"
+        
+        //RELEASE TOKENS
+        #if RELEASE
+            mixPanelToken = "db252e600c2b8e71225d9956f7d715f9"
+        #else
+            
+        #endif
         
         ACTConversionReporter.report(withConversionID: "852994885", label: "2FT0CIvFsHIQxdbelgM", value: "60.00", isRepeatable: false)
-        Mixpanel.initialize(token: "db252e600c2b8e71225d9956f7d715f9")
+        
+        Mixpanel.initialize(token: mixPanelToken)
         
         
         return true
