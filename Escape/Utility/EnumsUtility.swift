@@ -204,6 +204,7 @@ enum EventName:String {
     
     case SearchClick = "Search_Click"
     case SearchCancelled = "Search_Cancelled"
+    case TrackerSegmentClick = "Tracker_Segment_Click"
     case SearchOccurred = "Item_Searched"
     case ItemsShown = "Items_Shown"
     case SearchItemClick = "Search_Item_Click"

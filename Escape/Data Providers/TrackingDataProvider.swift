@@ -16,8 +16,8 @@ class TrackingDataProvider: CommonDataProvider {
     
     static let shared = TrackingDataProvider()
     
-    func fetchTrackingData(page: Int) {
-        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .UserTrackings, params: ["page": page], delegate: self)
+    func fetchTrackingData(page: Int, type: GuideListType) {
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .UserTrackings, params: ["page": page, "type":type.rawValue], delegate: self)
     }
     
     func addTrackingFor(escapeId: String) {
@@ -40,10 +40,13 @@ class TrackingDataProvider: CommonDataProvider {
                     
                     if let data = service.outPutResponse as? [AnyObject] {
                         var currentPage:Int = 1
-                        if let params = service.parameters, let page = params["page"] as? Int {
+                        var typeS = "tv_show"
+                        if let params = service.parameters, let page = params["page"] as? Int, let type = params["type"] as? String {
                             currentPage = page
+                            typeS = type
                         }
-                        parseUserTrackings(data: data, page: currentPage)
+                        
+                        parseUserTrackings(data: data, page: currentPage, type: typeS)
                     }
                 } else {
                     Logger.debug("Tracking set for Media")
@@ -81,7 +84,7 @@ class TrackingDataProvider: CommonDataProvider {
     
     // MARK: - 
     
-    func parseUserTrackings(data: [AnyObject], page: Int) {
+    func parseUserTrackings(data: [AnyObject], page: Int, type: String) {
         
         var dataArray:[EscapeItem] = []
         
@@ -105,6 +108,6 @@ class TrackingDataProvider: CommonDataProvider {
             dataArray.append(escapeItem)
         }
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kTrackingDataNotification), object: nil, userInfo: ["trackings": dataArray, "page": page])
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kTrackingDataNotification), object: nil, userInfo: ["trackings": dataArray, "page": page, "type": type])
     }
 }

@@ -706,7 +706,7 @@ extension MediaItemDetailsViewController: WBSegmentControlDelegate {
             }
         }
         
-        if let escapeType = self.escapeType, let escapeName = self.escapeName {
+        if let escapeType = self.escapeType, let escapeName = self.escapeName, oldIndex != -1 {
             
             if let selectedSegment = segmentControl.segments[newIndex] as? TextSegment {
                 AnalyticsVader.sharedVader.basicEvents(eventName: EventName.DetailsPageSegmentClick, properties: ["Tab Name": selectedSegment.text, "escape_name":escapeName, "escape_type":escapeType.rawValue])

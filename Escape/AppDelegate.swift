@@ -16,6 +16,7 @@ import Crashlytics
 import AWSCognito
 import AppsFlyerLib
 import Mixpanel
+import iAd
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate {
@@ -63,8 +64,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate 
         
         Mixpanel.initialize(token: mixPanelToken)
         
+        attributionDetails()
         
         return true
+    }
+    
+    func attributionDetails() {
+        ADClient.shared().requestAttributionDetails { (attributeDetails, error) in
+            if error == nil {
+                if let attributeDetails = attributeDetails, let v3Data = attributeDetails["Version3.1"] as? [String: AnyObject] {
+                    if let attribution = v3Data["iad-attribution"] as? Bool {
+                        if attribution {
+                            var superProperties: Properties = [:]
+                            
+                            if let val = v3Data["iad-org-name"] as? MixpanelType  {
+                                superProperties["iad-org-name"] = val
+                            }
+                            
+                            if let val = v3Data["iad-campaign-id"] as? MixpanelType  {
+                                superProperties["iad-campaign-id"] = val
+                            }
+                            
+                            if let val = v3Data["iad-campaign-name"] as? MixpanelType  {
+                                superProperties["iad-campaign-name"] = val
+                            }
+                            
+                            if let val = v3Data["iad-conversion-date"] as? MixpanelType  {
+                                superProperties["iad-conversion-date"] = val
+                            }
+                            
+                            if let val = v3Data["iad-click-date"] as? MixpanelType  {
+                                superProperties["iad-click-date"] = val
+                            }
+                            
+                            if let val = v3Data["iad-adgroup-id"] as? MixpanelType  {
+                                superProperties["iad-adgroup-id"] = val
+                            }
+                            
+                            if let val = v3Data["iad-adgroup-name"] as? MixpanelType  {
+                                superProperties["iad-adgroup-name"] = val
+                            }
+                            
+                            if let val = v3Data["iad-keyword"] as? MixpanelType  {
+                                superProperties["iad-keyword"] = val
+                            }
+
+
+                            Mixpanel.mainInstance().registerSuperProperties(superProperties)
+                        }
+                    }
+                }
+            }
+        
+        }
+        
+        ADClient.shared().add(toSegments: ["installed"], replaceExisting: true)
     }
     
     func onConversionDataReceived(_ installData: [AnyHashable : Any]!) {

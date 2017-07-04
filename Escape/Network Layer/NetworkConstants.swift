@@ -9,8 +9,8 @@
 import UIKit
 
 enum ServiceType : String {
-//    case ServiceTypePrivateApi="https://api.mizzleapp.com/api/"
-    case ServiceTypePrivateApi="http://04bb61e2.ngrok.io/api/"
+    case ServiceTypePrivateApi="https://api.mizzleapp.com/api/"
+//    case ServiceTypePrivateApi="http://04bb61e2.ngrok.io/api/"
     
 }
 
