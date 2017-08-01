@@ -18,7 +18,7 @@ class SearchAllViewController: UIViewController {
     weak var dismissKeyboardDelegate : DismissKeyboardProtocol?
     
     var type : SearchType = .All
-    var dataArray : [SearchItems] = []
+    var dataArray : [EscapeItem] = []
     var searchedText  = ""
     var currentPage = 1
     var callFurther = true
@@ -79,7 +79,7 @@ class SearchAllViewController: UIViewController {
             } else {
                 if currentPage == 1{
                     dataArray = []
-                    dataArray.append(SearchItems(searchType: .Blank))
+                    
                     tableView.reloadDataAnimated()
                     
                     _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(SearchAllViewController.validateSearch(_:)), userInfo: queryText, repeats: false)
@@ -107,7 +107,7 @@ class SearchAllViewController: UIViewController {
     }
     
     func receivedNotification(_ notification : Notification){
-        if self.dataArray.count == 1 && dataArray[0].searchType == .Blank{
+        if self.dataArray.count == 1{
             self.dataArray = []
         }
         
@@ -117,7 +117,7 @@ class SearchAllViewController: UIViewController {
                 let queryText = dict["queryText"] as? String{
                 if let searchedText = ECUserDefaults.getSearchedText(){
                     if self.type == searchType && queryText == searchedText{
-                        if let data = dict["data"] as? [SearchItems]{
+                        if let data = dict["data"] as? [EscapeItem]{
                             if data.count == 0 {
                                 AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchInvalid, properties: ["Position":searchPosition])
                             } else {
@@ -173,9 +173,7 @@ class SearchAllViewController: UIViewController {
 extension SearchAllViewController : UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if dataArray[indexPath.row].searchType == .User || dataArray[indexPath.row].searchType == .Blank{
-            return 70
-        }
+        
         return 120
     }
     
@@ -187,38 +185,17 @@ extension SearchAllViewController : UITableViewDelegate{
             AnalyticsVader.sharedVader.basicEvents(eventName: EventName.OpenedDescriptionSearchedItem, properties: ["Position":searchPosition])
             
             let data = dataArray[indexPath.row]
-            let id = data.id
             
-            let escapeType = data.searchType
-            let name = data.name
-            let image = data.image
+            let params:[String:AnyObject] = ["escapeItem":data]
             
-            var params : [String:Any] = [:]
-            if let id = id{
-                params["id"] = id
-            }
-            if let escapeType = escapeType{
-                params["escape_type"] = escapeType.rawValue
-            }
-            if let name = name{
-                params["name"] = name
-            }
-            if let image = image{
-                params["image"] = image
-            }
-            if escapeType == .Movie || escapeType == .TvShows || escapeType == .Books{
-
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
-            }else if escapeType == .User{
-                if let id  = data.id{
-                    ScreenVader.sharedVader.performScreenManagerAction(.OpenUserAccount, queryParams: ["user_id":id, "isFollow" : data.isAddedOrFollow])
-                }
-            }
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+            
         }
     }
     
     
 }
+
 extension SearchAllViewController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -234,30 +211,16 @@ extension SearchAllViewController : UITableViewDataSource{
         if dataArray.count > indexPath.row{
             let data = dataArray[indexPath.row]
             
-            if data.searchType == .Blank && callFurther{
-                cell = tableView.dequeueReusableCell(withIdentifier: "loadingViewCellIdentifier") as! SearchTableViewCell
-                cell.loadingViewLabel.text = "searching for \(self.searchedText)"
-                cell.loadingView.startAnimating()
-                
-            }else if data.searchType != .User{
-                
                 var discoverCellIdentifier = "searchEscapeCellIdentifier"
                 
                 if type == .All {
                     discoverCellIdentifier = "searchEscapeWithTagCellIdentifier"
                 }
                 cell = tableView.dequeueReusableCell(withIdentifier: discoverCellIdentifier) as! SearchTableViewCell
-                cell.data = data
+                cell.escapeItem = data
                 cell.searchPosition = searchPosition
                 cell.indexPath = indexPath
                 
-            }else if data.searchType == .User{
-                cell = tableView.dequeueReusableCell(withIdentifier: "followCellIdentifier") as! SearchTableViewCell
-                cell.peopleData = data
-                cell.followButtonDiscoverDelegate = self
-                cell.indexPath = indexPath
-                
-            }
             
             
         }else{
@@ -276,7 +239,7 @@ extension SearchAllViewController : FollowerButtonProtocol{
     func changeLocalDataArray(_ indexPath: IndexPath?, isFollow: Bool) {
         if let indexPath = indexPath{
             if dataArray.count > indexPath.row{
-                dataArray[indexPath.row].isAddedOrFollow = isFollow
+                dataArray[indexPath.row].hasActed = isFollow
             }
         }
     }

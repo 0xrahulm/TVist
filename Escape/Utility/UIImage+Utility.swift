@@ -44,4 +44,19 @@ extension UIImageView{
     }
 }
 
+extension UIButton {
+    
+    func downloadImageWithUrl(_ str : String? , placeHolder : UIImage?){
+        
+        if let str = str{
+            if let url = URL(string: str){
+                
+                self.af_setImage(for: .normal, url: url, placeholderImage: placeHolder, filter: nil, progress: nil, progressQueue: DispatchQueue.global(), completion: nil)
+                
+            }
+        }
+        
+    }
+}
+
 

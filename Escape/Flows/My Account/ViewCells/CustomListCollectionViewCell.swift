@@ -31,6 +31,53 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     
     weak var parentCollectionView: UICollectionView?
     
+    
+    @IBOutlet weak var trackButtonHeight: NSLayoutConstraint!
+    @IBOutlet weak var trackButtonBackground: NSLayoutConstraint!
+    
+    
+    var mediaItem : ListingMediaItem? {
+        didSet{
+            if let dataItems = mediaItem {
+                titleLabel.text = dataItems.constructedTitle()
+                itemImage.downloadImageWithUrl(dataItems.mediaItem.posterImage, placeHolder: UIImage(named: "movie_placeholder"))
+                
+                
+                if ctaButton != nil {
+                    
+                    ctaButton.setImage(IonIcons.image(withIcon: ion_android_time, size: 20, color: UIColor.white), for: .normal)
+                    ctaButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.white), for: .selected)
+                }
+                
+                hideTrackerButton()
+                
+                if let rating = dataItems.mediaItem.rating {
+                    
+                    if rating.characters.count > 0 {
+                        
+                        ratingLabel.text = rating
+                        
+                        ratingLabel.isHidden = false
+                        if maxRatingLabel != nil && ratedImage != nil{
+                            maxRatingLabel.isHidden = false
+                            ratedImage.isHidden = false
+                        }
+                        
+                        
+                    }else{
+                        ratingLabel.isHidden = true
+                        if maxRatingLabel != nil && ratedImage != nil{
+                            maxRatingLabel.isHidden = true
+                            ratedImage.isHidden = true
+                        }
+                        
+                        
+                    }
+                }
+            }
+        }
+    }
+    
     var dataItems : EscapeItem? {
         didSet{
             if let dataItems = dataItems{
@@ -137,6 +184,13 @@ class CustomListCollectionViewCell: UICollectionViewCell {
         } else {
             ctaButton.backgroundColor = UIColor.defaultTintColor()
         }
+    }
+    
+    func hideTrackerButton() {
+        self.trackButtonBackground.constant = 0
+        self.trackButtonHeight.constant = 0
+        
+        self.layoutIfNeeded()
     }
     
     func popTheImage() {

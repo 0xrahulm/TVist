@@ -24,6 +24,7 @@ class StreamingOption: NSObject {
     var image: String?
     var link: String?
     var id: String!
+    var title: String?
     
     class func parseStreamingOptionData(data: [String:Any]) -> StreamingOption? {
         
@@ -41,6 +42,7 @@ class StreamingOption: NSObject {
         streamingOption.image = data["image"] as? String
         streamingOption.desc = data["description"] as? String
         streamingOption.link = data["link"] as? String
+        streamingOption.title = data["title"] as? String
         
         return streamingOption
     }

@@ -41,33 +41,31 @@ class SearchTableViewCell: UITableViewCell {
     
     weak var followButtonDiscoverDelegate : FollowerButtonProtocol?
     
-    var data : SearchItems? {
-        didSet{
-            if let data = data, let escapeName = data.name, let searchType = data.searchType {
-                
-                var escapeTitleStr = escapeName
-                if let year = data.year, searchType != .Books {
-                    escapeTitleStr += " (\(year))"
+    var escapeItem: EscapeItem? {
+        didSet {
+            if let data = self.escapeItem {
+               
+                itemNameLabel.text = data.name + " (\(data.year))"
+                itemSubtitleLabel.text = nil
+                if let image = data.posterImage {
+                    
+                    itemImage.downloadImageWithUrl(image, placeHolder: UIImage(named: "movie_placeholder"))
                 }
-                itemNameLabel.text = escapeTitleStr
-                itemSubtitleLabel.text = data.subTitle
-                
-                itemImage.downloadImageWithUrl(data.image , placeHolder: UIImage(named: "movie_placeholder"))
                 
                 var directorByStr = ""
-                if let director = data.director{
+                if let director = data.createdBy{
                     directorByStr = director
                 }
                 
-                self.userHasActed = data.isAddedOrFollow
+                self.userHasActed = data.hasActed
                 self.selectionStyle = .none
                 
                 var directedByStr = ""
-                if data.searchType == .Movie {
+                if data.escapeTypeVal() == .Movie {
                     directedByStr = EscapeCreatorType.Movie.rawValue+" "
-                } else if data.searchType == .Books {
-                   directedByStr = EscapeCreatorType.Books.rawValue+" "
-                } else if data.searchType == .TvShows {
+                } else if data.escapeTypeVal() == .Books {
+                    directedByStr = EscapeCreatorType.Books.rawValue+" "
+                } else if data.escapeTypeVal() == .TvShows {
                     directedByStr = EscapeCreatorType.TvShows.rawValue+" "
                 }
                 
@@ -88,12 +86,14 @@ class SearchTableViewCell: UITableViewCell {
                 
                 updateTrackButton(newState: self.userHasActed)
                 
-                if let escapeTypeTag = escapeTypeTag, let searchType = data.searchType {
-                    escapeTypeTag.image = UIImage(named: "\(searchType.rawValue)_tag")
+                if let escapeTypeTag = escapeTypeTag {
+                    escapeTypeTag.image = UIImage(named: "\(data.escapeType)_tag")
                 }
+                
             }
         }
     }
+    
     
     
     func updateTrackButton(newState: Bool) {
@@ -152,7 +152,7 @@ class SearchTableViewCell: UITableViewCell {
         trackButton.popButtonAnimate()
         let newState = !trackButton.isSelected
         if !newState {
-            if let itemName = data?.name {
+            if let itemName = escapeItem?.name {
                 
                 let alert = UIAlertController(title: "Are you sure?", message: "Tracking for \(itemName) is already setup, would you like to remove it?", preferredStyle: .alert)
                 
@@ -160,12 +160,11 @@ class SearchTableViewCell: UITableViewCell {
                 let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
                     
                     
-                    if let item = self.data {
-                        item.isAddedOrFollow = newState
-                        if let itemId = item.id {
-                            
-                            TrackingDataProvider.shared.removeTrackingFor(escapeId: itemId)
-                        }
+                    if let item = self.escapeItem {
+                        item.hasActed = newState
+                        
+                            TrackingDataProvider.shared.removeTrackingFor(escapeId: item.id)
+                        
                         self.updateTrackButton(newState: newState)
                     }
                 })
@@ -179,12 +178,10 @@ class SearchTableViewCell: UITableViewCell {
                 ScreenVader.sharedVader.showAlert(alert: alert)
             }
         } else {
-            if let item = data {
-                item.isAddedOrFollow = newState
-                if let itemId = item.id {
-                    
-                    TrackingDataProvider.shared.addTrackingFor(escapeId: itemId)
-                }
+            if let item = escapeItem {
+                item.hasActed = newState
+                TrackingDataProvider.shared.addTrackingFor(escapeId: item.id)
+                
                 updateTrackButton(newState: newState)
             }
         }

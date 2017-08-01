@@ -21,6 +21,7 @@ class TrackingDataProvider: CommonDataProvider {
     }
     
     func addTrackingFor(escapeId: String) {
+        NotificationsVader.shared.getNotificationPermission()
         ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .UserTrackings, params: ["escape_id":escapeId], delegate: self)
     }
     
@@ -96,7 +97,7 @@ class TrackingDataProvider: CommonDataProvider {
                     continue
             }
             
-            let escapeItem = EscapeItem.addOrEditEscapeItem(itemId, name: itemTitle, escapeType: escapeType, posterImage: eachItem["poster_image"] as? String, year: eachItem["year"] as? String, rating: eachItem["rating"] as? NSNumber, subTitle: eachItem["subtitle"] as? String, createdBy: eachItem["creator"] as? String, _realm: nil)
+            let escapeItem = EscapeItem.addOrEditEscapeItem(itemId, name: itemTitle, escapeType: escapeType, posterImage: eachItem["poster_image"] as? String, year: eachItem["year"] as? String, rating: eachItem["rating"] as? NSNumber, subTitle: eachItem["subtitle"] as? String, createdBy: eachItem["creator"] as? String, _realm: nil, nextAirtime: eachItem["next_airtime"] as? [String:Any])
             if let hasActed = eachItem["is_acted"] as? Bool {
                 escapeItem.hasActed = hasActed
             }

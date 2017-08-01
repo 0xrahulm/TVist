@@ -22,7 +22,7 @@ class CustomListTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -48,6 +48,7 @@ class CustomListTableViewCell: UITableViewCell {
         collectionView.delegate = dataSourceDelegate
         collectionView.dataSource = dataSourceDelegate
         collectionView.tag = row
+        collectionView.register(UINib(nibName: "MediaItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MediaItemCollectionViewCell")
         collectionView.reloadData()
     }
     

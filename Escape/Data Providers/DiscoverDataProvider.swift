@@ -123,17 +123,32 @@ extension DiscoverDataProvider{
     }
     
     func parseSearchedData(_ data : [AnyObject], searchType : String, queryText : String, page : Int?){
-        var searchedItems : SearchItems?
-        var tempPage = 0
-        if let page = page{
-            tempPage = page
-        }
-        searchedItems = SearchItems(dict: data)
+        var dataArray:[EscapeItem] = []
         
-        if let data = searchedItems?.searchData{
-            print("searched data count \(data.count)")
-            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.SearchObserver.rawValue), object: ["data" : data, "type" : searchType, "queryText" : queryText, "page" : tempPage])
+        for eachItem in data {
+            
+            guard let itemTitle = eachItem["name"] as? String,
+                let itemId = eachItem["id"] as? String,
+                let escapeType = eachItem["escape_type"] as? String else {
+                    continue
+            }
+            
+            let escapeItem = EscapeItem.addOrEditEscapeItem(itemId, name: itemTitle, escapeType: escapeType, posterImage: eachItem["poster_image"] as? String, year: eachItem["year"] as? String, rating: eachItem["rating"] as? NSNumber, subTitle: eachItem["subtitle"] as? String, createdBy: eachItem["creator"] as? String, _realm: nil, nextAirtime: eachItem["next_airtime"] as? [String:Any])
+            if let hasActed = eachItem["is_acted"] as? Bool {
+                escapeItem.hasActed = hasActed
+            }
+            
+            if let isTracking = eachItem["is_tracking"] as? Bool {
+                escapeItem.isTracking = isTracking
+            }
+            
+            dataArray.append(escapeItem)
         }
+        if let page = page {
+            print("searched data count \(dataArray.count)")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.SearchObserver.rawValue), object: ["data" : dataArray, "type" : searchType, "queryText" : queryText, "page" : page])
+        }
+        
         
     }
 }

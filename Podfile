@@ -4,9 +4,9 @@ platform :ios, "9.0"
 def mizzle_pods
     pod 'Flurry-iOS-SDK/FlurrySDK'
     pod 'Fabric'
-    pod 'AppsFlyerFramework'
     pod 'Crashlytics'
     pod 'SpaceView'
+    pod 'DropDown'
 end
 
 target 'Mizzle' do

@@ -34,7 +34,10 @@ class DescDataItems: NSObject {
     
     var imdbId: String?
     
+    var nextAirtime: Airtime?
+    
     var streamingOptions: [StreamingOption] = []
+    var viewingOptions: [ViewingOption] = []
     
     init(dict: [String:AnyObject]) {
         super.init()
@@ -94,6 +97,18 @@ class DescDataItems: NSObject {
                     for eachOption in streamingOptionsData {
                         if let streamingOption = StreamingOption.parseStreamingOptionData(data: eachOption) {
                             self.streamingOptions.append(streamingOption)
+                        }
+                    }
+                }
+                
+                if let nextAirtime = dict["next_airtime"] as? [String:Any] {
+                    self.nextAirtime = Airtime.createAirtime(nextAirtime)
+                }
+                
+                if let viewingOptionsData = dict["viewing_options"] as? [[String:Any]] {
+                    for eachOption in viewingOptionsData {
+                        if let viewingOption = ViewingOption.parseViewingOptionData(data: eachOption) {
+                            self.viewingOptions.append(viewingOption)
                         }
                     }
                 }

@@ -80,7 +80,7 @@ extension SimilarEscapesView : UICollectionViewDelegate , UICollectionViewDataSo
         var params : [String:AnyObject] = [:]
                 
         params["escapeItem"] = similarEscapes[indexPath.row]
-                
+        
         ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
         
     }

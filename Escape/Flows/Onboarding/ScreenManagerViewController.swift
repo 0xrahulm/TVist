@@ -250,7 +250,7 @@ extension ScreenManagerViewController{
                 mainTAbVC.selectedIndex = MainTabIndex.Guide.index
                 break
             case .TopChartsTab:
-                mainTAbVC.selectedIndex = MainTabIndex.TopCharts.index
+                mainTAbVC.selectedIndex = MainTabIndex.Listings.index
                 break
             case .TrackerTab:
                 mainTAbVC.selectedIndex = MainTabIndex.Tracker.index
@@ -354,16 +354,26 @@ extension ScreenManagerViewController{
         case .OpenNotificationView:
             openNotificationVC()
             break
+        case .OpenFullListingsView:
+            openFullListingsView(params)
+            break
         case .OpenGuideListView:
             openGuideListView(params: params)
             break
-        default:
+        case .OpenMediaOptionsView:
+            if let params = params {
+                openMediaOptionsView(params: params)
+            }
             break
         }
     }
     
     func openGuideListView(params: [String:Any]?) {
         pushViewControllerOf(.TvGuide, viewControllerIdentifier: "guideListView", queryParams: params)
+    }
+    
+    func openMediaOptionsView(params: [String:Any]) {
+        pushViewControllerOf(.TvGuide, viewControllerIdentifier: "mediaViewingOptionsVC", queryParams: params)
     }
     
     func openMainTab(){
@@ -386,6 +396,12 @@ extension ScreenManagerViewController{
             }
         }
     }
+    
+    
+    func openFullListingsView(_ params:[String:Any]?) {
+        pushViewControllerOf(.Listings, viewControllerIdentifier: "fullListingsVC", queryParams: params)
+    }
+    
     func openMyAccountSetting(_ params : [String:Any]?){
         pushViewControllerOf(.MyAccount, viewControllerIdentifier: "myAccountSettingVC", queryParams: params)
     }

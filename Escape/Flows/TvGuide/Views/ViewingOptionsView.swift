@@ -8,16 +8,21 @@
 
 import UIKit
 
+let kGenericTitleCellReuseIdentifier = "genericTitleCellReuseIdentifier"
+
 protocol ViewingOptionsProtocol: class {
-    func didTapOnStreamingOption(streamingOption: StreamingOption)
+    
+    func didTapOnViewingOption(viewingOption: StreamingOption)
 }
 
 class ViewingOptionsView: UIView {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    weak var streamingDelegate: ViewingOptionsProtocol?
+    weak var delegate: ViewingOptionsProtocol?
     var streamingOptions: [StreamingOption] = []
+    
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -30,6 +35,7 @@ class ViewingOptionsView: UIView {
         self.streamingOptions.append(contentsOf: streamingOptions)
         self.collectionView.reloadData()
     }
+    
 
 }
 
@@ -39,7 +45,7 @@ extension ViewingOptionsView: UICollectionViewDataSource {
         
         let item = streamingOptions[indexPath.row]
         
-        cell.imageView.downloadImageWithUrl(item.image, placeHolder: nil)
+        cell.optionImageView.downloadImageWithUrl(item.image, placeHolder: nil)
         cell.descriptionText.text = item.desc
         return cell
     }
@@ -57,9 +63,9 @@ extension ViewingOptionsView: UICollectionViewDataSource {
 
 extension ViewingOptionsView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let streamingDelegate = self.streamingDelegate {
+        if let streamingDelegate = self.delegate {
             let item = streamingOptions[indexPath.row]
-            streamingDelegate.didTapOnStreamingOption(streamingOption: item)
+            streamingDelegate.didTapOnViewingOption(viewingOption: item)
         }
     }
 }

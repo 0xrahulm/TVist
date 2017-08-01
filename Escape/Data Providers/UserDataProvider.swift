@@ -113,6 +113,7 @@ class UserDataProvider: CommonDataProvider {
     func updateDeviceTokenIfRequired(pushToken: String) {
         let storedPushToken = LocalStorageVader.sharedVader.valueForStoredKey(.PushToken) as? String ?? ""
         if storedPushToken != pushToken {
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.NotificationPermissionProvided)
             ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .UpdatePushToken, params: ["push_token":pushToken], delegate: self)
         }
     }

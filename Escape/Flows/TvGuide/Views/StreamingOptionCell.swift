@@ -9,7 +9,8 @@
 import UIKit
 
 class StreamingOptionCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var optionImageView: UIImageView!
     @IBOutlet weak var descriptionText: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     
 }

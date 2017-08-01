@@ -12,7 +12,7 @@ import Locksmith
 class DeviceID: NSObject {
     
      static let kEscapeXmodel = "Escape-X"
-     static let kEscapeXdevicekey = "X-Device-ID"
+     static let kEscapeDeviceKey = "X-Device-ID"
     
      static let kEscapeXauthModel = "Escape-X-Auth"
      static let kEscapeXauthkeys = "X-Auth"
@@ -21,7 +21,7 @@ class DeviceID: NSObject {
     class func getDeviceID () -> String{
         
         if let keyDict = Locksmith.loadDataForUserAccount(userAccount: kEscapeXmodel){
-            if let id = keyDict[kEscapeXdevicekey]{
+            if let id = keyDict[kEscapeDeviceKey]{
                 return id as! String
             }else{
                 return generateID()
@@ -36,7 +36,7 @@ class DeviceID: NSObject {
     class func generateID() -> String{
         
         let id = UIDevice.current.identifierForVendor!.uuidString
-        try! Locksmith.saveData(data: [kEscapeXdevicekey:id], forUserAccount: kEscapeXmodel)
+        try! Locksmith.saveData(data: [kEscapeDeviceKey:id], forUserAccount: kEscapeXmodel)
         return id
 
         

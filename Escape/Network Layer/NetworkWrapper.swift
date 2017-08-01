@@ -34,14 +34,14 @@ class NetworkWrapper: NSObject {
                 
                 
                 let certs = ServerTrustPolicy.certificates()
-                
-                let trustPolicies:[String : ServerTrustPolicy] = [
-                    "api.mizzleapp.com": .pinCertificates(
-                        certificates: certs,
-                        validateCertificateChain: true,
-                        validateHost: true
-                    )
-                ]
+                let trustPolicies:[String : ServerTrustPolicy] = [:]
+//                let trustPolicies:[String : ServerTrustPolicy] = [
+//                    "api.mizzleapp.com": .pinCertificates(
+//                        certificates: certs,
+//                        validateCertificateChain: true,
+//                        validateHost: true
+//                    )
+//                ]
                 
                 sessionManager = SessionManager(configuration: URLSessionConfiguration.default, delegate: SessionDelegate(), serverTrustPolicyManager: ServerTrustPolicyManager(policies: trustPolicies))
             }
@@ -186,7 +186,7 @@ class NetworkWrapper: NSObject {
             
             print ("TOKEN : \(auth)")
         }
-//        headers["X-DEVICE-ID"] = "043455A6-BE5B-09D0-BE41-3832CE2193ED"
+//        headers["X-DEVICE-ID"] = "043455A6-BE5B-09D0-BE41-393CE21efd234234"
         headers["X-DEVICE-ID"] = DeviceID.getDeviceID()
         
         headers["X-DEVICE-INFO"] = UIDevice.current.modelName

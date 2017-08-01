@@ -32,13 +32,15 @@ enum ScreenManagerAction : String {
     case OpenNotificationView = "openNotificationView"
     case OpenSignupView = "openSignupView"
     case OpenGuideListView = "OpenGuideListView"
+    case OpenMediaOptionsView = "OpenMediaOptionsView"
+    case OpenFullListingsView = "OpenFullListingsView"
 }
 
 enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"
     case MainTab = "MainTab"
     case MyAccount = "MyAccount"
-    case Discover = "Discover"
+    case Listings = "Listings"
     case TvGuide = "TvGuide"
     case Home = "Home"
     case Notifications = "Notifications"
@@ -46,6 +48,7 @@ enum StoryBoardIdentifier : String{
     case Search = "Search"
     case AddToEscape = "AddToEscape"
     case GenericLists = "GenericLists"
+
 }
 enum LoginTypeEnum : String {
     case Facebook = "fb"
@@ -84,6 +87,13 @@ enum GuideItemType: Int {
     case maybeSeen = 1
     case userStory = 2
     case showDiscoverNow = 3
+}
+
+enum ListingItemType: Int {
+    case showLoading = -1
+    case listingDays = 0
+    case mediaList = 1
+    case pickChannel = 2
 }
 
 enum EscapeType: String {
@@ -148,6 +158,10 @@ enum NotificationObservers: String {
     case HomeClickObserver =  "HomeClickObserver"
     case TvGuideDataObserver = "TvGuideDataObserver"
     case TvGuideItemDataObserver = "kGuideItemDataNotification"
+    case ListingsDataObserver = "ListingsDataObserver"
+    case FullListingsDataObserver = "FullListingsDataObserver"
+    case ListingsChannelDataObserver = "ListingsChannelDataObserver"
+    case ListingMediaItemsObserver = "ListingsMediaItemsObserver"
 }
 enum StoryType : NSNumber {
     case emptyStory = -1
@@ -220,7 +234,7 @@ enum EventName:String {
     
     case TrackerTabClick = "Tracker_Tab_Click"
     case OpenTrackedItem = "Open_Tracked_Item"
-    case TopChartsTabClick = "Top_Charts_Tab_Click"
+    case ListingsTabClick = "Listings_Tab_Click"
     
     case GuideTabClick = "Guide_Tab_Click"
     case SearchTabClick = "Search_Tab_Click"
@@ -246,5 +260,11 @@ enum EventName:String {
     case SeeAirtimesClick = "Item_AirTime"
     case SeeImdbDetailsClick = "IMDb_Details"
     
-    case WhereToStreamClick = "Where_To_Stream_Click"
+    
+    case ViewingOptionsClick = "Viewing_Options_Click"
+    case MediaViewOptionsListOpen = "Viewing_Options_List_Page_Open"
+    case ViewingOptionSelected = "Viewing_Option_Selected"
+    
+    case NotificationPermissionProvided = "Notification_Permission_Provided"
+    
 }

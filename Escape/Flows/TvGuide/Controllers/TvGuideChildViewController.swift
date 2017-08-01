@@ -9,6 +9,12 @@
 import UIKit
 import SpaceView
 
+
+enum TvGuideCellIdentifier: String {
+    case MediaListCellIdentifier = "MediaListCell"
+
+}
+
 class TvGuideChildViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -21,7 +27,7 @@ class TvGuideChildViewController: UIViewController {
     var lastScrollValue:CGFloat = 0.0
 
     
-    var cardsTypeArray: [CellIdentifierMyAccount] = [.FBFriends, .PlaceHolder, .AddToEscape, .DiscoverNow]
+    var cardsTypeArray: [TvGuideCellIdentifier] = [.MediaListCellIdentifier]
     
     
     // For Analytics
@@ -167,7 +173,7 @@ extension TvGuideChildViewController: UITableViewDataSource {
                 
             }
         }
-        return 370
+        return 330
     }
     
     
@@ -213,8 +219,8 @@ extension TvGuideChildViewController: UITableViewDataSource {
             }
         } else {
             
+            let cell = tableView.dequeueReusableCell(withIdentifier: TvGuideCellIdentifier.MediaListCellIdentifier.rawValue, for: indexPath) as! CustomListTableViewCell
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "escapesSectionHorizontalidentifier") as! CustomListTableViewCell
             cell.viewAllTapDelegate = self
             if let cellTitle = selectedProfileItem.title {
                 cell.cellTitleLabel.text = cellTitle
@@ -274,7 +280,7 @@ extension TvGuideChildViewController : UICollectionViewDelegate , UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewBasicCell", for: indexPath) as! CustomListCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MediaItemCollectionViewCell", for: indexPath) as! CustomListCollectionViewCell
         
         
         let item = guideItems[collectionView.tag].escapeDataList

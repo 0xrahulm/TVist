@@ -23,33 +23,35 @@ final class EscapeItem: Object {
     
     var isTracking:Bool = false
     
+    var nextAirtime: Airtime?
+    
     override static func primaryKey() -> String? {
         return "id"
     }
     
     override static func ignoredProperties() -> [String] {
-        return ["isTracking"]
+        return ["isTracking", "nextAirtime"]
     }
     
-    class func addOrEditEscapeItem(_ id: String, name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?, _realm: Realm?) -> EscapeItem {
+    class func addOrEditEscapeItem(_ id: String, name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?, _realm: Realm?, nextAirtime: [String:Any]?) -> EscapeItem {
         
         if let _realm = _realm, let escapeItem =  _realm.object(ofType: EscapeItem.self, forPrimaryKey: id) {
             
             
-            escapeItem.updateEscapeName(name, escapeType: escapeType, posterImage: posterImage, year: year, rating: rating, subTitle: subTitle, createdBy: createdBy)
+            escapeItem.updateEscapeName(name, escapeType: escapeType, posterImage: posterImage, year: year, rating: rating, subTitle: subTitle, createdBy: createdBy, nextAirtime: nextAirtime)
             return escapeItem
         } else {
             
             let escapeItem = EscapeItem()
             escapeItem.id   = id
             
-            escapeItem.updateEscapeName(name, escapeType: escapeType, posterImage: posterImage, year: year, rating: rating, subTitle: subTitle, createdBy: createdBy)
+            escapeItem.updateEscapeName(name, escapeType: escapeType, posterImage: posterImage, year: year, rating: rating, subTitle: subTitle, createdBy: createdBy, nextAirtime: nextAirtime)
             return escapeItem
         }
         
     }
     
-    func updateEscapeName(_ name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?) {
+    func updateEscapeName(_ name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?, nextAirtime: [String:Any]?) {
         
         
         self.name = name
@@ -64,6 +66,10 @@ final class EscapeItem: Object {
         
         if let rating = rating {
             self.rating = String(format: "%.1f", rating.floatValue)
+        }
+        
+        if let nextAirtime = nextAirtime {
+            self.nextAirtime = Airtime.createAirtime(nextAirtime)
         }
     }
     

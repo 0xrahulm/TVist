@@ -32,6 +32,7 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
         setAppearnce()
         // Do any additional setup after loading the view.
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -45,17 +46,17 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
     
     
     func tabViewSetupWithTitle(title: String) {
-        var normalImage:String = ion_ios_paper_outline
-        var selectedImage:String = ion_ios_paper
+        var normalImage:String = ion_ios_book_outline
+        var selectedImage:String = ion_ios_book
         
         if title == "Guide" {
             // nothing to do
         } else if title == "Search" {
             selectedImage = ion_ios_search
             normalImage = ion_ios_search
-        } else if title == "Top Charts" {
-            selectedImage = ion_ios_list
-            normalImage = ion_ios_list_outline
+        } else if title == "Tv Listings" {
+            selectedImage = ion_ios_monitor
+            normalImage = ion_ios_monitor_outline
         } else if title == "Tracker" {
             selectedImage = ion_ios_timer_outline
             normalImage = ion_ios_timer_outline

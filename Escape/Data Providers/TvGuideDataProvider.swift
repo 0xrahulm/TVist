@@ -31,6 +31,12 @@ class TvGuideDataProvider: CommonDataProvider {
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetGuideItem, params: params, delegate: self)
     }
     
+    func fetchViewingOptions(viewingOptionType: ViewingOptionType, escapeId: String) {
+        let params: [String: Any] = ["escape_id": escapeId, "type": viewingOptionType.rawValue]
+        
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetViewingOptions, params: params, delegate: self)
+    }
+    
     
     override func serviceSuccessfull(_ service: Service) {
         
@@ -44,6 +50,9 @@ class TvGuideDataProvider: CommonDataProvider {
                 if let params = service.parameters {
                     parseGuideItemData(guideItemData: service.outPutResponse as? [String:AnyObject], page: params["page"] as? Int)
                 }
+                break
+            case .GetViewingOptions:
+                
                 break
             default: break
             }
@@ -64,6 +73,7 @@ class TvGuideDataProvider: CommonDataProvider {
     }
     
     //MARK:- Parsers
+    
     
     func parseGuideListData(guideData: [String:AnyObject]?) {
         

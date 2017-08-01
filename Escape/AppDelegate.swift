@@ -14,12 +14,12 @@ import Flurry_iOS_SDK
 import Fabric
 import Crashlytics
 import AWSCognito
-import AppsFlyerLib
 import Mixpanel
 import iAd
+import Tune
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, TuneDelegate {
 
     var window: UIWindow?
 
@@ -45,10 +45,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate 
         
         setGlobalAppearance()
         Fabric.with([Crashlytics.self, AWSCognito.self])
+    
+        Tune.initialize(withTuneAdvertiserId: "197120", tuneConversionKey: "22f80f1d477a03462d017b5d44c43700")
         
-        AppsFlyerTracker.shared().appleAppID = "1232203457"
-        AppsFlyerTracker.shared().appsFlyerDevKey = "tGbrHn3epJ6ZtihdgK2xhY"
-        AppsFlyerTracker.shared().delegate = self
+        Tune.registerDeeplinkListener(self)
     
         //STAGING TOKENS
         var mixPanelToken = "eb64f6d436ffe1c7300fb55608da3848"
@@ -111,9 +111,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate 
 
 
                             Mixpanel.mainInstance().registerSuperProperties(superProperties)
+                        } else {
+                            
+                            var superProperties:Properties = [:]
+                            superProperties["campaign"] = "organic"
+                            superProperties["media_source"] = "organic"
+                            Mixpanel.mainInstance().registerSuperProperties(superProperties)
                         }
                     }
                 }
+            } else {
+                var superProperties:Properties = [:]
+                
+                if let localizedDescription = error?.localizedDescription {
+                    superProperties["attribution-error"] = localizedDescription
+                }
+                
+                Mixpanel.mainInstance().registerSuperProperties(superProperties)
             }
         
         }
@@ -138,10 +152,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate 
                 
                 Mixpanel.mainInstance().registerSuperProperties(superProperties)
             } else if status == "Organic" {
-                var superProperties:Properties = [:]
-                superProperties["campaign"] = "organic"
-                superProperties["media_source"] = "organic"
-                Mixpanel.mainInstance().registerSuperProperties(superProperties)
             }
         }
         
@@ -151,6 +161,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate 
         if let scheme = url.scheme, scheme == "mizzle" {
             ScreenVader.sharedVader.processDeepLink(url.absoluteString, shouldAddToPending: !self.initializedOnce)
         }
+        
+            
+        let optionsStr:[String:Any] = [UIApplicationOpenURLOptionsKey.annotation.rawValue:options[UIApplicationOpenURLOptionsKey.annotation] ?? "", UIApplicationOpenURLOptionsKey.openInPlace.rawValue:options[UIApplicationOpenURLOptionsKey.openInPlace] ?? "", UIApplicationOpenURLOptionsKey.sourceApplication.rawValue:options[UIApplicationOpenURLOptionsKey.sourceApplication] ?? ""]
+        
+        Tune.handleOpen(url, options: optionsStr)
+        
         
         return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
     }
@@ -185,7 +201,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         FBSDKAppEvents.activateApp()
-        AppsFlyerTracker.shared().trackAppLaunch()
+        Tune.measureSession()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -196,7 +212,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate 
     // MARK :- Push Notification stack
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        // MixPanel Notification Setup
+        Mixpanel.mainInstance().people.addPushDeviceToken(deviceToken)
+        
         // Convert token to string
+        
         let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         
         // Print it to console
@@ -222,6 +243,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AppsFlyerTrackerDelegate 
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -500,vertical: 0), for: .default)
         
     }
+    
+    func tuneDidReceiveDeeplink(_ deeplink: String!) {
+        
+        if let url = URL(string: deeplink) {
+            if let scheme = url.scheme, scheme == "mizzle" {
+                ScreenVader.sharedVader.processDeepLink(url.absoluteString, shouldAddToPending: !self.initializedOnce)
+            }
+        }
+    }
+    
+    func tuneDidFailWithError(_ error: Error!) {
+        
+    }
+    
+    
 
 }
 

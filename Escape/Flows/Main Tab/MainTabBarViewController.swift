@@ -10,16 +10,16 @@ import UIKit
 
 let kMainTabsCount = 5
 enum MainTabIndex {
-    case Guide, Tracker, TopCharts, Search, Watchlist
+    case Guide, Tracker, Listings, Search, Watchlist
     
     var index:Int {
         
         switch self {
-        case .Guide:
+        case .Listings:
             return 0
         case .Tracker:
             return 1
-        case .TopCharts:
+        case .Guide:
             return 2
         case .Search:
             return 3
@@ -43,8 +43,8 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         if MainTabIndex.Tracker.index == index {
             return .Tracker
         }
-        if MainTabIndex.TopCharts.index == index {
-            return .TopCharts
+        if MainTabIndex.Listings.index == index {
+            return .Listings
         }
         if MainTabIndex.Search.index == index {
             return .Search
@@ -62,7 +62,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         super.init(coder: aDecoder)
         
         UITabBar.appearance().shadowImage = UIImage()
-        
+        self.view.backgroundColor = UIColor.white
         setupViewControllers()
     }
     
@@ -71,7 +71,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         
         
         let searchViewController = initialViewControllerFor(.Search) as! CustomNavigationViewController
-        let discoverViewController = initialViewControllerFor(.Discover) as! CustomNavigationViewController
+        let discoverViewController = initialViewControllerFor(.Listings) as! CustomNavigationViewController
         let homeViewController = initialViewControllerFor(.TvGuide) as! CustomNavigationViewController
         let trackerViewController = initialViewControllerFor(.Tracker) as! CustomNavigationViewController
         let myAccountViewController = initialViewControllerFor(.MyAccount) as! CustomNavigationViewController
@@ -81,7 +81,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         
         orderedViewControllers[MainTabIndex.Guide.index] = homeViewController
         orderedViewControllers[MainTabIndex.Tracker.index] = trackerViewController
-        orderedViewControllers[MainTabIndex.TopCharts.index] = discoverViewController
+        orderedViewControllers[MainTabIndex.Listings.index] = discoverViewController
         orderedViewControllers[MainTabIndex.Search.index] = searchViewController
         orderedViewControllers[MainTabIndex.Watchlist.index] = myAccountViewController
         
@@ -152,8 +152,8 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
                     case .Search:
                         AnalyticsVader.sharedVader.basicEvents(eventName: .SearchTabClick)
                         break
-                    case .TopCharts:
-                        AnalyticsVader.sharedVader.basicEvents(eventName: .TopChartsTabClick)
+                    case .Listings:
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsTabClick)
                         break
                     case .Tracker:
                         AnalyticsVader.sharedVader.basicEvents(eventName: .TrackerTabClick)

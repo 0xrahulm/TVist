@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,16 +20,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="Jd6-MH-5Pm">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Vb-rC-b56">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items/>
+                            </tabBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Jd6-MH-5Pm" secondAttribute="trailing" id="BQm-0p-W91"/>
-                            <constraint firstItem="Jd6-MH-5Pm" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="X7C-Rf-FC9"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Jd6-MH-5Pm" secondAttribute="bottom" id="gVc-0c-1xQ"/>
-                            <constraint firstItem="Jd6-MH-5Pm" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="xAN-4i-QWY"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="5Vb-rC-b56" secondAttribute="bottom" id="4h0-ml-3Qo"/>
+                            <constraint firstAttribute="trailing" secondItem="5Vb-rC-b56" secondAttribute="trailing" id="VpW-XG-1B3"/>
+                            <constraint firstItem="5Vb-rC-b56" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="WrG-jk-1Op"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -39,7 +39,4 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="launch" width="375" height="667"/>
-    </resources>
 </document>

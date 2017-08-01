@@ -10,7 +10,7 @@ import UIKit
 
 enum ServiceType : String {
     case ServiceTypePrivateApi="https://api.mizzleapp.com/api/"
-//    case ServiceTypePrivateApi="http://04bb61e2.ngrok.io/api/"
+//    case ServiceTypePrivateApi="https://750cec43.ngrok.io/api/"
     
 }
 
@@ -54,6 +54,7 @@ enum SubServiceType : String {
     //TV Guide
     case GetGuideList     =  "guide/list"
     case GetGuideItem     =  "guide/item"
+    case GetViewingOptions = "escapes/viewing_options"
     
     //Home
     case GetUserStory       =  "get_user_stories"
@@ -70,7 +71,7 @@ enum SubServiceType : String {
     
     
     //Search
-    case GetSearchItems = "search_v2"
+    case GetSearchItems = "search_v3"
     case GetSearchItemsNoAuth = "search/no_auth"
     
     //Notification
@@ -80,6 +81,11 @@ enum SubServiceType : String {
     case UserTrackings = "user/trackings"
     case RemoveUserTracking = "user/trackings/remove"
     
+    case Listings = "listings"
+    case CategoryChannels = "category/channels"
+    case ChannelListings = "channels/listing"
+    case ListingCategories = "categories"
+    case FullListings = "full_listings"
     
 }
 

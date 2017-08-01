@@ -28,7 +28,6 @@ class TvGuideViewController: UIViewController {
 
         setupSearchBar()
         
-        
         for eachItem in listOfItemType {
             addChildVC(type: eachItem)
         }
