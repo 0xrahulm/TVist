@@ -35,6 +35,7 @@ class FullListingsViewController: UIViewController {
     
     @IBOutlet weak var stackView: UIStackView!
     
+    var storedOffsets = [Int: CGFloat]()
     
     var channelListings: [ChannelListing] = []
     
@@ -47,6 +48,8 @@ class FullListingsViewController: UIViewController {
     var channelsList:[TvChannel] = []
     
     let listingData = ListingsDataProvider.shared
+    
+    let letters = (0..<26).map({Character(UnicodeScalar("a".unicodeScalars.first!.value + $0)!)})
     
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         super.setObjectsWithQueryParameters(queryParams)
@@ -98,6 +101,7 @@ class FullListingsViewController: UIViewController {
         }
         categoryDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.updateSelectedCategory(index: index)
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.FullListingsCategorySelected, properties: ["CategoryName": item])
         }
         
     }
@@ -139,6 +143,8 @@ class FullListingsViewController: UIViewController {
             channelSelectionDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
                 self.channelSelectionButton.setTitle(item, for: .normal)
                 self.updateSelectedChannel(index: index)
+                
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.FullListingsChannelSelected, properties: ["ChannelName": item])
             }
             
         } else {
@@ -188,10 +194,25 @@ class FullListingsViewController: UIViewController {
     func receivedListData(_ notification:Notification) {
         if let userInfo = notification.userInfo {
             if let listData = userInfo["data"] as? [ChannelListing] {
-                
-                channelListings.append(contentsOf: listData)
-                tableView.reloadData()
-                loadingView.stopAnimating()
+                if let page = userInfo["page"] as? Int, page == nextPage {
+                    
+                    
+                    if resetFlag {
+                        resetFlag = false
+                        channelListings = []
+                    }
+                    
+                    channelListings.append(contentsOf: listData)
+                    nextPage += 1
+                    if channelListings.count < DataConstants.kFullListingsSize {
+                        fullDataLoaded = true
+                    }
+                    
+                    tableView.reloadData()
+                    loadingView.stopAnimating()
+                    
+                    fetchingData = false
+                }
             }
         }
     }
@@ -209,10 +230,12 @@ class FullListingsViewController: UIViewController {
     }
     
     @IBAction func categoryButtonTap(sender: UIButton) {
+        AnalyticsVader.sharedVader.basicEvents(eventName: .FullListingsCategoryDropdownClick)
         categoryDropDown.show()
     }
     
     @IBAction func channelButtonTap(sender: UIButton) {
+        AnalyticsVader.sharedVader.basicEvents(eventName: .FullListingsChannelDropdownClick)
         channelSelectionDropDown.show()
     }
     
@@ -227,9 +250,46 @@ class FullListingsViewController: UIViewController {
         }
     }
     
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > ((scrollView.frame.height - scrollView.contentSize.height)*0.80) {
+            loadNexPage()
+        }
+    }
+    
+    
     func fetchRequest() {
         if let startTime = self.startTime {
             listingData.fetchFullListings(startTime: startTime, endTime: self.endTime, channel: self.selectedChannel, isToday: self.isTodayFlag, page: nextPage)
+        }
+    }
+    
+    
+    func didTapOnDate(_ sender: AnyObject) {
+        if let dateGesture = sender as? UITapGestureRecognizer {
+            if let dateView = dateGesture.view {
+                
+                
+                self.selectedListDate = listingData.listingDates[dateView.tag]
+                
+                for (index, listingDate) in listingData.listingDates.enumerated() {
+                
+                    if let listingDateView = self.stackView.arrangedSubviews[index] as? ListDateView {
+                    
+                        if let selectedListDate = selectedListDate {
+                            if let dateLabel = selectedListDate.label, let dateString = selectedListDate.dateString {
+                                AnalyticsVader.sharedVader.basicEvents(eventName: .FullListingsDateClick, properties: ["label": dateLabel, "dateString":dateString])
+                            }
+                            listingDateView.setSelected(selected: listingDate.startTime == selectedListDate.startTime)
+                        } else {
+                            listingDateView.setSelected(selected: false)
+                        }
+                    }
+                }
+                
+                listDateChange()
+                reset()
+            }
         }
     }
     
@@ -237,8 +297,18 @@ class FullListingsViewController: UIViewController {
         for (index, listingDate) in listingDates.enumerated() {
             
             if let listingDateView = self.stackView.arrangedSubviews[index] as? ListDateView {
+                
+                if let selectedListDate = selectedListDate {
+                    listingDateView.setSelected(selected: listingDate.startTime == selectedListDate.startTime)
+                } else {
+                    listingDateView.setSelected(selected: false)
+                }
                 listingDateView.dateLabel.text = listingDate.dateString
                 listingDateView.daysLabel.text = listingDate.label
+                
+                
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FullListingsViewController.didTapOnDate(_:)))
+                listingDateView.addGestureRecognizer(tapGesture)
             }
         }
     }
@@ -255,8 +325,8 @@ extension FullListingsViewController: UITableViewDataSource, UITableViewDelegate
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: ListingsCellIdentifier.ChannelListingCell.rawValue, for: indexPath) as? ChannelListingCell {
             cell.cellTitleLabel.text = channelList.channel.name
-            cell.channelImageView.downloadImageWithUrl(channelList.channel.imageUrl, placeHolder: IonIcons.image(withIcon: ion_ios_monitor, size: kDefaultIconSize, color: UIColor.buttonGrayColor()))
-            
+            cell.channelImageView.downloadImageWithUrl(channelList.channel.imageUrl, placeHolder: IconsUtility.airtimeIcon())
+            cell.viewAllTapDelegate = self
             return cell
         }
         
@@ -264,16 +334,25 @@ extension FullListingsViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 330
+        return DataConstants.kHeightForDefaultMediaList + 10
     }
     
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        guard let tableViewCell = cell as? ChannelListingCell else{
+        guard let tableViewCell = cell as? CustomListTableViewCell else{
             return
         }
         tableViewCell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.row)
+        
+        tableViewCell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let tableViewCell = cell as? CustomListTableViewCell else { return }
+        
+        storedOffsets[indexPath.row] = tableViewCell.collectionViewOffset
     }
 }
 
@@ -297,9 +376,13 @@ extension FullListingsViewController : UICollectionViewDelegate , UICollectionVi
                 
                 var params : [String:AnyObject] = [:]
                 
-                params["escapeItem"] = data[indexPath.row]
                 
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+                if let escapeItem = EscapeItem.createWithMediaItem(mediaItem: data[indexPath.row].mediaItem) {
+                    
+                    params["escapeItem"] = escapeItem
+                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.FullListingsItemClick, properties: ["Grid":"\(letters[indexPath.row])_\(collectionView.tag+1)", "ItemName":escapeItem.name])
+                    ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+                }
             }
             
         }
@@ -317,8 +400,35 @@ extension FullListingsViewController : UICollectionViewDelegate , UICollectionVi
         
         let item = channelListings[collectionView.tag].programListings
         cell.mediaItem = item[indexPath.row]
-//        cell.primaryCTADelegate = self
+        cell.trackPosition = "Full Listings"
+//       cell.primaryCTADelegate = self
         cell.parentCollectionView = collectionView
         return cell
+    }
+}
+
+extension FullListingsViewController: ViewAllTapProtocol {
+    
+    func viewAllTappedIn(_ cell: UITableViewCell) {
+        if let indexPath = self.tableView.indexPath(for: cell) {
+            let item = channelListings[indexPath.row]
+            
+            var params:[String: Any] = ["listingItem":item]
+            
+            if let startDate = self.startTime {
+                params["startDate"] = startDate
+            }
+            
+            if let endDate = self.endTime {
+                params["endDate"] = endDate
+            }
+            
+            params["isToday"] = self.isTodayFlag
+            if let channelName = item.channel.name {
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.FullListingsSectionViewAllClick, properties: ["Row":"\(indexPath.row+1)", "ChannelName":channelName])
+            }
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenChannelListingView, queryParams: params)
+            
+        }
     }
 }

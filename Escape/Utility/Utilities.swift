@@ -31,15 +31,7 @@ func suffixNumber(_ number:NSNumber) -> String {
 
 extension UITableView{
     func reloadDataAnimated(){
-        
-        UIView.transition(with: self,
-                                  duration:0.25,
-                                  options:.transitionCrossDissolve,
-                                  animations:
-            { () -> Void in
-                self.reloadData()
-            },
-                                  completion: nil);
+        self.reloadData()
     }
 }
 

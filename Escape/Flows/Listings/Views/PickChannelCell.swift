@@ -10,6 +10,13 @@ import UIKit
 
 
 let kListingMediaDetailsCell = "ListingMediaDetailsCell"
+let kShowMoreTableViewCell = "ShowMoreTableViewCell"
+
+let kDefaultVisibleLimit:Int = 4
+
+protocol PickerResizeProtocol: class {
+    func pickerResize(count: Int)
+}
 
 class PickChannelCell: UITableViewCell {
 
@@ -26,8 +33,11 @@ class PickChannelCell: UITableViewCell {
     
     var selectedChannel: TvChannel?
     
+    var pickerResizeDelegate: PickerResizeProtocol?
+    
     var listingsData: [TvChannel:[ListingMediaItem]] = [:]
     
+    var visibleItemsLimit:Int = kDefaultVisibleLimit
     
     var updatedOnce: Bool = false
     
@@ -55,6 +65,8 @@ class PickChannelCell: UITableViewCell {
         if !updatedOnce {
             
             listingsTableView.register(UINib(nibName: kListingMediaDetailsCell, bundle: nil), forCellReuseIdentifier: kListingMediaDetailsCell)
+            listingsTableView.register(UINib(nibName: kShowMoreTableViewCell, bundle: nil), forCellReuseIdentifier: kShowMoreTableViewCell)
+            
             
             NotificationCenter.default.addObserver(self, selector: #selector(PickChannelCell.receivedChannelData(_:)), name: NSNotification.Name(rawValue: NotificationObservers.ListingsChannelDataObserver.rawValue), object: nil)
             
@@ -88,6 +100,9 @@ class PickChannelCell: UITableViewCell {
         
         
         if let userInfo = notification.userInfo {
+            if let _ = userInfo["page"] as? Int { // Paginated data not required
+                return
+            }
             if let listData = userInfo["data"] as? [ListingMediaItem], let channelId = userInfo["channel_id"] as? String {
                 
                 if let channelItem = channelById(id: channelId) {
@@ -133,7 +148,7 @@ class PickChannelCell: UITableViewCell {
                 return channelData
             } else {
                 listingsActivityIndicator.startAnimating()
-                listingData.fetchListingsForChannel(channel: selectedChannel)
+                listingData.fetchListingsForChannel(channel: selectedChannel, startTime: nil, endTime: nil, page: nil, isToday: true)
             }
         }
         
@@ -142,7 +157,8 @@ class PickChannelCell: UITableViewCell {
     
     @IBAction func allChannelsTapped(sender: UIButton) {
         if let listingDate = listingData.listingDates.first {
-            ScreenVader.sharedVader.performScreenManagerAction(.OpenFullListingsView, queryParams: ["selectedListingDate": listingDate])
+            AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsAllChannelsClick)
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenFullListingsView, queryParams: ["selectedListDate": listingDate])
         }
     }
     
@@ -150,17 +166,51 @@ class PickChannelCell: UITableViewCell {
 
 extension PickChannelCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        
+        if visibleItemsLimit == kDefaultVisibleLimit && indexPath.row >= (kDefaultVisibleLimit-1) {
+            return 50
+        }
+        return 140
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if visibleItemsLimit == kDefaultVisibleLimit && indexPath.row >= (kDefaultVisibleLimit-1) {
+            visibleItemsLimit = selectedChannelData().count
+            listingsTableView.reloadData()
+            
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsChannelViewAllClick)
+            if let pickerResizeDelegate = self.pickerResizeDelegate {
+                pickerResizeDelegate.pickerResize(count: visibleItemsLimit)
+            }
+            
+            return
+        }
+        
+        let listingMediaItem = selectedChannelData()[indexPath.row]
+        
+        if let escapeItem = EscapeItem.createWithMediaItem(mediaItem: listingMediaItem.mediaItem) {
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsChannelItemClick, properties: ["Position": "\(indexPath.row+1)", "ItemName": escapeItem.name])
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: ["escapeItem":escapeItem])
+        }
     }
 }
 
 extension PickChannelCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var totalCount = selectedChannelData().count
+        if visibleItemsLimit == kDefaultVisibleLimit && totalCount > 0 {
+            totalCount = visibleItemsLimit
+        }
         
-        return selectedChannelData().count
+        return totalCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if visibleItemsLimit == kDefaultVisibleLimit && indexPath.row >= (kDefaultVisibleLimit-1) {
+            return tableView.dequeueReusableCell(withIdentifier: kShowMoreTableViewCell, for: indexPath) as! ShowMoreTableViewCell
+        }
+        
         
         let listingMediaItem = selectedChannelData()[indexPath.row]
         
@@ -173,12 +223,15 @@ extension PickChannelCell: UITableViewDataSource {
         
         return UITableViewCell()
     }
+    
+    
 }
 
 extension PickChannelCell: CategoryPickerProtocol {
     func didTapOnItemAtIndex(_ index: Int) {
         listingData.categorySelectedIndex = index
         channelsForCategory(index: index)
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsChannelCategoryClick, properties: ["Position": "\(index+1)"])
     }
 }
 

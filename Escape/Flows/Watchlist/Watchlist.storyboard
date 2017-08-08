@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AfH-bo-Lt4">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-UI-Display-Medium.ttf">
+            <string>SFUIDisplay-Medium</string>
+        </array>
+        <array key="SF-UI-Display-Regular.ttf">
+            <string>SFUIDisplay-Regular</string>
+        </array>
+        <array key="SF-UI-Display-Semibold.ttf">
+            <string>SFUIDisplay-Semibold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Watchlist-->
+        <scene sceneID="VLd-8N-afE">
+            <objects>
+                <navigationController title="Watchlist" navigationBarHidden="YES" id="AfH-bo-Lt4" customClass="CustomNavigationViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="X85-rT-z4G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Ht9-eT-YkA" kind="relationship" relationship="rootViewController" id="cMQ-Nf-bFZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T0n-jO-FIJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-296" y="127"/>
+        </scene>
+        <!--Watchlist View Controller-->
+        <scene sceneID="dyb-n5-c84">
+            <objects>
+                <viewController id="Ht9-eT-YkA" customClass="WatchlistViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Iip-5t-f5Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="eVy-jt-fLY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DTu-L4-pl0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NoW-HQ-zUH">
+                                <rect key="frame" x="26" y="103" width="323" height="29"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Television"/>
+                                    <segment title="Movies"/>
+                                </segments>
+                                <color key="tintColor" red="1" green="0.2470588235" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="segmentValueChangedWithSender:" destination="Ht9-eT-YkA" eventType="valueChanged" id="Yxs-0h-eYL"/>
+                                </connections>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qgj-QY-LSx" customClass="UserDetailView" customModule="Mizzle" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="93"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="etg-Zb-srH">
+                                        <rect key="frame" x="10" y="35" width="44" height="44"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="F9H-nZ-FnI"/>
+                                            <constraint firstAttribute="height" constant="44" id="cu1-DN-ka4"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="22"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jkJ-hZ-3GG" userLabel="bottom">
+                                        <rect key="frame" x="0.0" y="92" width="375" height="1"/>
+                                        <color key="backgroundColor" red="0.70196078429999997" green="0.70196078429999997" blue="0.70196078429999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="T2y-hX-MyG"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Rahul Meena" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpE-Ox-7fR">
+                                        <rect key="frame" x="64" y="37" width="208" height="20"/>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="17"/>
+                                        <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watchlist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBJ-rK-hVG">
+                                        <rect key="frame" x="64" y="60" width="59.5" height="18"/>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="15"/>
+                                        <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6To-x1-EBS">
+                                        <rect key="frame" x="131" y="61" width="9" height="19"/>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="16"/>
+                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLv-dF-Rgg">
+                                        <rect key="frame" x="277" y="37" width="90" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="hAP-3W-Blk"/>
+                                            <constraint firstAttribute="height" constant="35" id="xdf-nM-dOU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="15"/>
+                                        <state key="normal" title="Register now">
+                                            <color key="titleColor" red="1" green="0.2470588235" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="signUpButtonTapped" destination="Qgj-QY-LSx" eventType="touchUpInside" id="Eh6-WY-uwL"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="QLv-dF-Rgg" firstAttribute="top" secondItem="bpE-Ox-7fR" secondAttribute="top" id="5fg-nT-FQy"/>
+                                    <constraint firstItem="6To-x1-EBS" firstAttribute="leading" secondItem="aBJ-rK-hVG" secondAttribute="trailing" constant="7.5" id="EUd-SY-5kn"/>
+                                    <constraint firstAttribute="trailing" secondItem="QLv-dF-Rgg" secondAttribute="trailing" constant="8" id="FrN-Cw-IOh"/>
+                                    <constraint firstAttribute="trailing" secondItem="jkJ-hZ-3GG" secondAttribute="trailing" id="HSh-KY-bMQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="aBJ-rK-hVG" secondAttribute="bottom" constant="15" id="HcK-nH-WEm"/>
+                                    <constraint firstItem="bpE-Ox-7fR" firstAttribute="leading" secondItem="etg-Zb-srH" secondAttribute="trailing" constant="10" id="Ikj-n6-AOW"/>
+                                    <constraint firstItem="bpE-Ox-7fR" firstAttribute="top" secondItem="etg-Zb-srH" secondAttribute="top" constant="2" id="OZz-k1-Emj"/>
+                                    <constraint firstItem="aBJ-rK-hVG" firstAttribute="top" secondItem="bpE-Ox-7fR" secondAttribute="bottom" constant="3" id="Qlx-1q-RlX"/>
+                                    <constraint firstItem="jkJ-hZ-3GG" firstAttribute="leading" secondItem="Qgj-QY-LSx" secondAttribute="leading" id="RRY-Kj-EsW"/>
+                                    <constraint firstItem="QLv-dF-Rgg" firstAttribute="leading" secondItem="bpE-Ox-7fR" secondAttribute="trailing" constant="5" id="Rro-As-WYv"/>
+                                    <constraint firstAttribute="bottom" secondItem="jkJ-hZ-3GG" secondAttribute="bottom" id="SAI-ma-PUo"/>
+                                    <constraint firstItem="aBJ-rK-hVG" firstAttribute="leading" secondItem="bpE-Ox-7fR" secondAttribute="leading" id="c7o-MT-8x3"/>
+                                    <constraint firstItem="etg-Zb-srH" firstAttribute="top" secondItem="Qgj-QY-LSx" secondAttribute="top" constant="35" id="d5L-l6-W3e"/>
+                                    <constraint firstItem="etg-Zb-srH" firstAttribute="leading" secondItem="Qgj-QY-LSx" secondAttribute="leading" constant="10" id="nAH-xU-8i9"/>
+                                    <constraint firstItem="6To-x1-EBS" firstAttribute="centerY" secondItem="aBJ-rK-hVG" secondAttribute="centerY" constant="1" id="ocB-Rs-u7j"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="actionCountLabel" destination="6To-x1-EBS" id="AyT-n0-N2T"/>
+                                    <outlet property="actionNameLabel" destination="aBJ-rK-hVG" id="FEO-3z-oPU"/>
+                                    <outlet property="fullNameLabel" destination="bpE-Ox-7fR" id="XJE-DF-Ws2"/>
+                                    <outlet property="profileImageView" destination="etg-Zb-srH" id="qw4-KF-zXA"/>
+                                    <outlet property="signInButton" destination="QLv-dF-Rgg" id="jvw-yA-vi8"/>
+                                    <outlet property="signInButtonHeightConstraint" destination="xdf-nM-dOU" id="d2L-Uu-dHl"/>
+                                    <outlet property="signInButtonWidthConstraint" destination="hAP-3W-Blk" id="qVm-tl-6mb"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t4s-pQ-QNC">
+                                <rect key="frame" x="0.0" y="141" width="375" height="526"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NoW-HQ-zUH" firstAttribute="leading" secondItem="DTu-L4-pl0" secondAttribute="leadingMargin" constant="10" id="JVC-kg-mKL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="NoW-HQ-zUH" secondAttribute="trailing" constant="10" id="Lup-qF-6E2"/>
+                            <constraint firstItem="Qgj-QY-LSx" firstAttribute="top" secondItem="DTu-L4-pl0" secondAttribute="topMargin" id="Nn2-sF-3ms"/>
+                            <constraint firstAttribute="trailing" secondItem="t4s-pQ-QNC" secondAttribute="trailing" id="Pev-BK-lg7"/>
+                            <constraint firstItem="NoW-HQ-zUH" firstAttribute="centerX" secondItem="DTu-L4-pl0" secondAttribute="centerX" id="QII-gR-ZH6"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="t4s-pQ-QNC" secondAttribute="bottom" id="Xph-fT-uhd"/>
+                            <constraint firstAttribute="trailing" secondItem="Qgj-QY-LSx" secondAttribute="trailing" id="beY-6d-I7f"/>
+                            <constraint firstItem="t4s-pQ-QNC" firstAttribute="top" secondItem="NoW-HQ-zUH" secondAttribute="bottom" constant="10" id="hpa-U6-krD"/>
+                            <constraint firstItem="NoW-HQ-zUH" firstAttribute="top" secondItem="Qgj-QY-LSx" secondAttribute="bottom" constant="10" id="iVc-GW-F1n"/>
+                            <constraint firstItem="t4s-pQ-QNC" firstAttribute="leading" secondItem="DTu-L4-pl0" secondAttribute="leading" id="xsp-N2-aJQ"/>
+                            <constraint firstItem="Qgj-QY-LSx" firstAttribute="leading" secondItem="DTu-L4-pl0" secondAttribute="leading" id="ziC-zf-xaD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="PTm-GV-ch0"/>
+                    <connections>
+                        <outlet property="containerView" destination="t4s-pQ-QNC" id="IxQ-JX-ezz"/>
+                        <outlet property="segmentedControl" destination="NoW-HQ-zUH" id="TDD-uw-7tf"/>
+                        <outlet property="userDetailView" destination="Qgj-QY-LSx" id="n2p-Df-Fe5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wgj-Vw-Nz0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="597.60000000000002" y="122.78860569715144"/>
+        </scene>
+        <!--Watchlist Child View Controller-->
+        <scene sceneID="sFY-OP-hho">
+            <objects>
+                <viewController storyboardIdentifier="watchlistChildVC" id="duJ-Yi-Xa7" customClass="WatchlistChildViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Jvy-x4-CrK"/>
+                        <viewControllerLayoutGuide type="bottom" id="KYB-JE-O5n"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zhK-p5-TPk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LmB-47-mem">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="duJ-Yi-Xa7" id="P5g-qe-ttI"/>
+                                    <outlet property="delegate" destination="duJ-Yi-Xa7" id="m89-6Y-Q60"/>
+                                </connections>
+                            </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r9B-h0-tju" userLabel="No Trackings View">
+                                <rect key="frame" x="16" y="212.5" width="343" height="262.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your favorite media to watchlist" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMP-RQ-GtV">
+                                        <rect key="frame" x="5" y="120" width="333" height="21.5"/>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="18"/>
+                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep an organised list of media you have watched and want to watch" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUS-iE-Euy">
+                                        <rect key="frame" x="0.0" y="151.5" width="343" height="41"/>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="17"/>
+                                        <color key="textColor" red="0.3294117647" green="0.30588235289999999" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="watchlistIcon" translatesAutoresizingMaskIntoConstraints="NO" id="cEG-Sr-4CT">
+                                        <rect key="frame" x="136.5" y="25" width="80" height="75"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDG-ry-imy">
+                                        <rect key="frame" x="96.5" y="207.5" width="150" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="1SC-3l-sgg"/>
+                                            <constraint firstAttribute="height" constant="45" id="22U-xb-aKz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="16"/>
+                                        <state key="normal" title="Add to watchlist now">
+                                            <color key="titleColor" red="1" green="0.2470588235" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tappedOnAddToWatchlistNowWithSender:" destination="duJ-Yi-Xa7" eventType="touchUpInside" id="g9r-BW-clU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="kDG-ry-imy" firstAttribute="top" secondItem="KUS-iE-Euy" secondAttribute="bottom" constant="15" id="0ow-2f-hJx"/>
+                                    <constraint firstItem="cEG-Sr-4CT" firstAttribute="centerX" secondItem="r9B-h0-tju" secondAttribute="centerX" constant="5" id="6gB-z3-k1N"/>
+                                    <constraint firstAttribute="bottom" secondItem="kDG-ry-imy" secondAttribute="bottom" constant="10" id="Ecl-Oy-ikX"/>
+                                    <constraint firstItem="PMP-RQ-GtV" firstAttribute="leading" secondItem="r9B-h0-tju" secondAttribute="leading" constant="5" id="J9e-3m-s9h"/>
+                                    <constraint firstItem="cEG-Sr-4CT" firstAttribute="top" secondItem="r9B-h0-tju" secondAttribute="top" constant="25" id="ac2-P3-GHw"/>
+                                    <constraint firstAttribute="trailing" secondItem="KUS-iE-Euy" secondAttribute="trailing" id="i8I-6f-lRD"/>
+                                    <constraint firstAttribute="trailing" secondItem="PMP-RQ-GtV" secondAttribute="trailing" constant="5" id="mew-g5-fVf"/>
+                                    <constraint firstItem="KUS-iE-Euy" firstAttribute="top" secondItem="PMP-RQ-GtV" secondAttribute="bottom" constant="10" id="qck-lR-MUc"/>
+                                    <constraint firstItem="PMP-RQ-GtV" firstAttribute="top" secondItem="cEG-Sr-4CT" secondAttribute="bottom" constant="20" id="tOf-1v-XZN"/>
+                                    <constraint firstItem="kDG-ry-imy" firstAttribute="centerX" secondItem="r9B-h0-tju" secondAttribute="centerX" id="utp-2j-JeL"/>
+                                    <constraint firstItem="PMP-RQ-GtV" firstAttribute="centerX" secondItem="r9B-h0-tju" secondAttribute="centerX" id="vRP-8X-QlM"/>
+                                    <constraint firstItem="KUS-iE-Euy" firstAttribute="leading" secondItem="r9B-h0-tju" secondAttribute="leading" id="xgs-Mp-cy5"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="n9M-CO-A8w">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="r9B-h0-tju" firstAttribute="leading" secondItem="zhK-p5-TPk" secondAttribute="leadingMargin" id="7p1-OD-i7q"/>
+                            <constraint firstItem="LmB-47-mem" firstAttribute="leading" secondItem="zhK-p5-TPk" secondAttribute="leading" id="9Hh-lw-smS"/>
+                            <constraint firstAttribute="trailing" secondItem="LmB-47-mem" secondAttribute="trailing" id="BFg-jl-kZ1"/>
+                            <constraint firstItem="r9B-h0-tju" firstAttribute="centerY" secondItem="LmB-47-mem" secondAttribute="centerY" id="GNG-sv-qPS"/>
+                            <constraint firstItem="LmB-47-mem" firstAttribute="top" secondItem="Jvy-x4-CrK" secondAttribute="bottom" id="TYk-TX-NaP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="r9B-h0-tju" secondAttribute="trailing" id="fn9-q7-3w1"/>
+                            <constraint firstItem="r9B-h0-tju" firstAttribute="centerX" secondItem="LmB-47-mem" secondAttribute="centerX" id="pNg-bk-1AI"/>
+                            <constraint firstItem="n9M-CO-A8w" firstAttribute="centerX" secondItem="zhK-p5-TPk" secondAttribute="centerX" id="pUu-Lm-IoY"/>
+                            <constraint firstItem="n9M-CO-A8w" firstAttribute="centerY" secondItem="zhK-p5-TPk" secondAttribute="centerY" id="rnP-iq-jza"/>
+                            <constraint firstItem="KYB-JE-O5n" firstAttribute="top" secondItem="LmB-47-mem" secondAttribute="bottom" id="wlz-zg-lya"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emptyLabel" destination="PMP-RQ-GtV" id="Ebz-l1-Num"/>
+                        <outlet property="emptyView" destination="r9B-h0-tju" id="8jn-bo-for"/>
+                        <outlet property="loadingView" destination="n9M-CO-A8w" id="vMT-de-ETj"/>
+                        <outlet property="tableView" destination="LmB-47-mem" id="HBI-rB-kLc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xWv-2y-70v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1489" y="148"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="watchlistIcon" width="80" height="75"/>
+    </resources>
+</document>

@@ -18,6 +18,7 @@ class MediaItem: NSObject {
     var year: String?
     var desc: String?
     var rating: String?
+    var ratingNum: NSNumber?
     
     var episodeItem: EpisodeItem?
     
@@ -38,6 +39,7 @@ class MediaItem: NSObject {
         
         
         if let rating = data["rating"] as? NSNumber {
+            mediaItem.ratingNum = rating
             mediaItem.rating = String(format: "%.1f", rating.floatValue)
         }
         return mediaItem

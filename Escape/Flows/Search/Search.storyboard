@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7gS-9J-yvY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7gS-9J-yvY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -39,7 +39,7 @@
                                     <segment title="Television"/>
                                     <segment title="Movies"/>
                                 </segments>
-                                <color key="tintColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.2470588235" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="segmentValueChangedWithSender:" destination="Hfu-yj-nRd" eventType="valueChanged" id="uzc-QN-Ax6"/>
                                 </connections>
@@ -455,6 +455,73 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1yK-7S-D2K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-247.19999999999999" y="84.107946026986511"/>
+        </scene>
+        <!--Search Child View Controller-->
+        <scene sceneID="53P-co-NcJ">
+            <objects>
+                <viewController storyboardIdentifier="searchChildVC" id="TZC-KX-Jm6" customClass="SearchChildViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aMD-tb-0xn"/>
+                        <viewControllerLayoutGuide type="bottom" id="CX9-Ub-1IP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ahC-T6-Jtl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s7T-9U-R5X">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="TZC-KX-Jm6" id="egN-Sn-ksP"/>
+                                    <outlet property="delegate" destination="TZC-KX-Jm6" id="aYF-x3-Uk4"/>
+                                </connections>
+                            </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAS-Dg-0qn" userLabel="No Trackings View">
+                                <rect key="frame" x="16" y="333.5" width="343" height="20.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No results found for your query." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Go-Qh-246">
+                                        <rect key="frame" x="5" y="0.0" width="333" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="17"/>
+                                        <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="1Go-Qh-246" firstAttribute="top" secondItem="JAS-Dg-0qn" secondAttribute="top" id="4bs-4A-Wpa"/>
+                                    <constraint firstItem="1Go-Qh-246" firstAttribute="centerX" secondItem="JAS-Dg-0qn" secondAttribute="centerX" id="CDB-Dz-caz"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Go-Qh-246" secondAttribute="trailing" constant="5" id="RWC-KZ-QvG"/>
+                                    <constraint firstAttribute="bottom" secondItem="1Go-Qh-246" secondAttribute="bottom" id="cib-4l-Ef3"/>
+                                    <constraint firstItem="1Go-Qh-246" firstAttribute="leading" secondItem="JAS-Dg-0qn" secondAttribute="leading" constant="5" id="xPn-jS-Y4h"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8wt-rl-yD4">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JAS-Dg-0qn" firstAttribute="leading" secondItem="ahC-T6-Jtl" secondAttribute="leadingMargin" id="11y-Y4-PDm"/>
+                            <constraint firstAttribute="trailing" secondItem="s7T-9U-R5X" secondAttribute="trailing" id="7cv-Rp-YuQ"/>
+                            <constraint firstItem="s7T-9U-R5X" firstAttribute="leading" secondItem="ahC-T6-Jtl" secondAttribute="leading" id="94C-hU-cNu"/>
+                            <constraint firstItem="8wt-rl-yD4" firstAttribute="centerY" secondItem="ahC-T6-Jtl" secondAttribute="centerY" id="BGr-sg-5zR"/>
+                            <constraint firstItem="s7T-9U-R5X" firstAttribute="top" secondItem="aMD-tb-0xn" secondAttribute="bottom" id="DpK-zL-jOF"/>
+                            <constraint firstItem="8wt-rl-yD4" firstAttribute="centerX" secondItem="ahC-T6-Jtl" secondAttribute="centerX" id="KBv-wG-dzA"/>
+                            <constraint firstItem="JAS-Dg-0qn" firstAttribute="centerY" secondItem="s7T-9U-R5X" secondAttribute="centerY" id="OJp-eJ-SPO"/>
+                            <constraint firstItem="CX9-Ub-1IP" firstAttribute="top" secondItem="s7T-9U-R5X" secondAttribute="bottom" id="iyz-53-hdn"/>
+                            <constraint firstItem="JAS-Dg-0qn" firstAttribute="centerX" secondItem="s7T-9U-R5X" secondAttribute="centerX" id="jgz-tq-ND1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JAS-Dg-0qn" secondAttribute="trailing" id="zbx-AK-A9u"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emptyView" destination="JAS-Dg-0qn" id="Y2b-RI-Zjt"/>
+                        <outlet property="loadingView" destination="8wt-rl-yD4" id="RmN-9p-eut"/>
+                        <outlet property="tableView" destination="s7T-9U-R5X" id="GUH-zS-avb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rIi-ZE-tlC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2516" y="72"/>
         </scene>
     </scenes>
     <resources>

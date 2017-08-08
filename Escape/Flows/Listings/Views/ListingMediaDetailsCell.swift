@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListingMediaDetailsCell: UITableViewCell {
+class ListingMediaDetailsCell: NormalCell {
     
     @IBOutlet weak var airtimeLabel: UILabel!
     @IBOutlet weak var showNameLabel: UILabel!
@@ -17,6 +17,9 @@ class ListingMediaDetailsCell: UITableViewCell {
     
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var ratingView: UIView!
+    
+    
+    var showFullDate: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,7 +33,24 @@ class ListingMediaDetailsCell: UITableViewCell {
     }
     
     func setupCellForListingMediaItem(listingMediaItem: ListingMediaItem) {
-        self.airtimeLabel.text = listingMediaItem.airtime
+        
+        if showFullDate {
+            if let airDate = listingMediaItem.airdate {
+                let index = airDate.index(airDate.startIndex, offsetBy: 3)
+                let subStr = airDate.substring(to:index)
+                    
+                self.airtimeLabel.text =  subStr+", "+listingMediaItem.airtime
+                
+            } else {
+                
+                self.airtimeLabel.text = listingMediaItem.airtime
+            }
+        } else {
+            
+            self.airtimeLabel.text = listingMediaItem.airtime
+        }
+        
+        
         self.showNameLabel.text = listingMediaItem.constructedTitle()
         self.castLabel.text = listingMediaItem.mediaItem.cast
         

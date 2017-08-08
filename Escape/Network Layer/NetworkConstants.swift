@@ -55,6 +55,7 @@ enum SubServiceType : String {
     case GetGuideList     =  "guide/list"
     case GetGuideItem     =  "guide/item"
     case GetViewingOptions = "escapes/viewing_options"
+    case GetAirtimes        = "escapes/airtime"
     
     //Home
     case GetUserStory       =  "get_user_stories"
@@ -77,11 +78,15 @@ enum SubServiceType : String {
     //Notification
     case GetNotification = "user/notifications"
     
+    //Watchlist
+    case UserWatchlist = "user/watchlist"
+    
     //Tracking
     case UserTrackings = "user/trackings"
     case RemoveUserTracking = "user/trackings/remove"
     
     case Listings = "listings"
+    case ListingsItem = "listings/item"
     case CategoryChannels = "category/channels"
     case ChannelListings = "channels/listing"
     case ListingCategories = "categories"

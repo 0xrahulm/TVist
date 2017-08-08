@@ -73,7 +73,7 @@ class UserDetailView: UIView {
             self.signInButtonHeightConstraint.constant = 0
             self.layoutIfNeeded()
         } else {
-            self.actionNameLabel.text = "Sign up to sync your data"
+            self.actionNameLabel.text = "Register to sync your data"
             actionCountLabel.text = nil
         }
     }

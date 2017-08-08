@@ -14,6 +14,8 @@ class ListDateView: UIView {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var daysLabel: UILabel!
     
+    @IBOutlet weak var backgroundView: UIView!
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         if self.imageView != nil {
@@ -21,6 +23,16 @@ class ListDateView: UIView {
             self.imageView.alpha = 0.25
         }
         
+    }
+    
+    func setSelected(selected:Bool) {
+        if self.backgroundView != nil {
+            if selected {
+                self.backgroundView.backgroundColor = UIColor.defaultTintColor()
+            } else {
+                self.backgroundView.backgroundColor = UIColor.defaultCTAColor()
+            }
+        }
     }
     /*
     // Only override draw() if you perform custom drawing.

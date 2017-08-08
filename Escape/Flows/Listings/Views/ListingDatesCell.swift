@@ -47,7 +47,16 @@ class ListingDatesCell: UITableViewCell {
         if let dateGesture = sender as? UITapGestureRecognizer {
             if let dateView = dateGesture.view {
                 let listingDate = listingDates[dateView.tag]
-                
+                if let label = listingDate.label, let dateString = listingDate.dateString {
+                    if dateView.tag == 0 {
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsDateTodayClick, properties: ["label": label, "displayed_date": dateString])
+                    } else if dateView.tag == 1 {
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsDateTomorrowClick, properties: ["label": label, "displayed_date": dateString])
+                    } else if dateView.tag == 2 {
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsDateWeekendClick, properties: ["label": label, "displayed_date": dateString])
+                        
+                    }
+                }
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenFullListingsView, queryParams: ["selectedListDate": listingDate])
             }
         }

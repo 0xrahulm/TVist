@@ -42,7 +42,6 @@ class TvGuideViewController: UIViewController {
             self.view.layoutIfNeeded()
             setupPageMenu()
             
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomePageOpened)
         }
     }
     

@@ -259,6 +259,7 @@ open class CAPSPageMenu: UIViewController, UIScrollViewDelegate, UIGestureRecogn
         
         // Set up controller scroll view
         controllerScrollView.isPagingEnabled = true
+        controllerScrollView.isScrollEnabled = false
         controllerScrollView.translatesAutoresizingMaskIntoConstraints = false
         controllerScrollView.alwaysBounceHorizontal = enableHorizontalBounce
         controllerScrollView.bounces = enableHorizontalBounce

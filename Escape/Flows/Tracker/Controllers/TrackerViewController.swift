@@ -15,8 +15,8 @@ class TrackerViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     
-    var listOfItemType:[GuideListType] = [.Television, .Movie]
-    var titleForItem: [GuideListType: String] = [.Television: "Television", .Movie: "Movies"]
+    var listOfItemType:[GuideListType] = [.All, .Television, .Movie]
+    var titleForItem: [GuideListType: String] = [.All:"All", .Television: "Television", .Movie: "Movies"]
     var listControllers: [TrackerChildViewController] = []
     var pageMenu : CAPSPageMenu?
     

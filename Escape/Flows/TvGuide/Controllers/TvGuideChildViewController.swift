@@ -24,7 +24,8 @@ class TvGuideChildViewController: UIViewController {
     
     var guideItems:[GuideItem] = []
     
-    var lastScrollValue:CGFloat = 0.0
+    var lastScrollValue:String = ""
+    var storedOffsets = [Int: CGFloat]()
 
     
     var cardsTypeArray: [TvGuideCellIdentifier] = [.MediaListCellIdentifier]
@@ -73,6 +74,8 @@ class TvGuideChildViewController: UIViewController {
                         guideItems.removeAll()
                         guideItems.append(contentsOf: listData.data)
                         tableView.reloadData()
+                        
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .GuideDataLoaded, properties: ["ListType": self.listType.rawValue])
                     }
                 }
             }
@@ -108,14 +111,37 @@ class TvGuideChildViewController: UIViewController {
 
 extension TvGuideChildViewController: UITableViewDelegate {
     
+    func scrollBucket(scrollValue: CGFloat) -> String {
+        
+        if scrollValue < 30.0 {
+            return "0-30"
+        }
+        if scrollValue >= 30.0 && scrollValue < 60.0 {
+            return "30-60"
+        }
+        if scrollValue >= 60.0 && scrollValue <= 90.0 {
+            return "60-90"
+        }
+        
+        if scrollValue > 120 {
+            return "> 120"
+        }
+        
+        if scrollValue > 90 {
+            return "> 90"
+        }
+        
+        return "Unknown"
+        
+    }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let percentageScroll:CGFloat = ((scrollView.contentOffset.y+scrollView.frame.size.height)/scrollView.contentSize.height)*100
-        
-        if self.lastScrollValue != percentageScroll {
+        let scrollBucketStr = scrollBucket(scrollValue: percentageScroll)
+        if self.lastScrollValue != scrollBucketStr {
             
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "Segment Tab": titleForItem[listType]!])
-            self.lastScrollValue = percentageScroll
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "Segment Tab": titleForItem[listType]!])
+            self.lastScrollValue = scrollBucketStr
         }
     }
     
@@ -123,10 +149,10 @@ extension TvGuideChildViewController: UITableViewDelegate {
         if !decelerate {
             
             let percentageScroll:CGFloat = ((scrollView.contentOffset.y+scrollView.frame.size.height)/scrollView.contentSize.height)*100
-            
-            if self.lastScrollValue != percentageScroll {
-                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "Segment Tab": titleForItem[listType]!])
-                self.lastScrollValue = percentageScroll
+            let scrollBucketStr = scrollBucket(scrollValue: percentageScroll)
+            if self.lastScrollValue != scrollBucketStr {
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "Segment Tab": titleForItem[listType]!])
+                self.lastScrollValue = scrollBucketStr
             }
             
         }
@@ -173,7 +199,7 @@ extension TvGuideChildViewController: UITableViewDataSource {
                 
             }
         }
-        return 330
+        return DataConstants.kHeightForDefaultMediaList
     }
     
     
@@ -238,6 +264,14 @@ extension TvGuideChildViewController: UITableViewDataSource {
             return
         }
         tableViewCell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.row)
+        tableViewCell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let tableViewCell = cell as? CustomListTableViewCell else { return }
+        
+        storedOffsets[indexPath.row] = tableViewCell.collectionViewOffset
     }
     
 }
@@ -286,6 +320,7 @@ extension TvGuideChildViewController : UICollectionViewDelegate , UICollectionVi
         let item = guideItems[collectionView.tag].escapeDataList
         cell.dataItems = item[indexPath.row]
         cell.primaryCTADelegate = self
+        cell.trackPosition = "Guide"
         cell.parentCollectionView = collectionView
         return cell
     }
@@ -299,7 +334,7 @@ extension TvGuideChildViewController: PrimaryCTATapProtocol {
             
             if !TrackingDataProvider.shared.dopamineShotShown {
                 TrackingDataProvider.shared.dopamineShotShown = true
-                self.showSpace(title: "\(item.name)", description: "Awesome! you'll now receive notifications for Airtimes, News, Trailers, etc.", spaceOptions: [.spaceStyle(style: .success), .titleFont(font: SFUIAttributedText.getMediumFont(size: 13)), .spaceHideTimer(timer: 3.2), .spaceHeight(height: 80), .spacePosition(position: .top), .descriptionFont(font: SFUIAttributedText.getRegularFont(size: 15))])
+                self.showSpace(title: "\(item.name)", description: "Awesome! you'll now receive notifications when it Airs.", spaceOptions: [.spaceStyle(style: .success), .titleFont(font: SFUIAttributedText.getMediumFont(size: 13)), .spaceHideTimer(timer: 3.2), .spaceHeight(height: 80), .spacePosition(position: .top), .descriptionFont(font: SFUIAttributedText.getRegularFont(size: 15))])
             }
         }
     }

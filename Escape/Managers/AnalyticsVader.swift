@@ -14,13 +14,7 @@ class AnalyticsVader: NSObject {
     
     static let sharedVader = AnalyticsVader()
     
-    override init() {
-        super.init()
-        if let user = MyAccountDataProvider.sharedDataProvider.currentUser, let userId = user.id {
-            Mixpanel.mainInstance().identify(distinctId: userId)
-            Mixpanel.mainInstance().people.set(property: "userType", to: user.userType)
-        }
-    }
+    var identificationDone: Bool = false
     
     func onboardingStarted() {
         timedEventStart(eventName: EventName.onboardingScreen)
@@ -100,6 +94,18 @@ class AnalyticsVader: NSObject {
     
     func sendEvent(eventName: String, properties: [String:String]?) {
         Flurry.logEvent(eventName, withParameters: properties)
+        
+        if !identificationDone {
+            
+            if let user = MyAccountDataProvider.sharedDataProvider.currentUser, let userId = user.id {
+                Mixpanel.mainInstance().identify(distinctId: userId)
+                Mixpanel.mainInstance().people.set(property: "userType", to: user.userType)
+            }
+            
+            identificationDone = true
+        }
+        
         Mixpanel.mainInstance().track(event: eventName, properties: properties)
+        
     }
 }

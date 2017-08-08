@@ -43,8 +43,11 @@ class ScreenManagerViewController: UIViewController {
             
             presentRootViewControllerOf(.MainTab, queryParams: nil)
         } else {
+            
             UserDataProvider.sharedDataProvider.deviceSessionDelegate = self
             UserDataProvider.sharedDataProvider.getDeviceSession()
+            
+            AnalyticsVader.sharedVader.basicEvents(eventName: .DeviceSessionBeginGenerating)
         }
     }
     
@@ -114,9 +117,10 @@ class ScreenManagerViewController: UIViewController {
         if currentPresentedViewController != nil{
             if currentPresentedViewController is MainTabBarViewController {
                 let mainTabVC = currentPresentedViewController as! MainTabBarViewController
-                if let customNavVC = mainTabVC.getSelectedTabViewController() as? CustomNavigationViewController{
+                if let customNavVC = mainTabVC.getSelectedTabViewController() as? CustomNavigationViewController {
                     
                     self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
+                    
                     
                     customNavVC.pushViewController(getViewControllerToOpen(storyBoardIdentifier, forIdentifier: viewControllerIdentifier, queryParam: queryParams), animated: true)
                     
@@ -261,6 +265,9 @@ extension ScreenManagerViewController{
             case .WatchlistTab:
                 mainTAbVC.selectedIndex = MainTabIndex.Watchlist.index
                 break
+            case .ListingsTab:
+                mainTAbVC.selectedIndex = MainTabIndex.Listings.index
+                break
             default:
                 mainTAbVC.selectedIndex = MainTabIndex.Guide.index
                 break
@@ -279,7 +286,8 @@ extension ScreenManagerViewController{
         case .MainTab:
             openMainTab()
             break
-            
+        case .ListingsTab:
+            fallthrough
         case .GuideTab:
             fallthrough
             
@@ -360,6 +368,12 @@ extension ScreenManagerViewController{
         case .OpenGuideListView:
             openGuideListView(params: params)
             break
+        case .OpenChannelListingView:
+            openChannelListingView(params: params)
+            break
+        case .OpenListingItemView:
+            openListingItemView(params: params)
+            break
         case .OpenMediaOptionsView:
             if let params = params {
                 openMediaOptionsView(params: params)
@@ -368,11 +382,37 @@ extension ScreenManagerViewController{
         }
     }
     
+    
+    func openChannelListingView(params: [String: Any]?) {
+        
+        if let _ = getTopViewController() as? ChannelListingViewController {
+          return
+        }
+        pushViewControllerOf(.Listings, viewControllerIdentifier: "channelListingView", queryParams: params)
+    }
+    
+    func openListingItemView(params: [String:Any]?) {
+        
+        if let _ = getTopViewController() as? ListingItemViewController {
+            return
+        }
+        pushViewControllerOf(.Listings, viewControllerIdentifier: "listingItemView", queryParams: params)
+    }
+    
+    
     func openGuideListView(params: [String:Any]?) {
+        
+        if let _ = getTopViewController() as? GuideListViewController {
+            return
+        }
         pushViewControllerOf(.TvGuide, viewControllerIdentifier: "guideListView", queryParams: params)
     }
     
     func openMediaOptionsView(params: [String:Any]) {
+        
+        if let _ = getTopViewController() as? MediaViewingOptionsViewController {
+            return
+        }
         pushViewControllerOf(.TvGuide, viewControllerIdentifier: "mediaViewingOptionsVC", queryParams: params)
     }
     
@@ -421,6 +461,7 @@ extension ScreenManagerViewController{
             
             pushViewControllerOf(.MyAccount, viewControllerIdentifier: "itemDescVC", queryParams: params)
         } else {
+            
             pushViewControllerOf(.TvGuide, viewControllerIdentifier: "itemDescVC", queryParams: params)
         }
     }

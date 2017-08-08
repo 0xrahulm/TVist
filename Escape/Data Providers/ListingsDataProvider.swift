@@ -35,12 +35,44 @@ class ListingsDataProvider: CommonDataProvider {
     }
     
     
-    func fetchListingsForChannel(channel: TvChannel) {
+    func fetchListingsForChannel(channel: TvChannel, startTime: String?, endTime: String?, page: Int?, isToday: Bool?) {
         
         if let channelId = channel.id {
-            ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .ChannelListings, params: ["channel_id": channelId], delegate: self)
+            var params: [String:Any] = ["channel_id": channelId]
+            
+            if let startTime = startTime {
+                params["start_time"] = startTime
+            }
+            
+            if let endTime = endTime {
+                params["end_time"] = endTime
+            }
+            
+            if let page = page {
+                params["page"] = page
+                params["limit"] = 10
+            }
+            
+            if let isToday = isToday {
+                params["is_today"] = isToday
+            }
+            
+            ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .ChannelListings, params: params, delegate: self)
         }
         
+    }
+    
+    
+    
+    func fetchListingItem(itemId: String, pageNo: Int?) {
+        
+        var params:[String:Any] = ["item_id": itemId]
+        
+        if let pageNo = pageNo {
+            params["page"] = pageNo
+        }
+        
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .ListingsItem, params: params, delegate: self)
     }
     
     func fetchFullListings(startTime: String, endTime: String?, channel: TvChannel?, isToday: Bool, page: Int?) {
@@ -78,6 +110,8 @@ class ListingsDataProvider: CommonDataProvider {
         return categoryChannels[category]
     }
     
+    
+    
     override func serviceSuccessfull(_ service: Service) {
         
         if let subServiceType = service.subServiveType{
@@ -91,6 +125,12 @@ class ListingsDataProvider: CommonDataProvider {
                     parseFullListings(fullListingData: fullListingsData, categoryId: categoryId, channelId: service.parameters?["channel_id"] as? String, page: service.parameters?["page"] as? Int)
                 }
                 break
+                
+            case .ListingsItem:
+                if let params = service.parameters {
+                    parseListingItemData(listingItemData: service.outPutResponse as? [String:AnyObject], page: params["page"] as? Int)
+                }
+                break
             case .CategoryChannels:
                 if let categoryData = service.outPutResponse as? [Any], let params = service.parameters, let index = params["index"] as? Int {
                     parseCategoryChannels(categoryChannels: categoryData, categoryIndex: index)
@@ -99,7 +139,7 @@ class ListingsDataProvider: CommonDataProvider {
                 
             case .ChannelListings:
                 if let channelData = service.outPutResponse as? [Any], let params = service.parameters, let channelId = params["channel_id"] as? String {
-                    parseChannelData(channelData: channelData, channelId: channelId)
+                    parseChannelData(channelData: channelData, channelId: channelId, page: params["page"] as? Int)
                 }
                 break
             default: break
@@ -140,7 +180,7 @@ class ListingsDataProvider: CommonDataProvider {
     
     }
     
-    func parseChannelData(channelData: [Any], channelId:String) {
+    func parseChannelData(channelData: [Any], channelId:String, page: Int?) {
         
         var listingData: [ListingMediaItem] = []
         
@@ -151,11 +191,28 @@ class ListingsDataProvider: CommonDataProvider {
                 }
             }
         }
+        var userInfo:[String:Any] = ["data":listingData, "channel_id": channelId]
+        if let page = page {
+            userInfo["page"] = page
+        }
         
-        NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.ListingMediaItemsObserver.rawValue), object: nil, userInfo: ["data":listingData, "channel_id": channelId])
+        NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.ListingMediaItemsObserver.rawValue), object: nil, userInfo: userInfo)
         
     }
     
+    
+    
+    func parseListingItemData(listingItemData: [String:AnyObject]?, page: Int?) {
+        guard let listingItemData = listingItemData, let page = page else {
+            return
+        }
+        
+        if let listingItem = ListingItem.createListingItem(itemData: listingItemData) {
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.ListingItemObserver.rawValue), object: nil, userInfo: ["page":page, "item":listingItem])
+        }
+        
+    }
     
     func parseListingCategories(_ listingCategories: [[String:AnyObject]]) {
         for (index,listingCategory) in listingCategories.enumerated() {

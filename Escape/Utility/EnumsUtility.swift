@@ -9,6 +9,7 @@
 import Foundation
 
 enum ScreenManagerAction : String {
+    case ListingsTab = "ListingsTab"
     case GuideTab = "GuideTab"
     case TrackerTab = "TrackerTab"
     case TopChartsTab = "TopChartsTab"
@@ -32,12 +33,15 @@ enum ScreenManagerAction : String {
     case OpenNotificationView = "openNotificationView"
     case OpenSignupView = "openSignupView"
     case OpenGuideListView = "OpenGuideListView"
+    case OpenListingItemView = "OpenListingItemView"
     case OpenMediaOptionsView = "OpenMediaOptionsView"
     case OpenFullListingsView = "OpenFullListingsView"
+    case OpenChannelListingView = "OpenChannelListingView"
 }
 
 enum StoryBoardIdentifier : String{
     case Onboarding = "Onboarding"
+    case Watchlist = "Watchlist"
     case MainTab = "MainTab"
     case MyAccount = "MyAccount"
     case Listings = "Listings"
@@ -158,6 +162,7 @@ enum NotificationObservers: String {
     case HomeClickObserver =  "HomeClickObserver"
     case TvGuideDataObserver = "TvGuideDataObserver"
     case TvGuideItemDataObserver = "kGuideItemDataNotification"
+    case ListingItemObserver = "kListingItemDataNotification"
     case ListingsDataObserver = "ListingsDataObserver"
     case FullListingsDataObserver = "FullListingsDataObserver"
     case ListingsChannelDataObserver = "ListingsChannelDataObserver"
@@ -185,6 +190,34 @@ enum OptionsType : String{
 }
 
 enum EventName:String {
+    case DeviceSessionBeginGenerating = "Device_Session_Begin_Generating"
+    // Listings
+    case ListingsPageLoaded = "Listings_Page_Loaded"
+    
+    case ListingsDateTodayClick = "Listings_Date_Today_Click"
+    case ListingsDateTomorrowClick = "Listings_Date_Tomorrow_Click"
+    case ListingsDateWeekendClick = "Listings_Date_Weekend_Click"
+    
+    case ListingsShowsClick = "Listings_Show_Click"
+    case ListingsShowsViewAllClick = "Listings_Shows_View_All_Click"
+    case ListingsViewAllPageItemClick = "Listings_View_All_Page_Item_Click"
+    case ListingsAllChannelsClick = "Listings_All_Channels_Click"
+    case ListingsChannelCategoryClick = "Listings_Channel_Category_Click"
+    case ListingsPickChannel = "Listings_Pick_Channel"
+    case ListingsChannelItemClick = "Listings_Channel_Item_Click"
+    case ListingsChannelViewAllClick = "Listings_Channel_View_All_Click"
+    
+    case FullListingsDateClick = "Full_Listings_Date_Click"
+    case FullListingsCategoryDropdownClick = "Full_Listings_Category_Dropdown_Click"
+    case FullListingsChannelDropdownClick = "Full_Listings_Channel_Dropdown_Click"
+    
+    case FullListingsCategorySelected = "Full_Listings_Category_Selected"
+    case FullListingsChannelSelected = "Full_Listings_Channel_Selected"
+    case FullListingsSectionViewAllClick = "Full_Listings_View_All_Click"
+    case FullListingsItemClick = "Full_Listings_Item_Click"
+    case ChannelListingPageOpened = "Channel_Listing_Page_Opened"
+    case ChannelListingItemClick = "Channel_Listing_Item_Click"
+    
     case onboardingScreen = "Onboarding_Screen"
     case continueWithFB = "Conitnue_With_Facebook_Click"
     case continueWithEmail = "Continue_With_Email_Click"
@@ -210,7 +243,7 @@ enum EventName:String {
     case emptyStateDiscoverClick = "Empty_State_Discover_Click"
     
     //TV guide
-    case HomePageOpened = "Home_Screen_Opened"
+    case GuideDataLoaded = "Guide_Data_Loaded"
     case GuideSegmentClick = "Guide_Segment_Click"
     case TrackButtonClick = "Added_To_Tracker"
     case UndoTrack = "Undo_Track"
@@ -219,6 +252,7 @@ enum EventName:String {
     case SearchClick = "Search_Click"
     case SearchCancelled = "Search_Cancelled"
     case TrackerSegmentClick = "Tracker_Segment_Click"
+    case WatchlistSegmentClick = "Watchlist_Segment_Click"
     case SearchOccurred = "Item_Searched"
     case ItemsShown = "Items_Shown"
     case SearchItemClick = "Search_Item_Click"
@@ -253,6 +287,8 @@ enum EventName:String {
     case UndoSeen = "Undo_Seen"
     case UndoWatchlist = "Undo_Watchlist"
     
+    case OpenWatchlistedItem = "Open_Watchlisted_Item"
+    
     //Details Page
     
     case DetailsPageSegmentClick = "Details_Page_Segment_Click"
@@ -265,6 +301,11 @@ enum EventName:String {
     case MediaViewOptionsListOpen = "Viewing_Options_List_Page_Open"
     case ViewingOptionSelected = "Viewing_Option_Selected"
     
+    case SimilarShowsViewAllClick = "Similar_Shows_View_All_Click"
+    case SimilarShowsItemClick = "Similar_Shows_Item_Click"
+    
     case NotificationPermissionProvided = "Notification_Permission_Provided"
+    
+    case AllAirtimesClick = "All_Airtimes_Click"
     
 }

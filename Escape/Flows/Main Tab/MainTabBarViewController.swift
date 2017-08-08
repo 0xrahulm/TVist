@@ -74,7 +74,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         let discoverViewController = initialViewControllerFor(.Listings) as! CustomNavigationViewController
         let homeViewController = initialViewControllerFor(.TvGuide) as! CustomNavigationViewController
         let trackerViewController = initialViewControllerFor(.Tracker) as! CustomNavigationViewController
-        let myAccountViewController = initialViewControllerFor(.MyAccount) as! CustomNavigationViewController
+        let watchlistViewController = initialViewControllerFor(.Watchlist) as! CustomNavigationViewController
         
         
         var orderedViewControllers:[UIViewController] = Array<UIViewController>(repeating: UIViewController(),count: kMainTabsCount)
@@ -83,7 +83,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         orderedViewControllers[MainTabIndex.Tracker.index] = trackerViewController
         orderedViewControllers[MainTabIndex.Listings.index] = discoverViewController
         orderedViewControllers[MainTabIndex.Search.index] = searchViewController
-        orderedViewControllers[MainTabIndex.Watchlist.index] = myAccountViewController
+        orderedViewControllers[MainTabIndex.Watchlist.index] = watchlistViewController
         
         self.viewControllers = orderedViewControllers
     }

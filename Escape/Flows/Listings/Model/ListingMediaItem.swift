@@ -21,7 +21,7 @@ class ListingMediaItem: NSObject {
         
         let listingMediaItem = ListingMediaItem()
         
-        listingMediaItem.airdate = data["airdate"] as? String
+        listingMediaItem.airdate = data["airdate_string"] as? String
         listingMediaItem.airtime = airtime
         listingMediaItem.mediaItem = mediaItem
         

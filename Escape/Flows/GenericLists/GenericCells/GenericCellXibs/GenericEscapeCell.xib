@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -104,7 +104,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIS-Dt-MEW">
-                                <rect key="frame" x="121" y="126" width="86" height="34"/>
+                                <rect key="frame" x="279" y="126" width="86" height="34"/>
                                 <color key="backgroundColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="IVs-xh-MES"/>
@@ -123,26 +123,36 @@
                                     <action selector="trackButtonTappedWithSender:" destination="Bup-7d-bWS" eventType="touchUpInside" id="IoU-Ge-lsf"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not airing in next 7 days. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="goi-uD-nC9">
+                                <rect key="frame" x="121" y="120" width="153" height="48"/>
+                                <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="14"/>
+                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="omw-8I-zlC" firstAttribute="top" secondItem="sqm-DT-v4t" secondAttribute="bottom" constant="8" id="1uj-8D-KCX"/>
                             <constraint firstAttribute="trailing" secondItem="z2m-QB-ytD" secondAttribute="trailing" constant="10" id="2aL-7A-fwv"/>
+                            <constraint firstItem="lIS-Dt-MEW" firstAttribute="bottom" secondItem="Oa6-uW-w2X" secondAttribute="bottom" id="5OL-AS-MVz"/>
+                            <constraint firstItem="goi-uD-nC9" firstAttribute="leading" secondItem="uCg-3L-7tN" secondAttribute="leading" id="7lE-Yx-4Og"/>
+                            <constraint firstItem="goi-uD-nC9" firstAttribute="bottom" secondItem="lIS-Dt-MEW" secondAttribute="bottom" constant="8" id="AoI-8h-xyV"/>
                             <constraint firstAttribute="trailing" secondItem="cOc-2L-mhn" secondAttribute="trailing" id="Aps-u6-xQO"/>
                             <constraint firstItem="omw-8I-zlC" firstAttribute="leading" secondItem="sqm-DT-v4t" secondAttribute="leading" id="HCg-vw-Eew"/>
                             <constraint firstItem="b95-Re-ipX" firstAttribute="leading" secondItem="Oa6-uW-w2X" secondAttribute="trailing" constant="10" id="Kmd-Pw-c37"/>
                             <constraint firstItem="Oa6-uW-w2X" firstAttribute="leading" secondItem="D8v-1f-Mk0" secondAttribute="leading" constant="15" id="LT2-EL-4TN"/>
+                            <constraint firstItem="lIS-Dt-MEW" firstAttribute="leading" secondItem="goi-uD-nC9" secondAttribute="trailing" constant="5" id="NEO-mF-FEl"/>
+                            <constraint firstItem="goi-uD-nC9" firstAttribute="top" secondItem="lIS-Dt-MEW" secondAttribute="top" constant="-6" id="Otp-10-Rz4"/>
+                            <constraint firstAttribute="trailing" secondItem="lIS-Dt-MEW" secondAttribute="trailing" constant="10" id="PqS-Zg-SLo"/>
                             <constraint firstAttribute="trailing" secondItem="omw-8I-zlC" secondAttribute="trailing" constant="10" id="QKt-mI-fTb"/>
                             <constraint firstItem="sqm-DT-v4t" firstAttribute="top" secondItem="b95-Re-ipX" secondAttribute="bottom" constant="4" id="QPf-vP-Yh9"/>
                             <constraint firstItem="cOc-2L-mhn" firstAttribute="leading" secondItem="D8v-1f-Mk0" secondAttribute="leading" id="Shj-Gn-dE7"/>
-                            <constraint firstItem="lIS-Dt-MEW" firstAttribute="top" secondItem="omw-8I-zlC" secondAttribute="bottom" constant="10" id="XJT-sI-c6X"/>
                             <constraint firstItem="b95-Re-ipX" firstAttribute="top" secondItem="Oa6-uW-w2X" secondAttribute="top" constant="5" id="dyq-7n-pRV"/>
                             <constraint firstItem="sqm-DT-v4t" firstAttribute="leading" secondItem="b95-Re-ipX" secondAttribute="leading" id="orX-el-pwg"/>
                             <constraint firstItem="z2m-QB-ytD" firstAttribute="top" secondItem="sqm-DT-v4t" secondAttribute="top" id="sUe-CO-zl1"/>
                             <constraint firstAttribute="bottom" secondItem="cOc-2L-mhn" secondAttribute="bottom" id="soh-UZ-V9D"/>
                             <constraint firstItem="Oa6-uW-w2X" firstAttribute="top" secondItem="D8v-1f-Mk0" secondAttribute="top" constant="15" id="tpN-8I-OFX"/>
                             <constraint firstAttribute="trailing" secondItem="b95-Re-ipX" secondAttribute="trailing" constant="10" id="uCd-g3-z6Y"/>
-                            <constraint firstItem="lIS-Dt-MEW" firstAttribute="leading" secondItem="b95-Re-ipX" secondAttribute="leading" id="yOg-eK-Eyh"/>
                             <constraint firstItem="z2m-QB-ytD" firstAttribute="leading" secondItem="sqm-DT-v4t" secondAttribute="trailing" constant="6" id="zLy-5m-GHH"/>
                         </constraints>
                     </view>
@@ -155,6 +165,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="airtimeLabel" destination="goi-uD-nC9" id="lj8-eX-v4e"/>
                 <outlet property="creatorNameLabel" destination="z2m-QB-ytD" id="0MZ-aa-cjX"/>
                 <outlet property="creatorTypeLabel" destination="sqm-DT-v4t" id="vyb-cz-bvD"/>
                 <outlet property="posterImageView" destination="Oa6-uW-w2X" id="abE-Kk-zqT"/>

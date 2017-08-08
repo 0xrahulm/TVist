@@ -41,7 +41,7 @@ class TrackingDataProvider: CommonDataProvider {
                     
                     if let data = service.outPutResponse as? [AnyObject] {
                         var currentPage:Int = 1
-                        var typeS = "tv_show"
+                        var typeS = "all"
                         if let params = service.parameters, let page = params["page"] as? Int, let type = params["type"] as? String {
                             currentPage = page
                             typeS = type

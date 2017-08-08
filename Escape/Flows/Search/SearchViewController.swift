@@ -173,7 +173,7 @@ class SearchViewController: UIViewController {
     }
     
     func addVcFor(_ type : SearchType , title : String){
-        let controller = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "searchAllVC") as? SearchAllViewController
+        let controller = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "searchChildVC") as? SearchChildViewController
         controller!.title = title
         controller!.type = type
         if screen == "discover" {

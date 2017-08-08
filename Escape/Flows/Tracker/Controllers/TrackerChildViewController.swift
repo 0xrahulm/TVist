@@ -25,10 +25,12 @@ class TrackerChildViewController: GenericAllItemsListViewController {
         // Do any additional setup after loading the view.
         self.shouldHideTabBar = false
         
-        if listType == .Television {
-            self.emptyLabel.text = "Track your favorite shows"
+        if listType == .All {
+            self.emptyLabel.text = "Track your favorite Movies & Shows"
+        } else if listType == .Television {
+            self.emptyLabel.text = "Track your favorite Shows"
         } else {
-            self.emptyLabel.text = "Track your favorite movies"
+            self.emptyLabel.text = "Track your favorite Movies"
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(TrackerChildViewController.receivedData(notification:)), name: Notification.Name(rawValue:kTrackingDataNotification), object: nil)
@@ -49,9 +51,12 @@ class TrackerChildViewController: GenericAllItemsListViewController {
         TrackingDataProvider.shared.fetchTrackingData(page: nextPage, type: listType)
     }
     
+    override func getTrackingPositionName() -> String {
+        return "TrackerScreen"
+    }
     
     @IBAction func tappedOnStarTrackingNow(sender: UIButton) {
-        ScreenVader.sharedVader.performScreenManagerAction(.GuideTab, queryParams: nil)
+        ScreenVader.sharedVader.performScreenManagerAction(.ListingsTab, queryParams: nil)
     }
     
     func receivedData(notification: Notification) {
@@ -59,22 +64,23 @@ class TrackerChildViewController: GenericAllItemsListViewController {
             if let type = data["type"] as? String, type == listType.rawValue {
                 
                 if let trackedItems = data["trackings"] as? [EscapeItem] {
-                    if trackedItems.count == 0 {
+                    appendDataToBeListed(appendableData: trackedItems, page: data["page"] as? Int)
+                    if trackedItems.count == 0 && fullDataLoaded == true {
                         if self.schedulerView.isHidden {
                             self.schedulerView.visibleWithAnimationDuration(0.2)
                         }
                     } else {
                         self.schedulerView.hideWithAnimationAndRemoveView(false, duration: 0.2)
                     }
-                    appendDataToBeListed(appendableData: trackedItems, page: data["page"] as? Int)
+                    
                 }
             }
         }
     }
     
-    override func itemTapEvent(itemName: String) {
+    override func itemTapEvent(itemName: String, index:Int) {
         
-        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.OpenTrackedItem, properties: ["ItemName": itemName])
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.OpenTrackedItem, properties: ["Position": "\(index+1)", "ItemName": itemName])
     }
 
 }

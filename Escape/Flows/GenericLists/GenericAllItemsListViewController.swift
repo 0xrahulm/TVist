@@ -70,7 +70,7 @@ class GenericAllItemsListViewController: GenericListViewController {
         //Override in child class
     }
     
-    func itemTapEvent(itemName: String) {
+    func itemTapEvent(itemName: String, index: Int) {
         // Override in child class
     }
     
@@ -88,9 +88,13 @@ class GenericAllItemsListViewController: GenericListViewController {
         if scrollView.contentOffset.y > ((scrollView.frame.height - scrollView.contentSize.height)*0.80) {
             loadNexPage()
         }
+        scrollEvent()
+        
     }
     
-    
+    func scrollEvent() {
+        // override in base class
+    }
     override func listCount() -> Int {
         return listItems.count
     }
@@ -104,6 +108,7 @@ class GenericAllItemsListViewController: GenericListViewController {
             let escapeCell = tableView.dequeueReusableCell(withIdentifier: GenericCellIdentifier.EscapeCell.rawValue, for: indexPath) as! EscapeCell
             escapeCell.escapeItem = escapeItem
             escapeCell.selectionStyle = .none
+            escapeCell.trackPosition = getTrackingPositionName()
             return escapeCell
         }
         
@@ -114,10 +119,19 @@ class GenericAllItemsListViewController: GenericListViewController {
             return peopleCell
         }
         
+        if let listingMediaItem = listItems[indexPath.row] as? ListingMediaItem {
+            let cell = tableView.dequeueReusableCell(withIdentifier: GenericCellIdentifier.ListingMediaDetailsCell.rawValue, for: indexPath) as! ListingMediaDetailsCell
+            cell.showFullDate = true
+            cell.setupCellForListingMediaItem(listingMediaItem: listingMediaItem)
+            return cell
+        }
+        
         return NormalCell()
     }
     
-    
+    func getTrackingPositionName() -> String {
+        return "Generic"
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         
@@ -127,6 +141,10 @@ class GenericAllItemsListViewController: GenericListViewController {
         
         if let _ = listItems[indexPath.row] as? MyAccountItems {
             return 70
+        }
+        
+        if let _ = listItems[indexPath.row] as? ListingMediaItem {
+            return 140
         }
         
         return 10
@@ -140,7 +158,7 @@ class GenericAllItemsListViewController: GenericListViewController {
                 
                 var params : [String:Any] = [:]
                 params["escapeItem"] = data
-                itemTapEvent(itemName: data.name)
+                itemTapEvent(itemName: data.name, index: indexPath.row)
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
             }
             
@@ -148,6 +166,13 @@ class GenericAllItemsListViewController: GenericListViewController {
             if let data = listItems[indexPath.row] as? MyAccountItems {
                 if let id  = data.id {
                     ScreenVader.sharedVader.performScreenManagerAction(.OpenUserAccount, queryParams: ["user_id":id, "isFollow" : data.isFollow])
+                }
+            }
+            
+            if let listingMediaItem = listItems[indexPath.row] as? ListingMediaItem {
+                
+                if let escapeItem = EscapeItem.createWithMediaItem(mediaItem: listingMediaItem.mediaItem) {
+                    ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: ["escapeItem":escapeItem])
                 }
             }
         }

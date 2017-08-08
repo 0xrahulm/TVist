@@ -16,5 +16,7 @@ class DataConstants: NSObject {
     
     static let kDefaultFetchSize = 10 // This can only be changed, if changed on server
     
+    static let kHeightForDefaultMediaList:CGFloat = 305
     
+    static let kFullListingsSize = 5
 }

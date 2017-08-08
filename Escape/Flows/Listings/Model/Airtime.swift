@@ -18,7 +18,7 @@ class Airtime: NSObject {
     
     
     class func createAirtime(_ data: [String: Any]) -> Airtime? {
-        guard let airTime = data["airtime"] as? String, let airDate = data["airdate"] as? String else { return nil }
+        guard let airTime = data["airtime"] as? String, let airDate = data["airdate_string"] as? String else { return nil }
         
         let airtimeObj = Airtime()
         

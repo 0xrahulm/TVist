@@ -14,12 +14,13 @@ enum GenericCellIdentifier:String {
     case EscapeCell="GenericEscapeCell"
     case TaggedEscapeCell="TaggedEscapeCell"
     case PeopleCell="GenericPeopleCell"
+    case ListingMediaDetailsCell="ListingMediaDetailsCell"
 }
 
 class GenericListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    var registerableCells: [GenericCellIdentifier] = [.ActivityIndicatorCell, .EscapeCell, .TaggedEscapeCell, .PeopleCell]
+    var registerableCells: [GenericCellIdentifier] = [.ActivityIndicatorCell, .EscapeCell, .TaggedEscapeCell, .PeopleCell,.ListingMediaDetailsCell]
     
     override func viewDidLoad() {
         super.viewDidLoad()

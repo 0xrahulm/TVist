@@ -76,4 +76,13 @@ final class EscapeItem: Object {
     func escapeTypeVal() -> EscapeType {
         return EscapeType(rawValue: self.escapeType)!
     }
+    
+    class func createWithMediaItem(mediaItem: MediaItem) -> EscapeItem? {
+        if let mediaId = mediaItem.id, let mediaName = mediaItem.name, let mediaType = mediaItem.type {
+            
+            return EscapeItem.addOrEditEscapeItem(mediaId, name: mediaName, escapeType: mediaType, posterImage: mediaItem.posterImage, year: mediaItem.year, rating: mediaItem.ratingNum, subTitle: nil, createdBy: nil, _realm: nil, nextAirtime: nil)
+        }
+        
+        return nil
+    }
 }

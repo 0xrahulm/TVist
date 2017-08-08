@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="SF-UI-Display-Medium.ttf">
+            <string>SFUIDisplay-Medium</string>
+        </array>
         <array key="SF-UI-Display-Semibold.ttf">
             <string>SFUIDisplay-Semibold</string>
         </array>
@@ -26,7 +29,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Smk-6i-5HR">
-                                <rect key="frame" x="107" y="10" width="258" height="30"/>
+                                <rect key="frame" x="97" y="11" width="193" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Bhe-R4-8Ej"/>
                                 </constraints>
@@ -34,32 +37,52 @@
                                 <color key="textColor" red="0.078431372550000003" green="0.18039215689999999" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="viT-Av-hvJ">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nh3-cS-Mig">
+                                <rect key="frame" x="295" y="0.0" width="75" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="2OS-dp-apt"/>
+                                    <constraint firstAttribute="width" constant="75" id="hfI-wF-SSk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="14"/>
+                                <state key="normal" title="VIEW ALL">
+                                    <color key="titleColor" red="1" green="0.2470588235" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="viewAllTapped" destination="hkN-Tl-RUr" eventType="touchUpInside" id="3MC-SA-2Ye"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="viT-Av-hvJ">
+                                <rect key="frame" x="0.0" y="2" width="90" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="2OS-dp-apt"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Smk-6i-5HR" secondAttribute="trailing" constant="10" id="5C9-T6-PLR"/>
+                            <constraint firstItem="Smk-6i-5HR" firstAttribute="top" secondItem="Nh3-cS-Mig" secondAttribute="bottom" constant="-39" id="83f-iW-iBj"/>
                             <constraint firstAttribute="bottom" secondItem="viT-Av-hvJ" secondAttribute="bottom" id="8VI-03-K62"/>
                             <constraint firstItem="viT-Av-hvJ" firstAttribute="leading" secondItem="IMU-Pv-pf3" secondAttribute="leading" id="CTF-90-4xV"/>
                             <constraint firstItem="Smk-6i-5HR" firstAttribute="centerY" secondItem="viT-Av-hvJ" secondAttribute="centerY" id="E3z-38-rYt"/>
+                            <constraint firstAttribute="trailing" secondItem="Nh3-cS-Mig" secondAttribute="trailing" constant="5" id="QvP-sY-N7c"/>
+                            <constraint firstAttribute="bottom" secondItem="Nh3-cS-Mig" secondAttribute="bottom" id="RQ7-r6-CTf"/>
                             <constraint firstItem="Smk-6i-5HR" firstAttribute="leading" secondItem="viT-Av-hvJ" secondAttribute="trailing" constant="7" id="TmN-f9-4cr"/>
-                            <constraint firstItem="viT-Av-hvJ" firstAttribute="top" secondItem="IMU-Pv-pf3" secondAttribute="top" id="Wp4-je-xYo"/>
+                            <constraint firstItem="viT-Av-hvJ" firstAttribute="top" secondItem="IMU-Pv-pf3" secondAttribute="top" constant="2" id="Wp4-je-xYo"/>
+                            <constraint firstItem="Nh3-cS-Mig" firstAttribute="leading" secondItem="Smk-6i-5HR" secondAttribute="trailing" constant="5" id="Wu7-Qd-wt5"/>
                             <constraint firstAttribute="height" constant="50" id="yOc-II-ZUE"/>
+                            <constraint firstItem="Nh3-cS-Mig" firstAttribute="top" secondItem="IMU-Pv-pf3" secondAttribute="top" id="yq6-Fr-Mlk"/>
                         </constraints>
                     </view>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="0Mx-xp-OJI">
-                        <rect key="frame" x="0.0" y="50" width="375" height="320"/>
+                        <rect key="frame" x="0.0" y="50" width="375" height="270"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="270" id="eKQ-ui-lSy"/>
+                        </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5.5" minimumInteritemSpacing="0.0" id="RUe-j8-d3O">
                             <size key="itemSize" width="130" height="250"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="7.5" minY="15" maxX="20" maxY="15"/>
+                            <inset key="sectionInset" minX="7.5" minY="15" maxX="20" maxY="5"/>
                         </collectionViewFlowLayout>
                         <cells/>
                     </collectionView>
@@ -79,7 +102,6 @@
                     <constraint firstItem="IMU-Pv-pf3" firstAttribute="top" secondItem="qEE-Il-MtJ" secondAttribute="top" id="S6x-kv-cna"/>
                     <constraint firstItem="9Md-hM-Ggk" firstAttribute="leading" secondItem="qEE-Il-MtJ" secondAttribute="leading" id="XKT-Ty-KCM"/>
                     <constraint firstItem="0Mx-xp-OJI" firstAttribute="leading" secondItem="qEE-Il-MtJ" secondAttribute="leading" id="YK4-CA-JTy"/>
-                    <constraint firstAttribute="bottom" secondItem="0Mx-xp-OJI" secondAttribute="bottom" id="f5H-XZ-W5H"/>
                     <constraint firstItem="0Mx-xp-OJI" firstAttribute="top" secondItem="qEE-Il-MtJ" secondAttribute="top" constant="40" id="gvI-2z-jsB"/>
                     <constraint firstItem="0Mx-xp-OJI" firstAttribute="top" secondItem="IMU-Pv-pf3" secondAttribute="bottom" id="nKg-L0-ghY"/>
                     <constraint firstAttribute="trailing" secondItem="9Md-hM-Ggk" secondAttribute="trailing" id="ns0-7O-cYL"/>

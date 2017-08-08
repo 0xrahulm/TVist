@@ -68,6 +68,15 @@ class GuideListViewController: GenericAllItemsListViewController {
             }
         }
     }
+    
+    
+    override func getTrackingPositionName() -> String {
+        if let title = guideItem?.title {
+            return title
+        }
+        return "GuideListView"
+    }
+    
     /*
     // MARK: - Navigation
 

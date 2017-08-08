@@ -24,9 +24,12 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var ctaButton: UIButton!
     
+    @IBOutlet weak var airdateLabel: UILabel!
+    
     @IBOutlet weak var maxRatingLabel: UILabel!
     @IBOutlet weak var ratedImage: UIImageView!
     
+    @IBOutlet weak var ratingView: UIView!
     weak var primaryCTADelegate: PrimaryCTATapProtocol?
     
     weak var parentCollectionView: UICollectionView?
@@ -35,6 +38,7 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var trackButtonHeight: NSLayoutConstraint!
     @IBOutlet weak var trackButtonBackground: NSLayoutConstraint!
     
+    var trackPosition: String!
     
     var mediaItem : ListingMediaItem? {
         didSet{
@@ -51,29 +55,25 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 
                 hideTrackerButton()
                 
-                if let rating = dataItems.mediaItem.rating {
-                    
-                    if rating.characters.count > 0 {
+                if let _ = dataItems.airdate {
+                    self.airdateLabel.text = dataItems.airtime!
+                    ratingView.isHidden = true
+                } else {
+                    self.airdateLabel.text = nil
+                    if let rating = dataItems.mediaItem.rating {
                         
-                        ratingLabel.text = rating
-                        
-                        ratingLabel.isHidden = false
-                        if maxRatingLabel != nil && ratedImage != nil{
-                            maxRatingLabel.isHidden = false
-                            ratedImage.isHidden = false
+                        if rating.characters.count > 0 {
+                            
+                            ratingLabel.text = rating
+                            ratingView.isHidden = false
+                        }else{
+                            ratingView.isHidden = true
+                            
                         }
-                        
-                        
-                    }else{
-                        ratingLabel.isHidden = true
-                        if maxRatingLabel != nil && ratedImage != nil{
-                            maxRatingLabel.isHidden = true
-                            ratedImage.isHidden = true
-                        }
-                        
-                        
                     }
                 }
+                
+                
             }
         }
     }
@@ -99,26 +99,20 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 }else{
 //                    yearLabel.isHidden = true
                 }
-                let rating = dataItems.rating
-                if rating.characters.count > 0 {
-                    
-                    ratingLabel.text = rating
-                    
-                    ratingLabel.isHidden = false
-                    if maxRatingLabel != nil && ratedImage != nil{
-                        maxRatingLabel.isHidden = false
-                        ratedImage.isHidden = false
+                if let airtime = dataItems.nextAirtime, let airDate = airtime.airDate {
+                    self.airdateLabel.text = airDate
+                    ratingView.isHidden = true
+                } else {
+                    self.airdateLabel.text = nil
+                    let rating = dataItems.rating
+                    if rating.characters.count > 0 {
+                        
+                        ratingLabel.text = rating
+                        ratingView.isHidden = false
+                        
+                    }else{
+                        ratingView.isHidden = true
                     }
-                   
-                    
-                }else{
-                    ratingLabel.isHidden = true
-                    if maxRatingLabel != nil && ratedImage != nil{
-                        maxRatingLabel.isHidden = true
-                        ratedImage.isHidden = true
-                    }
-                    
-                    
                 }
                 if ctaButton != nil {
                     updateTrackButton(newState: dataItems.isTracking)
@@ -147,7 +141,7 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                     
                     if let item = self.dataItems {
                         item.isTracking = newState
-                        AnalyticsVader.sharedVader.undoTrack(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: "Guide")
+                        AnalyticsVader.sharedVader.undoTrack(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: self.trackPosition)
                         TrackingDataProvider.shared.removeTrackingFor(escapeId: item.id)
                         self.updateTrackButton(newState: newState)
                     }
@@ -166,7 +160,7 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 item.isTracking = newState
                 TrackingDataProvider.shared.addTrackingFor(escapeId: item.id)
                 
-                AnalyticsVader.sharedVader.trackButtonClicked(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: "Guide")
+                AnalyticsVader.sharedVader.trackButtonClicked(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: trackPosition)
                 
                 updateTrackButton(newState: newState)
                 if let primaryCTADelegate = self.primaryCTADelegate, let collectionView = self.parentCollectionView {

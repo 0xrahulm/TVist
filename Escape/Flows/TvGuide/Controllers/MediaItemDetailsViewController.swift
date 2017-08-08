@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 
 class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
-
+    
     
     @IBOutlet weak var itemImage: UIImageView!
     
@@ -18,7 +18,7 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
     
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var headerView: UIView!
-  
+    
     
     @IBOutlet weak var headerLabel: UILabel!
     
@@ -81,7 +81,7 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
     // For Custom Present Animation
     let customPresentAnimationController = CustomPresentAnimationController()
     
-    
+    var callOnce:Bool = false
     var segmentedTabs: [UIView] = []
     
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
@@ -133,7 +133,7 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
         updateButtonStatus()
         
         self.similarEscapesView.viewAllTapDelegate = self
-//        self.relatedPeopleView.viewAllTapDelegate = self
+        //        self.relatedPeopleView.viewAllTapDelegate = self
         self.viewingOptions.delegate = self
         
         if trackButton != nil {
@@ -146,7 +146,7 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
             trackButton.setTitle("Tracking", for: .selected)
         }
         
-    
+        
         
         if watchlistButton != nil {
             
@@ -161,13 +161,12 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
         
         self.view.layoutIfNeeded()
         
-        
         setupTabs()
     }
     
     func updateButtonStatus() {
         updateWatchlistButton(newState: escapeAlreadyAdded)
-//        updateAlreadySeenButton(newState: isAlreadySeen)
+        //        updateAlreadySeenButton(newState: isAlreadySeen)
         updateTrackButton(newState: isTracking)
         
     }
@@ -206,9 +205,11 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if let escapeId = self.escapeId, let escapeName = self.escapeName, let escapeType = self.escapeType {
-            AnalyticsVader.sharedVader.itemDescriptionOpened(escapeName: escapeName, escapeId: escapeId, escapeType: escapeType.rawValue)
+        if !callOnce {
+            if let escapeId = self.escapeId, let escapeName = self.escapeName, let escapeType = self.escapeType {
+                AnalyticsVader.sharedVader.itemDescriptionOpened(escapeName: escapeName, escapeId: escapeId, escapeType: escapeType.rawValue)
+            }
+            callOnce = true
         }
         
         
@@ -235,44 +236,58 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
         
         if let nextAirtime = nextAirtime {
             self.airDisplayLabel.text = nextAirtime.displayString
-            self.channelImageLogo.downloadImageWithUrl(nextAirtime.channelIcon, placeHolder: IonIcons.image(withIcon: ion_ios_monitor, size: kDefaultIconSize, color: UIColor.buttonGrayColor()))
+            self.channelImageLogo.downloadImageWithUrl(nextAirtime.channelIcon, placeHolder: IconsUtility.airtimeIcon())
         } else {
-            self.channelImageLogo.image = IonIcons.image(withIcon: ion_ios_monitor, size: kDefaultIconSize, color: UIColor.buttonGrayColor())
-            self.airDisplayLabel.text = "Not airing on TV for the next 7 days"
+            self.channelImageLogo.image = IconsUtility.airtimeIcon()
+            self.airDisplayLabel.text = "Not airing in the next 7 days"
+        }
+    }
+    
+    @IBAction func didTapOnAllAirtimes(sender: UIButton) {
+        if let storyboard = self.storyboard {
+            if let viewController = storyboard.instantiateViewController(withIdentifier: "AllAirtimesViewController") as? AllAirtimesViewController {
+                
+                viewController.escapeId = self.escapeId
+                viewController.title = self.escapeName
+                
+                self.navigationController?.pushViewController(viewController, animated: true)
+                
+                AnalyticsVader.sharedVader.basicEvents(eventName: .AllAirtimesClick)
+            }
         }
     }
     
     func setupTabs() {
         
-//        let segmentControl = WBSegmentControl()
-//        
-//        var similarSectionTitle:String = "SIMILAR SHOWS"
-//        if let escapeType = self.escapeType {
-//            if escapeType == .Books {
-//                similarSectionTitle = "SIMILAR BOOKS"
-//            } else if escapeType == .Movie {
-//                similarSectionTitle = "SIMILAR MOVIES"
-//            } else if escapeType == .TvShows {
-//                similarSectionTitle = "SIMILAR SHOWS"
-//            }
-//        }
-//        
-//        
-//        segmentControl.segmentTextFontSize = 16
-//        segmentControl.segmentMinWidth = 90
-//        segmentControl.segments = [
-//            TextSegment(text: "WHERE TO WATCH"),
-//            TextSegment(text: "DETAILS"),
-//            TextSegment(text: "RELATED VIDEOS"),
-//            TextSegment(text: similarSectionTitle)
-//        ]
-//        
-//        segmentedTabs = [viewingOptions,infoView,UIView(),similarEscapesView]
-//        segmentControl.style = .strip
-//        segmentControl.delegate = self
-//        segmentControl.strip_color = UIColor.defaultTintColor()
-//        
-//        segmentControl.selectedIndex = 0
+        //        let segmentControl = WBSegmentControl()
+        //
+        //        var similarSectionTitle:String = "SIMILAR SHOWS"
+        //        if let escapeType = self.escapeType {
+        //            if escapeType == .Books {
+        //                similarSectionTitle = "SIMILAR BOOKS"
+        //            } else if escapeType == .Movie {
+        //                similarSectionTitle = "SIMILAR MOVIES"
+        //            } else if escapeType == .TvShows {
+        //                similarSectionTitle = "SIMILAR SHOWS"
+        //            }
+        //        }
+        //
+        //
+        //        segmentControl.segmentTextFontSize = 16
+        //        segmentControl.segmentMinWidth = 90
+        //        segmentControl.segments = [
+        //            TextSegment(text: "WHERE TO WATCH"),
+        //            TextSegment(text: "DETAILS"),
+        //            TextSegment(text: "RELATED VIDEOS"),
+        //            TextSegment(text: similarSectionTitle)
+        //        ]
+        //
+        //        segmentedTabs = [viewingOptions,infoView,UIView(),similarEscapesView]
+        //        segmentControl.style = .strip
+        //        segmentControl.delegate = self
+        //        segmentControl.strip_color = UIColor.defaultTintColor()
+        //
+        //        segmentControl.selectedIndex = 0
     }
     
     func setVisuals(){
@@ -453,50 +468,50 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
         toggleWatchlistButton()
     }
     
-//    func toggleAlreadySeenButton() {
-//        
-//        seenButton.popButtonAnimate()
-//        let newState = !seenButton.isSelected
-//        
-//        if !newState {
-//            
-//            if let itemName = escapeName {
-//                
-//                let alert = UIAlertController(title: "Are you sure?", message: "\(itemName) is currently in your watchlist, would you like to remove it?", preferredStyle: .alert)
-//                
-//                
-//                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
-//                    
-//                    self.isAlreadySeen = newState
-//                    if let escapeId = self.escapeId {
-//                        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.UndoSeen, properties: ["itemName": itemName, "itemId": escapeId])
-//                        MyAccountDataProvider.sharedDataProvider.removeEscape(escapeId: escapeId)
-//                    }
-//                    self.updateAlreadySeenButton(newState: newState)
-//                    
-//                })
-//                
-//                alert.addAction(removeAction)
-//                
-//                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//                
-//                alert.addAction(cancelAction)
-//                
-//                ScreenVader.sharedVader.showAlert(alert: alert)
-//            }
-//        } else {
-//            self.isAlreadySeen = newState
-//            if let escapeId = self.escapeId {
-//                
-//                if let itemName = escapeName {
-//                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.AddedToSeen, properties: ["itemName": itemName, "itemId": escapeId])
-//                }
-//                UserDataProvider.sharedDataProvider.addToEscape(escapeId, action: EscapeAddActions.Watched, status: "", friendsId: [], shareFB: 1)
-//            }
-//            
-//            updateAlreadySeenButton(newState:newState)
-//        }
-//    }
+    //    func toggleAlreadySeenButton() {
+    //
+    //        seenButton.popButtonAnimate()
+    //        let newState = !seenButton.isSelected
+    //
+    //        if !newState {
+    //
+    //            if let itemName = escapeName {
+    //
+    //                let alert = UIAlertController(title: "Are you sure?", message: "\(itemName) is currently in your watchlist, would you like to remove it?", preferredStyle: .alert)
+    //
+    //
+    //                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
+    //
+    //                    self.isAlreadySeen = newState
+    //                    if let escapeId = self.escapeId {
+    //                        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.UndoSeen, properties: ["itemName": itemName, "itemId": escapeId])
+    //                        MyAccountDataProvider.sharedDataProvider.removeEscape(escapeId: escapeId)
+    //                    }
+    //                    self.updateAlreadySeenButton(newState: newState)
+    //
+    //                })
+    //
+    //                alert.addAction(removeAction)
+    //
+    //                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    //
+    //                alert.addAction(cancelAction)
+    //
+    //                ScreenVader.sharedVader.showAlert(alert: alert)
+    //            }
+    //        } else {
+    //            self.isAlreadySeen = newState
+    //            if let escapeId = self.escapeId {
+    //
+    //                if let itemName = escapeName {
+    //                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.AddedToSeen, properties: ["itemName": itemName, "itemId": escapeId])
+    //                }
+    //                UserDataProvider.sharedDataProvider.addToEscape(escapeId, action: EscapeAddActions.Watched, status: "", friendsId: [], shareFB: 1)
+    //            }
+    //
+    //            updateAlreadySeenButton(newState:newState)
+    //        }
+    //    }
     
     func toggleWatchlistButton() {
         watchlistButton.popButtonAnimate()
@@ -609,50 +624,44 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
     func updateWatchlistButton(newState: Bool) {
         
         watchlistButton.isSelected = newState
-//        if newState {
-//            watchlistButton.backgroundColor = UIColor.buttonGrayColor()
-//        } else {
-//            watchlistButton.backgroundColor = UIColor.buttonGrayColor()
-//        }
+        //        if newState {
+        //            watchlistButton.backgroundColor = UIColor.buttonGrayColor()
+        //        } else {
+        //            watchlistButton.backgroundColor = UIColor.buttonGrayColor()
+        //        }
     }
     
     
     
-//    func updateAlreadySeenButton(newState: Bool) {
-//        
-//        seenButton.isSelected = newState
-//        if newState {
-//            seenButton.backgroundColor = UIColor.defaultTintColor()
-//        } else {
-//            seenButton.backgroundColor = UIColor.white
-//        }
-//    }
+    //    func updateAlreadySeenButton(newState: Bool) {
+    //
+    //        seenButton.isSelected = newState
+    //        if newState {
+    //            seenButton.backgroundColor = UIColor.defaultTintColor()
+    //        } else {
+    //            seenButton.backgroundColor = UIColor.white
+    //        }
+    //    }
     
     func didTapOnViewingOption(viewingOption: StreamingOption) {
         
-//        if let viewingOptionName = viewingOption.text {
-//            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ViewingOptionsClick, properties: ["Option":viewingOptionName])
-//        }
-//        
-//        if let viewingOptionType = viewingOption.type {
-//            if let viewOptionLink = viewingOption.link {
-//                
-//                if let url = URL(string: viewOptionLink) {
-//                    if let scheme = url.scheme {
-//                        if scheme != "http" && scheme != "https" {
-//                            UIApplication.shared.openURL(url)
-//                            return
-//                        }
-//                    }
-//                    let safari = SFSafariViewController(url: url)
-//                    self.present(safari, animated: true, completion: nil)
-//                }
-//                
-//            } else if let mediaItem = self.escapeItem {
-//                ScreenVader.sharedVader.performScreenManagerAction(.OpenMediaOptionsView, queryParams: ["viewingOptionType": viewingOptionType, "mediaItem": mediaItem])
-//            }
-//            
-//        }
+        if let viewingOptionName = viewingOption.name {
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ViewingOptionsClick, properties: ["Option":viewingOptionName])
+        }
+        if let viewOptionLink = viewingOption.link {
+            
+            if let url = URL(string: viewOptionLink) {
+                if let scheme = url.scheme {
+                    if scheme != "http" && scheme != "https" {
+                        UIApplication.shared.openURL(url)
+                        return
+                    }
+                }
+                let safari = SFSafariViewController(url: url)
+                self.present(safari, animated: true, completion: nil)
+            }
+            
+        }
     }
     
     
@@ -661,22 +670,13 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
         
         if let imdbId = self.imdbId {
             if let url = URL(string: "http://www.imdb.com/title/\(imdbId)") {
-            
+                
                 let safari = SFSafariViewController(url: url)
                 self.present(safari, animated: true, completion: nil)
             }
         }
     }
     
-    @IBAction func seeAirtimesTapped(_ sender: AnyObject) {
-        
-        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SeeAirtimesClick)
-        if let url = URL(string: "http://www.tvguide.com/listings/") {
-            
-            let safari = SFSafariViewController(url: url)
-            self.present(safari, animated: true, completion: nil)
-        }
-    }
     
     @IBAction func recommendToFriendsTapped(_ sender: AnyObject) {
         
@@ -731,9 +731,9 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
 //                self.similarEscapesView.getSimilarEscapesData(escapeId: id, escapeType: self.escapeType)
 //            }
 //        }
-//        
+//
 //        if let escapeType = self.escapeType, let escapeName = self.escapeName, oldIndex != -1 {
-//            
+//
 //            if let selectedSegment = segmentControl.segments[newIndex] as? TextSegment {
 //                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.DetailsPageSegmentClick, properties: ["Tab Name": selectedSegment.text, "escape_name":escapeName, "escape_type":escapeType.rawValue])
 //            }
@@ -802,7 +802,7 @@ extension MediaItemDetailsViewController : ItemDescProtocol{
         fillData(data)
         
         self.similarEscapesView.getSimilarEscapesData(escapeId: id, escapeType: self.escapeType)
-//        self.relatedPeopleView.getRelatedPeopleData(escapeId: id)
+        //        self.relatedPeopleView.getRelatedPeopleData(escapeId: id)
     }
     
     func errorItemDescData() {
@@ -831,7 +831,7 @@ extension MediaItemDetailsViewController: UIScrollViewDelegate {
         var imageTransform  = CATransform3DIdentity
         // Pull Down
         if offset < 0 {
-            
+//            
             let headerScaleFactor:CGFloat = -(offset) / headerView.bounds.height
             let headerSizevariation = ((headerView.bounds.height * (1.0 + headerScaleFactor)) - headerView.bounds.height)/2.0
             headerTransform = CATransform3DTranslate(headerTransform, 0, headerSizevariation, 0)
@@ -865,21 +865,21 @@ extension MediaItemDetailsViewController: UIScrollViewDelegate {
             //            imageTransform = CATransform3DTranslate(imageTransform, 0, avatarSizeVariation, 0)
             //            imageTransform = CATransform3DScale(imageTransform, 1.0 - avatarScaleFactor, 1.0 - avatarScaleFactor, 0)
             
-                        if offset <= offset_HeaderStop {
-            //
-                            if itemImage.layer.zPosition < headerLabel.layer.zPosition{
-            //                    headerView.layer.zPosition = 0
-                                headerLabel.layer.zPosition = 0
-            //                    ovalImage.layer.zPosition = 0
-                            }
-            //
-                        }else {
-                            if itemImage.layer.zPosition >= headerLabel.layer.zPosition{
-            //                    headerView.layer.zPosition = 1
-            //                    ovalImage.layer.zPosition = 1
-                                headerLabel.layer.zPosition = 2
-                            }
-                        }
+            if offset <= offset_HeaderStop {
+                //
+                if itemImage.layer.zPosition < headerLabel.layer.zPosition{
+                    //                    headerView.layer.zPosition = 0
+                    headerLabel.layer.zPosition = 0
+                    //                    ovalImage.layer.zPosition = 0
+                }
+                //
+            }else {
+                if itemImage.layer.zPosition >= headerLabel.layer.zPosition{
+                    //                    headerView.layer.zPosition = 1
+                    //                    ovalImage.layer.zPosition = 1
+                    headerLabel.layer.zPosition = 2
+                }
+            }
         }
         
         
@@ -909,7 +909,7 @@ extension MediaItemDetailsViewController: RelatedPeopleViewAllTapProtocol {
 extension MediaItemDetailsViewController: SimilarEscapesViewAllTapProtocol {
     func viewAllTappedIn() {
         if let escapeId = self.escapeId, let escapeType = self.escapeType {
-            
+            AnalyticsVader.sharedVader.basicEvents(eventName: .SimilarShowsViewAllClick)
             ScreenVader.sharedVader.performScreenManagerAction(.OpenSimilarEscapesView, queryParams: ["escapeId": escapeId, "escapeType":escapeType])
         }
     }

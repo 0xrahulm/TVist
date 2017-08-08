@@ -16,11 +16,13 @@ class EscapeCell: NormalCell {
     @IBOutlet weak var creatorNameLabel: UILabel!
     @IBOutlet weak var ratingLabel:UILabel!
     
+    @IBOutlet weak var airtimeLabel: UILabel!
+    
     @IBOutlet weak var trackButton: UIButton!
     
     
     var userHasActed:Bool = false
-    
+    var trackPosition: String!
     
     var escapeItem: EscapeItem? {
         didSet {
@@ -47,12 +49,27 @@ class EscapeCell: NormalCell {
                 creatorNameLabel.isHidden = true
             }
             
-            if escapeItem.escapeTypeVal() == .Movie{
+            if escapeItem.escapeTypeVal() == .Movie {
                 creatorTypeLabel.text = EscapeCreatorType.Movie.rawValue
             }else if escapeItem.escapeTypeVal() == .Books{
                 creatorTypeLabel.text = EscapeCreatorType.Books.rawValue
             }else if escapeItem.escapeTypeVal() == .TvShows{
                 creatorTypeLabel.text = EscapeCreatorType.TvShows.rawValue
+            }
+            
+            if let nextAirtime = escapeItem.nextAirtime {
+                var airText:String = ""
+                if let airDate = nextAirtime.airDate {
+                    airText += "\(airDate) "
+                }
+                airText += "\(nextAirtime.airTime!)"
+                
+                if let channelName = nextAirtime.channelName {
+                    airText += " on \(channelName)"
+                }
+                self.airtimeLabel.text = airText
+            } else {
+                self.airtimeLabel.text = "Not airing in next 7 days."
             }
             
             self.ratingLabel.text = escapeItem.rating
@@ -98,7 +115,7 @@ class EscapeCell: NormalCell {
                     if let item = self.escapeItem {
                         item.isTracking = newState
                         
-                        AnalyticsVader.sharedVader.undoTrack(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: "Generic")
+                        AnalyticsVader.sharedVader.undoTrack(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: self.trackPosition)
                         
                         TrackingDataProvider.shared.removeTrackingFor(escapeId: item.id)
                         self.updateTrackButton(newState: newState)
@@ -116,7 +133,7 @@ class EscapeCell: NormalCell {
         } else {
             if let item = escapeItem {
                 item.isTracking = newState
-                AnalyticsVader.sharedVader.trackButtonClicked(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: "Generic")
+                AnalyticsVader.sharedVader.trackButtonClicked(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: trackPosition)
                 TrackingDataProvider.shared.addTrackingFor(escapeId: item.id)
                 updateTrackButton(newState: newState)
             }

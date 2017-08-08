@@ -25,10 +25,11 @@ class ListingsViewController: UIViewController {
     var listingCellIdentifiers:[ListingsCellIdentifier] = [.MediaListCellIdentifier, .PickChannelCellIdentifier, .ListingDatesCellIdentifier]
 
     var listingItems:[ListingItem] = []
+    var storedOffsets = [Int: CGFloat]()
     
+    var visibleLimit:Int = kDefaultVisibleLimit
     
-    var visibleLimit:Int = 3
-    var allItemsVisible:Bool = false
+    var loadedOnce:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,12 @@ class ListingsViewController: UIViewController {
                 listingItems.append(contentsOf: listData.data)
                 tableView.reloadData()
                 activityIndicator.stopAnimating()
+                
+                if !loadedOnce {
+                    AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsPageLoaded)
+                }
+                
+                loadedOnce = true
             }
         }
     }
@@ -84,9 +91,10 @@ extension ListingsViewController: UITableViewDataSource, UITableViewDelegate {
         let selectedListingItem = listingItems[indexPath.row]
         
         if selectedListingItem.itemTypeEnumValue() == ListingItemType.mediaList {
-            return 330
+            return DataConstants.kHeightForDefaultMediaList
         } else if selectedListingItem.itemTypeEnumValue() == ListingItemType.pickChannel {
-            return 800
+            
+            return 160.0+(CGFloat(visibleLimit)*140.0)
         }
         
         return 170
@@ -115,7 +123,8 @@ extension ListingsViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else if selectedListingItem.itemTypeEnumValue() == .pickChannel {
             let cell = tableView.dequeueReusableCell(withIdentifier: ListingsCellIdentifier.PickChannelCellIdentifier.rawValue, for: indexPath) as! PickChannelCell
-            
+            cell.visibleItemsLimit = self.visibleLimit
+            cell.pickerResizeDelegate = self
             if let cellTitle = selectedListingItem.title {
                 cell.cellTitleLabel.text = cellTitle
             }
@@ -125,15 +134,21 @@ extension ListingsViewController: UITableViewDataSource, UITableViewDelegate {
         return UITableViewCell()
     }
     
-    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         guard let tableViewCell = cell as? CustomListTableViewCell else{
             return
         }
         tableViewCell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.row)
+        tableViewCell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
     }
     
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let tableViewCell = cell as? CustomListTableViewCell else { return }
+        
+        storedOffsets[indexPath.row] = tableViewCell.collectionViewOffset
+    }
 }
 
 extension ListingsViewController : UICollectionViewDelegate , UICollectionViewDataSource {
@@ -156,7 +171,10 @@ extension ListingsViewController : UICollectionViewDelegate , UICollectionViewDa
                 
                 var params : [String:AnyObject] = [:]
                 
-                params["escapeItem"] = data[indexPath.row]
+                let escapeItem = data[indexPath.row]
+                params["escapeItem"] = escapeItem
+                
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsShowsClick, properties: ["Position":"\(indexPath.row+1)", "escapeName": escapeItem.name])
                 
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
             }
@@ -177,6 +195,7 @@ extension ListingsViewController : UICollectionViewDelegate , UICollectionViewDa
         let item = listingItems[collectionView.tag].escapeDataList
         cell.dataItems = item[indexPath.row]
         cell.primaryCTADelegate = self
+        cell.trackPosition = "Listings"
         cell.parentCollectionView = collectionView
         return cell
     }
@@ -196,13 +215,20 @@ extension ListingsViewController: PrimaryCTATapProtocol {
     }
 }
 
+extension ListingsViewController: PickerResizeProtocol {
+    func pickerResize(count: Int) {
+        self.visibleLimit = count
+        self.tableView.reloadData()
+    }
+}
+
 extension ListingsViewController: ViewAllTapProtocol {
     func viewAllTappedIn(_ cell: UITableViewCell) {
         if let indexPath = self.tableView.indexPath(for: cell) {
             let item = listingItems[indexPath.row]
-            ScreenVader.sharedVader.performScreenManagerAction(.OpenGuideListView, queryParams: ["guideItem":item])
+            ScreenVader.sharedVader.performScreenManagerAction(.OpenListingItemView, queryParams: ["listingItem":item])
             
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideViewAllClick, properties: ["Row":"\(indexPath.row+1)"])
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsShowsViewAllClick, properties: ["Row":"\(indexPath.row+1)"])
         }
     }
 }

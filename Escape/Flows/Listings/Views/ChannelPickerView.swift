@@ -52,9 +52,9 @@ class ChannelPickerView: UIView {
         for channelItem in channelItems {
             let button = ChannelButton(type: .custom)
             if let imageUrl = channelItem.imageUrl {
-                button.downloadImageWithUrl(imageUrl, placeHolder: IonIcons.image(withIcon: ion_ios_monitor, size: kDefaultIconSize, color: UIColor.buttonGrayColor()))
+                button.downloadImageWithUrl(imageUrl, placeHolder: IconsUtility.airtimeIcon())
             } else {
-                button.setImage(IonIcons.image(withIcon: ion_ios_monitor, size: kDefaultIconSize, color: UIColor.buttonGrayColor()), for: .normal)
+                button.setImage(IconsUtility.airtimeIcon(), for: .normal)
             }
             button.sizeToFit()
             let buttonWidth:CGFloat = 100
@@ -102,7 +102,13 @@ class ChannelPickerView: UIView {
         if channelPickerDelegate != nil {
             
             if channelItems.count > index {
-                channelPickerDelegate?.didTapOnChannel(channelItems[index])
+                let channel = channelItems[index]
+                if let channelName = channel.name {
+                    
+                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsPickChannel, properties: ["ChannelName": channelName, "Position": "\(index+1)"])
+                }
+                
+                channelPickerDelegate?.didTapOnChannel(channel)
             }
             
         }
