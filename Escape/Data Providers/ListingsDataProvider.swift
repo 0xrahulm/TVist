@@ -215,6 +215,8 @@ class ListingsDataProvider: CommonDataProvider {
     }
     
     func parseListingCategories(_ listingCategories: [[String:AnyObject]]) {
+        self.listingCategories.removeAll()
+        self.categoryChannels.removeAll()
         for (index,listingCategory) in listingCategories.enumerated() {
             if let listingCategoryData = ListingCategory.createListingCategory(data: listingCategory) {
                 if index == categorySelectedIndex {

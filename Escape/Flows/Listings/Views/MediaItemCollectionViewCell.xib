@@ -42,13 +42,13 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Two and a half men" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRA-kx-xYR">
-                        <rect key="frame" x="2" y="182" width="136" height="38.5"/>
+                        <rect key="frame" x="2" y="182.5" width="136" height="38.5"/>
                         <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="16"/>
                         <color key="textColor" red="0.035294117649999998" green="0.043137254899999998" blue="0.074509803920000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J61-aX-5VG">
-                        <rect key="frame" x="0.0" y="222.5" width="140" height="23"/>
+                        <rect key="frame" x="0.0" y="223" width="140" height="23"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/ 10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chz-V9-2bW">
                                 <rect key="frame" x="75" y="5" width="21" height="17"/>
@@ -83,7 +83,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ea-Zj-L2e">
-                        <rect key="frame" x="26" y="142" width="88" height="36"/>
+                        <rect key="frame" x="26" y="142.5" width="88" height="36"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="88" id="4b3-YS-TBo"/>
@@ -96,7 +96,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jou-hg-NtQ">
-                        <rect key="frame" x="27" y="143" width="86" height="34"/>
+                        <rect key="frame" x="27" y="143.5" width="86" height="34"/>
                         <color key="backgroundColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="34" id="kTi-2G-Vep"/>
@@ -116,7 +116,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCq-Oa-RIo">
-                        <rect key="frame" x="0.0" y="223.5" width="140" height="0.0"/>
+                        <rect key="frame" x="0.0" y="224" width="140" height="0.0"/>
                         <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="14"/>
                         <color key="textColor" red="0.25882352939999997" green="0.2784313725" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>

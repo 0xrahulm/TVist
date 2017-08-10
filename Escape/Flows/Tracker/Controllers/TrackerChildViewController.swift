@@ -65,7 +65,7 @@ class TrackerChildViewController: GenericAllItemsListViewController {
                 
                 if let trackedItems = data["trackings"] as? [EscapeItem] {
                     appendDataToBeListed(appendableData: trackedItems, page: data["page"] as? Int)
-                    if trackedItems.count == 0 && fullDataLoaded == true {
+                    if self.listItems.count == 0 && fullDataLoaded == true {
                         if self.schedulerView.isHidden {
                             self.schedulerView.visibleWithAnimationDuration(0.2)
                         }

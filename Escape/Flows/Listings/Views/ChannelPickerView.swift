@@ -22,7 +22,7 @@ class ChannelPickerView: UIView {
     var underlines: [UIView] = []
     
     var bubbleView:UIScrollView!
-    
+    var updateOnce:Bool = false
     
     let kButtonHeight:CGFloat = 55.0
     
@@ -30,11 +30,12 @@ class ChannelPickerView: UIView {
         if self.bubbleView != nil {
             self.bubbleView.removeFromSuperview()
             buttons.removeAll()
+            
             underlines.removeAll()
         }
         self.channelItems = channelItems
         setupBubbleViewControl()
-        
+        updateOnce = false
         setSelected(index: defaultSelected)
     }
     
@@ -57,7 +58,7 @@ class ChannelPickerView: UIView {
                 button.setImage(IconsUtility.airtimeIcon(), for: .normal)
             }
             button.sizeToFit()
-            let buttonWidth:CGFloat = 100
+            let buttonWidth:CGFloat = 105
             
             
             button.frame = CGRect(x: currentX, y: currentY, width: buttonWidth, height: kButtonHeight)
@@ -69,10 +70,10 @@ class ChannelPickerView: UIView {
             buttonTag += 1
             button.addTarget(self, action: #selector(ChannelPickerView.bubbleTapped(_:)), for: .touchUpInside)
             button.layer.cornerRadius = 4
-            let underline = UIView(frame: CGRect(x: currentX, y: currentY+kButtonHeight+3, width: buttonWidth, height: 1))
+            let underline = UIView(frame: CGRect(x: currentX, y: currentY+kButtonHeight+3, width: buttonWidth, height: 1.5))
                 
             
-            currentX += 10+buttonWidth
+            currentX += 7+buttonWidth
             
             
             bubbleView.addSubview(button)
@@ -96,18 +97,25 @@ class ChannelPickerView: UIView {
     func setSelected(index: Int) {
         
         for button in buttons {
-            button.setSelected(selected: (button.tag == index))
+            if (button.tag == index) {
+                button.alpha = 1.0
+                button.setSelected(selected: true)
+            } else {
+                button.alpha = 0.5
+                button.setSelected(selected: false)
+            }
         }
         
         if channelPickerDelegate != nil {
             
             if channelItems.count > index {
                 let channel = channelItems[index]
-                if let channelName = channel.name {
-                    
-                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsPickChannel, properties: ["ChannelName": channelName, "Position": "\(index+1)"])
+                if updateOnce {
+                    if let channelName = channel.name {
+                        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsPickChannel, properties: ["ChannelName": channelName, "Position": "\(index+1)"])
+                    }
                 }
-                
+                updateOnce = true
                 channelPickerDelegate?.didTapOnChannel(channel)
             }
             
@@ -123,7 +131,7 @@ class ChannelPickerView: UIView {
         for (index,lineView) in underlines.enumerated() {
             
             if index == selectedIndex {
-                lineView.backgroundColor = UIColor.defaultCTAColor()
+                lineView.backgroundColor = UIColor.defaultTintColor()
             } else {
                 lineView.backgroundColor = UIColor.hairlineGrayColor()
             }

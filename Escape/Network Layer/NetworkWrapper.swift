@@ -186,7 +186,7 @@ class NetworkWrapper: NSObject {
             
             print ("TOKEN : \(auth)")
         }
-//        headers["X-DEVICE-ID"] = "043455A6-BE5B-09D0-BE41-393CE21efd234234"
+//        headers["X-DEVICE-ID"] = "043455A6-BE5B-09D0-BE41-3f3CE21efd2323234234"
         headers["X-DEVICE-ID"] = DeviceID.getDeviceID()
         
         headers["X-DEVICE-INFO"] = UIDevice.current.modelName

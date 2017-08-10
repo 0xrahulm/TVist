@@ -44,20 +44,19 @@ class CategoryPickerView: UIView {
             let button = UIButton(type: .custom)
             if let categoryName = categoryItem.name {
                 
-                button.setAttributedTitle(SFUIAttributedText.mediumAttributedTextForString(categoryName, size: 15, color: UIColor.textBlackColor().withAlphaComponent(0.6)), for: .normal)
+                button.setAttributedTitle(SFUIAttributedText.mediumAttributedTextForString(categoryName, size: 15, color: UIColor.white), for: .normal)
                 button.setAttributedTitle(SFUIAttributedText.mediumAttributedTextForString(categoryName, size: 15, color: UIColor.white), for: .selected)
             }
             
             button.sizeToFit()
             let buttonWidth = button.frame.width + 35
                 
-            button.setBackgroundImage(UIImage.getImageWithColor(UIColor.mizzleBlackColor(), size: CGSize(width: 1, height: 1)), for: .selected)
+            button.setBackgroundImage(UIImage.getImageWithColor(UIColor.defaultTintColor(), size: CGSize(width: 1, height: 1)), for: .selected)
+            button.setBackgroundImage(UIImage.getImageWithColor(UIColor.buttonGrayColor(), size: CGSize(width: 1, height: 1)), for: .normal)
             
             button.frame = CGRect(x: currentX, y: currentY, width: buttonWidth, height: 40)
             
             button.clipsToBounds = true
-            button.layer.borderColor  = UIColor.textBlackColor().withAlphaComponent(0.6).cgColor
-            button.layer.borderWidth  = 1
             button.tag = buttonTag
 
             buttonTag += 1

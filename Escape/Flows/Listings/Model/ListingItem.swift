@@ -67,6 +67,7 @@ class ListingItem: NSObject {
     }
     
     func parseListingDates(_ listingDates: [[String:AnyObject]]) {
+        ListingsDataProvider.shared.listingDates.removeAll()
         for listingDate in listingDates {
             if let listingDate = ListingDate.createListingDate(data: listingDate) {
                 ListingsDataProvider.shared.listingDates.append(listingDate)

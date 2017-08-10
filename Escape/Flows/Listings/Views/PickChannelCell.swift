@@ -231,7 +231,9 @@ extension PickChannelCell: CategoryPickerProtocol {
     func didTapOnItemAtIndex(_ index: Int) {
         listingData.categorySelectedIndex = index
         channelsForCategory(index: index)
-        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsChannelCategoryClick, properties: ["Position": "\(index+1)"])
+        if updatedOnce {
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsChannelCategoryClick, properties: ["Position": "\(index+1)"])
+        }
     }
 }
 

@@ -66,7 +66,7 @@ class WatchlistChildViewController: GenericAllItemsListViewController {
                 
                 if let watchlistItems = data["watchlist"] as? [EscapeItem] {
                     appendDataToBeListed(appendableData: watchlistItems, page: data["page"] as? Int)
-                    if watchlistItems.count == 0 && fullDataLoaded {
+                    if self.listItems.count == 0 && fullDataLoaded {
                         if self.emptyView.isHidden {
                             self.emptyView.visibleWithAnimationDuration(0.2)
                         }
