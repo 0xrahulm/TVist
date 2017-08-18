@@ -71,6 +71,8 @@
 		8446C9981DD8F430008C6DED /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9961DD8F430008C6DED /* TabButton.swift */; };
 		84518BC01EA66F4100DB59FD /* AnalyticsVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84518BBF1EA66F4100DB59FD /* AnalyticsVader.swift */; };
 		84518BC11EA66F4100DB59FD /* AnalyticsVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84518BBF1EA66F4100DB59FD /* AnalyticsVader.swift */; };
+		846006FD1F3DB3EF006D8523 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846006FC1F3DB3EF006D8523 /* BaseViewController.swift */; };
+		846006FE1F3DB3EF006D8523 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846006FC1F3DB3EF006D8523 /* BaseViewController.swift */; };
 		8469867B1EF7B17E004C1815 /* TrackingDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469867A1EF7B17E004C1815 /* TrackingDataProvider.swift */; };
 		8469867C1EF7B17E004C1815 /* TrackingDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469867A1EF7B17E004C1815 /* TrackingDataProvider.swift */; };
 		8469867F1EF7CCF6004C1815 /* Tracker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8469867E1EF7CCF6004C1815 /* Tracker.storyboard */; };
@@ -91,10 +93,6 @@
 		846B90CA1EFD7E260008C3AA /* StreamingOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B90C81EFD7E260008C3AA /* StreamingOptionCell.swift */; };
 		846F36121F28C19E00821D2B /* MediaItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846F360F1F28C19E00821D2B /* MediaItemCollectionViewCell.xib */; };
 		846F36131F28C19E00821D2B /* MediaItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846F360F1F28C19E00821D2B /* MediaItemCollectionViewCell.xib */; };
-		8470F5911F0BB8B4001341E8 /* Tune.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470F58F1F0BB8B4001341E8 /* Tune.framework */; };
-		8470F5921F0BB8B4001341E8 /* Tune.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470F58F1F0BB8B4001341E8 /* Tune.framework */; };
-		8470F5931F0BB8B4001341E8 /* TuneConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8470F5901F0BB8B4001341E8 /* TuneConfiguration.plist */; };
-		8470F5941F0BB8B4001341E8 /* TuneConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8470F5901F0BB8B4001341E8 /* TuneConfiguration.plist */; };
 		8470F5961F0BB9C0001341E8 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470F5951F0BB9C0001341E8 /* CoreSpotlight.framework */; };
 		8470F5981F0BB9DE001341E8 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470F5971F0BB9DE001341E8 /* CoreTelephony.framework */; };
 		8470F59A1F0BB9F5001341E8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470F5991F0BB9F5001341E8 /* libz.tbd */; };
@@ -664,6 +662,7 @@
 		843F3DC71F28AE9200EE38E3 /* MediaListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaListCell.xib; sourceTree = "<group>"; };
 		8446C9961DD8F430008C6DED /* TabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
 		84518BBF1EA66F4100DB59FD /* AnalyticsVader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsVader.swift; sourceTree = "<group>"; };
+		846006FC1F3DB3EF006D8523 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8469867A1EF7B17E004C1815 /* TrackingDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingDataProvider.swift; sourceTree = "<group>"; };
 		8469867E1EF7CCF6004C1815 /* Tracker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tracker.storyboard; sourceTree = "<group>"; };
 		846986811EF7CD77004C1815 /* TrackerChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerChildViewController.swift; sourceTree = "<group>"; };
@@ -674,8 +673,6 @@
 		846B90C51EFD7B440008C3AA /* StreamingOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingOption.swift; sourceTree = "<group>"; };
 		846B90C81EFD7E260008C3AA /* StreamingOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingOptionCell.swift; sourceTree = "<group>"; };
 		846F360F1F28C19E00821D2B /* MediaItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaItemCollectionViewCell.xib; sourceTree = "<group>"; };
-		8470F58F1F0BB8B4001341E8 /* Tune.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Tune.framework; sourceTree = "<group>"; };
-		8470F5901F0BB8B4001341E8 /* TuneConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TuneConfiguration.plist; sourceTree = "<group>"; };
 		8470F5951F0BB9C0001341E8 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		8470F5971F0BB9DE001341E8 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		8470F5991F0BB9F5001341E8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -964,7 +961,6 @@
 				8470F5961F0BB9C0001341E8 /* CoreSpotlight.framework in Frameworks */,
 				848198A91EFBE64A0063A494 /* AdSupport.framework in Frameworks */,
 				848198AA1EFBE64A0063A494 /* iAd.framework in Frameworks */,
-				8470F5911F0BB8B4001341E8 /* Tune.framework in Frameworks */,
 				842BBDE21EC9B4D400B7731C /* AWSCore.framework in Frameworks */,
 				BC3A81941CA5397B00FF8678 /* FBSDKShareKit.framework in Frameworks */,
 				842BBDF41EC9B55600B7731C /* Realm.framework in Frameworks */,
@@ -989,7 +985,6 @@
 			files = (
 				BC3A81931CA5397B00FF8678 /* FBSDKLoginKit.framework in Frameworks */,
 				BC3A81911CA5397B00FF8678 /* FBSDKCoreKit.framework in Frameworks */,
-				8470F5921F0BB8B4001341E8 /* Tune.framework in Frameworks */,
 				BC3A81951CA5397B00FF8678 /* FBSDKShareKit.framework in Frameworks */,
 				F69261B4C8E51C1722579609 /* Pods_Mizzle_copy.framework in Frameworks */,
 				848198B91EFBF9E60063A494 /* libGoogleConversionTracking.a in Frameworks */,
@@ -1111,6 +1106,7 @@
 		8446C9951DD8F376008C6DED /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				846006FC1F3DB3EF006D8523 /* BaseViewController.swift */,
 				84E43A151F2B52C600888524 /* ChannelButton.swift */,
 				849DFB061EF3AAE700F9C3F3 /* WBSegment */,
 				842BBDFD1EC9B6AD00B7731C /* ionicons */,
@@ -1147,15 +1143,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		8470F58E1F0BB890001341E8 /* Tune */ = {
-			isa = PBXGroup;
-			children = (
-				8470F58F1F0BB8B4001341E8 /* Tune.framework */,
-				8470F5901F0BB8B4001341E8 /* TuneConfiguration.plist */,
-			);
-			path = Tune;
-			sourceTree = "<group>";
-		};
 		8471653F1EC30B02004B0A53 /* MizzleAsk */ = {
 			isa = PBXGroup;
 			children = (
@@ -1182,7 +1169,6 @@
 		848198B51EFBF9850063A494 /* ConversionTracking */ = {
 			isa = PBXGroup;
 			children = (
-				8470F58E1F0BB890001341E8 /* Tune */,
 				848198B61EFBF9E60063A494 /* ACTReporter.h */,
 				848198B71EFBF9E60063A494 /* libGoogleConversionTracking.a */,
 			);
@@ -2010,7 +1996,6 @@
 				84E43A0D1F2B249F00888524 /* PickChannelCell.xib in Resources */,
 				849E2F381EE823AD00991FB3 /* GenericLists.storyboard in Resources */,
 				842BBE081EC9B6AD00B7731C /* ionicons.bundle in Resources */,
-				8470F5931F0BB8B4001341E8 /* TuneConfiguration.plist in Resources */,
 				846986861EF81591004C1815 /* GenericMediaCellWithAllCTA.xib in Resources */,
 				849E2F1E1EE823AD00991FB3 /* EditEscapeViewController.xib in Resources */,
 				849E2F761EE823AD00991FB3 /* SuggestedFollows.xib in Resources */,
@@ -2103,7 +2088,6 @@
 				843F3DA91F25EFB500EE38E3 /* ListingDatesCell.xib in Resources */,
 				843F3DA51F23798B00EE38E3 /* Listings.storyboard in Resources */,
 				BC47ED9D1C9FF233008143C2 /* LaunchScreen.storyboard in Resources */,
-				8470F5941F0BB8B4001341E8 /* TuneConfiguration.plist in Resources */,
 				849E2F731EE823AD00991FB3 /* FBFriendView.xib in Resources */,
 				849E2F311EE823AD00991FB3 /* GenericTaggedEscapeCell.xib in Resources */,
 				849E2F7B1EE823AD00991FB3 /* WhatsYourEscape.xib in Resources */,
@@ -2317,6 +2301,7 @@
 				843F3DAE1F26072700EE38E3 /* ListDateView.swift in Sources */,
 				BCCD70C51CA19278002A0C07 /* UIColor+Utility.swift in Sources */,
 				BC85DBF71CA69F0E002237A4 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				846006FD1F3DB3EF006D8523 /* BaseViewController.swift in Sources */,
 				849DFB091EF3AB0600F9C3F3 /* WBSegmentControl.swift in Sources */,
 				849E2F161EE823AD00991FB3 /* DiscoverViewController.swift in Sources */,
 				BC3A818B1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
@@ -2571,6 +2556,7 @@
 				849E2FCB1EE823AD00991FB3 /* SearchItems.swift in Sources */,
 				BC85DBFC1CA69F0E002237A4 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				84C3D6741F322F89005BDED7 /* ListingItemViewController.swift in Sources */,
+				846006FE1F3DB3EF006D8523 /* BaseViewController.swift in Sources */,
 				849E2F251EE823AD00991FB3 /* GenericAllItemsListViewController.swift in Sources */,
 				849E2F891EE823AD00991FB3 /* DescDataItems.swift in Sources */,
 				849E2F331EE823AD00991FB3 /* NormalCell.swift in Sources */,

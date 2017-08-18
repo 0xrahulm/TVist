@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WatchlistViewController: UIViewController {
+class WatchlistViewController: BaseViewController {
     
     @IBOutlet weak var containerView: UIView!
     
@@ -51,6 +51,9 @@ class WatchlistViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func getName() -> String {
+        return ScreenNames.Watchlist.rawValue
+    }
     
     func setupPageMenu() {
         

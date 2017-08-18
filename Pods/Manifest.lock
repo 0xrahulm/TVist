@@ -3,7 +3,23 @@ PODS:
     - Fabric (~> 1.6.3)
   - DropDown (2)
   - Fabric (1.6.11)
+  - FirebaseAnalytics (3.7.0):
+    - FirebaseCore (~> 3.5)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseCore (3.5.2):
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseInstanceID (1.0.9)
   - Flurry-iOS-SDK/FlurrySDK (7.10.0)
+  - Google/Analytics (3.0.3):
+    - Google/Core
+    - GoogleAnalytics (~> 3.12)
+  - Google/Core (3.0.3):
+    - FirebaseAnalytics (~> 3.2)
+  - GoogleAnalytics (3.17.0)
+  - GoogleToolboxForMac/Defines (2.1.1)
+  - GoogleToolboxForMac/NSData+zlib (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
   - SpaceView (1.0.5)
 
 DEPENDENCIES:
@@ -11,15 +27,22 @@ DEPENDENCIES:
   - DropDown
   - Fabric
   - Flurry-iOS-SDK/FlurrySDK
+  - Google/Analytics
   - SpaceView
 
 SPEC CHECKSUMS:
   Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
   DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
+  FirebaseAnalytics: 0d1b7d81d5021155be37702a94ba1ec16d45365d
+  FirebaseCore: a024587e43778508700af8c6b1209f7c4516ba02
+  FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
   Flurry-iOS-SDK: e6975df9e57010d582bf9bed0f6312553cf24bc2
+  Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
+  GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
+  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   SpaceView: 1619ebbb5162f4f3547a4cb383bea479a54fa76c
 
-PODFILE CHECKSUM: 31a6408674d131c4d7e5c495dce3d261d1c77ff5
+PODFILE CHECKSUM: 41df08cafa333d37ec65945c1d9fd8d181a36099
 
 COCOAPODS: 1.2.0

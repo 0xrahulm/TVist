@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TvGuideViewController: UIViewController {
+class TvGuideViewController: BaseViewController {
     
     @IBOutlet weak var containerView: UIView!
     
@@ -32,6 +32,10 @@ class TvGuideViewController: UIViewController {
             addChildVC(type: eachItem)
         }
         
+    }
+    
+    override func getName() -> String {
+        return ScreenNames.Guide.rawValue
     }
     
     override func viewWillAppear(_ animated: Bool) {

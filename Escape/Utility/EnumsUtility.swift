@@ -168,6 +168,17 @@ enum NotificationObservers: String {
     case ListingsChannelDataObserver = "ListingsChannelDataObserver"
     case ListingMediaItemsObserver = "ListingsMediaItemsObserver"
 }
+
+enum ScreenNames: String {
+    case Listings = "Tv Listings"
+    case Guide = "Guide"
+    case FullListings = "Full Listings"
+    case Tracker = "Tracker"
+    case MediaDescription = "Media Description"
+    case Watchlist = "Watchlist"
+    case Search = "Search"
+}
+
 enum StoryType : NSNumber {
     case emptyStory = -1
     case whatsYourEscape = -2

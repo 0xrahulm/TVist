@@ -9,7 +9,7 @@
 import UIKit
 import DropDown
 
-class FullListingsViewController: UIViewController {
+class FullListingsViewController: BaseViewController {
     
     var startTime: String?
     var endTime:String?
@@ -61,6 +61,10 @@ class FullListingsViewController: UIViewController {
         
         self.selectedChannel = queryParams["selectedChannel"] as? TvChannel
         
+    }
+    
+    override func getName() -> String {
+        return ScreenNames.FullListings.rawValue
     }
 
     override func viewDidLoad() {
@@ -114,6 +118,7 @@ class FullListingsViewController: UIViewController {
         
         setupChannelsForCategory(index: index)
         self.selectedChannel = nil
+        self.channelSelectionButton.setTitle("All Channels", for: .normal)
         
         reset()
     }

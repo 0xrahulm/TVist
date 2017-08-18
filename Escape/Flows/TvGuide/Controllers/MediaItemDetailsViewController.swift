@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
+class MediaItemDetailsViewController: BaseViewController, ViewingOptionsProtocol {
     
     
     @IBOutlet weak var itemImage: UIImageView!
@@ -110,6 +110,9 @@ class MediaItemDetailsViewController: UIViewController, ViewingOptionsProtocol {
         }
     }
     
+    override func getName() -> String {
+        return ScreenNames.MediaDescription.rawValue
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

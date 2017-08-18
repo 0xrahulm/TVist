@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: BaseViewController {
     
     var searchBar:UISearchBar =     UISearchBar()
     var pageMenu : CAPSPageMenu?
@@ -34,6 +34,9 @@ class SearchViewController: UIViewController {
         }
     }
 
+    override func getName() -> String {
+        return ScreenNames.Search.rawValue
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
     }

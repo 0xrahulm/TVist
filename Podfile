@@ -7,6 +7,7 @@ def mizzle_pods
     pod 'Crashlytics'
     pod 'SpaceView'
     pod 'DropDown'
+    pod 'Google/Analytics'
 end
 
 target 'Mizzle' do

@@ -16,7 +16,7 @@ enum ListingsCellIdentifier: String {
     
 }
 
-class ListingsViewController: UIViewController {
+class ListingsViewController: BaseViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -44,6 +44,10 @@ class ListingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+    }
+    
+    override func getName() -> String {
+        return ScreenNames.Listings.rawValue
     }
     
     deinit {

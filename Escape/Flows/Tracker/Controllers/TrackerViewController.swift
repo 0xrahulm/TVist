@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TrackerViewController: UIViewController {
+class TrackerViewController: BaseViewController {
     
     @IBOutlet weak var containerView: UIView!
     
@@ -50,6 +50,9 @@ class TrackerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func getName() -> String {
+        return ScreenNames.Tracker.rawValue
+    }
     
     func setupPageMenu() {
         

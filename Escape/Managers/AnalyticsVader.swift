@@ -16,6 +16,17 @@ class AnalyticsVader: NSObject {
     
     var identificationDone: Bool = false
     
+    var gaInstance:GAI?
+    
+    override init() {
+        super.init()
+        self.gaInstance = GAI.sharedInstance()
+        if let gaInstance = self.gaInstance {
+            gaInstance.tracker(withTrackingId: "UA-98548381-1")
+            gaInstance.trackUncaughtExceptions = true
+        }
+    }
+    
     func onboardingStarted() {
         timedEventStart(eventName: EventName.onboardingScreen)
     }
@@ -100,12 +111,24 @@ class AnalyticsVader: NSObject {
             if let user = MyAccountDataProvider.sharedDataProvider.currentUser, let userId = user.id {
                 Mixpanel.mainInstance().identify(distinctId: userId)
                 Mixpanel.mainInstance().people.set(property: "userType", to: user.userType)
+                
+                identificationDone = true
             }
-            
-            identificationDone = true
         }
         
         Mixpanel.mainInstance().track(event: eventName, properties: properties)
+        
+        if let ga = self.gaInstance {
+            if let tracker = ga.defaultTracker {
+                
+                if let dict = GAIDictionaryBuilder.createEvent(withCategory: "Basic", action: eventName, label: "", value: 1) {
+                    let data = dict.build() as [NSObject : AnyObject]
+                    tracker.send(data)
+                }
+                
+                
+            }
+        }
         
     }
 }
