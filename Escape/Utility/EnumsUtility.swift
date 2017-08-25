@@ -10,7 +10,7 @@ import Foundation
 
 enum ScreenManagerAction : String {
     case ListingsTab = "ListingsTab"
-    case GuideTab = "GuideTab"
+    case HomeTab = "HomeTab"
     case TrackerTab = "TrackerTab"
     case TopChartsTab = "TopChartsTab"
     case SearchTab = "SearchTab"
@@ -78,7 +78,7 @@ enum ProfileListType: String {
     case Books = "book"
 }
 
-enum GuideListType:String {
+enum FilterType:String {
     case All="all"
     case Television="tv_show"
     case Movie="movie"
@@ -98,6 +98,16 @@ enum ListingItemType: Int {
     case listingDays = 0
     case mediaList = 1
     case pickChannel = 2
+}
+
+enum HomeItemType: Int {
+    case showLoading = -1
+    case tracker = 0
+    case listing = 1
+    case discover = 2
+    case articles = 3
+    case videos = 4
+    case genre = 5
 }
 
 enum EscapeType: String {
@@ -281,7 +291,7 @@ enum EventName:String {
     case OpenTrackedItem = "Open_Tracked_Item"
     case ListingsTabClick = "Listings_Tab_Click"
     
-    case GuideTabClick = "Guide_Tab_Click"
+    case HomeTabClick = "Home_Tab_Click"
     case SearchTabClick = "Search_Tab_Click"
     case WatchlistTabClick = "Watchlist_Tab_Click"
     case SignUpNowClick = "SignUp_Now_Click"

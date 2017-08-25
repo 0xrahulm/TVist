@@ -27,7 +27,7 @@ class DiscoverAllViewController: UIViewController {
         tableView.reloadData()
         loadingView.startAnimating()
         
-        tableView.register(UINib(nibName: CellIdentifier.FBFriends.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.FBFriends.rawValue)
+//        tableView.register(UINib(nibName: CellIdentifier.FBFriends.rawValue, bundle: nil), forCellReuseIdentifier: CellIdentifier.FBFriends.rawValue)
         
        NotificationCenter.default.addObserver(self, selector: #selector(DiscoverAllViewController.receivedNotification(_:)), name: NSNotification.Name(rawValue: NotificationObservers.DiscoverObserver.rawValue), object: nil)
         
@@ -154,13 +154,7 @@ extension DiscoverAllViewController : UITableViewDataSource{
         
         if let discoveryType = data.discoverType {
             if discoveryType == .Story {
-                if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.FBFriends.rawValue, for: indexPath) as? FBFriendsTableViewCell {
-                    cell.indexPath = indexPath
-                    cell.removeFbCardDelegate = self
-                    cell.friendItems = data.fbFriendCard
-                    return cell
-                }
-                
+                    
             }
         }
         

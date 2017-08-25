@@ -24,7 +24,7 @@ class RelatedPeopleView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        collectionView.register(UINib(nibName: CellIdentifier.SuggestedPeopleCollection.rawValue, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.SuggestedPeopleCollection.rawValue)
+        
     }
     
     @IBAction func viewAllTapped(sender: UIButton) {
@@ -82,10 +82,7 @@ extension RelatedPeopleView : UICollectionViewDataSource{
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.SuggestedPeopleCollection.rawValue, for: indexPath) as! SuggestedPeopleCollectionViewCell
-        collectionCell.data = collectionDataArray[indexPath.row]
-        
-        return collectionCell
+        return UICollectionViewCell()
         
     }
     

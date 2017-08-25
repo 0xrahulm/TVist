@@ -573,39 +573,6 @@ extension MyProfileViewController: UITableViewDataSource {
         return profileItemsForSelectedTab().endIndex
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let selectedProfileItem = profileItemsForSelectedTab()[indexPath.row]
-        
-        if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.showDiscoverNow {
-            return 360
-        }
-        
-        if selectedProfileItem.itemTypeEnumValue() == ProfileItemType.userStory {
-            if let storyCard = selectedProfileItem.associatedStoryCard, let storyType = storyCard.storyType {
-                
-                switch storyType {
-                    
-                case .fbFriendFollow:
-                    return CellHeight.fbFriends.rawValue
-                    
-                case .addToEscape:
-                    return UITableViewAutomaticDimension
-                    
-                case .recommeded:
-                    return UITableViewAutomaticDimension
-                    
-                case .emptyStory:
-                    return CellHeight.placeHolder.rawValue
-                    
-                default:
-                    return 0
-                    
-                }
-                
-            }
-        }
-        return 270
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

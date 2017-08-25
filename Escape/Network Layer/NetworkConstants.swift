@@ -58,6 +58,9 @@ enum SubServiceType : String {
     case GetAirtimes        = "escapes/airtime"
     
     //Home
+    
+    case HomeData = "home"
+    
     case GetUserStory       =  "get_user_stories"
     case GetStoryComment    =  "story/comments"
     case PostStoryComment   =  "story/comment"
@@ -91,6 +94,7 @@ enum SubServiceType : String {
     case ChannelListings = "channels/listing"
     case ListingCategories = "categories"
     case FullListings = "full_listings"
+    
     
 }
 

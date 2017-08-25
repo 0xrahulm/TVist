@@ -9,7 +9,7 @@
 import UIKit
 
 class GuideList: NSObject {
-    var type: GuideListType?
+    var type: FilterType?
     var data: [GuideItem] = []
     var userId: String?
     

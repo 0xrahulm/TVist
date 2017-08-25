@@ -58,14 +58,21 @@ class UserDetailView: UIView {
         }
         
         if actionCount > 0 {
-            actionCountLabel.text = "\(actionCount)"
+            if actionCountLabel != nil {
+             
+                actionCountLabel.text = "\(actionCount)"
+            }
         } else {
             if viewType == "Tracking" {
                 actionNameLabel.text = "No tracking data"
             } else {
                 actionNameLabel.text = "No watchlist data"
             }
-            actionCountLabel.text = nil
+            
+            if actionCountLabel != nil {
+                
+                actionCountLabel.text = nil
+            }
         }
         
         if userType != "g" {
@@ -74,7 +81,10 @@ class UserDetailView: UIView {
             self.layoutIfNeeded()
         } else {
             self.actionNameLabel.text = "Register to sync your data"
-            actionCountLabel.text = nil
+            
+            if actionCountLabel != nil {
+                actionCountLabel.text = nil
+            }
         }
     }
     

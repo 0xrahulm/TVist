@@ -14,7 +14,7 @@ class WatchlistChildViewController: GenericAllItemsListViewController {
     
     
     
-    var listType: GuideListType = .Television
+    var listType: FilterType = .Television
     var loadedOnce:Bool = false
     
     @IBOutlet weak var emptyLabel: UILabel!
@@ -57,7 +57,7 @@ class WatchlistChildViewController: GenericAllItemsListViewController {
     
     
     @IBAction func tappedOnAddToWatchlistNow(sender: UIButton) {
-        ScreenVader.sharedVader.performScreenManagerAction(.GuideTab, queryParams: nil)
+        ScreenVader.sharedVader.performScreenManagerAction(.HomeTab, queryParams: nil)
     }
     
     func receivedData(notification: Notification) {

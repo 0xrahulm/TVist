@@ -63,6 +63,9 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
         } else if title == "Watchlist" {
             selectedImage = ion_navicon
             normalImage = ion_navicon
+        } else if title == "Home" {
+            selectedImage = ion_ios_home
+            normalImage = ion_ios_home_outline
         }
         
         tabBarItem.image = IonIcons.image(withIcon: normalImage, size: kDefaultIconSize, color: UIColor.buttonGrayColor())

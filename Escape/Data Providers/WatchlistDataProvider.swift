@@ -14,7 +14,7 @@ class WatchlistDataProvider: CommonDataProvider {
     
     static let shared = WatchlistDataProvider()
     
-    func fetchWatchlistData(page: Int, type: GuideListType) {
+    func fetchWatchlistData(page: Int, type: FilterType) {
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .UserWatchlist, params: ["page": page, "type":type.rawValue], delegate: self)
     }
     

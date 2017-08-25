@@ -10,20 +10,20 @@ import UIKit
 
 let kMainTabsCount = 5
 enum MainTabIndex {
-    case Guide, Tracker, Listings, Search, Watchlist
+    case Home, Tracker, Listings, Search, Watchlist
     
     var index:Int {
         
         switch self {
-        case .Listings:
+        case .Home:
             return 0
         case .Tracker:
             return 1
-        case .Guide:
+        case .Listings:
             return 2
-        case .Search:
-            return 3
         case .Watchlist:
+            return 3
+        case .Search:
             return 4
         }
     }
@@ -37,8 +37,8 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
     var shouldBeBlack = true
     
     func getMainTabForIndex(index:Int) -> MainTabIndex? {
-        if MainTabIndex.Guide.index == index {
-            return .Guide
+        if MainTabIndex.Home.index == index {
+            return .Home
         }
         if MainTabIndex.Tracker.index == index {
             return .Tracker
@@ -70,16 +70,17 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
     private func setupViewControllers() {
         
         
+        let homeViewController = initialViewControllerFor(.Home) as! CustomNavigationViewController
         let searchViewController = initialViewControllerFor(.Search) as! CustomNavigationViewController
         let discoverViewController = initialViewControllerFor(.Listings) as! CustomNavigationViewController
-        let homeViewController = initialViewControllerFor(.TvGuide) as! CustomNavigationViewController
+        
         let trackerViewController = initialViewControllerFor(.Tracker) as! CustomNavigationViewController
         let watchlistViewController = initialViewControllerFor(.Watchlist) as! CustomNavigationViewController
         
         
         var orderedViewControllers:[UIViewController] = Array<UIViewController>(repeating: UIViewController(),count: kMainTabsCount)
         
-        orderedViewControllers[MainTabIndex.Guide.index] = homeViewController
+        orderedViewControllers[MainTabIndex.Home.index] = homeViewController
         orderedViewControllers[MainTabIndex.Tracker.index] = trackerViewController
         orderedViewControllers[MainTabIndex.Listings.index] = discoverViewController
         orderedViewControllers[MainTabIndex.Search.index] = searchViewController
@@ -146,8 +147,8 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
                 
                 if let getItem = getMainTabForIndex(index: index) {
                     switch getItem {
-                    case .Guide:
-                        AnalyticsVader.sharedVader.basicEvents(eventName: .GuideTabClick)
+                    case .Home:
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .HomeTabClick)
                         break
                     case .Search:
                         AnalyticsVader.sharedVader.basicEvents(eventName: .SearchTabClick)

@@ -250,8 +250,8 @@ extension ScreenManagerViewController{
         
         if let mainTAbVC = currentPresentedViewController as? MainTabBarViewController {
             switch action {
-            case .GuideTab:
-                mainTAbVC.selectedIndex = MainTabIndex.Guide.index
+            case .HomeTab:
+                mainTAbVC.selectedIndex = MainTabIndex.Home.index
                 break
             case .TopChartsTab:
                 mainTAbVC.selectedIndex = MainTabIndex.Listings.index
@@ -269,7 +269,7 @@ extension ScreenManagerViewController{
                 mainTAbVC.selectedIndex = MainTabIndex.Listings.index
                 break
             default:
-                mainTAbVC.selectedIndex = MainTabIndex.Guide.index
+                mainTAbVC.selectedIndex = MainTabIndex.Home.index
                 break
             }
         }
@@ -288,7 +288,7 @@ extension ScreenManagerViewController{
             break
         case .ListingsTab:
             fallthrough
-        case .GuideTab:
+        case .HomeTab:
             fallthrough
             
         case .TrackerTab:

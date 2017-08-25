@@ -16,7 +16,7 @@ class TrackingDataProvider: CommonDataProvider {
     
     static let shared = TrackingDataProvider()
     
-    func fetchTrackingData(page: Int, type: GuideListType) {
+    func fetchTrackingData(page: Int, type: FilterType) {
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .UserTrackings, params: ["page": page, "type":type.rawValue], delegate: self)
     }
     

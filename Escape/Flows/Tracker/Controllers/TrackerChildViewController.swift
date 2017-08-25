@@ -14,7 +14,7 @@ class TrackerChildViewController: GenericAllItemsListViewController {
     
     
     
-    var listType: GuideListType = .Television
+    var listType: HomeListType = .Television
     var loadedOnce:Bool = false
     
     @IBOutlet weak var emptyLabel: UILabel!

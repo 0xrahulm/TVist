@@ -120,6 +120,16 @@
 		848198AA1EFBE64A0063A494 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848198A81EFBE64A0063A494 /* iAd.framework */; };
 		848198B81EFBF9E60063A494 /* libGoogleConversionTracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 848198B71EFBF9E60063A494 /* libGoogleConversionTracking.a */; };
 		848198B91EFBF9E60063A494 /* libGoogleConversionTracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 848198B71EFBF9E60063A494 /* libGoogleConversionTracking.a */; };
+		848AD0691F4EAC1500A596F2 /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD0681F4EAC1500A596F2 /* HomeData.swift */; };
+		848AD06A1F4EAC1500A596F2 /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD0681F4EAC1500A596F2 /* HomeData.swift */; };
+		848AD06C1F4EAC3900A596F2 /* HomeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD06B1F4EAC3900A596F2 /* HomeItem.swift */; };
+		848AD06D1F4EAC3900A596F2 /* HomeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD06B1F4EAC3900A596F2 /* HomeItem.swift */; };
+		848AD06F1F4F312700A596F2 /* GenreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD06E1F4F312700A596F2 /* GenreItem.swift */; };
+		848AD0701F4F312700A596F2 /* GenreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD06E1F4F312700A596F2 /* GenreItem.swift */; };
+		848AD0721F4F313000A596F2 /* ArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD0711F4F313000A596F2 /* ArticleItem.swift */; };
+		848AD0731F4F313000A596F2 /* ArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD0711F4F313000A596F2 /* ArticleItem.swift */; };
+		848AD0751F4F315600A596F2 /* VideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD0741F4F315600A596F2 /* VideoItem.swift */; };
+		848AD0761F4F315600A596F2 /* VideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD0741F4F315600A596F2 /* VideoItem.swift */; };
 		84958E2C1EC4B1A2007E1A24 /* SelectOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84958E2B1EC4B1A2007E1A24 /* SelectOptionViewController.swift */; };
 		84958E2D1EC4C1F6007E1A24 /* EnumsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F45761CDF6EC300A65A63 /* EnumsUtility.swift */; };
 		84958E301EC58A2B007E1A24 /* MessageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84958E2F1EC58A2B007E1A24 /* MessageFactory.swift */; };
@@ -232,8 +242,6 @@
 		849E2F671EE823AD00991FB3 /* StoryComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E2EC71EE823AD00991FB3 /* StoryComment.swift */; };
 		849E2F681EE823AD00991FB3 /* SuggestedFollowsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E2EC81EE823AD00991FB3 /* SuggestedFollowsCard.swift */; };
 		849E2F691EE823AD00991FB3 /* SuggestedFollowsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E2EC81EE823AD00991FB3 /* SuggestedFollowsCard.swift */; };
-		849E2F6A1EE823AD00991FB3 /* SingleStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E2EC91EE823AD00991FB3 /* SingleStoryViewController.swift */; };
-		849E2F6B1EE823AD00991FB3 /* SingleStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E2EC91EE823AD00991FB3 /* SingleStoryViewController.swift */; };
 		849E2F6C1EE823AD00991FB3 /* AddToEscapeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E2ECB1EE823AD00991FB3 /* AddToEscapeView.xib */; };
 		849E2F6D1EE823AD00991FB3 /* AddToEscapeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E2ECB1EE823AD00991FB3 /* AddToEscapeView.xib */; };
 		849E2F6E1EE823AD00991FB3 /* ArticleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849E2ECC1EE823AD00991FB3 /* ArticleView.xib */; };
@@ -697,6 +705,11 @@
 		848198A81EFBE64A0063A494 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		848198B61EFBF9E60063A494 /* ACTReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACTReporter.h; sourceTree = "<group>"; };
 		848198B71EFBF9E60063A494 /* libGoogleConversionTracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleConversionTracking.a; sourceTree = "<group>"; };
+		848AD0681F4EAC1500A596F2 /* HomeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeData.swift; sourceTree = "<group>"; };
+		848AD06B1F4EAC3900A596F2 /* HomeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItem.swift; sourceTree = "<group>"; };
+		848AD06E1F4F312700A596F2 /* GenreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreItem.swift; sourceTree = "<group>"; };
+		848AD0711F4F313000A596F2 /* ArticleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleItem.swift; sourceTree = "<group>"; };
+		848AD0741F4F315600A596F2 /* VideoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItem.swift; sourceTree = "<group>"; };
 		84958E2B1EC4B1A2007E1A24 /* SelectOptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectOptionViewController.swift; sourceTree = "<group>"; };
 		84958E2F1EC58A2B007E1A24 /* MessageFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageFactory.swift; sourceTree = "<group>"; };
 		8495C2931F068B4E0096FBD2 /* TrackerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerViewController.swift; sourceTree = "<group>"; };
@@ -752,7 +765,6 @@
 		849E2EC61EE823AD00991FB3 /* StoryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryCard.swift; sourceTree = "<group>"; };
 		849E2EC71EE823AD00991FB3 /* StoryComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryComment.swift; sourceTree = "<group>"; };
 		849E2EC81EE823AD00991FB3 /* SuggestedFollowsCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestedFollowsCard.swift; sourceTree = "<group>"; };
-		849E2EC91EE823AD00991FB3 /* SingleStoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleStoryViewController.swift; sourceTree = "<group>"; };
 		849E2ECB1EE823AD00991FB3 /* AddToEscapeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddToEscapeView.xib; sourceTree = "<group>"; };
 		849E2ECC1EE823AD00991FB3 /* ArticleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleView.xib; sourceTree = "<group>"; };
 		849E2ECD1EE823AD00991FB3 /* EscapeCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EscapeCollectionView.xib; sourceTree = "<group>"; };
@@ -1333,7 +1345,6 @@
 				849E2EBE1EE823AD00991FB3 /* HomeCommentViewController.swift */,
 				849E2EBF1EE823AD00991FB3 /* HomeViewController.swift */,
 				849E2EC01EE823AD00991FB3 /* Model */,
-				849E2EC91EE823AD00991FB3 /* SingleStoryViewController.swift */,
 				849E2ECA1EE823AD00991FB3 /* Xibs */,
 			);
 			path = Home;
@@ -1358,6 +1369,11 @@
 		849E2EC01EE823AD00991FB3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				848AD06E1F4F312700A596F2 /* GenreItem.swift */,
+				848AD0711F4F313000A596F2 /* ArticleItem.swift */,
+				848AD0741F4F315600A596F2 /* VideoItem.swift */,
+				848AD0681F4EAC1500A596F2 /* HomeData.swift */,
+				848AD06B1F4EAC3900A596F2 /* HomeItem.swift */,
 				849E2EC11EE823AD00991FB3 /* AddToEscapeCard.swift */,
 				849E2EC21EE823AD00991FB3 /* ArticleCard.swift */,
 				849E2EC31EE823AD00991FB3 /* BaseStory.swift */,
@@ -2382,6 +2398,7 @@
 				849E2F581EE823AD00991FB3 /* HomeViewController.swift in Sources */,
 				BC14BAC21CFB183000B7E546 /* CAPSPageMenu.swift in Sources */,
 				84C3D6501F30D1DF005BDED7 /* Airtime.swift in Sources */,
+				848AD06C1F4EAC3900A596F2 /* HomeItem.swift in Sources */,
 				849E2F941EE823AD00991FB3 /* MyAccountViewController.swift in Sources */,
 				849E2FAC1EE823AD00991FB3 /* FollowersTableViewCell.swift in Sources */,
 				8470F5A91F0CE8A4001341E8 /* ViewingOption.swift in Sources */,
@@ -2409,6 +2426,7 @@
 				84C3D6561F31AF43005BDED7 /* AirtimeTableViewCell.swift in Sources */,
 				849E2F181EE823AD00991FB3 /* DiscoverEscapeTableViewCell.swift in Sources */,
 				BC3A81881CA521D500FF8678 /* DeviceID.swift in Sources */,
+				848AD0721F4F313000A596F2 /* ArticleItem.swift in Sources */,
 				849E2F821EE823AD00991FB3 /* FollowersViewController.swift in Sources */,
 				849E2FBC1EE823AD00991FB3 /* InterestItems.swift in Sources */,
 				849E2F141EE823AD00991FB3 /* DiscoverAllViewController.swift in Sources */,
@@ -2416,6 +2434,7 @@
 				BCACE8961D59B31600FAF262 /* FBShimmeringLayer.m in Sources */,
 				849E2F5A1EE823AD00991FB3 /* AddToEscapeCard.swift in Sources */,
 				BC47EDC41CA00F99008143C2 /* CommonDataProvider.swift in Sources */,
+				848AD06F1F4F312700A596F2 /* GenreItem.swift in Sources */,
 				84EA4E9A1DBBDA6E002A4A2F /* HighlightableTextView.swift in Sources */,
 				849DFB0B1EF3AB0600F9C3F3 /* WBSegments.swift in Sources */,
 				849E2FA41EE823AD00991FB3 /* CustomListCollectionViewCell.swift in Sources */,
@@ -2426,11 +2445,11 @@
 				849E2F841EE823AD00991FB3 /* ItemDescViewController.swift in Sources */,
 				843F3DB41F2609E300EE38E3 /* ListingsDataProvider.swift in Sources */,
 				84E43A2B1F2C7B7100888524 /* FullListingsViewController.swift in Sources */,
+				848AD0751F4F315600A596F2 /* VideoItem.swift in Sources */,
 				BC3A81811CA51A0300FF8678 /* UIDevice+Utility.swift in Sources */,
 				84C3D6591F31B9FD005BDED7 /* IconsUtility.swift in Sources */,
 				84E8450C1DE51AD600DCB9D9 /* ProfileItem.swift in Sources */,
 				849E2FA61EE823AD00991FB3 /* CustomListTableViewCell.swift in Sources */,
-				849E2F6A1EE823AD00991FB3 /* SingleStoryViewController.swift in Sources */,
 				849E2F8E1EE823AD00991FB3 /* MyAccountItems.swift in Sources */,
 				849E2F4E1EE823AD00991FB3 /* SuggestedFollowsTableViewCell.swift in Sources */,
 				BC14BAD61CFF109E00B7E546 /* DiscoverDataProvider.swift in Sources */,
@@ -2453,6 +2472,7 @@
 				849E2F421EE823AD00991FB3 /* AddToEscapeTableViewCell.swift in Sources */,
 				BCACE8981D59B31600FAF262 /* FBShimmeringView.m in Sources */,
 				84A0FA871DBBF77F0072A36A /* CustomDoneButton.swift in Sources */,
+				848AD0691F4EAC1500A596F2 /* HomeData.swift in Sources */,
 				84C3D6531F31AD37005BDED7 /* AllAirtimesViewController.swift in Sources */,
 				849E2FE71EEFE95300991FB3 /* GuideItem.swift in Sources */,
 				BC85DBF91CA69F0E002237A4 /* TPKeyboardAvoidingTableView.m in Sources */,
@@ -2496,6 +2516,7 @@
 				849E2FE51EEFE8E900991FB3 /* GuideList.swift in Sources */,
 				849E2FD31EE823AD00991FB3 /* SearchViewController.swift in Sources */,
 				849E2F491EE823AD00991FB3 /* CommentTableViewCell.swift in Sources */,
+				848AD06D1F4EAC3900A596F2 /* HomeItem.swift in Sources */,
 				849E2FDC1EEEB91200991FB3 /* TvGuideViewController.swift in Sources */,
 				849E2FB11EE823AD00991FB3 /* NotificationItem.swift in Sources */,
 				BC3595FA1CE75E53007903DB /* UserEscapeDataRealm.swift in Sources */,
@@ -2520,6 +2541,7 @@
 				849E2F591EE823AD00991FB3 /* HomeViewController.swift in Sources */,
 				849E2F1D1EE823AD00991FB3 /* EditEscapeViewController.swift in Sources */,
 				BC47EDC91CA013EC008143C2 /* CustomNavigationViewController.swift in Sources */,
+				848AD06A1F4EAC1500A596F2 /* HomeData.swift in Sources */,
 				84E43A051F2A4FF700888524 /* TvChannel.swift in Sources */,
 				84E43A111F2B292400888524 /* CategoryPickerView.swift in Sources */,
 				84C3D6771F32442A005BDED7 /* ChannelListingViewController.swift in Sources */,
@@ -2532,6 +2554,7 @@
 				84B2E15C1E91198B003CF36A /* RNLoadingButton.swift in Sources */,
 				849DFB161EF3D0B900F9C3F3 /* ViewingOptionsView.swift in Sources */,
 				84C3D6621F31E635005BDED7 /* WatchlistViewController.swift in Sources */,
+				848AD0731F4F313000A596F2 /* ArticleItem.swift in Sources */,
 				849E2F971EE823AD00991FB3 /* MyProfileViewController.swift in Sources */,
 				BCCD70C91CA19468002A0C07 /* Service.swift in Sources */,
 				849E2F211EE823AD00991FB3 /* FollowFacebookFriendsPopup.swift in Sources */,
@@ -2553,6 +2576,7 @@
 				849E2F0D1EE823AD00991FB3 /* AddToEscapeViewController.swift in Sources */,
 				84C0F8E71EF95E5500291F5B /* SelectRegisteredUserViewController.swift in Sources */,
 				BCFE486F1CA400C60098160D /* NetworkAvailability.swift in Sources */,
+				848AD0701F4F312700A596F2 /* GenreItem.swift in Sources */,
 				849E2FCB1EE823AD00991FB3 /* SearchItems.swift in Sources */,
 				BC85DBFC1CA69F0E002237A4 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				84C3D6741F322F89005BDED7 /* ListingItemViewController.swift in Sources */,
@@ -2561,12 +2585,12 @@
 				849E2F891EE823AD00991FB3 /* DescDataItems.swift in Sources */,
 				849E2F331EE823AD00991FB3 /* NormalCell.swift in Sources */,
 				849E2FC31EE823AD00991FB3 /* OnBoardingUtility.swift in Sources */,
-				849E2F6B1EE823AD00991FB3 /* SingleStoryViewController.swift in Sources */,
 				BCCD70CC1CA19555002A0C07 /* NetworkWrapper.swift in Sources */,
 				849E2F951EE823AD00991FB3 /* MyAccountViewController.swift in Sources */,
 				BC4B563E1D6DE388008BF1F6 /* UINibView.swift in Sources */,
 				848198A21EFBA4E90063A494 /* UserDetailView.swift in Sources */,
 				8470F5B01F0D2F22001341E8 /* MediaViewingOptionsViewController.swift in Sources */,
+				848AD0761F4F315600A596F2 /* VideoItem.swift in Sources */,
 				84DD65601DDB2B4000C35EBE /* CustomNavigationAnimationController.swift in Sources */,
 				843F3DAC1F25F41900EE38E3 /* ListingDatesCell.swift in Sources */,
 				843F3DBF1F288E4900EE38E3 /* ListingCategory.swift in Sources */,
@@ -2790,8 +2814,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos10.3;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;

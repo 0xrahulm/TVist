@@ -33,7 +33,6 @@ class ListingMediaItem: NSObject {
         
     }
     
-    
     func constructedTitle() -> String {
         var constructedTitle = ""
         

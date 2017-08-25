@@ -19,8 +19,8 @@ class TvGuideChildViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var listType: GuideListType = .Television
-    var titleForItem: [GuideListType: String] = [.All:"All", .Television: "Television", .Movie: "Movies"]
+    var listType: FilterType = .Television
+    var titleForItem: [FilterType: String] = [.All:"All", .Television: "Television", .Movie: "Movies"]
     
     var guideItems:[GuideItem] = []
     
@@ -68,7 +68,7 @@ class TvGuideChildViewController: UIViewController {
         if let userInfo = notification.userInfo {
             
             
-            if let listType = userInfo["type"] as? String, let listTypePresent = GuideListType(rawValue: listType) {
+            if let listType = userInfo["type"] as? String, let listTypePresent = FilterType(rawValue: listType) {
                 if self.listType == listTypePresent {
                     if let listData = userInfo["data"] as? GuideList {
                         guideItems.removeAll()
@@ -181,7 +181,7 @@ extension TvGuideChildViewController: UITableViewDataSource {
                 switch storyType {
                     
                 case .fbFriendFollow:
-                    return CellHeight.fbFriends.rawValue
+                    return 80
                     
                 case .addToEscape:
                     return UITableViewAutomaticDimension
@@ -190,7 +190,7 @@ extension TvGuideChildViewController: UITableViewDataSource {
                     return UITableViewAutomaticDimension
                     
                 case .emptyStory:
-                    return CellHeight.placeHolder.rawValue
+                    return 80
                     
                 default:
                     return 0

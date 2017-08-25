@@ -15,8 +15,8 @@ class WatchlistViewController: BaseViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     
-    var listOfItemType:[GuideListType] = [.All, .Television, .Movie]
-    var titleForItem: [GuideListType: String] = [.All:"All", .Television: "Television", .Movie: "Movies"]
+    var listOfItemType:[FilterType] = [.All, .Television, .Movie]
+    var titleForItem: [FilterType: String] = [.All:"All", .Television: "Television", .Movie: "Movies"]
     var listControllers: [WatchlistChildViewController] = []
     var pageMenu : CAPSPageMenu?
     
@@ -72,7 +72,7 @@ class WatchlistViewController: BaseViewController {
         pageMenu!.delegate = self
     }
     
-    func addChildVC(type: GuideListType) {
+    func addChildVC(type: FilterType) {
         if let childVC = UIStoryboard(name: StoryBoardIdentifier.Watchlist.rawValue, bundle: nil).instantiateViewController(withIdentifier: "watchlistChildVC") as? WatchlistChildViewController {
             
             childVC.title = titleForItem[type]

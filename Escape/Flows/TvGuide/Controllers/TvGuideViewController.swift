@@ -16,8 +16,8 @@ class TvGuideViewController: BaseViewController {
     
     @IBOutlet weak var searchInput: UITextField!
     
-    var listOfItemType:[GuideListType] = [.All, .Television, .Movie]
-    var titleForItem: [GuideListType: String] = [.All:"All", .Television: "Television", .Movie: "Movies"]
+    var listOfItemType:[FilterType] = [.All, .Television, .Movie]
+    var titleForItem: [FilterType: String] = [.All:"All", .Television: "Television", .Movie: "Movies"]
     var listControllers: [TvGuideChildViewController] = []
     var pageMenu : CAPSPageMenu?
     
@@ -75,7 +75,7 @@ class TvGuideViewController: BaseViewController {
         pageMenu!.delegate = self
     }
     
-    func addChildVC(type: GuideListType) {
+    func addChildVC(type: FilterType) {
         if let childVC = UIStoryboard(name: StoryBoardIdentifier.TvGuide.rawValue, bundle: nil).instantiateViewController(withIdentifier: "tvGuideChildIdentifier") as? TvGuideChildViewController {
             
             childVC.title = titleForItem[type]
@@ -84,7 +84,7 @@ class TvGuideViewController: BaseViewController {
         }
     }
     
-    func bringToTop(type: GuideListType) {
+    func bringToTop(type: FilterType) {
         if let index = listOfItemType.index(of: type) {
             bringToTopWithIndex(index: index)
         }
