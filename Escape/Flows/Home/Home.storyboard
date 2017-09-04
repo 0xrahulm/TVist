@@ -593,6 +593,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="heightOfPlayerView" destination="Ww2-ac-Ca8" id="GSN-ti-m7J"/>
                         <outlet property="loadingView" destination="Hqx-nP-kwO" id="agH-UV-KEZ"/>
                         <outlet property="tableView" destination="EJA-YN-gUq" id="tE9-cu-g3c"/>
                         <outlet property="thumbView" destination="zJf-4B-17u" id="TMm-Dc-3Ka"/>

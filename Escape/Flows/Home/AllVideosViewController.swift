@@ -14,7 +14,7 @@ class AllVideosViewController: GenericAllItemsListViewController {
     @IBOutlet weak var thumbnailImage: UIImageView!
     
     @IBOutlet weak var youtubePlayerView: YouTubePlayerView!
-    
+    @IBOutlet weak var heightOfPlayerView: NSLayoutConstraint!
     
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         super.setObjectsWithQueryParameters(queryParams)
@@ -30,6 +30,8 @@ class AllVideosViewController: GenericAllItemsListViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(AllVideosViewController.receivedData(notification:)), name: Notification.Name(rawValue:NotificationObservers.AllVideosDataObserver.rawValue), object: nil)
+        
+        self.heightOfPlayerView.constant = self.view.frame.size.height*0.35
     }
     
     

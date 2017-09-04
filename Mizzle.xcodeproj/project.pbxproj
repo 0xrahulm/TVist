@@ -81,6 +81,8 @@
 		842BBE0F1EC9B6AD00B7731C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 842BBE051EC9B6AD00B7731C /* LICENSE */; };
 		842BBE151EC9BD5C00B7731C /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842BBE141EC9BD5C00B7731C /* AWSS3.framework */; };
 		842BBE161EC9BD5C00B7731C /* AWSS3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 842BBE141EC9BD5C00B7731C /* AWSS3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8432A9B61F5D7E7A00DF89CA /* VideosSectionCelliPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8432A9B51F5D7E7A00DF89CA /* VideosSectionCelliPad.xib */; };
+		8432A9B71F5D7E7A00DF89CA /* VideosSectionCelliPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8432A9B51F5D7E7A00DF89CA /* VideosSectionCelliPad.xib */; };
 		843304C81F54642D00965533 /* ChannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843304C71F54642D00965533 /* ChannelItem.swift */; };
 		843304C91F54642D00965533 /* ChannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843304C71F54642D00965533 /* ChannelItem.swift */; };
 		843762A01F5592CF00B3912A /* VideosSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8437629E1F5592CF00B3912A /* VideosSectionCell.swift */; };
@@ -768,6 +770,7 @@
 		842BBE051EC9B6AD00B7731C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		842BBE101EC9B7D000B7731C /* MizzleAsk-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MizzleAsk-Bridging-Header.h"; sourceTree = "<group>"; };
 		842BBE141EC9BD5C00B7731C /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = Carthage/Build/iOS/AWSS3.framework; sourceTree = "<group>"; };
+		8432A9B51F5D7E7A00DF89CA /* VideosSectionCelliPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideosSectionCelliPad.xib; sourceTree = "<group>"; };
 		843304C71F54642D00965533 /* ChannelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelItem.swift; sourceTree = "<group>"; };
 		8437629E1F5592CF00B3912A /* VideosSectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideosSectionCell.swift; sourceTree = "<group>"; };
 		8437629F1F5592CF00B3912A /* VideosSectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideosSectionCell.xib; sourceTree = "<group>"; };
@@ -1249,6 +1252,7 @@
 		8437629D1F55927500B3912A /* VideosSection */ = {
 			isa = PBXGroup;
 			children = (
+				8432A9B51F5D7E7A00DF89CA /* VideosSectionCelliPad.xib */,
 				8437629E1F5592CF00B3912A /* VideosSectionCell.swift */,
 				8437629F1F5592CF00B3912A /* VideosSectionCell.xib */,
 				84242C451F559B6200D73396 /* SingleVideoSmallCell.swift */,
@@ -2332,6 +2336,7 @@
 				849E2F901EE823AD00991FB3 /* MyAccount.storyboard in Resources */,
 				BCB7B4AE1CA17378002147FA /* SF-UI-Display-Light.ttf in Resources */,
 				843F3DCA1F28AE9200EE38E3 /* MediaListCell.xib in Resources */,
+				8432A9B61F5D7E7A00DF89CA /* VideosSectionCelliPad.xib in Resources */,
 				848CDFE41F585B4D00CAFEE3 /* GenreItemTableViewCell.xib in Resources */,
 				843F3DA41F23798B00EE38E3 /* Listings.storyboard in Resources */,
 			);
@@ -2356,6 +2361,7 @@
 				84242C511F56DB7D00D73396 /* RemoteConnectBannerCell.xib in Resources */,
 				8498C2E31F542A3D0046A825 /* ListingTableViewCell.xib in Resources */,
 				84C3D6711F321802005BDED7 /* ShowMoreTableViewCell.xib in Resources */,
+				8432A9B71F5D7E7A00DF89CA /* VideosSectionCelliPad.xib in Resources */,
 				849E2FC91EE823AD00991FB3 /* ScreenManger.storyboard in Resources */,
 				84E43A321F2F0FC400888524 /* ChannelListingCell.xib in Resources */,
 				849E2F771EE823AD00991FB3 /* SuggestedFollows.xib in Resources */,

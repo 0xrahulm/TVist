@@ -26,6 +26,7 @@ enum HomeCellIdentifiers: String {
     case MediaListingCellIdentifier = "ListingTableViewCell"
     case ArticlesSectionTableViewCell = "ArticlesSectionTableViewCell"
     case VideosSectionCell = "VideosSectionCell"
+    case VideosSectionCelliPad = "VideosSectionCelliPad"
     case RemoteConnectBannerCell = "RemoteConnectBannerCell"
 }
 
@@ -46,7 +47,7 @@ class HomeViewController: BaseViewController {
     var listOfItemType:[FilterType] = [.All, .Television, .Movie]
     var titleForItem: [FilterType: String] = [.All:"All", .Television: "Television", .Movie: "Movies"]
     
-    var registerableCells: [HomeCellIdentifiers] = [.MediaWatchlistSection,.MediaListCellIdentifier,.MediaListingCellIdentifier,.BrowseByGenreCell,.ArticlesSectionTableViewCell,.VideosSectionCell, .RemoteConnectBannerCell]
+    var registerableCells: [HomeCellIdentifiers] = [.MediaWatchlistSection,.MediaListCellIdentifier,.MediaListingCellIdentifier,.BrowseByGenreCell,.ArticlesSectionTableViewCell,.VideosSectionCell, .RemoteConnectBannerCell, .VideosSectionCelliPad]
     
     var lastScrollValue:String = ""
     
@@ -324,7 +325,12 @@ extension HomeViewController: UITableViewDataSource {
                 return cell
             }
         } else if item.itemTypeEnumValue() == .videos {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: HomeCellIdentifiers.VideosSectionCell.rawValue, for: indexPath) as? VideosSectionCell {
+            var identifier = HomeCellIdentifiers.VideosSectionCell.rawValue
+            if UI_USER_INTERFACE_IDIOM() == .pad {
+                identifier = HomeCellIdentifiers.VideosSectionCelliPad.rawValue
+            }
+            
+            if let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? VideosSectionCell {
                 cell.sectionTitleLabel.text = item.title
                 cell.setDataAndInitialiseView(data: item.videosList)
                 cell.viewAllTapDelegate = self

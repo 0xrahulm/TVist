@@ -28,6 +28,8 @@ class VideosSectionCell: HomeSectionBaseCell {
     
     @IBOutlet weak var youtubePlayerView: YouTubePlayerView!
     
+    @IBOutlet weak var playerHeightConstraint: NSLayoutConstraint!
+    
     weak var viewAllTapDelegate: ViewAllTapProtocol?
     
     
@@ -35,6 +37,9 @@ class VideosSectionCell: HomeSectionBaseCell {
     
     class func totalHeight(count: Int) -> CGFloat {
         if count > 0 {
+            if UI_USER_INTERFACE_IDIOM() == .pad {
+                return (CGFloat(count)*HeightForVideosSectionCell.SingleVideoSmallCellHeight.rawValue)
+            }
             return HeightForVideosSectionCell.PlayerHeight.rawValue + (CGFloat(count)*HeightForVideosSectionCell.SingleVideoSmallCellHeight.rawValue)
         }
         return 0
@@ -57,6 +62,9 @@ class VideosSectionCell: HomeSectionBaseCell {
         
         
         if tableView == nil {
+            if self.playerHeightConstraint != nil {
+                self.playerHeightConstraint.constant = VideosSectionCell.totalHeight(count: data.count)
+            }
             self.layoutIfNeeded()
             tableView = UITableView(frame: self.containerView.bounds, style: .plain)
             tableView.delegate = self
