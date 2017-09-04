@@ -154,11 +154,11 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
     @IBAction func likeTapped(_ sender: UIButton) {
         if likeButton.isSelected{
             likeButton.isSelected = false
-            HomeDataProvider.sharedDataProvider.likeStory(false, storyId: storyId)
+            
             
         }else{
             likeButton.isSelected = true
-            HomeDataProvider.sharedDataProvider.likeStory(true, storyId: storyId)
+            
             
         }
     }
@@ -174,10 +174,10 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
     @IBAction func shareTapped(_ sender: UIButton) {
         if shareButton.isSelected{
             shareButton.isSelected = false
-            HomeDataProvider.sharedDataProvider.shareStory(false, storyId: storyId)
+            
         }else{
             shareButton.isSelected = true
-            HomeDataProvider.sharedDataProvider.shareStory(true, storyId: storyId)
+            
         }
     }
     

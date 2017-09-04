@@ -15,7 +15,7 @@ class ListingCategory: NSObject {
     
     var isSelected: Bool = false
     
-    class func createListingCategory(data: [String: AnyObject]) -> ListingCategory? {
+    class func createListingCategory(data: [String: Any]) -> ListingCategory? {
         guard let id = data["id"] as? String, let name = data["name"] as? String else { return nil }
         
         let listingCategory = ListingCategory()

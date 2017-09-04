@@ -35,8 +35,8 @@ class Service: NSObject {
         
         constructFinalUrl()
         
-        
     }
+    
     fileprivate func constructFinalUrl(){
         
         switch subServiveType{

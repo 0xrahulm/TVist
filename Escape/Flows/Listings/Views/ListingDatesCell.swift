@@ -49,11 +49,11 @@ class ListingDatesCell: UITableViewCell {
                 let listingDate = listingDates[dateView.tag]
                 if let label = listingDate.label, let dateString = listingDate.dateString {
                     if dateView.tag == 0 {
-                        AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsDateTodayClick, properties: ["label": label, "displayed_date": dateString])
+//                        AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsDateTodayClick, properties: ["label": label, "displayed_date": dateString])
                     } else if dateView.tag == 1 {
-                        AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsDateTomorrowClick, properties: ["label": label, "displayed_date": dateString])
+//                        AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsDateTomorrowClick, properties: ["label": label, "displayed_date": dateString])
                     } else if dateView.tag == 2 {
-                        AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsDateWeekendClick, properties: ["label": label, "displayed_date": dateString])
+//                        AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsDateWeekendClick, properties: ["label": label, "displayed_date": dateString])
                         
                     }
                 }

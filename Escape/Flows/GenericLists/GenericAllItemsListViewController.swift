@@ -85,7 +85,7 @@ class GenericAllItemsListViewController: GenericListViewController {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > ((scrollView.frame.height - scrollView.contentSize.height)*0.80) {
+        if scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)*0.66) {
             loadNexPage()
         }
         scrollEvent()
@@ -126,6 +126,20 @@ class GenericAllItemsListViewController: GenericListViewController {
             return cell
         }
         
+        if let articleItem = listItems[indexPath.row] as? ArticleItem {
+            let cell = tableView.dequeueReusableCell(withIdentifier: GenericCellIdentifier.ArticleItemCell.rawValue, for: indexPath) as! ArticleItemCell
+            cell.selectionStyle = .none
+            cell.articleItem = articleItem
+            return cell
+            
+        }
+        
+        if let videoItem = listItems[indexPath.row] as? VideoItem {
+            let cell = tableView.dequeueReusableCell(withIdentifier: GenericCellIdentifier.SingleVideoSmallCell.rawValue, for: indexPath) as! SingleVideoSmallCell
+            cell.videoItem = videoItem
+            return cell
+        }
+        
         return NormalCell()
     }
     
@@ -145,6 +159,15 @@ class GenericAllItemsListViewController: GenericListViewController {
         
         if let _ = listItems[indexPath.row] as? ListingMediaItem {
             return 140
+        }
+        
+        
+        if let _ = listItems[indexPath.row] as? ArticleItem {
+            return 280
+        }
+        
+        if let _ = listItems[indexPath.row] as? VideoItem {
+            return HeightForVideosSectionCell.SingleVideoSmallCellHeight.rawValue
         }
         
         return 10
@@ -172,10 +195,31 @@ class GenericAllItemsListViewController: GenericListViewController {
             if let listingMediaItem = listItems[indexPath.row] as? ListingMediaItem {
                 
                 if let escapeItem = EscapeItem.createWithMediaItem(mediaItem: listingMediaItem.mediaItem) {
+                    itemTapEvent(itemName: escapeItem.name, index: indexPath.row)
                     ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: ["escapeItem":escapeItem])
                 }
             }
+            
+            if let articleItem = listItems[indexPath.row] as? ArticleItem {
+                if let url = URL(string: articleItem.url) {
+                    if let title = articleItem.title {
+                        itemTapEvent(itemName: title, index: indexPath.row)
+                    }
+                    ScreenVader.sharedVader.openSafariWithUrl(url: url, readerMode: true)
+                }
+            }
+            
+            if let videoItem = listItems[indexPath.row] as? VideoItem {
+                if let videoTitle = videoItem.title {
+                    itemTapEvent(itemName: videoTitle, index: indexPath.row)
+                }
+                selectedVideoItem(videoItem: videoItem)
+            }
         }
+    }
+    
+    func selectedVideoItem(videoItem: VideoItem) {
+        // Override
     }
 
     func appendDataToBeListed(appendableData: [AnyObject], page: Int?) {

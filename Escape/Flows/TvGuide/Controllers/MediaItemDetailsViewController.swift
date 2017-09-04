@@ -238,7 +238,7 @@ class MediaItemDetailsViewController: BaseViewController, ViewingOptionsProtocol
     func airtimeViewUpdate(nextAirtime: Airtime?) {
         
         if let nextAirtime = nextAirtime {
-            self.airDisplayLabel.text = nextAirtime.displayString
+            self.airDisplayLabel.text = nextAirtime.displayString()
             self.channelImageLogo.downloadImageWithUrl(nextAirtime.channelIcon, placeHolder: IconsUtility.airtimeIcon())
         } else {
             self.channelImageLogo.image = IconsUtility.airtimeIcon()
@@ -686,7 +686,7 @@ class MediaItemDetailsViewController: BaseViewController, ViewingOptionsProtocol
         if let _ = self.escapeId {
             
             if let escapeId = self.escapeId, let escapeName = self.escapeName, let escapeType = self.escapeType {
-                AnalyticsVader.sharedVader.shareWithFriendsTapped(escapeName: escapeName, escapeId: escapeId, escapeType: escapeType.rawValue)
+//                AnalyticsVader.sharedVader.shareWithFriendsTapped(escapeName: escapeName, escapeId: escapeId, escapeType: escapeType.rawValue)
             }
             
             let storyBoard = UIStoryboard(name: "MyAccount", bundle: nil)

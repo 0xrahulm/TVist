@@ -1,4 +1,5 @@
 PODS:
+  - CocoaAsyncSocket (7.6.0)
   - Crashlytics (3.8.4):
     - Fabric (~> 1.6.3)
   - DropDown (2)
@@ -23,6 +24,7 @@ PODS:
   - SpaceView (1.0.5)
 
 DEPENDENCIES:
+  - CocoaAsyncSocket
   - Crashlytics
   - DropDown
   - Fabric
@@ -31,6 +33,7 @@ DEPENDENCIES:
   - SpaceView
 
 SPEC CHECKSUMS:
+  CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
   Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
   DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
@@ -43,6 +46,6 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   SpaceView: 1619ebbb5162f4f3547a4cb383bea479a54fa76c
 
-PODFILE CHECKSUM: 41df08cafa333d37ec65945c1d9fd8d181a36099
+PODFILE CHECKSUM: b6d4f5d849ed46880f35919b445ec8dec0a67866
 
 COCOAPODS: 1.2.0

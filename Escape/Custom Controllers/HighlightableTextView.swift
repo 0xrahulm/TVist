@@ -22,7 +22,7 @@ class HighlightableTextView: UIView {
 
 extension HighlightableTextView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.lineView.backgroundColor = UIColor.escapeBlueColor()
+        self.lineView.backgroundColor = UIColor.mizzleBlueColor()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

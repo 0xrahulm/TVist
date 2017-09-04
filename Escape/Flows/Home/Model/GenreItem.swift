@@ -14,7 +14,7 @@ class GenreItem: NSObject {
     var name: String!
     var displayImage: String?
 
-    func parseGenreItemData(_ data: [String:AnyObject]) -> GenreItem? {
+    class func parseGenreItemData(_ data: [String:Any]) -> GenreItem? {
         guard let name = data["name"] as? String, let id = data["id"] as? String else { return nil }
         
         let genreItem = GenreItem()

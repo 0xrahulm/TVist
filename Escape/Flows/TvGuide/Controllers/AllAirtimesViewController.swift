@@ -66,7 +66,7 @@ class AllAirtimesViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > ((scrollView.frame.height - scrollView.contentSize.height)*0.80) {
+        if scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)*0.66) {
             loadNextPage()
         }
     }
@@ -81,7 +81,7 @@ class AllAirtimesViewController: UIViewController, UITableViewDelegate, UITableV
         
         let airtime = airtimes[indexPath.row]
         
-        cell.airDisplayLabel.text = airtime.displayString
+        cell.airDisplayLabel.text = airtime.displayString()
         cell.channelImageView.downloadImageWithUrl(airtime.channelIcon, placeHolder: IconsUtility.airtimeIcon())
         return cell
     }

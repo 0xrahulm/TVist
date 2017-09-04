@@ -40,8 +40,8 @@ extension UIColor{
         return UIColor.colorWithHexString("#2C3E50")
     }
     
-    class func escapeBlueColor() -> UIColor{
-        return UIColor.colorWithHexString("#0DD6CA")
+    class func mizzleBlueColor() -> UIColor{
+        return UIColor.colorWithHexString("#0067DF")
     }
     
     class func themeColorBlack() -> UIColor {

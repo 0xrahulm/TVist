@@ -88,6 +88,7 @@ class ScreenVader: NSObject {
         }
     }
     
+    
     func processDeepLinkUrl(_ deepLinkUrl: URL, shouldAddToPending: Bool) {
         let pathString = deepLinkUrl.path
         
@@ -136,4 +137,15 @@ class ScreenVader: NSObject {
         return queryParams
     }
 
+    func openSafariWithUrl(url: URL, readerMode: Bool) {
+        if let screenManagerVC = self.screenManagerVC {
+            screenManagerVC.openSafariWithUrl(url: url, readerMode: readerMode)
+        }
+    }
+    
+    func makeToast(toastStr: String) {
+        if let screenManagerVC = self.screenManagerVC {
+            screenManagerVC.makeToast(toastStr: toastStr)
+        }
+    }
 }

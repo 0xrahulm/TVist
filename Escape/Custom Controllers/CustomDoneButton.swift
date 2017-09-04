@@ -30,7 +30,7 @@ class CustomDoneButton: UIButton {
             self.isEnabled = newValue
             
             if(newValue) {
-                self.backgroundColor = UIColor.escapeBlueColor()
+                self.backgroundColor = UIColor.mizzleBlueColor()
             } else {
                 self.backgroundColor = UIColor.buttonGrayColor()
             }

@@ -61,7 +61,7 @@ class DiscoverViewController: UIViewController {
         let parameters: [CAPSPageMenuOption] = [
             .scrollMenuBackgroundColor(UIColor.white),
             .viewBackgroundColor(UIColor.white),
-            .selectionIndicatorColor(UIColor.escapeBlueColor()),
+            .selectionIndicatorColor(UIColor.mizzleBlueColor()),
             .bottomMenuHairlineColor(UIColor.textGrayColor()),
             .menuItemFont(UIFont(name: "SFUIDisplay-Regular", size: 13.0)!),
             .menuHeight(45.0),
@@ -124,7 +124,7 @@ extension DiscoverViewController: CAPSPageMenuDelegate {
     func didMoveToPage(_ controller: UIViewController, index: Int) {
         if let title = controller.title {
             
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.TopCharts_Segment_Click, properties: ["Tab Name": title])
+
         }
     }
 }

@@ -228,8 +228,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let deepLink = userInfo["deeplink"] as? String, application.applicationState != .active {
             ScreenVader.sharedVader.processDeepLink(deepLink)
         }
-        
-        Mixpanel.mainInstance().trackPushNotification(userInfo)
     }
 
     

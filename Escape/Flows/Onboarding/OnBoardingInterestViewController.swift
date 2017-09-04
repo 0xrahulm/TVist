@@ -63,7 +63,7 @@ class OnBoardingInterestViewController: UIViewController {
         if countOfInterests > 2 {
             LocalStorageVader.sharedVader.setFlagForKey(.InterestsSelected)
             UserDataProvider.sharedDataProvider.postInterest(selectedInterests)
-            AnalyticsVader.sharedVader.interestsSelected(totalCount: countOfInterests)
+            
             ScreenVader.sharedVader.loginActionAfterDelay()
         } else {
             loadErrorPopUp("Please select atleast 3 interests to proceed.")

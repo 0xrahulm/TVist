@@ -75,7 +75,7 @@ class TvGuideChildViewController: UIViewController {
                         guideItems.append(contentsOf: listData.data)
                         tableView.reloadData()
                         
-                        AnalyticsVader.sharedVader.basicEvents(eventName: .GuideDataLoaded, properties: ["ListType": self.listType.rawValue])
+//                        AnalyticsVader.sharedVader.basicEvents(eventName: .GuideDataLoaded, properties: ["ListType": self.listType.rawValue])
                     }
                 }
             }
@@ -140,7 +140,7 @@ extension TvGuideChildViewController: UITableViewDelegate {
         let scrollBucketStr = scrollBucket(scrollValue: percentageScroll)
         if self.lastScrollValue != scrollBucketStr {
             
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "Segment Tab": titleForItem[listType]!])
+//            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "Segment Tab": titleForItem[listType]!])
             self.lastScrollValue = scrollBucketStr
         }
     }
@@ -151,7 +151,7 @@ extension TvGuideChildViewController: UITableViewDelegate {
             let percentageScroll:CGFloat = ((scrollView.contentOffset.y+scrollView.frame.size.height)/scrollView.contentSize.height)*100
             let scrollBucketStr = scrollBucket(scrollValue: percentageScroll)
             if self.lastScrollValue != scrollBucketStr {
-                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "Segment Tab": titleForItem[listType]!])
+//                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "Segment Tab": titleForItem[listType]!])
                 self.lastScrollValue = scrollBucketStr
             }
             
@@ -299,7 +299,7 @@ extension TvGuideChildViewController : UICollectionViewDelegate , UICollectionVi
                 params["escapeItem"] = data[indexPath.row]
                 
                 
-                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideItemClick, properties: ["Grid":"\(letters[indexPath.row])_\(collectionView.tag+1)"])
+//                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideItemClick, properties: ["Grid":"\(letters[indexPath.row])_\(collectionView.tag+1)"])
                 
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
             }
@@ -346,7 +346,7 @@ extension TvGuideChildViewController: ViewAllTapProtocol {
             let item = guideItems[indexPath.row]
             ScreenVader.sharedVader.performScreenManagerAction(.OpenGuideListView, queryParams: ["guideItem":item])
             
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideViewAllClick, properties: ["Row":"\(indexPath.row+1)"])
+//            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideViewAllClick, properties: ["Row":"\(indexPath.row+1)"])
         }
     }
 }

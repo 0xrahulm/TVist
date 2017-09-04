@@ -176,8 +176,8 @@ class NetworkWrapper: NSObject {
         
         return status
         
-        
     }
+    
     func appHeaders() -> HTTPHeaders {
         
         var headers: HTTPHeaders = [:]
@@ -186,14 +186,14 @@ class NetworkWrapper: NSObject {
             
             print ("TOKEN : \(auth)")
         }
-       headers["X-DEVICE-ID"] = "043455A6-BE5B-09D0-BE41-3f3CE21efd2323425df234"
-//        headers["X-DEVICE-ID"] = DeviceID.getDeviceID()
+//       headers["X-DEVICE-ID"] = "043455A6-BE5B-09D0-BE41-3f3CE245"
+        headers["X-DEVICE-ID"] = DeviceID.getDeviceID()
         
         headers["X-DEVICE-INFO"] = UIDevice.current.modelName
         headers["X-DEVICE-TYPE"] = "iOS"
         headers["Accept"] = "application/version.v1"
         headers["Accept"] = "application/json"
-        
+        headers["X-APP-VERSION-CODE"] = "100"
         print("Device id :\(DeviceID.getDeviceID())")
         return headers
     }

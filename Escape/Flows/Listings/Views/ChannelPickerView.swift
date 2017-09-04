@@ -112,7 +112,7 @@ class ChannelPickerView: UIView {
                 let channel = channelItems[index]
                 if updateOnce {
                     if let channelName = channel.name {
-                        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsPickChannel, properties: ["ChannelName": channelName, "Position": "\(index+1)"])
+//                        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsPickChannel, properties: ["ChannelName": channelName, "Position": "\(index+1)"])
                     }
                 }
                 updateOnce = true

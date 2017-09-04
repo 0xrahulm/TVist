@@ -14,7 +14,6 @@ class CustomPopupPresentationController: UIPresentationController {
     var popupHeight: CGFloat? = 200
     var popupYOffset: CGFloat = 65
     var cornerRadius : CGFloat = 20
-    var closeButton : UIButton!
     var dimmingView: UIView!
     
     init(presentedViewController: UIViewController, presentingViewController: UIViewController, width: CGFloat, height: CGFloat, yOffset:CGFloat = 65, cornerRadius:CGFloat = 20) {
@@ -25,17 +24,6 @@ class CustomPopupPresentationController: UIPresentationController {
         self.cornerRadius = cornerRadius
         
         setupDimmingView()
-        
-    }
-    
-    func setCloseButton(){
-        let frame = frameOfPresentedViewInContainerView
-        
-        self.closeButton = UIButton(frame: CGRect(x: popupWidth! - 10, y: frame.origin.y - 55, width: 55,height: 55) )
-            closeButton.setImage(UIImage(named: "close-popup"), for: UIControlState())
-            closeButton.addTarget(self, action: #selector(CustomPopupPresentationController.dismissView), for: .touchUpInside)
-            dimmingView.addSubview(closeButton)
-        
         
     }
     
@@ -103,7 +91,6 @@ class CustomPopupPresentationController: UIPresentationController {
     override func containerViewWillLayoutSubviews() {
         dimmingView.frame = containerView!.bounds
         presentedView!.frame = frameOfPresentedViewInContainerView
-        setCloseButton()
     }
     
     override var frameOfPresentedViewInContainerView : CGRect {

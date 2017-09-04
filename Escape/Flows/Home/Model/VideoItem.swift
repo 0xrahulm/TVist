@@ -16,7 +16,7 @@ class VideoItem: NSObject {
     var title: String?
     var source: String?
     
-    func parseVideoItemData(_ data: [String:AnyObject]) -> VideoItem? {
+    class func parseVideoItemData(_ data: [String:Any]) -> VideoItem? {
         guard let thumbnail = data["thumbnail"] as? String, let id = data["id"] as? String, let link = data["link"] as? String else { return nil }
         
         let videoItem = VideoItem()

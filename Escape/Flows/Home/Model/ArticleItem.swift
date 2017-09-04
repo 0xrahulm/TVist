@@ -17,13 +17,13 @@ class ArticleItem: NSObject {
     var desc: String?
     var source: String?
     
-    func parseArticleItemData(_ data: [String:AnyObject]) -> ArticleItem? {
+    class func parseArticleItemData(_ data: [String:Any]) -> ArticleItem? {
         guard let title = data["title"] as? String, let id = data["id"] as? String, let url = data["url"] as? String else { return nil }
         
         let articleItem = ArticleItem()
         
         articleItem.id = id
-        articleItem.title = name
+        articleItem.title = title
         articleItem.image = data["image"] as? String
         articleItem.desc = data["description"] as? String
         articleItem.source = data["source"] as? String

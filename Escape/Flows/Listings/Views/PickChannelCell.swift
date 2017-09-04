@@ -157,7 +157,7 @@ class PickChannelCell: UITableViewCell {
     
     @IBAction func allChannelsTapped(sender: UIButton) {
         if let listingDate = listingData.listingDates.first {
-            AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsAllChannelsClick)
+//            AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsAllChannelsClick)
             ScreenVader.sharedVader.performScreenManagerAction(.OpenFullListingsView, queryParams: ["selectedListDate": listingDate])
         }
     }
@@ -178,7 +178,7 @@ extension PickChannelCell: UITableViewDelegate {
             visibleItemsLimit = selectedChannelData().count
             listingsTableView.reloadData()
             
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsChannelViewAllClick)
+//            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsChannelViewAllClick)
             if let pickerResizeDelegate = self.pickerResizeDelegate {
                 pickerResizeDelegate.pickerResize(count: visibleItemsLimit)
             }
@@ -189,7 +189,7 @@ extension PickChannelCell: UITableViewDelegate {
         let listingMediaItem = selectedChannelData()[indexPath.row]
         
         if let escapeItem = EscapeItem.createWithMediaItem(mediaItem: listingMediaItem.mediaItem) {
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsChannelItemClick, properties: ["Position": "\(indexPath.row+1)", "ItemName": escapeItem.name])
+//            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsChannelItemClick, properties: ["Position": "\(indexPath.row+1)", "ItemName": escapeItem.name])
             ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: ["escapeItem":escapeItem])
         }
     }
@@ -232,7 +232,7 @@ extension PickChannelCell: CategoryPickerProtocol {
         listingData.categorySelectedIndex = index
         channelsForCategory(index: index)
         if updatedOnce {
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsChannelCategoryClick, properties: ["Position": "\(index+1)"])
+//            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsChannelCategoryClick, properties: ["Position": "\(index+1)"])
         }
     }
 }

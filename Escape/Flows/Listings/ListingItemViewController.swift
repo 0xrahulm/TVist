@@ -41,7 +41,7 @@ class ListingItemViewController: GenericAllItemsListViewController {
     
     
     override func itemTapEvent(itemName: String, index: Int) {
-        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsViewAllPageItemClick, properties: ["Position": "\(index+1)", "ItemName": itemName])
+//        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsViewAllPageItemClick, properties: ["Position": "\(index+1)", "ItemName": itemName])
     }
     
     override func viewWillDisappear(_ animated: Bool) {

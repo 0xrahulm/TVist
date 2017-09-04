@@ -36,8 +36,6 @@ class MediaViewingOptionsViewController: UIViewController {
 
         self.title = mediaItem.name
         
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.MediaViewOptionsListOpen, properties: ["escape_name": mediaItem.name, "escape_id":mediaItem.id])
-        
         
     }
     
@@ -89,7 +87,7 @@ extension MediaViewingOptionsViewController: UITableViewDelegate {
         
             if let name = streamingOption.name {
                 
-                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ViewingOptionSelected, properties: ["Service": name])
+             
             }
         
             if let link = streamingOption.link {

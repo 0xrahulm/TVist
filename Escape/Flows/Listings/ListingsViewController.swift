@@ -72,7 +72,7 @@ class ListingsViewController: BaseViewController {
                 activityIndicator.stopAnimating()
                 
                 if !loadedOnce {
-                    AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsPageLoaded)
+//                    AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsPageLoaded)
                 }
                 
                 loadedOnce = true
@@ -178,7 +178,7 @@ extension ListingsViewController : UICollectionViewDelegate , UICollectionViewDa
                 let escapeItem = data[indexPath.row]
                 params["escapeItem"] = escapeItem
                 
-                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsShowsClick, properties: ["Position":"\(indexPath.row+1)", "escapeName": escapeItem.name])
+//                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsShowsClick, properties: ["Position":"\(indexPath.row+1)", "escapeName": escapeItem.name])
                 
                 ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
             }
@@ -232,7 +232,7 @@ extension ListingsViewController: ViewAllTapProtocol {
             let item = listingItems[indexPath.row]
             ScreenVader.sharedVader.performScreenManagerAction(.OpenListingItemView, queryParams: ["listingItem":item])
             
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsShowsViewAllClick, properties: ["Row":"\(indexPath.row+1)"])
+//            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ListingsShowsViewAllClick, properties: ["Row":"\(indexPath.row+1)"])
         }
     }
 }

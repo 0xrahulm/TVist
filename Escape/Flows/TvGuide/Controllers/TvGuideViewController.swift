@@ -96,7 +96,7 @@ class TvGuideViewController: BaseViewController {
     
     @IBAction func segmentValueChanged(sender: UISegmentedControl) {
         if let titleItem = titleForItem[listOfItemType[sender.selectedSegmentIndex]] {
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideSegmentClick, properties: ["Selected Tab":titleItem])
+          //  AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GuideSegmentClick, properties: ["Selected Tab":titleItem])
         }
         bringToTopWithIndex(index: sender.selectedSegmentIndex)
     }

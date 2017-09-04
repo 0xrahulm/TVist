@@ -47,37 +47,23 @@ class AnalyticsVader: NSObject {
         sendEvent(eventName: eventName.rawValue, properties: properties)
     }
     
-    func addToEscapeOpened(escapeName: String, escapeId: String, escapeType: String) {
-        sendEvent(eventName: EventName.AddToEscapeOpened.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType])
-    }
-    
-    func addToEscapeDone(escapeName: String, escapeId: String, escapeType: String, escapeAction: String) {
-        sendEvent(eventName: EventName.AddToEscapeDone.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType, "escape_action": escapeAction])
-    }
     
     func itemDescriptionOpened(escapeName: String, escapeId: String, escapeType: String) {
         timedEventStart(eventName: EventName.ItemDescriptionOpened)
     }
     
     func trackButtonClicked(escapeName: String, escapeId: String, escapeType: String, position: String) {
-        sendEvent(eventName: EventName.TrackButtonClick.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType, "position": position])
+        sendEvent(eventName: EventName.AddedToTracker.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType, "position": position])
     }
     
     func undoTrack(escapeName: String, escapeId: String, escapeType: String, position: String) {
-        sendEvent(eventName: EventName.UndoTrack.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType, "position": position])
+        sendEvent(eventName: EventName.UndoTracker.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType, "position": position])
     }
     
     func itemDescriptionClosed(escapeName: String, escapeId: String, escapeType: String) {
         timedEventEnd(eventName: EventName.ItemDescriptionOpened, parameters: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType])
     }
     
-    func shareWithFriendsTapped(escapeName: String, escapeId: String, escapeType: String) {
-        sendEvent(eventName: EventName.ShareWithFriendsClick.rawValue, properties: ["escape_name": escapeName, "escape_id": escapeId, "escape_type": escapeType])
-    }
-    
-    func interestsSelected(totalCount: Int) {
-        sendEvent(eventName: EventName.interestsSelected.rawValue, properties: ["total_selected":"\(totalCount)"])
-    }
     
     func searchOccurred(searchType: String, searchTerm: String) {
         sendEvent(eventName: EventName.SearchOccurred.rawValue, properties: ["search_type": searchType, "search_term":searchTerm])

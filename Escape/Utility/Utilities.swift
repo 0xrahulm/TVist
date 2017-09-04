@@ -67,7 +67,7 @@ extension UISearchBar{
         self.placeholder  = placeHolder
         self.tintColor    = UIColor.searchBarPlaceHolderColor()
         self.backgroundImage = UIImage.getImageWithColor(UIColor.clear, size: CGSize(width: 1, height: 1))
-        self.backgroundColor = UIColor.escapeBlueColor()
+        self.backgroundColor = UIColor.mizzleBlueColor()
         self.searchBarStyle = .minimal
         
         self.setImage(UIImage(named: "search-white"), for: UISearchBarIcon.search, state: UIControlState())

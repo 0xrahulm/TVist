@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class ScreenManagerViewController: UIViewController {
     
@@ -16,6 +17,8 @@ class ScreenManagerViewController: UIViewController {
     var presentedViewControllers : [UIViewController] = []
     
     var noNetworkVC = UIView()
+    
+    var presentToast : UIWindow?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +31,8 @@ class ScreenManagerViewController: UIViewController {
         
         setNeedsStatusBarAppearanceUpdate()
         
+        
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -38,16 +43,12 @@ class ScreenManagerViewController: UIViewController {
     fileprivate func initialViewBootUp() {
         if (ECUserDefaults.isLoggedIn()) {
             
-            // Get user details early on so the data is available before 
-            MyAccountDataProvider.sharedDataProvider.getUserDetails(nil)
-            
             presentRootViewControllerOf(.MainTab, queryParams: nil)
         } else {
             
             UserDataProvider.sharedDataProvider.deviceSessionDelegate = self
             UserDataProvider.sharedDataProvider.getDeviceSession()
             
-            AnalyticsVader.sharedVader.basicEvents(eventName: .DeviceSessionBeginGenerating)
         }
     }
     
@@ -157,6 +158,7 @@ class ScreenManagerViewController: UIViewController {
         
         currentPresentedViewController.present(viewController, animated: true, completion: nil)
         currentPresentedViewController = viewController
+        
         presentedViewControllers.append(viewController)
         
         
@@ -237,6 +239,7 @@ class ScreenManagerViewController: UIViewController {
 extension ScreenManagerViewController: DeviceSessionProtocol {
     func guestUserLoggedIn() {
         initialViewBootUp()
+        AnalyticsVader.sharedVader.basicEvents(eventName: .DeviceSessionGenerated)
     }
     
     func userAlreadyExists(registeredUsers: [MyAccountItems]) {
@@ -254,7 +257,7 @@ extension ScreenManagerViewController{
                 mainTAbVC.selectedIndex = MainTabIndex.Home.index
                 break
             case .TopChartsTab:
-                mainTAbVC.selectedIndex = MainTabIndex.Listings.index
+                mainTAbVC.selectedIndex = MainTabIndex.Remote.index
                 break
             case .TrackerTab:
                 mainTAbVC.selectedIndex = MainTabIndex.Tracker.index
@@ -265,8 +268,8 @@ extension ScreenManagerViewController{
             case .WatchlistTab:
                 mainTAbVC.selectedIndex = MainTabIndex.Watchlist.index
                 break
-            case .ListingsTab:
-                mainTAbVC.selectedIndex = MainTabIndex.Listings.index
+            case .RemoteTab:
+                mainTAbVC.selectedIndex = MainTabIndex.Remote.index
                 break
             default:
                 mainTAbVC.selectedIndex = MainTabIndex.Home.index
@@ -286,12 +289,14 @@ extension ScreenManagerViewController{
         case .MainTab:
             openMainTab()
             break
-        case .ListingsTab:
+        case .RemoteTab:
             fallthrough
         case .HomeTab:
             fallthrough
             
         case .TrackerTab:
+            fallthrough
+        case .ListingsTab:
             fallthrough
         case .TopChartsTab:
             fallthrough
@@ -374,14 +379,87 @@ extension ScreenManagerViewController{
         case .OpenListingItemView:
             openListingItemView(params: params)
             break
+        case .OpenHomeDiscoverItemView:
+            openHomeDiscoverItemView(params: params)
+            break
         case .OpenMediaOptionsView:
             if let params = params {
                 openMediaOptionsView(params: params)
             }
             break
+        case .OpenBrowseByGenreView:
+            if let params = params {
+                openBrowseByGenreView(params: params)
+            }
+            break
+        case .OpenAllGenreView:
+            openAllGenreView()
+            break
+        case .OpenAllVideosView:
+            openAllVideosView(params: params)
+            break
+        case .OpenRemoteConnectionPopup:
+            openRemoteControllerConnectPopup(params)
+        case .OpenAllArticlesView:
+            openAllArticlesView(params: params)
+            break
+            
+        case .OpenDeviceSearchView:
+            openDeviceSearchView()
+            break
         }
     }
     
+    func openDeviceSearchView() {
+        if let _ = getTopViewController() as? STBDeviceSearchViewController {
+            return
+        }
+        
+        pushViewControllerOf(.Remote, viewControllerIdentifier: "deviceSearchView", queryParams: nil)
+    }
+    
+    
+    
+    func makeToast(toastStr: String) {
+        presentToast = UIApplication.shared.keyWindow
+        if let toast = self.presentToast {
+            toast.makeToast(message: toastStr, duration: 3.0, position: HRToastPositionDefault as AnyObject)
+        }
+    }
+    
+    func openAllGenreView() {
+        
+        if let _ = getTopViewController() as? AllGenresListViewController {
+            return
+        }
+        
+        pushViewControllerOf(.Home, viewControllerIdentifier: "allGenreView", queryParams: nil)
+    }
+    
+    func openAllArticlesView(params: [String:Any]?) {
+        
+        if let _ = getTopViewController() as? AllArticlesViewController {
+            return
+        }
+        
+        pushViewControllerOf(.Home, viewControllerIdentifier: "allArticlesView", queryParams: params)
+    }
+    
+    
+    func openAllVideosView(params: [String:Any]?) {
+        
+        if let _ = getTopViewController() as? AllVideosViewController {
+            return
+        }
+        
+        pushViewControllerOf(.Home, viewControllerIdentifier: "allVideosView", queryParams: params)
+    }
+    
+    func openSafariWithUrl(url: URL, readerMode: Bool) {
+        let safari = SFSafariViewController(url: url, entersReaderIfAvailable: readerMode)
+        
+        currentPresentedViewController.present(safari, animated: true, completion: nil)
+    }
     
     func openChannelListingView(params: [String: Any]?) {
         
@@ -389,6 +467,14 @@ extension ScreenManagerViewController{
           return
         }
         pushViewControllerOf(.Listings, viewControllerIdentifier: "channelListingView", queryParams: params)
+    }
+    
+    func openHomeDiscoverItemView(params: [String:Any]?) {
+        if let _ = getTopViewController() as? HomeItemViewController {
+            return
+        }
+        
+        pushViewControllerOf(.Home, viewControllerIdentifier: "homeItemView", queryParams: params)
     }
     
     func openListingItemView(params: [String:Any]?) {
@@ -399,6 +485,13 @@ extension ScreenManagerViewController{
         pushViewControllerOf(.Listings, viewControllerIdentifier: "listingItemView", queryParams: params)
     }
     
+    func openBrowseByGenreView(params: [String:Any]?) {
+        if let _ = getTopViewController() as? BrowseByGenreViewController {
+            return
+        }
+        
+        pushViewControllerOf(.Home, viewControllerIdentifier: "browseByGenre", queryParams: params)
+    }
     
     func openGuideListView(params: [String:Any]?) {
         
@@ -485,6 +578,18 @@ extension ScreenManagerViewController{
             
             presentPopUpViewWithNib(addToEscapePopup)
             
+        }
+    }
+    
+    func openRemoteControllerConnectPopup(_ params: [String:Any]?) {
+        if let params = params, let delegate = params["delegate"] as? RemoteConnectionPopupDelegate {
+            
+            let remoteConnectionPopup = RemoteConnectionPopupViewController(nibName: "RemoteConnectionPopupViewController", bundle: nil)
+            remoteConnectionPopup.modalPresentationStyle = .custom
+            remoteConnectionPopup.transitioningDelegate = remoteConnectionPopup
+            remoteConnectionPopup.delegate = delegate
+            remoteConnectionPopup.presentingVC = currentPresentedViewController
+            presentPopUpViewWithNib(remoteConnectionPopup)
         }
     }
     

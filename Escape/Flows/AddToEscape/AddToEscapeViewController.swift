@@ -61,7 +61,7 @@ class AddToEscapeViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if let id = self.id, let type = self.type {
-            AnalyticsVader.sharedVader.addToEscapeOpened(escapeName: self.name, escapeId: id, escapeType: type)
+            
         }
     }
     
@@ -269,7 +269,7 @@ class AddToEscapeViewController: UIViewController {
         if let id = id {
             
             if let type = self.type {
-                AnalyticsVader.sharedVader.addToEscapeDone(escapeName: self.name, escapeId: id, escapeType: type, escapeAction: currentSelectedView.rawValue)
+                
             }
             
             UserDataProvider.sharedDataProvider.addToEscape(id, action: currentSelectedView, status : textView.text,friendsId :  friendsIds, shareFB : shareFBSwitch.state.rawValue)

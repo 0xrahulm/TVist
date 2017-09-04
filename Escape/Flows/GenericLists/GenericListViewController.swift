@@ -15,15 +15,18 @@ enum GenericCellIdentifier:String {
     case TaggedEscapeCell="TaggedEscapeCell"
     case PeopleCell="GenericPeopleCell"
     case ListingMediaDetailsCell="ListingMediaDetailsCell"
+    case ArticleItemCell = "ArticleItemCell"
+    case SingleVideoSmallCell = "SingleVideoSmallCell"
 }
 
 class GenericListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    var registerableCells: [GenericCellIdentifier] = [.ActivityIndicatorCell, .EscapeCell, .TaggedEscapeCell, .PeopleCell,.ListingMediaDetailsCell]
+    var registerableCells: [GenericCellIdentifier] = [.ActivityIndicatorCell, .EscapeCell, .TaggedEscapeCell,.ArticleItemCell,.ListingMediaDetailsCell, .SingleVideoSmallCell, .PeopleCell]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         initXibs()
         self.tableView.delegate = self
         self.tableView.dataSource = self

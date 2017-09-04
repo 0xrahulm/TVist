@@ -54,7 +54,7 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
         } else if title == "Search" {
             selectedImage = ion_ios_search
             normalImage = ion_ios_search
-        } else if title == "Tv Listings" {
+        } else if title == "Remote" {
             selectedImage = ion_ios_monitor
             normalImage = ion_ios_monitor_outline
         } else if title == "Tracker" {

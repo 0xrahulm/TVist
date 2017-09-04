@@ -13,6 +13,8 @@ let kMizzleAppGroupName = "group.com.ardourlabs.mizzle"
 enum LocalStorageKey:String {
     case InterestsSelected = "InterestsSelected"
     case PushToken = "PushToken"
+    case DontShowRemoteConnectBanner = "DontShowRemoteConnectBanner"
+    case RemoteConnectURI = "RemoteConnectionUri"
 }
 
 class LocalStorageVader: NSObject {

@@ -35,7 +35,8 @@ extension UIImageView{
         self.image = placeHolder
         
         if let str = str{
-            if let url = URL(string: str){
+            let escapedString = str.replacingOccurrences(of: " ", with: "%20")
+            if let url = URL(string: escapedString){
                 
                 self.af_setImage(withURL: url, placeholderImage: placeHolder, filter: nil, progress: nil, progressQueue: DispatchQueue.global(), imageTransition: UIImageView.ImageTransition.crossDissolve(0.35), runImageTransitionIfCached: false, completion: nil)
             }

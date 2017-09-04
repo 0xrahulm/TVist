@@ -105,7 +105,14 @@ class TimeUtility: NSObject {
         
         return timeString
     }
-    
+
+    class func getCurrentFormattedDay() -> String {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "EEE, dd MMM"
+        return dateFormatter.string(from: date)
+    }
 
 }
 

@@ -447,10 +447,11 @@ extension MyAccountDataProvider {
         if userId == nil {  // save in case of self only.
             saveUserDataToRealm(userData)
             
-            
             if self.myAccountDetailsDelegate != nil {
                 self.myAccountDetailsDelegate!.recievedUserDetails()
             }
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.UserDetailsDataObserver.rawValue), object: nil, userInfo: nil)
             
         } else {
             NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.GetProfileDetailsObserver.rawValue), object: nil, userInfo: ["userData": userData])

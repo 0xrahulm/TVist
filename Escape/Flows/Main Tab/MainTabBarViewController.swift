@@ -10,7 +10,7 @@ import UIKit
 
 let kMainTabsCount = 5
 enum MainTabIndex {
-    case Home, Tracker, Listings, Search, Watchlist
+    case Home, Tracker, Remote, Search, Watchlist
     
     var index:Int {
         
@@ -19,7 +19,7 @@ enum MainTabIndex {
             return 0
         case .Tracker:
             return 1
-        case .Listings:
+        case .Remote:
             return 2
         case .Watchlist:
             return 3
@@ -43,8 +43,8 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         if MainTabIndex.Tracker.index == index {
             return .Tracker
         }
-        if MainTabIndex.Listings.index == index {
-            return .Listings
+        if MainTabIndex.Remote.index == index {
+            return .Remote
         }
         if MainTabIndex.Search.index == index {
             return .Search
@@ -72,7 +72,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         
         let homeViewController = initialViewControllerFor(.Home) as! CustomNavigationViewController
         let searchViewController = initialViewControllerFor(.Search) as! CustomNavigationViewController
-        let discoverViewController = initialViewControllerFor(.Listings) as! CustomNavigationViewController
+        let discoverViewController = initialViewControllerFor(.Remote) as! CustomNavigationViewController
         
         let trackerViewController = initialViewControllerFor(.Tracker) as! CustomNavigationViewController
         let watchlistViewController = initialViewControllerFor(.Watchlist) as! CustomNavigationViewController
@@ -82,7 +82,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         
         orderedViewControllers[MainTabIndex.Home.index] = homeViewController
         orderedViewControllers[MainTabIndex.Tracker.index] = trackerViewController
-        orderedViewControllers[MainTabIndex.Listings.index] = discoverViewController
+        orderedViewControllers[MainTabIndex.Remote.index] = discoverViewController
         orderedViewControllers[MainTabIndex.Search.index] = searchViewController
         orderedViewControllers[MainTabIndex.Watchlist.index] = watchlistViewController
         
@@ -124,7 +124,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         self.tabBar.layer.shadowOpacity = 0.50
         self.tabBar.layer.shadowPath = UIBezierPath(rect: self.tabBar.bounds).cgPath
         
-        self.tabBar.tintColor = UIColor.escapeBlueColor()
+        self.tabBar.tintColor = UIColor.mizzleBlueColor()
     }
 
 
@@ -153,8 +153,8 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
                     case .Search:
                         AnalyticsVader.sharedVader.basicEvents(eventName: .SearchTabClick)
                         break
-                    case .Listings:
-                        AnalyticsVader.sharedVader.basicEvents(eventName: .ListingsTabClick)
+                    case .Remote:
+                        AnalyticsVader.sharedVader.basicEvents(eventName: .RemoteTabClick)
                         break
                     case .Tracker:
                         AnalyticsVader.sharedVader.basicEvents(eventName: .TrackerTabClick)

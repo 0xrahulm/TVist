@@ -66,7 +66,7 @@ class FriendsViewController: UIViewController {
         
         leftBarButtonItem.setTitleTextAttributes([
             NSFontAttributeName : UIFont.init(name: "SFUIDisplay-Medium", size: 15)!,
-            NSForegroundColorAttributeName : UIColor.escapeBlueColor(),NSBackgroundColorAttributeName:UIColor.escapeBlueColor()], for: UIControlState())
+            NSForegroundColorAttributeName : UIColor.mizzleBlueColor(),NSBackgroundColorAttributeName:UIColor.mizzleBlueColor()], for: UIControlState())
         leftBarButtonItem.setTitleTextAttributes([
             NSFontAttributeName : UIFont.init(name: "SFUIDisplay-Medium", size: 15)!,
             NSForegroundColorAttributeName : UIColor.gray,NSBackgroundColorAttributeName:UIColor.gray], for: UIControlState.disabled)

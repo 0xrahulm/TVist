@@ -32,32 +32,32 @@ class DiscoverNowViewMyAccountTableViewCell: UITableViewCell {
     }
     
     @IBAction func didTapOnDiscover(sender: UIButton) {
-        AnalyticsVader.sharedVader.basicEvents(eventName: .emptyStateDiscoverClick)
+//        AnalyticsVader.sharedVader.basicEvents(eventName: .emptyStateDiscoverClick)
         ScreenVader.sharedVader.performScreenManagerAction(.TopChartsTab, queryParams: nil)
     }
     
     @IBAction func didTapOnFindAndAdd(sender: UIButton) {
-        AnalyticsVader.sharedVader.basicEvents(eventName: .emptyStateSearchClick)
+//        AnalyticsVader.sharedVader.basicEvents(eventName: .emptyStateSearchClick)
         ScreenVader.sharedVader.performScreenManagerAction(.SearchTab, queryParams: nil)
     }
 
     
     @IBAction func imessageIconTapped(_ sender: UIButton) {
-        AnalyticsVader.sharedVader.basicEvents(eventName: .emptyStateiMessageClick)
+//        AnalyticsVader.sharedVader.basicEvents(eventName: .emptyStateiMessageClick)
         if let tapDelegate = tapDelegate {
             tapDelegate.didTapiMessage()
         }
     }
     
     @IBAction func whatsappIconTapped(_ sender: UIButton) {
-        AnalyticsVader.sharedVader.basicEvents(eventName: .emptyStateWhatsappClick)
+//        AnalyticsVader.sharedVader.basicEvents(eventName: .emptyStateWhatsappClick)
         if let tapDelegate = tapDelegate {
             tapDelegate.didTapWhatsapp()
         }
     }
     
     @IBAction func messengerIconTapped(_ sender: UIButton) {
-        AnalyticsVader.sharedVader.basicEvents(eventName: .emptyStateMessengerClick)
+//        AnalyticsVader.sharedVader.basicEvents(eventName: .emptyStateMessengerClick)
         if let tapDelegate = tapDelegate {
             tapDelegate.didTapMessanger()
         }

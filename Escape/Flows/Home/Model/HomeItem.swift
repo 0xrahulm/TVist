@@ -10,9 +10,13 @@ import UIKit
 
 class HomeItem: NSObject {
     var title:String?
+    var emptyMessage: String?
     var itemType:Int = -1 // Default is Loading
     var escapeDataList:[EscapeItem] = []
     var listingsDataList: [ListingMediaItem] = []
+    var articlesList: [ArticleItem] = []
+    var videosList: [VideoItem] = []
+    var genreList: [GenreItem] = []
     
     var totalItemsCount:Int = 0
     
@@ -38,42 +42,45 @@ class HomeItem: NSObject {
             parseEscapesData(dataList)
             break
         case .articles:
-            
+            parseArticleItems(dataList)
             break
-            
         case .videos:
-            
+            parseVideoItems(dataList)
             break
-            
         case .genre:
-            
+            parseGenreItems(dataList)
             break
-            
         case .listing:
             parseListingMediaItem(dataList)
             break
-        
+        case .showLoading:
+            break
+        case .remoteBanner:
+            break
         }
     }
     
-    class func createHomeItem(homeData: [String:AnyObject]) -> HomeItem? {
+    class func createHomeItem(homeData: [String:Any]) -> HomeItem? {
         
-        guard let itemTypeRaw = itemData["item_type"] as? Int, let itemType = HomeItemType(rawValue: itemTypeRaw) else {
+        guard let itemTypeRaw = homeData["item_type"] as? Int, let itemType = HomeItemType(rawValue: itemTypeRaw) else {
             return nil
         }
         
         let listItem = HomeItem(itemType: itemType)
-        listItem.id = itemData["id"] as? String
+        listItem.id = homeData["id"] as? String
         
-        listItem.title =  itemData["section_title"] as? String
+        listItem.title =  homeData["section_title"] as? String
         
-        if let total_count = itemData["total_items_count"] as? NSNumber {
+        if let total_count = homeData["total_items_count"] as? NSNumber {
             listItem.totalItemsCount = total_count.intValue
         }
         
-        if let listedData = itemData["data"] as? [[String:AnyObject]] {
+        if let listedData = homeData["data"] as? [[String:AnyObject]] {
             listItem.parseDataList(listedData)
         }
+        
+        listItem.emptyMessage = homeData["empty_message"] as? String
+        
         
         return listItem
     }
@@ -108,5 +115,35 @@ class HomeItem: NSObject {
                 listingsDataList.append(programListItem)
             }
         }
+    }
+    
+    func parseArticleItems(_ articlesData: [[String:Any]]) {
+        
+        for articleData in articlesData {
+            if let articleItem = ArticleItem.parseArticleItemData(articleData) {
+                articlesList.append(articleItem)
+            }
+        }
+        
+    }
+    
+    func parseVideoItems(_ videosData: [[String:Any]]) {
+        
+        for videoData in videosData {
+            if let videoItem = VideoItem.parseVideoItemData(videoData) {
+                videosList.append(videoItem)
+            }
+        }
+        
+    }
+    
+    func parseGenreItems(_ genresData: [[String:Any]]) {
+        
+        for genreData in genresData {
+            if let genreItem = GenreItem.parseGenreItemData(genreData) {
+                genreList.append(genreItem)
+            }
+        }
+        
     }
 }

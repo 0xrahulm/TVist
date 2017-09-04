@@ -128,7 +128,7 @@ class MyAccountViewController: UIViewController{
         let parameters: [CAPSPageMenuOption] = [
             .scrollMenuBackgroundColor(UIColor.white),
             .viewBackgroundColor(UIColor.white),
-            .selectionIndicatorColor(UIColor.escapeBlueColor()),
+            .selectionIndicatorColor(UIColor.mizzleBlueColor()),
             .bottomMenuHairlineColor(UIColor.textGrayColor()),
             .menuItemFont(UIFont(name: "SFUIDisplay-SemiBold", size: 15.0)!),
             .menuHeight(45.0),

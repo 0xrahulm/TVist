@@ -60,6 +60,12 @@ enum SubServiceType : String {
     //Home
     
     case HomeData = "home"
+    case HomeDiscoverItem = "home/discover"
+    case MediaByGenre = "escapes/by_genre"
+    case HomeAllArticles = "home/all_articles"
+    case HomeAllGenres = "home/all_genres"
+    case HomeAllVideos = "home/all_videos"
+    case HomeRemoveSection = "home/remove_section"
     
     case GetUserStory       =  "get_user_stories"
     case GetStoryComment    =  "story/comments"
@@ -96,6 +102,12 @@ enum SubServiceType : String {
     case FullListings = "full_listings"
     
     
+    case RemoteAiringNow = "remote/airing_now"
+    case RemoteCategories = "remote/categories"
+    
+    case RemoteLogs = "remote/log"
+    case RemoteParseDevice = "remote/get_data"
+    case RemoteSaveDevice = "remote/save_data"
 }
 
 class NetworkConstants: NSObject {

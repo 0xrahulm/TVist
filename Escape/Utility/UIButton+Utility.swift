@@ -14,8 +14,8 @@ extension UIButton{
         
         self.setTitle("UNFOLLOW", for: UIControlState())
         self.backgroundColor = UIColor.white
-        self.setTitleColor(UIColor.escapeBlueColor(), for: UIControlState())
-        self.layer.borderColor = UIColor.escapeBlueColor().cgColor
+        self.setTitleColor(UIColor.mizzleBlueColor(), for: UIControlState())
+        self.layer.borderColor = UIColor.mizzleBlueColor().cgColor
         self.layer.borderWidth = 1.0
         self.isEnabled = true
         if animate{
@@ -26,7 +26,7 @@ extension UIButton{
     func unfollowViewWithAnimate(_ animate : Bool){
         
         self.setTitle("+ FOLLOW", for: UIControlState())
-        self.backgroundColor = UIColor.escapeBlueColor()
+        self.backgroundColor = UIColor.mizzleBlueColor()
         self.setTitleColor(UIColor.white, for: UIControlState())
         self.layer.borderWidth = 0.0
         self.isEnabled = true
@@ -77,8 +77,8 @@ extension UIButton{
         self.backgroundColor = UIColor.clear
         self.layer.cornerRadius = 5
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.escapeBlueColor().cgColor
-        self.setTitleColor(UIColor.escapeBlueColor(), for: UIControlState())
+        self.layer.borderColor = UIColor.mizzleBlueColor().cgColor
+        self.setTitleColor(UIColor.mizzleBlueColor(), for: UIControlState())
         
     }
     

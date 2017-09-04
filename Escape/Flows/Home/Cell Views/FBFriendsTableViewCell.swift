@@ -116,7 +116,7 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
     }
     func handletitleTapGesture(_ sender: UITapGestureRecognizer) {
         if let storyId = storyId{
-            HomeDataProvider.sharedDataProvider.followAllFriends(storyId)
+            
         }
         
         if let delegate = removeFbCardDelegate, let indexPath = indexPath{

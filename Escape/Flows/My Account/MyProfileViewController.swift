@@ -143,7 +143,7 @@ class MyProfileViewController: UIViewController {
         if isLoggedInUser() {
             fetchDataFromRealm()
         } else {
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.UserProfileOpened)
+            
 //            NotificationCenter.default.addObserver(self, selector: #selector(MyProfileViewController.otherUserData(_:)), name: NSNotification.Name(rawValue: NotificationObservers.GetProfileDetailsObserver.rawValue), object: nil)
             
         }
@@ -703,9 +703,11 @@ extension MyProfileViewController: ViewAllTapProtocol {
                 queryParams["escapeAction"] = escapeAction
                 
                 if escapeAction == EscapeAddActions.ToWatch.rawValue {
-                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ViewAllWatchlist)
+                    
+                    
                 } else if escapeAction == EscapeAddActions.Watched.rawValue {
-                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.ViewAllSeen)
+                    
+                    
                 }
                 
                 if let userId = userId {

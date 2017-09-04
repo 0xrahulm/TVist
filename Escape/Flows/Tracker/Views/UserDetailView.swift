@@ -13,7 +13,6 @@ class UserDetailView: UIView {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var actionNameLabel: UILabel!
-    @IBOutlet weak var actionCountLabel: UILabel!
     @IBOutlet weak var fullNameLabel: UILabel!
     
     @IBOutlet weak var signInButtonHeightConstraint: NSLayoutConstraint!
@@ -26,6 +25,16 @@ class UserDetailView: UIView {
         super.layoutSubviews()
         
         fetchDataFromRealm()
+        
+        
+        // Get user details early on so the data is available before
+        NotificationCenter.default.addObserver(self, selector: #selector(UserDetailView.fetchDataFromRealm), name: Notification.Name(rawValue: NotificationObservers.UserDetailsDataObserver.rawValue), object: nil)
+        MyAccountDataProvider.sharedDataProvider.getUserDetails(nil)
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func fetchDataFromRealm() {
@@ -35,7 +44,6 @@ class UserDetailView: UIView {
             pushUpUserData(user.firstName, lastName: user.lastName, profilePicture: user.profilePicture, escapesCount: user.escape_count, tracksCount: user.track_count, userType: user.userType)
             
         }
-        
     }
     
     
@@ -48,7 +56,6 @@ class UserDetailView: UIView {
         
         profileImageView.downloadImageWithUrl(profilePicture, placeHolder: UIImage(named: "profile_placeholder"))
         
-        self.actionNameLabel.text = viewType
         var actionCount = 0
         
         if viewType == "Tracking" {
@@ -58,20 +65,17 @@ class UserDetailView: UIView {
         }
         
         if actionCount > 0 {
-            if actionCountLabel != nil {
-             
-                actionCountLabel.text = "\(actionCount)"
+            
+            if viewType == "Tracking" {
+                self.actionNameLabel.text = "Tracking \(actionCount)"
+            } else if viewType == "Home" || viewType == "Watchlist" {
+                self.actionNameLabel.text = "Watchlist \(actionCount)"
             }
         } else {
             if viewType == "Tracking" {
-                actionNameLabel.text = "No tracking data"
-            } else {
-                actionNameLabel.text = "No watchlist data"
-            }
-            
-            if actionCountLabel != nil {
-                
-                actionCountLabel.text = nil
+                actionNameLabel.text = "No Tracking"
+            } else if viewType == "Watchlist" || viewType == "Home" {
+                actionNameLabel.text = "No Watchlist"
             }
         }
         
@@ -80,17 +84,18 @@ class UserDetailView: UIView {
             self.signInButtonHeightConstraint.constant = 0
             self.layoutIfNeeded()
         } else {
-            self.actionNameLabel.text = "Register to sync your data"
-            
-            if actionCountLabel != nil {
-                actionCountLabel.text = nil
-            }
+            self.actionNameLabel.text = "Register to use across all your devices"
         }
     }
     
     @IBAction func signUpButtonTapped() {
         AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SignUpNowClick, properties: ["fromView": viewType])
         ScreenVader.sharedVader.performScreenManagerAction(.OpenSignupView, queryParams: nil)
+    }
+    
+    
+    @IBAction func profileImageHotspotTap(sender: UIButton) {
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomeProfileImageHotspotClick)
     }
     
     /*

@@ -114,7 +114,7 @@ extension DiscoverAllViewController : UITableViewDelegate{
             }
             
             if let id = id,let name = name,let escapeType = escapeType {
-                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.TopCharts_Item_Click, properties: ["escape_name": name, "escape_id":id, "escape_type": escapeType.rawValue])
+//                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.TopCharts_Item_Click, properties: ["escape_name": name, "escape_id":id, "escape_type": escapeType.rawValue])
             }
             
             if data.discoverType == .Movie || data.discoverType == .TvShows || data.discoverType == .Books{
