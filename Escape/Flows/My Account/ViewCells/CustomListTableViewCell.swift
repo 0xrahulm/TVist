@@ -68,6 +68,7 @@ class CustomListTableViewCell: UITableViewCell {
         collectionView.dataSource = self
         escapesDataList = data
         initXibs()
+        collectionView.reloadData()
     }
     
     func setCollectionViewDataSourceDelegate
@@ -78,7 +79,7 @@ class CustomListTableViewCell: UITableViewCell {
         collectionView.dataSource = dataSourceDelegate
         collectionView.tag = row
         collectionView.register(UINib(nibName: "MediaItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MediaItemCollectionViewCell")
-        collectionView.reloadData()
+        
     }
     
     @IBAction func viewAllTapped() {

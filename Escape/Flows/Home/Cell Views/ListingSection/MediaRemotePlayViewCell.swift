@@ -62,7 +62,11 @@ class MediaRemotePlayViewCell: UICollectionViewCell {
         
         if let mediaItem = self.mediaItem, let channelNumber = mediaItem.channelItem?.number {
             if let escapeName = mediaItem.mediaItem.name, let channelName = mediaItem.channelItem?.name {
-                AnalyticsVader.sharedVader.basicEvents(eventName: .HomeAiringNowPlayClick, properties: ["escapeName": escapeName, "channelName": channelName])
+                var params: [String:String] = ["escapeName": escapeName, "channelName": channelName]
+                if let finishPercentage = mediaItem.finishPercentage {
+                    params["PercentFinish"] = String(format:"%.1f",finishPercentage)
+                }
+                AnalyticsVader.sharedVader.basicEvents(eventName: .HomeAiringNowPlayClick, properties: params)
             }
             if let mediaRemoteDelegate = self.mediaRemoteDelegate {
                 mediaRemoteDelegate.didTapOnChannelNumber(channelNumber: channelNumber)

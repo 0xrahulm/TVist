@@ -50,6 +50,7 @@ class HomeViewController: BaseViewController {
     var registerableCells: [HomeCellIdentifiers] = [.MediaWatchlistSection,.MediaListCellIdentifier,.MediaListingCellIdentifier,.BrowseByGenreCell,.ArticlesSectionTableViewCell,.VideosSectionCell, .RemoteConnectBannerCell, .VideosSectionCelliPad]
     
     var lastScrollValue:String = ""
+    let refreshControl = UIRefreshControl()
     
     var nextPage = 1
     
@@ -71,7 +72,13 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         
         self.userDetailView.viewType = "Home"
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
         
+        refreshControl.addTarget(self, action: #selector(HomeViewController.reset), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,12 +91,13 @@ class HomeViewController: BaseViewController {
         }
         
         if loadedOnce {
-            reset()
+        
         } else {
             initXibs()
             self.tableView.delegate = self
             self.tableView.dataSource = self
         }
+        
         loadedOnce = true
     }
     
@@ -127,7 +135,7 @@ class HomeViewController: BaseViewController {
     
     
     func appendDataToBeListed(appendableData: [HomeItem], page: Int?) {
-        
+        self.refreshControl.endRefreshing()
         loadingView.stopAnimating()
         
         if let page = page, page == nextPage {
@@ -165,7 +173,8 @@ extension HomeViewController: HomeDataProtocol {
     }
     
     func errorRecievingHomeData() {
-        
+        self.refreshControl.endRefreshing()
+        self.loadingView.stopAnimating()
     }
 }
 
