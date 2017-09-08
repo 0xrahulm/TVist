@@ -392,9 +392,6 @@ extension RemoteViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let searchFieldText: NSString = (searchBar.text ?? "") as NSString
-        let txtAfterUpdate = searchFieldText.replacingCharacters(in: range, with: text)
-        
         
         return true
     }
