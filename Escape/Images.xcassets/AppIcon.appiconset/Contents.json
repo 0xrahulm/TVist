@@ -39,13 +39,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "MizzleLogo@2x.png",
+      "filename" : "Icon-App-60x60@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "MizzleLogo@3x.png",
+      "filename" : "Icon-App-60x60@3x.png",
       "scale" : "3x"
     },
     {
@@ -101,12 +101,6 @@
       "idiom" : "ipad",
       "filename" : "Icon-App-83.5x83.5@2x.png",
       "scale" : "2x"
-    },
-    {
-      "size" : "1024x1024",
-      "idiom" : "ios-marketing",
-      "filename" : "iTunesArtwork@2x.png",
-      "scale" : "1x"
     }
   ],
   "info" : {
