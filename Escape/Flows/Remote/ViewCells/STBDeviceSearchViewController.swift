@@ -129,7 +129,7 @@ class STBDeviceSearchViewController: UIViewController, GCDAsyncUdpSocketDelegate
         if let printableData = String(data: data, encoding: String.Encoding.utf8) {
             print("Did Receive data \r\n++++++==================================----------------------")
             
-            if printableData.lowercased().contains("directv") {
+            if printableData.lowercased().contains("media") {
                 AnalyticsVader.sharedVader.basicEvents(eventName: .DeviceSearchDirecTVDeviceFound)
                 TvRemoteDataProvider.shared.postRemoteLogs(logs: printableData)
                 
@@ -141,7 +141,8 @@ class STBDeviceSearchViewController: UIViewController, GCDAsyncUdpSocketDelegate
                     }
                 }
                 
-                let location = locationStr.replacingOccurrences(of: "Location:", with: "")
+                let location = locationStr.replacingOccurrences(of: "Location:", with: "").trimmingCharacters(in: .whitespacesAndNewlines)
+                
                 if location != "" {
                     DirecTVader.sharedVader.getXMLData(location: location)
                 }
