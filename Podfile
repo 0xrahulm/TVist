@@ -1,7 +1,7 @@
 
 platform :ios, "9.0"
 
-def mizzle_pods
+def tvist_pods
     pod 'Flurry-iOS-SDK/FlurrySDK'
     pod 'Fabric'
     pod 'Crashlytics'
@@ -11,10 +11,10 @@ def mizzle_pods
     pod 'Google/Analytics'
 end
 
-target 'Mizzle' do
+target 'TVist' do
     
     use_frameworks!
-    mizzle_pods
+    tvist_pods
 end
 
 post_install do |installer|

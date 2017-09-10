@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yqA-6Z-yeB">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+    </dependencies>
+    <scenes>
+        <!--Universal App Split View Controller-->
+        <scene sceneID="u9e-iq-Zt4">
+            <objects>
+                <splitViewController id="yqA-6Z-yeB" customClass="UniversalAppSplitViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tF0-kt-gNC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-962" y="-274"/>
+        </scene>
+    </scenes>
+</document>

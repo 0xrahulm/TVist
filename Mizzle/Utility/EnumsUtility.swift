@@ -1,0 +1,427 @@
+//
+//  EnumsUtility.swift
+//  Escape
+//
+//  Created by Ankit on 08/05/16.
+//  Copyright © 2016 EscapeApp. All rights reserved.
+//
+
+import Foundation
+
+enum ScreenManagerAction : String {
+    case ListingsTab = "ListingsTab"
+    case HomeTab = "HomeTab"
+    case TrackerTab = "TrackerTab"
+    case TopChartsTab = "TopChartsTab"
+    case SearchTab = "SearchTab"
+    case WatchlistTab = "WatchlistTab"
+    case RemoteTab = "RemoteTab"
+    case MainTab = "MainTab"
+    case MyAccountSetting = "MyAccountSetting"
+    case OpenItemDescription = "item"
+    case OpenFollowers = "OpenFollowers"
+    case OpenAddToEscapePopUp = "OpenAddToEscapePopUp"
+    case OpenEditEscapePopUp = "OpenEditEscapePopUp"
+    case OpenUserAccount = "user"
+    case NoNetworkPresent = "NoNetworkPresent"
+    case NetworkPresent = "NetworkPresent"
+    case OpenSearchView = "openSearchView"
+    case OpenUserEscapesList = "UserEscapeList"
+    case OpenFriendsView = "OpenFriendsView"
+    case OpenSingleStoryView = "story"
+    case OpenSimilarEscapesView = "OpenSimilarEscapesView"
+    case OpenRelatedPeopleView = "OpenRelatedPeopleView"
+    case OpenNotificationView = "openNotificationView"
+    case OpenSignupView = "openSignupView"
+    case OpenGuideListView = "OpenGuideListView"
+    case OpenListingItemView = "OpenListingItemView"
+    case OpenMediaOptionsView = "OpenMediaOptionsView"
+    case OpenFullListingsView = "OpenFullListingsView"
+    case OpenChannelListingView = "OpenChannelListingView"
+    case OpenHomeDiscoverItemView = "OpenHomeDiscoverItemView"
+    case OpenBrowseByGenreView = "OpenBrowseByGenreView"
+    case OpenAllGenreView = "OpenAllGenreView"
+    case OpenAllVideosView = "OpenAllVideosView"
+    case OpenRemoteConnectionPopup = "OpenRemoteConnectionPopup"
+    case OpenAllArticlesView = "OpenAllArticlesView"
+    case OpenDeviceSearchView = "OpenDeviceSearchView"
+}
+
+enum UniversalScreenManagerAction: String {
+    case TodayMasterView = "TodayMasterView"
+    case Next7DaysMasterView = "Next7DaysMasterView"
+    case WatchlistMasterView = "WatchlistMasterView"
+    case SeenMasterView = "SeenMasterView"
+    case DiscoverMasterView = "DiscoverMasterView"
+}
+
+enum StoryBoardIdentifier : String{
+    case Onboarding = "Onboarding"
+    case UniversalApp = "UniversalApp"
+    case Watchlist = "Watchlist"
+    case MainTab = "MainTab"
+    case MyAccount = "MyAccount"
+    case Listings = "Listings"
+    case TvGuide = "TvGuide"
+    case Home = "Home"
+    case Notifications = "Notifications"
+    case Tracker = "Tracker"
+    case Search = "Search"
+    case AddToEscape = "AddToEscape"
+    case GenericLists = "GenericLists"
+    case Remote = "Remote"
+    case User = "User"
+    case Master = "Master"
+}
+enum LoginTypeEnum : String {
+    case Facebook = "fb"
+    case Email    = "email"
+}
+enum Gender : Int{
+    case male = 1
+    case female = 2
+}
+
+enum ProfileItemType: Int {
+    case showLoading = -1
+    case escapeList = 0
+    case maybeSeen = 1
+    case userStory = 2
+    case showDiscoverNow = 3
+}
+
+enum ProfileListType: String {
+    case Activity = "activity"
+    case Movie = "movie"
+    case TvShows = "tv_show"
+    case Books = "book"
+}
+
+enum FilterType:String {
+    case All="all"
+    case Television="tv_show"
+    case Movie="movie"
+}
+
+
+enum GuideItemType: Int {
+    case showLoading = -1
+    case escapeList = 0
+    case maybeSeen = 1
+    case userStory = 2
+    case showDiscoverNow = 3
+}
+
+enum ListingItemType: Int {
+    case showLoading = -1
+    case listingDays = 0
+    case mediaList = 1
+    case pickChannel = 2
+}
+
+enum HomeItemType: Int {
+    case showLoading = -1
+    case tracker = 0
+    case listing = 1
+    case discover = 2
+    case articles = 3
+    case videos = 4
+    case genre = 5
+    case remoteBanner=6
+}
+
+enum EscapeType: String {
+    case Movie = "movie"
+    case TvShows = "tv_show"
+    case Books = "book"
+}
+
+enum DiscoverType : String{
+    case All = "all"
+    case People = "people"
+    case Movie = "movie"
+    case TvShows = "tv_show"
+    case Books = "book"
+    case Story = "story"
+}
+
+enum EscapeCreatorType : String{
+    case Movie = "Directed by"
+    case TvShows = "Created by"
+    case Books = "Authored by"
+}
+
+enum SearchType : String{
+    case All = "all"
+    case User = "user"
+    case Movie = "movie"
+    case TvShows = "tv_show"
+    case Books = "book"
+    case Blank = "blank"
+}
+enum Tap : Int{
+    case activity = 1
+    case movie = 2
+    case tvShows = 3
+    case books = 4
+}
+enum UserType : Int{
+    case followers = 1
+    case following = 2
+    case friends   = 3
+    case fbFriends = 4
+    case sharedUsersOfStory = 5
+}
+
+enum EscapeAddActions: String {
+    case Watched = "Watched"
+    case ToWatch = "To Watch"
+    case Watching = "Tracking"
+    case Read = "Read"
+    case ToRead = "To Read"
+    case Reading = "Reading"
+}
+
+enum NotificationObservers: String {
+    case MyAccountObserver = "MyAccountObserver"
+    case DiscoverObserver = "DiscoverObserver"
+    case SearchObserver = "SearchObserver"
+    case SearchQueryObserver = "SearchQueryObserver"
+    case GetProfileDetailsObserver = "GetProfileDetailsObserver"
+    case OtherUserProfileListFetchObserver = "OtherUserProfileListFetchObserver"
+    case HomeClickObserver =  "HomeClickObserver"
+    case TvGuideDataObserver = "TvGuideDataObserver"
+    case TvGuideItemDataObserver = "kGuideItemDataNotification"
+    case ListingItemObserver = "kListingItemDataNotification"
+    case ListingsDataObserver = "ListingsDataObserver"
+    case FullListingsDataObserver = "FullListingsDataObserver"
+    case ListingsChannelDataObserver = "ListingsChannelDataObserver"
+    case ListingMediaItemsObserver = "ListingsMediaItemsObserver"
+    case HomeItemDataObserver = "HomeItemDataObserver"
+    case MediaByGenreDataObserver = "MediaByGenreDataObserver"
+    case AllArticlesDataObserver = "AllArticlesDataObserver"
+    case AllVideosDataObserver = "AllVideosDataObserver"
+    case RemoteDeviceParsedDataObserver = "RemoteDeviceParsedDataObserver"
+    case UserDetailsDataObserver = "UserDetailsDataObserver"
+}
+
+enum ScreenNames: String {
+    case Listings = "Tv Listings"
+    case Guide = "Guide"
+    case FullListings = "Full Listings"
+    case Tracker = "Tracker"
+    case MediaDescription = "Media Description"
+    case Watchlist = "Watchlist"
+    case Search = "Search"
+    case Home = "Home"
+    case Remote = "Remote"
+}
+
+enum StoryType : NSNumber {
+    case emptyStory = -1
+    case whatsYourEscape = -2
+    case suggestedFollows = 0
+    case addToEscape = 1
+    case recommeded = 2
+    case article = 3
+    case fbFriendFollow = 4
+}
+enum CreatorType : NSNumber{
+    case user =     0
+    case escape =   1
+    case article =  2
+}
+enum OptionsType : String{
+    case Edit = "Edit"
+    case Delete = "Delete"
+    case Recommend = "Recommend to friend"
+    case Add = "Add to your escape"
+}
+
+//enum EventName:String {
+
+//
+//    //TV guide
+//    case SignUpNowClick = "SignUp_Now_Click"
+//
+//    case ViewAllSeen = "ViewAll_Seen"
+//
+//    case ViewAllWatchlist = "ViewAll_Watchlist"
+//    case TopCharts_Segment_Click = "TopCharts_Segment_Click"
+//    case TopCharts_Item_Click = "TopCharts_Item_Click"
+//
+//    case AddedToSeen = "Added_To_Seen"
+
+//
+//    case UndoSeen = "Undo_Seen"
+//    case AddedToWatchlist = "Added_To_Watchlist"
+//    case UndoWatchlist = "Undo_Watchlist"
+//
+//    case OpenWatchlistedItem = "Open_Watchlisted_Item"
+//
+//    //Details Page
+//
+//    case DetailsPageSegmentClick = "Details_Page_Segment_Click"
+//
+//
+//
+//    case ViewingOptionsClick = "Viewing_Options_Click"
+//    case MediaViewOptionsListOpen = "Viewing_Options_List_Page_Open"
+//    case ViewingOptionSelected = "Viewing_Option_Selected"
+
+//
+
+//    case SeeAirtimesClick = "Item_AirTime"
+//    case SeeImdbDetailsClick = "IMDb_Details"
+//
+//    case SimilarShowsViewAllClick = "Similar_Shows_View_All_Click"
+//    case SimilarShowsItemClick = "Similar_Shows_Item_Click"
+//    case AllAirtimesClick = "All_Airtimes_Click"
+//
+//    case HomeDiscoverPageViewAllClick = "Home_Discover_Page_View_All_Click"
+//
+//}
+
+
+enum EventName: String {
+    case DeviceSessionGenerated = "Device_Session_Generated"
+    
+    // Tab Events
+    case HomeTabClick = "Home_Tab_Click"
+    case SearchTabClick = "Search_Tab_Click"
+    case WatchlistTabClick = "Watchlist_Tab_Click"
+    
+    case TrackerTabClick = "Tracker_Tab_Click"
+    case RemoteTabClick = "Remote_Tab_Click"
+    
+    
+    // Home
+    case HomeSegmentClick = "Home_Segment_Click"
+    case HomeScreenScroll = "Home_Screen_Scroll"
+    case HomePageLoaded = "Home_Page_Loaded"
+    case HomeSectionHorizontalScroll = "Home_Section_Horizontal_Scroll"
+    
+    case HomeWatchlistViewAllClick = "Home_Watchlist_View_All_Click"
+    case HomeWatchlistItemClick = "Home_Watchlist_Item_Click"
+    case HomeAiringNowPlayClick = "Home_Airing_Now_Play_Click"
+    case HomeAiringNowViewAllClick = "Home_Airing_Now_View_All_Click"
+    case HomeAiringNowItemClick = "Home_Airing_Now_Item_Click"
+    
+    case HomeDiscoverViewAllClick = "Home_Discover_View_All_Click"
+    case HomeDiscoverScroll = "Home_Discover_Scroll"
+    case HomeDiscoverItemClick = "Home_Discover_Item_Click"
+    
+    case HomeGenreViewAllClick = "Home_Genre_View_All_Click"
+    case HomeGenreItemClick = "Home_Genre_Item_Click"
+    
+    case HomeArticlesItemClick = "Home_Articles_Item_Click"
+    case HomeArticlesViewAllClick = "Home_Articles_View_All_Click"
+    case HomeArticlesScroll = "Home_Articles_Scroll"
+    
+    case HomeMajorVideoItemClick = "Home_Major_Video_Item_Click"
+    case HomeVideosItemClick = "Home_Videos_Item_Click"
+    case HomeVideosViewAllClick = "Home_Videos_View_All_Click"
+    case HomeSectionViewAllClick = "Home_Section_View_All_Click"
+    
+    case AddedToTracker = "Added_To_Tracker"
+    case UndoTracker = "Undo_Track"
+    
+    case HomeRemoteConnectButtonClick = "Home_Remote_Connect_Button_Click"
+    case HomeRemoteDoNotShowAgainClick = "Home_Remote_Do_Not_Show_Again_Click"
+    
+    case HomeProfileImageHotspotClick = "Home_Profile_Button_Hotspot_Click"
+    
+    // Home - Discover Page
+    case HomeDiscoverPageItemClick = "Home_Discover_Page_Item_Click"
+    
+    // Home - Genre
+    case HomeAllGenresItemClick = "Home_All_Genres_Item_Click"
+    case HomeGenrePageSegmentClick = "Home_Genre_Page_Segment_Click"
+    case HomeGenrePageItemClick = "Home_Genre_Page_Item_Click"
+    
+    // Home - Articles
+    case HomeAllArticlesItemClick = "Home_All_Articles_Item_Click"
+    
+    // Home - Videos
+    case HomeAllVideosItemClick = "Home_All_Videos_Item_Click"
+    
+    // Device Connect Events
+    
+    case DeviceConnectPopupDismissed = "Device_Connect_Popup_Dismissed"
+    case DeviceConnectPopupDontHaveDirecTV = "Device_Connect_Popup_Not_A_DirecTV_Customer"
+    case DeviceConnectPopupSearchConnectedDevice = "Device_Connect_Popup_Search_Connected_Devices"
+    
+    case DeviceSearchDirecTVDeviceFound = "Device_Search_DirecTV_Device_Found"
+    case DeviceSearchDirecTVDeviceShown = "Device_Search_DirecTV_Device_Shown"
+    case DeviceSearchDirecTVDeviceSelected = "Device_Search_DirecTV_Device_Selected"
+    case DeviceSearchNoDeviceFound = "Device_Search_No_Device_Found"
+    case DeviceSearchRetryButtonClick = "Device_Search_Retry_Button_Click"
+    
+    // Remote Events
+    case RemoteChannelFilterClick = "Remote_Channel_Filter_Click"
+    case RemoteChannelFilterSelected = "Remote_Channel_Filter_Selected"
+    case RemoteChannelNumberSearched = "Remote_Channel_Number_Searched"
+    case RemoteItemClick = "Remote_Item_Click"
+    case RemoteChannelSearchClick = "Remote_Channel_Search_Click"
+    case RemoteChannelSearchCancelled = "Remote_Channel_Search_Cancelled"
+    case RemoteScreenScroll = "Remote_Screen_Scroll"
+    
+    // Item Description Page
+    case ItemDescriptionOpened = "Item_Description_Opened"
+    case SeeImdbDetailsClick = "IMDb_Details"
+    
+    case SimilarShowsViewAllClick = "Similar_Shows_View_All_Click"
+    case SimilarShowsItemClick = "Similar_Shows_Item_Click"
+    case AllAirtimesClick = "All_Airtimes_Click"
+    case AddedToWatchlist = "Added_To_Watchlist"
+    case UndoWatchlist = "Undo_Watchlist"
+    case ViewingOptionsClick = "Viewing_Options_Click"
+    
+    // Watchlist Tab
+    case WatchlistSegmentClick = "Watchlist_Segment_Click"
+    case OpenWatchlistedItem = "Open_Watchlisted_Item"
+    
+    // Tracker Tab
+    case TrackerSegmentClick = "Tracker_Segment_Click"
+    case OpenTrackedItem = "Open_Tracked_Item"
+    
+    // Register and Onboarding Events
+    case SignUpNowClick = "SignUp_Now_Click"
+    
+    case onboardingScreen = "Onboarding_Screen"
+    case continueWithFB = "Conitnue_With_Facebook_Click"
+    case continueWithEmail = "Continue_With_Email_Click"
+    case facebookLoginFailure = "Facebook_Login_Failure"
+    case emailLoginErrorPopup = "Error_Popup_Shown"
+    case signInTabClick = "Sign_In_Tab_Click"
+    case signUpTabClick = "Sign_Up_Tab_Click"
+    case doneButtonOnEmailLogin = "Done_Button_On_Email_Login"
+    case doneButtonOnEmailSignup = "Done_Button_On_Email_Signup"
+    
+    // Full Listings
+    case FullListingsDateClick = "Full_Listings_Date_Click"
+    case FullListingsCategoryDropdownClick = "Full_Listings_Category_Dropdown_Click"
+    case FullListingsChannelDropdownClick = "Full_Listings_Channel_Dropdown_Click"
+    
+    case FullListingsCategorySelected = "Full_Listings_Category_Selected"
+    case FullListingsChannelSelected = "Full_Listings_Channel_Selected"
+    case FullListingsSectionViewAllClick = "Full_Listings_View_All_Click"
+    case FullListingsItemClick = "Full_Listings_Item_Click"
+    case ChannelListingPageOpened = "Channel_Listing_Page_Opened"
+    case ChannelListingItemClick = "Channel_Listing_Item_Click"
+    
+    // Search
+    
+    case SearchClick = "Search_Click"
+    case SearchCancelled = "Search_Cancelled"
+    case SearchOccurred = "Item_Searched"
+    case ItemsShown = "Items_Shown"
+    case SearchItemClick = "Search_Item_Click"
+    case TrackSearchedItem = "Track_Searched_Item"
+    case OpenedDescriptionSearchedItem = "Opened_Description_Searched_Item"
+    case SearchInvalid = "Search_Invalid"
+    
+    // Miscellaneous
+    case NotificationPermissionProvided = "Notification_Permission_Provided"
+
+}
