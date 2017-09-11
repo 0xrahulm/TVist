@@ -78,6 +78,11 @@ class ListingTableViewCell: HomeSectionBaseCell {
             collectionView.showsHorizontalScrollIndicator = false
             
             self.containerView.addSubview(collectionView)
+            
+            collectionView.translatesAutoresizingMaskIntoConstraints = true
+            collectionView.center = CGPoint(x: self.containerView.bounds.midX, y: self.containerView.bounds.midY)
+            collectionView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+            
             initXibs()
         }
         self.addItemsMatrically(data)

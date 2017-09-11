@@ -103,7 +103,7 @@ class UniversalScreenManagerViewController: UIViewController {
     }
     
     func getMainViewForAction(action: UniversalScreenManagerAction) -> UIViewController? {
-        var storyboardIdentifier = StoryBoardIdentifier.Master
+        var storyboardIdentifier = StoryBoardIdentifier.Home
         
         if action == .WatchlistMasterView {
             storyboardIdentifier = .Watchlist
@@ -121,7 +121,64 @@ class UniversalScreenManagerViewController: UIViewController {
     }
     
     func performScreenManagerAction(_ action: UniversalScreenManagerAction, params: [String:Any]?) {
+        switch action {
+        case .OpenUserView:
+            openUserView()
+            break
+        default:
+            break
+        }
+    }
+    
+    
+    // In Multi Window state, Top View Controller would return Top Detail View Controller (Right Pane)
+    func getTopViewController() -> UIViewController {
+        if currentPresentedViewController != nil {
+            if let splitVC  = currentPresentedViewController as? UniversalAppSplitViewController {
+                
+                if splitVC.isCollapsed {
+                    
+                    if let anyVC = splitVC.viewControllers[splitVC.viewControllers.count-1] as? CustomNavigationViewController {
+                        
+                        if let topVC = anyVC.topViewController as? CustomNavigationViewController {
+                            return topVC.topViewController!
+                        }
+                        
+                        return anyVC.topViewController!
+                    }
+                    
+                } else {
+                    for eachVC in splitVC.viewControllers {
+                        if let customNav = eachVC as? CustomNavigationViewController, let _ = customNav.viewControllers[0] as? GenericDetailViewController {
+                            return customNav.topViewController!
+                        }
+                    }
+                }
+            }
+            
+            if let selectedNav = currentPresentedViewController as? CustomNavigationViewController {
+                return selectedNav.topViewController!
+            }
+        }
         
+        return self
+    }
+    
+    
+    func openUserView() {
+        guard let splitVC = currentPresentedViewController as? UniversalAppSplitViewController else {
+            return
+        }
+        
+        if splitVC.isCollapsed {
+            if let parentNav = splitVC.viewControllers[splitVC.viewControllers.count-1] as? CustomNavigationViewController {
+                parentNav.popToRootViewController(animated: true)
+            }
+        } else {
+            if let action = splitVC.displayModeButtonItem.action, let target = splitVC.displayModeButtonItem.target {
+                UIApplication.shared.sendAction(action, to: target, from: self, for: nil)
+            }
+        }
     }
     
     /*

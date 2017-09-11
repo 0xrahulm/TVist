@@ -17,7 +17,7 @@ class SFUIAttributedText: NSObject {
     
     class func lightAttributesForSize(_ size: CGFloat, color: UIColor) -> Dictionary<String, AnyObject> {
         
-        let font = UIFont(name: "SFUIDisplay-Light", size: size)!
+        let font = UIFont.systemFont(ofSize: size, weight: UIFontWeightLight)
         let attributes:[String:AnyObject] = [NSForegroundColorAttributeName: color, NSFontAttributeName: font]
         
         return attributes
@@ -30,7 +30,7 @@ class SFUIAttributedText: NSObject {
     }
     
     class func getMediumFont(size: CGFloat) -> UIFont {
-        return UIFont(name: "SFUIDisplay-Medium", size: size)!
+        return UIFont.systemFont(ofSize: size, weight: UIFontWeightMedium)
     }
     
     class func mediumAttributesForSize(_ size: CGFloat, color: UIColor) -> Dictionary<String, AnyObject> {
@@ -45,7 +45,7 @@ class SFUIAttributedText: NSObject {
     
     
     class func getRegularFont(size: CGFloat) -> UIFont {
-        return UIFont(name: "SFUIDisplay-Regular", size: size)!
+        return UIFont.systemFont(ofSize: size, weight: UIFontWeightRegular)
     }
     
     class func regularAttributedTextForString(_ string: String, size: CGFloat, color: UIColor) -> NSAttributedString {
@@ -67,7 +67,7 @@ class SFUIAttributedText: NSObject {
     
     class func semiBoldAttributesForSize(_ size: CGFloat, color: UIColor) -> Dictionary<String, AnyObject> {
         
-        let font = UIFont(name: "SFUIDisplay-SemiBold", size: size)!
+        let font = UIFont.systemFont(ofSize: size, weight: UIFontWeightSemibold)
         let attributes:[String:AnyObject] = [NSForegroundColorAttributeName: color, NSFontAttributeName: font]
         
         return attributes

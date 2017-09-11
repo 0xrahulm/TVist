@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Generic Master View Controller-->
+        <!--Generic Detail View Controller-->
         <scene sceneID="g3O-T1-Kib">
             <objects>
-                <viewController id="YUV-Ir-Bmo" customClass="GenericMasterViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YUV-Ir-Bmo" customClass="GenericDetailViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ayI-Nl-LTn"/>
                         <viewControllerLayoutGuide type="bottom" id="BG8-dP-SFc"/>
@@ -30,7 +30,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Q0q-xa-Wfm">
             <objects>
-                <navigationController id="raL-c4-gT8" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="raL-c4-gT8" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ihs-xw-izA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

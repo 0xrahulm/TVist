@@ -34,9 +34,8 @@ enum HeightForHomeSection: CGFloat {
     case defaultHeightWatchlist = 50.0
 }
 
-class HomeViewController: GenericMasterViewController {
+class HomeViewController: GenericDetailViewController {
 
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
@@ -71,6 +70,7 @@ class HomeViewController: GenericMasterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.masterHeaderView.setMasterHeaderViewWithTitle(title: "Today")
         
         if #available(iOS 10.0, *) {
             tableView.refreshControl = refreshControl

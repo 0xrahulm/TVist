@@ -258,8 +258,9 @@
 		84A0FA8D1DBCA3CA0072A36A /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0FA8C1DBCA3CA0072A36A /* CustomTabBarController.swift */; };
 		84A335091F6519A6004389AC /* UserPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A335081F6519A6004389AC /* UserPageViewController.swift */; };
 		84A3350B1F6519C2004389AC /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A3350A1F6519C2004389AC /* User.storyboard */; };
-		84A3350E1F652EBB004389AC /* GenericMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3350D1F652EBB004389AC /* GenericMasterViewController.swift */; };
+		84A3350E1F652EBB004389AC /* GenericDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3350D1F652EBB004389AC /* GenericDetailViewController.swift */; };
 		84A335101F652EE4004389AC /* Master.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A3350F1F652EE4004389AC /* Master.storyboard */; };
+		84A335131F65911E004389AC /* MasterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A335121F65911E004389AC /* MasterHeaderView.swift */; };
 		84A484021DE9A04000DAC553 /* CustomPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A484011DE9A04000DAC553 /* CustomPresentAnimationController.swift */; };
 		84A4841F1DEE1A4500DAC553 /* DataConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4841E1DEE1A4500DAC553 /* DataConstants.swift */; };
 		84B188BF1F64279F00314741 /* UniversalApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B188BE1F64279F00314741 /* UniversalApp.storyboard */; };
@@ -678,8 +679,9 @@
 		84A0FA8C1DBCA3CA0072A36A /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		84A335081F6519A6004389AC /* UserPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPageViewController.swift; sourceTree = "<group>"; };
 		84A3350A1F6519C2004389AC /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
-		84A3350D1F652EBB004389AC /* GenericMasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericMasterViewController.swift; sourceTree = "<group>"; };
+		84A3350D1F652EBB004389AC /* GenericDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericDetailViewController.swift; sourceTree = "<group>"; };
 		84A3350F1F652EE4004389AC /* Master.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Master.storyboard; sourceTree = "<group>"; };
+		84A335121F65911E004389AC /* MasterHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterHeaderView.swift; sourceTree = "<group>"; };
 		84A484011DE9A04000DAC553 /* CustomPresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPresentAnimationController.swift; sourceTree = "<group>"; };
 		84A4841E1DEE1A4500DAC553 /* DataConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataConstants.swift; sourceTree = "<group>"; };
 		84B188BE1F64279F00314741 /* UniversalApp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UniversalApp.storyboard; sourceTree = "<group>"; };
@@ -1537,10 +1539,19 @@
 		84A3350C1F652E9A004389AC /* Master */ = {
 			isa = PBXGroup;
 			children = (
-				84A3350D1F652EBB004389AC /* GenericMasterViewController.swift */,
+				84A335111F6590F4004389AC /* Views */,
+				84A3350D1F652EBB004389AC /* GenericDetailViewController.swift */,
 				84A3350F1F652EE4004389AC /* Master.storyboard */,
 			);
 			path = Master;
+			sourceTree = "<group>";
+		};
+		84A335111F6590F4004389AC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84A335121F65911E004389AC /* MasterHeaderView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		84C3D65B1F31E574005BDED7 /* Watchlist */ = {
@@ -2233,6 +2244,7 @@
 				846006FD1F3DB3EF006D8523 /* BaseViewController.swift in Sources */,
 				849DFB091EF3AB0600F9C3F3 /* WBSegmentControl.swift in Sources */,
 				843304C81F54642D00965533 /* ChannelItem.swift in Sources */,
+				84A335131F65911E004389AC /* MasterHeaderView.swift in Sources */,
 				849E2F161EE823AD00991FB3 /* DiscoverViewController.swift in Sources */,
 				BC3A818B1CA531FE00FF8678 /* ECUserDefaults.swift in Sources */,
 				846986821EF7CD77004C1815 /* TrackerChildViewController.swift in Sources */,
@@ -2298,7 +2310,7 @@
 				849E2F601EE823AD00991FB3 /* Creator.swift in Sources */,
 				849E2FC21EE823AD00991FB3 /* OnBoardingUtility.swift in Sources */,
 				849E2FAE1EE823AD00991FB3 /* NotificationTableViewCell.swift in Sources */,
-				84A3350E1F652EBB004389AC /* GenericMasterViewController.swift in Sources */,
+				84A3350E1F652EBB004389AC /* GenericDetailViewController.swift in Sources */,
 				84242C6B1F58217900D73396 /* BrowseByGenreViewController.swift in Sources */,
 				8470F5AF1F0D2F22001341E8 /* MediaViewingOptionsViewController.swift in Sources */,
 				84242C671F5816D600D73396 /* HomeItemViewController.swift in Sources */,

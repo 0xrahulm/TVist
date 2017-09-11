@@ -75,6 +75,10 @@ class VideosSectionCell: HomeSectionBaseCell {
             tableView.separatorColor = nil
             
             self.containerView.addSubview(tableView)
+            
+            tableView.translatesAutoresizingMaskIntoConstraints = true
+            tableView.center = CGPoint(x: self.containerView.bounds.midX, y: self.containerView.bounds.midY)
+            tableView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
             initXibs()
         }
         

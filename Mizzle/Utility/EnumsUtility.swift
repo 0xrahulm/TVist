@@ -53,6 +53,7 @@ enum UniversalScreenManagerAction: String {
     case WatchlistMasterView = "WatchlistMasterView"
     case SeenMasterView = "SeenMasterView"
     case DiscoverMasterView = "DiscoverMasterView"
+    case OpenUserView = "OpenUserView"
 }
 
 enum StoryBoardIdentifier : String{

@@ -23,22 +23,18 @@ class UniversalAppSplitViewController: UISplitViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func splitViewWith(primaryVC: UIViewController, secondaryVC: UIViewController) {
-        if self.view.traitCollection.horizontalSizeClass == .regular {
-            secondaryVC.navigationItem.leftBarButtonItem = self.displayModeButtonItem
-        } else {
-            
-            let profileImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            
-            profileImageView.layer.cornerRadius = 15.0
-            profileImageView.layer.masksToBounds = true
-            
-            if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
-                profileImageView.downloadImageWithUrl(user.profilePicture, placeHolder: UIImage(named: "profile_placeholder"))
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        for vc in self.viewControllers {
+            if let genericNavVC = vc as? CustomNavigationViewController, let genericMasterVC = genericNavVC.topViewController as? GenericDetailViewController {
+                genericMasterVC.displayModeButtonItem = self.displayModeButtonItem
             }
-            
-            secondaryVC.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
         }
+    }
+    
+    func splitViewWith(primaryVC: UIViewController, secondaryVC: UIViewController) {
+        
         self.viewControllers = [primaryVC, secondaryVC]
     }
     
@@ -49,16 +45,29 @@ class UniversalAppSplitViewController: UISplitViewController {
     func changeSecondaryViewController(viewController: UIViewController) {
         self.showDetailViewController(viewController, sender: self)
     }
-    
 
 }
 
 extension UniversalAppSplitViewController: UISplitViewControllerDelegate {
+    
+    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
+        
+        for vc in svc.viewControllers {
+            if let genericNavVC = vc as? CustomNavigationViewController, let genericMasterVC = genericNavVC.topViewController as? GenericDetailViewController {
+                
+                if displayMode == .primaryHidden {
+                    genericMasterVC.enableProfileBackButton()
+                } else if displayMode == .primaryOverlay || displayMode == .allVisible {
+                    genericMasterVC.enableResizerButton()
+                }
+            }
+        }
+    }
+    
     func targetDisplayModeForAction(in svc: UISplitViewController) -> UISplitViewControllerDisplayMode {
         if svc.displayMode == .primaryHidden || svc.displayMode == .primaryOverlay {
             return .allVisible
         }
-        
         return .primaryHidden
     }
 }
