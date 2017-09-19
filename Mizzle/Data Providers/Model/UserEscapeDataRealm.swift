@@ -11,17 +11,17 @@ import RealmSwift
 
 class UserEscapeData: Object {
     
-    dynamic var userId : String? = nil
+    @objc dynamic var userId : String? = nil
     
-    dynamic var sectionTitle : String? = nil
-    dynamic var sectionCount:NSNumber =        0
-    dynamic var escapeType : String? = nil
+    @objc dynamic var sectionTitle : String? = nil
+    @objc dynamic var sectionCount:NSNumber =        0
+    @objc dynamic var escapeType : String? = nil
     
-    dynamic var id : String? = nil
-    dynamic var name : String? = nil
-    dynamic var posterImage : String? = nil
-    dynamic var year : String? = nil
-    dynamic var rating:NSNumber = 0.0
+    @objc dynamic var id : String? = nil
+    @objc dynamic var name : String? = nil
+    @objc dynamic var posterImage : String? = nil
+    @objc dynamic var year : String? = nil
+    @objc dynamic var rating:NSNumber = 0.0
     
     
     override class func primaryKey() -> String? {

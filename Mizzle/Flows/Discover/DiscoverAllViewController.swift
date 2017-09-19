@@ -55,7 +55,7 @@ class DiscoverAllViewController: UIViewController {
         callFurther = false
     }
     
-    func receivedNotification(_ notification : Notification){
+    @objc func receivedNotification(_ notification : Notification){
         loadingView.stopAnimating()
         if let dict = notification.object as? [String:AnyObject]{
             if let type = dict["type"] as? String, let discoverType = DiscoverType(rawValue: type) {

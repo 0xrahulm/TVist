@@ -137,6 +137,12 @@ enum FilterType:String {
     case Movie="movie"
 }
 
+enum SupportTicketType: Int {
+    case technical = 0
+    case general = 1
+    case howTo = 2
+    case bugReport = 3
+}
 
 enum GuideItemType: Int {
     case showLoading = -1

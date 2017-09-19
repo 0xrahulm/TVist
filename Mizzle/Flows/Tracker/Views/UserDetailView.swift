@@ -38,7 +38,7 @@ class UserDetailView: UIView {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func fetchDataFromRealm() {
+    @objc func fetchDataFromRealm() {
         
         if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
             

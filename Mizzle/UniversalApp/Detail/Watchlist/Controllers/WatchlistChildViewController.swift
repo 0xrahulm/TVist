@@ -60,7 +60,7 @@ class WatchlistChildViewController: GenericAllItemsListViewController {
         ScreenVader.sharedVader.performScreenManagerAction(.HomeTab, queryParams: nil)
     }
     
-    func receivedData(notification: Notification) {
+    @objc func receivedData(notification: Notification) {
         if let data = notification.userInfo as? [String:AnyObject] {
             if let type = data["type"] as? String, type == listType.rawValue {
                 

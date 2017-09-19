@@ -10,9 +10,9 @@ import UIKit
 import RealmSwift
 
 final class ProfileList: Object {
-    dynamic var type:String = ""
-    dynamic var userId:String = ""
-    dynamic var id:String = ""
+    @objc dynamic var type:String = ""
+    @objc dynamic var userId:String = ""
+    @objc dynamic var id:String = ""
     
     var data = List<ProfileItem>()
     

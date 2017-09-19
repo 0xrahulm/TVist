@@ -82,7 +82,7 @@ class ChannelListingViewController: GenericAllItemsListViewController {
         ListingsDataProvider.shared.fetchListingsForChannel(channel: self.channel, startTime: self.startDate, endTime: self.endDate, page: self.nextPage, isToday: isToday)
     }
     
-    func receivedData(notification: Notification) {
+    @objc func receivedData(notification: Notification) {
         if let userInfo = notification.userInfo {
             if let listData = userInfo["data"] as? [ListingMediaItem], let channelId = userInfo["channel_id"] as? String {
                 if let currentChannelId = self.channel.id, channelId == currentChannelId {

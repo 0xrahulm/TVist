@@ -148,6 +148,19 @@ RLM_ARRAY_TYPE(AllTypesObject)
 @property NSDate *date;
 @end
 
+@interface AllOptionalTypesPK : RLMObject
+@property int pk;
+
+@property NSNumber<RLMInt> *intObj;
+@property NSNumber<RLMFloat> *floatObj;
+@property NSNumber<RLMDouble> *doubleObj;
+@property NSNumber<RLMBool> *boolObj;
+@property NSString *string;
+@property NSData *data;
+@property NSDate *date;
+@end
+
+
 #pragma mark - Real Life Objects
 #pragma mark -
 
@@ -377,6 +390,11 @@ RLM_ARRAY_TYPE(PrimaryEmployeeObject);
 @property RLM_GENERIC_ARRAY(PrimaryEmployeeObject) *employees;
 @property PrimaryEmployeeObject *intern;
 @property LinkToPrimaryEmployeeObject *wrappedIntern;
+@end
+RLM_ARRAY_TYPE(PrimaryCompanyObject);
+
+@interface ArrayOfPrimaryCompanies : RLMObject
+@property RLM_GENERIC_ARRAY(PrimaryCompanyObject) *companies;
 @end
 
 #pragma mark FakeObject

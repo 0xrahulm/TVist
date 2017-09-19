@@ -127,7 +127,7 @@ class SearchViewController: UIViewController {
         keyboardToolbar.items = [cancelBarButton,flexBarButton, doneBarButton]
         self.searchBar.inputAccessoryView = keyboardToolbar
     }
-    func doneTapped(){
+    @objc func doneTapped(){
         searchBar.resignFirstResponder()
     }
     

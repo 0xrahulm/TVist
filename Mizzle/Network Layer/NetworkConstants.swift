@@ -126,6 +126,9 @@ enum SubServiceType : String {
     case PostChannelsPreference = "preferences/channels_preference"
     case PostAlertFrequency = "preferences/alert_frequency"
     
+    case UserSupportTickets = "users/support_tickets"
+    case CreateSupportTicket = "users/create_ticket"
+    
 }
 
 class NetworkConstants: NSObject {

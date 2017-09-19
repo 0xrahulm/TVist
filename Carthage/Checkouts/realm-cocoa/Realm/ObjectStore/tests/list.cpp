@@ -20,6 +20,7 @@
 
 #include "util/test_file.hpp"
 #include "util/index_helpers.hpp"
+#include "util/templated_test_case.hpp"
 
 #include "binding_context.hpp"
 #include "list.hpp"
@@ -30,10 +31,13 @@
 #include "schema.hpp"
 
 #include "impl/realm_coordinator.hpp"
+#include "impl/object_accessor_impl.hpp"
 
 #include <realm/group_shared.hpp>
 #include <realm/link_view.hpp>
 #include <realm/version.hpp>
+
+#include <cstdint>
 
 using namespace realm;
 
@@ -44,14 +48,14 @@ TEST_CASE("list") {
     auto r = Realm::get_shared_realm(config);
     r->update_schema({
         {"origin", {
-            {"pk", PropertyType::Int, "", "", true},
-            {"array", PropertyType::Array, "target"}
+            {"pk", PropertyType::Int, Property::IsPrimary{true}},
+            {"array", PropertyType::Array|PropertyType::Object, "target"}
         }},
         {"target", {
             {"value", PropertyType::Int}
         }},
         {"other_origin", {
-            {"array", PropertyType::Array, "other_target"}
+            {"array", PropertyType::Array|PropertyType::Object, "other_target"}
         }},
         {"other_target", {
             {"value", PropertyType::Int}
@@ -329,9 +333,9 @@ TEST_CASE("list") {
         }
 
         SECTION("changes are reported correctly for multiple tables") {
-            List lst2(r, other_lv);
+            List list2(r, other_lv);
             CollectionChangeSet other_changes;
-            auto token1 = lst2.add_notification_callback([&](CollectionChangeSet c, std::exception_ptr) {
+            auto token1 = list2.add_notification_callback([&](CollectionChangeSet c, std::exception_ptr) {
                 other_changes = std::move(c);
             });
             auto token2 = require_change();
@@ -377,8 +381,8 @@ TEST_CASE("list") {
             r2->read_group().get_table("class_other_target")->set_int(0, 1, 10);
             r2->commit_transaction();
 
-            List lst2(r2, r2->read_group().get_table("class_other_origin")->get_linklist(0, 0));
-            auto token2 = lst2.add_notification_callback([&](CollectionChangeSet c, std::exception_ptr) {
+            List list2(r2, r2->read_group().get_table("class_other_origin")->get_linklist(0, 0));
+            auto token2 = list2.add_notification_callback([&](CollectionChangeSet c, std::exception_ptr) {
                 changes2 = std::move(c);
             });
 
@@ -599,11 +603,27 @@ TEST_CASE("list") {
         REQUIRE(&results.get_object_schema() == objectschema);
         REQUIRE(results.get_mode() == Results::Mode::LinkView);
         REQUIRE(results.size() == 10);
-        REQUIRE(results.sum(0) == 45);
 
-        for (size_t i = 0; i < 10; ++i) {
+        // Aggregates don't inherently have to convert to TableView, but do
+        // because aggregates aren't implemented for LinkView
+        REQUIRE(results.sum(0) == 45);
+        REQUIRE(results.get_mode() == Results::Mode::TableView);
+
+        // Reset to LinkView mode to test implicit conversion to TableView on get()
+        results = list.sort({*target, {{0}}, {false}});
+        for (size_t i = 0; i < 10; ++i)
             REQUIRE(results.get(i).get_index() == 9 - i);
-        }
+        REQUIRE_THROWS_WITH(results.get(10), "Requested index 10 greater than max 9");
+        REQUIRE(results.get_mode() == Results::Mode::TableView);
+
+#if REALM_VERSION_MAJOR > 2
+        // Zero sort columns should leave it in LinkView mode
+        results = list.sort({*target, {}, {}});
+        for (size_t i = 0; i < 10; ++i)
+            REQUIRE(results.get(i).get_index() == i);
+        REQUIRE_THROWS_WITH(results.get(10), "Requested index 10 greater than max 9");
+        REQUIRE(results.get_mode() == Results::Mode::LinkView);
+#endif
     }
 
     SECTION("filter()") {
@@ -655,5 +675,206 @@ TEST_CASE("list") {
         List list(r, lv);
         auto objectschema = &*r->schema().find("target");
         REQUIRE(&list.get_object_schema() == objectschema);
+    }
+
+    SECTION("delete_all()") {
+        List list(r, lv);
+        r->begin_transaction();
+        list.delete_all();
+        REQUIRE(lv->size() == 0);
+        REQUIRE(target->size() == 0);
+        r->cancel_transaction();
+    }
+
+    SECTION("as_results().clear()") {
+        List list(r, lv);
+        r->begin_transaction();
+        list.as_results().clear();
+        REQUIRE(lv->size() == 0);
+        REQUIRE(target->size() == 0);
+        r->cancel_transaction();
+    }
+
+    SECTION("snapshot().clear()") {
+        List list(r, lv);
+        r->begin_transaction();
+        auto snapshot = list.snapshot();
+        snapshot.clear();
+        REQUIRE(snapshot.size() == 10);
+        REQUIRE(list.size() == 0);
+        REQUIRE(lv->size() == 0);
+        REQUIRE(target->size() == 0);
+        r->cancel_transaction();
+    }
+
+    SECTION("add(RowExpr)") {
+        List list(r, lv);
+        r->begin_transaction();
+        SECTION("adds rows from the correct table") {
+            list.add(target->get(5));
+            REQUIRE(list.size() == 11);
+            REQUIRE(list.get(10).get_index() == 5);
+        }
+
+        SECTION("throws for rows from the wrong table") {
+            REQUIRE_THROWS(list.add(origin->get(0)));
+        }
+        r->cancel_transaction();
+    }
+
+    SECTION("insert(RowExpr)") {
+        List list(r, lv);
+        r->begin_transaction();
+
+        SECTION("insert rows from the correct table") {
+            list.insert(0, target->get(5));
+            REQUIRE(list.size() == 11);
+            REQUIRE(list.get(0).get_index() == 5);
+        }
+
+        SECTION("throws for rows from the wrong table") {
+            REQUIRE_THROWS(list.insert(0, origin->get(0)));
+        }
+
+        SECTION("throws for out of bounds insertions") {
+            REQUIRE_THROWS(list.insert(11, target->get(5)));
+            REQUIRE_NOTHROW(list.insert(10, target->get(5)));
+        }
+        r->cancel_transaction();
+    }
+
+    SECTION("set(RowExpr)") {
+        List list(r, lv);
+        r->begin_transaction();
+
+        SECTION("assigns for rows from the correct table") {
+            list.set(0, target->get(5));
+            REQUIRE(list.size() == 10);
+            REQUIRE(list.get(0).get_index() == 5);
+        }
+
+        SECTION("throws for rows from the wrong table") {
+            REQUIRE_THROWS(list.set(0, origin->get(0)));
+        }
+
+        SECTION("throws for out of bounds sets") {
+            REQUIRE_THROWS(list.set(10, target->get(5)));
+        }
+        r->cancel_transaction();
+    }
+
+    SECTION("find(RowExpr)") {
+        List list(r, lv);
+
+        SECTION("returns index in list for values in the list") {
+            REQUIRE(list.find(target->get(5)) == 5);
+        }
+
+        SECTION("returns index in list and not index in table") {
+            r->begin_transaction();
+            list.remove(1);
+            REQUIRE(list.find(target->get(5)) == 4);
+            REQUIRE(list.as_results().index_of(target->get(5)) == 4);
+            r->cancel_transaction();
+        }
+
+        SECTION("returns npos for values not in the list") {
+            r->begin_transaction();
+            list.remove(1);
+            REQUIRE(list.find(target->get(1)) == npos);
+            REQUIRE(list.as_results().index_of(target->get(1)) == npos);
+            r->cancel_transaction();
+        }
+
+        SECTION("throws for row in wrong table") {
+            REQUIRE_THROWS(list.find(origin->get(0)));
+            REQUIRE_THROWS(list.as_results().index_of(origin->get(0)));
+        }
+    }
+
+    SECTION("find(Query)") {
+        List list(r, lv);
+
+        SECTION("returns index in list for values in the list") {
+            REQUIRE(list.find(std::move(target->where().equal(0, 5))) == 5);
+        }
+
+        SECTION("returns index in list and not index in table") {
+            r->begin_transaction();
+            list.remove(1);
+            REQUIRE(list.find(std::move(target->where().equal(0, 5))) == 4);
+            r->cancel_transaction();
+        }
+
+        SECTION("returns npos for values not in the list") {
+            REQUIRE(list.find(std::move(target->where().equal(0, 11))) == npos);
+        }
+    }
+
+    SECTION("add(Context)") {
+        List list(r, lv);
+        CppContext ctx(r, &list.get_object_schema());
+        r->begin_transaction();
+
+        SECTION("adds boxed RowExpr") {
+            list.add(ctx, util::Any(target->get(5)));
+            REQUIRE(list.size() == 11);
+            REQUIRE(list.get(10).get_index() == 5);
+        }
+
+        SECTION("adds boxed realm::Object") {
+            realm::Object obj(r, list.get_object_schema(), target->get(5));
+            list.add(ctx, util::Any(obj));
+            REQUIRE(list.size() == 11);
+            REQUIRE(list.get(10).get_index() == 5);
+        }
+
+        SECTION("creates new object for dictionary") {
+            list.add(ctx, util::Any(AnyDict{{"value", INT64_C(20)}}));
+            REQUIRE(list.size() == 11);
+            REQUIRE(target->size() == 11);
+            REQUIRE(list.get(10).get_int(0) == 20);
+        }
+
+        SECTION("throws for object in wrong table") {
+            REQUIRE_THROWS(list.add(ctx, util::Any(origin->get(0))));
+            realm::Object obj(r, *r->schema().find("origin"), origin->get(0));
+            REQUIRE_THROWS(list.add(ctx, util::Any(obj)));
+        }
+
+        r->cancel_transaction();
+    }
+
+    SECTION("find(Context)") {
+        List list(r, lv);
+        CppContext ctx(r, &list.get_object_schema());
+
+        SECTION("returns index in list for boxed RowExpr") {
+            REQUIRE(list.find(ctx, util::Any(target->get(5))) == 5);
+        }
+
+        SECTION("returns index in list for boxed Object") {
+            realm::Object obj(r, *r->schema().find("origin"), target->get(5));
+            REQUIRE(list.find(ctx, util::Any(obj)) == 5);
+        }
+
+        SECTION("does not insert new objects for dictionaries") {
+            REQUIRE(list.find(ctx, util::Any(AnyDict{{"value", INT64_C(20)}})) == npos);
+            REQUIRE(target->size() == 10);
+        }
+
+        SECTION("throws for object in wrong table") {
+            REQUIRE_THROWS(list.find(ctx, util::Any(origin->get(0))));
+        }
+    }
+
+    SECTION("get(Context)") {
+        List list(r, lv);
+        CppContext ctx(r, &list.get_object_schema());
+
+        Object obj;
+        REQUIRE_NOTHROW(obj = any_cast<Object&&>(list.get(ctx, 1)));
+        REQUIRE(obj.is_valid());
+        REQUIRE(obj.row().get_index() == 1);
     }
 }

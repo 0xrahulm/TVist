@@ -20,7 +20,7 @@ class WhatsYourLatestEscapeCell: BaseStoryTableViewCell {
         
     }
     
-    func handleTapGesture(_ sender: UITapGestureRecognizer) {
+    @objc func handleTapGesture(_ sender: UITapGestureRecognizer) {
         ScreenVader.sharedVader.performScreenManagerAction(.OpenSearchView, queryParams: nil)
         
     }

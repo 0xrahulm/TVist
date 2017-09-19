@@ -58,7 +58,7 @@ class GuideListViewController: GenericAllItemsListViewController {
     }
     
     
-    func receivedData(notification: Notification) {
+    @objc func receivedData(notification: Notification) {
         if let data = notification.userInfo as? [String:AnyObject] {
             if let itemsData = data["item"] as? GuideItem, let page = data["page"] as? Int {
                 if let guideItem = self.guideItem, let guideItemId = guideItem.id, let receivedId = itemsData.id, guideItemId == receivedId {

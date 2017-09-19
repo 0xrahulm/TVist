@@ -100,7 +100,7 @@ class BubblePickerView: UIView {
         heightOfView = bubbleViewFrame.height
     }
     
-    func bubbleTapped(_ sender: UIButton) {
+    @objc func bubbleTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         
         if bubblePickerDelegate != nil {

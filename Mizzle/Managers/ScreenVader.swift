@@ -44,7 +44,7 @@ class ScreenVader: NSObject {
         perform(#selector(ScreenVader.loginAction), with: nil, afterDelay: 0.2)
     }
     
-    func loginAction() {
+    @objc func loginAction() {
         if let screenManagerVC = screenManagerVC {
             screenManagerVC.dismissAllPresented()
         }

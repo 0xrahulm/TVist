@@ -70,7 +70,7 @@ class ListingItemViewController: GenericAllItemsListViewController {
         return "ListingItem"
     }
     
-    func receivedData(notification: Notification) {
+    @objc func receivedData(notification: Notification) {
         if let data = notification.userInfo as? [String:AnyObject] {
             if let itemsData = data["item"] as? ListingItem, let page = data["page"] as? Int {
                 if let listingItem = self.listingItem, let listingItemId = listingItem.id, let receivedId = itemsData.id, listingItemId == receivedId {

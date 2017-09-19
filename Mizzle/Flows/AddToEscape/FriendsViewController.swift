@@ -65,15 +65,15 @@ class FriendsViewController: UIViewController {
         let leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action:#selector(FriendsViewController.cancelButtonTapped))
         
         leftBarButtonItem.setTitleTextAttributes([
-            NSFontAttributeName : UIFont.init(name: "SFUIDisplay-Medium", size: 15)!,
-            NSForegroundColorAttributeName : UIColor.mizzleBlueColor(),NSBackgroundColorAttributeName:UIColor.mizzleBlueColor()], for: UIControlState())
+            NSAttributedStringKey.font : UIFont.init(name: "SFUIDisplay-Medium", size: 15)!,
+            NSAttributedStringKey.foregroundColor : UIColor.mizzleBlueColor(),NSAttributedStringKey.backgroundColor:UIColor.mizzleBlueColor()], for: UIControlState())
         leftBarButtonItem.setTitleTextAttributes([
-            NSFontAttributeName : UIFont.init(name: "SFUIDisplay-Medium", size: 15)!,
-            NSForegroundColorAttributeName : UIColor.gray,NSBackgroundColorAttributeName:UIColor.gray], for: UIControlState.disabled)
+            NSAttributedStringKey.font : UIFont.init(name: "SFUIDisplay-Medium", size: 15)!,
+            NSAttributedStringKey.foregroundColor : UIColor.gray,NSAttributedStringKey.backgroundColor:UIColor.gray], for: UIControlState.disabled)
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
-    func cancelButtonTapped(){
+    @objc func cancelButtonTapped(){
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     

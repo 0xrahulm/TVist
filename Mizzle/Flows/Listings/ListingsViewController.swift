@@ -63,7 +63,7 @@ class ListingsViewController: BaseViewController {
     }
     
     
-    func receivedListData(_ notification:Notification) {
+    @objc func receivedListData(_ notification:Notification) {
         if let userInfo = notification.userInfo {
             if let listData = userInfo["data"] as? ListingIndex {
                 listingItems.removeAll()

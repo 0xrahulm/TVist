@@ -1,1 +1,4 @@
-github "mixpanel/mixpanel-swift" "v2.1.8"
+github "Alamofire/Alamofire" "4.5.1"
+github "Alamofire/AlamofireImage" "3.3.0"
+github "matthewpalmer/Locksmith" "3.0.0"
+github "realm/realm-cocoa" "v2.10.1"

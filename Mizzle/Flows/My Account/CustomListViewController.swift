@@ -131,7 +131,7 @@ class CustomListViewController: UIViewController {
         }
         
     }
-    func receivedNotification(_ notification: Notification){
+    @objc func receivedNotification(_ notification: Notification){
         if let dict = notification.object as? [String:AnyObject]{
             if let _ = dict["error"] as? String{
                 errorInGettingEscapes()

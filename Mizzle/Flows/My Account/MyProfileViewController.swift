@@ -305,7 +305,7 @@ class MyProfileViewController: UIViewController {
 //        }
 //    }
     
-    func receivedListData(_ notification:Notification) {
+    @objc func receivedListData(_ notification:Notification) {
         if let userInfo = notification.userInfo {
             
             
@@ -388,7 +388,7 @@ class MyProfileViewController: UIViewController {
         return self.userId == nil
     }
     
-    func notificationTapped(){
+    @objc func notificationTapped(){
         ScreenVader.sharedVader.performScreenManagerAction(.OpenNotificationView, queryParams: nil)
         
     }
@@ -397,7 +397,7 @@ class MyProfileViewController: UIViewController {
         ScreenVader.sharedVader.performScreenManagerAction(.MyAccountSetting, queryParams: ["delegate": self])
     }
     
-    func didSelectATab(_ sender: AnyObject) {
+    @objc func didSelectATab(_ sender: AnyObject) {
         if let selectedTab = sender as? TabButton {
             disableAllTabs()
             

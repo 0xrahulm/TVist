@@ -113,7 +113,7 @@ class VideosSectionCell: HomeSectionBaseCell {
         }
     }
     
-    func playFirstItem() {
+    @objc func playFirstItem() {
         
         if self.videoItems.count > 0 {
             let firstItem = self.videoItems[0]

@@ -10,10 +10,10 @@ import UIKit
 import RealmSwift
 
 final class ProfileItem: Object {
-    dynamic var title:String?
-    dynamic var itemType:Int = -1 // Default is Loading
+    @objc dynamic var title:String?
+    @objc dynamic var itemType:Int = -1 // Default is Loading
     let escapeDataList = List<EscapeItem>()
-    dynamic var totalItemsCount:Int = 0
+    @objc dynamic var totalItemsCount:Int = 0
     
     var associatedStoryCard: StoryCard?
     

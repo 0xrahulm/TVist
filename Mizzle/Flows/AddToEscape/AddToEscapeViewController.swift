@@ -85,11 +85,6 @@ class AddToEscapeViewController: UIViewController {
 
     }
     
-    func doneButtonAction()
-    {
-        self.textView.resignFirstResponder()
-    }
-    
     
     
     func setParms(){
@@ -245,7 +240,7 @@ class AddToEscapeViewController: UIViewController {
         
         
     }
-    func viewTapped(_ tapRecognizer: UITapGestureRecognizer){
+    @objc func viewTapped(_ tapRecognizer: UITapGestureRecognizer){
         self.textView.resignFirstResponder()
     }
     

@@ -373,7 +373,7 @@ class ItemDescViewController: UIViewController {
         }
     }
     
-    func optionsTapped(){
+    @objc func optionsTapped(){
         if escapeAlreadyAdded{
             optionsArray = [.Edit , .Delete , .Recommend]
             popOverHeight = 135

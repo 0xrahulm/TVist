@@ -653,11 +653,12 @@
     XCTAssertEqual([[company.employees valueForKeyPath:@"@max.age"] integerValue], 29);
     XCTAssertEqualWithAccuracy([[company.employees valueForKeyPath:@"@avg.age"] doubleValue], 14.5, 0.1f);
 
-    XCTAssertEqualObjects([company.employees valueForKeyPath:@"@unionOfObjects.age"], (@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19, @20, @21, @22, @23, @24, @25, @26, @27, @28, @29]));
+    XCTAssertEqualObjects([company.employees valueForKeyPath:@"@unionOfObjects.age"],
+                          (@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19, @20, @21, @22, @23, @24, @25, @26, @27, @28, @29]));
     XCTAssertEqualObjects([company.employees valueForKeyPath:@"@distinctUnionOfObjects.name"], (@[@"Joe"]));
 
     RLMAssertThrowsWithReasonMatching([company.employees valueForKeyPath:@"@sum.dogs.@sum.age"], @"Nested key paths.*not supported");
-    
+
     // unmanaged object
     company = [[CompanyObject alloc] init];
     ages = [NSMutableArray array];
@@ -676,7 +677,8 @@
     XCTAssertEqual([[company.employees valueForKeyPath:@"@max.age"] integerValue], 29);
     XCTAssertEqualWithAccuracy([[company.employees valueForKeyPath:@"@avg.age"] doubleValue], 14.5, 0.1f);
 
-    XCTAssertEqualObjects([company.employees valueForKeyPath:@"@unionOfObjects.age"], (@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19, @20, @21, @22, @23, @24, @25, @26, @27, @28, @29]));
+    XCTAssertEqualObjects([company.employees valueForKeyPath:@"@unionOfObjects.age"],
+                          (@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15, @16, @17, @18, @19, @20, @21, @22, @23, @24, @25, @26, @27, @28, @29]));
     XCTAssertEqualObjects([company.employees valueForKeyPath:@"@distinctUnionOfObjects.name"], (@[@"Joe"]));
 
     RLMAssertThrowsWithReasonMatching([company.employees valueForKeyPath:@"@sum.dogs.@sum.age"], @"Nested key paths.*not supported");
@@ -753,7 +755,7 @@
         [obj.array addObjects:[AggregateObject allObjectsInRealm:realm]];
     }];
 
-    void (^test)() = ^{
+    void (^test)(void) = ^{
         RLMArray *array = obj.array;
 
         // SUM
@@ -799,43 +801,45 @@
     RLMRealm *realm = [RLMRealm defaultRealm];
 
     [realm beginWriteTransaction];
-    EmployeeObject *c1e1 = [EmployeeObject createInRealm:realm withValue:@{@"name": @"Joe",  @"age": @40, @"hired": @YES}];
-    EmployeeObject *c1e2 = [EmployeeObject createInRealm:realm withValue:@{@"name": @"John", @"age": @30, @"hired": @NO}];
-    EmployeeObject *c1e3 = [EmployeeObject createInRealm:realm withValue:@{@"name": @"Jill", @"age": @25, @"hired": @YES}];
-    [CompanyObject createInRealm:realm withValue:@{@"name": @"InspiringNames LLC", @"employees": @[c1e1, c1e2, c1e3]}];
+    EmployeeObject *e1 = [PrimaryEmployeeObject createInRealm:realm withValue:@{@"name": @"A", @"age": @20, @"hired": @YES}];
+    EmployeeObject *e2 = [PrimaryEmployeeObject createInRealm:realm withValue:@{@"name": @"B", @"age": @30, @"hired": @NO}];
+    EmployeeObject *e3 = [PrimaryEmployeeObject createInRealm:realm withValue:@{@"name": @"C", @"age": @40, @"hired": @YES}];
+    EmployeeObject *e4 = [PrimaryEmployeeObject createInRealm:realm withValue:@{@"name": @"D", @"age": @50, @"hired": @YES}];
+    PrimaryCompanyObject *c1 = [PrimaryCompanyObject createInRealm:realm withValue:@{@"name": @"ABC AG", @"employees": @[e1, e2, e3, e2]}];
+    PrimaryCompanyObject *c2 = [PrimaryCompanyObject createInRealm:realm withValue:@{@"name": @"ABC AG 2", @"employees": @[e1, e4]}];
 
-    EmployeeObject *c2e1 = [EmployeeObject createInRealm:realm withValue:@{@"name": @"A", @"age": @20, @"hired": @YES}];
-    EmployeeObject *c2e2 = [EmployeeObject createInRealm:realm withValue:@{@"name": @"B", @"age": @30, @"hired": @NO}];
-    EmployeeObject *c2e3 = [EmployeeObject createInRealm:realm withValue:@{@"name": @"C", @"age": @40, @"hired": @YES}];
-    [CompanyObject createInRealm:realm withValue:@{@"name": @"ABC AG", @"employees": @[c2e1, c2e2, c2e3]}];
-
-    EmployeeObject *c3e1 = [EmployeeObject createInRealm:realm withValue:@{@"name": @"A", @"age": @21, @"hired": @YES}];
-    [CompanyObject createInRealm:realm withValue:@{@"name": @"ABC AG", @"employees": @[c3e1]}];
+    ArrayOfPrimaryCompanies *companies = [ArrayOfPrimaryCompanies createInRealm:realm withValue:@[@[c1, c2]]];
     [realm commitWriteTransaction];
 
-    RLMResults *allCompanies = [CompanyObject allObjects];
-    RLMResults *allEmployees = [EmployeeObject allObjects];
-
     // count operator
-    XCTAssertEqual([[allCompanies valueForKeyPath:@"@count"] integerValue], 3);
+    XCTAssertEqual([[c1.employees valueForKeyPath:@"@count"] integerValue], 4);
 
     // numeric operators
-    XCTAssertEqual([[allEmployees valueForKeyPath:@"@min.age"] intValue], 20);
-    XCTAssertEqual([[allEmployees valueForKeyPath:@"@max.age"] intValue], 40);
-    XCTAssertEqual([[allEmployees valueForKeyPath:@"@sum.age"] integerValue], 206);
-    XCTAssertEqualWithAccuracy([[allEmployees valueForKeyPath:@"@avg.age"] doubleValue], 29.43, 0.1f);
+    XCTAssertEqual([[c1.employees valueForKeyPath:@"@min.age"] intValue], 20);
+    XCTAssertEqual([[c1.employees valueForKeyPath:@"@max.age"] intValue], 40);
+    XCTAssertEqual([[c1.employees valueForKeyPath:@"@sum.age"] integerValue], 120);
+    XCTAssertEqualWithAccuracy([[c1.employees valueForKeyPath:@"@avg.age"] doubleValue], 30, 0.1f);
 
     // collection
-    XCTAssertEqualObjects([allCompanies valueForKeyPath:@"@unionOfObjects.name"], (@[@"InspiringNames LLC", @"ABC AG", @"ABC AG"]));
-    XCTAssertEqualObjects([allCompanies valueForKeyPath:@"@distinctUnionOfObjects.name"], (@[@"ABC AG", @"InspiringNames LLC"]));
-    XCTAssertEqualObjects([allCompanies valueForKeyPath:@"employees.@unionOfArrays.name"], (@[@"Joe", @"John", @"Jill", @"A", @"B", @"C", @"A"]));
-    XCTAssertEqualObjects([NSSet setWithArray:[allCompanies valueForKeyPath:@"employees.@distinctUnionOfArrays.name"]], ([NSSet setWithArray:@[@"Joe", @"John", @"Jill", @"A", @"B", @"C"]]));
+    XCTAssertEqualObjects([c1.employees valueForKeyPath:@"@unionOfObjects.name"],
+                          (@[@"A", @"B", @"C", @"B"]));
+    XCTAssertEqualObjects([[c1.employees valueForKeyPath:@"@distinctUnionOfObjects.name"] sortedArrayUsingSelector:@selector(compare:)],
+                          (@[@"A", @"B", @"C"]));
+    XCTAssertEqualObjects([companies.companies valueForKeyPath:@"@unionOfArrays.employees"],
+                          (@[e1, e2, e3, e2, e1, e4]));
+    NSComparator cmp = ^NSComparisonResult(id obj1, id obj2) { return [[obj1 name] compare:[obj2 name]]; };
+    XCTAssertEqualObjects([[companies.companies valueForKeyPath:@"@distinctUnionOfArrays.employees"] sortedArrayUsingComparator:cmp],
+                          (@[e1, e2, e3, e4]));
 
     // invalid key paths
-    RLMAssertThrowsWithReasonMatching([allCompanies valueForKeyPath:@"@invalid"], @"Unsupported KVC collection operator found in key path '@invalid'");
-    RLMAssertThrowsWithReasonMatching([allCompanies valueForKeyPath:@"@sum"], @"Missing key path for KVC collection operator sum in key path '@sum'");
-    RLMAssertThrowsWithReasonMatching([allCompanies valueForKeyPath:@"@sum."], @"Missing key path for KVC collection operator sum in key path '@sum.'");
-    RLMAssertThrowsWithReasonMatching([allCompanies valueForKeyPath:@"@sum.employees.@sum.age"], @"Nested key paths.*not supported");
+    RLMAssertThrowsWithReasonMatching([c1.employees valueForKeyPath:@"@invalid.name"],
+                                      @"Unsupported KVC collection operator found in key path '@invalid.name'");
+    RLMAssertThrowsWithReasonMatching([c1.employees valueForKeyPath:@"@sum"],
+                                      @"Missing key path for KVC collection operator sum in key path '@sum'");
+    RLMAssertThrowsWithReasonMatching([c1.employees valueForKeyPath:@"@sum."],
+                                      @"Missing key path for KVC collection operator sum in key path '@sum.'");
+    RLMAssertThrowsWithReasonMatching([c1.employees valueForKeyPath:@"@sum.employees.@sum.age"],
+                                      @"Nested key paths.*not supported");
 }
 
 - (void)testCrossThreadAccess
@@ -1005,16 +1009,85 @@
     XCTAssertTrue([description rangeOfString:@"912 objects skipped"].location != NSNotFound);
 }
 
-- (void)testAssignArrayProperty {
+- (void)testUnmanagedAssignment {
+    IntObject *io1 = [[IntObject alloc] init];
+    IntObject *io2 = [[IntObject alloc] init];
+    IntObject *io3 = [[IntObject alloc] init];
+
+    ArrayPropertyObject *array1 = [[ArrayPropertyObject alloc] init];
+    ArrayPropertyObject *array2 = [[ArrayPropertyObject alloc] init];
+
+    // Assigning NSArray shallow copies
+    array1.intArray = (id)@[io1, io2];
+    XCTAssertEqualObjects([array1.intArray valueForKey:@"self"], (@[io1, io2]));
+
+    [array1 setValue:@[io3, io1] forKey:@"intArray"];
+    XCTAssertEqualObjects([array1.intArray valueForKey:@"self"], (@[io3, io1]));
+
+    array1[@"intArray"] = @[io2, io3];
+    XCTAssertEqualObjects([array1.intArray valueForKey:@"self"], (@[io2, io3]));
+
+    // Assigning RLMArray shallow copies
+    array2.intArray = array1.intArray;
+    XCTAssertEqualObjects([array2.intArray valueForKey:@"self"], (@[io2, io3]));
+
+    [array1.intArray removeAllObjects];
+    XCTAssertEqualObjects([array2.intArray valueForKey:@"self"], (@[io2, io3]));
+
+    // Self-assignment is a no-op
+    array2.intArray = array2.intArray;
+    XCTAssertEqualObjects([array2.intArray valueForKey:@"self"], (@[io2, io3]));
+    array2[@"intArray"] = array2[@"intArray"];
+    XCTAssertEqualObjects([array2[@"intArray"] valueForKey:@"self"], (@[io2, io3]));
+}
+
+- (void)testManagedAssignment {
     RLMRealm *realm = self.realmWithTestPath;
     [realm beginWriteTransaction];
-    ArrayPropertyObject *array = [ArrayPropertyObject createInRealm:realm withValue:@[@"arrayObject", @[], @[]]];
-    NSSet *stringSet = [NSSet setWithArray:@[[[StringObject alloc] initWithValue:@[@"a"]]]];
-    [array setValue:stringSet forKey:@"array"];
-    XCTAssertEqualObjects([[array valueForKey:@"array"] valueForKey:@"stringCol"], [[stringSet allObjects] valueForKey:@"stringCol"]);
-    [array setValue:[stringSet allObjects] forKey:@"array"];
-    XCTAssertEqualObjects([[array valueForKey:@"array"] valueForKey:@"stringCol"], [[stringSet allObjects] valueForKey:@"stringCol"]);
-    [realm commitWriteTransaction];
+
+    IntObject *io1 = [IntObject createInRealm:realm withValue:@[@1]];
+    IntObject *io2 = [IntObject createInRealm:realm withValue:@[@2]];
+    IntObject *io3 = [IntObject createInRealm:realm withValue:@[@3]];
+
+    ArrayPropertyObject *array1 = [ArrayPropertyObject createInRealm:realm withValue:@[@""]];
+    ArrayPropertyObject *array2 = [ArrayPropertyObject createInRealm:realm withValue:@[@""]];
+
+    // Assigning NSArray shallow copies
+    array1.intArray = (id)@[io1, io2];
+    XCTAssertEqualObjects([array1.intArray valueForKey:@"intCol"], (@[@1, @2]));
+
+    [array1 setValue:@[io3, io1] forKey:@"intArray"];
+    XCTAssertEqualObjects([array1.intArray valueForKey:@"intCol"], (@[@3, @1]));
+
+    array1[@"intArray"] = @[io2, io3];
+    XCTAssertEqualObjects([array1.intArray valueForKey:@"intCol"], (@[@2, @3]));
+
+    // Assigning RLMArray shallow copies
+    array2.intArray = array1.intArray;
+    XCTAssertEqualObjects([array2.intArray valueForKey:@"intCol"], (@[@2, @3]));
+
+    [array1.intArray removeAllObjects];
+    XCTAssertEqualObjects([array2.intArray valueForKey:@"intCol"], (@[@2, @3]));
+
+    // Self-assignment is a no-op
+    array2.intArray = array2.intArray;
+    XCTAssertEqualObjects([array2.intArray valueForKey:@"intCol"], (@[@2, @3]));
+    array2[@"intArray"] = array2[@"intArray"];
+    XCTAssertEqualObjects([array2[@"intArray"] valueForKey:@"intCol"], (@[@2, @3]));
+
+    [realm cancelWriteTransaction];
+}
+
+- (void)testAssignIncorrectType {
+    RLMRealm *realm = self.realmWithTestPath;
+    [realm beginWriteTransaction];
+    ArrayPropertyObject *array = [ArrayPropertyObject createInRealm:realm
+                                                          withValue:@[@"", @[@[@"a"]], @[@[@0]]]];
+    RLMAssertThrowsWithReason(array.intArray = (id)array.array,
+                              @"Object of type (StringObject) does not match List type");
+    RLMAssertThrowsWithReason(array[@"intArray"] = array[@"array"],
+                              @"Invalid property value");
+    [realm cancelWriteTransaction];
 }
 
 - (void)testNotificationSentInitially {

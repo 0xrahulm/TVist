@@ -67,7 +67,7 @@ class STBDeviceSearchViewController: UIViewController, GCDAsyncUdpSocketDelegate
         NotificationCenter.default.removeObserver(self)
     }
     
-    func receivedData(notification: Notification) {
+    @objc func receivedData(notification: Notification) {
         if let data = notification.userInfo as? [String:AnyObject] {
             if let itemsData = data["items"] as? [STBDevice] {
                 self.appendToArray(newData: itemsData)
@@ -91,7 +91,7 @@ class STBDeviceSearchViewController: UIViewController, GCDAsyncUdpSocketDelegate
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    func socketStop() {
+    @objc func socketStop() {
         ssdpSocket.pauseReceiving()
         
         if self.allDevices.count == 0 {

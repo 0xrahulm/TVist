@@ -67,7 +67,7 @@ class HomeItemViewController: GenericAllItemsListViewController {
         return "HomeItem"
     }
     
-    func receivedData(notification: Notification) {
+    @objc func receivedData(notification: Notification) {
         if let data = notification.userInfo as? [String:AnyObject] {
             if let itemsData = data["item"] as? HomeItem, let page = data["page"] as? Int {
                 if let homeItem = self.homeItem, let homeItemId = homeItem.id, let receivedId = itemsData.id, homeItemId == receivedId {

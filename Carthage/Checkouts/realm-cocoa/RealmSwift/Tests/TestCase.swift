@@ -119,7 +119,13 @@ class TestCase: XCTestCase {
         RLMAssertThrowsWithName(self, { _ = block() }, named, message, fileName, lineNumber)
     }
 
-    func assertThrows<T>(_ block: @autoclosure @escaping () -> T, reason regexString: String,
+    func assertThrows<T>(_ block: @autoclosure () -> T, reason: String,
+                         _ message: String? = nil, fileName: String = #file, lineNumber: UInt = #line) {
+        exceptionThrown = true
+        RLMAssertThrowsWithReason(self, { _ = block() }, reason, message, fileName, lineNumber)
+    }
+
+    func assertThrows<T>(_ block: @autoclosure () -> T, reasonMatching regexString: String,
                          _ message: String? = nil, fileName: String = #file, lineNumber: UInt = #line) {
         exceptionThrown = true
         RLMAssertThrowsWithReasonMatching(self, { _ = block() }, regexString, message, fileName, lineNumber)
@@ -170,7 +176,13 @@ class TestCase: XCTestCase {
         XCTAssert(block() == nil, message ?? "", file: fileName, line: lineNumber)
     }
 
+    func assertMatches(_ block: @autoclosure () -> String, _ regexString: String, _ message: String? = nil,
+                       fileName: String = #file, lineNumber: UInt = #line) {
+        RLMAssertMatches(self, block, regexString, message, fileName, lineNumber)
+    }
+
     private func realmFilePrefix() -> String {
+        let name: String? = self.name
         return name!.trimmingCharacters(in: CharacterSet(charactersIn: "-[]"))
     }
 
@@ -187,3 +199,14 @@ class TestCase: XCTestCase {
         return directory.appendingPathComponent(fileName, isDirectory: false)
     }
 }
+
+#if !swift(>=3.2)
+func XCTAssertEqual<F: FloatingPoint>(_ expression1: F, _ expression2: F, accuracy: F,
+                                      file: StaticString = #file, line: UInt = #line) {
+    XCTAssertEqualWithAccuracy(expression1, expression2, accuracy: accuracy, file: file, line: line)
+}
+func XCTAssertNotEqual<F: FloatingPoint>(_ expression1: F, _ expression2: F, accuracy: F,
+                                         file: StaticString = #file, line: UInt = #line) {
+    XCTAssertNotEqualWithAccuracy(expression1, expression2, accuracy, file: file, line: line)
+}
+#endif

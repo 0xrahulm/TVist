@@ -525,17 +525,18 @@
 - (void)verifySort:(RLMRealm *)realm column:(NSString *)column ascending:(BOOL)ascending expected:(id)val {
     RLMResults *results = [[AllTypesObject allObjectsInRealm:realm] sortedResultsUsingKeyPath:column ascending:ascending];
     AllTypesObject *obj = results[0];
-    XCTAssertEqualObjects(obj[column], val, @"Array not sorted as expected - %@ != %@", obj[column], val);
+    XCTAssertEqualObjects(obj[column], val);
 
     RLMArray *ar = (RLMArray *)[[[ArrayOfAllTypesObject allObjectsInRealm:realm] firstObject] array];
     results = [ar sortedResultsUsingKeyPath:column ascending:ascending];
     obj = results[0];
-    XCTAssertEqualObjects(obj[column], val, @"Array not sorted as expected - %@ != %@", obj[column], val);
+    XCTAssertEqualObjects(obj[column], val);
 }
 
 - (void)verifySortWithAccuracy:(RLMRealm *)realm column:(NSString *)column ascending:(BOOL)ascending getter:(double(^)(id))getter expected:(double)val accuracy:(double)accuracy {
     // test TableView query
-    RLMResults *results = [[AllTypesObject allObjectsInRealm:realm] sortedResultsUsingKeyPath:column ascending:ascending];
+    RLMResults<AllTypesObject *> *results = [[AllTypesObject allObjectsInRealm:realm]
+                                             sortedResultsUsingKeyPath:column ascending:ascending];
     XCTAssertEqualWithAccuracy(getter(results[0][column]), val, accuracy, @"Array not sorted as expected");
 
     // test LinkView query
@@ -594,8 +595,10 @@
     [self verifySort:realm column:@"stringCol" ascending:NO expected:@"cc"];
 
     // sort invalid name
-    RLMAssertThrowsWithReasonMatching([[AllTypesObject allObjects] sortedResultsUsingKeyPath:@"invalidCol" ascending:YES], @"'invalidCol'.* not found .*'AllTypesObject'");
-    XCTAssertThrows([arrayOfAll.array sortedResultsUsingKeyPath:@"invalidCol" ascending:NO]);
+    RLMAssertThrowsWithReason([[AllTypesObject allObjects] sortedResultsUsingKeyPath:@"invalidCol" ascending:YES],
+                              @"Cannot sort on key path 'invalidCol': property 'AllTypesObject.invalidCol' does not exist.");
+    RLMAssertThrowsWithReason([arrayOfAll.array sortedResultsUsingKeyPath:@"invalidCol" ascending:NO],
+                              @"Cannot sort on key path 'invalidCol': property 'AllTypesObject.invalidCol' does not exist.");
 }
 
 - (void)testSortByNoColumns {
@@ -685,16 +688,16 @@
 
 - (void)testSortByUnspportedKeyPath {
     // Array property
-    RLMAssertThrowsWithReasonMatching([DogArrayObject.allObjects sortedResultsUsingKeyPath:@"dogs.age" ascending:YES],
-                                      @"to-many relationship is not supported");
+    RLMAssertThrowsWithReason([DogArrayObject.allObjects sortedResultsUsingKeyPath:@"dogs.age" ascending:YES],
+                              @"Cannot sort on key path 'dogs.age': property 'DogArrayObject.dogs' is of unsupported type 'array'.");
 
     // Backlinks property
-    RLMAssertThrowsWithReasonMatching([DogObject.allObjects sortedResultsUsingKeyPath:@"owners.name" ascending:YES],
-                                      @"to-many relationship is not supported");
+    RLMAssertThrowsWithReason([DogObject.allObjects sortedResultsUsingKeyPath:@"owners.name" ascending:YES],
+                              @"Cannot sort on key path 'owners.name': property 'DogObject.owners' is of unsupported type 'linking objects'.");
 
     // Collection operator
-    RLMAssertThrowsWithReasonMatching([DogArrayObject.allObjects sortedResultsUsingKeyPath:@"dogs.@count" ascending:YES],
-                                      @"collection operators is not supported");
+    RLMAssertThrowsWithReason([DogArrayObject.allObjects sortedResultsUsingKeyPath:@"dogs.@count" ascending:YES],
+                              @"Cannot sort on key path 'dogs.@count': KVC collection operators are not supported.");
 }
 
 - (void)testSortedLinkViewWithDeletion {
@@ -1777,7 +1780,7 @@
     [EmployeeObject createInRealm:realm withValue:@{@"name": @"Joe",  @"age": @40, @"hired": @YES}];
     [realm commitWriteTransaction];
 
-    RLMResults *subarray = nil;
+    RLMResults<EmployeeObject *> *subarray = nil;
     @autoreleasepool {
         __attribute((objc_precise_lifetime)) CompanyObject *co = [CompanyObject allObjects][0];
         subarray = [co.employees objectsWhere:@"age = 40"];
@@ -2136,6 +2139,106 @@
     XCTAssertEqualObjects(asArray(r14), (@[ hannah ]));
 }
 
+- (void)testCountOnCollection {
+    RLMRealm *realm = [self realm];
+    [realm beginWriteTransaction];
+
+    IntegerArrayPropertyObject *arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @1, @[]]];
+    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @456 ]]];
+
+    arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @2, @[]]];
+    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @1 ]]];
+    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @2 ]]];
+    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @3 ]]];
+
+    arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @0, @[]]];
+
+    [realm commitWriteTransaction];
+
+    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@count > 0");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@count == 3");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@count < 1");
+    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"0 < array.@count");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"3 == array.@count");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"1 >  array.@count");
+
+    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@count == number");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@count > number");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"number < array.@count");
+
+    // We do not yet handle collection operations on both sides of the comparison.
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@count == array.@count"]),
+                                      @"aggregate operations cannot be compared with other aggregate operations");
+
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@count.foo.bar != 0"]),
+                                      @"single level key");
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@count.intCol > 0"]),
+                                      @"@count does not have any properties");
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@count != 'Hello'"]),
+                                      @"@count can only be compared with a numeric value");
+}
+
+- (void)testAggregateCollectionOperators {
+    RLMRealm *realm = [self realm];
+    [realm beginWriteTransaction];
+
+    IntegerArrayPropertyObject *arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @1111, @[] ]];
+    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @1234 ]]];
+    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @2 ]]];
+    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @-12345 ]]];
+
+    arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @2222, @[] ]];
+    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @100 ]]];
+
+    arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @3333, @[] ]];
+
+    [realm commitWriteTransaction];
+
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@min.intCol == -12345");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@min.intCol == 100");
+    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@min.intCol < 1000");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@min.intCol > -1000");
+
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@max.intCol == 1234");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@max.intCol == 100");
+    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@max.intCol > -1000");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@max.intCol > 1000");
+
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@sum.intCol == 100");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@sum.intCol == -11109");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@sum.intCol == 0");
+    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@sum.intCol > -50");
+    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@sum.intCol < 50");
+
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@avg.intCol == 100");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@avg.intCol == -3703.0");
+    RLMAssertCount(IntegerArrayPropertyObject, 0U, @"array.@avg.intCol == 0");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@avg.intCol < -50");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@avg.intCol > 50");
+
+    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@min.intCol < number");
+    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"number > array.@min.intCol");
+
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@max.intCol < number");
+    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"number > array.@max.intCol");
+
+    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@avg.intCol < number");
+    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"number > array.@avg.intCol");
+
+    // We do not yet handle collection operations on both sides of the comparison.
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@min.intCol == array.@min.intCol"]), @"aggregate operations cannot be compared with other aggregate operations");
+
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@min.intCol.foo.bar == 1.23"]), @"single level key");
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@max.intCol.foo.bar == 1.23"]), @"single level key");
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@sum.intCol.foo.bar == 1.23"]), @"single level key");
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@avg.intCol.foo.bar == 1.23"]), @"single level key");
+
+    // Average is omitted from this test as its result is always a double.
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@min.intCol == 1.23"]), @"@min.*type int cannot be compared");
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@max.intCol == 1.23"]), @"@max.*type int cannot be compared");
+    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@sum.intCol == 1.23"]), @"@sum.*type int cannot be compared");
+}
+
 @end
 
 @interface NullQueryTests : QueryTests
@@ -2313,106 +2416,6 @@
     }
 
     [realm cancelWriteTransaction];
-}
-
-- (void)testCountOnCollection {
-    RLMRealm *realm = [self realm];
-    [realm beginWriteTransaction];
-
-    IntegerArrayPropertyObject *arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @1, @[]]];
-    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @456 ]]];
-
-    arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @2, @[]]];
-    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @1 ]]];
-    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @2 ]]];
-    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @3 ]]];
-
-    arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @0, @[]]];
-
-    [realm commitWriteTransaction];
-
-    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@count > 0");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@count == 3");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@count < 1");
-    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"0 < array.@count");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"3 == array.@count");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"1 >  array.@count");
-
-    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@count == number");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@count > number");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"number < array.@count");
-
-    // We do not yet handle collection operations on both sides of the comparison.
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@count == array.@count"]),
-                                      @"aggregate operations cannot be compared with other aggregate operations");
-
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@count.foo.bar != 0"]),
-                                      @"single level key");
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@count.intCol > 0"]),
-                                      @"@count does not have any properties");
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@count != 'Hello'"]),
-                                      @"@count can only be compared with a numeric value");
-}
-
-- (void)testAggregateCollectionOperators {
-    RLMRealm *realm = [self realm];
-    [realm beginWriteTransaction];
-
-    IntegerArrayPropertyObject *arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @1111, @[] ]];
-    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @1234 ]]];
-    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @2 ]]];
-    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @-12345 ]]];
-
-    arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @2222, @[] ]];
-    [arr.array addObject:[IntObject createInRealm:realm withValue:@[ @100 ]]];
-
-    arr = [IntegerArrayPropertyObject createInRealm:realm withValue:@[ @3333, @[] ]];
-
-    [realm commitWriteTransaction];
-
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@min.intCol == -12345");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@min.intCol == 100");
-    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@min.intCol < 1000");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@min.intCol > -1000");
-
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@max.intCol == 1234");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@max.intCol == 100");
-    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@max.intCol > -1000");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@max.intCol > 1000");
-
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@sum.intCol == 100");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@sum.intCol == -11109");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@sum.intCol == 0");
-    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@sum.intCol > -50");
-    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@sum.intCol < 50");
-
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@avg.intCol == 100");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@avg.intCol == -3703.0");
-    RLMAssertCount(IntegerArrayPropertyObject, 0U, @"array.@avg.intCol == 0");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@avg.intCol < -50");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@avg.intCol > 50");
-
-    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@min.intCol < number");
-    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"number > array.@min.intCol");
-
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"array.@max.intCol < number");
-    RLMAssertCount(IntegerArrayPropertyObject, 1U, @"number > array.@max.intCol");
-
-    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"array.@avg.intCol < number");
-    RLMAssertCount(IntegerArrayPropertyObject, 2U, @"number > array.@avg.intCol");
-
-    // We do not yet handle collection operations on both sides of the comparison.
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@min.intCol == array.@min.intCol"]), @"aggregate operations cannot be compared with other aggregate operations");
-
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@min.intCol.foo.bar == 1.23"]), @"single level key");
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@max.intCol.foo.bar == 1.23"]), @"single level key");
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@sum.intCol.foo.bar == 1.23"]), @"single level key");
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@avg.intCol.foo.bar == 1.23"]), @"single level key");
-
-    // Average is omitted from this test as its result is always a double.
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@min.intCol == 1.23"]), @"@min.*type int cannot be compared");
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@max.intCol == 1.23"]), @"@max.*type int cannot be compared");
-    RLMAssertThrowsWithReasonMatching(([IntegerArrayPropertyObject objectsWhere:@"array.@sum.intCol == 1.23"]), @"@sum.*type int cannot be compared");
 }
 
 struct NullTestData {

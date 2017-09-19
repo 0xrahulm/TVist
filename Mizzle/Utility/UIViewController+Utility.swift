@@ -11,7 +11,7 @@ import UIKit
 extension UIViewController{
     
     
-    func setObjectsWithQueryParameters(_ queryParams: [String:Any]) {
+    @objc func setObjectsWithQueryParameters(_ queryParams: [String:Any]) {
         //vcFootPrint = createClassFootPrintWith(theClassName, queryParams: queryParams)
         // Receive Parameterized Data
     }
@@ -23,7 +23,7 @@ extension UIViewController{
         }
     }
     
-    func dismissPopup() {
+    @objc func dismissPopup() {
         if let navController = self.navigationController {
             navController.dismiss(animated: true, completion: { 
                 self.didDismissPopup()

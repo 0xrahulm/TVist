@@ -103,7 +103,7 @@ class EmailLoginViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(EmailLoginViewController.keyboardWillDisappear(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func closeButton() {
+    @objc func closeButton() {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
@@ -167,7 +167,7 @@ class EmailLoginViewController: UIViewController {
         }
     }
     
-    func keyboardWillAppear(_ notification: Notification) {
+    @objc func keyboardWillAppear(_ notification: Notification) {
         if let userInfo = notification.userInfo {
             if let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
                 doneButtonChangeBottomConstantWithAnimation(keyboardFrame.cgRectValue.height)
@@ -176,7 +176,7 @@ class EmailLoginViewController: UIViewController {
         
     }
     
-    func keyboardWillDisappear(_ notification: Notification) {
+    @objc func keyboardWillDisappear(_ notification: Notification) {
         doneButtonChangeBottomConstantWithAnimation(0)
     }
     

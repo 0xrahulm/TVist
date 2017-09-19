@@ -64,7 +64,7 @@ class TvGuideChildViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func receivedListData(_ notification:Notification) {
+    @objc func receivedListData(_ notification:Notification) {
         if let userInfo = notification.userInfo {
             
             

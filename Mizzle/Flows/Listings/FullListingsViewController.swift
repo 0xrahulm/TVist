@@ -123,7 +123,7 @@ class FullListingsViewController: BaseViewController {
         reset()
     }
     
-    func receivedChannelData(_ notification:Notification) {
+    @objc func receivedChannelData(_ notification:Notification) {
         channelSelectionButton.isEnabled = true
         setupChannelsForCategory(index: listingData.categorySelectedIndex)
     }
@@ -196,7 +196,7 @@ class FullListingsViewController: BaseViewController {
         ScreenVader.sharedVader.hideTabBar(false)
     }
     
-    func receivedListData(_ notification:Notification) {
+    @objc func receivedListData(_ notification:Notification) {
         if let userInfo = notification.userInfo {
             if let listData = userInfo["data"] as? [ChannelListing] {
                 if let page = userInfo["page"] as? Int, page == nextPage {
@@ -270,7 +270,7 @@ class FullListingsViewController: BaseViewController {
     }
     
     
-    func didTapOnDate(_ sender: AnyObject) {
+    @objc func didTapOnDate(_ sender: AnyObject) {
         if let dateGesture = sender as? UITapGestureRecognizer {
             if let dateView = dateGesture.view {
                 

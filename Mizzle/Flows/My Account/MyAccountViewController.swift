@@ -96,10 +96,6 @@ class MyAccountViewController: UIViewController{
         }
     }
     
-    func notificationTapped(){
-        
-    }
-    
     func settingTapped(){
         
         ScreenVader.sharedVader.performScreenManagerAction(.MyAccountSetting, queryParams: nil)

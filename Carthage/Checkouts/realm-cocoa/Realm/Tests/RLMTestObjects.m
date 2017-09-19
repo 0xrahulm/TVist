@@ -97,6 +97,15 @@
 @implementation AllOptionalTypes
 @end
 
+@implementation AllOptionalTypesPK
++ (NSString *)primaryKey {
+    return @"pk";
+}
++ (NSDictionary *)defaultPropertyValues {
+    return @{@"pk": NSUUID.UUID.UUIDString};
+}
+@end
+
 #pragma mark - Real Life Objects
 #pragma mark -
 
@@ -123,6 +132,9 @@
 + (NSString *)primaryKey {
     return @"name";
 }
+@end
+
+@implementation ArrayOfPrimaryCompanies
 @end
 
 #pragma mark LinkToCompanyObject

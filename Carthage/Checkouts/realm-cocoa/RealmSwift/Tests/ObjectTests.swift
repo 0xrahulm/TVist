@@ -26,12 +26,12 @@ private func nextDynamicDefaultSeed() -> Int {
     return dynamicDefaultSeed
 }
 class DynamicDefaultObject: Object {
-    dynamic var intCol = nextDynamicDefaultSeed()
-    dynamic var floatCol = Float(nextDynamicDefaultSeed())
-    dynamic var doubleCol = Double(nextDynamicDefaultSeed())
-    dynamic var dateCol = Date(timeIntervalSinceReferenceDate: TimeInterval(nextDynamicDefaultSeed()))
-    dynamic var stringCol = UUID().uuidString
-    dynamic var binaryCol = UUID().uuidString.data(using: .utf8)
+    @objc dynamic var intCol = nextDynamicDefaultSeed()
+    @objc dynamic var floatCol = Float(nextDynamicDefaultSeed())
+    @objc dynamic var doubleCol = Double(nextDynamicDefaultSeed())
+    @objc dynamic var dateCol = Date(timeIntervalSinceReferenceDate: TimeInterval(nextDynamicDefaultSeed()))
+    @objc dynamic var stringCol = UUID().uuidString
+    @objc dynamic var binaryCol = UUID().uuidString.data(using: .utf8)
 
     override static func primaryKey() -> String? {
         return "intCol"
@@ -115,11 +115,11 @@ class ObjectTests: TestCase {
     func testDescription() {
         let object = SwiftObject()
         // swiftlint:disable line_length
-        XCTAssertEqual(object.description, "SwiftObject {\n\tboolCol = 0;\n\tintCol = 123;\n\tfloatCol = 1.23;\n\tdoubleCol = 12.3;\n\tstringCol = a;\n\tbinaryCol = <61 — 1 total bytes>;\n\tdateCol = 1970-01-01 00:00:01 +0000;\n\tobjectCol = SwiftBoolObject {\n\t\tboolCol = 0;\n\t};\n\tarrayCol = List<SwiftBoolObject> (\n\t\n\t);\n}")
+        assertMatches(object.description, "SwiftObject \\{\n\tboolCol = 0;\n\tintCol = 123;\n\tfloatCol = 1\\.23;\n\tdoubleCol = 12\\.3;\n\tstringCol = a;\n\tbinaryCol = <61 — 1 total bytes>;\n\tdateCol = 1970-01-01 00:00:01 \\+0000;\n\tobjectCol = SwiftBoolObject \\{\n\t\tboolCol = 0;\n\t\\};\n\tarrayCol = List<SwiftBoolObject> <0x[0-9a-f]+> \\(\n\t\n\t\\);\n\\}")
 
         let recursiveObject = SwiftRecursiveObject()
         recursiveObject.objects.append(recursiveObject)
-        XCTAssertEqual(recursiveObject.description, "SwiftRecursiveObject {\n\tobjects = List<SwiftRecursiveObject> (\n\t\t[0] SwiftRecursiveObject {\n\t\t\tobjects = List<SwiftRecursiveObject> (\n\t\t\t\t[0] SwiftRecursiveObject {\n\t\t\t\t\tobjects = <Maximum depth exceeded>;\n\t\t\t\t}\n\t\t\t);\n\t\t}\n\t);\n}")
+        assertMatches(recursiveObject.description, "SwiftRecursiveObject \\{\n\tobjects = List<SwiftRecursiveObject> <0x[0-9a-f]+> \\(\n\t\t\\[0\\] SwiftRecursiveObject \\{\n\t\t\tobjects = List<SwiftRecursiveObject> <0x[0-9a-f]+> \\(\n\t\t\t\t\\[0\\] SwiftRecursiveObject \\{\n\t\t\t\t\tobjects = <Maximum depth exceeded>;\n\t\t\t\t\\}\n\t\t\t\\);\n\t\t\\}\n\t\\);\n\\}")
         // swiftlint:enable line_length
     }
 
@@ -152,19 +152,19 @@ class ObjectTests: TestCase {
 
         try! realm.write {
             realm.add(intObj)
-            assertThrows(intObj.intCol = 2, reason: primaryKeyReason)
-            assertThrows(intObj["intCol"] = 2, reason: primaryKeyReason)
-            assertThrows(intObj.setValue(2, forKey: "intCol"), reason: primaryKeyReason)
+            assertThrows(intObj.intCol = 2, reasonMatching: primaryKeyReason)
+            assertThrows(intObj["intCol"] = 2, reasonMatching: primaryKeyReason)
+            assertThrows(intObj.setValue(2, forKey: "intCol"), reasonMatching: primaryKeyReason)
 
             realm.add(optionalIntObj)
-            assertThrows(optionalIntObj.intCol.value = 2, reason: primaryKeyReason)
-            assertThrows(optionalIntObj["intCol"] = 2, reason: primaryKeyReason)
-            assertThrows(optionalIntObj.setValue(2, forKey: "intCol"), reason: primaryKeyReason)
+            assertThrows(optionalIntObj.intCol.value = 2, reasonMatching: primaryKeyReason)
+            assertThrows(optionalIntObj["intCol"] = 2, reasonMatching: primaryKeyReason)
+            assertThrows(optionalIntObj.setValue(2, forKey: "intCol"), reasonMatching: primaryKeyReason)
 
             realm.add(stringObj)
-            assertThrows(stringObj.stringCol = "c", reason: primaryKeyReason)
-            assertThrows(stringObj["stringCol"] = "c", reason: primaryKeyReason)
-            assertThrows(stringObj.setValue("c", forKey: "stringCol"), reason: primaryKeyReason)
+            assertThrows(stringObj.stringCol = "c", reasonMatching: primaryKeyReason)
+            assertThrows(stringObj["stringCol"] = "c", reasonMatching: primaryKeyReason)
+            assertThrows(stringObj.setValue("c", forKey: "stringCol"), reasonMatching: primaryKeyReason)
         }
     }
 
@@ -215,14 +215,16 @@ class ObjectTests: TestCase {
             XCTAssertNotEqual(obj1.intCol, obj2.intCol)
             XCTAssertNotEqual(obj1.floatCol, obj2.floatCol)
             XCTAssertNotEqual(obj1.doubleCol, obj2.doubleCol)
-            XCTAssertNotEqualWithAccuracy(obj1.dateCol.timeIntervalSinceReferenceDate, obj2.dateCol.timeIntervalSinceReferenceDate, 0.01)
+            XCTAssertNotEqual(obj1.dateCol.timeIntervalSinceReferenceDate, obj2.dateCol.timeIntervalSinceReferenceDate,
+                              accuracy: 0.01)
             XCTAssertNotEqual(obj1.stringCol, obj2.stringCol)
             XCTAssertNotEqual(obj1.binaryCol, obj2.binaryCol)
         }
         assertDifferentPropertyValues(DynamicDefaultObject(), DynamicDefaultObject())
         let realm = try! Realm()
         try! realm.write {
-            assertDifferentPropertyValues(realm.create(DynamicDefaultObject.self), realm.create(DynamicDefaultObject.self))
+            assertDifferentPropertyValues(realm.create(DynamicDefaultObject.self),
+                                          realm.create(DynamicDefaultObject.self))
         }
     }
 

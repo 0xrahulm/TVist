@@ -87,7 +87,7 @@ class ChannelPickerView: UIView {
         
     }
     
-    func bubbleTapped(_ sender: UIButton) {
+    @objc func bubbleTapped(_ sender: UIButton) {
         
         
         setSelected(index: sender.tag)

@@ -54,7 +54,7 @@ class AllArticlesViewController: GenericAllItemsListViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func receivedData(notification: Notification) {
+    @objc func receivedData(notification: Notification) {
         if let data = notification.userInfo as? [String:AnyObject] {
             if let itemsData = data["items"] as? [ArticleItem], let page = data["page"] as? Int {
                 appendDataToBeListed(appendableData: itemsData, page: page)

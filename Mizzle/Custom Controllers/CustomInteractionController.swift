@@ -25,7 +25,7 @@ class CustomInteractionController: UIPercentDrivenInteractiveTransition {
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(CustomInteractionController.handlePanGesture(_:))))
     }
     
-    func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
+    @objc func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
         let viewTranslation = gestureRecognizer.translation(in: gestureRecognizer.view!.superview!)
         switch gestureRecognizer.state {
         case .began:

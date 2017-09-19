@@ -67,7 +67,7 @@ class SearchChildViewController: GenericAllItemsListViewController {
     }
     
     
-    func recievedSearchedText(_ notification : Notification){
+    @objc func recievedSearchedText(_ notification : Notification){
         if let dict = notification.object as? [String:AnyObject] {
             if let text = dict["searchText"] as? String{
                 self.searchedText = text
@@ -101,7 +101,7 @@ class SearchChildViewController: GenericAllItemsListViewController {
         self.loadingView.stopAnimating()
     }
     
-    func receivedNotification(_ notification : Notification){
+    @objc func receivedNotification(_ notification : Notification){
         if self.listItems.count == 1{
             self.listItems = []
         }
@@ -136,7 +136,7 @@ class SearchChildViewController: GenericAllItemsListViewController {
         return "Search"
     }
     
-    func validateSearch(_ timer : Timer){
+    @objc func validateSearch(_ timer : Timer){
         
         if let text = timer.userInfo as? String{
             if let searchedText = ECUserDefaults.getSearchedText(){

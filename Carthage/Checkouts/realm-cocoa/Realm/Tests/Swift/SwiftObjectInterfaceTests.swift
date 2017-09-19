@@ -27,17 +27,17 @@ class OuterClass {
 }
 
 class SwiftStringObjectSubclass : SwiftStringObject {
-    var stringCol2 = ""
+    @objc dynamic var stringCol2 = ""
 }
 
 class SwiftSelfRefrencingSubclass: SwiftStringObject {
-    dynamic var objects = RLMArray(objectClassName: SwiftSelfRefrencingSubclass.className())
+    @objc dynamic var objects = RLMArray<SwiftSelfRefrencingSubclass>(objectClassName: SwiftSelfRefrencingSubclass.className())
 }
 
 
 class SwiftDefaultObject: RLMObject {
-    dynamic var intCol = 1
-    dynamic var boolCol = true
+    @objc dynamic var intCol = 1
+    @objc dynamic var boolCol = true
 
     override class func defaultPropertyValues() -> [AnyHashable : Any]? {
         return ["intCol": 2]
@@ -45,10 +45,10 @@ class SwiftDefaultObject: RLMObject {
 }
 
 class SwiftOptionalNumberObject: RLMObject {
-    dynamic var intCol: NSNumber? = 1
-    dynamic var floatCol: NSNumber? = 2.2 as Float as NSNumber
-    dynamic var doubleCol: NSNumber? = 3.3
-    dynamic var boolCol: NSNumber? = true
+    @objc dynamic var intCol: NSNumber? = 1
+    @objc dynamic var floatCol: NSNumber? = 2.2 as Float as NSNumber
+    @objc dynamic var doubleCol: NSNumber? = 3.3
+    @objc dynamic var boolCol: NSNumber? = true
 }
 
 class SwiftObjectInterfaceTests: RLMTestCase {
@@ -86,7 +86,7 @@ class SwiftObjectInterfaceTests: RLMTestCase {
         XCTAssertEqual(firstObj.dateCol, Date(timeIntervalSince1970: 123), "should be epoch + 123")
         XCTAssertEqual(firstObj.objectCol.boolCol, true, "should be true")
         XCTAssertEqual(obj.arrayCol.count, UInt(1), "array count should be 1")
-        XCTAssertEqual((obj.arrayCol.firstObject() as? SwiftBoolObject)!.boolCol, true, "should be true")
+        XCTAssertEqual(obj.arrayCol.firstObject()!.boolCol, true, "should be true")
     }
 
     func testDefaultValueSwiftObject() {

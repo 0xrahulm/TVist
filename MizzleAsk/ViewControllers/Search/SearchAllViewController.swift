@@ -91,7 +91,7 @@ class SearchAllViewController: UIViewController {
         SearchDataProvider.shared.getSearchItems(text, searchType: type, limit: 10, page: currentPage)
     }
     
-    func recievedSearchedText(_ notification : Notification){
+    @objc func recievedSearchedText(_ notification : Notification){
         if let dict = notification.object as? [String:AnyObject] {
             if let text = dict["searchText"] as? String{
                 self.searchedText = text
@@ -102,7 +102,7 @@ class SearchAllViewController: UIViewController {
         }
     }
     
-    func receivedNotification(_ notification : Notification){
+    @objc func receivedNotification(_ notification : Notification){
         if self.dataArray.count == 1 && dataArray[0].searchType == .Blank{
             self.dataArray = []
         }
@@ -149,7 +149,7 @@ class SearchAllViewController: UIViewController {
         callFurther = false
     }
     
-    func validateSearch(_ timer : Timer){
+    @objc func validateSearch(_ timer : Timer){
         
         if let text = timer.userInfo as? String{
             if let searchedText = ECUserDefaults.getSearchedText(){

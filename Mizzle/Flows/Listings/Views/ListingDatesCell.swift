@@ -43,7 +43,7 @@ class ListingDatesCell: UITableViewCell {
     }
     
     
-    func didTapOnDate(_ sender: AnyObject) {
+    @objc func didTapOnDate(_ sender: AnyObject) {
         if let dateGesture = sender as? UITapGestureRecognizer {
             if let dateView = dateGesture.view {
                 let listingDate = listingDates[dateView.tag]

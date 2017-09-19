@@ -146,7 +146,7 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
                 
                 self.titleTextView.delegate = self
                 self.titleTextView.attributedText = attributedString
-                self.titleTextView.linkTextAttributes  = [NSForegroundColorAttributeName: UIColor.textBlackColor()]
+                self.titleTextView.linkTextAttributes  = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.textBlackColor()]
                 
             }
         }
@@ -181,7 +181,7 @@ class AddToEscapeTableViewCell: BaseStoryTableViewCell {
         }
     }
     
-    func handletitleTapGesture(_ sender: UITapGestureRecognizer) {
+    @objc func handletitleTapGesture(_ sender: UITapGestureRecognizer) {
         
         
     }
@@ -392,7 +392,7 @@ extension NSMutableAttributedString {
         
         let foundRange = self.mutableString.range(of: textToFind)
         if foundRange.location != NSNotFound {
-            self.addAttribute(NSLinkAttributeName, value: linkURL, range: foundRange)
+            self.addAttribute(NSAttributedStringKey.link, value: linkURL, range: foundRange)
             return true
         }
         return false

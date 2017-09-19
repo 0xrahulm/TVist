@@ -105,7 +105,7 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
     }
     
     
-    func handleTapGesture(_ sender: UITapGestureRecognizer) {
+    @objc func handleTapGesture(_ sender: UITapGestureRecognizer) {
         openAllUsers()
     }
     
@@ -114,7 +114,7 @@ class FBFriendsTableViewCell: BaseStoryTableViewCell {
             
         }
     }
-    func handletitleTapGesture(_ sender: UITapGestureRecognizer) {
+    @objc func handletitleTapGesture(_ sender: UITapGestureRecognizer) {
         if let storyId = storyId{
             
         }

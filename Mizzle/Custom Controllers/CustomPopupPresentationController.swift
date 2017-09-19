@@ -46,7 +46,7 @@ class CustomPopupPresentationController: UIPresentationController {
         presentingViewController.dismiss(animated: true, completion: nil)
     }
     
-    func dimmingViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+    @objc func dimmingViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
         dismissView()
     }
     

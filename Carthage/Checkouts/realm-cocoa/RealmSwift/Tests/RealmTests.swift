@@ -483,7 +483,7 @@ class RealmTests: TestCase {
 
         XCTAssertEqual(object["boolCol"] as? NSNumber, dictionary["boolCol"] as! NSNumber?)
         XCTAssertEqual(object["intCol"] as? NSNumber, dictionary["intCol"] as! NSNumber?)
-        XCTAssertEqualWithAccuracy(object["floatCol"] as! Float, dictionary["floatCol"] as! Float, accuracy: 0.001)
+        XCTAssertEqual(object["floatCol"] as! Float, dictionary["floatCol"] as! Float, accuracy: 0.001)
         XCTAssertEqual(object["doubleCol"] as? NSNumber, dictionary["doubleCol"] as! NSNumber?)
         XCTAssertEqual(object["stringCol"] as! String?, dictionary["stringCol"] as! String?)
         XCTAssertEqual(object["binaryCol"] as! NSData?, dictionary["binaryCol"] as! NSData?)
@@ -587,9 +587,8 @@ class RealmTests: TestCase {
     }
 
     func testOptionalIntPrimaryKey() {
-        func testOptionalIntPrimaryKey<O: Object, Wrapped: RealmOptionalType>(for type: O.Type)
-            where O: SwiftPrimaryKeyObjectType, O.PrimaryKey == RealmOptional<Wrapped>,
-                  Wrapped: ExpressibleByIntegerLiteral {
+        func testOptionalIntPrimaryKey<O: Object, Wrapped>(for type: O.Type, _ wrapped: Wrapped.Type)
+            where Wrapped: ExpressibleByIntegerLiteral {
                 let realm = try! Realm()
                 try! realm.write {
                     realm.create(type, value: ["a", NSNull()])
@@ -609,11 +608,11 @@ class RealmTests: TestCase {
                 XCTAssertNil(missingObject)
         }
 
-        testOptionalIntPrimaryKey(for: SwiftPrimaryOptionalIntObject.self)
-        testOptionalIntPrimaryKey(for: SwiftPrimaryOptionalInt8Object.self)
-        testOptionalIntPrimaryKey(for: SwiftPrimaryOptionalInt16Object.self)
-        testOptionalIntPrimaryKey(for: SwiftPrimaryOptionalInt32Object.self)
-        testOptionalIntPrimaryKey(for: SwiftPrimaryOptionalInt64Object.self)
+        testOptionalIntPrimaryKey(for: SwiftPrimaryOptionalIntObject.self, Int.self)
+        testOptionalIntPrimaryKey(for: SwiftPrimaryOptionalInt8Object.self, Int8.self)
+        testOptionalIntPrimaryKey(for: SwiftPrimaryOptionalInt16Object.self, Int16.self)
+        testOptionalIntPrimaryKey(for: SwiftPrimaryOptionalInt32Object.self, Int32.self)
+        testOptionalIntPrimaryKey(for: SwiftPrimaryOptionalInt64Object.self, Int64.self)
     }
 
     func testStringPrimaryKey() {

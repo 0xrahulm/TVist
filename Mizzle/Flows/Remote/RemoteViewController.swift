@@ -157,7 +157,7 @@ class RemoteViewController: BaseViewController {
         categoryDropDown.selectRow(at: 0)
     }
     
-    func validateSearch(_ timer : Timer){
+    @objc func validateSearch(_ timer : Timer){
         
         if let text = timer.userInfo as? String, let searchedText = self.searchedChannelNumber {
             if text == searchedText {

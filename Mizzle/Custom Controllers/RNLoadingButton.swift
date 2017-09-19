@@ -203,7 +203,7 @@ open class RNLoadingButton: UIButton {
     
     // MARK: - Targets/Actions
     
-    func activityIndicatorTapped(_ sender:AnyObject) {
+    @objc func activityIndicatorTapped(_ sender:AnyObject) {
         self.sendActions(for: UIControlEvents.touchUpInside)
     }
     

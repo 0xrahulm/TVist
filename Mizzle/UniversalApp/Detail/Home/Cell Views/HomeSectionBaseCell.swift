@@ -52,7 +52,7 @@ class HomeSectionBaseCell: UITableViewCell {
         
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    @objc func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let percentageScroll:CGFloat = ((scrollView.contentOffset.x+scrollView.frame.size.width)/scrollView.contentSize.width)*100
         let scrollBucketStr = scrollBucket(scrollValue: percentageScroll)
         if self.lastScrollValue != scrollBucketStr {
@@ -66,7 +66,7 @@ class HomeSectionBaseCell: UITableViewCell {
         
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    @objc func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         if !decelerate {
             

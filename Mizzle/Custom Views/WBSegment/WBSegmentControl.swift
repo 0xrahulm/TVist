@@ -225,7 +225,7 @@ public class WBSegmentControl: UIControl {
             case let .text(text):
                 let layerText = CATextLayer()
                 layerText.string = text
-                let font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightRegular)
+                let font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
                 layerText.font = CGFont(NSString(string:font.fontName))
                 layerText.fontSize = font.pointSize
                 layerText.frame = content_frame
@@ -448,8 +448,8 @@ public class WBSegmentControl: UIControl {
         var size = CGSize.zero
         switch segment.content.type {
         case let .text(text):
-            size = (text as NSString).size(attributes: [
-                NSFontAttributeName: segmentTextBold ? UIFont.boldSystemFont(ofSize: self.segmentTextFontSize) : UIFont.systemFont(ofSize: self.segmentTextFontSize)
+            size = (text as NSString).size(withAttributes: [
+                NSAttributedStringKey.font: segmentTextBold ? UIFont.boldSystemFont(ofSize: self.segmentTextFontSize) : UIFont.systemFont(ofSize: self.segmentTextFontSize)
                 ])
         case let .icon(icon):
             size = icon.size

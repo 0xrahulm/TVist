@@ -55,6 +55,10 @@ protocol DeviceSessionProtocol: class {
     func userAlreadyExists(registeredUsers: [MyAccountItems])
 }
 
+protocol SupportTicketsProtocol: class {
+    func didRecieveSupportTickets(items: [SupportTicketItem])
+}
+
 class UserDataProvider: CommonDataProvider {
     
     static let sharedDataProvider  = UserDataProvider()
@@ -63,7 +67,7 @@ class UserDataProvider: CommonDataProvider {
     weak var fbLoginDelegate:      LoginProtocol?
     weak var interestDelegate:     InterestProtocol?
     weak var notificationDelegate : NotificationProtocol?
-    
+    weak var supportTicketsDelegate: SupportTicketsProtocol?
     weak var deviceSessionDelegate: DeviceSessionProtocol?
     
     var temporaryStoredUsers:[MyAccountItems] = []
@@ -85,6 +89,11 @@ class UserDataProvider: CommonDataProvider {
         
         ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSigIn, params: ["email":email , "password":password, "device_info": UIDevice.current.modelName], delegate: self)
         
+    }
+    
+    func getAllSupportTickets() {
+        
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .UserSupportTickets, params: nil, delegate: self)
     }
     
     func fetchInterest() {
@@ -205,6 +214,12 @@ class UserDataProvider: CommonDataProvider {
             case .UpdatePushToken:
                 if let params = service.parameters, let pushToken = params["push_token"] as? String {
                     LocalStorageVader.sharedVader.storeValueInKey(.PushToken, value: pushToken)
+                }
+                break
+            case .UserSupportTickets:
+                if let supportTickets = service.outPutResponse as? [Any] {
+                 
+                    self.parseSupportTickets(data: supportTickets)
                 }
                 break
             case .AddEscapes:
@@ -347,6 +362,24 @@ class UserDataProvider: CommonDataProvider {
 // MARK: - Parsing
 
 extension UserDataProvider{
+    
+    func parseSupportTickets(data: [Any]) {
+        var supportTickets: [SupportTicketItem] = []
+        
+        for itemData in data {
+            if let itemData = itemData as? [String:Any] {
+             
+                if let supportTicket = SupportTicketItem.parseSupportTicketData(itemData) {
+                 
+                    supportTickets.append(supportTicket)
+                }
+            }
+        }
+        
+        if let delegate = self.supportTicketsDelegate {
+            delegate.didRecieveSupportTickets(items: supportTickets)
+        }
+    }
     
     func parseDeviceSessionData(data: [String:AnyObject]) {
         

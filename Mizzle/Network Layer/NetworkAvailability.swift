@@ -54,7 +54,7 @@ class NetworkAvailability: NSObject {
     deinit{
         NotificationCenter.default.removeObserver(self)
     }
-    func networkStatusChanged(_ notification: Notification) {
+    @objc func networkStatusChanged(_ notification: Notification) {
         let userInfo = notification.userInfo
         
         if ((userInfo?.description.contains("Online"))) == true{
@@ -71,13 +71,13 @@ class NetworkAvailability: NSObject {
         }
     }
     
-    func openNetworkNotAvailablePopUp(){
+    @objc func openNetworkNotAvailablePopUp(){
         
 //        ScreenVader.sharedVader.performScreenManagerAction(.NoNetworkPresent, queryParams: nil)
         
     }
     
-    func callPendingServices(){
+    @objc func callPendingServices(){
 //        ScreenVader.sharedVader.performScreenManagerAction(.NetworkPresent, queryParams: nil)
         
         for pendingService in activeServices {

@@ -116,7 +116,7 @@ class SearchViewController: BaseViewController {
         
     }
 
-    func cancelTapped() {
+    @objc func cancelTapped() {
         AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchCancelled, properties: ["Position": "Guide"])
         if let navController = self.navigationController{
             navController.dismiss(animated: true, completion: nil)
@@ -136,7 +136,7 @@ class SearchViewController: BaseViewController {
         keyboardToolbar.items = [cancelBarButton,flexBarButton, doneBarButton]
         self.searchBar.inputAccessoryView = keyboardToolbar
     }
-    func doneTapped(){
+    @objc func doneTapped(){
         self.searchBar.resignFirstResponder()
         
     }

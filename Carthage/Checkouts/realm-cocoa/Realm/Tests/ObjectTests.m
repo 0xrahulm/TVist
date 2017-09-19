@@ -321,6 +321,15 @@ RLM_ARRAY_TYPE(CycleObject)
     }];
     XCTAssertEqual(row1.boolCol, true);
     XCTAssertEqual(row1.cBoolCol, true);
+
+    AllTypesObject *o = [[AllTypesObject alloc] initWithValue:row1];
+    o.floatCol = NAN;
+    o.doubleCol = NAN;
+    [realm transactionWithBlock:^{
+        [realm addObject:o];
+    }];
+    XCTAssertTrue(isnan(o.floatCol));
+    XCTAssertTrue(isnan(o.doubleCol));
 }
 
 - (void)testObjectSubclass {
@@ -350,7 +359,7 @@ RLM_ARRAY_TYPE(CycleObject)
     RLMAssertThrowsWithReasonMatching(linkObject.stringObjectCol = obj,
                                       @"Can't .*StringSubclassObject.*StringObject");
     RLMAssertThrowsWithReasonMatching([linkObject.stringObjectArrayCol addObject:obj],
-                                      @"Cannot .*StringSubclassObject.*StringObject");
+                                      @"Object of type .*StringSubclassObject.*does not match.*StringObject.*");
     [realm commitWriteTransaction];
 }
 
@@ -1087,7 +1096,8 @@ static void addProperty(Class cls, const char *name, const char *type, size_t si
     RLMAssertThrowsWithReason([realm addObject:obj1], @"deleted or invalidated");
 
     NSArray *propObject = @[@"", @[obj2], @[]];
-    RLMAssertThrowsWithReason([ArrayPropertyObject createInRealm:realm withValue:propObject], @"deleted or invalidated");
+    RLMAssertThrowsWithReason([ArrayPropertyObject createInRealm:realm withValue:propObject],
+                              @"deleted or invalidated");
 
     [realm commitWriteTransaction];
 
@@ -1272,11 +1282,11 @@ static void addProperty(Class cls, const char *name, const char *type, size_t si
 
     // wrong PK type
     RLMAssertThrowsWithReasonMatching([PrimaryStringObject objectForPrimaryKey:@0],
-                                      @"Invalid value '0' of type '.*Number.*' for string");
+                                      @"Invalid value '0' of type '.*Number.*' for expected type 'string'");
     RLMAssertThrowsWithReasonMatching([PrimaryStringObject objectForPrimaryKey:@[]],
-                                      @"of type '.*Array.*' for string");
+                                      @"of type '.*Array.*' for expected type 'string'");
     RLMAssertThrowsWithReasonMatching([PrimaryIntObject objectForPrimaryKey:@""],
-                                      @"Invalid value '' of type '.*String.*' for int");
+                                      @"Invalid value '' of type '.*String.*' for expected type 'int'");
     RLMAssertThrowsWithReason([PrimaryIntObject objectForPrimaryKey:NSNull.null],
                               @"Invalid null value for non-nullable primary key.");
     RLMAssertThrowsWithReason([PrimaryIntObject objectForPrimaryKey:nil],

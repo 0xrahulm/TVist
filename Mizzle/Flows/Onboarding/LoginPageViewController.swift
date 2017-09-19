@@ -164,7 +164,7 @@ class LoginPageViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func fbLoginButtonTapped(){
+    @objc func fbLoginButtonTapped(){
         
         AnalyticsVader.sharedVader.continueWtihFBTapped(screenName: "Carousel")
         let fbLoginManager : FBSDKLoginManager =  FBSDKLoginManager()
@@ -205,7 +205,7 @@ class LoginPageViewController: UIViewController {
         }
     }
     
-    func emailLoginButtonTapped(){
+    @objc func emailLoginButtonTapped(){
         
         AnalyticsVader.sharedVader.basicEvents(eventName: .continueWithEmail)
         

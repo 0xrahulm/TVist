@@ -62,7 +62,7 @@ class AllVideosViewController: GenericAllItemsListViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func receivedData(notification: Notification) {
+    @objc func receivedData(notification: Notification) {
         if let data = notification.userInfo as? [String:AnyObject] {
             if let itemsData = data["items"] as? [VideoItem], let page = data["page"] as? Int {
                 appendDataToBeListed(appendableData: itemsData, page: page)
@@ -91,7 +91,7 @@ class AllVideosViewController: GenericAllItemsListViewController {
         }
     }
     
-    func playFirstItem() {
+    @objc func playFirstItem() {
         
         if self.listItems.count > 0 {
             if let firstItem = self.listItems[0] as? VideoItem {

@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func attributionDetails() {
+    @objc func attributionDetails() {
         ADClient.shared().requestAttributionDetails { (attributeDetails, error) in
             if error == nil {
                 if let attributeDetails = attributeDetails, let v3Data = attributeDetails["Version3.1"] as? [String: AnyObject] {

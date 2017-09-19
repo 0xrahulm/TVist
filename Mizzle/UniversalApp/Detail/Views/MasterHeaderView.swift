@@ -88,7 +88,7 @@ class MasterHeaderView: UIView {
         
     }
     
-    func didTapOnLeftNavigationButton() {
+    @objc func didTapOnLeftNavigationButton() {
         if let delegate = delegate {
             delegate.didTapLeftNavButton()
         }

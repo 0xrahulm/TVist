@@ -95,7 +95,7 @@ class PickChannelCell: UITableViewCell {
         return nil
     }
     
-    func receivedListingsData(_ notification:Notification) {
+    @objc func receivedListingsData(_ notification:Notification) {
         listingsActivityIndicator.stopAnimating()
         
         
@@ -120,7 +120,7 @@ class PickChannelCell: UITableViewCell {
         
     }
     
-    func receivedChannelData(_ notification:Notification) {
+    @objc func receivedChannelData(_ notification:Notification) {
         channelViewActivityIndicator.stopAnimating()
         channelsForCategory(index: listingData.categorySelectedIndex)
     }

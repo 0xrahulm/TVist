@@ -70,6 +70,48 @@ RLM_ARRAY_TYPE(SchemaTestClassSecondChild)
 @implementation SchemaTestClassLink
 @end
 
+@interface NonDefaultObject : RLMObject
+@property int intCol;
+@end
+
+@implementation NonDefaultObject
++ (BOOL)shouldIncludeInDefaultSchema {
+    return NO;
+}
+@end
+
+RLM_ARRAY_TYPE(NonDefaultObject);
+
+@interface NonDefaultArrayObject : RLMObject
+@property RLM_GENERIC_ARRAY(NonDefaultObject) *array;
+@end
+
+@implementation NonDefaultArrayObject
++ (BOOL)shouldIncludeInDefaultSchema {
+    return NO;
+}
+@end
+
+@class MutualLink2Object;
+
+@interface MutualLink1Object : RLMObject
+@property (nullable) MutualLink2Object *object;
+@end
+@implementation MutualLink1Object
++ (BOOL)shouldIncludeInDefaultSchema {
+    return NO;
+}
+@end
+
+@interface MutualLink2Object : RLMObject
+@property (nullable) MutualLink1Object *object;
+@end
+@implementation MutualLink2Object
++ (BOOL)shouldIncludeInDefaultSchema {
+    return NO;
+}
+@end
+
 @interface SchemaTestClassWithSingleDuplicatePropertyBase : FakeObject
 @property NSString *string;
 @end
@@ -384,14 +426,14 @@ RLM_ARRAY_TYPE(NotARealClass)
     // types and ignores any other types that may be included in the realm's type catalogue.
     // If a more fine-grained control with the realm's type inclusion mechanism is introduced later
     // on, these tests should be altered to verify all types.
-    
+
     NSArray *expectedTypes = @[@"AllTypesObject",
                                @"LinkToAllTypesObject",
                                @"StringObject",
                                @"IntObject"];
-    
+
     NSString *unexpectedType = @"__$ThisTypeShouldNotOccur$__";
-    
+
     // Getting the test realm
     NSMutableArray *objectSchema = [NSMutableArray array];
     for (NSString *className in expectedTypes) {
@@ -410,22 +452,22 @@ RLM_ARRAY_TYPE(NotARealClass)
 
     // Test 1: Does the objectSchema return the right number of object schemas?
     NSArray *objectSchemas = schema.objectSchema;
-    
+
     XCTAssertTrue(objectSchemas.count >= expectedTypes.count, @"Expecting %lu object schemas in database found %lu", (unsigned long)expectedTypes.count, (unsigned long)objectSchemas.count);
-    
+
     // Test 2: Does the object schema array contain the expected schemas?
     NSUInteger identifiedTypesCount = 0;
     for (NSString *expectedType in expectedTypes) {
         NSUInteger occurrenceCount = 0;
-        
+
         for (RLMObjectSchema *objectSchema in objectSchemas) {
             if ([objectSchema.className isEqualToString:expectedType]) {
                 occurrenceCount++;
             }
         }
-        
+
         XCTAssertEqual(occurrenceCount, (NSUInteger)1, @"Expecting single occurrence of object schema for type %@ found %lu", expectedType, (unsigned long)occurrenceCount);
-        
+
         if (occurrenceCount > 0) {
             identifiedTypesCount++;
         }
@@ -433,7 +475,7 @@ RLM_ARRAY_TYPE(NotARealClass)
 
     // Test 3: Does the object schema array contains at least the expected classes
     XCTAssertTrue(identifiedTypesCount >= expectedTypes.count, @"Unexpected object schemas in database. Found %lu out of %lu expected", (unsigned long)identifiedTypesCount, (unsigned long)expectedTypes.count);
-    
+
     // Test 4: Test querying object schemas using schemaForClassName: for expected types
     for (NSString *expectedType in expectedTypes) {
         XCTAssertNotNil([schema schemaForClassName:expectedType], @"Expecting to find object schema for type %@ in realm using query, found none", expectedType);
@@ -441,12 +483,12 @@ RLM_ARRAY_TYPE(NotARealClass)
 
     // Test 5: Test querying object schemas using schemaForClassName: for unexpected types
     XCTAssertNil([schema schemaForClassName:unexpectedType], @"Expecting not to find object schema for type %@ in realm using query, did find", unexpectedType);
-    
+
     // Test 6: Test querying object schemas using subscription for unexpected types
     for (NSString *expectedType in expectedTypes) {
         XCTAssertNotNil(schema[expectedType], @"Expecting to find object schema for type %@ in realm using subscription, found none", expectedType);
     }
-    
+
     // Test 7: Test querying object schemas using subscription for unexpected types
     XCTAssertThrows(schema[unexpectedType], @"Expecting asking schema for type %@ in realm using subscription to throw", unexpectedType);
 
@@ -612,7 +654,7 @@ RLM_ARRAY_TYPE(NotARealClass)
 
 - (void)testClassWithInvalidNSNumberProtocolProperty {
     RLMAssertThrowsWithReasonMatching([RLMObjectSchema schemaForObjectClass:InvalidNSNumberProtocolObject.class],
-                                      @"Property 'number' is of type 'NSNumber<NSFastEnumeration>' which is not a supported NSNumber object type.");
+                                      @"Property 'number' is of type \"NSNumber<NSFastEnumeration>\" which is not a supported NSNumber object type.");
 }
 
 - (void)testClassWithInvalidNSNumberNoProtocolProperty {
@@ -742,6 +784,7 @@ RLM_ARRAY_TYPE(NotARealClass)
     }
     XCTAssertTrue(RLMSchema.partialSharedSchema.objectSchema.count == 0);
     XCTAssertNoThrow([[IntObject alloc] initWithValue:@[@0]]);
+    XCTAssertNoThrow([[NonDefaultObject alloc] initWithValue:@[@0]]);
 }
 
 - (void)testCreateUnmanagedObjectWithNestedObjectWithUninitializedSchema {
@@ -751,6 +794,8 @@ RLM_ARRAY_TYPE(NotARealClass)
     }
     XCTAssertTrue(RLMSchema.partialSharedSchema.objectSchema.count == 0);
     XCTAssertNoThrow([[IntegerArrayPropertyObject alloc] initWithValue:(@[@0, @[@[@0]]])]);
+    XCTAssertNoThrow([[NonDefaultArrayObject alloc] initWithValue:@[@[@[@0]]]]);
+    XCTAssertNoThrow([[MutualLink1Object alloc] initWithValue:@[@[@{}]]]);
 }
 
 #if !DEBUG

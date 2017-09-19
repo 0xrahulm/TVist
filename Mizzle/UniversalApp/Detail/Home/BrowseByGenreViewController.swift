@@ -78,7 +78,7 @@ class BrowseByGenreViewController: GenericAllItemsListViewController {
     }
 
     
-    func receivedData(notification: Notification) {
+    @objc func receivedData(notification: Notification) {
         if let data = notification.userInfo as? [String:AnyObject] {
             if let itemsData = data["items"] as? [EscapeItem], let page = data["page"] as? Int, let receivedType = data["type"] as? String {
                 if page == nextPage, receivedType == self.selectedType.rawValue {

@@ -126,7 +126,7 @@ class WatchlistViewController: GenericDetailViewController {
         WatchlistDataProvider.shared.fetchWatchlistData(page: nextPage, type: selectedListType)
     }
     
-    func receivedData(notification: Notification) {
+    @objc func receivedData(notification: Notification) {
         if let data = notification.userInfo as? [String:AnyObject] {
             if let type = data["type"] as? String, type == selectedListType.rawValue {
                 

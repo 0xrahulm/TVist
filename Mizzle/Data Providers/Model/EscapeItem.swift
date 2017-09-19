@@ -10,16 +10,16 @@ import UIKit
 import RealmSwift
 
 final class EscapeItem: Object {
-    dynamic var id:String = ""
-    dynamic var name:String = ""
-    dynamic var posterImage:String?
-    dynamic var escapeType:String = ""
-    dynamic var year:String = ""
-    dynamic var rating:String = ""
+    @objc dynamic var id:String = ""
+    @objc dynamic var name:String = ""
+    @objc dynamic var posterImage:String?
+    @objc dynamic var escapeType:String = ""
+    @objc dynamic var year:String = ""
+    @objc dynamic var rating:String = ""
     
-    dynamic var subTitle:String?
-    dynamic var createdBy:String?
-    dynamic var hasActed = false
+    @objc dynamic var subTitle:String?
+    @objc dynamic var createdBy:String?
+    @objc dynamic var hasActed = false
     
     var isTracking:Bool = false
     
