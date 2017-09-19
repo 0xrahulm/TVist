@@ -12,10 +12,15 @@ import UIKit
 let kDefaultIconSize:CGFloat = 30
 
 class CustomNavigationViewController: UINavigationController, UINavigationControllerDelegate {
-
+    
+    var presentingVC: UIViewController?
+    var presentedVCObj : CustomPopupPresentationController?
+    
     let customNavigationAnimationController = CustomNavigationAnimationController()
     let customInteractionController = CustomInteractionController()
     
+    var popupHeight: CGFloat = 460
+    var popupWidth: CGFloat = 310
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -89,8 +94,8 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
         super.dismiss(animated: flag, completion: completion)
         if isBeingDismissed {
             ScreenVader.sharedVader.removeDismissedViewController(self)
-
         }
+        
     }
 
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -107,4 +112,27 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
         return customInteractionController.transitionInProgress ? customInteractionController : nil
     }
 
+}
+
+extension CustomNavigationViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        let presentationController = CustomPopupPresentationController(presentedViewController: presented, presentingViewController: presentingVC!, width: popupWidth, height: popupHeight, yOffset: 0, cornerRadius: 4)
+        presentedVCObj = presentationController
+        return presentationController;
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if presented != self {
+            return nil
+        }
+        return CustomPresentationAnimationViewController(isPresenting: true)
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        if dismissed != self {
+            return nil
+        }
+        return CustomPresentationAnimationViewController(isPresenting: false)
+    }
 }

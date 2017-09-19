@@ -84,7 +84,7 @@ extension SimilarEscapesView : UICollectionViewDelegate , UICollectionViewDataSo
         let escapeItem = similarEscapes[indexPath.row]
         params["escapeItem"] = escapeItem
         
-        ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+        ScreenVader.sharedVader.performUniversalScreenManagerAction(.openMediaItemDescriptionView, queryParams: params)
         AnalyticsVader.sharedVader.basicEvents(eventName: .SimilarShowsItemClick, properties: ["Position": "\(indexPath.row+1)", "ItemName": escapeItem.name])
     }
     

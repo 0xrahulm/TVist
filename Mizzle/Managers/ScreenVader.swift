@@ -15,6 +15,7 @@ class ScreenVader: NSObject {
     var screenManagerVC : ScreenManagerViewController?
     var universalScreenManagerVC: UniversalScreenManagerViewController?
     
+    
     var pendingUniversalScreenManagerAction: UniversalScreenManagerAction?
     var pendingScreenManagerAction: ScreenManagerAction?
     var pendingQueryParams: [String: Any]?
@@ -47,6 +48,10 @@ class ScreenVader: NSObject {
         if let screenManagerVC = screenManagerVC {
             screenManagerVC.dismissAllPresented()
         }
+        
+        if let universalScreenManagerVC = self.universalScreenManagerVC {
+            universalScreenManagerVC.dismissAllPresented()
+        }
     }
     
     func switchMainTab(_ action : ScreenManagerAction){
@@ -65,7 +70,10 @@ class ScreenVader: NSObject {
     func removeDismissedViewController(_ dismissVC: UIViewController) {
         if let screenManagerVC = screenManagerVC {
             screenManagerVC.removePresentedViewController(dismissVC)
-            
+        }
+        
+        if let universalScreenManagerVC = self.universalScreenManagerVC {
+            universalScreenManagerVC.removePresentedViewController(dismissVC)
         }
     }
     
@@ -91,6 +99,10 @@ class ScreenVader: NSObject {
     func showAlert(alert: UIAlertController) {
         if let screenManagerVC = screenManagerVC {
             screenManagerVC.showAlert(alert: alert)
+        }
+        
+        if let universalScreenManagerVC = universalScreenManagerVC {
+            universalScreenManagerVC.showAlert(alert: alert)
         }
     }
     
@@ -148,6 +160,12 @@ class ScreenVader: NSObject {
         
         return queryParams
     }
+    
+    func rebootView() {
+        if let universalScreenManagerVC = self.universalScreenManagerVC {
+            universalScreenManagerVC.rebootView()
+        }
+    }
 
     func openSafariWithUrl(url: URL, readerMode: Bool) {
         if let screenManagerVC = self.screenManagerVC {
@@ -158,6 +176,9 @@ class ScreenVader: NSObject {
     func makeToast(toastStr: String) {
         if let screenManagerVC = self.screenManagerVC {
             screenManagerVC.makeToast(toastStr: toastStr)
+        }
+        if let universalScreenManagerVC = self.universalScreenManagerVC {
+            universalScreenManagerVC.makeToast(toastStr: toastStr)
         }
     }
 }

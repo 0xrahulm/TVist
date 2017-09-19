@@ -237,7 +237,8 @@ class ScreenManagerViewController: UIViewController {
 }
 
 extension ScreenManagerViewController: DeviceSessionProtocol {
-    func guestUserLoggedIn() {
+    func guestUserLoggedIn(isFreshInstall: Bool) {
+        
         initialViewBootUp()
         AnalyticsVader.sharedVader.basicEvents(eventName: .DeviceSessionGenerated)
     }
@@ -521,6 +522,7 @@ extension ScreenManagerViewController{
     }
     
     func dismissAllPresented() {
+        
         for controller in presentedViewControllers.reversed() {
             if controller is ScreenManagerViewController {
                 

@@ -11,9 +11,11 @@ import UIKit
 class UserDetailView: UIView {
     
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var signInButton: UIButton!
-    @IBOutlet weak var actionNameLabel: UILabel!
+    @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var membershipButton: UIButton!
     @IBOutlet weak var fullNameLabel: UILabel!
+    @IBOutlet weak var premiumBadgeView: UIImageView!
     
     @IBOutlet weak var signInButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var signInButtonWidthConstraint: NSLayoutConstraint!
@@ -29,7 +31,6 @@ class UserDetailView: UIView {
         
         // Get user details early on so the data is available before
         NotificationCenter.default.addObserver(self, selector: #selector(UserDetailView.fetchDataFromRealm), name: Notification.Name(rawValue: NotificationObservers.UserDetailsDataObserver.rawValue), object: nil)
-        MyAccountDataProvider.sharedDataProvider.getUserDetails(nil)
         
     }
     
@@ -42,6 +43,18 @@ class UserDetailView: UIView {
         if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
             
             pushUpUserData(user.firstName, lastName: user.lastName, profilePicture: user.profilePicture, escapesCount: user.escape_count, tracksCount: user.track_count, userType: user.userType)
+            
+            self.premiumBadgeView.isHidden = !user.isPremium()
+            self.membershipButton.backgroundColor = UIColor.styleGuideButtonRed()
+            var membershipButtonTitle = "Upgrade Now"
+            if user.isPremium() {
+                membershipButtonTitle = "Premium"
+                self.membershipButton.backgroundColor = UIColor.styleGuidePremiumOrange()
+            } else if user.userTypeEnum() == .Guest {
+                membershipButtonTitle = "Sign Up Now"
+            }
+            
+            self.membershipButton.setTitle("  \(membershipButtonTitle)  ", for: .normal)
             
         }
     }
@@ -67,30 +80,44 @@ class UserDetailView: UIView {
         if actionCount > 0 {
             
             if viewType == "Tracking" {
-                self.actionNameLabel.text = "Tracking \(actionCount)"
+//                self.actionNameLabel.text = "Tracking \(actionCount)"
             } else if viewType == "Home" || viewType == "Watchlist" {
-                self.actionNameLabel.text = "Watchlist \(actionCount)"
+//                self.actionNameLabel.text = "Watchlist \(actionCount)"
             }
         } else {
             if viewType == "Tracking" {
-                actionNameLabel.text = "No Tracking"
+//                actionNameLabel.text = "No Tracking"
             } else if viewType == "Watchlist" || viewType == "Home" {
-                actionNameLabel.text = "No Watchlist"
+//                actionNameLabel.text = "No Watchlist"
             }
         }
         
         if userType != "g" {
-            self.signInButtonWidthConstraint.constant = 0
-            self.signInButtonHeightConstraint.constant = 0
-            self.layoutIfNeeded()
         } else {
-            self.actionNameLabel.text = "Register to use across all your devices"
+//            self.actionNameLabel.text = "Register to use across all your devices"
+        }
+    }
+    
+    @IBAction func profileButtonTapped() {
+        
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+            if user.isPremium() {
+                ScreenVader.sharedVader.performUniversalScreenManagerAction(.openProfileEditView, queryParams: nil)
+            } else if user.userTypeEnum() == .Guest {
+                ScreenVader.sharedVader.performUniversalScreenManagerAction(.openSignUpView, queryParams: nil)
+            } else {
+                ScreenVader.sharedVader.performUniversalScreenManagerAction(.openTVistPremiumView, queryParams: nil)
+            }
         }
     }
     
     @IBAction func signUpButtonTapped() {
         AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SignUpNowClick, properties: ["fromView": viewType])
-        ScreenVader.sharedVader.performScreenManagerAction(.OpenSignupView, queryParams: nil)
+        ScreenVader.sharedVader.performUniversalScreenManagerAction(.openSignUpView, queryParams: nil)
+    }
+    
+    @IBAction func settingsButtonTapped() {
+        ScreenVader.sharedVader.performUniversalScreenManagerAction(.openUserSettingsView, queryParams: ["fromView": viewType])
     }
     
     

@@ -60,9 +60,9 @@ class MediaItemDetailsViewController: BaseViewController, ViewingOptionsProtocol
     var isAlreadySeen: Bool = false
     
     
-    let offset_HeaderStop:CGFloat = 100.0 // At this offset the Header stops its transformations
-    let offset_B_LabelHeader:CGFloat = 95.0 // At this offset the Black label reaches the Header
-    let distance_W_LabelHeader:CGFloat = 35.0
+    let offset_HeaderStop:CGFloat = 140.0 // At this offset the Header stops its transformations
+    let offset_B_LabelHeader:CGFloat = 145.0 // At this offset the Black label reaches the Header
+    let distance_W_LabelHeader:CGFloat = 25.0
     
     fileprivate var popover: Popover!
     
@@ -117,6 +117,8 @@ class MediaItemDetailsViewController: BaseViewController, ViewingOptionsProtocol
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setNeedsStatusBarAppearanceUpdate()
+        
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         MyAccountDataProvider.sharedDataProvider.itemDescDelegate = self
@@ -153,11 +155,11 @@ class MediaItemDetailsViewController: BaseViewController, ViewingOptionsProtocol
         
         if watchlistButton != nil {
             
-            watchlistButton.setImage(IonIcons.image(withIcon: ion_bookmark, size: 25, color: UIColor.themeColorBlack()), for: .normal)
-            watchlistButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 25, color: UIColor.themeColorBlack()), for: .selected)
+            watchlistButton.setImage(UIImage(named: "WatchlistAddIcon"), for: .normal)
+            watchlistButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 25, color: UIColor.white), for: .selected)
             
-            watchlistButton.setTitle("Add to watchlist", for: .normal)
-            watchlistButton.setTitle("Added to watchlist", for: .selected)
+            watchlistButton.setTitle("Add", for: .normal)
+            watchlistButton.setTitle("Added", for: .selected)
             
         }
         
@@ -179,7 +181,6 @@ class MediaItemDetailsViewController: BaseViewController, ViewingOptionsProtocol
         ScreenVader.sharedVader.hideTabBar(true)
         ScreenVader.sharedVader.changeStatusBarPreference(false)
         
-        setNeedsStatusBarAppearanceUpdate()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
         
@@ -616,9 +617,9 @@ class MediaItemDetailsViewController: BaseViewController, ViewingOptionsProtocol
         
         trackButton.isSelected = newState
         if newState {
-            trackButton.backgroundColor = UIColor.defaultCTAColor()
+            trackButton.backgroundColor = UIColor.styleGuideInputColor()
         } else {
-            trackButton.backgroundColor = UIColor.defaultTintColor()
+            trackButton.backgroundColor = UIColor.styleGuideActionButtonBlue()
         }
     }
     
@@ -852,37 +853,16 @@ extension MediaItemDetailsViewController: UIScrollViewDelegate {
             //  ------------ Label
             
             let labelTransform = CATransform3DMakeTranslation(0, max(-distance_W_LabelHeader, offset_B_LabelHeader - offset), 0)
-            headerLabel.layer.transform = labelTransform
+            
             
             //  ------------ Blur
             let blurOffset = offset/offset_HeaderStop
             
             if offset > 0 && blurOffset < 1.01 {
                 opaqueBar.alpha = max(0.01, blurOffset)
+                
             }
-            
-            // Avatar -----------
-            
-            let avatarScaleFactor = (min(offset_HeaderStop, offset)) / itemImage.bounds.height / 1.8 // Slow down the animation
-            let avatarSizeVariation = ((itemImage.bounds.height * (1.0 + avatarScaleFactor)) - itemImage.bounds.height) / 2.0
-            //            imageTransform = CATransform3DTranslate(imageTransform, 0, avatarSizeVariation, 0)
-            //            imageTransform = CATransform3DScale(imageTransform, 1.0 - avatarScaleFactor, 1.0 - avatarScaleFactor, 0)
-            
-            if offset <= offset_HeaderStop {
-                //
-                if itemImage.layer.zPosition < headerLabel.layer.zPosition{
-                    //                    headerView.layer.zPosition = 0
-                    headerLabel.layer.zPosition = 0
-                    //                    ovalImage.layer.zPosition = 0
-                }
-                //
-            }else {
-                if itemImage.layer.zPosition >= headerLabel.layer.zPosition{
-                    //                    headerView.layer.zPosition = 1
-                    //                    ovalImage.layer.zPosition = 1
-                    headerLabel.layer.zPosition = 2
-                }
-            }
+
         }
         
         

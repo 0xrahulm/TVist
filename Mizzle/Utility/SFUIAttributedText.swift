@@ -72,6 +72,20 @@ class SFUIAttributedText: NSObject {
         
         return attributes
     }
+    
+    
+    //SF UI Bold
+    class func boldAttributedTextForString(_ string: String, size: CGFloat, color: UIColor) -> NSAttributedString {
+        return NSAttributedString(string: string, attributes: boldAttributesForSize(size, color: color))
+    }
+    
+    class func boldAttributesForSize(_ size: CGFloat, color: UIColor) -> Dictionary<String, AnyObject> {
+        
+        let font = UIFont.systemFont(ofSize: size, weight: UIFontWeightBold)
+        let attributes:[String:AnyObject] = [NSForegroundColorAttributeName: color, NSFontAttributeName: font]
+        
+        return attributes
+    }
 
 
 }

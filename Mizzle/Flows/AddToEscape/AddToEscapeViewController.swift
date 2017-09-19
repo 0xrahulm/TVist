@@ -43,6 +43,7 @@ class AddToEscapeViewController: UIViewController {
     @IBOutlet weak var actionButton3: UIButton!
     @IBOutlet weak var actionButton2: UIButton!
     @IBOutlet weak var actionButton1: UIButton!
+    
     var currentSelectedView : EscapeAddActions = .ToWatch
     
     var placeholderLabel : UILabel!

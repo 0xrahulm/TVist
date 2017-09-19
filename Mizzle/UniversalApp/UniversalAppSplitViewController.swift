@@ -43,6 +43,9 @@ class UniversalAppSplitViewController: UISplitViewController {
     }
     
     func changeSecondaryViewController(viewController: UIViewController) {
+        if let genericNavVC = viewController as? CustomNavigationViewController, let genericMasterVC = genericNavVC.topViewController as? GenericDetailViewController {
+            genericMasterVC.displayModeButtonItem = self.displayModeButtonItem
+        }
         self.showDetailViewController(viewController, sender: self)
     }
 

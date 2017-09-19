@@ -438,15 +438,7 @@ class MyProfileViewController: UIViewController {
     
     @IBAction func followerFollowingClicked(_ sender: UITapGestureRecognizer) {
         if let view = sender.view{
-            var userType : UserType = .followers
-            if view.tag == 6{
-                userType = .following
-            }
-            if let userId = userId{
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue, "userId" : userId])
-            }else{
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue])
-            }
+            
         }
     }
     
@@ -622,7 +614,7 @@ extension MyProfileViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "escapesSectionHorizontalidentifier") as! CustomListTableViewCell
             cell.viewAllTapDelegate = self
             if let cellTitle = selectedProfileItem.title {
-                cell.cellTitleLabel.text = cellTitle+" (\(selectedProfileItem.totalItemsCount))"
+                cell.sectionTitleLabel.text = cellTitle+" (\(selectedProfileItem.totalItemsCount))"
             }
             return cell
         }

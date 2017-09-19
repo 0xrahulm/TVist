@@ -48,12 +48,25 @@ enum ScreenManagerAction : String {
 }
 
 enum UniversalScreenManagerAction: String {
-    case TodayMasterView = "TodayMasterView"
-    case Next7DaysMasterView = "Next7DaysMasterView"
-    case WatchlistMasterView = "WatchlistMasterView"
-    case SeenMasterView = "SeenMasterView"
-    case DiscoverMasterView = "DiscoverMasterView"
-    case OpenUserView = "OpenUserView"
+    case todayDetailView = "TodayDetailView"
+    case next7DaysDetailView = "Next7DaysDetailView"
+    case watchlistDetailView = "WatchlistDetailView"
+    case seenDetailView = "SeenDetailView"
+    case discoverDetailView = "DiscoverDetailView"
+    case listingDetailView = "ListingDetailView"
+    case openUserView = "OpenUserView"
+    case openSignUpView = "OpenSignUpView"
+    case openTVistPremiumView = "OpenTVistPremiumView"
+    case openProfileEditView = "OpenProfileEditView"
+    case openGeneralSettingsView = "OpenGeneralSettingsView"
+    case openAlertOptionsView = "OpenAlertOptionsView"
+    case openLoginView = "openLoginView"
+    case logOutUser = "LogOutUser"
+    case openUserSettingsView = "OpenUserSettingsView"
+    case restorePurchasesView = "RestorePurchasesView"
+    case openTimeZoneSelectionView = "openTimeZoneSelectionView"
+    case openAddToWatchlistView = "openAddToWatchlistView"
+    case openMediaItemDescriptionView = "openMediaItemDescriptionView"
 }
 
 enum StoryBoardIdentifier : String{
@@ -72,8 +85,28 @@ enum StoryBoardIdentifier : String{
     case GenericLists = "GenericLists"
     case Remote = "Remote"
     case User = "User"
-    case Master = "Master"
+    case Settings = "Settings"
 }
+
+enum TimeZoneIdentifier: String {
+    case EasternTimeZone  = "e"
+    case CentralTimeZone  = "c"
+    case MountainTimeZone = "m"
+    case PacificTimeZone  = "p"
+}
+
+
+enum UserPreferenceKey: String {
+    case alertPreference = "alert_preference"
+    case onlyNewEpisodes = "new_episodes"
+    case alertBeforeAirtime = "alert_before_airtime"
+    case alertFrequency = "alert_frequency"
+    case airtimePreference = "airtime_preference"
+    case airdatePreference = "airdate_preference"
+    case timezonePreference = "time_zone_preference"
+    case channelPreference = "channel_preference"
+}
+
 enum LoginTypeEnum : String {
     case Facebook = "fb"
     case Email    = "email"
@@ -160,18 +193,71 @@ enum SearchType : String{
     case Books = "book"
     case Blank = "blank"
 }
+
+enum SettingItemType {
+    case premiumSetting
+    case regular
+    case onOffSetting
+    case authButton
+    case message
+    case selectedOption
+    case profilePicture
+    case rangeSelection
+}
+
+enum SettingSections: String {
+    case premium
+    case account = "Account"
+    case alerts = "Alerts"
+    case support
+    case authentication
+}
+
+enum SettingCellIdentifiers: String {
+    case premiumCell = "PremiumTableViewCellIdentifier"
+    case regularCell = "RegularTableViewCellIdentifier"
+    case onOffCell = "OnOffTableViewCellIdentifier"
+    case authCell = "AuthTableViewCellIdentifier"
+    case messageCell = "MessageTableViewCellIdentifier"
+    case singleSelectionCell = "SingleSelectionTableViewCellIdentifier"
+    case selectedOptionCell = "SelectedOptionTableViewCellIdentifier"
+    case rangeSelectionCell = "RangeSelectionTableViewCellIdentifier"
+    case profilePictureCell = "ProfilePictureTableViewCellIdentifier"
+}
+
+enum SortType: String {
+    case Recency = "Recency"
+    case A_Z = "A-Z"
+    case Z_A = "Z-A"
+    case Airing = "Airing"
+}
+
 enum Tap : Int{
     case activity = 1
     case movie = 2
     case tvShows = 3
     case books = 4
 }
-enum UserType : Int{
-    case followers = 1
-    case following = 2
-    case friends   = 3
-    case fbFriends = 4
-    case sharedUsersOfStory = 5
+
+enum UserType: String {
+    case Guest = "g"
+    case Registered = "r"
+    case Premium = "p"
+}
+
+
+
+enum GenericDetailCellIdentifiers: String {
+    case watchlistItemCell = "MediaWatchlistTableViewCell"
+    case watchlistItemWithAirtime = "MediaWatchlistWithAirtimeTableViewCell"
+    case mediaWatchlistSection = "MediaWatchlistSection"
+    case mediaListCellIdentifier = "MediaListCell"
+    case browseByGenreCell = "BrowseByGenreCell"
+    case mediaListingCellIdentifier = "ListingTableViewCell"
+    case articlesSectionTableViewCell = "ArticlesSectionTableViewCell"
+    case videosSectionCell = "VideosSectionCell"
+    case videosSectionCelliPad = "VideosSectionCelliPad"
+    case remoteConnectBannerCell = "RemoteConnectBannerCell"
 }
 
 enum EscapeAddActions: String {
@@ -204,6 +290,15 @@ enum NotificationObservers: String {
     case AllVideosDataObserver = "AllVideosDataObserver"
     case RemoteDeviceParsedDataObserver = "RemoteDeviceParsedDataObserver"
     case UserDetailsDataObserver = "UserDetailsDataObserver"
+}
+
+enum UserPageItemType: Int {
+    case listings = 0
+    case today = 1
+    case next7Days = 2
+    case discover = 3
+    case watchlist = 4
+    case seen = 5
 }
 
 enum ScreenNames: String {

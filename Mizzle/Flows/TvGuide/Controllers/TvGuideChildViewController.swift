@@ -249,7 +249,7 @@ extension TvGuideChildViewController: UITableViewDataSource {
             
             cell.viewAllTapDelegate = self
             if let cellTitle = selectedProfileItem.title {
-                cell.cellTitleLabel.text = cellTitle
+                cell.sectionTitleLabel.text = cellTitle
             }
             return cell
         }

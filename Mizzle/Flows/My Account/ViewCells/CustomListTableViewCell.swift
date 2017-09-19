@@ -18,15 +18,14 @@ enum DiscoverSectionCollectionCellIdentifier: String {
 }
 
 enum HeightForDiscoverItems: CGFloat {
-    case MediaListSectionHeight = 255
+    case MediaListSectionHeight = 305
+    case MediaListItemWidth = 152
 }
 
-class CustomListTableViewCell: UITableViewCell {
+class CustomListTableViewCell: HomeSectionBaseCell {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    var collectionView: UICollectionView!
     
-    @IBOutlet weak var cellTitleLabel: UILabel!
-    var lastScrollValue:String = ""
     weak var viewAllTapDelegate: ViewAllTapProtocol?
     
     var registerableCells:[DiscoverSectionCollectionCellIdentifier] = [.MediaItemCollectionViewCell]
@@ -64,10 +63,37 @@ class CustomListTableViewCell: UITableViewCell {
     }
     
     func setDataAndInitialiseView(data: [EscapeItem]) {
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        if collectionView == nil {
+            self.layoutIfNeeded()
+            
+            let flowLayout = UICollectionViewFlowLayout()
+            flowLayout.itemSize = CGSize(width: HeightForDiscoverItems.MediaListItemWidth.rawValue, height: HeightForDiscoverItems.MediaListSectionHeight.rawValue)
+            flowLayout.scrollDirection = .horizontal
+            
+            flowLayout.minimumInteritemSpacing = 0
+            flowLayout.minimumLineSpacing = 0
+            
+            flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            
+            collectionView = UICollectionView(frame: self.containerView.bounds, collectionViewLayout: flowLayout)
+            
+            collectionView.dataSource = self
+            collectionView.delegate = self
+            
+            collectionView.backgroundColor = UIColor.white
+            collectionView.showsHorizontalScrollIndicator = false
+            
+            self.containerView.addSubview(collectionView)
+            
+            collectionView.translatesAutoresizingMaskIntoConstraints = true
+            collectionView.center = CGPoint(x: self.containerView.bounds.midX, y: self.containerView.bounds.midY)
+            collectionView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+            
+            initXibs()
+        }
+        
         escapesDataList = data
-        initXibs()
+        
         collectionView.reloadData()
     }
     
@@ -78,8 +104,6 @@ class CustomListTableViewCell: UITableViewCell {
         collectionView.delegate = dataSourceDelegate
         collectionView.dataSource = dataSourceDelegate
         collectionView.tag = row
-        collectionView.register(UINib(nibName: "MediaItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MediaItemCollectionViewCell")
-        
     }
     
     @IBAction func viewAllTapped() {
@@ -90,7 +114,7 @@ class CustomListTableViewCell: UITableViewCell {
     
 
 }
-extension CustomListTableViewCell : UICollectionViewDelegate , UICollectionViewDataSource {
+extension CustomListTableViewCell : UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         
@@ -111,7 +135,7 @@ extension CustomListTableViewCell : UICollectionViewDelegate , UICollectionViewD
         
         AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomeDiscoverItemClick, properties: ["Position":"\(indexPath.row+1)", "escapeName": escapeItem.name])
         
-        ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+        ScreenVader.sharedVader.performUniversalScreenManagerAction(.openMediaItemDescriptionView, queryParams: params)
         
     }
     
@@ -122,7 +146,7 @@ extension CustomListTableViewCell : UICollectionViewDelegate , UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MediaItemCollectionViewCell", for: indexPath) as! CustomListCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiscoverSectionCollectionCellIdentifier.MediaItemCollectionViewCell.rawValue, for: indexPath) as! CustomListCollectionViewCell
         
         let item = escapesDataList[indexPath.row]
         cell.dataItems = item
@@ -132,57 +156,4 @@ extension CustomListTableViewCell : UICollectionViewDelegate , UICollectionViewD
         return cell
     }
     
-    func scrollBucket(scrollValue: CGFloat) -> String {
-        
-        if scrollValue < 30.0 {
-            return "0-30"
-        }
-        if scrollValue >= 30.0 && scrollValue < 60.0 {
-            return "30-60"
-        }
-        if scrollValue >= 60.0 && scrollValue <= 90.0 {
-            return "60-90"
-        }
-        
-        if scrollValue > 120 {
-            return "> 120"
-        }
-        
-        if scrollValue > 90 {
-            return "> 90"
-        }
-        
-        return "Unknown"
-        
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let percentageScroll:CGFloat = ((scrollView.contentOffset.x+scrollView.frame.size.width)/scrollView.contentSize.width)*100
-        let scrollBucketStr = scrollBucket(scrollValue: percentageScroll)
-        if self.lastScrollValue != scrollBucketStr {
-            if let sectionTitle = self.cellTitleLabel.text {
-                
-                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomeSectionHorizontalScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "SectionName": sectionTitle])
-            }
-            self.lastScrollValue = scrollBucketStr
-            
-        }
-        
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-        if !decelerate {
-            
-            let percentageScroll:CGFloat = ((scrollView.contentOffset.x+scrollView.frame.size.width)/scrollView.contentSize.width)*100
-            let scrollBucketStr = scrollBucket(scrollValue: percentageScroll)
-            if self.lastScrollValue != scrollBucketStr {
-                if let sectionTitle = self.cellTitleLabel.text {
-                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomeSectionHorizontalScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "SectionName": sectionTitle])
-                }
-                self.lastScrollValue = scrollBucketStr
-            }
-        }
-    }
-
 }

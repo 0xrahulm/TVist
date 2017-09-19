@@ -30,9 +30,9 @@ class CustomDoneButton: UIButton {
             self.isEnabled = newValue
             
             if(newValue) {
-                self.backgroundColor = UIColor.mizzleBlueColor()
+                self.backgroundColor = UIColor.styleGuideActionButtonBlue()
             } else {
-                self.backgroundColor = UIColor.buttonGrayColor()
+                self.backgroundColor = UIColor.styleGuideInputColor()
             }
         }
     }

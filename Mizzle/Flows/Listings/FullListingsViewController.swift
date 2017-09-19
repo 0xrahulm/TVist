@@ -329,7 +329,7 @@ extension FullListingsViewController: UITableViewDataSource, UITableViewDelegate
         let channelList = self.channelListings[indexPath.row]
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: ListingsCellIdentifier.ChannelListingCell.rawValue, for: indexPath) as? ChannelListingCell {
-            cell.cellTitleLabel.text = channelList.channel.name
+            cell.sectionTitleLabel.text = channelList.channel.name
             cell.channelImageView.downloadImageWithUrl(channelList.channel.imageUrl, placeHolder: IconsUtility.airtimeIcon())
             cell.viewAllTapDelegate = self
             return cell

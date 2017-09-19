@@ -28,6 +28,8 @@ enum SubServiceType : String {
     
     // My Account
     case GetUserDetails     =  "get_user_details"
+    
+    case verifyReceipt      =  "checkout/verify_receipt"
     case GetProfileList     =  "profile/list"
     case GetEscapeAction    =  "user/escapes/action"
     case GetUserEscapes     =  "user/escapes"
@@ -60,6 +62,9 @@ enum SubServiceType : String {
     //Home
     
     case HomeData = "home"
+    case TodayIndex = "home/today"
+    case Next7DaysIndex = "home/next_7_days"
+    case DiscoverIndex = "home/discover_index"
     case HomeDiscoverItem = "home/discover"
     case MediaByGenre = "escapes/by_genre"
     case HomeAllArticles = "home/all_articles"
@@ -108,6 +113,19 @@ enum SubServiceType : String {
     case RemoteLogs = "remote/log"
     case RemoteParseDevice = "remote/get_data"
     case RemoteSaveDevice = "remote/save_data"
+    
+    
+    case PostAlertPreference = "preferences/alert_preference"
+    case PostNewEpisodesPreference = "preferences/new_episodes_preference"
+    case PostAlertBeforeAirtimePreference = "preferences/alert_before_airtime"
+    
+    case PostAirtimePreference = "preferences/airtime_preference"
+    case PostAirdatePreference = "preferences/airdate_preference"
+    
+    case PostTimeZonePreference = "preferences/time_zone_preference"
+    case PostChannelsPreference = "preferences/channels_preference"
+    case PostAlertFrequency = "preferences/alert_frequency"
+    
 }
 
 class NetworkConstants: NSObject {

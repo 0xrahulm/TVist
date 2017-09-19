@@ -15,4 +15,23 @@ extension UIViewController{
         //vcFootPrint = createClassFootPrintWith(theClassName, queryParams: queryParams)
         // Receive Parameterized Data
     }
+    
+    func addNavigationBarDoneButton() {
+        if let _ = self.navigationController {
+            let barButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(UIViewController.dismissPopup))
+            self.navigationItem.rightBarButtonItem = barButtonItem
+        }
+    }
+    
+    func dismissPopup() {
+        if let navController = self.navigationController {
+            navController.dismiss(animated: true, completion: { 
+                self.didDismissPopup()
+            })
+        }
+    }
+    
+    func didDismissPopup() {
+        //overriden in base classes
+    }
 }

@@ -118,5 +118,53 @@ extension UIColor{
         return UIColor.colorWithHexString("#3b5998")
     }
     
+    class func styleGuideLineGray() -> UIColor {
+        return UIColor.colorWithHexString("#C2C4CA")
+    }
+    
+    class func styleGuideLineGrayLight() -> UIColor {
+        return UIColor.colorWithHexString("#D7D8DA")
+    }
+    
+    class func styleGuideButtonRed() -> UIColor {
+        return UIColor.colorWithHexString("#FF5A00")
+    }
+    
+    class func styleGuidePremiumOrange() -> UIColor {
+        return UIColor.colorWithHexString("#FF9500")
+    }
+    
+    class func styleGuideTableViewSeparator() -> UIColor {
+        return UIColor.colorWithHexString("#E0E0E0")
+    }
+    
+    class func styleGuideBackgroundColor() -> UIColor {
+        return UIColor.colorWithHexString("#FAFAFA")
+    }
+    
+    class func styleGuideMainTextColor() -> UIColor {
+        return UIColor.black
+    }
+    
+    class func styleGuideBodyTextColor() -> UIColor {
+        return UIColor.colorWithHexString("#8C8C8C")
+    }
+    
+    class func styleGuideBackgroundColor2() -> UIColor {
+        return UIColor.white
+    }
+    
+    class func styleGuideInputColor() -> UIColor {
+        return UIColor.colorWithHexString("#EFEFF3")
+    }
+    
+    class func styleGuideIconsColor() -> UIColor {
+        return UIColor.colorWithHexString("#CDCED2")
+    }
+    
+    class func styleGuideActionButtonBlue() -> UIColor {
+        return UIColor.colorWithHexString("#007AFF")
+    }
+    
 }
 

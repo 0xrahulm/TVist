@@ -78,7 +78,11 @@ class MyAccountDataProvider: CommonDataProvider {
             params["user_id"] = userId
         }
         
-        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserDetails, params: params, delegate: self)
+        if let currentUser = self.currentUser, currentUser.isPremium(), IAPVader.sharedVader.hasReceiptData {
+           IAPVader.sharedVader.verifyReceiptData()
+        } else {
+            ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetUserDetails, params: params, delegate: self)
+        }
     }
     
     func getUserEscapes(_ escapeType: EscapeType, escapeAction: String?, userId: String?, page: Int?) {
@@ -145,6 +149,13 @@ class MyAccountDataProvider: CommonDataProvider {
         }
         
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetProfileList, params: params, delegate: self)
+    }
+    
+    func verifyItunesReceipt(receiptData: String) {
+        
+        let params:[String:String] = ["receipt_data":receiptData]
+        
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .verifyReceipt, params: params, delegate: self)
     }
     
     func getItemDesc(_ escapeType : EscapeType?, id : String){
@@ -224,7 +235,11 @@ class MyAccountDataProvider: CommonDataProvider {
                     updateProfileListWith(profileListData)
                 }
                 break
-                
+            case .verifyReceipt:
+                if let verificationResponse = service.outPutResponse as? [String: Any] {
+                    parseItunesVerificationReceipt(verificationResponse)
+                }
+                break
             case .GetUserDetails:
                 if let data = service.outPutResponse as? [String:AnyObject]{
                     if let params = service.parameters{
@@ -297,19 +312,19 @@ class MyAccountDataProvider: CommonDataProvider {
                 
             case .GetFollowing:
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
-                    self.parseFollwingData(data, userType: .following)
+                    
                 }
                 break
                 
             case .GetFollowers:
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
-                    self.parseFollwingData(data, userType: .followers)
+                    
                 }
                 break
                 
             case .GetFriends:
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
-                    self.parseFollwingData(data, userType: .friends)
+                    
                 }
                 break
             case .PostRecommend:
@@ -318,13 +333,13 @@ class MyAccountDataProvider: CommonDataProvider {
                 
             case .GetLinkedObjects:
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
-                    self.parseFollwingData(data, userType: .fbFriends)
+                    
                 }
                 break
                 
             case .GetSharedUsersOfStory:
                 if let data = service.outPutResponse as? [[String:AnyObject]]{
-                    self.parseFollwingData(data, userType: .sharedUsersOfStory)
+                    
                 }
                 break
                 
@@ -415,6 +430,24 @@ class MyAccountDataProvider: CommonDataProvider {
 
 extension MyAccountDataProvider {
     
+    func parseItunesVerificationReceipt(_ data:[String:Any]) {
+        guard let success = data["success"] as? Bool, let userProfileData = data["user_profile_data"] as? [String:Any] else {
+            return
+        }
+        
+        parseUserDetails(userProfileData, userId: nil)
+        
+        if success {
+            
+            IAPVader.sharedVader.succesfullyVerified()
+        } else {
+            if let message = data["message"] as? String {
+                
+                IAPVader.sharedVader.failedWithMessage(message: message)
+            }
+        }
+    }
+    
     func updateProfileListWith(_ data: [String: AnyObject]) {
         guard let listTypeStr = data["list_type"] as? String,
             let listType = ProfileListType(rawValue: listTypeStr),
@@ -439,7 +472,7 @@ extension MyAccountDataProvider {
         
     }
     
-    func parseUserDetails(_ dict: [String:AnyObject], userId: String?){
+    func parseUserDetails(_ dict: [String:Any], userId: String?) {
         Logger.debug("User Details :\(dict)")
         
         let userData: MyAccountItems = MyAccountItems(dict: dict, userType: nil)
@@ -449,6 +482,10 @@ extension MyAccountDataProvider {
             
             if self.myAccountDetailsDelegate != nil {
                 self.myAccountDetailsDelegate!.recievedUserDetails()
+            }
+            
+            if let userPreferences = dict["user_preferences"] as? [Any] {
+                UserPreferenceVader.shared.setPreferencesWith(data: userPreferences)
             }
             
             NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationObservers.UserDetailsDataObserver.rawValue), object: nil, userInfo: nil)
@@ -651,6 +688,40 @@ extension MyAccountDataProvider{
             
             userData.following = Int(userItem.following)
             userData.track_count = Int(userItem.trackingsCount)
+            userData.alerts_count = Int(userItem.alertsCount)
+            userData.seen_count = Int(userItem.seenCount)
+            
+            if let oldUserData = self.currentUser {
+                let oldUserType = oldUserData.userTypeEnum()
+                
+                if !oldUserData.isPremium() && userItem.isPremium() {
+                    ScreenVader.sharedVader.makeToast(toastStr: "Upgraded to Premium Membership")
+                } else if !userItem.isPremium() && oldUserData.isPremium() {
+                    
+                    
+                    let alert = UIAlertController(title: "Premium Membership", message: "Your premium membership expired, please renew.", preferredStyle: .alert)
+                    let renewAction = UIAlertAction(title: "Renew Now", style: .default, handler: { (action) in
+                        alert.dismiss(animated: true, completion: { 
+                            ScreenVader.sharedVader.performUniversalScreenManagerAction(.openTVistPremiumView, queryParams: nil)
+                        })
+                        
+                    })
+                    
+                    alert.addAction(renewAction)
+                    
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) in
+                        
+                    })
+                    
+                    alert.addAction(cancelAction)
+                    
+                    ScreenVader.sharedVader.showAlert(alert: alert)
+                }
+                
+                if oldUserType == .Guest && userItem.isPremium() {
+                    ScreenVader.sharedVader.performUniversalScreenManagerAction(.openSignUpView, queryParams: ["no_dismiss": true])
+                }
+            }
             userData.userType = userItem.userType
             userData.escape_count = userItem.escapes_count.intValue
         

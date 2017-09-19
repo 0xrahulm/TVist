@@ -54,7 +54,7 @@ class FollowFacebookFriendsPopup: UIViewController {
     
     func openAllUsers(){
         if let storyId = storyId{
-            ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": UserType.fbFriends.rawValue, "story_id" : storyId])
+            
         }
     }
     

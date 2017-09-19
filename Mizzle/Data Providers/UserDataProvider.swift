@@ -51,7 +51,7 @@ protocol NotificationProtocol : class {
 }
 
 protocol DeviceSessionProtocol: class {
-    func guestUserLoggedIn()
+    func guestUserLoggedIn(isFreshInstall: Bool)
     func userAlreadyExists(registeredUsers: [MyAccountItems])
 }
 
@@ -134,6 +134,42 @@ class UserDataProvider: CommonDataProvider {
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetNotification, params: nil, delegate: self)
     }
     
+    func setPreferenceFor(key: UserPreferenceKey, value: Any) {
+    
+        UserPreferenceVader.shared.storeValueInKey(key, value: value)
+        
+        var subServiceType: SubServiceType?
+        switch key {
+        case .alertPreference:
+            subServiceType = .PostAlertPreference
+            break
+        case .onlyNewEpisodes:
+            subServiceType = .PostNewEpisodesPreference
+            break
+            
+        case .alertBeforeAirtime:
+            subServiceType = .PostAlertBeforeAirtimePreference
+            break
+        case .timezonePreference:
+            subServiceType = .PostTimeZonePreference
+            break
+        case .alertFrequency:
+            subServiceType = .PostAlertFrequency
+            break
+        case .airdatePreference:
+            subServiceType = .PostAirdatePreference
+            break
+        case .airtimePreference:
+            subServiceType = .PostAirtimePreference
+            break
+        default:
+            subServiceType = nil
+        }
+        if let subServiceType = subServiceType {
+            
+            ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: subServiceType, params: [key.rawValue: value], delegate: self)
+        }
+    }
     
 // MARK: - Service Responses
     
@@ -181,6 +217,25 @@ class UserDataProvider: CommonDataProvider {
                 
             case .UnfollowUser:
                 print("User UNfollowed")
+                break
+            case .PostAlertPreference:
+                fallthrough
+            case .PostNewEpisodesPreference:
+                fallthrough
+            case .PostAlertBeforeAirtimePreference:
+                fallthrough
+            case .PostAirtimePreference:
+                fallthrough
+            case .PostTimeZonePreference:
+                fallthrough
+            case .PostChannelsPreference:
+                fallthrough
+            case .PostAlertFrequency:
+                fallthrough
+            case .PostAirdatePreference:
+                if let response = service.outPutResponse as? [String:Any], let status = response["status"] as? String {
+                    print("Preference : \(status)")
+                }
                 break
                 
             case .DeviceSession:
@@ -260,6 +315,25 @@ class UserDataProvider: CommonDataProvider {
                     delegate.error()
                 }
                 break
+            case .PostAlertPreference:
+                fallthrough
+            case .PostNewEpisodesPreference:
+                fallthrough
+            case .PostAlertBeforeAirtimePreference:
+                fallthrough
+            case .PostAirtimePreference:
+                fallthrough
+            case .PostTimeZonePreference:
+                fallthrough
+            case .PostChannelsPreference:
+                fallthrough
+            case .PostAlertFrequency:
+                fallthrough
+            case .PostAirdatePreference:
+                if let response = service.outPutResponse as? [String:Any], let status = response["error"] as? String {
+                    print("Preference : \(status)")
+                }
+                break
                 
             default :
                 print("Service error code \(service.errorCode)")
@@ -287,9 +361,12 @@ extension UserDataProvider{
                     MyAccountDataProvider.sharedDataProvider.saveUserDataToRealm(parsedUserData)
                 }
             }
-            
+            var freshInstall = false
+            if let freshInstallData = data["fresh_install"] as? Bool {
+                freshInstall = freshInstallData
+            }
             if let deviceSessionDelegate = self.deviceSessionDelegate {
-                deviceSessionDelegate.guestUserLoggedIn()
+                deviceSessionDelegate.guestUserLoggedIn(isFreshInstall: freshInstall)
             }
             
         } else {

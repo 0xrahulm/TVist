@@ -203,7 +203,7 @@ public class WBSegmentControl: UIControl {
         for (index, segment) in self.innerSegments.enumerated() {
             let content_x = segment.segmentFrame.origin.x + (segment.segmentFrame.width - segment.contentSize.width) / 2
             let content_y = (self.scrollView.frame.height - segment.contentSize.height) / 2
-            let content_frame = CGRect(x: content_x, y: content_y, width: segment.contentSize.width, height: segment.contentSize.height)
+            let content_frame = CGRect(x: content_x-5, y: content_y, width: segment.contentSize.width+10, height: segment.contentSize.height)
 
             // Add Decoration Layer
             switch self.style {
@@ -225,7 +225,7 @@ public class WBSegmentControl: UIControl {
             case let .text(text):
                 let layerText = CATextLayer()
                 layerText.string = text
-                let font = segmentTextBold ? UIFont.boldSystemFont(ofSize: self.segmentTextFontSize) : UIFont.systemFont(ofSize: self.segmentTextFontSize)
+                let font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightRegular)
                 layerText.font = CGFont(NSString(string:font.fontName))
                 layerText.fontSize = font.pointSize
                 layerText.frame = content_frame
@@ -265,8 +265,10 @@ public class WBSegmentControl: UIControl {
             self.layerCover.frame = self.indicatorCoverFrame(self.selectedIndex)
             self.layerCover.backgroundColor = self.cover_color.cgColor
             self.layerCover.opacity = self.cover_opacity
-            self.layerContainer.addSublayer(self.layerCover)
+            self.layerCover.cornerRadius = 4.0
+            self.layerContainer.insertSublayer(self.layerCover, at: 0)
         }
+        
         let addLayerOutside = { [unowned self] in
             let outsideLayerLeft = CALayer()
             outsideLayerLeft.frame = CGRect(x: -1 * self.scrollView.frame.width, y: self.scrollView.frame.height - self.rainbow_height, width: self.scrollView.frame.width, height: self.rainbow_height)
@@ -478,7 +480,7 @@ public class WBSegmentControl: UIControl {
             case .segment:
                 box_width = self.innerSegments[index].segmentWidth
             }
-            return CGRect(x: box_x, y: 0, width: box_width, height: self.scrollView.frame.height)
+            return CGRect(x: box_x, y: 1, width: box_width-2, height: self.scrollView.frame.height-2)
         } else {
             return CGRect.zero
         }

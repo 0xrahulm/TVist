@@ -22,7 +22,7 @@ class FollowersViewController: UIViewController {
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         if let userType = queryParams["userType"]{
-            self.userType = UserType(rawValue :  Int(userType as! NSNumber))
+            
         }
         if let id = queryParams["userId"] as? String{
             self.id = id
@@ -41,26 +41,6 @@ class FollowersViewController: UIViewController {
         loadingView.startAnimating()
         MyAccountDataProvider.sharedDataProvider.followersDelegate = self
         
-        if userType == .followers {
-            self.title = "Followers"
-            MyAccountDataProvider.sharedDataProvider.getUserFollowers(id)
-        } else if userType == .following {
-            self.title = "Following"
-            MyAccountDataProvider.sharedDataProvider.getUserFollowing(id)
-        } else if userType == .friends {
-            self.title = "Friends"
-            MyAccountDataProvider.sharedDataProvider.getUserFriends()
-        }else if userType == .fbFriends {
-            self.title = "Facebook Friends"
-            if let storyId = storyId{
-              MyAccountDataProvider.sharedDataProvider.getStoryLinkedObjects(storyId)
-            }
-        }else if userType == .sharedUsersOfStory{
-            self.title = "Shared by"
-            if let storyId = storyId{
-                MyAccountDataProvider.sharedDataProvider.getSharedUsersOfStory(storyId)
-            }
-        }
         
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
@@ -98,15 +78,7 @@ extension FollowersViewController : UITableViewDelegate , UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if dataArray.count > indexPath.row {
             let data = dataArray[indexPath.row]
-            if userType == .friends {
-                if let id = data.id {
-                    showTextBoxPopUP(data.firstName, id: id)
-                }
-            }else{
-                if let id  = data.id {
-                    ScreenVader.sharedVader.performScreenManagerAction(.OpenUserAccount, queryParams: ["user_id":id, "isFollow" : data.isFollow])
-                }
-            }
+
         }
     }
     
@@ -121,11 +93,7 @@ extension FollowersViewController : UITableViewDelegate , UITableViewDataSource{
         let data = dataArray[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "followCellIdentifier") as! FollowersTableViewCell
-        if userType == .friends {
-            cell.followButton.isHidden = true
-        }else{
-            cell.followButton.isHidden = false
-        }
+
         cell.followerImage.downloadImageWithUrl(data.profilePicture, placeHolder: UIImage(named: "profile_placeholder"))
         cell.nameLabel.text = "\(data.firstName) \(data.lastName)"
         cell.countLabel.text = "\(data.followers) Followers"

@@ -24,8 +24,17 @@ class HomeDataProvider: CommonDataProvider {
     weak var homeDataDelegate: HomeDataProtocol?
     weak var genreDataDelegate: GenreDataProtocol?
     
-    func getHomeData(page: Int, type: FilterType) {
-        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .HomeData, params: ["page":page, "type":type.rawValue], delegate: self)
+    func getHomeData(page: Int, type: FilterType, viewType: HomeViewType) {
+        var serviceType:SubServiceType = .HomeData
+        if viewType == .today {
+            serviceType = SubServiceType.TodayIndex
+        } else if viewType == .next7Days {
+            serviceType = SubServiceType.Next7DaysIndex
+        } else if viewType == .discover {
+            serviceType = SubServiceType.DiscoverIndex
+        }
+        
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: serviceType, params: ["page":page, "type":type.rawValue], delegate: self)
     }
     
     func getDiscoverItemData(itemId: String, pageNumber: Int?) {
@@ -83,6 +92,12 @@ class HomeDataProvider: CommonDataProvider {
         if let subServiceType = service.subServiveType{
             
             switch subServiceType {
+            case .TodayIndex:
+                fallthrough
+            case .Next7DaysIndex:
+                fallthrough
+            case .DiscoverIndex:
+                fallthrough
             case .HomeData:
                 if let response = service.outPutResponse as? [Any] {
                     parseHomeData(homeData: response, page: service.parameters?["page"] as? Int)

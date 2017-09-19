@@ -10,6 +10,40 @@ import UIKit
 
 class TimeUtility: NSObject {
     
+    class func getTimeZoneForUser() -> TimeZoneIdentifier {
+        let localTimeZoneAbbreviation: String = TimeZone.current.abbreviation() ?? ""
+        let isDaylightSavingTime: Bool = TimeZone.current.isDaylightSavingTime(for: Date())
+        
+        if isDaylightSavingTime{
+            if localTimeZoneAbbreviation == "GMT-5" {
+                return .CentralTimeZone
+            }
+            
+            if localTimeZoneAbbreviation == "GMT-6" {
+                return .MountainTimeZone
+            }
+            
+            if localTimeZoneAbbreviation == "GMT-7" {
+                return .PacificTimeZone
+            }
+        } else {
+            
+            if localTimeZoneAbbreviation == "GMT-6" {
+                return .CentralTimeZone
+            }
+            
+            if localTimeZoneAbbreviation == "GMT-7" {
+                return .MountainTimeZone
+            }
+            
+            if localTimeZoneAbbreviation == "GMT-8" {
+                return .PacificTimeZone
+            }
+        }
+        
+        return .EasternTimeZone
+    }
+    
     class func getYear(_ unixTimeStamp : Double) -> Int {
         
         let date = Date(timeIntervalSince1970: unixTimeStamp)
@@ -112,6 +146,21 @@ class TimeUtility: NSObject {
         
         dateFormatter.dateFormat = "EEE, dd MMM"
         return dateFormatter.string(from: date)
+    }
+    
+    class func dayFromShortDay(day: String) -> String {
+        switch day {
+        case "Wed":
+            return "Wednesday"
+        case "Tue":
+            return "Tuesday"
+        case "Thu":
+            return "Thursday"
+        case "Sat":
+            return "Saturday"
+        default:
+            return "\(day)day"
+        }
     }
 
 }

@@ -188,7 +188,7 @@ extension SearchAllViewController : UITableViewDelegate{
             
             let params:[String:AnyObject] = ["escapeItem":data]
             
-            ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+            ScreenVader.sharedVader.performUniversalScreenManagerAction(.openMediaItemDescriptionView, queryParams: params)
             
         }
     }

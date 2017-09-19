@@ -210,15 +210,7 @@ class MyAccountViewController: UIViewController{
     
     @IBAction func followerFollowingClicked(_ sender: UITapGestureRecognizer) {
         if let view = sender.view{
-            var userType : UserType = .followers
-            if view.tag == 6{
-                userType = .following
-            }
-            if let userId = userId{
-               ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue, "userId" : userId])
-            }else{
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenFollowers, queryParams: ["userType": userType.rawValue])
-            }
+            
         }
     }
     

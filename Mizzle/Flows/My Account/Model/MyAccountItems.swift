@@ -23,9 +23,25 @@ class MyAccountItems: NSObject {
     var following:      NSNumber = 0
     var escapes_count:  NSNumber = 0
     var trackingsCount:  NSNumber = 0
+    var alertsCount: NSNumber = 0
+    var seenCount: NSNumber = 0
     var userType: String = "g"
     var loggedInUsing:LoggedInUsing = .Guest
     var isFollow = false
+    
+    func userTypeEnum() -> UserType {
+        
+        if let userTypeVal = UserType(rawValue: self.userType) {
+            return userTypeVal
+        }
+        
+        return .Guest
+    }
+    
+    func isPremium() -> Bool {
+        return userTypeEnum() == .Premium
+    }
+    
     
     init(id : String?,firstName : String,lastName : String,email :String?,gender: Gender?,profilePicture :String?,followers :NSNumber,following :NSNumber,escapes_count : NSNumber?) {
         
@@ -47,9 +63,6 @@ class MyAccountItems: NSObject {
     init(dict : [String:Any], userType : UserType?) {
         super.init()
         if let userType = userType{
-            if userType == .following{
-                self.isFollow = true
-            }
         }
         parseData(dict)
         
@@ -103,6 +116,14 @@ class MyAccountItems: NSObject {
         
         if let trackingsCount = profileDetails["trackings_count"] as? NSNumber {
             self.trackingsCount = trackingsCount
+        }
+        
+        if let alertsCount = profileDetails["alerts_count"] as? NSNumber {
+            self.alertsCount = alertsCount
+        }
+        
+        if let seenCount = profileDetails["seen_count"] as? NSNumber {
+            self.seenCount = seenCount
         }
         
         if let userType = profileDetails["type"] as? String {

@@ -22,5 +22,4 @@ class DataConstants: NSObject {
     
     static let kFullListingsSize = 5
     
-    
 }

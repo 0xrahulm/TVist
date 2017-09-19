@@ -49,7 +49,7 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 
                 if ctaButton != nil {
                     
-                    ctaButton.setImage(IonIcons.image(withIcon: ion_android_time, size: 20, color: UIColor.white), for: .normal)
+                    ctaButton.setImage(UIImage(named:"WatchlistAddIcon"), for: .normal)
                     ctaButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.white), for: .selected)
                 }
                 
@@ -87,7 +87,7 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 
                 if ctaButton != nil {
                     
-                    ctaButton.setImage(IonIcons.image(withIcon: ion_android_time, size: 20, color: UIColor.white), for: .normal)
+                    ctaButton.setImage(UIImage(named:"WatchlistAddIcon"), for: .normal)
                     ctaButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.white), for: .selected)
                 }
                 
@@ -122,7 +122,7 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     }
     
     
-    @IBAction func trackButtonTapped(sender: UIButton) {
+    @IBAction func addButtonTapped(sender: UIButton) {
         
         toggleButtonState()
     }
@@ -158,9 +158,10 @@ class CustomListCollectionViewCell: UICollectionViewCell {
         } else {
             if let item = dataItems {
                 item.isTracking = newState
-                TrackingDataProvider.shared.addTrackingFor(escapeId: item.id)
                 
-                AnalyticsVader.sharedVader.trackButtonClicked(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: trackPosition)
+                ScreenVader.sharedVader.performUniversalScreenManagerAction(.openAddToWatchlistView, queryParams: ["mediaItem": item])
+                
+//                AnalyticsVader.sharedVader.trackButtonClicked(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: trackPosition)
                 
                 updateTrackButton(newState: newState)
                 if let primaryCTADelegate = self.primaryCTADelegate, let collectionView = self.parentCollectionView {
@@ -174,9 +175,9 @@ class CustomListCollectionViewCell: UICollectionViewCell {
         
         ctaButton.isSelected = newState
         if newState {
-            ctaButton.backgroundColor = UIColor.defaultCTAColor()
+            ctaButton.backgroundColor = UIColor.styleGuideButtonRed()
         } else {
-            ctaButton.backgroundColor = UIColor.defaultTintColor()
+            ctaButton.backgroundColor = UIColor.styleGuideActionButtonBlue()
         }
     }
     

@@ -181,7 +181,7 @@ extension CustomListViewController : UITableViewDataSource , UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "basicCellIdentifier") as! CustomListTableViewCell
-        cell.cellTitleLabel.text = tableDataArray[indexPath.row].title
+        cell.sectionTitleLabel.text = tableDataArray[indexPath.row].title
         
         return cell
         
