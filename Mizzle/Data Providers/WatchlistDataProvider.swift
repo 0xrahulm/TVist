@@ -14,8 +14,30 @@ class WatchlistDataProvider: CommonDataProvider {
     
     static let shared = WatchlistDataProvider()
     
-    func fetchWatchlistData(page: Int, type: FilterType) {
-        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .UserWatchlist, params: ["page": page, "type":type.rawValue], delegate: self)
+    func fetchWatchlistData(page: Int, type: FilterType, sortType: SortType, showAlertsOnly: Bool = false, isSeen: Bool = false) {
+        var params: [String: Any] = ["page": page, "type":type.rawValue, "sort_type": sortType.rawValue, "alert": showAlertsOnly]
+        if isSeen {
+            params["escape_action"] = EscapeAddActions.Watched.rawValue
+        }
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .UserWatchlist, params: params, delegate: self)
+    }
+    
+    func addEditWatchlist(escapeId: String, shouldAlert: Bool) {
+        let params: [String: Any] = ["escape_id": escapeId, "should_alert": shouldAlert]
+        
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .AddToWatchlist, params: params, delegate: self)
+    }
+    
+    func markEscapeSeen(escapeId: String) {
+        let params: [String:Any] = ["escape_id":escapeId]
+        
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .MarkItSeen, params: params, delegate: self)
+    }
+    
+    func removeFromWatchlist(escapeId: String) {
+        let params: [String:Any] = ["escape_id":escapeId]
+        
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .RemoveFromWatchlist, params: params, delegate: self)
     }
     
     override func serviceSuccessfull(_ service: Service) {
@@ -40,6 +62,42 @@ class WatchlistDataProvider: CommonDataProvider {
                     Logger.debug("Tracking set for Media")
                 }
                 break;
+            case .AddToWatchlist:
+                if let response = service.outPutResponse as? [String:Any], let status = response["status"] as? String {
+                    Logger.debug("response \(status)")
+                    if let alertsCount = response["alerts_count"] as? Int, let escapesCount = response["escapes_count"] as? Int {
+                        
+                        RealmDataVader.sharedVader.updateCountForCurrentUser(escapesCount: escapesCount, seenCount: nil, alertsCount: alertsCount)
+                        if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+                            
+                            NotificationCenter.default.post(name: NSNotification.Name(NotificationObservers.CountsDidUpdateObserver.rawValue), object: nil)
+                        }
+                    }
+                }
+                break
+            case .MarkItSeen:
+                
+                if let response = service.outPutResponse as? [String:Any], let status = response["status"] as? String {
+                    Logger.debug("response \(status)")
+                    if let alertsCount = response["alerts_count"] as? Int, let escapesCount = response["escapes_count"] as? Int, let seenCount = response["seen_count"] as? Int {
+                        RealmDataVader.sharedVader.updateCountForCurrentUser(escapesCount: escapesCount, seenCount: seenCount, alertsCount: alertsCount)
+    
+                        NotificationCenter.default.post(name: NSNotification.Name(NotificationObservers.CountsDidUpdateObserver.rawValue), object: nil)
+                        
+                    }
+                }
+                break
+            case .RemoveFromWatchlist:
+                
+                if let response = service.outPutResponse as? [String:Any], let status = response["status"] as? String {
+                    Logger.debug("response \(status)")
+                    if let alertsCount = response["alerts_count"] as? Int, let escapesCount = response["escapes_count"] as? Int, let seenCount = response["seen_count"] as? Int {
+                        RealmDataVader.sharedVader.updateCountForCurrentUser(escapesCount: escapesCount, seenCount: seenCount, alertsCount: alertsCount)
+                        NotificationCenter.default.post(name: NSNotification.Name(NotificationObservers.CountsDidUpdateObserver.rawValue), object: nil)
+    
+                    }
+                }
+                break
             default:
                 Logger.debug("Tracking removed for Media")
                 break;
@@ -88,7 +146,7 @@ class WatchlistDataProvider: CommonDataProvider {
             }
             
             if let isTracking = eachItem["is_tracking"] as? Bool {
-                escapeItem.isTracking = isTracking
+                escapeItem.isAlertSet = isTracking
             }
             
             dataArray.append(escapeItem)

@@ -419,8 +419,6 @@ extension ScreenManagerViewController{
         pushViewControllerOf(.Remote, viewControllerIdentifier: "deviceSearchView", queryParams: nil)
     }
     
-    
-    
     func makeToast(toastStr: String) {
         presentToast = UIApplication.shared.keyWindow
         if let toast = self.presentToast {
@@ -435,6 +433,14 @@ extension ScreenManagerViewController{
         }
         
         pushViewControllerOf(.Home, viewControllerIdentifier: "allGenreView", queryParams: nil)
+    }
+    
+    func openBrowseByGenreView(params: [String:Any]?) {
+        if let _ = getTopViewController() as? BrowseByGenreViewController {
+            return
+        }
+        
+        pushViewControllerOf(.Home, viewControllerIdentifier: "browseByGenre", queryParams: params)
     }
     
     func openAllArticlesView(params: [String:Any]?) {
@@ -484,14 +490,6 @@ extension ScreenManagerViewController{
             return
         }
         pushViewControllerOf(.Listings, viewControllerIdentifier: "listingItemView", queryParams: params)
-    }
-    
-    func openBrowseByGenreView(params: [String:Any]?) {
-        if let _ = getTopViewController() as? BrowseByGenreViewController {
-            return
-        }
-        
-        pushViewControllerOf(.Home, viewControllerIdentifier: "browseByGenre", queryParams: params)
     }
     
     func openGuideListView(params: [String:Any]?) {
@@ -596,7 +594,7 @@ extension ScreenManagerViewController{
     }
     
     func openSignupView() {
-        presentViewControllerOf(.Onboarding, viewControllerIdentifier: "signupVC", queryParams: ["screen":"popup"])
+        presentViewControllerOf(.Onboarding, viewControllerIdentifier: "signupNav", queryParams: ["screen":"popup"])
     }
     
     func openEditEscapePopup(_ params: [String:Any]?) {

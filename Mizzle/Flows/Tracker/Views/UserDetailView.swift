@@ -20,7 +20,7 @@ class UserDetailView: UIView {
     @IBOutlet weak var signInButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var signInButtonWidthConstraint: NSLayoutConstraint!
     
-    var viewType: String = "Tracking"
+    var viewType: String = "User"
     
     
     override func layoutSubviews() {
@@ -32,10 +32,18 @@ class UserDetailView: UIView {
         // Get user details early on so the data is available before
         NotificationCenter.default.addObserver(self, selector: #selector(UserDetailView.fetchDataFromRealm), name: Notification.Name(rawValue: NotificationObservers.UserDetailsDataObserver.rawValue), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(UserDetailView.profileDetailsChanged(_:)), name: NSNotification.Name(NotificationObservers.ProfileImageChangesObserver.rawValue), object: nil)
+        
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func profileDetailsChanged(_ notification: Notification) {
+        if let image = notification.object as? UIImage {
+            self.profileImageView.image = image
+        }
     }
     
     @objc func fetchDataFromRealm() {
@@ -104,6 +112,7 @@ class UserDetailView: UIView {
             if user.isPremium() {
                 ScreenVader.sharedVader.performUniversalScreenManagerAction(.openProfileEditView, queryParams: nil)
             } else if user.userTypeEnum() == .Guest {
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.UserSignUpNowClick)
                 ScreenVader.sharedVader.performUniversalScreenManagerAction(.openSignUpView, queryParams: nil)
             } else {
                 ScreenVader.sharedVader.performUniversalScreenManagerAction(.openTVistPremiumView, queryParams: nil)
@@ -112,11 +121,12 @@ class UserDetailView: UIView {
     }
     
     @IBAction func signUpButtonTapped() {
-        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SignUpNowClick, properties: ["fromView": viewType])
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.UserSignUpNowClick)
         ScreenVader.sharedVader.performUniversalScreenManagerAction(.openSignUpView, queryParams: nil)
     }
     
     @IBAction func settingsButtonTapped() {
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.UserSettingButtonTap)
         ScreenVader.sharedVader.performUniversalScreenManagerAction(.openUserSettingsView, queryParams: ["fromView": viewType])
     }
     

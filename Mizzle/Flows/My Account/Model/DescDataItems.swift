@@ -28,7 +28,7 @@ class DescDataItems: NSObject {
     var generes: [String] = []
     var isActed = false
     
-    var isTracking: Bool = false
+    var isAlertSet: Bool = false
     var inWatchlist: Bool = false
     var isAlreadySeen: Bool = false
     
@@ -114,18 +114,17 @@ class DescDataItems: NSObject {
                 }
             }
         }
-        if let acted = data["is_acted"] as? Bool{
+        if let acted = data["is_watchlisted"] as? Bool{
             self.isActed = acted
             self.inWatchlist = acted
-            if let action = data["action"] as? String {
-                if action == EscapeAddActions.Watched.rawValue {
-                    self.isAlreadySeen = true
-                }
-            }
         }
         
-        if let tracking = data["is_tracking"] as? Bool {
-            self.isTracking = tracking
+        if let alert = data["is_alert"] as? Bool {
+            self.isAlertSet = alert
+        }
+        
+        if let seen = data["is_seen"] as? Bool {
+            self.isAlreadySeen = seen
         }
         
     }

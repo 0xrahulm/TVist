@@ -41,10 +41,10 @@ class ScreenVader: NSObject {
     }
     
     func loginActionAfterDelay() {
-        perform(#selector(ScreenVader.loginAction), with: nil, afterDelay: 0.2)
+        // nothing here
     }
     
-    @objc func loginAction() {
+    func loginAction() {
         if let screenManagerVC = screenManagerVC {
             screenManagerVC.dismissAllPresented()
         }
@@ -65,6 +65,7 @@ class ScreenVader: NSObject {
         if screenManagerVC != nil {
             screenManagerVC!.performLogout()
         }
+        
     }
     
     func removeDismissedViewController(_ dismissVC: UIViewController) {
@@ -140,6 +141,12 @@ class ScreenVader: NSObject {
         }
     }
     
+    func backButtonPressOnDetailView() {
+        if let universalVC = self.universalScreenManagerVC {
+            universalVC.backButtonPressOnDetailView()
+        }
+    }
+    
     fileprivate func getQueryParamsForString(_ queryString: String?) -> [String: Any]? {
         
         var queryParams: [String:Any]?
@@ -170,6 +177,10 @@ class ScreenVader: NSObject {
     func openSafariWithUrl(url: URL, readerMode: Bool) {
         if let screenManagerVC = self.screenManagerVC {
             screenManagerVC.openSafariWithUrl(url: url, readerMode: readerMode)
+        }
+        
+        if let universalSMVC = self.universalScreenManagerVC {
+            universalSMVC.openSafariWithUrl(url: url, readerMode: readerMode)
         }
     }
     

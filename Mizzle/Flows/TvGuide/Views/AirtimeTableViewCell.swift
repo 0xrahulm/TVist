@@ -10,7 +10,12 @@ import UIKit
 
 class AirtimeTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var airDisplayLabel: UILabel!
+    
+    
+    @IBOutlet weak var dayTimeLabel: UILabel!
+    
+    @IBOutlet weak var seasonEpisodeLabel: UILabel!
+    
     @IBOutlet weak var channelImageView: UIImageView!
 
     override func awakeFromNib() {

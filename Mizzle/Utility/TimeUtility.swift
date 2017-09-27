@@ -10,38 +10,41 @@ import UIKit
 
 class TimeUtility: NSObject {
     
-    class func getTimeZoneForUser() -> TimeZoneIdentifier {
-        let localTimeZoneAbbreviation: String = TimeZone.current.abbreviation() ?? ""
-        let isDaylightSavingTime: Bool = TimeZone.current.isDaylightSavingTime(for: Date())
-        
-        if isDaylightSavingTime{
-            if localTimeZoneAbbreviation == "GMT-5" {
-                return .CentralTimeZone
-            }
+    class func getTimeZoneForUser() -> TimeZoneIdentifier? {
+        if let localTimeZoneAbbreviation: String = TimeZone.current.abbreviation() {
             
-            if localTimeZoneAbbreviation == "GMT-6" {
-                return .MountainTimeZone
-            }
+            let isDaylightSavingTime: Bool = TimeZone.current.isDaylightSavingTime(for: Date())
             
-            if localTimeZoneAbbreviation == "GMT-7" {
-                return .PacificTimeZone
+            if isDaylightSavingTime{
+                if localTimeZoneAbbreviation == "GMT-5" {
+                    return .CentralTimeZone
+                }
+                
+                if localTimeZoneAbbreviation == "GMT-6" {
+                    return .MountainTimeZone
+                }
+                
+                if localTimeZoneAbbreviation == "GMT-7" {
+                    return .PacificTimeZone
+                }
+            } else {
+                
+                if localTimeZoneAbbreviation == "GMT-6" {
+                    return .CentralTimeZone
+                }
+                
+                if localTimeZoneAbbreviation == "GMT-7" {
+                    return .MountainTimeZone
+                }
+                
+                if localTimeZoneAbbreviation == "GMT-8" {
+                    return .PacificTimeZone
+                }
             }
-        } else {
-            
-            if localTimeZoneAbbreviation == "GMT-6" {
-                return .CentralTimeZone
-            }
-            
-            if localTimeZoneAbbreviation == "GMT-7" {
-                return .MountainTimeZone
-            }
-            
-            if localTimeZoneAbbreviation == "GMT-8" {
-                return .PacificTimeZone
-            }
+            return .EasternTimeZone
         }
         
-        return .EasternTimeZone
+        return nil
     }
     
     class func getYear(_ unixTimeStamp : Double) -> Int {

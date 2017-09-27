@@ -35,11 +35,11 @@ class RemoteConnectionPopupViewController: UIViewController {
     @IBAction func didTapOnSearchConnectedDevices(sender: UIButton) {
         AnalyticsVader.sharedVader.basicEvents(eventName: .DeviceConnectPopupSearchConnectedDevice)
         dismissEvent = false
-        self.dismiss(animated: true, completion: { (completed) in
+        self.dismiss(animated: true) {
             if let delegate = self.delegate {
                 delegate.didTapOnSearchConnectedDevices()
             }
-        })
+        }
     }
     
     @IBAction func didTapOnDontHaveDirecTV(sender: UIButton) {

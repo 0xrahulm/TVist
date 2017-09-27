@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpgradeNowPopupViewController" customModule="TVist" customModuleProvider="target">
+            <connections>
+                <outlet property="premiumDescription" destination="hNG-VL-B8R" id="OwX-wZ-lZl"/>
+                <outlet property="premiumFeatureLabel" destination="HbI-nX-GHA" id="mhU-2Y-tJF"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="312" height="287"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rXl-rU-hVw">
+                    <rect key="frame" x="0.0" y="0.0" width="312" height="45"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TVist Premium" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1kK-OI-OiU">
+                            <rect key="frame" x="103.5" y="12.5" width="115" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lrf-j3-kfX">
+                            <rect key="frame" x="0.0" y="44.5" width="312" height="0.5"/>
+                            <color key="backgroundColor" red="0.84313725490196079" green="0.84705882352941175" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="DmD-jH-Myb"/>
+                            </constraints>
+                        </view>
+                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="PremiumBadge" translatesAutoresizingMaskIntoConstraints="NO" id="6TU-p8-Jo1">
+                            <rect key="frame" x="76" y="12" width="22" height="22"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Lrf-j3-kfX" firstAttribute="leading" secondItem="rXl-rU-hVw" secondAttribute="leading" id="70r-mc-X59"/>
+                        <constraint firstItem="1kK-OI-OiU" firstAttribute="centerX" secondItem="rXl-rU-hVw" secondAttribute="centerX" constant="5" id="Gdm-wT-AWd"/>
+                        <constraint firstItem="1kK-OI-OiU" firstAttribute="leading" secondItem="6TU-p8-Jo1" secondAttribute="trailing" constant="5" id="RhG-Cs-N3k"/>
+                        <constraint firstAttribute="height" constant="45" id="Thp-0n-Jaa"/>
+                        <constraint firstAttribute="bottom" secondItem="Lrf-j3-kfX" secondAttribute="bottom" id="XgF-yD-RgZ"/>
+                        <constraint firstItem="1kK-OI-OiU" firstAttribute="centerY" secondItem="rXl-rU-hVw" secondAttribute="centerY" id="Zne-hZ-6zT"/>
+                        <constraint firstAttribute="trailing" secondItem="Lrf-j3-kfX" secondAttribute="trailing" id="qga-Tf-mSa"/>
+                        <constraint firstItem="6TU-p8-Jo1" firstAttribute="centerY" secondItem="1kK-OI-OiU" secondAttribute="centerY" id="sxt-Cn-T5o"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a Premium feature" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HbI-nX-GHA">
+                    <rect key="frame" x="12" y="61" width="288" height="24"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Get the most out of the amazing TVist app by upgrading to Premium Membership" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNG-VL-B8R">
+                    <rect key="frame" x="12" y="101" width="288" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="r7y-KK-xME"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxL-Ht-ZrB">
+                    <rect key="frame" x="0.0" y="196" width="312" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="lzf-cF-knT"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="Upgrade your membership">
+                        <color key="titleColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="upgradeNowButtonTapped:" destination="-1" eventType="touchUpInside" id="pxM-mc-hL4"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EfN-DC-JkR">
+                    <rect key="frame" x="0.0" y="242" width="312" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="jlb-Lw-48M"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="Not now">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="dismissButtonTapped:" destination="-1" eventType="touchUpInside" id="fY1-bY-yQb"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JWV-a3-226">
+                    <rect key="frame" x="0.0" y="241.5" width="312" height="0.5"/>
+                    <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="lkR-Gm-opz"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d8J-YA-MK9">
+                    <rect key="frame" x="0.0" y="195.5" width="312" height="0.5"/>
+                    <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="rfN-V0-ffF"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="uxL-Ht-ZrB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="3Pm-fQ-K2y"/>
+                <constraint firstItem="uxL-Ht-ZrB" firstAttribute="top" secondItem="d8J-YA-MK9" secondAttribute="bottom" id="5VI-gb-nJF"/>
+                <constraint firstItem="hNG-VL-B8R" firstAttribute="trailing" secondItem="HbI-nX-GHA" secondAttribute="trailing" id="6Y4-Ey-jpQ"/>
+                <constraint firstItem="EfN-DC-JkR" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="7I7-tS-VO5"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="d8J-YA-MK9" secondAttribute="trailing" id="El2-3c-jsE"/>
+                <constraint firstItem="rXl-rU-hVw" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="GL7-iq-4Aa"/>
+                <constraint firstItem="rXl-rU-hVw" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="HrX-W6-S4h"/>
+                <constraint firstItem="HbI-nX-GHA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="IWF-o4-STK"/>
+                <constraint firstItem="hNG-VL-B8R" firstAttribute="top" secondItem="HbI-nX-GHA" secondAttribute="bottom" constant="16" id="JOk-dK-6TV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rXl-rU-hVw" secondAttribute="trailing" id="LHS-KW-KrD"/>
+                <constraint firstItem="uxL-Ht-ZrB" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="MI0-74-Agb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JWV-a3-226" secondAttribute="trailing" id="MMQ-mr-BFp"/>
+                <constraint firstItem="EfN-DC-JkR" firstAttribute="top" secondItem="JWV-a3-226" secondAttribute="bottom" id="T8g-Kg-BhN"/>
+                <constraint firstItem="HbI-nX-GHA" firstAttribute="top" secondItem="rXl-rU-hVw" secondAttribute="bottom" constant="16" id="VQ9-3t-IrF"/>
+                <constraint firstItem="JWV-a3-226" firstAttribute="leading" secondItem="EfN-DC-JkR" secondAttribute="leading" id="Z0q-Jb-Lay"/>
+                <constraint firstItem="hNG-VL-B8R" firstAttribute="leading" secondItem="HbI-nX-GHA" secondAttribute="leading" id="i4u-4y-OZj"/>
+                <constraint firstItem="EfN-DC-JkR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ktw-jU-zhr"/>
+                <constraint firstItem="d8J-YA-MK9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="pkW-Th-pK3"/>
+                <constraint firstItem="EfN-DC-JkR" firstAttribute="top" secondItem="uxL-Ht-ZrB" secondAttribute="bottom" constant="0.5" id="uiX-5v-hAU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="HbI-nX-GHA" secondAttribute="trailing" constant="12" id="vDn-Vf-na2"/>
+                <constraint firstItem="EfN-DC-JkR" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="ykt-x1-lsG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="-26" y="-421.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="PremiumBadge" width="22" height="22"/>
+    </resources>
+</document>

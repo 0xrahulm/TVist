@@ -117,9 +117,10 @@ extension BrowseByGenreCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let genreItem = self.matricallyArranged[indexPath.section][indexPath.row]
         
-        ScreenVader.sharedVader.performScreenManagerAction(.OpenBrowseByGenreView, queryParams: ["genreItem": genreItem])
+        ScreenVader.sharedVader.performUniversalScreenManagerAction(.openBrowseByGenreView, queryParams: ["genreItem": genreItem])
+        
         if let genreItemName = genreItem.name {
-            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomeGenreItemClick, properties: ["Grid":"\(indexPath.section+1)_\(letters[indexPath.row])", "genreName": genreItemName])
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.GenreItemClick, properties: ["Grid":"\(indexPath.section+1)_\(letters[indexPath.row])", "genreName": genreItemName, "ViewType": self.homeViewType.rawValue])
         }
     }
 }

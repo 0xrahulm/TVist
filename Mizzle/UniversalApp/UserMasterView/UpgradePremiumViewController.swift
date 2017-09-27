@@ -43,27 +43,51 @@ class UpgradePremiumViewController: UIViewController {
     @IBAction func didTapOnMonthlyPurchase(_ sender: AnyObject) {
         productStartFetching(start: true)
         IAPVader.sharedVader.purchaseMonthlyPremium()
+        AnalyticsVader.sharedVader.basicEvents(eventName: .UserUpgradeMonthlyPurchaseButtonTap)
     }
     
     @IBAction func didTapOnYearlyPurchase(_ sender: AnyObject) {
         IAPVader.sharedVader.purchaseYearlyPremium()
+        AnalyticsVader.sharedVader.basicEvents(eventName: .UserUpgradeYearlyPurchaseButtonTap)
+    }
+    
+    @IBAction func didTapOnPrivacyPolicy(_ sender: Any) {
+        if let url = URL(string: "http://www.tvistapp.com/privacy.htm") {
+            ScreenVader.sharedVader.openSafariWithUrl(url: url, readerMode: true)
+        }
+    }
+    
+    @IBAction func didTapOnTermsOfService(_ sender: Any) {
+        
+        if let url = URL(string: "http://www.tvistapp.com/terms.html") {
+            ScreenVader.sharedVader.openSafariWithUrl(url: url, readerMode: true)
+        }
     }
 
 }
 
 extension UpgradePremiumViewController: IAPDataProtocol {
     func didFetchAvailableProducts() {
+        AnalyticsVader.sharedVader.basicEvents(eventName: .UserUpgradeAvailableProductsLoaded)
         self.monthlyPriceLabel.text = IAPVader.sharedVader.priceForMonthlyPremium()
         self.yearlyPriceLabel.text = IAPVader.sharedVader.priceForYearlyPremium()
         
         productStartFetching(start: false)
     }
     
-    func verificationSuccesfulForPayment() {
+    func verificationSuccesfulForPayment(shouldDismiss: Bool) {
         productStartFetching(start: false)
-        
-        self.navigationController?.dismiss(animated: true) {
+        AnalyticsVader.sharedVader.basicEvents(eventName: .UserUpgradePaymentSuccessull)
+        if shouldDismiss {
             
+            self.navigationController?.dismiss(animated: true) {
+                
+            }
         }
+    }
+    
+    func cancelled() {
+        AnalyticsVader.sharedVader.basicEvents(eventName: .UserUpgradePaymentFailedCancelled)
+        productStartFetching(start: false)
     }
 }

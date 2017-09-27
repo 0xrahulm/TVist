@@ -103,6 +103,7 @@ class PreferenceSingleSelectionViewController: UITableViewController {
         let prefValue = preferenceValues()[indexPath.row]
         
         if let title = titleValuesForPreference(preferenceVal: prefValue), let selectionTitle = self.title {
+            AnalyticsVader.sharedVader.basicEvents(eventName: .PreferenceSelectionDone, properties: ["preference_type": selectionTitle, "preference_value": title])
             ScreenVader.sharedVader.makeToast(toastStr: "\(selectionTitle): \(title)")
         }
         

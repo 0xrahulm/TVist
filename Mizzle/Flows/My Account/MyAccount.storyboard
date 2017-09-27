@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5r1-jP-s9h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5r1-jP-s9h">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
         <array key="SF-UI-Display-Medium.ttf">
             <string>SFUIDisplay-Medium</string>
         </array>
@@ -23,9 +27,8 @@
         <!--Watchlist-->
         <scene sceneID="67s-od-T4i">
             <objects>
-                <navigationController title="Watchlist" navigationBarHidden="YES" id="5r1-jP-s9h" customClass="CustomNavigationViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Watchlist" navigationBarHidden="YES" id="5r1-jP-s9h" customClass="CustomNavigationViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eGf-N3-kVT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -39,7 +42,7 @@
         <!--My Profile View Controller-->
         <scene sceneID="OOO-Th-6rl">
             <objects>
-                <viewController storyboardIdentifier="myAccountVC" extendedLayoutIncludesOpaqueBars="YES" id="Nbd-hv-hrv" customClass="MyProfileViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="myAccountVC" extendedLayoutIncludesOpaqueBars="YES" id="Nbd-hv-hrv" customClass="MyProfileViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sBI-8U-7sM"/>
                         <viewControllerLayoutGuide type="bottom" id="zbZ-wG-8LL"/>
@@ -48,8 +51,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ck-6C-KZw" customClass="UserDetailView" customModule="Mizzle" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="89"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ck-6C-KZw" customClass="UserDetailView" customModule="TVist" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="414" height="89"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TCp-tM-778">
                                         <rect key="frame" x="10" y="25" width="44" height="44"/>
@@ -78,7 +81,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Af5-fJ-t9o">
-                                        <rect key="frame" x="127" y="50.666666666666657" width="9" height="19.333333333333343"/>
+                                        <rect key="frame" x="127" y="50.666666666666671" width="9" height="19.333333333333329"/>
                                         <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="16"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -124,10 +127,10 @@
                                 </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Ti-Tf-xDt">
-                                <rect key="frame" x="0.0" y="89" width="414" height="647"/>
+                                <rect key="frame" x="0.0" y="109" width="414" height="627"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.95294117649999999" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="escapesSectionHorizontalidentifier" rowHeight="260" id="xQ2-m2-98X" customClass="CustomListTableViewCell" customModule="Mizzle" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="escapesSectionHorizontalidentifier" rowHeight="260" id="xQ2-m2-98X" customClass="CustomListTableViewCell" customModule="TVist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="260"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xQ2-m2-98X" id="hfv-8Y-6uB">
@@ -179,7 +182,7 @@
                                                         <inset key="sectionInset" minX="7.5" minY="15" maxX="20" maxY="15"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" reuseIdentifier="collectionViewBasicCell" id="YDY-t6-mmx" customClass="CustomListCollectionViewCell" customModule="Mizzle" customModuleProvider="target">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" reuseIdentifier="collectionViewBasicCell" id="YDY-t6-mmx" customClass="CustomListCollectionViewCell" customModule="TVist" customModuleProvider="target">
                                                             <rect key="frame" x="7.666666666666667" y="15" width="105" height="188"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -315,7 +318,7 @@
                                             <outlet property="collectionView" destination="O7B-Ss-9Zi" id="5dw-ye-A5C"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomLoadingTableViewCellIdentifier" rowHeight="160" id="P1b-Ta-01z" customClass="CustomLoadingTableViewCell" customModule="Mizzle" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomLoadingTableViewCellIdentifier" rowHeight="160" id="P1b-Ta-01z" customClass="CustomLoadingTableViewCell" customModule="TVist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="288" width="414" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P1b-Ta-01z" id="Uls-57-lO8">
@@ -382,7 +385,7 @@
         <!--Edit Profile-->
         <scene sceneID="LR3-UJ-XCm">
             <objects>
-                <viewController storyboardIdentifier="myAccountSettingVC" title="Edit Profile" id="t3X-yS-tmM" customClass="MyAccountSettingViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="myAccountSettingVC" title="Edit Profile" id="t3X-yS-tmM" customClass="MyAccountSettingViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ty2-El-KGo"/>
                         <viewControllerLayoutGuide type="bottom" id="yCK-Hh-NnL"/>
@@ -392,7 +395,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uhX-Sx-r1A">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingTableCellIdentifier" id="eGr-M7-qxc">
@@ -437,7 +440,7 @@
         <!--Item Desc View Controller-->
         <scene sceneID="G4p-Uj-i7t">
             <objects>
-                <viewController storyboardIdentifier="itemDescVC" hidesBottomBarWhenPushed="YES" id="a11-ht-bSR" customClass="ItemDescViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="itemDescVC" hidesBottomBarWhenPushed="YES" id="a11-ht-bSR" customClass="ItemDescViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XPt-MP-ofj"/>
                         <viewControllerLayoutGuide type="bottom" id="n4p-mZ-c83"/>
@@ -490,7 +493,7 @@
                                                     <constraint firstAttribute="height" constant="60" id="fWH-JI-rrZ"/>
                                                 </constraints>
                                             </imageView>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qVE-vB-g7Y" customClass="SimilarEscapesView" customModule="Mizzle" customModuleProvider="target">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qVE-vB-g7Y" customClass="SimilarEscapesView" customModule="TVist" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="441" width="414" height="260"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ZN-zS-yxw">
@@ -538,7 +541,7 @@
                                                             <inset key="sectionInset" minX="7.5" minY="15" maxX="20" maxY="15"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" reuseIdentifier="collectionViewBasicCell" id="g4O-Wm-1Mn" customClass="CustomListCollectionViewCell" customModule="Mizzle" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" reuseIdentifier="collectionViewBasicCell" id="g4O-Wm-1Mn" customClass="CustomListCollectionViewCell" customModule="TVist" customModuleProvider="target">
                                                                 <rect key="frame" x="7.666666666666667" y="15" width="105" height="188"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -679,7 +682,7 @@
                                                     <outlet property="similarViewTitle" destination="I2f-m4-RTk" id="jtu-WS-Zpe"/>
                                                 </connections>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mt1-e5-5nv" customClass="RelatedPeopleView" customModule="Mizzle" customModuleProvider="target">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mt1-e5-5nv" customClass="RelatedPeopleView" customModule="TVist" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="711" width="414" height="230"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j9L-D1-fbC">
@@ -1010,7 +1013,7 @@
         <!--Friends View Controller-->
         <scene sceneID="y8Z-3E-GjC">
             <objects>
-                <viewController id="huh-bb-nUF" customClass="FriendsViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="huh-bb-nUF" customClass="FriendsViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gt5-Mi-5jv"/>
                         <viewControllerLayoutGuide type="bottom" id="m2G-AY-zme"/>
@@ -1020,14 +1023,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="nJ2-lv-GIK">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zoD-g5-jHp">
-                                <rect key="frame" x="0.0" y="44" width="414" height="642"/>
+                                <rect key="frame" x="0.0" y="120" width="414" height="566"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="followCellIdentifier" rowHeight="70" id="Bb0-yQ-tD5" customClass="FollowersTableViewCell" customModule="Mizzle" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="followCellIdentifier" rowHeight="70" id="Bb0-yQ-tD5" customClass="FollowersTableViewCell" customModule="TVist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bb0-yQ-tD5" id="sIs-pR-2ZI">
@@ -1140,7 +1143,7 @@
                                     <constraint firstItem="L5C-Xt-dSm" firstAttribute="top" secondItem="3Fj-rG-mcv" secondAttribute="top" constant="20" id="oRB-B3-v0o"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2n-Cc-rDW" customClass="CustomDoneButton" customModule="Mizzle" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2n-Cc-rDW" customClass="CustomDoneButton" customModule="TVist" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="686" width="414" height="50"/>
                                 <color key="backgroundColor" red="0.050980392159999999" green="0.83921568629999999" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -1187,7 +1190,7 @@
         <!--Custom List View Controller-->
         <scene sceneID="E5U-as-l84">
             <objects>
-                <viewController storyboardIdentifier="customListVC" id="f3L-VX-98D" customClass="CustomListViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="customListVC" id="f3L-VX-98D" customClass="CustomListViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tG1-bn-bN2"/>
                         <viewControllerLayoutGuide type="bottom" id="dnR-b6-b6j"/>
@@ -1200,7 +1203,7 @@
                                 <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="basicCellIdentifier" rowHeight="240" id="Ibj-DT-bGd" customClass="CustomListTableViewCell" customModule="Mizzle" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="basicCellIdentifier" rowHeight="240" id="Ibj-DT-bGd" customClass="CustomListTableViewCell" customModule="TVist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="240"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ibj-DT-bGd" id="fkL-ab-rZg">
@@ -1230,7 +1233,7 @@
                                                         <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" reuseIdentifier="collectionViewBasicCell" id="X1V-q4-HZ9" customClass="CustomListCollectionViewCell" customModule="Mizzle" customModuleProvider="target">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" reuseIdentifier="collectionViewBasicCell" id="X1V-q4-HZ9" customClass="CustomListCollectionViewCell" customModule="TVist" customModuleProvider="target">
                                                             <rect key="frame" x="10" y="9.6666666666666661" width="105" height="210"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1387,7 +1390,7 @@
         <!--Followers View Controller-->
         <scene sceneID="W9P-kb-Mf4">
             <objects>
-                <viewController storyboardIdentifier="FollowersVC" id="lZD-PJ-J42" customClass="FollowersViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FollowersVC" id="lZD-PJ-J42" customClass="FollowersViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yqM-c2-SqH"/>
                         <viewControllerLayoutGuide type="bottom" id="yOJ-Hp-SzY"/>
@@ -1397,10 +1400,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bT1-eH-zqj">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="followCellIdentifier" rowHeight="70" id="2Oz-eM-Gaw" customClass="FollowersTableViewCell" customModule="Mizzle" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="followCellIdentifier" rowHeight="70" id="2Oz-eM-Gaw" customClass="FollowersTableViewCell" customModule="TVist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Oz-eM-Gaw" id="nlw-Rs-3No">
@@ -1529,10 +1532,10 @@
         <!--Custom Navigation View Controller-->
         <scene sceneID="ZXD-nC-OLS">
             <objects>
-                <navigationController storyboardIdentifier="friendsVC" automaticallyAdjustsScrollViewInsets="NO" id="LcA-Zu-1Ln" customClass="CustomNavigationViewController" customModule="Mizzle" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="friendsVC" automaticallyAdjustsScrollViewInsets="NO" id="LcA-Zu-1Ln" customClass="CustomNavigationViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ARd-th-B0N">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

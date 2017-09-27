@@ -30,6 +30,8 @@ class CustomListTableViewCell: HomeSectionBaseCell {
     
     var registerableCells:[DiscoverSectionCollectionCellIdentifier] = [.MediaItemCollectionViewCell]
     var escapesDataList: [EscapeItem] = []
+    var currentPage: Float = 0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -66,7 +68,7 @@ class CustomListTableViewCell: HomeSectionBaseCell {
         if collectionView == nil {
             self.layoutIfNeeded()
             
-            let flowLayout = UICollectionViewFlowLayout()
+            let flowLayout = SnappingFlowLayout()
             flowLayout.itemSize = CGSize(width: HeightForDiscoverItems.MediaListItemWidth.rawValue, height: HeightForDiscoverItems.MediaListSectionHeight.rawValue)
             flowLayout.scrollDirection = .horizontal
             
@@ -133,7 +135,7 @@ extension CustomListTableViewCell : UICollectionViewDelegate , UICollectionViewD
         let escapeItem = escapesDataList[indexPath.row]
         params["escapeItem"] = escapeItem
         
-        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomeDiscoverItemClick, properties: ["Position":"\(indexPath.row+1)", "escapeName": escapeItem.name])
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.DiscoverItemClick, properties: ["Position":"\(indexPath.row+1)", "escapeName": escapeItem.name, "ViewType":self.homeViewType.rawValue])
         
         ScreenVader.sharedVader.performUniversalScreenManagerAction(.openMediaItemDescriptionView, queryParams: params)
         
@@ -151,9 +153,8 @@ extension CustomListTableViewCell : UICollectionViewDelegate , UICollectionViewD
         let item = escapesDataList[indexPath.row]
         cell.dataItems = item
         
-        cell.trackPosition = "Home_Discover"
+        cell.trackPosition = self.homeViewType.rawValue
         
         return cell
     }
-    
 }

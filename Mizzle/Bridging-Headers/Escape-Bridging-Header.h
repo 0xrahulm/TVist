@@ -13,3 +13,5 @@
 #import "IonIcons.h"
 #import "ACTReporter.h"
 #import <Google/Analytics.h>
+#import "TTRangeSlider.h"
+#import "TTRangeSliderDelegate.h"

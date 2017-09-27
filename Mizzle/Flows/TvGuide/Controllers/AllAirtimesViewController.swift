@@ -33,6 +33,17 @@ class AllAirtimesViewController: UIViewController, UITableViewDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
+    override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
+        super.setObjectsWithQueryParameters(queryParams)
+        
+        if let escapeId = queryParams["escapeId"] as? String {
+            self.escapeId = escapeId
+        }
+        
+        if let title = queryParams["title"] as? String {
+            self.title = title
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -43,7 +54,6 @@ class AllAirtimesViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
         super.viewWillDisappear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -81,7 +91,14 @@ class AllAirtimesViewController: UIViewController, UITableViewDelegate, UITableV
         
         let airtime = airtimes[indexPath.row]
         
-        cell.airDisplayLabel.text = airtime.displayString()
+        
+        cell.dayTimeLabel.text = airtime.dayText()+", "+airtime.airTime
+        
+        if let episodeString = airtime.episodeString {
+            cell.seasonEpisodeLabel.text = episodeString
+        } else {
+            cell.seasonEpisodeLabel.text = airtime.channelName
+        }
         cell.channelImageView.downloadImageWithUrl(airtime.channelIcon, placeHolder: IconsUtility.airtimeIcon())
         return cell
     }

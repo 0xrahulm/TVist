@@ -21,7 +21,7 @@ final class EscapeItem: Object {
     @objc dynamic var createdBy:String?
     @objc dynamic var hasActed = false
     
-    var isTracking:Bool = false
+    var isAlertSet:Bool = false
     
     var nextAirtime: Airtime?
     
@@ -30,7 +30,7 @@ final class EscapeItem: Object {
     }
     
     override static func ignoredProperties() -> [String] {
-        return ["isTracking", "nextAirtime"]
+        return ["isAlertSet", "nextAirtime"]
     }
     
     class func addOrEditEscapeItem(_ id: String, name: String, escapeType:String, posterImage: String?, year: String?, rating: NSNumber?, subTitle: String?, createdBy: String?, _realm: Realm?, nextAirtime: [String:Any]?) -> EscapeItem {

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AfH-bo-Lt4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AfH-bo-Lt4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,7 +16,6 @@
             <objects>
                 <navigationController title="Watchlist" navigationBarHidden="YES" id="AfH-bo-Lt4" customClass="CustomNavigationViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="X85-rT-z4G">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -29,16 +30,12 @@
         <scene sceneID="x1e-EF-G0O">
             <objects>
                 <viewController title="Watchlist" id="rRf-2X-DyI" customClass="WatchlistViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="W2M-uL-18j"/>
-                        <viewControllerLayoutGuide type="bottom" id="LiY-9E-uiC"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eqp-ec-iM0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FkC-hj-05a">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="rRf-2X-DyI" id="imf-1V-gFW"/>
@@ -46,7 +43,7 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lEw-xc-u13" userLabel="No Trackings View">
-                                <rect key="frame" x="16" y="209" width="343" height="248.5"/>
+                                <rect key="frame" x="16" y="219" width="343" height="248.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your watchlist is empty" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQA-wg-JLe">
                                         <rect key="frame" x="5" y="95" width="333" height="31.5"/>
@@ -78,6 +75,9 @@
                                                 <integer key="value" value="4"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="didTapOnEmptyCTA:" destination="rRf-2X-DyI" eventType="touchUpInside" id="jrM-jl-51m"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -97,14 +97,21 @@
                                     <constraint firstItem="oPN-v3-mw3" firstAttribute="centerX" secondItem="lEw-xc-u13" secondAttribute="centerX" constant="5" id="uvW-tL-EmV"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nSp-cf-ooO">
+                                <rect key="frame" x="0.0" y="20" width="375" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="TpQ-0l-r2g"/>
+                                </constraints>
+                            </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="CJB-mW-wYm">
                                 <rect key="frame" x="177" y="323" width="20" height="20"/>
                             </activityIndicatorView>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1UY-EF-j4x" customClass="MasterHeaderView" customModule="TVist" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="140" id="5OO-TV-LLD"/>
+                                    <constraint firstAttribute="height" constant="96" id="5OO-TV-LLD"/>
                                 </constraints>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jnq-WV-lf3">
@@ -137,30 +144,34 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="FkC-hj-05a" firstAttribute="top" secondItem="W2M-uL-18j" secondAttribute="bottom" id="1Hg-b0-sNh"/>
-                            <constraint firstItem="CJB-mW-wYm" firstAttribute="centerX" secondItem="eqp-ec-iM0" secondAttribute="centerX" id="1wU-g0-gzs"/>
+                            <constraint firstItem="FkC-hj-05a" firstAttribute="top" secondItem="Dyk-Bc-bdf" secondAttribute="top" id="1Hg-b0-sNh"/>
+                            <constraint firstItem="CJB-mW-wYm" firstAttribute="centerX" secondItem="Dyk-Bc-bdf" secondAttribute="centerX" id="1wU-g0-gzs"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lEw-xc-u13" secondAttribute="trailing" id="2Go-JS-P0m"/>
                             <constraint firstItem="lEw-xc-u13" firstAttribute="centerY" secondItem="FkC-hj-05a" secondAttribute="centerY" id="7bj-xM-KdY"/>
-                            <constraint firstItem="1UY-EF-j4x" firstAttribute="top" secondItem="eqp-ec-iM0" secondAttribute="topMargin" id="Api-3L-st2"/>
-                            <constraint firstAttribute="trailing" secondItem="1UY-EF-j4x" secondAttribute="trailing" id="Btp-9j-xD1"/>
-                            <constraint firstItem="jnq-WV-lf3" firstAttribute="leading" secondItem="eqp-ec-iM0" secondAttribute="leading" id="HDU-IM-fJt"/>
+                            <constraint firstItem="Dyk-Bc-bdf" firstAttribute="trailing" secondItem="1UY-EF-j4x" secondAttribute="trailing" id="Btp-9j-xD1"/>
+                            <constraint firstItem="jnq-WV-lf3" firstAttribute="leading" secondItem="Dyk-Bc-bdf" secondAttribute="leading" id="HDU-IM-fJt"/>
                             <constraint firstAttribute="bottomMargin" secondItem="FkC-hj-05a" secondAttribute="bottom" id="I9o-cS-ySO"/>
-                            <constraint firstAttribute="trailing" secondItem="jnq-WV-lf3" secondAttribute="trailing" id="Je6-pi-EXd"/>
-                            <constraint firstAttribute="trailing" secondItem="FkC-hj-05a" secondAttribute="trailing" id="VqV-iq-2FP"/>
-                            <constraint firstItem="1UY-EF-j4x" firstAttribute="leading" secondItem="eqp-ec-iM0" secondAttribute="leading" id="WaL-eS-8jV"/>
+                            <constraint firstItem="Dyk-Bc-bdf" firstAttribute="trailing" secondItem="nSp-cf-ooO" secondAttribute="trailing" id="JMg-RG-fSA"/>
+                            <constraint firstItem="Dyk-Bc-bdf" firstAttribute="trailing" secondItem="jnq-WV-lf3" secondAttribute="trailing" id="Je6-pi-EXd"/>
+                            <constraint firstItem="nSp-cf-ooO" firstAttribute="leading" secondItem="Dyk-Bc-bdf" secondAttribute="leading" id="MHp-Uy-aDC"/>
+                            <constraint firstItem="nSp-cf-ooO" firstAttribute="top" secondItem="eqp-ec-iM0" secondAttribute="topMargin" id="OJG-uF-PDr"/>
+                            <constraint firstItem="Dyk-Bc-bdf" firstAttribute="trailing" secondItem="FkC-hj-05a" secondAttribute="trailing" id="VqV-iq-2FP"/>
+                            <constraint firstItem="1UY-EF-j4x" firstAttribute="leading" secondItem="Dyk-Bc-bdf" secondAttribute="leading" id="WaL-eS-8jV"/>
                             <constraint firstItem="lEw-xc-u13" firstAttribute="leading" secondItem="eqp-ec-iM0" secondAttribute="leadingMargin" id="bHs-mu-iBU"/>
                             <constraint firstItem="CJB-mW-wYm" firstAttribute="centerY" secondItem="eqp-ec-iM0" secondAttribute="centerY" id="fLk-ze-OJN"/>
-                            <constraint firstItem="FkC-hj-05a" firstAttribute="top" secondItem="W2M-uL-18j" secondAttribute="bottom" id="gRW-Zj-8aO"/>
+                            <constraint firstItem="FkC-hj-05a" firstAttribute="top" secondItem="Dyk-Bc-bdf" secondAttribute="top" id="gRW-Zj-8aO"/>
+                            <constraint firstItem="1UY-EF-j4x" firstAttribute="top" secondItem="Dyk-Bc-bdf" secondAttribute="top" id="iNM-5T-cPL"/>
                             <constraint firstItem="FkC-hj-05a" firstAttribute="top" secondItem="eqp-ec-iM0" secondAttribute="topMargin" id="jTO-TH-nOh"/>
-                            <constraint firstItem="FkC-hj-05a" firstAttribute="leading" secondItem="eqp-ec-iM0" secondAttribute="leading" id="pAT-Sg-jay"/>
-                            <constraint firstItem="LiY-9E-uiC" firstAttribute="top" secondItem="FkC-hj-05a" secondAttribute="bottom" id="rVV-qB-5Th"/>
-                            <constraint firstItem="LiY-9E-uiC" firstAttribute="top" secondItem="jnq-WV-lf3" secondAttribute="bottom" id="vtg-FU-UeX"/>
+                            <constraint firstItem="FkC-hj-05a" firstAttribute="leading" secondItem="Dyk-Bc-bdf" secondAttribute="leading" id="pAT-Sg-jay"/>
+                            <constraint firstItem="Dyk-Bc-bdf" firstAttribute="bottom" secondItem="FkC-hj-05a" secondAttribute="bottom" id="rVV-qB-5Th"/>
+                            <constraint firstItem="Dyk-Bc-bdf" firstAttribute="bottom" secondItem="jnq-WV-lf3" secondAttribute="bottom" id="vtg-FU-UeX"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Dyk-Bc-bdf"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="rVV-qB-5Th"/>
                                 <exclude reference="1Hg-b0-sNh"/>
                                 <exclude reference="gRW-Zj-8aO"/>
-                                <exclude reference="rVV-qB-5Th"/>
                             </mask>
                         </variation>
                     </view>
@@ -168,7 +179,9 @@
                     <connections>
                         <outlet property="alertButton" destination="pfw-Ds-xff" id="7nD-gB-qDE"/>
                         <outlet property="alertIconButton" destination="mob-62-dDV" id="af7-Xq-aMo"/>
+                        <outlet property="emptyCTAButton" destination="R1Q-MQ-mJ5" id="lxj-Wq-KZH"/>
                         <outlet property="emptyLabel" destination="h3P-IN-qeM" id="Lkv-34-ox9"/>
+                        <outlet property="emptyTitle" destination="RQA-wg-JLe" id="KE6-4H-pFf"/>
                         <outlet property="emptyView" destination="lEw-xc-u13" id="er6-i3-dNs"/>
                         <outlet property="headerViewHeightConstraint" destination="5OO-TV-LLD" id="X4W-hZ-L6o"/>
                         <outlet property="loadingView" destination="CJB-mW-wYm" id="fuo-3C-tJf"/>
@@ -187,11 +200,10 @@
             <objects>
                 <navigationController storyboardIdentifier="addToWatchlistNav" title="addToWatchlistNav" id="JH8-R1-Pce" customClass="CustomNavigationViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zf6-0O-aon">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="PKv-W0-dJk">
-                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -206,10 +218,6 @@
         <scene sceneID="rbu-h9-hyC">
             <objects>
                 <viewController id="gD5-ch-idZ" customClass="AddToWatchlistPopupViewController" customModule="TVist" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Wws-Rj-8hw"/>
-                        <viewControllerLayoutGuide type="bottom" id="3pP-tO-tY4"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BaN-zx-lFM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -267,7 +275,7 @@
                                             <constraint firstItem="2CX-yK-O1z" firstAttribute="leading" secondItem="fT3-YQ-S3R" secondAttribute="leading" id="xZe-wm-d55"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAQ-vp-d7p">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAQ-vp-d7p">
                                         <rect key="frame" x="12" y="546" width="351" height="45"/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -374,6 +382,9 @@
                                                                 </view>
                                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lXU-cd-sqm">
                                                                     <rect key="frame" x="314" y="12" width="51" height="31"/>
+                                                                    <connections>
+                                                                        <action selector="switchValueDidChange:" destination="YjL-Vj-0fr" eventType="valueChanged" id="i4U-xb-uta"/>
+                                                                    </connections>
                                                                 </switch>
                                                             </subviews>
                                                             <constraints>
@@ -432,10 +443,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="bPP-UC-sDb" secondAttribute="bottom" id="02X-Mj-DeS"/>
-                            <constraint firstItem="bPP-UC-sDb" firstAttribute="leading" secondItem="BaN-zx-lFM" secondAttribute="leading" id="QMz-Ln-Aar"/>
-                            <constraint firstAttribute="trailing" secondItem="bPP-UC-sDb" secondAttribute="trailing" id="Xb8-gf-YP3"/>
-                            <constraint firstItem="bPP-UC-sDb" firstAttribute="top" secondItem="Wws-Rj-8hw" secondAttribute="bottom" id="vqq-ke-xiF"/>
+                            <constraint firstItem="bPP-UC-sDb" firstAttribute="leading" secondItem="4Yr-qD-LFq" secondAttribute="leading" id="QMz-Ln-Aar"/>
+                            <constraint firstItem="4Yr-qD-LFq" firstAttribute="trailing" secondItem="bPP-UC-sDb" secondAttribute="trailing" id="Xb8-gf-YP3"/>
+                            <constraint firstItem="bPP-UC-sDb" firstAttribute="top" secondItem="4Yr-qD-LFq" secondAttribute="top" id="vqq-ke-xiF"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="4Yr-qD-LFq"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Add to Watchlist" id="QYl-UO-y8S">
@@ -459,7 +471,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AlertButtonUnSelected" width="25" height="25"/>
+        <image name="AlertButtonUnSelected" width="26" height="26"/>
         <image name="SortIcon" width="25" height="19"/>
         <image name="WatchlistIconGray" width="50" height="50"/>
         <image name="chevron" width="9" height="15"/>

@@ -46,14 +46,14 @@ class UserSettingsViewController: UIViewController {
                     if settingSection == .alerts {
                         
                         section.append(SettingItem(title: "Enable Alerts", type: .onOffSetting, action: nil))
-                        section.append(SettingItem(title: "Alert Options", type: .regular, action: .openAlertOptionsView))
+                        section.append(SettingItem(title: "Alert Options", type: .regular, action: .openAlertOptionsView, subTitle: nil, isEnabled: (UserPreferenceVader.shared.getAlertPreference() && user.userTypeEnum() != .Guest)))
                         
                     }
                     
                     if settingSection == .support {
                         
                         section.append(SettingItem(title: "Send Feedback", type: .regular, action: nil))
-                        section.append(SettingItem(title: "Help & Support", type: .regular, action: .openProfileEditView, subTitle: nil, isEnabled: user.userTypeEnum() == .Premium))
+                        section.append(SettingItem(title: "Help & Support", type: .regular, action: .openHelpAndSupportView, subTitle: nil, isEnabled: user.userTypeEnum() == .Premium))
                     }
                     
                     if settingSection == .authentication {
@@ -103,7 +103,7 @@ class UserSettingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.tableView.reloadData()
     }
     
@@ -160,6 +160,23 @@ extension UserSettingsViewController: UITableViewDelegate, UITableViewDataSource
             cell.makeBottomLineFull()
         }
         
+        cell.enabledState(isEnabled: item.isEnabled)
+        
+        if let switchCell = cell as? SettingsOnOffTableViewCell {
+            
+            if item.title == "Enable Alerts" {
+             
+                switchCell.onOffSwitchDelegate = self
+                if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+                 
+                    if user.isPremium() {
+                        switchCell.onOffSwitch.isOn = UserPreferenceVader.shared.getAlertPreference()
+                    } else {
+                        switchCell.onOffSwitch.isOn = false
+                    }
+                }
+            }
+        }
         cell.upperLine.isHidden = indexPath.row != 0
         
         return cell
@@ -169,6 +186,8 @@ extension UserSettingsViewController: UITableViewDelegate, UITableViewDataSource
         let item = settingItemsAtSection(indexPath.section)[indexPath.row]
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        AnalyticsVader.sharedVader.basicEvents(eventName: .UserSettingsItemTap, properties: ["Item Name": item.title])
         
         if let action = item.associatedAction {
             if action == .restorePurchasesView {
@@ -214,6 +233,20 @@ extension UserSettingsViewController: UITableViewDelegate, UITableViewDataSource
     }
 }
 
+extension UserSettingsViewController: SettingsOnOffSwitchProtocol {
+    func onOffSwitchValueDidChange(isOn: Bool) {
+        
+        AnalyticsVader.sharedVader.basicEvents(eventName: .UserSettingsAlertPreferenceSwitch, properties: ["state":"\(isOn)"])
+        
+        if UserDataProvider.sharedDataProvider.premiumOnlyFeature(feature: .airtimeAlerts) {
+            
+            UserDataProvider.sharedDataProvider.setPreferenceFor(key: .alertPreference, value: true)
+        }
+        
+        self.tableView.reloadData()
+    }
+}
+
 extension UserSettingsViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
@@ -223,11 +256,15 @@ extension UserSettingsViewController: MFMailComposeViewControllerDelegate {
 }
 
 extension UserSettingsViewController: IAPDataProtocol {
-    func verificationSuccesfulForPayment() {
+    func verificationSuccesfulForPayment(shouldDismiss: Bool) {
         self.tableView.reloadData()
     }
     
     func didFetchAvailableProducts() {
+        
+    }
+    
+    func cancelled() {
         
     }
 }

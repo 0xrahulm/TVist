@@ -18,10 +18,12 @@ class SearchViewController: BaseViewController {
     @IBOutlet weak var segmentedTab: UISegmentedControl!
     
     var controllerArray : [UIViewController] = []
-    var searchedText : String = ""
+    
     var moveToIndex = 0
     var screen = ""
+    var searchedText : String = ""
     var loadedOnce: Bool = false
+    
     static let sharedInstance = SearchViewController()
     
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
@@ -52,7 +54,7 @@ class SearchViewController: BaseViewController {
             configureVCs()
             pageMenu?.moveToPage(moveToIndex)
             
-            if screen == "discover"{
+            if screen == "home"{
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelTapped))
             }
             loadedOnce = true
@@ -74,7 +76,7 @@ class SearchViewController: BaseViewController {
     
     func setupSearchBar(){
         var width = self.view.frame.size.width-30
-        if screen == "discover"{
+        if screen == "home" {
             width = self.view.frame.size.width-100
         }
         searchBar = UISearchBar(frame: CGRect(x: 0.0, y: 0.0, width: width, height: 40.0))

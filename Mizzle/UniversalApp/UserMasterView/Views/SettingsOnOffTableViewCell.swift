@@ -8,16 +8,20 @@
 
 import UIKit
 
+protocol SettingsOnOffSwitchProtocol: class {
+    func onOffSwitchValueDidChange(isOn: Bool)
+}
+
 class SettingsOnOffTableViewCell: SettingsBaseTableViewCell {
     
     @IBOutlet weak var onOffSwitch: UISwitch!
+    
+    weak var onOffSwitchDelegate: SettingsOnOffSwitchProtocol?
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    @IBAction func switchValueDidChange(_ sender: Any) {
+        if let onOffSwitchDelegate = self.onOffSwitchDelegate {
+            onOffSwitchDelegate.onOffSwitchValueDidChange(isOn: onOffSwitch.isOn)
+        }
     }
-    */
 
 }

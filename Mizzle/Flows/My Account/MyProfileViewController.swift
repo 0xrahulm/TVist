@@ -549,13 +549,6 @@ extension MyProfileViewController: UITableViewDelegate {
     }
 }
 
-extension MyProfileViewController: ProfileImageChangeProtocol {
-    func didChangeProfilePic(image: UIImage) {
-        self.reload = false
-//        self.profileImage.image = image
-    }
-}
-
 extension MyProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

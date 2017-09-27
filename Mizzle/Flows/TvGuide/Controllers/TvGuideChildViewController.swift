@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SpaceView
 
 
 enum TvGuideCellIdentifier: String {
@@ -334,7 +333,8 @@ extension TvGuideChildViewController: PrimaryCTATapProtocol {
             
             if !TrackingDataProvider.shared.dopamineShotShown {
                 TrackingDataProvider.shared.dopamineShotShown = true
-                self.showSpace(title: "\(item.name)", description: "Awesome! you'll now receive notifications when it Airs.", spaceOptions: [.spaceStyle(style: .success), .titleFont(font: SFUIAttributedText.getMediumFont(size: 13)), .spaceHideTimer(timer: 3.2), .spaceHeight(height: 80), .spacePosition(position: .top), .descriptionFont(font: SFUIAttributedText.getRegularFont(size: 15))])
+                
+//                self.showSpace(title: "\(item.name)", description: "Awesome! you'll now receive notifications when it Airs.", spaceOptions: [.spaceStyle(style: .success), .titleFont(font: SFUIAttributedText.getMediumFont(size: 13)), .spaceHideTimer(timer: 3.2), .spaceHeight(height: 80), .spacePosition(position: .top), .descriptionFont(font: SFUIAttributedText.getRegularFont(size: 15))])
             }
         }
     }

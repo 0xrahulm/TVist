@@ -20,7 +20,7 @@ class TvRemoteDataProvider: CommonDataProvider {
     
     weak var remoteDataDelegate: RemoteDataProtocol?
     
-    func getAiringNow(page: Int, categoryId: String?, channelNumber: String?) {
+    func getAiringNow(page: Int, categoryId: String?, channelNumber: String?, isLater: Bool = false) {
         
         var params:[String:Any] = ["page":page]
         
@@ -29,6 +29,10 @@ class TvRemoteDataProvider: CommonDataProvider {
         }
         if let channelNumber = channelNumber {
             params["channel_number"] = channelNumber
+        }
+        
+        if isLater {
+            params["later"] = isLater
         }
         
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .RemoteAiringNow, params: params, delegate: self)

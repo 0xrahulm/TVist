@@ -136,14 +136,19 @@ extension MediaWatchlistSection:UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let _ = self.emptyString {
+            return
+        }
+        
         let escapeItem = watchlistItems[indexPath.row]
         
         var params : [String:AnyObject] = [:]
         
         params["escapeItem"] = escapeItem
         
-        ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
-        
-        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomeWatchlistItemClick, properties: ["Position":"\(indexPath.row+1)", "escapeName": escapeItem.name])
+        ScreenVader.sharedVader.performUniversalScreenManagerAction(.openMediaItemDescriptionView, queryParams: params)
+    
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.WatchlistItemClick, properties: ["Position":"\(indexPath.row+1)", "escapeName": escapeItem.name, "ViewType":self.homeViewType.rawValue])
     }
 }

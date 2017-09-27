@@ -103,7 +103,7 @@ class TrackingDataProvider: CommonDataProvider {
             }
             
             if let isTracking = eachItem["is_tracking"] as? Bool {
-                escapeItem.isTracking = isTracking
+                escapeItem.isAlertSet = isTracking
             }
             
             dataArray.append(escapeItem)

@@ -52,6 +52,17 @@ class SettingsBaseTableViewCell: UITableViewCell {
         }
     }
     
+    func enabledState(isEnabled: Bool) {
+        
+        self.isUserInteractionEnabled = isEnabled
+        
+        if isEnabled {
+            self.titleLabel.textColor = UIColor.styleGuideMainTextColor()
+        } else {
+            self.titleLabel.textColor = UIColor.styleGuideBodyTextColor()
+        }
+    }
+    
     func makeBottomLineFull() {
         if self.bottomLineLeadingConstraint != nil {
             

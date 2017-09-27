@@ -16,6 +16,8 @@ class HomeSectionBaseCell: UITableViewCell {
     @IBOutlet weak var seeAllButton: UIButton!
     
     var lastScrollValue:String = ""
+    
+    var homeViewType:HomeViewType = HomeViewType.today
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -58,7 +60,7 @@ class HomeSectionBaseCell: UITableViewCell {
         if self.lastScrollValue != scrollBucketStr {
             if let sectionTitle = self.sectionTitleLabel.text {
                 
-                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomeSectionHorizontalScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "SectionName": sectionTitle])
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SectionHorizontalScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "SectionName": sectionTitle, "ViewType":homeViewType.rawValue])
             }
             self.lastScrollValue = scrollBucketStr
             
@@ -74,7 +76,7 @@ class HomeSectionBaseCell: UITableViewCell {
             let scrollBucketStr = scrollBucket(scrollValue: percentageScroll)
             if self.lastScrollValue != scrollBucketStr {
                 if let sectionTitle = self.sectionTitleLabel.text {
-                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomeSectionHorizontalScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "SectionName": sectionTitle])
+                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SectionHorizontalScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "SectionName": sectionTitle, "ViewType":homeViewType.rawValue])
                 }
                 self.lastScrollValue = scrollBucketStr
             }

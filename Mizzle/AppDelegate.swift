@@ -232,8 +232,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     func setGlobalAppearance() {
-        
-        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -500,vertical: 0), for: .default)
+        UINavigationBar.appearance().barTintColor = UIColor.white
         
     }
     

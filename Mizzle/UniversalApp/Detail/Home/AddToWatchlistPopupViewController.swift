@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol AddToWatchlistPopupProtocol: class {
+    func addToWatchlistDone(isAlertSet: Bool)
+}
+
 class AddToWatchlistPopupViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -18,17 +22,30 @@ class AddToWatchlistPopupViewController: UIViewController {
     
     var mediaItem: EscapeItem!
     
-    var alertOptions = [
-        SettingItem(title: "Enable Alerts", type: .onOffSetting, action: nil),
-        SettingItem(title: "Alert Options", type: .regular, action: .openAlertOptionsView)
-    ]
+    var selectedAlertSwitch: Bool = false
+    
+    weak var delegate: AddToWatchlistPopupProtocol?
+    
+    var alertOptionsEnabled:Bool = false
+    
+    var alertOptions:[SettingItem] {
+        get {
+            return [
+                SettingItem(title: "Enable Alerts", type: .onOffSetting, action: nil),
+                SettingItem(title: "Alert Options", type: .regular, action: .openAlertOptionsView, subTitle: nil, isEnabled: alertOptionsEnabled)
+            ]
+        }
+    }
     
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         super.setObjectsWithQueryParameters(queryParams)
         
         if let mediaItem = queryParams["mediaItem"] as? EscapeItem {
             self.mediaItem = mediaItem
-            
+        }
+        
+        if let delegate = queryParams["delegate"] as? AddToWatchlistPopupProtocol {
+            self.delegate = delegate
         }
     }
     
@@ -39,6 +56,7 @@ class AddToWatchlistPopupViewController: UIViewController {
         self.mediaNameLabel.text = mediaItem.name
         self.mediaYearLabel.text = mediaItem.year
         self.mediaPosterImageView.downloadImageWithUrl(mediaItem.posterImage, placeHolder: nil)
+        self.selectedAlertSwitch = mediaItem.isAlertSet
         
         self.tableView.backgroundColor = UIColor.styleGuideBackgroundColor()
         
@@ -63,18 +81,43 @@ class AddToWatchlistPopupViewController: UIViewController {
     
     @IBAction func didTapOnDoneButton() {
         
+        WatchlistDataProvider.shared.addEditWatchlist(escapeId: self.mediaItem.id, shouldAlert: self.selectedAlertSwitch)
+        
+        if let delegate = self.delegate {
+            delegate.addToWatchlistDone(isAlertSet: self.selectedAlertSwitch)
+        }
+        
         if let navController = self.navigationController {
             navController.dismiss(animated: true, completion: nil)
         }
+        
+        AnalyticsVader.sharedVader.basicEvents(eventName: .AddToWatchlistDoneButtonTap)
     }
     
     
     @IBAction func didTapOnCancelButton() {
+        AnalyticsVader.sharedVader.basicEvents(eventName: .AddToWatchlistCancelButtonTap)
         if let navController = self.navigationController {
             navController.dismiss(animated: true, completion: nil)
         }
     }
     
+}
+
+extension AddToWatchlistPopupViewController: SettingsOnOffSwitchProtocol {
+    func onOffSwitchValueDidChange(isOn: Bool) {
+        
+        if UserDataProvider.sharedDataProvider.premiumOnlyFeature(feature: .airtimeAlerts) {
+            self.selectedAlertSwitch = isOn
+            self.alertOptionsEnabled = true
+            
+        }
+        
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.AddToWatchlistEnableAlerts, properties: ["state":"\(isOn)"])
+        
+        self.tableView.reloadData()
+        
+    }
 }
 
 extension AddToWatchlistPopupViewController: UITableViewDataSource, UITableViewDelegate {
@@ -87,8 +130,16 @@ extension AddToWatchlistPopupViewController: UITableViewDataSource, UITableViewD
         if indexPath.row == alertOptions.count-1 {
             cell.makeBottomLineFull()
         }
+        cell.enabledState(isEnabled: item.isEnabled)
         
         cell.upperLine.isHidden = indexPath.row != 0
+        
+        if item.title == "Enable Alerts" {
+            if let switchCell = cell as? SettingsOnOffTableViewCell {
+                switchCell.onOffSwitchDelegate = self
+                switchCell.onOffSwitch.isOn = self.selectedAlertSwitch
+            }
+        }
         
         return cell
     }
@@ -104,5 +155,16 @@ extension AddToWatchlistPopupViewController: UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let item = alertOptions[indexPath.row]
+        
+        if item.title == "Alert Options" {
+            AnalyticsVader.sharedVader.basicEvents(eventName: EventName.AddToWatchlistAlertOptions)
+            ScreenVader.sharedVader.performUniversalScreenManagerAction(.openAlertOptionsView, queryParams: nil)
+        }
     }
 }

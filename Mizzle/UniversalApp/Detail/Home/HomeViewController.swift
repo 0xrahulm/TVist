@@ -31,10 +31,10 @@ enum HomeCellIdentifiers: String {
 }
 
 enum HeightForHomeSection: CGFloat {
-    case defaultHeightWatchlist = 45.0
+    case defaultHeightWatchlist = 50.0
 }
 
-enum HomeViewType {
+enum HomeViewType:String {
     case today
     case next7Days
     case discover
@@ -52,10 +52,12 @@ class HomeViewController: GenericDetailViewController {
         
         if let homeViewType = queryParams["viewType"] as? HomeViewType {
             self.thisHomeViewType = homeViewType
+            
         }
     }
     
     var selectedType: FilterType = .All
+    
     var storedOffsets = [Int: CGFloat]()
     
     var registerableCells: [HomeCellIdentifiers] = [.MediaWatchlistSection,.MediaListCellIdentifier,.MediaListingCellIdentifier,.BrowseByGenreCell,.ArticlesSectionTableViewCell,.VideosSectionCell, .RemoteConnectBannerCell, .VideosSectionCelliPad]
@@ -79,11 +81,20 @@ class HomeViewController: GenericDetailViewController {
             tableView.addSubview(refreshControl)
         }
         
+        if self.thisHomeViewType == .discover {
+            self.title = "Discover"
+        } else if self.thisHomeViewType == .next7Days {
+            self.title = "Next 7 Days"
+        } else if self.thisHomeViewType == .today {
+            self.title = "Today"
+        }
+        
         refreshControl.addTarget(self, action: #selector(HomeViewController.reset), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupSearchFloatButton()
     }
     
     override func supportedCells() -> [GenericDetailCellIdentifiers] {
@@ -119,7 +130,7 @@ class HomeViewController: GenericDetailViewController {
             cellHeight += MediaWatchlistSection.totalHeight(count: item.escapeDataList.count)
         }
         
-        if item.itemTypeEnumValue() == .discover {
+        if item.itemTypeEnumValue() == .discover || item.itemTypeEnumValue() == .next7DaysItem || item.itemTypeEnumValue() == .todayItem  {
             cellHeight += CustomListTableViewCell.totalHeight(itemsCount: item.escapeDataList.count)
         }
         
@@ -181,13 +192,26 @@ class HomeViewController: GenericDetailViewController {
         super.scrollViewDidEndDecelerating(scrollView)
         
         if scrollView == self.tableView {
-            
-            let percentageScroll:CGFloat = ((scrollView.contentOffset.y+scrollView.frame.size.height)/scrollView.contentSize.height)*100
-            let scrollBucketStr = scrollBucket(scrollValue: percentageScroll)
-            if self.lastScrollValue != scrollBucketStr {
-                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomeScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "Segment Tab": self.selectedType.rawValue])
-                self.lastScrollValue = scrollBucketStr
+            screenScrollEvent(scrollView: scrollView)
+        }
+    }
+    
+    func screenScrollEvent(scrollView: UIScrollView) {
+        
+        let percentageScroll:CGFloat = ((scrollView.contentOffset.y+scrollView.frame.size.height)/scrollView.contentSize.height)*100
+        let scrollBucketStr = scrollBucket(scrollValue: percentageScroll)
+        if self.lastScrollValue != scrollBucketStr {
+            var eventName: EventName = EventName.HomeScreenScroll
+            if thisHomeViewType == .today {
+                eventName = EventName.TodayScreenScroll
+            } else if thisHomeViewType == .next7Days {
+                eventName = EventName.Next7DaysScreenScroll
+            } else if thisHomeViewType == .discover {
+                eventName = EventName.DiscoverScreenScroll
             }
+            
+            AnalyticsVader.sharedVader.basicEvents(eventName: eventName, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "Segment Tab": self.selectedType.rawValue])
+            self.lastScrollValue = scrollBucketStr
         }
     }
     
@@ -195,16 +219,8 @@ class HomeViewController: GenericDetailViewController {
         super.scrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
         if !decelerate {
             
-            if self.tableView == scrollView {
-                
-                
-                let percentageScroll:CGFloat = ((scrollView.contentOffset.y+scrollView.frame.size.height)/scrollView.contentSize.height)*100
-                let scrollBucketStr = scrollBucket(scrollValue: percentageScroll)
-                if self.lastScrollValue != scrollBucketStr {
-                    AnalyticsVader.sharedVader.basicEvents(eventName: EventName.HomeScreenScroll, properties: ["percentage":String(format:"%.1f",percentageScroll), "scrollBucket": scrollBucketStr, "Segment Tab": self.selectedType.rawValue])
-                    self.lastScrollValue = scrollBucketStr
-                }
-                
+            if scrollView == self.tableView {
+                screenScrollEvent(scrollView: scrollView)
             }
         }
     }
@@ -213,7 +229,21 @@ class HomeViewController: GenericDetailViewController {
 
 extension HomeViewController: HomeDataProtocol {
     func didReceiveHomeData(data: [HomeItem], page: Int?) {
+        self.refreshControl.endRefreshing()
         appendDataToBeListed(appendableData: data, page: page)
+        if data.count > 0 {
+            
+            var eventName: EventName = EventName.HomePageLoaded
+            if thisHomeViewType == .today {
+                eventName = EventName.TodayPageLoaded
+            } else if thisHomeViewType == .next7Days {
+                eventName = EventName.Next7DaysPageLoaded
+            } else if thisHomeViewType == .discover {
+                eventName = EventName.DiscoverPageLoaded
+            }
+            
+            AnalyticsVader.sharedVader.basicEvents(eventName: eventName)
+        }
     }
     
     func errorRecievingHomeData() {
@@ -242,7 +272,7 @@ extension HomeViewController: UITableViewDataSource {
                 cell.viewAllTapDelegate = self
                 return cell
             }
-        } else if item.itemTypeEnumValue() == .discover {
+        } else if item.itemTypeEnumValue() == .discover || item.itemTypeEnumValue() == .todayItem || item.itemTypeEnumValue() == .next7DaysItem {
             if let cell = tableView.dequeueReusableCell(withIdentifier: GenericDetailCellIdentifiers.mediaListCellIdentifier.rawValue, for: indexPath) as? CustomListTableViewCell {
                 cell.sectionTitleLabel.text = item.title
                 cell.viewAllTapDelegate = self
@@ -313,6 +343,10 @@ extension HomeViewController: UITableViewDataSource {
             } else if let emptyMessage = item.emptyMessage {
                 cell.setEmptyString(emptyString: emptyMessage)
             }
+        }
+        
+        if let cell = cell as? HomeSectionBaseCell {
+            cell.homeViewType = self.thisHomeViewType
         }
         
         if let cell = cell as? VideosSectionCell {
@@ -389,11 +423,11 @@ extension HomeViewController: ViewAllTapProtocol {
             let item = listItems[indexPath.row] as! HomeItem
             
             var eventParams: [String:String] = ["Row":"\(indexPath.row+1)"]
-            var eventName: EventName = .HomeSectionViewAllClick
+            var eventName: EventName = .SectionViewAllClick
             
-            if item.itemTypeEnumValue() == .discover {
-                eventName = .HomeDiscoverViewAllClick
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenHomeDiscoverItemView, queryParams: ["homeItem":item])
+            if item.itemTypeEnumValue() == .discover || item.itemTypeEnumValue() == HomeItemType.todayItem || item.itemTypeEnumValue() == HomeItemType.next7DaysItem {
+                eventName = .DiscoverViewAllClick
+                ScreenVader.sharedVader.performUniversalScreenManagerAction(.openHomeDiscoverItemView, queryParams: ["homeItem":item])
             }
             
             if item.itemTypeEnumValue() == .articles {
@@ -411,13 +445,13 @@ extension HomeViewController: ViewAllTapProtocol {
             }
             
             if item.itemTypeEnumValue() == .genre {
-                eventName = .HomeGenreViewAllClick
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenAllGenreView, queryParams: nil)
+                eventName = .GenreViewAllClick
+                ScreenVader.sharedVader.performUniversalScreenManagerAction(.openAllGenreView, queryParams: nil)
             }
             
             if item.itemTypeEnumValue() == .tracker {
-                eventName = .HomeWatchlistViewAllClick
-                ScreenVader.sharedVader.performScreenManagerAction(.WatchlistTab, queryParams: nil)
+                eventName = .WatchlistViewAllClick
+                ScreenVader.sharedVader.performUniversalScreenManagerAction(.watchlistDetailView, queryParams: ["isTopVC": false])
             }
             
             if item.itemTypeEnumValue() == .listing {
@@ -427,6 +461,7 @@ extension HomeViewController: ViewAllTapProtocol {
             
             if let title = item.title {
                 eventParams["SectionName"] = title
+                eventParams["ViewType"] = self.thisHomeViewType.rawValue
             }
             
             AnalyticsVader.sharedVader.basicEvents(eventName: eventName, properties: eventParams)

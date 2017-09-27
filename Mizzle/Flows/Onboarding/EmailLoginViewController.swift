@@ -32,8 +32,19 @@ class EmailLoginViewController: UIViewController {
     let defaultMarginForViews:CGFloat = 15
     
     var emailSignInDefault: String?
-    
+    var switchToLoginTab: Bool = false
     var screen: String = "original"
+    
+    override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
+        super.setObjectsWithQueryParameters(queryParams)
+        if let screen = queryParams["screen"] as? String {
+            self.screen = screen
+        }
+        
+        if let login = queryParams["login"] as? Bool {
+            self.switchToLoginTab = login
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,21 +57,30 @@ class EmailLoginViewController: UIViewController {
         self.fullNameSignUp.delegate = self
         self.emailSignUp.delegate = self
         self.passwordSignUp.delegate = self
+        self.passwordSignUp.isPasswordField = true
         
         self.emailSignIn.delegate = self
         self.passwordSignIn.delegate = self
+        self.passwordSignIn.isPasswordField = true
+        
         
         if let emailSignInDefault = emailSignInDefault {
             signInViewVisible()
             self.signInTabButton.isSelected = true
             self.signUpTabButton.isSelected = false
             
-            self.emailSignIn.textField.text = emailSignInDefault
-            self.passwordSignIn.textField.becomeFirstResponder()
+            self.emailSignIn.setText(text: emailSignInDefault)
+            self.passwordSignIn.textView.becomeFirstResponder()
         } else {
-            signUpViewVisible()
-            self.signInTabButton.isSelected = false
-            self.signUpTabButton.isSelected = true
+            
+            self.signInTabButton.isSelected = switchToLoginTab
+            self.signUpTabButton.isSelected = !switchToLoginTab
+            
+            if switchToLoginTab {
+                signInViewVisible()
+            } else {
+                signUpViewVisible()
+            }
         }
         
         
@@ -71,14 +91,9 @@ class EmailLoginViewController: UIViewController {
         
     }
     
-    override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
-        super.setObjectsWithQueryParameters(queryParams)
-        if let screen = queryParams["screen"] as? String {
-            self.screen = screen
-        }
-    }
-    
     @IBAction func skipButtonTapped(_ sender: UIButton) {
+        
+        AnalyticsVader.sharedVader.basicEvents(eventName: .UserSignUpSkipButtonTap)
         if let navController = self.navigationController {
             navController.dismiss(animated: true, completion: nil)
         } else {
@@ -96,6 +111,7 @@ class EmailLoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         
         NotificationCenter.default.addObserver(self, selector: #selector(EmailLoginViewController.keyboardWillAppear(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
@@ -148,21 +164,13 @@ class EmailLoginViewController: UIViewController {
         if self.signUpTabButton.isSelected {
             
             signUpViewVisible()
-            var str = ""
-            if let passwordText = self.passwordSignUp.textField.text {
-                str = passwordText
-            }
-            determineSignUpButtonState(newString: str)
+            determineSignUpButtonState()
             AnalyticsVader.sharedVader.basicEvents(eventName: .signUpTabClick)
         }
         
         if self.signInTabButton.isSelected {
             signInViewVisible()
-            var str = ""
-            if let passwordText = self.passwordSignIn.textField.text {
-                str = passwordText
-            }
-            determineSignInButtonState(newString: str)
+            determineSignInButtonState()
             AnalyticsVader.sharedVader.basicEvents(eventName: .signInTabClick)
         }
     }
@@ -197,21 +205,21 @@ class EmailLoginViewController: UIViewController {
         if self.signUpTabButton.isSelected {
             
             AnalyticsVader.sharedVader.basicEvents(eventName: .doneButtonOnEmailSignup)
-            if fullNameSignUp.textField.text == "" {
+            if !fullNameSignUp.isSet() {
                 loadErrorPopUp("Please enter your full name")
                 return
             }
-            if emailSignUp.textField.text == "" {
+            if !emailSignUp.isSet() {
                 loadErrorPopUp("Please enter your email address")
                 return
             }
-            if passwordSignUp.textField.text == ""{
+            if !passwordSignUp.isSet() {
                 loadErrorPopUp("Please set your password")
                 return
             }
             
-            if let fullName = fullNameSignUp.textField.text, let email = emailSignUp.textField.text, let password = passwordSignUp.textField.text  {
-                
+            if let fullName = fullNameSignUp.textView.text, let email = emailSignUp.textView.text {
+                let password = passwordSignUp.passwordFieldValue
                 if !OnBoardingUtility.isValidEmail(email){
                     loadErrorPopUp("Please Enter Valid Email address")
                     return
@@ -230,16 +238,17 @@ class EmailLoginViewController: UIViewController {
         
         if self.signInTabButton.isSelected {
             AnalyticsVader.sharedVader.basicEvents(eventName: .doneButtonOnEmailLogin)
-            if emailSignIn.textField.text == "" {
+            if !emailSignIn.isSet() {
                 loadErrorPopUp("Enter your email address")
                 return
             }
-            if passwordSignIn.textField.text == ""{
+            if !passwordSignIn.isSet() {
                 loadErrorPopUp("Enter your password")
                 return
             }
             
-            if let email = emailSignIn.textField.text, let password = passwordSignIn.textField.text {
+            if let email = emailSignIn.textView.text {
+                let password = passwordSignIn.passwordFieldValue
                 doneButton.isLoading = true
                 UserDataProvider.sharedDataProvider.signInWithEmail(email, password: password)
             }
@@ -287,26 +296,12 @@ class EmailLoginViewController: UIViewController {
         }
     }
     
-    func determineSignUpButtonState(newString: String) {
-        if let fullNameText = self.fullNameSignUp.textField.text, let emailSignUpText = self.emailSignUp.textField.text {
-            
-            if fullNameText.characters.count > 0 && emailSignUpText.characters.count > 0 && newString.characters.count > 0 {
-                doneButton.enableButton = true
-            } else {
-                doneButton.enableButton = false
-            }
-        }
+    func determineSignUpButtonState() {
+        doneButton.enableButton = (fullNameSignUp.isSet() && emailSignUp.isSet() && passwordSignUp.isSet())
     }
     
-    func determineSignInButtonState(newString: String) {
-        if let emailSignInText = self.emailSignIn.textField.text {
-            
-            if emailSignInText.characters.count > 0 && newString.characters.count > 0 {
-                doneButton.enableButton = true
-            } else {
-                doneButton.enableButton = false
-            }
-        }
+    func determineSignInButtonState() {
+        doneButton.enableButton = (emailSignIn.isSet() && passwordSignIn.isSet())
     }
     
     func openInteresetVC(){
@@ -323,20 +318,18 @@ class EmailLoginViewController: UIViewController {
 }
 
 extension EmailLoginViewController: HighlightableTextViewProtocol {
-    func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        let textFieldText: NSString = (textField.text ?? "") as NSString
-        let txtAfterUpdate = textFieldText.replacingCharacters(in: range, with: string)
+    
+    func textViewDidChange() {
         
         if self.signUpTabButton.isSelected {
-            determineSignUpButtonState(newString: txtAfterUpdate)
+            determineSignUpButtonState()
         }
         
         
         if self.signInTabButton.isSelected {
-            determineSignInButtonState(newString: txtAfterUpdate)
+            determineSignInButtonState()
         }
         
-        return true
     }
 }
 
@@ -359,11 +352,12 @@ extension EmailLoginViewController : LoginProtocol {
     
     func signInSuccessfull(_ data : [String:AnyObject] , type : LoginTypeEnum, subServiceType: SubServiceType){
         
+        ScreenVader.sharedVader.loginAction()
+        
         if type == .Email && subServiceType == .EmailSignUp {
 //            openInteresetVC()
 //            return
         }
-        ScreenVader.sharedVader.loginActionAfterDelay()
         
     }
 }

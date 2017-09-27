@@ -106,7 +106,27 @@ class MyAccountDataProvider: CommonDataProvider {
     }
     
     func updateProfilePicture(pictureName: String) {
+        
         ServiceCall(.put, serviceType: .ServiceTypePrivateApi, subServiceType: .PutProfilePicture, params: ["picture_name":pictureName], delegate: self)
+    }
+    
+    func updateEmail(email: String) {
+        RealmDataVader.sharedVader.updateEmailForCurrentUser(email: email)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .UpdateEmail, params: ["email": email], delegate: self)
+    }
+    
+    func updateFirstName(firstName: String) {
+        RealmDataVader.sharedVader.updateFirstNameForCurrentUser(firstName: firstName)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .UpdateFirstName, params: ["first_name": firstName], delegate: self)
+    }
+    
+    func updateLastName(lastName: String) {
+        RealmDataVader.sharedVader.updateLastNameForCurrentUser(lastName: lastName)
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .UpdateLastName, params: ["last_name": lastName], delegate: self)
+    }
+
+    func updatePassword(password: String) {
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .UpdatePassword, params: ["password": password], delegate: self)
     }
     
     func removeEscape(escapeId: String) {
@@ -168,8 +188,8 @@ class MyAccountDataProvider: CommonDataProvider {
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetItemDesc, params: params, delegate: self)
     }
     
-    func logoutUser(){
-        
+    func logoutUser() {
+        ECUserDefaults.setLoggedIn(false)
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .LogoutUser, params: nil, delegate: self)
     }
     
@@ -255,7 +275,9 @@ class MyAccountDataProvider: CommonDataProvider {
                     }
                 }
                 break
-                
+            case .PutProfilePicture:
+                MyAccountDataProvider.sharedDataProvider.getUserDetails(nil)
+                break
             case .GetSimilarEscape:
                 if let data = service.outPutResponse as? [[String:Any]], let params = service.parameters {
                     self.parseSimilarEscapeData(data: data, page: params["page"] as? Int)
@@ -292,7 +314,7 @@ class MyAccountDataProvider: CommonDataProvider {
                 break
                 
             case .LogoutUser:
-                ScreenVader.sharedVader.performLogout()
+                ScreenVader.sharedVader.loginAction()
                 break
                 
             case .GetItemDesc:
@@ -343,6 +365,15 @@ class MyAccountDataProvider: CommonDataProvider {
                 }
                 break
                 
+            case .UpdateFirstName:
+                fallthrough
+            case .UpdateLastName:
+                fallthrough
+            case .UpdateEmail:
+                fallthrough
+            case .UpdatePassword:
+                NotificationCenter.default.post(name: NSNotification.Name(NotificationObservers.UserDetailsDataObserver.rawValue), object: nil)
+                fallthrough
             default:
                 break
             }
@@ -434,12 +465,16 @@ extension MyAccountDataProvider {
         guard let success = data["success"] as? Bool, let userProfileData = data["user_profile_data"] as? [String:Any] else {
             return
         }
+        var userWasGuest: Bool = false
+        if let user = self.currentUser {
+            userWasGuest = (user.userTypeEnum() == .Guest)
+        }
         
         parseUserDetails(userProfileData, userId: nil)
         
         if success {
             
-            IAPVader.sharedVader.succesfullyVerified()
+            IAPVader.sharedVader.succesfullyVerified(shouldDismiss: !userWasGuest)
         } else {
             if let message = data["message"] as? String {
                 
@@ -611,11 +646,9 @@ extension MyAccountDataProvider {
         
     }
     
-    func parseDescData(_ dict : [String:AnyObject], id : String){
+    func parseDescData(_ dict: [String:AnyObject], id: String) {
         
-        var dataItems : DescDataItems?
-        
-        dataItems = DescDataItems(dict: dict)
+        var dataItems: DescDataItems = DescDataItems(dict: dict)
         
         if self.itemDescDelegate != nil{
             self.itemDescDelegate?.receivedItemDesc(dataItems, id : id)
@@ -673,6 +706,7 @@ extension MyAccountDataProvider{
         
         if let userItem = userItem{
             
+            
             let userData = UserData()
             userData.id = userItem.id
             userData.firstName  = userItem.firstName
@@ -684,12 +718,19 @@ extension MyAccountDataProvider{
             
             userData.profilePicture = userItem.profilePicture
             
-            userData.followers = Int(userItem.followers)
             
-            userData.following = Int(userItem.following)
-            userData.track_count = Int(userItem.trackingsCount)
-            userData.alerts_count = Int(userItem.alertsCount)
-            userData.seen_count = Int(userItem.seenCount)
+            userData.followers = userItem.followers.intValue
+            
+            userData.following = userItem.following.intValue
+            userData.track_count = userItem.trackingsCount.intValue
+            
+            if userData.alerts_count != userItem.alertsCount.intValue || userData.seen_count != userItem.seenCount.intValue || userData.escape_count != userItem.escapes_count.intValue {
+                NotificationCenter.default.post(name: NSNotification.Name(NotificationObservers.CountsDidUpdateObserver.rawValue), object: nil)
+            }
+            userData.alerts_count = userItem.alertsCount.intValue
+            userData.seen_count = userItem.seenCount.intValue
+            
+            userData.escape_count = userItem.escapes_count.intValue
             
             if let oldUserData = self.currentUser {
                 let oldUserType = oldUserData.userTypeEnum()
@@ -723,7 +764,8 @@ extension MyAccountDataProvider{
                 }
             }
             userData.userType = userItem.userType
-            userData.escape_count = userItem.escapes_count.intValue
+            
+            
         
             RealmDataVader.sharedVader.writeToRealm(userData, background: false)
             self.currentUser = userData

@@ -16,8 +16,9 @@ enum LocalStorageKey:String {
     case DontShowRemoteConnectBanner = "DontShowRemoteConnectBanner"
     case RemoteConnectURI = "RemoteConnectionUri"
     case LastOpenScreen = "LastOpenScreen"
+    case LastSortSelected = "LastSortSelected"
     case StoredProductIdentfier = "StoredProductIdentifier"
-    case TappedOnBlueDot = "TappedOnBlueDot"
+    case TappedOnRedDot = "TappedOnRedDot"
 }
 
 class LocalStorageVader: NSObject {

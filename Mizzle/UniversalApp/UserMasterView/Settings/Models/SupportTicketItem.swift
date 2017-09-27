@@ -16,6 +16,7 @@ class SupportTicketItem: NSObject {
     var simpleId: String?
     var supportType: SupportTicketType = .technical
     var body: String?
+    var isOpen:Bool = true
     
     class func parseSupportTicketData(_ data: [String:Any]) -> SupportTicketItem? {
         guard let name = data["title"] as? String, let id = data["id"] as? String else { return nil }
@@ -29,6 +30,10 @@ class SupportTicketItem: NSObject {
         
         if let ticketTypeVal = data["support_type"] as? Int, let ticketType = SupportTicketType(rawValue: ticketTypeVal) {
             ticketItem.supportType = ticketType
+        }
+        
+        if let isOpen = data["is_open"] as? Bool {
+            ticketItem.isOpen = isOpen
         }
         
         return ticketItem

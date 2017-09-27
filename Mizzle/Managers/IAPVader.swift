@@ -11,7 +11,8 @@ import StoreKit
 
 protocol IAPDataProtocol: class {
     func didFetchAvailableProducts()
-    func verificationSuccesfulForPayment()
+    func verificationSuccesfulForPayment(shouldDismiss: Bool)
+    func cancelled()
 }
 
 class IAPVader: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
@@ -221,10 +222,12 @@ class IAPVader: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserve
     
     func handleFailedState(for transaction: SKPaymentTransaction, in queue: SKPaymentQueue) {
         print("Purchase failed for product id: \(transaction.payment.productIdentifier)")
+        self.delegate?.cancelled()
     }
     
     func handleDeferredState(for transaction: SKPaymentTransaction, in queue: SKPaymentQueue) {
         print("Purchase deferred for product id: \(transaction.payment.productIdentifier)")
+        self.delegate?.cancelled()
     }
     
     var hasReceiptData: Bool {
@@ -244,7 +247,7 @@ class IAPVader: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserve
             return nil
         }
     }
-    func succesfullyVerified() {
-        self.delegate?.verificationSuccesfulForPayment()
+    func succesfullyVerified(shouldDismiss: Bool) {
+        self.delegate?.verificationSuccesfulForPayment(shouldDismiss: shouldDismiss)
     }
 }

@@ -19,8 +19,8 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
     let customNavigationAnimationController = CustomNavigationAnimationController()
     let customInteractionController = CustomInteractionController()
     
-    var popupHeight: CGFloat = 460
-    var popupWidth: CGFloat = 310
+    var popupHeight: CGFloat = 480
+    var popupWidth: CGFloat = 316
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -35,7 +35,10 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
         
         self.delegate = self
         setAppearnce()
-        // Do any additional setup after loading the view.
+        
+        if let interactiveGestureRecognizer = self.interactivePopGestureRecognizer {
+            interactiveGestureRecognizer.delegate = self
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -83,11 +86,10 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
    
     func setAppearnce(){
         
-        self.navigationBar.barTintColor = UIColor.escapeGray()
+        self.navigationBar.barTintColor = UIColor.white
         self.navigationBar.tintColor = UIColor.defaultCTAColor()
-        self.navigationBar.isTranslucent = false
         
-        self.navigationBar.titleTextAttributes = SFUIAttributedText.regularAttributesForSize(17.0, color: UIColor.themeColorBlack())
+        self.navigationBar.titleTextAttributes = SFUIAttributedText.regularAttributesForSize(17.0, color: UIColor.styleGuideMainTextColor())
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
@@ -114,8 +116,26 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
 
 }
 
+
+extension CustomNavigationViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
 extension CustomNavigationViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        
+        if let presentingVC = self.presentingVC {
+            let presntingWidth = presentingVC.view.bounds.width*0.60
+            if presntingWidth > popupWidth {
+                popupWidth = presntingWidth
+            }
+            let presetingHeight = presentingVC.view.bounds.height*0.70
+            if presetingHeight > popupHeight {
+                popupHeight = presetingHeight
+            }
+        }
         let presentationController = CustomPopupPresentationController(presentedViewController: presented, presentingViewController: presentingVC!, width: popupWidth, height: popupHeight, yOffset: 0, cornerRadius: 4)
         presentedVCObj = presentationController
         return presentationController;

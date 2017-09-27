@@ -250,7 +250,7 @@ extension RemoteViewController: RemoteDataProtocol {
 
 extension RemoteViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mediaItem = self.remoteItems[indexPath.row]
         if let channelNumber = mediaItem.channelItem?.number {
             if let escapeName = mediaItem.mediaItem.name {

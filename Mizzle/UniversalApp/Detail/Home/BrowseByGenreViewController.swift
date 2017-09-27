@@ -14,7 +14,7 @@ class BrowseByGenreViewController: GenericAllItemsListViewController {
     var genreItem: GenreItem?
     
     var selectedType: FilterType = .All
-    
+    var styleGuideSegmentControl: StyleGuideSegmentControl?
     
     var listOfItemType:[FilterType] = [.All, .Television, .Movie]
     var titleForItem: [FilterType: String] = [.All:"All", .Television: "Television", .Movie: "Movies"]
@@ -25,6 +25,52 @@ class BrowseByGenreViewController: GenericAllItemsListViewController {
         if let genreItem = queryParams["genreItem"] as? GenreItem {
             self.genreItem = genreItem
         }
+    }
+    
+    
+    
+    func addSegmentedFilterHeader() {
+        
+        let totalHeight = ViewConstants.segmentedHeaderHeightView
+        let yOffsetForSegmentedView:CGFloat = 0
+        
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: totalHeight))
+        headerView.translatesAutoresizingMaskIntoConstraints = true
+        headerView.center = CGPoint(x: self.tableView.bounds.midX, y: ViewConstants.segmentedHeaderHeightView/2)
+        headerView.autoresizingMask = [.flexibleWidth]
+        
+        
+        headerView.backgroundColor = UIColor.styleGuideBackgroundColor2()
+        
+        
+        styleGuideSegmentControl = StyleGuideSegmentControl(frame: CGRect(x: ViewConstants.styleGuideDefaultMargin, y: yOffsetForSegmentedView, width: headerView.bounds.width-(2*ViewConstants.styleGuideDefaultMargin), height: ViewConstants.segmentedControlHeight))
+        
+        if let styleGuideSegmentControl = styleGuideSegmentControl {
+            styleGuideSegmentControl.translatesAutoresizingMaskIntoConstraints = true
+            styleGuideSegmentControl.delegate = self
+            styleGuideSegmentControl.center = CGPoint(x: headerView.center.x, y: headerView.center.y+yOffsetForSegmentedView)
+            styleGuideSegmentControl.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
+            styleGuideSegmentControl.selectedIndex = 0
+            
+            for listType in listOfItemType {
+                if let titleForType = titleForItem[listType] {
+                    
+                    styleGuideSegmentControl.segments.append(TextSegment(text: titleForType))
+                }
+            }
+            
+            headerView.addSubview(styleGuideSegmentControl)
+        }
+        
+        let bottomLine = UIView(frame: CGRect(x: 0, y: headerView.bounds.height-0.5, width: headerView.bounds.width, height: 0.5))
+        bottomLine.center = CGPoint(x: headerView.bounds.midX, y: headerView.bounds.height-0.5)
+        bottomLine.translatesAutoresizingMaskIntoConstraints = true
+        bottomLine.autoresizingMask = [.flexibleWidth]
+        bottomLine.backgroundColor = UIColor.styleGuideLineGray()
+        
+        headerView.addSubview(bottomLine)
+        
+        self.tableView.tableHeaderView = headerView
     }
     
     @IBAction func segmentValueChanged(sender: UISegmentedControl) {
@@ -52,7 +98,7 @@ class BrowseByGenreViewController: GenericAllItemsListViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        addSegmentedFilterHeader()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
@@ -89,4 +135,13 @@ class BrowseByGenreViewController: GenericAllItemsListViewController {
         }
     }
 
+}
+
+extension BrowseByGenreViewController: WBSegmentControlDelegate {
+    func segmentControl(_ segmentControl: WBSegmentControl, selectIndex newIndex: Int, oldIndex: Int) {
+        let filter = listOfItemType[newIndex]
+        self.selectedType = filter
+        
+        reset()
+    }
 }

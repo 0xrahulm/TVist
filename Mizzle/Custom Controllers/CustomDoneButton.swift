@@ -30,8 +30,10 @@ class CustomDoneButton: UIButton {
             self.isEnabled = newValue
             
             if(newValue) {
+                self.setTitleColor(UIColor.white, for: .normal)
                 self.backgroundColor = UIColor.styleGuideActionButtonBlue()
             } else {
+                self.setTitleColor(UIColor.styleGuideBodyTextColor(), for: .normal)
                 self.backgroundColor = UIColor.styleGuideInputColor()
             }
         }

@@ -92,7 +92,8 @@ extension AllGenresListViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = self.genreItems[indexPath.row]
-        ScreenVader.sharedVader.performScreenManagerAction(.OpenBrowseByGenreView, queryParams: ["genreItem": item])
+        ScreenVader.sharedVader.performUniversalScreenManagerAction(.openBrowseByGenreView, queryParams: ["genreItem": item])
+        
         if let genreName = item.name {
             AnalyticsVader.sharedVader.basicEvents(eventName: .HomeAllGenresItemClick, properties: ["GenreName":genreName, "Position":"\(indexPath.row+1)"])
         }

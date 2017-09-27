@@ -57,6 +57,7 @@ protocol DeviceSessionProtocol: class {
 
 protocol SupportTicketsProtocol: class {
     func didRecieveSupportTickets(items: [SupportTicketItem])
+    func didCreateNewSupportTicket()
 }
 
 class UserDataProvider: CommonDataProvider {
@@ -89,6 +90,12 @@ class UserDataProvider: CommonDataProvider {
         
         ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .EmailSigIn, params: ["email":email , "password":password, "device_info": UIDevice.current.modelName], delegate: self)
         
+    }
+    
+    func createNewSupportTicket(title:String, supportType: SupportTicketType, body: String) {
+        let params: [String: Any] = ["title": title, "support_type": supportType.rawValue, "body": body]
+        
+        ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .CreateSupportTicket, params: params, delegate: self)
     }
     
     func getAllSupportTickets() {
@@ -147,6 +154,13 @@ class UserDataProvider: CommonDataProvider {
     
         UserPreferenceVader.shared.storeValueInKey(key, value: value)
         
+        if let valueStr = UserPreferenceVader.shared.valueStringForPreference(preference: key) {
+         
+            AnalyticsVader.sharedVader.basicEvents(eventName: .UserAlertOptionsPreferenceChange, properties: ["preference_name": key.rawValue, "preference_value": valueStr])
+        } else {
+            
+            AnalyticsVader.sharedVader.basicEvents(eventName: .UserAlertOptionsPreferenceChange, properties: ["preference_name": key.rawValue, "preference_value": "\(value)"])
+        }
         var subServiceType: SubServiceType?
         switch key {
         case .alertPreference:
@@ -180,6 +194,17 @@ class UserDataProvider: CommonDataProvider {
         }
     }
     
+    func premiumOnlyFeature(feature: FeatureIdentifier) -> Bool {
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+            if user.isPremium() {
+                return true
+            }
+            ScreenVader.sharedVader.performUniversalScreenManagerAction(UniversalScreenManagerAction.openPremiumPopupView, queryParams: ["feature":feature])
+        }
+        
+        return false
+    }
+    
 // MARK: - Service Responses
     
     override func serviceSuccessfull(_ service: Service) {
@@ -187,6 +212,11 @@ class UserDataProvider: CommonDataProvider {
         if let subServiceType = service.subServiveType{
             
             switch subServiceType {
+            case .CreateSupportTicket:
+                if let delegate = supportTicketsDelegate {
+                    delegate.didCreateNewSupportTicket()
+                }
+                break
                 
             case .FBSignIn:
                 if let data = service.outPutResponse as? [String:AnyObject]{
@@ -461,6 +491,7 @@ extension UserDataProvider{
             if let user = dict["user"] as? [String:Any] {
                 if let _ = user["id"] as? String {
                     let parsedUserData = MyAccountItems(dict: user, userType: nil)
+                    MyAccountDataProvider.sharedDataProvider.getUserDetails(nil)
                     MyAccountDataProvider.sharedDataProvider.saveUserDataToRealm(parsedUserData)
                 }
             }

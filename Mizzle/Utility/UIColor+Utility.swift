@@ -154,7 +154,7 @@ extension UIColor{
         return UIColor.white
     }
     
-    class func styleGuideInputColor() -> UIColor {
+    @objc class func styleGuideInputColor() -> UIColor {
         return UIColor.colorWithHexString("#EFEFF3")
     }
     
@@ -166,5 +166,12 @@ extension UIColor{
         return UIColor.colorWithHexString("#007AFF")
     }
     
+    class func styleGuideActionGreen() -> UIColor {
+        return UIColor.colorWithHexString("#21D439")
+    }
+    
+    class func styleGuideActionRed() -> UIColor {
+        return UIColor.colorWithHexString("#FF3B30")
+    }
 }
 

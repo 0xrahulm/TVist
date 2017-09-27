@@ -48,7 +48,7 @@ class WatchlistChildViewController: GenericAllItemsListViewController {
     
     override func fetchRequest() {
         
-        WatchlistDataProvider.shared.fetchWatchlistData(page: nextPage, type: listType)
+        
     }
     
     override func getTrackingPositionName() -> String {

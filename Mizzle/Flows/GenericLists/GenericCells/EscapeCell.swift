@@ -12,13 +12,17 @@ class EscapeCell: NormalCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var posterImageView: UIImageView!
-    @IBOutlet weak var creatorTypeLabel: UILabel!
-    @IBOutlet weak var creatorNameLabel: UILabel!
+    
+    
+    @IBOutlet weak var yearLabel: UILabel!
+    
     @IBOutlet weak var ratingLabel:UILabel!
+    @IBOutlet weak var ratingView: UIView!
     
     @IBOutlet weak var airtimeLabel: UILabel!
+    @IBOutlet weak var episodeLabel: UILabel!
     
-    @IBOutlet weak var trackButton: UIButton!
+    @IBOutlet weak var ctaButton: UIButton!
     
     
     var userHasActed:Bool = false
@@ -33,59 +37,52 @@ class EscapeCell: NormalCell {
     func attachData() {
         
         if let escapeItem = escapeItem {
-            var escapeTitleStr = escapeItem.name
+            
+            titleLabel.text = escapeItem.name
+            
             let year = escapeItem.year
             if year.characters.count > 0 && escapeItem.escapeTypeVal() != .Books {
-                escapeTitleStr += " (\(year))"
+                yearLabel.text = year
             }
-            titleLabel.text = escapeTitleStr
-            
             posterImageView.downloadImageWithUrl(escapeItem.posterImage, placeHolder: UIImage(named: "movie_placeholder"))
             
-            if let createdBy = escapeItem.createdBy {
-                creatorNameLabel.text = createdBy
-                creatorNameLabel.isHidden = false
-            }else{
-                creatorNameLabel.isHidden = true
-            }
-            
-            if escapeItem.escapeTypeVal() == .Movie {
-                creatorTypeLabel.text = EscapeCreatorType.Movie.rawValue
-            }else if escapeItem.escapeTypeVal() == .Books{
-                creatorTypeLabel.text = EscapeCreatorType.Books.rawValue
-            }else if escapeItem.escapeTypeVal() == .TvShows{
-                creatorTypeLabel.text = EscapeCreatorType.TvShows.rawValue
-            }
             
             if let nextAirtime = escapeItem.nextAirtime {
-                var airText:String = ""
-                if let airDate = nextAirtime.airDate {
-                    airText += "\(airDate) "
-                }
-                airText += "\(nextAirtime.airTime!)"
+                self.airtimeLabel.text = nextAirtime.dayText()+", "+nextAirtime.airTime
                 
-                if let channelName = nextAirtime.channelName {
-                    airText += " on \(channelName)"
-                }
-                self.airtimeLabel.text = airText
+                
+                self.episodeLabel.text = nextAirtime.episodeString
             } else {
-                self.airtimeLabel.text = "Not airing in next 7 days."
+                self.airtimeLabel.text = nil
+                self.episodeLabel.text = nil
             }
             
+//            if let nextAirtime = escapeItem.nextAirtime {
+//                var airText:String = ""
+//                if let airDate = nextAirtime.airDate {
+//                    airText += "\(airDate) "
+//                }
+//                airText += "\(nextAirtime.airTime!)"
+//
+//                if let channelName = nextAirtime.channelName {
+//                    airText += " on \(channelName)"
+//                }
+//                self.airtimeLabel.text = airText
+//            } else {
+//                self.airtimeLabel.text = "Not airing in next 7 days."
+//            }
+            self.ratingView.isHidden = (escapeItem.rating == "")
             self.ratingLabel.text = escapeItem.rating
             
             self.userHasActed = escapeItem.hasActed
             
-            if trackButton != nil {
+            if ctaButton != nil {
                 
-                trackButton.setImage(IonIcons.image(withIcon: ion_android_time, size: 20, color: UIColor.white), for: .normal)
-                trackButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.white), for: .selected)
-            }
-            
-
-            
-            if trackButton != nil {
-                updateTrackButton(newState: escapeItem.isTracking)
+                ctaButton.setImage(UIImage(named:"WatchlistAddIcon"), for: .normal)
+                ctaButton.setImage(UIImage(named:"EditIconWhite"), for: .selected)
+                
+                ctaButton.setTitle("Add", for: .normal)
+                ctaButton.setTitle("Edit", for: .selected)
             }
             
             updateAddEditButton()
@@ -101,8 +98,8 @@ class EscapeCell: NormalCell {
     }
     
     func toggleButtonState() {
-        trackButton.popButtonAnimate()
-        let newState = !trackButton.isSelected
+        ctaButton.popButtonAnimate()
+        let newState = !ctaButton.isSelected
         if !newState {
             if let itemName = escapeItem?.name {
                 
@@ -113,7 +110,7 @@ class EscapeCell: NormalCell {
                     
                     
                     if let item = self.escapeItem {
-                        item.isTracking = newState
+                        item.isAlertSet = newState
                         
                         AnalyticsVader.sharedVader.undoTrack(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: self.trackPosition)
                         
@@ -132,7 +129,7 @@ class EscapeCell: NormalCell {
             }
         } else {
             if let item = escapeItem {
-                item.isTracking = newState
+                item.isAlertSet = newState
                 AnalyticsVader.sharedVader.trackButtonClicked(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: trackPosition)
                 TrackingDataProvider.shared.addTrackingFor(escapeId: item.id)
                 updateTrackButton(newState: newState)
@@ -142,15 +139,11 @@ class EscapeCell: NormalCell {
     
     func updateTrackButton(newState: Bool) {
         
-        trackButton.isSelected = newState
-        if newState {
-            trackButton.backgroundColor = UIColor.defaultCTAColor()
-        } else {
-            trackButton.backgroundColor = UIColor.defaultTintColor()
-        }
     }
     
     func updateAddEditButton() {
+        ctaButton.isSelected = self.userHasActed
+        
         if self.userHasActed {
             
         } else {
@@ -173,10 +166,11 @@ class EscapeCell: NormalCell {
             }
             
             if self.userHasActed {
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenEditEscapePopUp, queryParams: paramsToPass)
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.EditButtonTap, properties: ["escapeName": escapeItem.name, "escapeType": escapeItem.escapeType, "Position":trackPosition])
             } else {
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenAddToEscapePopUp, queryParams: paramsToPass)
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.AddButtonTap, properties: ["escapeName": escapeItem.name, "escapeType": escapeItem.escapeType, "Position":trackPosition])
             }
+            ScreenVader.sharedVader.performUniversalScreenManagerAction(.openAddToWatchlistView, queryParams: ["mediaItem": escapeItem, "delegate": self])
         }
     }
 
@@ -190,7 +184,17 @@ class EscapeCell: NormalCell {
 
 }
 
-
+extension EscapeCell: AddToWatchlistPopupProtocol {
+    func addToWatchlistDone(isAlertSet: Bool) {
+        
+        if let escapeItem = self.escapeItem {
+            escapeItem.isAlertSet = isAlertSet
+            escapeItem.hasActed = true
+        }
+        self.userHasActed = true
+        updateAddEditButton()
+    }
+}
 
 extension EscapeCell: EditEscapeProtocol {
     func didDeleteEscape() {

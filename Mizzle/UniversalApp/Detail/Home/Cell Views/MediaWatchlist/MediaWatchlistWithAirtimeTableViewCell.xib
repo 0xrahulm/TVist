@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -101,6 +102,17 @@
                                     <constraint firstAttribute="width" constant="12" id="dv8-yj-uar"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N47-fy-Cvv">
+                                <rect key="frame" x="345" y="13" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="MEa-gN-na1"/>
+                                    <constraint firstAttribute="height" constant="30" id="dW7-jr-DWX"/>
+                                </constraints>
+                                <state key="normal" image="Swipe-Detection"/>
+                                <connections>
+                                    <action selector="didTapOnSwipeDetails" destination="cSS-QQ-2gv" eventType="touchUpInside" id="pQq-Iv-X3v"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -108,7 +120,9 @@
                             <constraint firstAttribute="trailing" secondItem="f3t-Un-fAB" secondAttribute="trailing" id="Ceh-n4-MrA"/>
                             <constraint firstItem="NfQ-RV-0XV" firstAttribute="leading" secondItem="UJe-c5-H3y" secondAttribute="trailing" constant="6" id="DtI-V7-XjR"/>
                             <constraint firstItem="NfQ-RV-0XV" firstAttribute="top" secondItem="KC5-qd-huo" secondAttribute="top" constant="13" id="EGb-P2-hvp"/>
+                            <constraint firstItem="N47-fy-Cvv" firstAttribute="top" secondItem="UJe-c5-H3y" secondAttribute="top" id="El5-Td-nkB"/>
                             <constraint firstItem="bRN-vi-W7N" firstAttribute="top" secondItem="NfQ-RV-0XV" secondAttribute="top" constant="2" id="Gde-qz-P9Q"/>
+                            <constraint firstAttribute="trailing" secondItem="N47-fy-Cvv" secondAttribute="trailing" id="HfY-Zj-tZc"/>
                             <constraint firstItem="XxI-Yn-5re" firstAttribute="top" secondItem="bRN-vi-W7N" secondAttribute="bottom" constant="2" id="K1Y-bb-qew"/>
                             <constraint firstAttribute="bottom" secondItem="f3t-Un-fAB" secondAttribute="bottom" id="Ppi-Tx-IIQ"/>
                             <constraint firstItem="f3t-Un-fAB" firstAttribute="leading" secondItem="bRN-vi-W7N" secondAttribute="leading" constant="-2" id="XIS-SA-wOD"/>
@@ -132,6 +146,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="alertIconImageView" destination="UJe-c5-H3y" id="q3V-eJ-oep"/>
+                <outlet property="alertIconWidthConstraint" destination="dv8-yj-uar" id="igs-ix-rCT"/>
                 <outlet property="channelImageView" destination="YRH-Al-yAl" id="UlA-1c-7kW"/>
                 <outlet property="dayTimeLabel" destination="FHi-AL-EbB" id="gkC-FG-Kwy"/>
                 <outlet property="mediaTitleLabel" destination="bRN-vi-W7N" id="DJ0-NH-FgE"/>
@@ -144,5 +159,6 @@
     </objects>
     <resources>
         <image name="AlertIcon" width="18" height="30"/>
+        <image name="Swipe-Detection" width="4" height="14"/>
     </resources>
 </document>

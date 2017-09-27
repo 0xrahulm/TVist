@@ -79,10 +79,6 @@ class MyAccountViewController: UIViewController{
     
     
     func setVisuals(){
-        let settingImage = IonIcons.image(withIcon: ion_android_notifications, size: 22, color: UIColor.themeColorBlack())
-        let settingButton : UIBarButtonItem = UIBarButtonItem(image: settingImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(MyAccountViewController.notificationTapped))
-        
-        self.navigationItem.rightBarButtonItem = settingButton
         editProfileButton.layer.borderColor = UIColor.textGrayColor().cgColor
         editProfileButton.layer.borderWidth = 1.0
         editProfileButton.layer.cornerRadius = 2.0

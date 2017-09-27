@@ -15,10 +15,13 @@ protocol SimilarEscapesViewAllTapProtocol:class {
 
 class SimilarEscapesView: UIView {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var similarViewTitle: UILabel!
+    
+    var collectionView: UICollectionView!
+    var registerableCells:[DiscoverSectionCollectionCellIdentifier] = [.MediaItemCollectionViewCell]
     
     var similarEscapes:[EscapeItem] = []
     
@@ -37,7 +40,41 @@ class SimilarEscapesView: UIView {
         MyAccountDataProvider.sharedDataProvider.getSimilarEscapes(escapeId: escapeId, escapeType: escapeType, page: nil)
         self.isHidden = false
         
-        collectionView.register(UINib(nibName: "MediaItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MediaItemCollectionViewCell")
+        if collectionView == nil {
+            self.layoutIfNeeded()
+            
+            let flowLayout = SnappingFlowLayout()
+            flowLayout.itemSize = CGSize(width: HeightForDiscoverItems.MediaListItemWidth.rawValue, height: HeightForDiscoverItems.MediaListSectionHeight.rawValue)
+            flowLayout.scrollDirection = .horizontal
+            
+            flowLayout.minimumInteritemSpacing = 0
+            flowLayout.minimumLineSpacing = 0
+            
+            flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            
+            collectionView = UICollectionView(frame: self.containerView.bounds, collectionViewLayout: flowLayout)
+            
+            collectionView.dataSource = self
+            collectionView.delegate = self
+            
+            collectionView.backgroundColor = UIColor.white
+            collectionView.showsHorizontalScrollIndicator = false
+            
+            self.containerView.addSubview(collectionView)
+            
+            collectionView.translatesAutoresizingMaskIntoConstraints = true
+            collectionView.center = CGPoint(x: self.containerView.bounds.midX, y: self.containerView.bounds.midY)
+            collectionView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+            
+            initXibs()
+        }
+    }
+    
+    
+    func initXibs() {
+        for genericCell in registerableCells {
+            collectionView.register(UINib(nibName: genericCell.rawValue, bundle: nil), forCellWithReuseIdentifier: genericCell.rawValue)
+        }
     }
     
     func updateTitle(title: String) {

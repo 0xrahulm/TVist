@@ -27,6 +27,29 @@ class DiscoverDataProvider: CommonDataProvider {
         ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetDiscoverItems, params: params, delegate: self)
     }
     
+    func getSearchItem(_ queryText: String, filterType: FilterType, limit:Int?=10, page:Int?=1) {
+        
+        var params : [String:Any] = [:]
+        
+        
+        params["type"] =  filterType.rawValue // discovery type required
+        params["query"] = queryText
+        if let page = page{
+            params["page"] = page
+        }
+        if let limit = limit{
+            params["limit"] = limit
+        }
+        
+        for service in activeServices{
+            if service.subServiveType == .GetSearchItems{
+                
+            }
+        }
+        
+        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .GetSearchItems, params: params, delegate: self)
+    }
+    
     func getSearchItems(_ queryText : String, searchType : SearchType, limit : Int?, page : Int?){
         
         var params : [String:Any] = [:]
@@ -139,7 +162,7 @@ extension DiscoverDataProvider{
             }
             
             if let isTracking = eachItem["is_tracking"] as? Bool {
-                escapeItem.isTracking = isTracking
+                escapeItem.isAlertSet = isTracking
             }
             
             dataArray.append(escapeItem)

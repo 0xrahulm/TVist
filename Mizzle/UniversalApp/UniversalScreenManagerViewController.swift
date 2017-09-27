@@ -20,6 +20,8 @@ class UniversalScreenManagerViewController: UIViewController {
     
     var presentToast : UIWindow?
     
+    var detailViewReference: [UniversalScreenManagerAction: UIViewController] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,7 +47,7 @@ class UniversalScreenManagerViewController: UIViewController {
         
     }
     
-    func rebootView() {
+    @objc func rebootView() {
         if self.currentPresentedViewController == self {
             initialViewBootUp()
         }
@@ -66,10 +68,6 @@ class UniversalScreenManagerViewController: UIViewController {
     
     fileprivate func presentRootViewControllerOf(_ storyBoardIdentifier: StoryBoardIdentifier, asPopover: Bool, queryParams: [String:AnyObject]?) {
         if let currentPresentedViewController = initialViewControllerFor(storyBoardIdentifier) {
-            
-            if storyBoardIdentifier == .Onboarding {
-                presentedViewControllers = []
-            }
             
             presentViewController(presentingVC: currentPresentedViewController, asPopover: asPopover, queryParams: queryParams)
         }
@@ -152,6 +150,7 @@ class UniversalScreenManagerViewController: UIViewController {
     }
     
     func secondaryViewController() -> UIViewController {
+        
         if let lastVisitedPage = LocalStorageVader.sharedVader.valueForStoredKey(.LastOpenScreen) as? String, let storedAction = UniversalScreenManagerAction(rawValue: lastVisitedPage), let mainViewToLoad = getMainViewForAction(action: storedAction) {
             return mainViewToLoad
         }
@@ -162,11 +161,35 @@ class UniversalScreenManagerViewController: UIViewController {
     func getMainViewForAction(action: UniversalScreenManagerAction) -> UIViewController? {
         var storyboardIdentifier = StoryBoardIdentifier.Home
         
-        if action == .watchlistDetailView {
+        if action == .watchlistDetailView || action == .seenDetailView {
             storyboardIdentifier = .Watchlist
+        } else if action == .airingNowDetailView {
+            storyboardIdentifier = .WhatsOn
+        } else if action == .openSearchView {
+            storyboardIdentifier = .Search
         }
         
-        return initialViewControllerFor(storyboardIdentifier)
+        let initialVC = initialViewControllerFor(storyboardIdentifier)
+        var queryParams: [String: Any]?
+        
+        if action == .seenDetailView {
+            queryParams = ["showSeen": true]
+        } else if action == .discoverDetailView {
+            queryParams = ["viewType": HomeViewType.discover]
+        } else if action == .next7DaysDetailView {
+            queryParams = ["viewType": HomeViewType.next7Days]
+        } else if action == .todayDetailView {
+            queryParams = ["viewType": HomeViewType.today]
+        }
+        
+        if let queryParams = queryParams {
+         
+            if let initialNav = initialVC as? CustomNavigationViewController {
+                let rootVC = initialNav.viewControllers[0]
+                rootVC.setObjectsWithQueryParameters(queryParams)
+            }
+        }
+        return initialVC
     }
     
     fileprivate func initialViewControllerFor(_ storyboardId: StoryBoardIdentifier) -> UIViewController? {
@@ -196,26 +219,21 @@ class UniversalScreenManagerViewController: UIViewController {
     func performScreenManagerAction(_ action: UniversalScreenManagerAction, params: [String:Any]?) {
         switch action {
         case .discoverDetailView:
-            LocalStorageVader.sharedVader.storeValueInKey(.LastOpenScreen, value: action.rawValue)
-            openDetailView(storyBoardIdentifier: .Home, queryParams: ["viewType": HomeViewType.discover])
-            break
+            fallthrough
         case .watchlistDetailView:
-            LocalStorageVader.sharedVader.storeValueInKey(.LastOpenScreen, value: action.rawValue)
-            openDetailView(storyBoardIdentifier: .Watchlist)
-            break
+            fallthrough
         case .seenDetailView:
-            openDetailView(storyBoardIdentifier: .Watchlist)
-            break
+            fallthrough
         case .todayDetailView:
-            LocalStorageVader.sharedVader.storeValueInKey(.LastOpenScreen, value: action.rawValue)
-            openDetailView(storyBoardIdentifier: .Home, queryParams: ["viewType": HomeViewType.today])
-            break
+            fallthrough
         case .next7DaysDetailView:
+            fallthrough
+        case .openSearchView:
+            fallthrough
+        case .airingNowDetailView:
             LocalStorageVader.sharedVader.storeValueInKey(.LastOpenScreen, value: action.rawValue)
-            openDetailView(storyBoardIdentifier: .Home, queryParams: ["viewType": HomeViewType.next7Days])
-            break
-        case .listingDetailView:
-            openDetailView(storyBoardIdentifier: .Home)
+            
+            switchDetailViewWithAction(action: action, params: params)
             break
         case .openUserView:
             openUserView()
@@ -241,11 +259,48 @@ class UniversalScreenManagerViewController: UIViewController {
         case .openProfileEditView:
             openProfileEditView()
             break
+        case .openPremiumPopupView:
+            openPremiumPopupView(params)
+            break
         case .openTimeZoneSelectionView:
             openTimeZoneSelectionView()
             break
         case .openAddToWatchlistView:
             openAddToWatchlistPopUp(params)
+            break
+        case .openHelpAndSupportView:
+            openHelpAndSupportView()
+            break
+        case .openHomeDiscoverItemView:
+            openHomeDiscoverItemView(params: params)
+            break
+        case .openBrowseByGenreView:
+            if let params = params {
+                openBrowseByGenreView(params: params)
+            }
+            break
+            
+        case .openAllGenreView:
+            openAllGenreView()
+            break
+        case .openAllAirtimesView:
+            if let params = params {
+                openAllAirtimesView(params)
+            }
+            break
+        case .openUpdateDetailsInputView:
+            openUpdateDetailsView(params)
+            break
+        case .openLoginView:
+            openLoginView()
+            break
+        case .logOutUser:
+            MyAccountDataProvider.sharedDataProvider.logoutUser()
+            
+            dismissAllPresented()
+            break
+        case .openSimilarEscapesView:
+            openSimilarEscapesView(params)
             break
         default:
             break
@@ -256,6 +311,31 @@ class UniversalScreenManagerViewController: UIViewController {
         IAPVader.sharedVader.restorePuchases()
     }
     
+    func openSearchView(queryParams: [String:Any]?) {
+        
+        openMasterPopup(storyboardIdentifier: .Search, vcIdentifier: "searchVC", navIdentifier: "searchNav")
+    }
+    
+    
+    
+    func openAllGenreView() {
+        pushViewControllerOf(storyboard: .Home, forIdentifier: "allGenreView", queryParams: nil)
+    }
+    
+    func openBrowseByGenreView(params: [String:Any]?) {
+        if let _ = getTopViewController() as? BrowseByGenreViewController {
+            return
+        }
+        pushViewControllerOf(storyboard: .Home, forIdentifier: "browseByGenre", queryParams: params)
+    }
+    
+    func openHomeDiscoverItemView(params: [String:Any]?) {
+        pushViewControllerOf(storyboard: .Home, forIdentifier: "homeItemView", queryParams: params)
+    }
+    
+    func openSimilarEscapesView(_ params: [String:Any]?) {
+        pushViewControllerOf(storyboard: .GenericLists, forIdentifier: "similarEscapesVC", queryParams: params)
+    }
     
     func openItemDesc(_ params: [String:Any]?) {
         var escapeType = ""
@@ -278,6 +358,44 @@ class UniversalScreenManagerViewController: UIViewController {
         }
     }
     
+    func openAllAirtimesView(_ params: [String:Any]) {
+        pushViewControllerOf(storyboard: .TvGuide, forIdentifier: "allAirtimesVC", queryParams: params)
+    }
+    
+    func openPremiumPopupView(_ params:[String:Any]?) {
+        let premiumPopupView = UpgradeNowPopupViewController(nibName: "UpgradeNowPopupViewController", bundle: nil)
+        
+        premiumPopupView.modalPresentationStyle = .custom
+        premiumPopupView.transitioningDelegate = premiumPopupView
+        
+        premiumPopupView.presentingVC = self
+        if let params = params {
+            premiumPopupView.setObjectsWithQueryParameters(params)
+        }
+        
+        currentPresentedViewController.present(premiumPopupView, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+    func openUpdateDetailsView(_ params:[String:Any]?) {
+        if let params = params {
+            
+            let updateDetailsView = UpdateDetailsInputViewController(nibName: "UpdateDetailsInputViewController", bundle: nil)
+            
+            updateDetailsView.modalPresentationStyle = .custom
+            updateDetailsView.transitioningDelegate = updateDetailsView
+            
+            updateDetailsView.presentingVC = self
+            
+            updateDetailsView.setObjectsWithQueryParameters(params)
+            currentPresentedViewController.present(updateDetailsView, animated: true, completion: nil)
+            
+            
+        }
+    }
+    
     func openAddToWatchlistPopUp(_ params: [String:Any]?) {
         
         if let params = params{
@@ -295,6 +413,39 @@ class UniversalScreenManagerViewController: UIViewController {
         }
     }
     
+    func backButtonPressOnDetailView() {
+        
+        if let splitVC  = currentPresentedViewController as? UniversalAppSplitViewController {
+            
+            if splitVC.isCollapsed {
+                
+                if let anyVC = splitVC.viewControllers[splitVC.viewControllers.count-1] as? CustomNavigationViewController {
+                    
+                    if anyVC.viewControllers.count > 2 {
+                        anyVC.popViewController(animated: true)
+                    } else {
+                     
+                        if let topVC = anyVC.topViewController as? CustomNavigationViewController {
+                            topVC.popViewController(animated: true)
+                        }
+                    }
+                    
+                }
+                
+            } else {
+                for eachVC in splitVC.viewControllers {
+                    if let customNav = eachVC as? CustomNavigationViewController, let _ = customNav.viewControllers[0] as? GenericDetailViewController {
+                        customNav.popViewController(animated: true)
+                    }
+                }
+            }
+        }
+    }
+    
+    func openHelpAndSupportView() {
+        openMasterPopup(storyboardIdentifier: .Settings, vcIdentifier: "helpAndSupportVC", navIdentifier: "helpAndSupportNav")
+    }
+    
     func openProfileEditView() {
         openMasterPopup(storyboardIdentifier: .Settings, vcIdentifier: "editProfileVC", navIdentifier: "editProfileNav")
     }
@@ -303,7 +454,7 @@ class UniversalScreenManagerViewController: UIViewController {
         if let currentUser = MyAccountDataProvider.sharedDataProvider.currentUser {
             if currentUser.isPremium() {
                 
-                let manageSubscriptionUri: String = "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions"
+                let manageSubscriptionUri: String = "itms-apps://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions"
                 
                 if let url = URL(string: manageSubscriptionUri) {
                     UIApplication.shared.openURL(url)
@@ -324,36 +475,141 @@ class UniversalScreenManagerViewController: UIViewController {
         openMasterPopup(storyboardIdentifier: StoryBoardIdentifier.Settings, vcIdentifier: "alertOptionsVC", navIdentifier: "alertOptionsNav")
     }
     
-    func openMasterPopup(storyboardIdentifier: StoryBoardIdentifier, vcIdentifier: String, navIdentifier: String) {
+    func openMasterPopup(storyboardIdentifier: StoryBoardIdentifier, vcIdentifier: String, navIdentifier: String, queryParams: [String:Any]?=nil) {
         
         if let _ = self.currentPresentedViewController as? CustomNavigationViewController {
-            pushViewControllerOf(storyboard: storyboardIdentifier, forIdentifier: vcIdentifier)
+            pushViewControllerOf(storyboard: storyboardIdentifier, forIdentifier: vcIdentifier, queryParams: queryParams)
         } else {
+            var params:[String:Any] = [:]
+            if let queryParams = queryParams {
+                params = queryParams
+            }
+            params["addDoneButton"] = true
+            
             presentViewControllerOf(storyboardIdentifier, viewControllerIdentifier: navIdentifier, asPopover: true, queryParams: ["addDoneButton": true])
         }
     }
     
-    func openDetailView(storyBoardIdentifier: StoryBoardIdentifier) {
-        openDetailView(storyBoardIdentifier: storyBoardIdentifier, queryParams: nil)
-    }
-    
-    func openDetailView(storyBoardIdentifier: StoryBoardIdentifier, queryParams: [String: Any]?) {
+    func switchDetailViewWithAction(action: UniversalScreenManagerAction, params: [String: Any]? = nil) {
         
         if let splitVC  = currentPresentedViewController as? UniversalAppSplitViewController {
-            if let detailVC = initialViewControllerFor(storyBoardIdentifier) {
-                
-                if let queryParams = queryParams {
-                    if let detailVC = detailVC as? CustomNavigationViewController {
-                        detailVC.viewControllers[0].setObjectsWithQueryParameters(queryParams)
-                    } else {
-                        detailVC.setObjectsWithQueryParameters(queryParams)
+         
+            var detailVC:UIViewController? = self.detailViewReference[action] as? CustomNavigationViewController
+            
+            if detailVC == nil {
+                detailVC = getMainViewForAction(action: action)
+            } else {
+                if let detailNav = detailVC as? CustomNavigationViewController {
+                    detailNav.popToRootViewController(animated: false)
+                    if let topVC = detailNav.viewControllers[0] as? GenericDetailViewController {
+                        topVC.reset()
+                    }
+                }
+            }
+            if let detailVC = detailVC {
+                if let queryParams = params {
+                    if let detailNav = detailVC as? CustomNavigationViewController {
+                        if let topVC = detailNav.viewControllers[0] as? GenericDetailViewController {
+                            topVC.setObjectsWithQueryParameters(queryParams)
+                        }
                     }
                 }
                 
                 splitVC.changeSecondaryViewController(viewController: detailVC)
+                self.detailViewReference[action] = detailVC
             }
         }
     }
+    
+    fileprivate func presentPopUpViewWithNib( _ viewController : UIViewController){
+        
+        
+        currentPresentedViewController.present(viewController, animated: true, completion: nil)
+        self.presentedViewControllers.append(viewController)
+        self.currentPresentedViewController = viewController
+    }
+    
+    // In Multi Window state, Top View Controller would return Top Detail View Controller (Right Pane)
+    func getTopViewController() -> UIViewController {
+        if currentPresentedViewController != nil {
+            if let splitVC  = currentPresentedViewController as? UniversalAppSplitViewController {
+                
+                if splitVC.isCollapsed {
+                    
+                    if let anyVC = splitVC.viewControllers[splitVC.viewControllers.count-1] as? CustomNavigationViewController {
+                        
+                        if let topVC = anyVC.topViewController as? CustomNavigationViewController {
+                            return topVC.topViewController!
+                        }
+                        
+                        return anyVC.topViewController!
+                    }
+                    
+                } else {
+                    for eachVC in splitVC.viewControllers {
+                        if let customNav = eachVC as? CustomNavigationViewController, let _ = customNav.viewControllers[0] as? GenericDetailViewController {
+                            return customNav.topViewController!
+                        }
+                    }
+                }
+            }
+            
+            if let selectedNav = currentPresentedViewController as? CustomNavigationViewController {
+                return selectedNav.topViewController!
+            }
+        }
+        
+        return self
+    }
+    
+    
+    func openSafariWithUrl(url: URL, readerMode: Bool) {
+        let safari = SFSafariViewController(url: url, entersReaderIfAvailable: readerMode)
+        
+        currentPresentedViewController.present(safari, animated: true, completion: nil)
+    }
+    
+    
+    func makeToast(toastStr: String) {
+        presentToast = UIApplication.shared.keyWindow
+        if let toast = self.presentToast {
+            toast.makeToast(message: toastStr, duration: 3.0, position: HRToastPositionDefault as AnyObject)
+        }
+    }
+    
+    func openUserSettingsView() {
+        presentViewControllerOf(.User, viewControllerIdentifier: "settingsVC", asPopover: true, queryParams: ["addDoneButton": true])
+    }
+    
+    func openLoginView() {
+        openMasterPopup(storyboardIdentifier: .Onboarding, vcIdentifier: "EmailLoginVC", navIdentifier: "signupNav", queryParams: ["screen":"popup", "login":true])
+    }
+    
+    func openSignUpView() {
+        openMasterPopup(storyboardIdentifier: .Onboarding, vcIdentifier: "EmailLoginVC", navIdentifier: "signupNav", queryParams: ["screen":"popup"])
+    }
+    
+    func openUserView() {
+        guard let splitVC = currentPresentedViewController as? UniversalAppSplitViewController else {
+            return
+        }
+        
+        if splitVC.isCollapsed {
+            if let parentNav = splitVC.viewControllers[splitVC.viewControllers.count-1] as? CustomNavigationViewController {
+                parentNav.popToRootViewController(animated: true)
+            }
+        } else {
+            
+            if let action = splitVC.displayModeButtonItem.action, let target = splitVC.displayModeButtonItem.target {
+                UIApplication.shared.sendAction(action, to: target, from: self, for: nil)
+            }
+        }
+    }
+    
+    func showAlert(alert: UIAlertController) {
+        currentPresentedViewController.present(alert, animated: true, completion: nil)
+    }
+    
     
     fileprivate func pushInitialViewControllerOf(storyboard: StoryBoardIdentifier, queryParams: [String: Any]? = nil) {
         if let initialVC = initialViewControllerFor(storyboard) {
@@ -407,97 +663,20 @@ class UniversalScreenManagerViewController: UIViewController {
         }
     }
     
-    
-    
-    fileprivate func presentPopUpViewWithNib( _ viewController : UIViewController){
-        
-        currentPresentedViewController.present(viewController, animated: true, completion: nil)
-        
-    }
-    
-    
     func dismissAllPresented() {
-        isLoadedOnce = false
+        
         for controller in presentedViewControllers.reversed() {
             if controller is UniversalScreenManagerViewController {
-                // Do nothing for now
+                self.currentPresentedViewController = controller
+                presentedViewControllers = [controller]
+                perform(#selector(UniversalScreenManagerViewController.rebootView), with: nil, afterDelay: 0.25)
+                
             } else {
                 controller.dismiss(animated: false, completion: nil)
             }
         }
-    }
-    
-    // In Multi Window state, Top View Controller would return Top Detail View Controller (Right Pane)
-    func getTopViewController() -> UIViewController {
-        if currentPresentedViewController != nil {
-            if let splitVC  = currentPresentedViewController as? UniversalAppSplitViewController {
-                
-                if splitVC.isCollapsed {
-                    
-                    if let anyVC = splitVC.viewControllers[splitVC.viewControllers.count-1] as? CustomNavigationViewController {
-                        
-                        if let topVC = anyVC.topViewController as? CustomNavigationViewController {
-                            return topVC.topViewController!
-                        }
-                        
-                        return anyVC.topViewController!
-                    }
-                    
-                } else {
-                    for eachVC in splitVC.viewControllers {
-                        if let customNav = eachVC as? CustomNavigationViewController, let _ = customNav.viewControllers[0] as? GenericDetailViewController {
-                            return customNav.topViewController!
-                        }
-                    }
-                }
-            }
-            
-            if let selectedNav = currentPresentedViewController as? CustomNavigationViewController {
-                return selectedNav.topViewController!
-            }
-        }
         
-        return self
     }
-    
-    
-    
-    func makeToast(toastStr: String) {
-        presentToast = UIApplication.shared.keyWindow
-        if let toast = self.presentToast {
-            toast.makeToast(message: toastStr, duration: 3.0, position: HRToastPositionDefault as AnyObject)
-        }
-    }
-    
-    func openUserSettingsView() {
-        presentViewControllerOf(.User, viewControllerIdentifier: "settingsVC", asPopover: true, queryParams: ["addDoneButton": true])
-    }
-    
-    func openSignUpView() {
-        presentViewControllerOf(.Onboarding, viewControllerIdentifier: "signupVC", asPopover: true, queryParams: ["screen":"popup"])
-    }
-    
-    func openUserView() {
-        guard let splitVC = currentPresentedViewController as? UniversalAppSplitViewController else {
-            return
-        }
-        
-        if splitVC.isCollapsed {
-            if let parentNav = splitVC.viewControllers[splitVC.viewControllers.count-1] as? CustomNavigationViewController {
-                parentNav.popToRootViewController(animated: true)
-            }
-        } else {
-            if let action = splitVC.displayModeButtonItem.action, let target = splitVC.displayModeButtonItem.target {
-                UIApplication.shared.sendAction(action, to: target, from: self, for: nil)
-            }
-        }
-    }
-    
-    func showAlert(alert: UIAlertController) {
-        currentPresentedViewController.present(alert, animated: true, completion: nil)
-    }
-    
-    
     /*
     // MARK: - Navigation
 

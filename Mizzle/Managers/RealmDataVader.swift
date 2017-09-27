@@ -93,7 +93,85 @@ class RealmDataVader: NSObject {
         }
     }
     
+    func updateCountForCurrentUser(escapesCount: Int?, seenCount: Int?, alertsCount: Int?) {
+        
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+            
+            var config = self.handleMigrationsIfAny()
+            config.fileURL = self.fileUrlForRealmWithCofiguration(config)
+            let _realm = try! Realm(configuration: config)
+            
+            try! _realm.write({
+                if let escapesCount = escapesCount {
+                    user.escape_count = escapesCount
+                }
+                
+                if let seenCount = seenCount {
+                    user.seen_count = seenCount
+                }
+                
+                if let alertsCount = alertsCount {
+                    user.alerts_count = alertsCount
+                }
+            })
+        }
+    }
     
+    func updateProfilePictureForCurrentUser(uri: String) {
+        
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+            
+            var config = self.handleMigrationsIfAny()
+            config.fileURL = self.fileUrlForRealmWithCofiguration(config)
+            let _realm = try! Realm(configuration: config)
+            
+            try! _realm.write({
+                user.profilePicture = uri
+            })
+        }
+    }
+    
+    func updateEmailForCurrentUser(email: String) {
+        
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+            
+            var config = self.handleMigrationsIfAny()
+            config.fileURL = self.fileUrlForRealmWithCofiguration(config)
+            let _realm = try! Realm(configuration: config)
+            
+            try! _realm.write({
+                user.email = email
+            })
+        }
+    }
+    
+    func updateLastNameForCurrentUser(lastName: String) {
+        
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+            
+            var config = self.handleMigrationsIfAny()
+            config.fileURL = self.fileUrlForRealmWithCofiguration(config)
+            let _realm = try! Realm(configuration: config)
+            
+            try! _realm.write({
+                user.lastName = lastName
+            })
+        }
+    }
+    
+    func updateFirstNameForCurrentUser(firstName: String) {
+        
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+            
+            var config = self.handleMigrationsIfAny()
+            config.fileURL = self.fileUrlForRealmWithCofiguration(config)
+            let _realm = try! Realm(configuration: config)
+            
+            try! _realm.write({
+                user.firstName = firstName
+            })
+        }
+    }
     
     func writeOrUpdateProfileList(_ userId:String, type:String, listData:[[String:AnyObject]]) {
         let id = userId+type // Constructed id

@@ -7,14 +7,26 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class MediaWatchlistTableViewCell: UITableViewCell {
+protocol MediaWatchlistCellProtocol: class {
+    func didTapOnSwipeDetection(cell: UITableViewCell)
+}
+
+class MediaWatchlistTableViewCell: SwipeTableViewCell {
+    
+    weak var mediaWatchlistDelegate: MediaWatchlistCellProtocol?
     
     @IBOutlet weak var mediaTitleLabel: UILabel!
     @IBOutlet weak var mediaYearLabel: UILabel!
     
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var alertIconImageView: UIImageView!
+    
+    @IBOutlet weak var alertIconWidthConstraint: NSLayoutConstraint!
+    
+    var isSeenCell: Bool = false
+    
     
     var mediaItem: EscapeItem? {
         didSet {
@@ -30,11 +42,27 @@ class MediaWatchlistTableViewCell: UITableViewCell {
         self.mediaYearLabel.text = mediaItem.year
         self.posterImageView.downloadImageWithUrl(mediaItem.posterImage, placeHolder: UIImage(named: "movie_placeholder"))
         
-        alertIconImageView.isHidden = !mediaItem.isTracking
+        if isSeenCell {
+            alertIconWidthConstraint.constant = 0
+        } else {
+            alertIconWidthConstraint.constant = 12
+            
+            if mediaItem.isAlertSet {
+                alertIconImageView.image = UIImage(named: "AlertIcon")
+            } else {
+                alertIconImageView.image = UIImage(named: "AlertIconGray")
+            }
+        }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+    }
+    
+    @IBAction func didTapOnSwipeDetails() {
+        if let delegate = mediaWatchlistDelegate {
+            delegate.didTapOnSwipeDetection(cell: self)
+        }
     }
 }

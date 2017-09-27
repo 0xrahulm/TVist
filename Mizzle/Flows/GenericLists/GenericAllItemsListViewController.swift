@@ -147,10 +147,10 @@ class GenericAllItemsListViewController: GenericListViewController {
         return "Generic"
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
+    @objc func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         
         if let _ = listItems[indexPath.row] as? EscapeItem {
-            return 180
+            return 145
         }
         
         if let _ = listItems[indexPath.row] as? MyAccountItems {
@@ -182,7 +182,7 @@ class GenericAllItemsListViewController: GenericListViewController {
                 var params : [String:Any] = [:]
                 params["escapeItem"] = data
                 itemTapEvent(itemName: data.name, index: indexPath.row)
-                ScreenVader.sharedVader.performScreenManagerAction(.OpenItemDescription, queryParams: params)
+                ScreenVader.sharedVader.performUniversalScreenManagerAction(.openMediaItemDescriptionView, queryParams: params)
             }
             
             

@@ -10,9 +10,6 @@ import UIKit
 import AWSS3
 import AWSCognito
 
-protocol ProfileImageChangeProtocol: class {
-    func didChangeProfilePic(image: UIImage)
-}
 
 class EditProfileViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -51,12 +48,9 @@ class EditProfileViewController: UIViewController {
     
     
     
-    weak var imageChangeDelegate:ProfileImageChangeProtocol?
     
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
-        if let delegate = queryParams["delegate"] as? ProfileImageChangeProtocol {
-            self.imageChangeDelegate = delegate
-        }
+        
     }
     
     var presentToast : UIWindow?
@@ -75,6 +69,14 @@ class EditProfileViewController: UIViewController {
         // Do any additional setup after loading the view.
         transferManager = AWSS3TransferManager.default()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(EditProfileViewController.dataUpdated), name: Notification.Name(rawValue: NotificationObservers.UserDetailsDataObserver.rawValue), object: nil)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        dataUpdated()
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,6 +84,9 @@ class EditProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @objc func dataUpdated() {
+        self.tableView.reloadData()
+    }
     
     func identifierForCellType(type: SettingItemType) -> String {
         
@@ -167,8 +172,41 @@ extension EditProfileViewController : UITableViewDelegate, UITableViewDataSource
             }))
             
             alert.popoverPresentationController?.sourceView = self.view
+            alert.popoverPresentationController?.sourceRect = self.view.frame
             self.present(alert, animated: true, completion: nil)
+        } else if item.type == SettingItemType.selectedOption {
+            
+            if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+                var params:[String:Any] = [:]
+                
+                if item.title == "Email" {
+                    params["fieldType"] = EditableFieldType.emailField
+                    if let email = user.email, email != "" {
+                        params["previousValue"] = email
+                    }
+                }
+                
+                if item.title == "First Name" {
+                    
+                    params["fieldType"] = EditableFieldType.firstNameField
+                    if user.firstName != "" {
+                        params["previousValue"] = user.firstName
+                    }
+                }
+                
+                if item.title == "Last Name" {
+                    
+                    params["fieldType"] = EditableFieldType.lastNameField
+                    if user.lastName != "" {
+                        params["previousValue"] = user.lastName
+                    }
+                }
+                
+                ScreenVader.sharedVader.performUniversalScreenManagerAction(.openUpdateDetailsInputView, queryParams: params)
+            }
         }
+        
+        
         
         
         //        if dataArray[indexPath.row] == .Logout{
@@ -200,13 +238,9 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             if let imageData = UIImageJPEGRepresentation(finalSelectedImage, 0.6) {
                 
                 if let image = UIImage(data: imageData) {
-                    
-                    if let imageChangeDelegate = imageChangeDelegate {
-                        imageChangeDelegate.didChangeProfilePic(image: image)
-                        if let toast = self.presentToast {
-                            toast.makeToast(message: "Profile picture changed successfully.", duration: 3.0, position: HRToastPositionDefault as AnyObject)
-                        }
-                        
+                    NotificationCenter.default.post(name: NSNotification.Name(NotificationObservers.ProfileImageChangesObserver.rawValue), object: image)
+                    if let toast = self.presentToast {
+                        toast.makeToast(message: "Uploading, please wait.", duration: 2.0, position: HRToastPositionDefault as AnyObject)
                     }
                 }
                 
@@ -230,6 +264,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
                         
                         if let uploadOutput = task.result {
                             Logger.debug("Result: \(uploadOutput)")
+                            
                             MyAccountDataProvider.sharedDataProvider.updateProfilePicture(pictureName: key)
                             
                         }

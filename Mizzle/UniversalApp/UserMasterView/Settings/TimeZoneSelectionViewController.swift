@@ -42,15 +42,27 @@ class TimeZoneSelectionViewController: PreferenceSingleSelectionViewController {
         self.title = "Time Zone"
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let currentDetectedZone = TimeUtility.getTimeZoneForUser() {
+         
+            AnalyticsVader.sharedVader.basicEvents(eventName: .TimeZonePreferenceSelectionShown, properties: ["user_time_zone": currentDetectedZone.rawValue])
+        } else {
+            
+            AnalyticsVader.sharedVader.basicEvents(eventName: .TimeZonePreferenceSelectionShown, properties: ["user_time_zone": "unable to detect"])
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    override func didDismissPopup() {
+    @objc override func didDismissPopup() {
         super.didDismissPopup()
-        
+        AnalyticsVader.sharedVader.basicEvents(eventName: .TimeZonePreferenceDoneButtonTap, properties: nil)
         ScreenVader.sharedVader.rebootView()
     }
     

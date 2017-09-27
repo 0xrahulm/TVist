@@ -34,10 +34,14 @@ enum SubServiceType : String {
     case GetEscapeAction    =  "user/escapes/action"
     case GetUserEscapes     =  "user/escapes"
     case PutProfilePicture  =  "user/picture"
+    case UpdateEmail        =  "users/update_email"
+    case UpdateFirstName    =  "users/update_first_name"
+    case UpdateLastName     =  "users/update_last_name"
+    case UpdatePassword      =  "users/update_password"
     case DeleteEscape       =  "user/escapes/remove"
     case UpdateEscape       =  "user/escapes/update"
     case LogoutUser         =  "logout"
-    case GetItemDesc        =  "escapes/detail"
+    case GetItemDesc        =  "escapes/detail_v2"
     case GetSimilarEscape   =  "escapes/similar"
     case GetRelatedPeople   =  "escapes/people"
     case GetFollowers       =  "get_user_followers"
@@ -93,7 +97,10 @@ enum SubServiceType : String {
     case GetNotification = "user/notifications"
     
     //Watchlist
-    case UserWatchlist = "user/watchlist"
+    case UserWatchlist = "user/sort_watchlist"
+    case AddToWatchlist = "user/watchlist"
+    case MarkItSeen = "users/mark_seen"
+    case RemoveFromWatchlist = "user/watchlist/remove"
     
     //Tracking
     case UserTrackings = "user/trackings"

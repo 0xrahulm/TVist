@@ -154,7 +154,7 @@ extension SelectRegisteredUserViewController : LoginProtocol{
     func signInSuccessfull(_ data: [String : AnyObject], type: LoginTypeEnum, subServiceType: SubServiceType) {
         
         if type == .Facebook{
-            ScreenVader.sharedVader.loginActionAfterDelay()
+            ScreenVader.sharedVader.loginAction()
         }
     }
     

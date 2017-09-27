@@ -11,7 +11,7 @@ import UIKit
 class IconsUtility: NSObject {
     
     class func airtimeIcon() -> UIImage {
-        return IonIcons.image(withIcon: ion_ios_monitor, size: kDefaultIconSize, color: UIColor.buttonGrayColor())
+        return UIImage(named: "Channel Placeholder")!
     }
 
 }

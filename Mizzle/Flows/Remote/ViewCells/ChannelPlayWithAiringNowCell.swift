@@ -12,6 +12,8 @@ class ChannelPlayWithAiringNowCell: UITableViewCell {
 
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var seasonEpisodeLabel: UILabel!
     
     @IBOutlet weak var itemImage: UIImageView!
     
@@ -19,8 +21,8 @@ class ChannelPlayWithAiringNowCell: UITableViewCell {
     @IBOutlet weak var channelIcon: UIImageView!
     
     @IBOutlet weak var endTimeLabel: UILabel!
-    @IBOutlet weak var channelNumberLabel: UILabel!
-    @IBOutlet weak var channelNameLabel: UILabel!
+    @IBOutlet weak var startTimeLabel: UILabel!
+    
     @IBOutlet weak var ctaButton: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
     
@@ -38,17 +40,13 @@ class ChannelPlayWithAiringNowCell: UITableViewCell {
     var mediaItem: ListingMediaItem? {
         didSet{
             if let dataItems = mediaItem {
-                titleLabel.text = dataItems.constructedTitle()
+                titleLabel.text = dataItems.mediaItem.name
                 itemImage.downloadImageWithUrl(dataItems.mediaItem.posterImage, placeHolder: UIImage(named: "movie_placeholder"))
                 
-                
-                if ctaButton != nil {
-                    
-                    ctaButton.setImage(IonIcons.image(withIcon: ion_ios_play, size: 18, color: UIColor.defaultTintColor()), for: .normal)
-                    ctaButton.setImage(IonIcons.image(withIcon: ion_ios_play, size: 18, color: UIColor.defaultTintColor()), for: .selected)
-                }
-                
+                self.startTimeLabel.text = dataItems.airtime
                 self.endTimeLabel.text = dataItems.endtimeString
+                self.yearLabel.text = dataItems.mediaItem.year
+                self.seasonEpisodeLabel.text = dataItems.episodeItem?.numericalString()
                 
                 if let iconImage = dataItems.channelItem?.icon {
                     
@@ -56,15 +54,13 @@ class ChannelPlayWithAiringNowCell: UITableViewCell {
                 }
                 
                 if let finishPercentage = dataItems.finishPercentage {
-                    self.progressView.tintColor = UIColor.defaultTintColor()
+                    self.progressView.tintColor = UIColor.styleGuideActionGreen()
                     self.progressView.setProgress(Float(finishPercentage), animated: false)
                 }
                 
                 
                 if let channelItem = dataItems.channelItem {
                     self.channelIcon.downloadImageWithUrl(channelItem.icon, placeHolder: IconsUtility.airtimeIcon())
-                    self.channelNameLabel.text = channelItem.name
-                    self.channelNumberLabel.text = channelItem.number
                 }
                 
             }

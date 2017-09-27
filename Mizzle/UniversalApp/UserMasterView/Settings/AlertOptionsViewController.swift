@@ -31,6 +31,11 @@ class AlertOptionsViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         self.tableView.reloadData()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     func identifierForPreference(key: UserPreferenceKey) -> String {
@@ -64,6 +69,7 @@ class AlertOptionsViewController: UITableViewController {
         }
         
         if let onOffCell = cell as? SettingsOnOffTableViewCell {
+            onOffCell.onOffSwitchDelegate = self
             onOffCell.onOffSwitch.setOn(UserPreferenceVader.shared.flagValueForKey(item), animated: false)
         }
         
@@ -110,8 +116,29 @@ class AlertOptionsViewController: UITableViewController {
                 prefMultiSelectVC.title = titlesForPreference[item]
                 self.navigationController?.pushViewController(prefMultiSelectVC, animated: true)
             }
+        } else if item == .airtimePreference {
+            if let airtimePrefVC = self.storyboard?.instantiateViewController(withIdentifier: "airtimePreferenceVC") as? AirtimePreferenceViewController {
+                airtimePrefVC.preference = item
+                airtimePrefVC.title = titlesForPreference[item]
+                
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.navigationController?.pushViewController(airtimePrefVC, animated: true)
+                
+            }
         }
         
     }
 
+}
+
+extension AlertOptionsViewController: SettingsOnOffSwitchProtocol {
+    func onOffSwitchValueDidChange(isOn: Bool) {
+        UserDataProvider.sharedDataProvider.setPreferenceFor(key: .onlyNewEpisodes, value: isOn)
+        
+        if isOn {
+            ScreenVader.sharedVader.makeToast(toastStr: "Alerts: Only New Episodes")
+        } else {
+            ScreenVader.sharedVader.makeToast(toastStr: "Alerts: All Episodes")
+        }
+    }
 }

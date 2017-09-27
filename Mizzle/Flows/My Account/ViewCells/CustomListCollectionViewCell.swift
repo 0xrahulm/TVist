@@ -34,10 +34,6 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     
     weak var parentCollectionView: UICollectionView?
     
-    
-    @IBOutlet weak var trackButtonHeight: NSLayoutConstraint!
-    @IBOutlet weak var trackButtonBackground: NSLayoutConstraint!
-    
     var trackPosition: String!
     
     var mediaItem : ListingMediaItem? {
@@ -50,7 +46,10 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 if ctaButton != nil {
                     
                     ctaButton.setImage(UIImage(named:"WatchlistAddIcon"), for: .normal)
-                    ctaButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.white), for: .selected)
+                    ctaButton.setImage(UIImage(named:"EditIconWhite"), for: .selected)
+                    
+                    ctaButton.setTitle("Add", for: .normal)
+                    ctaButton.setTitle("Edit", for: .selected)
                 }
                 
                 hideTrackerButton()
@@ -88,7 +87,9 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 if ctaButton != nil {
                     
                     ctaButton.setImage(UIImage(named:"WatchlistAddIcon"), for: .normal)
-                    ctaButton.setImage(IonIcons.image(withIcon: ion_android_done_all, size: 20, color: UIColor.white), for: .selected)
+                    ctaButton.setImage(IonIcons.image(withIcon: ion_edit, size: 16, color: UIColor.white), for: .selected)
+                    ctaButton.setTitle("Add", for: .normal)
+                    ctaButton.setTitle("Edit", for: .selected)
                 }
                 
                 
@@ -99,6 +100,7 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                 }else{
 //                    yearLabel.isHidden = true
                 }
+                
                 if let airtime = dataItems.nextAirtime, let airDate = airtime.airDate {
                     self.airdateLabel.text = airDate
                     ratingView.isHidden = true
@@ -115,7 +117,7 @@ class CustomListCollectionViewCell: UICollectionViewCell {
                     }
                 }
                 if ctaButton != nil {
-                    updateTrackButton(newState: dataItems.isTracking)
+                    updateTrackButton(newState: dataItems.hasActed)
                 }
             }
         }
@@ -124,66 +126,61 @@ class CustomListCollectionViewCell: UICollectionViewCell {
     
     @IBAction func addButtonTapped(sender: UIButton) {
         
-        toggleButtonState()
-    }
-    
-    func toggleButtonState() {
         ctaButton.popButtonAnimate()
-        let newState = !ctaButton.isSelected
-        if !newState {
-            if let itemName = dataItems?.name {
-                
-                let alert = UIAlertController(title: "Are you sure?", message: "Tracking for \(itemName) is already setup, would you like to remove it?", preferredStyle: .alert)
-                
-                
-                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
-                    
-                    
-                    if let item = self.dataItems {
-                        item.isTracking = newState
-                        AnalyticsVader.sharedVader.undoTrack(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: self.trackPosition)
-                        TrackingDataProvider.shared.removeTrackingFor(escapeId: item.id)
-                        self.updateTrackButton(newState: newState)
-                    }
-                })
-                
-                alert.addAction(removeAction)
-                
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                
-                alert.addAction(cancelAction)
-                
-                ScreenVader.sharedVader.showAlert(alert: alert)
+        
+        if let item = dataItems {
+            if ctaButton.isSelected {
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.EditButtonTap, properties: ["escapeName": item.name, "escapeType": item.escapeType, "Position":trackPosition])
+            } else {
+                AnalyticsVader.sharedVader.basicEvents(eventName: EventName.AddButtonTap, properties: ["escapeName": item.name, "escapeType": item.escapeType, "Position":trackPosition])
             }
-        } else {
-            if let item = dataItems {
-                item.isTracking = newState
-                
-                ScreenVader.sharedVader.performUniversalScreenManagerAction(.openAddToWatchlistView, queryParams: ["mediaItem": item])
-                
-//                AnalyticsVader.sharedVader.trackButtonClicked(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: trackPosition)
-                
-                updateTrackButton(newState: newState)
-                if let primaryCTADelegate = self.primaryCTADelegate, let collectionView = self.parentCollectionView {
-                    primaryCTADelegate.didTapOnPrimaryCTA(collectionView: collectionView, cell: self)
-                }
-            }
+            ScreenVader.sharedVader.performUniversalScreenManagerAction(.openAddToWatchlistView, queryParams: ["mediaItem": item, "delegate": self])
         }
+        
+        
+        if let primaryCTADelegate = self.primaryCTADelegate, let collectionView = self.parentCollectionView {
+            primaryCTADelegate.didTapOnPrimaryCTA(collectionView: collectionView, cell: self)
+        }
+        
+//        let newState = !ctaButton.isSelected
+//        if !newState {
+//            if let itemName = dataItems?.name {
+//                
+//                let alert = UIAlertController(title: "Are you sure?", message: "Tracking for \(itemName) is already setup, would you like to remove it?", preferredStyle: .alert)
+//                
+//                
+//                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (action) in
+//                    
+//                    
+//                    if let item = self.dataItems {
+//                        item.isAlertSet = newState
+//                        AnalyticsVader.sharedVader.undoTrack(escapeName: item.name, escapeId: item.id, escapeType: item.escapeType, position: self.trackPosition)
+//                        TrackingDataProvider.shared.removeTrackingFor(escapeId: item.id)
+//                        self.updateTrackButton(newState: newState)
+//                    }
+//                })
+//                
+//                alert.addAction(removeAction)
+//                
+//                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//                
+//                alert.addAction(cancelAction)
+//                
+//                ScreenVader.sharedVader.showAlert(alert: alert)
+//            }
+//        } else {
+//        }
+        
     }
     
     func updateTrackButton(newState: Bool) {
         
         ctaButton.isSelected = newState
-        if newState {
-            ctaButton.backgroundColor = UIColor.styleGuideButtonRed()
-        } else {
-            ctaButton.backgroundColor = UIColor.styleGuideActionButtonBlue()
-        }
+        ctaButton.backgroundColor = UIColor.styleGuideActionButtonBlue()
+        
     }
     
     func hideTrackerButton() {
-        self.trackButtonBackground.constant = 0
-        self.trackButtonHeight.constant = 0
         
         self.layoutIfNeeded()
     }
@@ -201,4 +198,14 @@ class CustomListCollectionViewCell: UICollectionViewCell {
         })
     }
     
+}
+
+extension CustomListCollectionViewCell: AddToWatchlistPopupProtocol {
+    func addToWatchlistDone(isAlertSet: Bool) {
+        if let item = self.dataItems {
+            item.isAlertSet = isAlertSet
+            item.hasActed = true
+        }
+        self.ctaButton.isSelected = true
+    }
 }
