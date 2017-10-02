@@ -193,7 +193,7 @@ class NetworkWrapper: NSObject {
         headers["X-DEVICE-TYPE"] = "iOS"
         headers["Accept"] = "application/version.v1"
         headers["Accept"] = "application/json"
-        headers["X-APP-VERSION-CODE"] = "102"
+        headers["X-APP-VERSION-CODE"] = "104"
         print("Device id :\(DeviceID.getDeviceID())")
         return headers
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChannelPlayWithAiringNowCell: UITableViewCell {
+class ChannelPlayWithAiringNowCell: NormalCell {
 
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -25,6 +25,8 @@ class ChannelPlayWithAiringNowCell: UITableViewCell {
     
     @IBOutlet weak var ctaButton: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
+    
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

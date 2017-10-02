@@ -17,6 +17,8 @@ class HomeSectionBaseCell: UITableViewCell {
     
     var lastScrollValue:String = ""
     
+    weak var viewAllTapDelegate: ViewAllTapProtocol?
+    
     var homeViewType:HomeViewType = HomeViewType.today
 
     override func awakeFromNib() {
@@ -28,6 +30,13 @@ class HomeSectionBaseCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    
+    @IBAction func viewAllTapped() {
+        if let viewAllTapDelegate = viewAllTapDelegate {
+            viewAllTapDelegate.viewAllTappedIn(self)
+        }
     }
     
     func scrollBucket(scrollValue: CGFloat) -> String {

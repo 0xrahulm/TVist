@@ -142,6 +142,7 @@ class UniversalScreenManagerViewController: UIViewController {
     }
     
     func setupUniversalSplitView(universalVC: UniversalAppSplitViewController) {
+        universalVC.isRegular = self.view.traitCollection.horizontalSizeClass == .regular
         universalVC.splitViewWith(primaryVC: primaryViewController(), secondaryVC: secondaryViewController())
     }
     
@@ -187,6 +188,10 @@ class UniversalScreenManagerViewController: UIViewController {
             if let initialNav = initialVC as? CustomNavigationViewController {
                 let rootVC = initialNav.viewControllers[0]
                 rootVC.setObjectsWithQueryParameters(queryParams)
+            }
+            
+            if let detailVC = initialVC as? GenericDetailViewController {
+                detailVC.setObjectsWithQueryParameters(queryParams)
             }
         }
         return initialVC
@@ -274,6 +279,9 @@ class UniversalScreenManagerViewController: UIViewController {
         case .openHomeDiscoverItemView:
             openHomeDiscoverItemView(params: params)
             break
+        case .openChannelListingView:
+            openChannelListingView(params: params)
+            break
         case .openBrowseByGenreView:
             if let params = params {
                 openBrowseByGenreView(params: params)
@@ -317,6 +325,13 @@ class UniversalScreenManagerViewController: UIViewController {
     }
     
     
+    func openChannelListingView(params: [String: Any]?) {
+        
+        if let _ = getTopViewController() as? ChannelListingViewController {
+            return
+        }
+        pushViewControllerOf(storyboard: .Listings, forIdentifier: "channelListingView", queryParams: params)
+    }
     
     func openAllGenreView() {
         pushViewControllerOf(storyboard: .Home, forIdentifier: "allGenreView", queryParams: nil)
@@ -421,10 +436,9 @@ class UniversalScreenManagerViewController: UIViewController {
                 
                 if let anyVC = splitVC.viewControllers[splitVC.viewControllers.count-1] as? CustomNavigationViewController {
                     
-                    if anyVC.viewControllers.count > 2 {
+                    if anyVC.viewControllers.count > 1 {
                         anyVC.popViewController(animated: true)
                     } else {
-                     
                         if let topVC = anyVC.topViewController as? CustomNavigationViewController {
                             topVC.popViewController(animated: true)
                         }
@@ -494,6 +508,16 @@ class UniversalScreenManagerViewController: UIViewController {
         
         if let splitVC  = currentPresentedViewController as? UniversalAppSplitViewController {
          
+            if let queryParams = params, let isTopVC = queryParams["isTopVC"] as? Bool {
+                if !isTopVC {
+                    if let detailVC = getMainViewForAction(action: action) {
+                     
+                        pushViewController(viewController: detailVC, queryParams: queryParams)
+                        return
+                    }
+                }
+            }
+            
             var detailVC:UIViewController? = self.detailViewReference[action] as? CustomNavigationViewController
             
             if detailVC == nil {
@@ -505,13 +529,22 @@ class UniversalScreenManagerViewController: UIViewController {
                         topVC.reset()
                     }
                 }
+                
+                if let detailVC = detailVC as? GenericDetailViewController {
+                    detailVC.reset()
+                }
             }
+            
             if let detailVC = detailVC {
                 if let queryParams = params {
                     if let detailNav = detailVC as? CustomNavigationViewController {
                         if let topVC = detailNav.viewControllers[0] as? GenericDetailViewController {
                             topVC.setObjectsWithQueryParameters(queryParams)
                         }
+                    }
+                    
+                    if let detailVC = detailVC as? GenericDetailViewController {
+                        detailVC.setObjectsWithQueryParameters(queryParams)
                     }
                 }
                 

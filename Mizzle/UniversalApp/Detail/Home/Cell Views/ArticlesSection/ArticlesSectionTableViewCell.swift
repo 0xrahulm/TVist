@@ -28,8 +28,6 @@ class ArticlesSectionTableViewCell: HomeSectionBaseCell {
     
     var articleItems:[ArticleItem] = []
     
-    weak var viewAllTapDelegate: ViewAllTapProtocol?
-    
     var registerableCells:[ArticlesSectionCollectionCellIdentifier] = [.ArticleCollectionViewCell]
     
     
@@ -85,12 +83,6 @@ class ArticlesSectionTableViewCell: HomeSectionBaseCell {
         self.collectionView.reloadData()
     }
     
-    
-    @IBAction func viewAllTapped() {
-        if let viewAllTapDelegate = viewAllTapDelegate {
-            viewAllTapDelegate.viewAllTappedIn(self)
-        }
-    }
 }
 
 extension ArticlesSectionTableViewCell: UICollectionViewDelegate {

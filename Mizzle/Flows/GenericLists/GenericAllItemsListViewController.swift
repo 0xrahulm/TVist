@@ -120,9 +120,9 @@ class GenericAllItemsListViewController: GenericListViewController {
         }
         
         if let listingMediaItem = listItems[indexPath.row] as? ListingMediaItem {
-            let cell = tableView.dequeueReusableCell(withIdentifier: GenericCellIdentifier.ListingMediaDetailsCell.rawValue, for: indexPath) as! ListingMediaDetailsCell
-            cell.showFullDate = true
-            cell.setupCellForListingMediaItem(listingMediaItem: listingMediaItem)
+            let cell = tableView.dequeueReusableCell(withIdentifier: GenericDetailCellIdentifiers.channelPlayWithAiringNowCell.rawValue, for: indexPath) as! ChannelPlayWithAiringNowCell
+            cell.widthConstraint.constant = 0
+            cell.mediaItem = listingMediaItem
             return cell
         }
         

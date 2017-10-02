@@ -32,8 +32,6 @@ class ListingTableViewCell: HomeSectionBaseCell {
     weak var listingSectionDelegate: ListingSectionProtocol?
     
     var matricallyArranged:[[ListingMediaItem]] = []
-
-    weak var viewAllTapDelegate: ViewAllTapProtocol?
     
     var registerableCells:[ListingSectionCollectionCellIdentifier] = [.MediaRemotePlayViewCell]
     let letters = (0..<26).map({Character(UnicodeScalar("a".unicodeScalars.first!.value + $0)!)})
@@ -114,13 +112,6 @@ class ListingTableViewCell: HomeSectionBaseCell {
         }
         
     }
-    
-    @IBAction func viewAllTapped() {
-        if let viewAllTapDelegate = viewAllTapDelegate {
-            viewAllTapDelegate.viewAllTappedIn(self)
-        }
-    }
-    
     
 }
 

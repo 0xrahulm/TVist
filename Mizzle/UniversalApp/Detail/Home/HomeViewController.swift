@@ -28,6 +28,7 @@ enum HomeCellIdentifiers: String {
     case VideosSectionCell = "VideosSectionCell"
     case VideosSectionCelliPad = "VideosSectionCelliPad"
     case RemoteConnectBannerCell = "RemoteConnectBannerCell"
+    
 }
 
 enum HeightForHomeSection: CGFloat {
@@ -59,8 +60,6 @@ class HomeViewController: GenericDetailViewController {
     var selectedType: FilterType = .All
     
     var storedOffsets = [Int: CGFloat]()
-    
-    var registerableCells: [HomeCellIdentifiers] = [.MediaWatchlistSection,.MediaListCellIdentifier,.MediaListingCellIdentifier,.BrowseByGenreCell,.ArticlesSectionTableViewCell,.VideosSectionCell, .RemoteConnectBannerCell, .VideosSectionCelliPad]
     
     var lastScrollValue:String = ""
     let refreshControl = UIRefreshControl()
@@ -97,8 +96,12 @@ class HomeViewController: GenericDetailViewController {
         setupSearchFloatButton()
     }
     
+    override func pageFetchSize() -> Int {
+        return DataConstants.kDefaultHomeFetchSize
+    }
+    
     override func supportedCells() -> [GenericDetailCellIdentifiers] {
-        return [.mediaWatchlistSection, .browseByGenreCell, .mediaListCellIdentifier, .mediaListingCellIdentifier, .articlesSectionTableViewCell, .videosSectionCell, .videosSectionCelliPad, .remoteConnectBannerCell]
+        return [.mediaWatchlistSection, .browseByGenreCell, .mediaListCellIdentifier, .mediaListingCellIdentifier, .articlesSectionTableViewCell, .videosSectionCell, .videosSectionCelliPad, .remoteConnectBannerCell, .channelWiseListCell]
     }
     
     override func getName() -> String {
@@ -148,6 +151,10 @@ class HomeViewController: GenericDetailViewController {
         
         if item.itemTypeEnumValue() == .videos {
             cellHeight += VideosSectionCell.totalHeight(count: item.videosList.count)
+        }
+        
+        if item.itemTypeEnumValue() == .channelList {
+            cellHeight += ChannelWiseListCell.totalHeight(count: item.channelList.count)
         }
         
         return cellHeight
@@ -320,6 +327,13 @@ extension HomeViewController: UITableViewDataSource {
                 
                 return cell
             }
+        } else if item.itemTypeEnumValue() == HomeItemType.channelList {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: GenericDetailCellIdentifiers.channelWiseListCell.rawValue, for: indexPath) as? ChannelWiseListCell {
+                cell.sectionTitleLabel.text = item.title
+                cell.setDataAndInitialiseView(data: item.channelList)
+                cell.viewAllTapDelegate = self
+                return cell
+            }
         }
         
         return UITableViewCell()
@@ -335,6 +349,11 @@ extension HomeViewController: UITableViewDataSource {
             tableViewCell.setDataAndInitialiseView(data: item.escapeDataList)
             tableViewCell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
             
+        }
+        
+        if let cell = cell as? ChannelWiseListCell {
+            cell.setDataAndInitialiseView(data: item.channelList)
+            cell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
         }
         
         if let cell = cell as? MediaWatchlistSection {
@@ -457,6 +476,13 @@ extension HomeViewController: ViewAllTapProtocol {
             if item.itemTypeEnumValue() == .listing {
                 eventName = .HomeAiringNowViewAllClick
                 ScreenVader.sharedVader.performScreenManagerAction(.RemoteTab, queryParams: nil)
+            }
+            
+            if item.itemTypeEnumValue() == HomeItemType.channelList {
+                eventName = .ChannelListingViewAllTap
+                if UserDataProvider.sharedDataProvider.premiumOnlyFeature(feature: .advancedListing) {
+                    ScreenVader.sharedVader.performUniversalScreenManagerAction(.airingNowDetailView, queryParams: ["isTopVC": false, "showLater": true])
+                }
             }
             
             if let title = item.title {

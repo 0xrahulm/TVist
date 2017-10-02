@@ -35,6 +35,7 @@ class NewSearchViewController: GenericDetailViewController {
         }
         
         addSegmentedFilterHeader(withSearchBar: true)
+        self.theSearchBar?.delegate = self
     }
     
     override func fetchRequest() {
@@ -106,7 +107,7 @@ class NewSearchViewController: GenericDetailViewController {
     
 }
 
-extension NewSearchViewController{
+extension NewSearchViewController: UISearchBarDelegate {
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -114,6 +115,7 @@ extension NewSearchViewController{
         self.theSearchBar?.resignFirstResponder()
         AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchCancelled, properties: ["Position": "Search Tab"])
     }
+    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
@@ -139,7 +141,7 @@ extension NewSearchViewController{
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchClick, properties: ["Position": "Search Tab"])
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchClick, properties: ["Position": "Search Float Button"])
         self.theSearchBar?.resignFirstResponder()
     }
 }
@@ -154,7 +156,7 @@ extension NewSearchViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: GenericDetailCellIdentifiers.genericEscapeCell.rawValue, for: indexPath) as! EscapeCell
         cell.escapeItem = item
-        
+        cell.trackPosition = "Search"
         return cell
     }
     
@@ -170,7 +172,7 @@ extension NewSearchViewController: UITableViewDataSource {
         var params : [String:AnyObject] = [:]
         
         params["escapeItem"] = escapeItem
-        
+        AnalyticsVader.sharedVader.basicEvents(eventName: EventName.SearchItemClick, properties: ["Position":"Search Float Button"])
         ScreenVader.sharedVader.performUniversalScreenManagerAction(.openMediaItemDescriptionView, queryParams: params)
     }
 }

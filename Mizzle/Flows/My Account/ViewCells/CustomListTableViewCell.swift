@@ -26,8 +26,6 @@ class CustomListTableViewCell: HomeSectionBaseCell {
     
     var collectionView: UICollectionView!
     
-    weak var viewAllTapDelegate: ViewAllTapProtocol?
-    
     var registerableCells:[DiscoverSectionCollectionCellIdentifier] = [.MediaItemCollectionViewCell]
     var escapesDataList: [EscapeItem] = []
     var currentPage: Float = 0
@@ -107,13 +105,6 @@ class CustomListTableViewCell: HomeSectionBaseCell {
         collectionView.dataSource = dataSourceDelegate
         collectionView.tag = row
     }
-    
-    @IBAction func viewAllTapped() {
-        if let viewAllTapDelegate = viewAllTapDelegate {
-            viewAllTapDelegate.viewAllTappedIn(self)
-        }
-    }
-    
 
 }
 extension CustomListTableViewCell : UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

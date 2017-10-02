@@ -18,7 +18,16 @@ class AiringNowViewController: GenericDetailViewController {
     @IBOutlet weak var nowButton: UIButton!
     @IBOutlet weak var laterButton: UIButton!
     
+    var showLater: Bool = false
+    
     var shouldAnimate: Bool = false
+    
+    override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
+        super.setObjectsWithQueryParameters(queryParams)
+        if let showLater = queryParams["showLater"] as? Bool {
+            self.showLater = showLater
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +41,20 @@ class AiringNowViewController: GenericDetailViewController {
         TvRemoteDataProvider.shared.remoteDataDelegate = self
         TvRemoteDataProvider.shared.getCategories()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if showLater {
+            showLater = false
+            if !self.laterButton.isSelected {
+                self.laterButton.isSelected = true
+                self.nowButton.isSelected = false
+                self.shouldAnimate = true
+                reset()
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -125,8 +148,7 @@ extension AiringNowViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let listingItem = self.listItems[indexPath.row] as! ListingMediaItem
-        
-        
+    
         let cell = tableView.dequeueReusableCell(withIdentifier: RemoteCellIdentifiers.ChannelPlayWithAiringNowCell.rawValue, for: indexPath) as! ChannelPlayWithAiringNowCell
         
         cell.mediaItem = listingItem

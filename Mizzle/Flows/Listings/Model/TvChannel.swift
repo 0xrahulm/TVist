@@ -14,6 +14,7 @@ class TvChannel: NSObject {
     var name: String?
     var callSign: String?
     var imageUrl: String?
+    var number: String?
     
     class func createTvChannel(data:[String:Any]) -> TvChannel? {
         guard let id = data["id"] as? String, let callSign = data["call_sign"] as? String else { return nil }
@@ -26,6 +27,7 @@ class TvChannel: NSObject {
             tvChannel.name = channelName
         }
         tvChannel.imageUrl = data["img_url"] as? String
+        tvChannel.number = data["channel_number"] as? String
         
         return tvChannel
     }

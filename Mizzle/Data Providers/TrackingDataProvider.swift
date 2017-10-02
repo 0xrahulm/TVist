@@ -21,7 +21,7 @@ class TrackingDataProvider: CommonDataProvider {
     }
     
     func addTrackingFor(escapeId: String) {
-        NotificationsVader.shared.getNotificationPermission()
+        
         ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .UserTrackings, params: ["escape_id":escapeId], delegate: self)
     }
     

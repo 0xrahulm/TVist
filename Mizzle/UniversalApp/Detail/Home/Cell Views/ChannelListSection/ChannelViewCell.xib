@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ChannelViewCell" id="gTV-IL-0wX" customClass="ChannelViewCell" customModule="TVist" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="221" height="141"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="221" height="141"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96q-Rg-4X5">
+                        <rect key="frame" x="12" y="10" width="197" height="121"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f9d-Rr-qVH">
+                                <rect key="frame" x="0.0" y="0.0" width="197" height="121"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="f9d-Rr-qVH" firstAttribute="top" secondItem="96q-Rg-4X5" secondAttribute="top" constant="0.5" id="6QP-XJ-xqI"/>
+                            <constraint firstItem="f9d-Rr-qVH" firstAttribute="leading" secondItem="96q-Rg-4X5" secondAttribute="leading" constant="0.5" id="Kah-jM-YXL"/>
+                            <constraint firstAttribute="bottom" secondItem="f9d-Rr-qVH" secondAttribute="bottom" constant="0.5" id="rXo-hZ-6oS"/>
+                            <constraint firstAttribute="trailing" secondItem="f9d-Rr-qVH" secondAttribute="trailing" constant="0.5" id="sQc-qU-BoD"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="96q-Rg-4X5" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="OSt-Cu-q8P"/>
+                <constraint firstItem="96q-Rg-4X5" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="aZW-0h-AJb"/>
+                <constraint firstAttribute="trailing" secondItem="96q-Rg-4X5" secondAttribute="trailing" constant="12" id="ccb-4f-aKK"/>
+                <constraint firstAttribute="bottom" secondItem="96q-Rg-4X5" secondAttribute="bottom" constant="10" id="ljC-if-uq1"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="221" height="141"/>
+            <connections>
+                <outlet property="channelImageView" destination="f9d-Rr-qVH" id="GgO-WK-x2K"/>
+            </connections>
+            <point key="canvasLocation" x="119.5" y="99.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

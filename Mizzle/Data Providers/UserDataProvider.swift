@@ -164,6 +164,7 @@ class UserDataProvider: CommonDataProvider {
         var subServiceType: SubServiceType?
         switch key {
         case .alertPreference:
+            NotificationsVader.shared.getNotificationPermission()
             subServiceType = .PostAlertPreference
             break
         case .onlyNewEpisodes:

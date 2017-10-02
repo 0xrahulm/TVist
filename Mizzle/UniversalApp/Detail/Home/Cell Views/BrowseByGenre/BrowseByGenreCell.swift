@@ -23,8 +23,6 @@ class BrowseByGenreCell: HomeSectionBaseCell {
     
     var matricallyArranged:[[GenreItem]] = []
     
-    weak var viewAllTapDelegate: ViewAllTapProtocol?
-    
     var registerableCells:[BrowseByGenreCollectionCellIdentifier] = [.GenreCollectionViewCell]
     let letters = (0..<26).map({Character(UnicodeScalar("a".unicodeScalars.first!.value + $0)!)})
     
@@ -104,13 +102,6 @@ class BrowseByGenreCell: HomeSectionBaseCell {
         }
         
     }
-    
-    @IBAction func viewAllTapped() {
-        if let viewAllTapDelegate = viewAllTapDelegate {
-            viewAllTapDelegate.viewAllTappedIn(self)
-        }
-    }
-    
 }
 
 extension BrowseByGenreCell: UICollectionViewDelegate {

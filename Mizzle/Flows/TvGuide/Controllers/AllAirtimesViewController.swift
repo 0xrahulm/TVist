@@ -49,7 +49,6 @@ class AllAirtimesViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewWillAppear(animated)
         
         loadNextPage()
-        
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     

@@ -42,7 +42,6 @@ class HomeItemViewController: GenericAllItemsListViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
         super.viewWillDisappear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)

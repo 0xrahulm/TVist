@@ -10,6 +10,7 @@ import UIKit
 
 class UniversalAppSplitViewController: UISplitViewController {
 
+    var isRegular: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,12 +31,15 @@ class UniversalAppSplitViewController: UISplitViewController {
             if let genericNavVC = vc as? CustomNavigationViewController, let genericMasterVC = genericNavVC.topViewController as? GenericDetailViewController {
                 genericMasterVC.displayModeButtonItem = self.displayModeButtonItem
             }
+            
+            if let genericDetailVC = vc as? GenericDetailViewController {
+                genericDetailVC.displayModeButtonItem = self.displayModeButtonItem
+            }
         }
     }
     
     func splitViewWith(primaryVC: UIViewController, secondaryVC: UIViewController) {
-        
-        self.viewControllers = [primaryVC, secondaryVC]
+        self.viewControllers = [primaryVC, prepareDetailView(viewController: secondaryVC, addDisplayModeButtonItem: false)]
     }
     
     func changePrimaryViewController(viewController: UIViewController) {
@@ -43,11 +47,41 @@ class UniversalAppSplitViewController: UISplitViewController {
     }
     
     func changeSecondaryViewController(viewController: UIViewController) {
-        if let genericNavVC = viewController as? CustomNavigationViewController, let genericMasterVC = genericNavVC.topViewController as? GenericDetailViewController {
-            genericMasterVC.displayModeButtonItem = self.displayModeButtonItem
+        
+        let detailVC = prepareDetailView(viewController: viewController, addDisplayModeButtonItem: true)
+        
+        if self.viewControllers.count == 1 && self.isCollapsed {
+         
+            if let navVC = self.viewControllers[0] as? CustomNavigationViewController {
+                navVC.pushViewController(detailVC, animated: true)
+            }
+        } else {
+            
+            self.showDetailViewController(detailVC, sender: self)
+            
+        }
+    }
+    
+    func prepareDetailView(viewController: UIViewController, addDisplayModeButtonItem: Bool) -> UIViewController {
+        
+        var secondaryViewController = viewController
+        if let genericDetailVC = secondaryViewController as? GenericDetailViewController {
+            genericDetailVC.displayModeButtonItem = self.displayModeButtonItem
+            genericDetailVC.isCollapsed = self.isCollapsed
+            genericDetailVC.isRegular = self.isRegular
         }
         
-        self.showDetailViewController(viewController, sender: self)
+        if self.isRegular {
+            secondaryViewController = wrapInsideCustomNav(viewController: secondaryViewController)
+        }
+        
+        return secondaryViewController
+    }
+    
+    func wrapInsideCustomNav(viewController: UIViewController) -> CustomNavigationViewController {
+        let customNav = CustomNavigationViewController(rootViewController: viewController)
+        customNav.setNavigationBarHidden(true, animated: false)
+        return customNav
     }
 
 }

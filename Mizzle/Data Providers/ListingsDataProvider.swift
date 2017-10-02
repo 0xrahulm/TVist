@@ -182,12 +182,27 @@ class ListingsDataProvider: CommonDataProvider {
     
     func parseChannelData(channelData: [Any], channelId:String, page: Int?) {
         
-        var listingData: [ListingMediaItem] = []
+        var listingData: [EscapeItem] = []
         
         for listItem in channelData {
             if let listItem = listItem as? [String:Any] {
                 if let item = ListingMediaItem.parseListingMediaItem(listItem) {
-                    listingData.append(item)
+                    let airtime = Airtime()
+                    airtime.airTime = item.airtime
+                    airtime.airDate = item.airdate
+                    if let episodeItem = item.episodeItem {
+                     
+                        airtime.episodeString = episodeItem.numericalString()
+                    }
+                    if let channelItem = item.channelItem {
+                     
+                        airtime.channelIcon = channelItem.icon
+                        airtime.channelName = channelItem.name
+                    }
+                    if let escapeItem = EscapeItem.createWithMediaItem(mediaItem: item.mediaItem, nextAirtime: airtime) {
+                     
+                        listingData.append(escapeItem)
+                    }
                 }
             }
         }

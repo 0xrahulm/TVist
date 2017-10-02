@@ -30,8 +30,6 @@ class VideosSectionCell: HomeSectionBaseCell {
     
     @IBOutlet weak var playerHeightConstraint: NSLayoutConstraint!
     
-    weak var viewAllTapDelegate: ViewAllTapProtocol?
-    
     
     var registerableCells:[VideosSectionCellIdentifier] = [.SingleVideoSmallCell]
     
@@ -98,14 +96,6 @@ class VideosSectionCell: HomeSectionBaseCell {
     func willDisplay() {
         tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
     }
-    
-    
-    @IBAction func viewAllTapped() {
-        if let viewAllTapDelegate = viewAllTapDelegate {
-            viewAllTapDelegate.viewAllTappedIn(self)
-        }
-    }
-    
     
     func loadVideoUrl(url: String) {
         if let nsUrl = URL(string: url) {

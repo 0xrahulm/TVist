@@ -16,7 +16,7 @@ extension UIViewController{
             if coordinator.initiallyInteractive {
                 let mapTable = NSMapTable<AnyObject, AnyObject>(keyOptions: NSPointerFunctions.Options.strongMemory, valueOptions: NSPointerFunctions.Options.strongMemory, capacity: 0)
                 
-                if #available(iOS 10.0, *) {
+                if #available(iOS 11.0, *) {
                     coordinator.notifyWhenInteractionChanges({ (context) in
                         if !context.isCancelled {
                             if let navVC = self.navigationController {

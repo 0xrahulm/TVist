@@ -11,7 +11,6 @@ import UIKit
 class ChannelListingViewController: GenericAllItemsListViewController {
     
     
-    var listingItem: ChannelListing?
     
     var startDate: String!
     var endDate: String?
@@ -23,10 +22,12 @@ class ChannelListingViewController: GenericAllItemsListViewController {
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         super.setObjectsWithQueryParameters(queryParams)
         
+        if let tvChannel = queryParams["channel"] as? TvChannel {
+            self.channel = tvChannel
+        }
+        
         if let listingItem = queryParams["listingItem"] as? ChannelListing {
-            self.listingItem = listingItem
-            self.channel = listingItem.channel
-            self.setPrefillItems(prefillItems: listingItem.programListings)
+            
         }
         
         if let startTime = queryParams["startDate"] as? String {
@@ -84,7 +85,7 @@ class ChannelListingViewController: GenericAllItemsListViewController {
     
     @objc func receivedData(notification: Notification) {
         if let userInfo = notification.userInfo {
-            if let listData = userInfo["data"] as? [ListingMediaItem], let channelId = userInfo["channel_id"] as? String {
+            if let listData = userInfo["data"] as? [EscapeItem], let channelId = userInfo["channel_id"] as? String {
                 if let currentChannelId = self.channel.id, channelId == currentChannelId {
                     appendDataToBeListed(appendableData: listData, page: userInfo["page"] as? Int)
                 }

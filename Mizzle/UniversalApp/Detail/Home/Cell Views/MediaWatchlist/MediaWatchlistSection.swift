@@ -24,7 +24,6 @@ class MediaWatchlistSection: HomeSectionBaseCell {
     
     var watchlistItems:[EscapeItem] = []
     
-    weak var viewAllTapDelegate: ViewAllTapProtocol?
     var emptyString: String?
     
     var registerableCells:[MediaWatchlistCellIdentifier] = [.WatchlistCell, .EmptyStringCell]
@@ -86,11 +85,6 @@ class MediaWatchlistSection: HomeSectionBaseCell {
         }
     }
     
-    @IBAction func viewAllTapped() {
-        if let viewAllTapDelegate = viewAllTapDelegate {
-            viewAllTapDelegate.viewAllTappedIn(self)
-        }
-    }
     
 }
 

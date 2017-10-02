@@ -55,7 +55,7 @@ class AddToWatchlistPopupViewController: UIViewController {
         
         self.mediaNameLabel.text = mediaItem.name
         self.mediaYearLabel.text = mediaItem.year
-        self.mediaPosterImageView.downloadImageWithUrl(mediaItem.posterImage, placeHolder: nil)
+        self.mediaPosterImageView.downloadImageWithUrl(mediaItem.posterImage, placeHolder: UIImage(named: "movie_placeholder"))
         self.selectedAlertSwitch = mediaItem.isAlertSet
         
         self.tableView.backgroundColor = UIColor.styleGuideBackgroundColor()
@@ -110,6 +110,7 @@ extension AddToWatchlistPopupViewController: SettingsOnOffSwitchProtocol {
         if UserDataProvider.sharedDataProvider.premiumOnlyFeature(feature: .airtimeAlerts) {
             self.selectedAlertSwitch = isOn
             self.alertOptionsEnabled = true
+            NotificationsVader.shared.getNotificationPermission()
             
         }
         

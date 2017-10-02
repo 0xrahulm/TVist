@@ -76,6 +76,7 @@ enum UniversalScreenManagerAction: String {
     case openSimilarEscapesView = "openSimilarEscapesView"
     case openUpdateDetailsInputView = "openUpdateDetailsInputView"
     case openAllAirtimesView = "openAllAirtimesView"
+    case openChannelListingView = "openChannelListingView"
 }
 
 enum StoryBoardIdentifier : String{
@@ -190,6 +191,7 @@ enum HomeItemType: Int {
     case remoteBanner=6
     case todayItem=7
     case next7DaysItem=8
+    case channelList=9
 }
 
 enum EscapeType: String {
@@ -288,6 +290,7 @@ enum GenericDetailCellIdentifiers: String {
     case remoteConnectBannerCell = "RemoteConnectBannerCell"
     case channelPlayWithAiringNowCell = "ChannelPlayWithAiringNowCell"
     case genericEscapeCell = "GenericEscapeCell"
+    case channelWiseListCell = "ChannelWiseListCell"
 }
 
 enum EscapeAddActions: String {
@@ -547,6 +550,8 @@ enum EventName: String {
     case GenreItemClick = "Genre_Item_Tap"
     case SectionViewAllClick = "Section_View_All_Tap"
     
+    case ChannelListingViewAllTap = "Channel_Full_Listings_Tap"
+    
     // Add to watchlist popup
     
     case AddButtonTap = "Add_Button_Tap"
@@ -619,6 +624,10 @@ enum EventName: String {
     case WhatsOnChannelFilterTap = "Whats_On_Channel_Filter_Tap"
     case WhatsOnNowButtonTap = "Whats_On_Now_Button_Tap"
     case WhatsOnLaterButtonTap = "Whats_On_Later_Button_Tap"
+    
+    
+    //
+    case ChannelItemTap = "Channel_Item_Tap"
     
     // Tab Events
     case HomeTabClick = "Home_Tab_Click"

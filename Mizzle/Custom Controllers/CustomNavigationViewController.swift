@@ -22,23 +22,12 @@ class CustomNavigationViewController: UINavigationController, UINavigationContro
     var popupHeight: CGFloat = 480
     var popupWidth: CGFloat = 316
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        if let title = self.title {
-            tabViewSetupWithTitle(title: title)
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.delegate = self
         setAppearnce()
         
-        if let interactiveGestureRecognizer = self.interactivePopGestureRecognizer {
-            interactiveGestureRecognizer.delegate = self
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

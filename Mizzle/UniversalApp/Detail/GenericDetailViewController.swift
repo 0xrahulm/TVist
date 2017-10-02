@@ -37,6 +37,8 @@ class GenericDetailViewController: BaseViewController, UITableViewDelegate {
     var loadedOnce:Bool = false
     
     var isTopVC: Bool = true
+    var isCollapsed: Bool = false
+    var isRegular: Bool = false
     
     override func setObjectsWithQueryParameters(_ queryParams: [String : Any]) {
         super.setObjectsWithQueryParameters(queryParams)
@@ -49,12 +51,8 @@ class GenericDetailViewController: BaseViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if shouldSetupMasterHeaderView() {
-         
-            setupMasterHeaderView()
-        }
-        
     }
+    
     
     func shouldSetupMasterHeaderView() -> Bool {
         return true
@@ -77,9 +75,9 @@ class GenericDetailViewController: BaseViewController, UITableViewDelegate {
         
         self.masterHeaderView.delegate = self
         
-        self.tableView.contentInset = UIEdgeInsets(top: ViewConstants.headerHeightFull, left: 0, bottom: 40, right: 0)
+        self.tableView.contentInset = UIEdgeInsets(top: ViewConstants.headerHeightFull, left: 0, bottom: 80, right: 0)
         
-        if self.view.traitCollection.horizontalSizeClass == .regular {
+        if self.isRegular && !self.isCollapsed {
             enableResizerButton()
         } else {
             enableProfileBackButton()
@@ -89,11 +87,6 @@ class GenericDetailViewController: BaseViewController, UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if shouldSetupMasterHeaderView() {
-            if let title = self.title {
-                self.masterHeaderView.setMasterHeaderViewWithTitle(title: title)
-            }
-        }
         
         if listItems.count == 0 {
             loadNexPage()
@@ -102,6 +95,15 @@ class GenericDetailViewController: BaseViewController, UITableViewDelegate {
         }
         
         if !loadedOnce {
+            
+            if shouldSetupMasterHeaderView() {
+                
+                setupMasterHeaderView()
+                if let title = self.title {
+                    self.masterHeaderView.setMasterHeaderViewWithTitle(title: title)
+                }
+            }
+            
             loadedOnce = true
             initXibs()
         }
@@ -247,6 +249,10 @@ class GenericDetailViewController: BaseViewController, UITableViewDelegate {
         fetchRequest()
     }
     
+    func pageFetchSize() -> Int {
+        return DataConstants.kDefaultFetchSize
+    }
+    
     func appendDataToBeListed(appendableData: [AnyObject], page: Int?, animated: Bool = false, animationStyle: UITableViewRowAnimation = .left) {
         
         loadingView.stopAnimating()
@@ -254,7 +260,7 @@ class GenericDetailViewController: BaseViewController, UITableViewDelegate {
         if let page = page, page == nextPage {
             
             nextPage += 1
-            if appendableData.count < DataConstants.kDefaultFetchSize {
+            if appendableData.count < pageFetchSize() {
                 fullDataLoaded = true
             }
             

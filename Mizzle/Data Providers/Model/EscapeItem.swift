@@ -77,10 +77,11 @@ final class EscapeItem: Object {
         return EscapeType(rawValue: self.escapeType)!
     }
     
-    class func createWithMediaItem(mediaItem: MediaItem) -> EscapeItem? {
+    class func createWithMediaItem(mediaItem: MediaItem, nextAirtime: Airtime?=nil) -> EscapeItem? {
         if let mediaId = mediaItem.id, let mediaName = mediaItem.name, let mediaType = mediaItem.type {
-            
-            return EscapeItem.addOrEditEscapeItem(mediaId, name: mediaName, escapeType: mediaType, posterImage: mediaItem.posterImage, year: mediaItem.year, rating: mediaItem.ratingNum, subTitle: nil, createdBy: nil, _realm: nil, nextAirtime: nil)
+            let escapeItem = EscapeItem.addOrEditEscapeItem(mediaId, name: mediaName, escapeType: mediaType, posterImage: mediaItem.posterImage, year: mediaItem.year, rating: mediaItem.ratingNum, subTitle: nil, createdBy: nil, _realm: nil, nextAirtime: nil)
+            escapeItem.nextAirtime = nextAirtime
+            return escapeItem
         }
         
         return nil

@@ -17,7 +17,7 @@ class HomeItem: NSObject {
     var articlesList: [ArticleItem] = []
     var videosList: [VideoItem] = []
     var genreList: [GenreItem] = []
-    
+    var channelList: [TvChannel] = []
     var totalItemsCount:Int = 0
     
     var id: String?
@@ -57,6 +57,8 @@ class HomeItem: NSObject {
         case .listing:
             parseListingMediaItem(dataList)
             break
+        case .channelList:
+            parseChannelListItem(dataList)
         case .showLoading:
             break
         case .remoteBanner:
@@ -109,6 +111,15 @@ class HomeItem: NSObject {
             }
             escapeDataList.append(escapeItem)
             
+        }
+    }
+    
+    func parseChannelListItem(_ channelListData: [[String:Any]]) {
+        
+        for eachItem in channelListData {
+            if let tvChannel = TvChannel.createTvChannel(data: eachItem) {
+                channelList.append(tvChannel)
+            }
         }
     }
     
