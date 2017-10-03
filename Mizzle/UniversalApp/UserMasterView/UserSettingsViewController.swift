@@ -167,14 +167,8 @@ extension UserSettingsViewController: UITableViewDelegate, UITableViewDataSource
             if item.title == "Enable Alerts" {
              
                 switchCell.onOffSwitchDelegate = self
-                if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
-                 
-                    if user.isPremium() {
-                        switchCell.onOffSwitch.isOn = UserPreferenceVader.shared.getAlertPreference()
-                    } else {
-                        switchCell.onOffSwitch.isOn = false
-                    }
-                }
+                
+                switchCell.onOffSwitch.isOn = UserPreferenceVader.shared.getAlertPreference()
             }
         }
         cell.upperLine.isHidden = indexPath.row != 0
@@ -238,10 +232,7 @@ extension UserSettingsViewController: SettingsOnOffSwitchProtocol {
         
         AnalyticsVader.sharedVader.basicEvents(eventName: .UserSettingsAlertPreferenceSwitch, properties: ["state":"\(isOn)"])
         
-        if UserDataProvider.sharedDataProvider.premiumOnlyFeature(feature: .airtimeAlerts) {
-            
-            UserDataProvider.sharedDataProvider.setPreferenceFor(key: .alertPreference, value: true)
-        }
+        UserDataProvider.sharedDataProvider.setPreferenceFor(key: .alertPreference, value: isOn)
         
         self.tableView.reloadData()
     }

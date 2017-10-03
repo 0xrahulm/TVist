@@ -27,7 +27,7 @@ class UpgradeNowPopupViewController: UIViewController {
             
             switch featureIdentifier {
             case .airtimeAlerts:
-                self.premiumFeatureLabel.text = "Airing Alerts only available in Premium"
+                self.premiumFeatureLabel.text = "Only 5 airing alerts are available in Free tier"
                 break
             case .filters:
                 self.premiumFeatureLabel.text = "Advanced Filters only available in Premium"

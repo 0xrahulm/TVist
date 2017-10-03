@@ -43,6 +43,7 @@ class AiringNowViewController: GenericDetailViewController {
         
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

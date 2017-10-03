@@ -186,14 +186,14 @@ class NetworkWrapper: NSObject {
             
             print ("TOKEN : \(auth)")
         }
-//      headers["X-DEVICE-ID"] = "s043455A6-BsdfdsdfsfE55Bj1dfglopj-0sisdfdsfshudfjdsfb"
+//        headers["X-DEVICE-ID"] = "s043455A6-BsdfdsdfsfE55Bj1dfglopj-0sisdfdsfshu-dfjdsfb-09"
         headers["X-DEVICE-ID"] = DeviceID.getDeviceID()
         
         headers["X-DEVICE-INFO"] = UIDevice.current.modelName
         headers["X-DEVICE-TYPE"] = "iOS"
         headers["Accept"] = "application/version.v1"
         headers["Accept"] = "application/json"
-        headers["X-APP-VERSION-CODE"] = "104"
+        headers["X-APP-VERSION-CODE"] = "105"
         print("Device id :\(DeviceID.getDeviceID())")
         return headers
     }

@@ -107,11 +107,20 @@ class AddToWatchlistPopupViewController: UIViewController {
 extension AddToWatchlistPopupViewController: SettingsOnOffSwitchProtocol {
     func onOffSwitchValueDidChange(isOn: Bool) {
         
-        if UserDataProvider.sharedDataProvider.premiumOnlyFeature(feature: .airtimeAlerts) {
-            self.selectedAlertSwitch = isOn
-            self.alertOptionsEnabled = true
-            NotificationsVader.shared.getNotificationPermission()
-            
+        if let user = MyAccountDataProvider.sharedDataProvider.currentUser {
+         
+            if user.alerts_count > 5 {
+                if UserDataProvider.sharedDataProvider.premiumOnlyFeature(feature: .airtimeAlerts) {
+                    
+                    self.selectedAlertSwitch = isOn
+                    self.alertOptionsEnabled = true
+                    NotificationsVader.shared.getNotificationPermission()
+                }
+            } else {
+                self.selectedAlertSwitch = isOn
+                self.alertOptionsEnabled = true
+                NotificationsVader.shared.getNotificationPermission()
+            }
         }
         
         AnalyticsVader.sharedVader.basicEvents(eventName: EventName.AddToWatchlistEnableAlerts, properties: ["state":"\(isOn)"])
