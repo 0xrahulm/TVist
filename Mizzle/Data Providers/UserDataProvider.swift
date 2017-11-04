@@ -66,9 +66,9 @@ class UserDataProvider: CommonDataProvider {
     
     weak var emailLoginDelegate:   LoginProtocol?
     weak var fbLoginDelegate:      LoginProtocol?
+    weak var supportTicketsDelegate: SupportTicketsProtocol?
     weak var interestDelegate:     InterestProtocol?
     weak var notificationDelegate : NotificationProtocol?
-    weak var supportTicketsDelegate: SupportTicketsProtocol?
     weak var deviceSessionDelegate: DeviceSessionProtocol?
     
     var temporaryStoredUsers:[MyAccountItems] = []
@@ -77,6 +77,7 @@ class UserDataProvider: CommonDataProvider {
         
        ServiceCall(.get, serviceType: .ServiceTypePrivateApi, subServiceType: .DeviceSession, params: ["device_info": UIDevice.current.modelName], delegate: self)
     }
+    
     func postFBtoken(_ token : String , expires_in : TimeInterval){
         ServiceCall(.post, serviceType: .ServiceTypePrivateApi, subServiceType: .FBSignIn, params: ["facebook_token" : token , "expires_in" : expires_in, "device_info": UIDevice.current.modelName], delegate: self)
     }

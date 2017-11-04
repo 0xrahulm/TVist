@@ -6,9 +6,10 @@ def tvist_pods
     pod 'Fabric', '~> 1.6'
     pod 'Crashlytics', '~> 3.8.6'
     pod 'DropDown'
-    pod 'CocoaAsyncSocket'
+    #pod 'CocoaAsyncSocket'
     pod 'SwipeCellKit'
     pod 'Google/Analytics'
+    #pod 'KeychainSwift', '~> 9.0'
 end
 
 target 'TVist' do

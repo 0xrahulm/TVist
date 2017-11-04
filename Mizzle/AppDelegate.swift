@@ -158,9 +158,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ScreenVader.sharedVader.processDeepLink(url.absoluteString, shouldAddToPending: !self.initializedOnce)
         }
         
-            
-        let optionsStr:[String:Any] = [UIApplicationOpenURLOptionsKey.annotation.rawValue:options[UIApplicationOpenURLOptionsKey.annotation] ?? "", UIApplicationOpenURLOptionsKey.openInPlace.rawValue:options[UIApplicationOpenURLOptionsKey.openInPlace] ?? "", UIApplicationOpenURLOptionsKey.sourceApplication.rawValue:options[UIApplicationOpenURLOptionsKey.sourceApplication] ?? ""]
-        
         return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
     }
     

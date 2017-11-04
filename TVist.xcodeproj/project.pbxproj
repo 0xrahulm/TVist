@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7C7C406B1F6C0FC7490B3A92 /* Pods_TVist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C97ECB0203D3AD723AF2CC5 /* Pods_TVist.framework */; };
 		841402001F73CEE600DEC8A6 /* SnappingFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841401FF1F73CEE500DEC8A6 /* SnappingFlowLayout.swift */; };
 		8417FD871F6AA694006A83CD /* SettingsOnOffTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8417FD861F6AA694006A83CD /* SettingsOnOffTableViewCell.swift */; };
 		8417FD891F6AA6C9006A83CD /* SettingsPremiumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8417FD881F6AA6C9006A83CD /* SettingsPremiumTableViewCell.swift */; };
@@ -99,6 +98,7 @@
 		8446C9971DD8F430008C6DED /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8446C9961DD8F430008C6DED /* TabButton.swift */; };
 		84518BC01EA66F4100DB59FD /* AnalyticsVader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84518BBF1EA66F4100DB59FD /* AnalyticsVader.swift */; };
 		846006FD1F3DB3EF006D8523 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846006FC1F3DB3EF006D8523 /* BaseViewController.swift */; };
+		84624E471F86DA5600DB6A11 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8469867B1EF7B17E004C1815 /* TrackingDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469867A1EF7B17E004C1815 /* TrackingDataProvider.swift */; };
 		8469867F1EF7CCF6004C1815 /* Tracker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8469867E1EF7CCF6004C1815 /* Tracker.storyboard */; };
 		846986821EF7CD77004C1815 /* TrackerChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846986811EF7CD77004C1815 /* TrackerChildViewController.swift */; };
@@ -132,6 +132,8 @@
 		847165441EC30B02004B0A53 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847165421EC30B02004B0A53 /* MainInterface.storyboard */; };
 		847165461EC30B02004B0A53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847165451EC30B02004B0A53 /* Assets.xcassets */; };
 		8471654A1EC30B02004B0A53 /* TVistAsk.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8471653C1EC30B02004B0A53 /* TVistAsk.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		847B2A0E1F86E1A500FEBFAF /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847B2A0D1F86E02500FEBFAF /* KeychainSwift.framework */; };
+		847B2A0F1F86E1A500FEBFAF /* KeychainSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 847B2A0D1F86E02500FEBFAF /* KeychainSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		848198A11EFBA4E90063A494 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848198A01EFBA4E90063A494 /* UserDetailView.swift */; };
 		848198A91EFBE64A0063A494 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848198A71EFBE64A0063A494 /* AdSupport.framework */; };
 		848198AA1EFBE64A0063A494 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848198A81EFBE64A0063A494 /* iAd.framework */; };
@@ -438,6 +440,7 @@
 		BCFC92B81CE2132700AE82BC /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFC92B71CE2132700AE82BC /* UserData.swift */; };
 		BCFE486B1CA3C1C00098160D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCFE486A1CA3C1C00098160D /* Images.xcassets */; };
 		BCFE486E1CA400C60098160D /* NetworkAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE486D1CA400C60098160D /* NetworkAvailability.swift */; };
+		F81D983EA5DC4AD77DF8848D /* Pods_TVist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 973BBC96B5209B12CBB5009F /* Pods_TVist.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -457,9 +460,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				847B2A0F1F86E1A500FEBFAF /* KeychainSwift.framework in Embed Frameworks */,
 				842BBDF51EC9B55600B7731C /* Realm.framework in Embed Frameworks */,
 				842BBDDF1EC9B4D400B7731C /* AWSCognito.framework in Embed Frameworks */,
 				842BBE161EC9BD5C00B7731C /* AWSS3.framework in Embed Frameworks */,
+				84624E471F86DA5600DB6A11 /* (null) in Embed Frameworks */,
 				842BBDE31EC9B4D400B7731C /* AWSCore.framework in Embed Frameworks */,
 				846B90C31EFD79440008C3AA /* Mixpanel.framework in Embed Frameworks */,
 				842BBDD11EC99C8D00B7731C /* Alamofire.framework in Embed Frameworks */,
@@ -485,10 +490,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0A259B90E46AA11CA7B5A1D6 /* Pods-Mizzle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mizzle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mizzle/Pods-Mizzle.debug.xcconfig"; sourceTree = "<group>"; };
-		1C97ECB0203D3AD723AF2CC5 /* Pods_TVist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TVist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		632CF179745061BBDF315340 /* Pods-Mizzle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mizzle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mizzle/Pods-Mizzle.release.xcconfig"; sourceTree = "<group>"; };
-		776CABF87274906AE2B6487D /* Pods_Mizzle_copy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mizzle_copy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		841401FF1F73CEE500DEC8A6 /* SnappingFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnappingFlowLayout.swift; sourceTree = "<group>"; };
 		8417FD861F6AA694006A83CD /* SettingsOnOffTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsOnOffTableViewCell.swift; sourceTree = "<group>"; };
 		8417FD881F6AA6C9006A83CD /* SettingsPremiumTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPremiumTableViewCell.swift; sourceTree = "<group>"; };
@@ -608,6 +609,7 @@
 		847165451EC30B02004B0A53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		847165471EC30B02004B0A53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8471654F1EC30B1B004B0A53 /* MizzleAsk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MizzleAsk.entitlements; sourceTree = "<group>"; };
+		847B2A0D1F86E02500FEBFAF /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
 		848198A01EFBA4E90063A494 /* UserDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		848198A71EFBE64A0063A494 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		848198A81EFBE64A0063A494 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
@@ -842,8 +844,8 @@
 		84ED78E21EC5E189002D62F2 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		84ED79011EC5E7CA002D62F2 /* SearchDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDataProvider.swift; sourceTree = "<group>"; };
 		84ED79051EC5EAE7002D62F2 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
-		8E8A95DBE275CF0789B24A58 /* Pods-TVist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TVist.release.xcconfig"; path = "Pods/Target Support Files/Pods-TVist/Pods-TVist.release.xcconfig"; sourceTree = "<group>"; };
-		ABDB83AADB664C7A0A08B2D6 /* Pods_Mizzle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mizzle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		973BBC96B5209B12CBB5009F /* Pods_TVist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TVist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B97FBD5DA4AC3DA2B31539E2 /* Pods-TVist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TVist.release.xcconfig"; path = "Pods/Target Support Files/Pods-TVist/Pods-TVist.release.xcconfig"; sourceTree = "<group>"; };
 		BC02D0C21CD0D674009D7EE6 /* UIImage+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Utility.swift"; sourceTree = "<group>"; };
 		BC0BBBE31CF1D08E00B03A93 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
 		BC0BBBE61CF1D30600B03A93 /* TimeUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeUtility.swift; sourceTree = "<group>"; };
@@ -907,8 +909,7 @@
 		BCFC92B71CE2132700AE82BC /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		BCFE486A1CA3C1C00098160D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BCFE486D1CA400C60098160D /* NetworkAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAvailability.swift; sourceTree = "<group>"; };
-		C85A9452F73E0A052A0D9825 /* Pods_MizzleAsk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MizzleAsk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC7E6EDE517F30D8DE9FD4B6 /* Pods-TVist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TVist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TVist/Pods-TVist.debug.xcconfig"; sourceTree = "<group>"; };
+		F79BFA1D6D67FA75272A6379 /* Pods-TVist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TVist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TVist/Pods-TVist.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -944,6 +945,7 @@
 				BC3A81941CA5397B00FF8678 /* FBSDKShareKit.framework in Frameworks */,
 				842BBDF41EC9B55600B7731C /* Realm.framework in Frameworks */,
 				BC3A81901CA5397B00FF8678 /* FBSDKCoreKit.framework in Frameworks */,
+				847B2A0E1F86E1A500FEBFAF /* KeychainSwift.framework in Frameworks */,
 				842BBDD41EC99CA700B7731C /* AlamofireImage.framework in Frameworks */,
 				842BBDD01EC99C8D00B7731C /* Alamofire.framework in Frameworks */,
 				BC3A81921CA5397B00FF8678 /* FBSDKLoginKit.framework in Frameworks */,
@@ -954,7 +956,7 @@
 				842BBDEE1EC9B55600B7731C /* Locksmith.framework in Frameworks */,
 				842BBDE01EC9B4D400B7731C /* AWSCognitoIdentityProvider.framework in Frameworks */,
 				848198B81EFBF9E60063A494 /* libGoogleConversionTracking.a in Frameworks */,
-				7C7C406B1F6C0FC7490B3A92 /* Pods_TVist.framework in Frameworks */,
+				F81D983EA5DC4AD77DF8848D /* Pods_TVist.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -964,6 +966,7 @@
 		5143957AF50AB6AA11D43E32 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				847B2A0D1F86E02500FEBFAF /* KeychainSwift.framework */,
 				8470F5A31F0BBA54001341E8 /* StoreKit.framework */,
 				8470F5A11F0BBA40001341E8 /* SystemConfiguration.framework */,
 				8470F59F1F0BBA1D001341E8 /* Security.framework */,
@@ -995,10 +998,7 @@
 				BC3A818E1CA5397B00FF8678 /* FBSDKLoginKit.framework */,
 				BC3A818F1CA5397B00FF8678 /* FBSDKShareKit.framework */,
 				8471653D1EC30B02004B0A53 /* Messages.framework */,
-				ABDB83AADB664C7A0A08B2D6 /* Pods_Mizzle.framework */,
-				776CABF87274906AE2B6487D /* Pods_Mizzle_copy.framework */,
-				C85A9452F73E0A052A0D9825 /* Pods_MizzleAsk.framework */,
-				1C97ECB0203D3AD723AF2CC5 /* Pods_TVist.framework */,
+				973BBC96B5209B12CBB5009F /* Pods_TVist.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1850,6 +1850,15 @@
 			path = CustomViews;
 			sourceTree = "<group>";
 		};
+		9E0E32BBA2F666E03EF81BF6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F79BFA1D6D67FA75272A6379 /* Pods-TVist.debug.xcconfig */,
+				B97FBD5DA4AC3DA2B31539E2 /* Pods-TVist.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BC47ED751C9FEEC7008143C2 = {
 			isa = PBXGroup;
 			children = (
@@ -1862,7 +1871,7 @@
 				BC47EDAD1C9FFFDC008143C2 /* Utility */,
 				BCB7B4A21CA16FAB002147FA /* Resources */,
 				5143957AF50AB6AA11D43E32 /* Frameworks */,
-				D973635F47E3A16470E3C9DA /* Pods */,
+				9E0E32BBA2F666E03EF81BF6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2080,17 +2089,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		D973635F47E3A16470E3C9DA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0A259B90E46AA11CA7B5A1D6 /* Pods-Mizzle.debug.xcconfig */,
-				632CF179745061BBDF315340 /* Pods-Mizzle.release.xcconfig */,
-				CC7E6EDE517F30D8DE9FD4B6 /* Pods-TVist.debug.xcconfig */,
-				8E8A95DBE275CF0789B24A58 /* Pods-TVist.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2115,17 +2113,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC47ED931C9FEEC8008143C2 /* Build configuration list for PBXNativeTarget "TVist" */;
 			buildPhases = (
-				8D118D77DD07F98E52BFDE8B /* [CP] Check Pods Manifest.lock */,
+				C1F2CB962EADA41B040344CD /* [CP] Check Pods Manifest.lock */,
 				BC47ED7A1C9FEEC7008143C2 /* Sources */,
 				BC47ED7B1C9FEEC7008143C2 /* Frameworks */,
 				BC47ED7C1C9FEEC7008143C2 /* Resources */,
 				8471654E1EC30B02004B0A53 /* Embed App Extensions */,
 				842BBDD21EC99C8D00B7731C /* Embed Frameworks */,
-				70572811110FC43CD65F98B4 /* [CP] Embed Pods Frameworks */,
-				0ED221ED5EE96D930D833A01 /* [CP] Copy Pods Resources */,
 				842BBE121EC9BA1A00B7731C /* ShellScript */,
 				842BBE131EC9BC0900B7731C /* ShellScript */,
 				845957061EA8FF5F0031441D /* ShellScript */,
+				A77439DA47F1C4C778B616C2 /* [CP] Embed Pods Frameworks */,
+				97CD8EBF0B168488B5B965FB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2318,47 +2316,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0ED221ED5EE96D930D833A01 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TVist/Pods-TVist-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		70572811110FC43CD65F98B4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TVist/Pods-TVist-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
-				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
-				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TVist/Pods-TVist-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		842BBE121EC9BA1A00B7731C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2407,7 +2364,46 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" c48d937d2323a166e56e01a0509f77355cc292e2 91e127ddc5b99ecf814be0d7c17b620f8defdb84970f916f013203128fa64236";
 		};
-		8D118D77DD07F98E52BFDE8B /* [CP] Check Pods Manifest.lock */ = {
+		97CD8EBF0B168488B5B965FB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TVist/Pods-TVist-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A77439DA47F1C4C778B616C2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TVist/Pods-TVist-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
+				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TVist/Pods-TVist-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1F2CB962EADA41B040344CD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2914,7 +2910,7 @@
 		};
 		BC47ED941C9FEEC8008143C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC7E6EDE517F30D8DE9FD4B6 /* Pods-TVist.debug.xcconfig */;
+			baseConfigurationReference = F79BFA1D6D67FA75272A6379 /* Pods-TVist.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2952,7 +2948,7 @@
 		};
 		BC47ED951C9FEEC8008143C2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E8A95DBE275CF0789B24A58 /* Pods-TVist.release.xcconfig */;
+			baseConfigurationReference = B97FBD5DA4AC3DA2B31539E2 /* Pods-TVist.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

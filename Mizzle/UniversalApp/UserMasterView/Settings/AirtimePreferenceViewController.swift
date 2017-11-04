@@ -60,8 +60,6 @@ class AirtimePreferenceViewController: UIViewController, UIPickerViewDataSource,
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func valueChangedForSlider(_ sender: RangeSlider) {
-    }
     
     func timeValueForString(string: String) -> Int {
         var stringArr = string.components(separatedBy: " ")
@@ -99,25 +97,6 @@ class AirtimePreferenceViewController: UIViewController, UIPickerViewDataSource,
                 return "\(value) am"
             }
         }
-    }
-    
-    
-
-    func rangeSlider(_ sender: TTRangeSlider!, didChangeSelectedMinimumValue selectedMinimum: Float, andMaximumValue selectedMaximum: Float) {
-        
-        
-        var actualLowerTime = Int(selectedMinimum+kRangeOffset)
-        var actualUpperTime = Int(selectedMaximum+kRangeOffset)
-        
-        if actualLowerTime > kTimeOffset {
-            actualLowerTime = actualLowerTime - kTimeOffset
-        }
-        
-        if actualUpperTime > kTimeOffset {
-            actualUpperTime = actualUpperTime - kTimeOffset
-        }
-        
-        self.selectedRangeOptionLabel.text = "\(stringForTimeValue(value: actualLowerTime)) - \(stringForTimeValue(value: actualUpperTime))"
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {

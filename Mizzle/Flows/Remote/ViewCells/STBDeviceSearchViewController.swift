@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import CocoaAsyncSocket
+//import CocoaAsyncSocket
 
 enum CellIdentifierForDeviceSearch: String {
     case STBSingleTableViewCell = "STBSingleTableViewCell"
 }
 
-class STBDeviceSearchViewController: UIViewController, GCDAsyncUdpSocketDelegate {
+class STBDeviceSearchViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
@@ -24,8 +24,8 @@ class STBDeviceSearchViewController: UIViewController, GCDAsyncUdpSocketDelegate
     let mSearchData = "M-SEARCH * HTTP/1.1\r\nHOST: 239.255.255.250:1900\r\nMAN: \"ssdp:discover\"\r\nMX: 3\r\nST: urn:schemas-upnp-org:device:MediaRenderer:1\r\n\r\n".data(using: String.Encoding.utf8) //all devices
     var ssdpAddres          = "239.255.255.250"
     var ssdpPort:UInt16     = 1900
-    var ssdpSocket:GCDAsyncUdpSocket!
-    var ssdpSocketRec:GCDAsyncUdpSocket!
+//    var ssdpSocket:GCDAsyncUdpSocket!
+//    var ssdpSocketRec:GCDAsyncUdpSocket!
     var error : NSError?
 
     var registerableCells:[CellIdentifierForDeviceSearch] = [.STBSingleTableViewCell]
@@ -39,20 +39,20 @@ class STBDeviceSearchViewController: UIViewController, GCDAsyncUdpSocketDelegate
         self.title = "Select Device"
         
         //send M-Search
-        ssdpSocket = GCDAsyncUdpSocket(delegate: self, delegateQueue: DispatchQueue.main)
-        if let mSearchData = mSearchData {
-            
-            ssdpSocket.send(mSearchData, withTimeout: 1, tag: 0)
-            //bind for responses
-            do {
-                try ssdpSocket.enableReusePort(true)
-                try ssdpSocket.bind(toPort: ssdpPort)
-                try ssdpSocket.joinMulticastGroup(ssdpAddres)
-            } catch {
-                TvRemoteDataProvider.shared.postRemoteLogs(logs: "Error Trying to enable SSDP Port")
-            }
-            
-        }
+//        ssdpSocket = GCDAsyncUdpSocket(delegate: self, delegateQueue: DispatchQueue.main)
+//        if let mSearchData = mSearchData {
+//
+//            ssdpSocket.send(mSearchData, withTimeout: 1, tag: 0)
+//            //bind for responses
+//            do {
+//                try ssdpSocket.enableReusePort(true)
+//                try ssdpSocket.bind(toPort: ssdpPort)
+//                try ssdpSocket.joinMulticastGroup(ssdpAddres)
+//            } catch {
+//                TvRemoteDataProvider.shared.postRemoteLogs(logs: "Error Trying to enable SSDP Port")
+//            }
+//
+//        }
         
         initXibs()
         
@@ -92,7 +92,7 @@ class STBDeviceSearchViewController: UIViewController, GCDAsyncUdpSocketDelegate
     }
     
     @objc func socketStop() {
-        ssdpSocket.pauseReceiving()
+//        ssdpSocket.pauseReceiving()
         
         if self.allDevices.count == 0 {
             AnalyticsVader.sharedVader.basicEvents(eventName: .DeviceSearchNoDeviceFound)
@@ -116,40 +116,40 @@ class STBDeviceSearchViewController: UIViewController, GCDAsyncUdpSocketDelegate
     func searchForDevices() {
         self.loadingView.startAnimating()
         self.perform(#selector(STBDeviceSearchViewController.socketStop), with: nil, afterDelay: 2*60)
-        do {
-            try ssdpSocket.beginReceiving()
-        } catch {
-            
-        }
+//        do {
+//            try ssdpSocket.beginReceiving()
+//        } catch {
+//
+//        }
         self.retryButton.isHidden = true
     }
     
-    func udpSocket(_ sock: GCDAsyncUdpSocket, didReceive data: Data, fromAddress address: Data, withFilterContext filterContext: Any?) {
-        
-        if let printableData = String(data: data, encoding: String.Encoding.utf8) {
-            print("Did Receive data \r\n++++++==================================----------------------")
-            
-            if printableData.lowercased().contains("media") {
-                AnalyticsVader.sharedVader.basicEvents(eventName: .DeviceSearchDirecTVDeviceFound)
-                TvRemoteDataProvider.shared.postRemoteLogs(logs: printableData)
-                
-                let splitString = printableData.components(separatedBy: "\r\n")
-                var locationStr:String = ""
-                for eachLine in splitString {
-                    if eachLine.contains("Location:") {
-                        locationStr = eachLine
-                    }
-                }
-                
-                let location = locationStr.replacingOccurrences(of: "Location:", with: "").trimmingCharacters(in: .whitespacesAndNewlines)
-                
-                if location != "" {
-                    DirecTVader.sharedVader.getXMLData(location: location)
-                }
-            }
-            
-        }
-    }
+//    func udpSocket(_ sock: GCDAsyncUdpSocket, didReceive data: Data, fromAddress address: Data, withFilterContext filterContext: Any?) {
+//
+//        if let printableData = String(data: data, encoding: String.Encoding.utf8) {
+//            print("Did Receive data \r\n++++++==================================----------------------")
+//
+//            if printableData.lowercased().contains("media") {
+//                AnalyticsVader.sharedVader.basicEvents(eventName: .DeviceSearchDirecTVDeviceFound)
+//                TvRemoteDataProvider.shared.postRemoteLogs(logs: printableData)
+//
+//                let splitString = printableData.components(separatedBy: "\r\n")
+//                var locationStr:String = ""
+//                for eachLine in splitString {
+//                    if eachLine.contains("Location:") {
+//                        locationStr = eachLine
+//                    }
+//                }
+//
+//                let location = locationStr.replacingOccurrences(of: "Location:", with: "").trimmingCharacters(in: .whitespacesAndNewlines)
+//
+//                if location != "" {
+//                    DirecTVader.sharedVader.getXMLData(location: location)
+//                }
+//            }
+//
+//        }
+//    }
     
     func appendToArray(newData: [STBDevice]) {
         for eachElem in newData {
@@ -179,10 +179,10 @@ class STBDeviceSearchViewController: UIViewController, GCDAsyncUdpSocketDelegate
         }
     }
     
-    func udpSocket(_ sock: GCDAsyncUdpSocket, didConnectToAddress address: Data) {
-        print("didConnectToAddress")
-        print("\(address)")
-    }
+//    func udpSocket(_ sock: GCDAsyncUdpSocket, didConnectToAddress address: Data) {
+//        print("didConnectToAddress")
+//        print("\(address)")
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

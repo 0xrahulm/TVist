@@ -1,21 +1,21 @@
 PODS:
-  - CocoaAsyncSocket (7.6.0)
   - Crashlytics (3.8.6):
     - Fabric (~> 1.6.3)
   - DropDown (2)
   - Fabric (1.6.13)
-  - FirebaseAnalytics (3.7.0):
-    - FirebaseCore (~> 3.5)
+  - FirebaseAnalytics (3.9.0):
+    - FirebaseCore (~> 3.6)
     - FirebaseInstanceID (~> 1.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseCore (3.5.2):
+  - FirebaseCore (3.6.0):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseInstanceID (1.0.9)
-  - Flurry-iOS-SDK/FlurrySDK (7.10.0)
-  - Google/Analytics (3.0.3):
+  - FirebaseInstanceID (1.0.10):
+    - FirebaseCore (~> 3.6)
+  - Flurry-iOS-SDK/FlurrySDK (8.2.1)
+  - Google/Analytics (3.1.0):
     - Google/Core
     - GoogleAnalytics (~> 3.12)
-  - Google/Core (3.0.3):
+  - Google/Core (3.1.0):
     - FirebaseAnalytics (~> 3.2)
   - GoogleAnalytics (3.17.0)
   - GoogleToolboxForMac/Defines (2.1.1)
@@ -24,7 +24,6 @@ PODS:
   - SwipeCellKit (1.9.1)
 
 DEPENDENCIES:
-  - CocoaAsyncSocket
   - Crashlytics (~> 3.8.6)
   - DropDown
   - Fabric (~> 1.6)
@@ -33,19 +32,18 @@ DEPENDENCIES:
   - SwipeCellKit
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
   Crashlytics: 95d05f4e4c19a771250c4bd9ce344d996de32bbf
   DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
   Fabric: 2fb5676bc811af011a04513451f463dac6803206
-  FirebaseAnalytics: 0d1b7d81d5021155be37702a94ba1ec16d45365d
-  FirebaseCore: a024587e43778508700af8c6b1209f7c4516ba02
-  FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
-  Flurry-iOS-SDK: e6975df9e57010d582bf9bed0f6312553cf24bc2
-  Google: cd92fab98f800f509da88c1e0c570275713bc9d5
+  FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
+  FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
+  FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
+  Flurry-iOS-SDK: b0dcfbdb6e87c55b9e41ad4441945be492348132
+  Google: 98da4b1a60ed0beb80a290387a28333406a1eb90
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   SwipeCellKit: e9ff953c820394a4e641cfb0118b6c959506aec2
 
-PODFILE CHECKSUM: 2011e0a73e6d15bd58bf9d013e8963bce2724d87
+PODFILE CHECKSUM: d43d37a0b264fa63f4b72b2b274262c1790e1e57
 
 COCOAPODS: 1.3.1

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ScreenManagerAction : String {
+enum ScreenManagerAction: String {
     case ListingsTab = "ListingsTab"
     case HomeTab = "HomeTab"
     case TrackerTab = "TrackerTab"
